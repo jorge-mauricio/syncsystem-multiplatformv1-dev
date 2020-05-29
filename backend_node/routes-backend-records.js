@@ -14,6 +14,14 @@ const formidable = require("formidable"); //Form file upload.
 //----------------------
 
 
+//Backend - main.
+//**************************************************************************************
+/*router.get("/", (req, res)=>{
+
+});*/
+//**************************************************************************************
+
+
 //Backend - Records - Delete.
 //**************************************************************************************
 //app.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ //working, with the async block

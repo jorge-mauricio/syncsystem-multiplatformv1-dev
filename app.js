@@ -494,5 +494,7 @@ dbSystemCon.end((DBSystemError)=>{
 
 //port to listen to (after runing the node file on the terminal, you can check the browser on http://localhost:3000/) Note: ctrl + c to stop the server.
 //app.listen(3000);
-app.listen(process.env.CONFIG_SYSTEM_PORT);
+//app.listen(process.env.CONFIG_SYSTEM_PORT);
+app.listen(process.env.PORT);
+
 //appBackend.listen(3000);
