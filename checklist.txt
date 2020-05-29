@@ -1,0 +1,2 @@
+- favicon
+	- move file site.webmanifest to app_files_layout;

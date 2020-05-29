@@ -1,0 +1,93 @@
+<%# 
+ref: https://ejs.co/#docs 
+%>
+<!DOCTYPE html>
+<html lang="en">
+<!--html lang="pt-br"-->
+    <head>
+        <!--Google Analytics.-->
+        <!--include.-->
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"><!--Bootstrap required.-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title><%-templateData.cphTitle %></title>
+
+        <!--Style Sheets - JS dependencies.-->
+
+        <!--Style Sheets - personalized. http://localhost:3000 | ../../-->
+		<link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryStylesSD %>/styles-backend.css" media="screen" title="Default" />
+        <link rel="canonical" href="http://www.domain.com" />
+
+		<!--
+		//Favicon - 16x16 | 32x32 | 64x64 (pixels).
+		//Export settings: PNG: 558 x 558 pixels.
+		//https://realfavicongenerator.net/
+		-->
+		<!--link rel="bookmark" href="../favicon.ico" /-->
+		<!--link rel="icon" type="image/x-icon" href="../favicon.ico" />
+		<link rel="icon" type="image/gif" href="../favicon_animated.gif" />
+		<link rel="icon" type="image/png" href="../favicon.png" />
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../favicon.ico" />
+		<link rel="apple-touch-icon" href="../favicon.png" /-->
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png" />
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+		<!--link rel="manifest" href="../site.webmanifest" /-->
+		<!--link rel="manifest" href="../../site.json" /--> <!--IIS compatible: (ref: https://devanswers.co/site-webmanifest-error-404-401/).-->
+		<link rel="manifest" href="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/site.webmanifest" />
+		<link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5" />
+		<meta name="msapplication-TileColor" content="#009154" />
+		<meta name="theme-color" content="#ffffff" />
+
+        <!--Head - personalized.-->
+        <%-templateData.cphHead %>
+
+        <%# include layout-backend-main-head.ejs %>
+
+		<!--meta name="expires" content="never" /--><!--ex: 28 June 2003-->
+        <!--meta name="distribution" content="global" /--><!--ex: global | local | IU -->
+        
+        <meta name="robots" content="index,follow,noarchive" />
+        <!--
+            all - No restrictions (default).
+            index,follow - Indexes pages and follow the links.
+            noindex,nofollow - Don´t index pages (not in cache) and don´t follow the links.
+            noarchive - Don´t show link "in cache".
+            nosnippet - Don´t show snippets.
+            notranslate - Don´t translate.
+            noimageindex - Don´t index images.
+            unavailable_after: [RFC-850 date/time] - Don´t show page in index after a specif date.
+        -->
+
+        <!--meta name="language" content="portuguese" /-->
+        <!--meta name="language" content="english" /-->
+
+		<meta name="author" content="<%- gSystemConfig.configSystemClientName %>" />
+		<meta name="designer" content="<%- gSystemConfig.configDevName %>" />
+		<meta name="copyright" content="<%- gSystemConfig.configCopyrightYear %>, <%- gSystemConfig.configSystemClientName %>" />
+		<meta name="rating" content="general" /><!--//general | mature | restricted | 14 years -->
+
+        <!--JS Dependencies.-->
+
+		<style type="text/css">
+            html, body
+            {
+                margin: 0px;
+                padding: 0px;
+            }
+		</style>
+    </head>
+    <body>
+        <%# String.raw({ raw: templateData.cphCurrentTitle })  %>
+        <%# `${templateData.cphCurrentTitle}`;  %>
+        <%- templateData.cphCurrentTitle %>
+
+        <h1>Layout test</h1>
+
+        <%-templateData.cphBody %>
+    </body>
+</html>

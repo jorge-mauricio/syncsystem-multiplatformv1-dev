@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appLabels>
+    <!--References-->
+    <!--**************************************************************************************-->
+    <!--Referência de caracteres especiais: http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references -->
+    <!--&#160; - Non formatable space.-->
+    <!--&lt;br&gt; - Line break.-->
+    <!--&#169; - Copyright.-->
+    <!--&lt; - < -->
+    <!--&gt; - > -->
+	
+	<!--HTML inside XML
+	<![CDATA[
+		<span style='color: #ff0000;'>
+			conteudo
+		</span>
+	]]>
+	-->
+    <!--**************************************************************************************-->
+
+
+    <!--Layout.-->
+    <!--**************************************************************************************-->
+    <data name="layoutDevelopment" xml:space="preserve">
+        <value>Development</value>
+    </data>
+    <data name="layoutCopyright1" xml:space="preserve">
+        <value>All rights reserved</value>
+    </data>
+    <data name="layoutVersion" xml:space="preserve">
+        <value>Version</value>
+    </data>
+
+    <data name="layoutDesktopAccess" xml:space="preserve">
+        <value>Access Desktop Version</value>
+    </data>
+    <!--**************************************************************************************-->
+</appLabels>

@@ -1,0 +1,4 @@
+- favicon
+	- automate:
+		- https://realfavicongenerator.net
+			- terminal: npm install -g cli-real-favicon

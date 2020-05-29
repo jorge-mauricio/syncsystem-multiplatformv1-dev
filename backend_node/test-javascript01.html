@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+
+        <!--Style Sheets - personalized.-->
+        <!--link rel="stylesheet" type="text/css" href="../app_styles/styles-backend.css" media="screen" title="Default" /-->
+        <link rel="stylesheet" type="text/css" href="../css/styles-backend.css" media="screen" title="Default" />
+        <link rel="canonical" href="http://www.domain.com" />
+
+		<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png" />
+		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+		<link rel="manifest" href="../site.webmanifest" />
+		<link rel="mask-icon" href="../safari-pinned-tab.svg" color="#78c3ae" />
+		<meta name="msapplication-TileColor" content="#78c3ae" />
+        <meta name="theme-color" content="#ffffff" />
+        
+
+        <!--JS Dependencies (beginning).-->
+        <!--include.-->
+        <!--JavaScript - default functions.-->
+        <!--script src="../app_js/functions-syncsystem.js" type="text/javascript"></script-->
+        <script src="../js/functions-syncsystem.js" type="text/javascript"></script>
+
+		<style type="text/css">
+
+
+		</style>
+    </head>
+<body>
+    Test - JavaScript01
+
+    <div>
+        formSubmit
+            <button id="categories_delete" name="categories_delete" onclick="elementMessage01('formCategoririesListing_method', 'DELETE');" class="ss-backend-btn-base ss-backend-btn-action-cancel" style="float: right;">
+                    formSubmit
+            </button>
+        <form id="formCategoririesListing" name="formCategoririesListing" method="POST" action="/system/categories/" enctype="multipart/form-data">
+            <input type="hidden" id="formCategoririesListing_method" name="_method" value="">
+        </form>
+    </div>
+
+
+    <div>
+        fetch
+        <!--
+            Debug.
+            ajaxRecordsPatch01_async('https://reqres.in/api/users', function(){htmlGenericStyle01('divTest1', 'display', 'none');});
+
+
+        -->
+        <button id="categories_activation" 
+                name="categories_activation" 
+                onclick="ajaxRecordsPatch01_async('http://localhost:3000/system/records/',{idRecord: '634', strTable: 'categories', strField:'activation', recordValue: '0', ajaxFunction: true}, function(){htmlGenericStyle01('divTest1', 'display', 'none');});" 
+                class="ss-backend-btn-base ss-backend-btn-action-cancel">
+                fetch
+        </button>
+
+        <div id="divTest1">
+
+            test call back function
+        </div>
+
+        <script>
+            //formSubmit('formCategoririesListing', '', 'delete', '');
+
+            async function ajaxRecordsActivation01_async()
+            //function ajaxRecordsActivation01()
+            {
+                //await fetch('http://example.com/movies.json',{
+                await fetch('https://reqres.in/api/users',{
+                    method: 'POST',
+                    
+                    headers: {
+                        "Content-Type": "application/json"
+                    }, //Necessary to send data.
+                    /*
+                    body: {
+                        name: "User 1"
+                    },
+                    */
+                    body: JSON.stringify({
+                        name: "User 1"
+                    }) //Method GET/HEAD cannot have body. Body has to be sent as Json. 
+                    
+                    //mode: 'no-cors'
+                })
+                //.then(res => console.log(res));
+                .then(res => {
+                    if(res.ok) //returned status code between 200 and 299
+                    {
+                        console.log("success")
+                    }else{
+                        console.log("not success");
+                    }
+
+                    return res.json()
+                })
+                .then(data => {
+
+                    //Debug.
+                    console.log(data)
+                });
+
+                //Debug.
+                //console.log(fetch('http://example.com/movies.json'));
+
+
+
+
+                /*
+                let fetchResult = await fetch('http://example.com/movies.json',{
+                    //method: 'GET',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then((response) => {
+                    //return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                });
+                */
+
+
+
+            }
+
+
+
+                //Filter.
+                let  resultsFiltersGenericListing = [
+                {
+                        id: '125',
+                        sort_order: '0.000000000000000000000000000000',
+                        filter_index: 101,
+                        table_name: 'categories',
+                        title: 'Test with generic filter 02',
+                        description: null,
+                        activation: 1,
+                        notes: null
+                    },
+                    {
+                        id: '123',
+                        sort_order: '0.000000000000000000000000000000',
+                        filter_index: 101,
+                        table_name: 'categories',
+                        title: 'Test with gereric filter 01',
+                        description: null,
+                        activation: 1,
+                        notes: null
+                    },
+                     {
+                        id: '124',
+                        sort_order: '0.000000000000000000000000000000',
+                        filter_index: 1,
+                        table_name: 'categories',
+                        title: 'Test with status 01',
+                        description: null,
+                        activation: 1,
+                        notes: null
+                    },
+                    {
+                        id: '126',
+                        sort_order: '0.000000000000000000000000000000',
+                        filter_index: 0,
+                        table_name: 'categories',
+                        title: 'Test with status 02',
+                        description: null,
+                        activation: 1,
+                        notes: null
+                    }
+                ];
+                
+                let resultsFiltersGenericListing_filter = resultsFiltersGenericListing.filter(function(obj)
+                {
+                    return obj.filter_index == 101;
+                    //console.log("obj = ", obj);
+
+                });
+
+
+                //Degub.
+                console.log("resultsFiltersGenericListing = ", resultsFiltersGenericListing);
+                console.log("resultsFiltersGenericListing_filter = ", resultsFiltersGenericListing_filter);
+                
+
+            </script>
+        </div>
+</body>
+</html>

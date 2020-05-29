@@ -1,0 +1,16 @@
+#Block comminting secret variables.
+#**************************************************************************************
+#Secret information file.
+.env
+
+#Webpack distribution directory (check if it´s not necessary, when publishing).
+#dist
+
+
+#Backup directories.
+root_node_backup
+
+
+#Extra languages.
+#**************************************************************************************
+node_modules
