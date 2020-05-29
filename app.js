@@ -495,6 +495,7 @@ dbSystemCon.end((DBSystemError)=>{
 //port to listen to (after runing the node file on the terminal, you can check the browser on http://localhost:3000/) Note: ctrl + c to stop the server.
 //app.listen(3000);
 //app.listen(process.env.CONFIG_SYSTEM_PORT);
-app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT); //process.env.PORT - Heroku Dynamic Port
+//app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT); //process.env.PORT - Heroku Dynamic Port (Note: Server variable must be first)
+app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT, process.env.CONFIG_SYSTEM_URL || "0.0.0.0"); //process.env.PORT - Heroku Dynamic Port (Note: Server variable must be first)
 
 //appBackend.listen(3000);
