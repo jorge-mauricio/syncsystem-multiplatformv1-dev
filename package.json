@@ -3,7 +3,8 @@
   "name": "multiplatformv1.syncsystem.com.br",
   "version": "1.0.0",
   "engines": {
-    "node": "6.9.0"
+    "node": "12.4.0",
+    "npm": "6.9.0"
   },
   "description": "SyncSystem - Multiplatform",
   "private": true,
