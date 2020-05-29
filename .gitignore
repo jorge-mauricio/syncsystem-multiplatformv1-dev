@@ -1,15 +1,25 @@
 #Block comminting secret variables.
 #**************************************************************************************
+#Note: put .gitkeep file on every empty directory you want to be created, even if it´s empty.
+
+
 #Secret information file.
 .env
 
 #Webpack distribution directory (check if it´s not necessary, when publishing).
 #dist
 
+#Set up files.
+setup
 
 #Backup directories.
 root_node_backup
 
+#Image upload test files.
+app_files_public/*
+!app_files_public/.gitkeep.txt
+#Note: to exclude specific file from gitignore:
+#!app_files_public/filename.ext
 
 #Extra languages.
 #**************************************************************************************

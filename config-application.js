@@ -35,9 +35,11 @@ gSystemConfig.configDevName = "Planejamento Visual - Arte e Tecnologia"; //Jorge
 gSystemConfig.configDevSite = "http://www.planejamentovisual.com.br"; //http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br
 gSystemConfig.configCopyrightYear = "2008";
 
-gSystemConfig.configSystemURL = "http://localhost:3000"; //http://multiplatformv1.syncsystem.com.br
+//gSystemConfig.configSystemURL = "http://localhost:3000"; //http://multiplatformv1.syncsystem.com.br
+gSystemConfig.configSystemURL = process.env.CONFIG_SYSTEM_URL; //http://multiplatformv1.syncsystem.com.br
 //gSystemConfig.configSystemURL = window.location.origin; //http://multiplatformv1.syncsystem.com.br
-gSystemConfig.configSystemURLSSL = "http://localhost:3000"; //http://multiplatformv1.syncsystem.com.br
+//gSystemConfig.configSystemURLSSL = "http://localhost:3000"; //http://multiplatformv1.syncsystem.com.br
+gSystemConfig.configSystemURLSSL = process.env.CONFIG_SYSTEM_URL_SSL; //http://multiplatformv1.syncsystem.com.br
 //gSystemConfig.configSystemURLSSL = window.location.origin; //http://multiplatformv1.syncsystem.com.br
 
 /*
