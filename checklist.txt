@@ -1,2 +1,9 @@
 - favicon
 	- move file site.webmanifest to app_files_layout;
+
+- Server Port;
+	- check which process.env.(variable) is configured to the server in use and replace in app.js
+
+- webpack:
+	modify:
+	https://stackoverflow.com/questions/15693192/heroku-node-js-error-web-process-failed-to-bind-to-port-within-60-seconds-of
