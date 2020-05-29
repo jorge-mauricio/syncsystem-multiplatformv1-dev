@@ -105,8 +105,8 @@ gSystemConfig.configDirectoryDist = "dist"; //webpack distribution folder files 
 gSystemConfig.configDirectoryJS = "app_js";
 
 //Upload directories.
-//gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + "/" + gSystemConfig.configDirectoryFilesVisualization;
-gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + "\\" + gSystemConfig.configDirectoryFilesVisualization;
+gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + "/" + gSystemConfig.configDirectoryFilesVisualization;
+//gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + "\\" + gSystemConfig.configDirectoryFilesVisualization;
 //----------------------
 
 
