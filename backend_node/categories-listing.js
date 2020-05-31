@@ -2260,17 +2260,17 @@ module.exports = class CategoriesListing
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
 
-                                <tr id="inputRowCategories_id_parent" class="ss-backend-table-bg-light">
+                                <!--tr id="inputRowCategories_id_parent" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemParentLink") }: 
                                     </td>
                                     <td>
-                                        <!--select id="categories_id_parent" name="id_parent" class="ss-backend-field-dropdown01">
+                                        <select id="categories_id_parent" name="id_parent" class="ss-backend-field-dropdown01">
                                             <option value="1" selected="true">xxx</option>
                                             <option value="2">yyy</option>
-                                        </select-->
+                                        </select>
                                     </td>
-                                </tr>
+                                </tr-->
 
                                 ${ gSystemConfig.enableCategoriesSortCustom == 1 ? 
                                 `
