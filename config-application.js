@@ -42,6 +42,8 @@ gSystemConfig.configSystemURL = process.env.CONFIG_SYSTEM_URL; //http://multipla
 gSystemConfig.configSystemURLSSL = process.env.CONFIG_SYSTEM_URL_SSL; //http://multiplatformv1.syncsystem.com.br
 //gSystemConfig.configSystemURLSSL = window.location.origin; //http://multiplatformv1.syncsystem.com.br
 
+gSystemConfig.configAPIURL = gSystemConfig.configSystemURLSSL; //process.env.CONFIG_API_URL;
+
 /*
 window.location.hash: "#2"
 ​window.location.host: "localhost:4200"
@@ -55,8 +57,9 @@ window.location.search: "?query=1"
 */
 
 gSystemConfig.configSystemURLImages = "/"; //".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path
+gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + "/";
 
-gSystemConfig.configFrontendDefaultView = "frontend_node";
+gSystemConfig.configFrontendDefaultView = "frontend_react"; //frontend_node | frontend_react
 gSystemConfig.configFrontendMobileDefaultView = "frontend_node_mobile";
 //----------------------
 
@@ -101,7 +104,10 @@ gSystemConfig.configDirectoryFiles = "app_files_public";
 gSystemConfig.configDirectoryFilesLayout = "app_files_layout";
 gSystemConfig.configDirectoryResources = "app_resources";
 gSystemConfig.configDirectoryStyles = "app_styles";
+gSystemConfig.configDirectoryViews = "app_views";
 gSystemConfig.configDirectoryDist = "dist"; //webpack distribution folder files (production / minifying)
+gSystemConfig.configDirectoryBuildReact = "build"; //webpack distribution folder files - react (production / minifying)
+gSystemConfig.configDirectoryBuildReactClient = "public"; //webpack distribution folder files - react client (production / minifying)
 gSystemConfig.configDirectoryJS = "app_js";
 
 //Upload directories.
@@ -118,14 +124,19 @@ gSystemConfig.configDirectorySystemSD = "backend";
 gSystemConfig.configDirectoryFilesSD = "files";
 gSystemConfig.configDirectoryFilesLayoutSD = "files-layout";
 gSystemConfig.configDirectoryStylesSD = "css";
-gSystemConfig.configDirectoryDistSD = "dist";
 gSystemConfig.configDirectoryJSSD = "js";
+gSystemConfig.configDirectoryDistSD = "dist";
+gSystemConfig.configDirectoryBuildReactSD = "build";
+gSystemConfig.configDirectoryBuildReactClientSD = "public";
 //----------------------
 
 
 //Routes configuration.
 //----------------------
 gSystemConfig.configRouteAPI = "api";
+gSystemConfig.configRouteAPIActionEdit = "edit";
+gSystemConfig.configRouteAPIDetails = "details";
+gSystemConfig.configRouteAPIRecords = "records";
 gSystemConfig.configRouteAPICategories = "categories";
 
 
@@ -137,6 +148,11 @@ gSystemConfig.configRouteBackendCategories = "categories";
 
 gSystemConfig.configRouteFrontend = "pt";
 gSystemConfig.configRouteFrontendMobile = "pt-mobile";
+
+gSystemConfig.configRouteFrontendActionEdit = "edit";
+gSystemConfig.configRouteFrontendDetails = "details";
+gSystemConfig.configRouteFrontendRecords = "records";
+
 gSystemConfig.configRouteFrontendCategories = "categories";
 //----------------------
 
@@ -348,7 +364,7 @@ gSystemConfig.enableCategoriesInfo3 = 1; //0 - disable | 1 - enable
 gSystemConfig.configCategoriesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
 gSystemConfig.enableCategoriesInfo4 = 1; //0 - disable | 1 - enable
-gSystemConfig.configCategoriesInfo4FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+gSystemConfig.configCategoriesInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
 gSystemConfig.enableCategoriesInfo5 = 1; //0 - disable | 1 - enable
 gSystemConfig.configCategoriesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
@@ -463,9 +479,12 @@ gSystemConfig.enableCategoriesActivation5 = 1; //0 - disable | 1 - enable
 
 
 //Frontend configuration.
-gSystemConfig.enableCategoriesFrontendPagination = 1; //0 - disable | 1 - enable
+gSystemConfig.configCategoriesImagePlaceholder = 1; //0 - disable | 1 - enable
+
+
+gSystemConfig.enableCategoriesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
 gSystemConfig.enableCategoriesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
-gSystemConfig.configCategoriesFrontendPaginationNRecords = 20;
+gSystemConfig.configCategoriesFrontendPaginationNRecords = 2;
 //**************************************************************************************
 
 

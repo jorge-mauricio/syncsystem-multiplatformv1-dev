@@ -1,4 +1,31 @@
-- favicon
+- favicon:
 	- automate:
 		- https://realfavicongenerator.net
 			- terminal: npm install -g cli-real-favicon
+
+- react - file download:
+	frontend-categories-details-record-cb-component.js
+	Check attribute donwload issue with same origin.
+	ref: https://stackoverflow.com/questions/42265625/download-attribute-in-anchor-tag-in-react-component
+
+		- possible solution:
+			- make a special endpoint
+				ref: https://stackoverflow.com/questions/20508788/do-i-need-content-type-application-octet-stream-for-file-download/20509354#20509354
+
+		- interesting solution:
+			- https://stackoverflow.com/a/63965930/2510785
+
+		- solution with dependancy (js-file-download):
+			- https://stackoverflow.com/a/64002765/2510785
+
+		- soluction with dependancy (FileSaber.js):
+			- https://stackoverflow.com/a/63439452/2510785
+
+- react - directory build:
+	- maybe change to frontend_react;
+
+- react - GLightbox:
+	- frontend-categories-details-record-cb-component.js
+	- fix or change to native component;
+	- Research: https://www.npmjs.com/package/react-image-lightbox.
+		

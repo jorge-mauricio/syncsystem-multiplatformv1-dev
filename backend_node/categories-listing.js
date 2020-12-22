@@ -432,7 +432,7 @@ module.exports = class CategoriesListing
         };
 
 
-        //Paging.
+        //Pagination.
         if(gSystemConfig.enableCategoriesBackendPagination == 1)
         {
             //this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02("categories", 
@@ -822,7 +822,7 @@ module.exports = class CategoriesListing
                                                         });
                                                         */
 
-                                                       gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main${ categoriesRow.id }";
+                                                        gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main${ categoriesRow.id }";
                                                         //Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                         //data-glightbox="title: Title example.; description: Description example."
                                                         var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
@@ -2136,16 +2136,16 @@ module.exports = class CategoriesListing
                             ${ gSystemConfig.enableCategoriesBackendPaginationNumbering == 1 ? 
                             `
                                 <div class="ss-backend-paging-number-link-a" style="position: relative; display: block; overflow: hidden;">
-                                ${Array(this._pagingTotal).fill().map((item, pageNumberOutput)=>{
-                                    return `
-                                        ${ (pageNumberOutput + 1) == this._pageNumber ? `
-                                            ${ pageNumberOutput + 1 }
-                                        ` : `
-                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" +  this._idParent }?pageNumber=${ pageNumberOutput + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEdit") + " " + pageNumberOutput + 1 }" class="ss-backend-paging-number-link">
+                                    ${Array(this._pagingTotal).fill().map((item, pageNumberOutput)=>{
+                                        return `
+                                            ${ (pageNumberOutput + 1) == this._pageNumber ? `
                                                 ${ pageNumberOutput + 1 }
-                                            </a>
-                                        `}
-                                    `;
+                                            ` : `
+                                                <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" +  this._idParent }?pageNumber=${ pageNumberOutput + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput + 1 }" class="ss-backend-paging-number-link">
+                                                    ${ pageNumberOutput + 1 }
+                                                </a>
+                                            `}
+                                        `;
                                     }).join("")}
                                 </div>
                             ` : ``

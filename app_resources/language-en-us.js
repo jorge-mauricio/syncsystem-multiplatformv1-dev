@@ -71,6 +71,7 @@ exports.appLabels = {
     backendItemValueDescription01: "Format: 1000,00",
 
     //Paging.
+    backendPagingPageLabel: "Pagination Navigation",
     backendPagingPageCounter01: "Page",
     backendPagingFirst: "|<< First",
     backendPagingLast: "Last >>|",
@@ -242,8 +243,25 @@ exports.appLabels = {
 
     //DB error.
     statusMessageError50: "Error 050 - error reading data base.",
+    //**************************************************************************************
 
 
+    //Items - frontend.
+    //**************************************************************************************
+    /*frontendItemDisplay: "Display",
+    frontendItemFunctions: "Functions",
+    frontendItemDetails: "Details",
+    frontendItemDetailsView: "View Details",
+    frontendItemEdit: "Edit",
+    frontendItemDelete: "Delete",
+    */
+    //**************************************************************************************
+
+
+    //Messages.
+    //**************************************************************************************
+    frontendMessageRecordEmpty: "No records found at the moment.",
+    frontendMessageCategoriesEmpty: "No categories found at the moment.",
     //**************************************************************************************
 
 

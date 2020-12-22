@@ -10,6 +10,8 @@ const gSystemConfig = require("../config-application.js"); //System configuratio
 //const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
 //const BigNumber = require('big-number');
 const BigNumber = require('bignumber.js');
+//const BigNumber = require('bignumber.js').default;
+//const BigNumber = require('bignumber.js').BigNumber;
 //const bigDecimal = require('js-big-decimal');
 //----------------------
 
@@ -878,8 +880,25 @@ module.exports = class FunctionsGeneric
      * SyncSystemNS.FunctionsGeneric.valueMaskWrite(variableNameOrText, 2)
      */
     static valueMaskRead(valueData, configCurrency = "$", valueType = 2, specialInstructions = null)
+    //static valueMaskRead(valueData, configCurrency, valueType, specialInstructions)
     {
         //valueType: 1 - general number | 2 - system currency | 3 - decimal
+
+        //Default values.
+        //----------------------
+        /*
+        if(configCurrency === undefined) {
+            configCurrency = "$";
+        }
+        if(valueType === undefined) {
+            valueType = 2;
+        }
+        if(specialInstructions === undefined) {
+            specialInstructions = null;
+        }
+        */
+        //----------------------
+
 
         //Variables.
         //----------------------
@@ -894,6 +913,7 @@ module.exports = class FunctionsGeneric
             //Set default configuration.
             //Note: Check if this configuration can be applied only to an instance.
             BigNumber.config({
+                //EXPONENTIAL_AT: 1000,
                 DECIMAL_PLACES: 30,
                 FORMAT: {
                     decimalSeparator: '.', // decimal separator

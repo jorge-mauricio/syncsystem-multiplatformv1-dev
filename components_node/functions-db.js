@@ -1160,6 +1160,13 @@ module.exports = class FunctionsDB
             }
 
 
+            //String.
+            if(searchParametersFieldType == "s")
+            {
+                strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, "db_sanitize") + " = ?";
+                strSQLGenericTableSelectParams.push(searchParametersFieldValue);
+            }
+
             //ids.
             if(searchParametersFieldType == "ids")
             {

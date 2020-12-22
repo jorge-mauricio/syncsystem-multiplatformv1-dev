@@ -56,13 +56,18 @@ module.exports = {
                         options: {
                             //presets: ["es2015"] //can have more or others //didn´t work, even installing the latest dependencies @babel/core - probably only works with webpack 2
                             //presets: ["@babel/preset-env"] //can have more or others
-
+                            /**/
                             presets: [
                                 ["@babel/preset-env", {
                                   "modules": "commonjs"
                                 }]
                             ]
                             
+                            /*presets: ["react", , "es2015", "stage-2",
+                                ["@babel/preset-env", {
+                                  "modules": "commonjs"
+                                }]
+                            ]*/
                         }
                     }
                 ]

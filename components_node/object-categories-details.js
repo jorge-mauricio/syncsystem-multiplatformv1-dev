@@ -549,6 +549,10 @@ module.exports = class ObjectCategoriesDetails
 
 
             //Define values.
+            //if(this.resultsCategoryDetails[0])
+            //{
+                //DEV: Create logic to chech if record exist.
+            //}
             this.tblCategoriesID = this.resultsCategoryDetails[0].id;
             this.tblCategoriesIdParent = this.resultsCategoryDetails[0].id_parent;
 

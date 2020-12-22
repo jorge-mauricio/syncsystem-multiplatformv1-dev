@@ -23,4 +23,12 @@ app_files_public/*
 
 #Extra languages.
 #**************************************************************************************
+#Third party javascript/node.js dependencies.
 node_modules
+
+
+#PHP.
+#**************************************************************************************
+#Third party php dependencies. Note: maybe change to /vendor
+vendor
+
