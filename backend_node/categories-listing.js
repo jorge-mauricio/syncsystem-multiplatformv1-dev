@@ -1,5 +1,6 @@
 "use strict";
 
+
 //Import Node Modules.
 //----------------------
 const gSystemConfig = require("../config-application.js"); //System configuration.
@@ -681,19 +682,19 @@ module.exports = class CategoriesListing
                 <form id="formCategoririesListing" name="formCategoririesListing" method="POST" action="" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" id="formCategoriesListing_method" name="_method" value="">
 
-                    <input type="hidden" id="formCategoririesListing_strTable" name="strTable" value="${ gSystemConfig.configSystemDBTableCategories }" />
+                    <input type="hidden" id="formCategoriesListing_strTable" name="strTable" value="${ gSystemConfig.configSystemDBTableCategories }" />
                     
-                    <input type="hidden" id="formCategoririesListing_idParent" name="idParent" value="${ this._idParent }" />
-                    <input type="hidden" id="formCategoririesListing_pageReturn" name="pageReturn" value="${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories }" />
-                    <input type="hidden" id="formCategoririesListing_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
-                    <input type="hidden" id="formCategoririesListing_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
+                    <input type="hidden" id="formCategoriesListing_idParent" name="idParent" value="${ this._idParent }" />
+                    <input type="hidden" id="formCategoriesListing_pageReturn" name="pageReturn" value="${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories }" />
+                    <input type="hidden" id="formCategoriesListing_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
+                    <input type="hidden" id="formCategoriesListing_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
 
                     <div style="position: relative; display: block; overflow: hidden;">
                         <table class="ss-backend-table-listing01">
                             <caption class="ss-backend-table-header-text01 ss-backend-table-title">
                                 ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesTitleMain") }
                             </caption>
-                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01 ">
+                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
                                 <tr>
                                     <td style="width: 40px; text-align: left;">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSortOrderA") }  
@@ -1663,16 +1664,56 @@ module.exports = class CategoriesListing
                                                 `
                                                 : 
                                                 `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + SyncSystemNS.FunctionsGeneric.categoryConfigSelect(categoriesRow.category_type, 3) + "/" + categoriesRow.id }" class="ss-backend-links01">
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + SyncSystemNS.FunctionsGeneric.categoryConfigSelect(categoriesRow.category_type, 3) + "/" + categoriesRow.id }" class="ss-backend-links01" style="position: relative; display: block;">
                                                         ${ /*categoriesRow.category_type*/'' } 
                                                         ${ SyncSystemNS.FunctionsGeneric.categoryConfigSelect(categoriesRow.category_type, 5) }
                                                     </a> 
                                                 `
                                             } 
 
-                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendDetails + "/" + categoriesRow.id }" target="_blank" class="ss-backend-links01">
+                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendDetails + "/" + categoriesRow.id }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                 ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDetailsView") }
                                             </a> 
+                                            <!--a href="/${ gSystemConfig.configRouteFrontend + "/" + gSystemConfig.configRouteFrontendCategories + "/" + gSystemConfig.configRouteFrontendDetails + "/" + categoriesRow.id }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDetailsView") }
+                                            </a--> ${ /*TODO: Change address to access frontend.*/ '' }
+
+
+                                            ${ /*Images.*/ '' }
+                                            ${ gSystemConfig.enableCategoriesImages == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=1" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertImages") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+
+                                            ${ /*Videos.*/ '' }
+                                            ${ gSystemConfig.enableCategoriesVideos == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=2" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertVideos") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+                                            
+                                            ${ /*Files.*/ '' }
+                                            ${ gSystemConfig.enableCategoriesFiles == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=3" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFiles") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+
+                                            ${ /*Zip files.*/ '' }
+                                            ${ gSystemConfig.enableCategoriesZip == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=4" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFilesZip") }
+                                                    </a> 
+                                                ` : ``
+                                            }
                                         </td>
 
                                         ${ gSystemConfig.enableCategoriesStatus == 1 ? 
@@ -2216,7 +2257,7 @@ module.exports = class CategoriesListing
 
 
                             //Reorder table rows.
-                            //TODO: Create variable in config to able it.
+                            //TODO: Create variable in config to enable it.
                             document.addEventListener('DOMContentLoaded', function() {
                                 //inputDataReorder();
                                 //inputDataReorder(["inputRowCategories_field_name1", "inputRowCategories_field_name2", "inputRowCategories_field_name3", "inputRowCategories_field_name4", "inputRowCategories_field_name5", "inputRowCategories_field_name6"]);
@@ -2255,7 +2296,7 @@ module.exports = class CategoriesListing
                             <caption class="ss-backend-table-header-text01 ss-backend-table-title">
                                 ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesTitleTable") } 
                             </caption>
-                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01 ">
+                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
                                 
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
@@ -2408,6 +2449,9 @@ module.exports = class CategoriesListing
                                     </td>
                                     <td>
                                         <textarea id="categories_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01"></textarea>
+                                        <div>
+                                            (${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywordsInstruction01") })
+                                        </div>
                                     </td>
                                 </tr>
                                 ` : ``
@@ -5270,7 +5314,6 @@ module.exports = class CategoriesListing
                     <input type="hidden" id="categories_idParent" name="idParent" value="${ this._idParent }" />
                     <input type="hidden" id="categories_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
                     <input type="hidden" id="categories_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
-
                 </form>
             </section>
             `; 

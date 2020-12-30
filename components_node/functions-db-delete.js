@@ -45,6 +45,9 @@ module.exports = class FunctionsDBDelete
         //----------------------
         strSQLRecordsGenericDelete += "DELETE FROM " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + FunctionsGeneric.contentMaskWrite(strTable, "db_sanitize");
         //strSQLRecordsGenericDelete += " SET ?";
+        
+        //Debug.
+        //console.log("strSQLRecordsGenericDelete=", strSQLRecordsGenericDelete);
         //----------------------
 
         //Parameters.

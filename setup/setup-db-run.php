@@ -392,6 +392,238 @@ if($stmSQLTableCreateCategories !== false)
 //**************************************************************************************
 
 
+//Table _ssmv1_files.
+//**************************************************************************************
+//Query.
+//----------------------
+$strTableFiles = $GLOBALS['configSystemDBTablePrefix'] . "files";
+$strSQLTableCreateFiles = "";
+
+$strSQLTableCreateFiles .= "CREATE TABLE IF NOT EXISTS `$strTableFiles` (";
+$strSQLTableCreateFiles .= "`id` BIGINT NOT NULL DEFAULT 0, ";
+$strSQLTableCreateFiles .= "`id_parent` BIGINT NOT NULL DEFAULT 0, ";
+$strSQLTableCreateFiles .= "`sort_order` DECIMAL(64,30) NOT NULL DEFAULT 0, ";
+$strSQLTableCreateFiles .= "`file_type` INT NOT NULL DEFAULT 0 COMMENT '1 - image | 2 - video | 3 - file | 4 - zip file', ";
+$strSQLTableCreateFiles .= "`file_config` INT NOT NULL DEFAULT 0 COMMENT '1 - link pop-up | 2 - open directly | 3 - download link | 4 - media link', ";
+
+$strSQLTableCreateFiles .= "`date_creation` DATETIME, ";
+$strSQLTableCreateFiles .= "`date_timezone` VARCHAR(255), ";
+$strSQLTableCreateFiles .= "`date_edit` DATETIME, ";
+
+if($GLOBALS['enableFilesTitle'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`title` TEXT, ";
+}
+$strSQLTableCreateFiles .= "`caption` TEXT, ";
+if($GLOBALS['enableFilesDescription'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`description` LONGTEXT, ";
+}
+if($GLOBALS['enableFilesHTMLCode'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`html_code` LONGTEXT, ";
+}
+
+
+$strSQLTableCreateFiles .= "`url_alias` TEXT, ";
+$strSQLTableCreateFiles .= "`keywords_tags` TEXT, ";
+$strSQLTableCreateFiles .= "`meta_description` TEXT, ";
+$strSQLTableCreateFiles .= "`meta_title` TEXT, ";
+$strSQLTableCreateFiles .= "`meta_info` TEXT COMMENT 'Reserved for any aditional configuration - json.', ";
+
+if($GLOBALS['enableFilesInfo1'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info1` LONGTEXT, ";
+}
+if($GLOBALS['enableFilesInfo2'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info2` LONGTEXT, ";
+}
+if($GLOBALS['enableFilesInfo3'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info3` LONGTEXT, ";
+}
+if($GLOBALS['enableFilesInfo4'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info4` LONGTEXT, ";
+}
+if($GLOBALS['enableFilesInfo5'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info5` LONGTEXT, ";
+}
+
+if($GLOBALS['enableFilesInfoS1'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info_small1` TEXT, ";
+}
+if($GLOBALS['enableFilesInfoS2'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info_small2` TEXT, ";
+}
+if($GLOBALS['enableFilesInfoS3'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info_small3` TEXT, ";
+}
+if($GLOBALS['enableFilesInfoS4'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info_small4` TEXT, ";
+}
+if($GLOBALS['enableFilesInfoS5'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`info_small5` TEXT, ";
+}
+
+if($GLOBALS['enableFilesNumber1'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number1` DECIMAL(64,30) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumber2'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number2` DECIMAL(64,30) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumber3'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number3` DECIMAL(64,30) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumber4'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number4` DECIMAL(64,30) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumber5'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number5` DECIMAL(64,30) NOT NULL DEFAULT 0, ";
+}
+
+if($GLOBALS['enableFilesNumberS1'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number_small1` INT(20) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumberS2'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number_small2` INT(20) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumberS3'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number_small3` INT(20) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumberS4'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number_small4` INT(20) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesNumberS5'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`number_small5` INT(20) NOT NULL DEFAULT 0, ";
+}
+
+if($GLOBALS['enableFilesDate1'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`date1` DATETIME, ";
+}
+if($GLOBALS['enableFilesDate2'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`date2` DATETIME, ";
+}
+if($GLOBALS['enableFilesDate3'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`date3` DATETIME, ";
+}
+if($GLOBALS['enableFilesDate4'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`date4` DATETIME, ";
+}
+if($GLOBALS['enableFilesDate5'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`date5` DATETIME, ";
+}
+
+
+$strSQLTableCreateFiles .= "`file` TEXT, ";
+$strSQLTableCreateFiles .= "`file_size` TEXT, ";
+$strSQLTableCreateFiles .= "`file_duration` TEXT, ";
+$strSQLTableCreateFiles .= "`file_dimensions` TEXT, ";
+$strSQLTableCreateFiles .= "`file_original_name` TEXT, ";
+if($GLOBALS['enableFilesThumbnails'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`file_thumbnail` TEXT COMMENT 'Thumbnails for video files.', ";
+}
+if($GLOBALS['enableFilesFile1'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`file1` TEXT, ";
+}
+if($GLOBALS['enableFilesFile2'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`file2` TEXT, ";
+}
+if($GLOBALS['enableFilesFile3'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`file3` TEXT, ";
+}
+if($GLOBALS['enableFilesFile4'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`file4` TEXT, ";
+}
+if($GLOBALS['enableFilesFile5'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`file5` TEXT, ";
+}
+
+$strSQLTableCreateFiles .= "`activation` TINYINT(1) NOT NULL DEFAULT 0, ";
+if($GLOBALS['enableFilesActivation1'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`activation1` TINYINT(1) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesActivation2'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`activation2` TINYINT(1) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesActivation3'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`activation3` TINYINT(1) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesActivation4'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`activation4` TINYINT(1) NOT NULL DEFAULT 0, ";
+}
+if($GLOBALS['enableFilesActivation5'] == 1 && $GLOBALS['enableSystemDBSizeOtimize'] == 0)
+{
+	$strSQLTableCreateFiles .= "`activation5` TINYINT(1) NOT NULL DEFAULT 0, ";
+}
+
+$strSQLTableCreateFiles .= "`notes` LONGTEXT, ";
+$strSQLTableCreateFiles .= "PRIMARY KEY (`id`), ";
+$strSQLTableCreateFiles .= "KEY `id` (`id`), ";
+$strSQLTableCreateFiles .= "KEY `id_parent` (`id_parent`)";
+$strSQLTableCreateFiles .= ") CHARACTER SET utf8 COLLATE utf8_general_ci";
+
+
+//Statement and parameters.
+//----------------------
+$stmSQLTableCreateFiles = $GLOBALS['dbSystemConPDO']->prepare($strSQLTableCreateFiles);
+
+if($stmSQLTableCreateFiles !== false)
+{
+	
+	
+	//if($idTbFluxo <> "")
+	//{
+		//$stmSQLTableCreateCounter->bindParam(':id', $idTbFluxo, PDO::PARAM_STR);
+	//}
+	$stmSQLTableCreateFiles->execute();
+	
+
+	//$mensagemSucesso = "1 " . XMLFuncoes::XMLIdiomas($GLOBALS['xmlIdiomaSistema'], "sistemaStatus2");
+	//Obs: Colocar um flag de verificação de gravação.
+	//Success.
+	echo "Table: " . $strTableFiles . " - Created successfully." . "<br />";
+}else{
+	//echo "erro";
+	//$mensagemErro = XMLFuncoes::XMLIdiomas($GLOBALS['xmlIdiomaSistema'], "sistemaStatus3");
+	//Error.
+}
+//----------------------
+//**************************************************************************************
+
+
 //Table _ssmv1_filters_generic.
 //**************************************************************************************
 $strTableFiltersGeneric = $GLOBALS['configSystemDBTablePrefix'] . "filters_generic";
@@ -477,7 +709,7 @@ if($stmSQLTableCreateFiltersGeneric !== false)
 //Table _ssmv1_filters_generic_binding.
 //**************************************************************************************
 $strTableFiltersGenericBinding = $GLOBALS['configSystemDBTablePrefix'] . "filters_generic_binding";
-$strSQLTableCreateFiltersGeneric = "";
+$strSQLTableCreateFiltersGenericBinding = "";
 
 $strSQLTableCreateFiltersGenericBinding .= "CREATE TABLE IF NOT EXISTS `$strTableFiltersGenericBinding` (";
 $strSQLTableCreateFiltersGenericBinding .= "`id` BIGINT NOT NULL DEFAULT 0, ";

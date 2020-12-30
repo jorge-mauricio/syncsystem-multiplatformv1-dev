@@ -13,7 +13,17 @@ module.exports = class CategoriesDetails
     //**************************************************************************************
     constructor(objParameters = {})
     {
-        //objParameters = {idParentCategories: 123, configSortOrder: ""}
+        /*
+        objParameters = {
+                            idTbCategories: 123, 
+                            pageNumber: 1, 
+                            masterPageSelect: "", 
+
+                            messageError: "", 
+                            messageSuccess: "", 
+                            messageAlert: ""
+                        }
+        */
 
 
         //Properties.
@@ -37,7 +47,7 @@ module.exports = class CategoriesDetails
         this._messageSuccess = objParameters.messageSuccess;
         this._messageError = objParameters.messageError;
         this._messageAlert = objParameters.messageAlert;
-        this._nRecords = objParameters.nRecords;
+        //this._nRecords = objParameters.nRecords;
 
         this.queryDefault = "";
 
@@ -573,7 +583,6 @@ module.exports = class CategoriesDetails
             </script>
 
 
-            ${ /*Form.*/'' }
             <section class="ss-backend-layout-section-form01">
                     <input type="hidden" id="formCategoryEdit_method" name="_method" value="PUT">
                     
@@ -1383,7 +1392,11 @@ module.exports = class CategoriesDetails
                                     <td style="display: flex; align-items: center;">
                                         ${ ocdRecord.tblCategoriesImageMain != "" ? 
                                         `
-                                            <img id="imgCategoriesImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesTitle, "db") }" class="ss-backend-images-details" />
+                                            <img id="imgCategoriesImageMain" 
+                                                src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain }" 
+                                                alt="${ ocdRecord.tblCategoriesTitle }" 
+                                                class="ss-backend-images-details" 
+                                            />
                                         ` : ``
                                         }
                                     </td>
@@ -1403,7 +1416,11 @@ module.exports = class CategoriesDetails
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile1Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile1, "db") }" class="ss-backend-images-details" />
+                                                <img id="imgCategoriesFile1" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1 }" 
+                                                    alt="${ ocdRecord.tblCategoriesFile1 }" 
+                                                    class="ss-backend-images-details" 
+                                                />
                                             ` : ``
                                             }
 
@@ -1444,7 +1461,11 @@ module.exports = class CategoriesDetails
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile2Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile2, "db") }" class="ss-backend-images-details" />
+                                                <img id="imgCategoriesFile2" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2 }" 
+                                                    alt="${ ocdRecord.tblCategoriesFile2 }" 
+                                                    class="ss-backend-images-details" 
+                                                />
                                             ` : ``
                                             }
 
@@ -1484,7 +1505,11 @@ module.exports = class CategoriesDetails
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile3Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile3, "db") }" class="ss-backend-images-details" />
+                                                <img id="imgCategoriesFile3" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3 }" 
+                                                    alt="${ ocdRecord.tblCategoriesFile3 }" 
+                                                    class="ss-backend-images-details" 
+                                                />
                                             ` : ``
                                             }
 
@@ -1524,7 +1549,11 @@ module.exports = class CategoriesDetails
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile4Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile4, "db") }" class="ss-backend-images-details" />
+                                                <img id="imgCategoriesFile4" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4 }" 
+                                                    alt="${ ocdRecord.tblCategoriesFile4 }" 
+                                                    class="ss-backend-images-details" 
+                                                />
                                             ` : ``
                                             }
 
@@ -1564,7 +1593,11 @@ module.exports = class CategoriesDetails
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile5Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile5, "db") }" class="ss-backend-images-details" />
+                                                <img id="imgCategoriesFile5" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5 }" 
+                                                    alt="${ ocdRecord.tblCategoriesFile5 }" 
+                                                    class="ss-backend-images-details" 
+                                                />
                                             ` : ``
                                             }
 
@@ -1732,4 +1765,25 @@ module.exports = class CategoriesDetails
         //----------------------
     }
     //**************************************************************************************
+
+
+
+    //Usage.
+    //----------------------
+    /*
+    let cdBackend = new CategoriesDetails({
+        idTbCategories: idTbCategories,
+        pageNumber: pageNumber,
+        masterPageSelect: masterPageSelect,
+
+        messageSuccess: messageSuccess,
+        messageError: messageError,
+        messageAlert: messageAlert
+    });
+
+
+    //Build object data.
+    await cdBackend.build();
+    */
+    //----------------------
 };

@@ -247,26 +247,40 @@ app.get("/", (req, res)=>
 //**************************************************************************************
 
 
-//Backend - Home.
+//Backend - Home - Login.
 //**************************************************************************************
 //app.get("/system", (req,res)=>
+/*
 app.get("/" + gSystemConfig.configRouteBackend, (req, res)=>
 {
     //res.send("Hello World");//Debug.
 
     //res.sendFile(path.join(__dirname, "test-static-html", "index.html"));//serve file
     //res.sendFile(path.join(__dirname, "backend_node", "categories-listing.html"));//serve file
-    res.sendFile(path.join(__dirname, gSystemConfig.configDirectorySystem, "categories-listing.html"));//serve static file
+    res.sendFile(path.join(__dirname, gSystemConfig.configDirectorySystem, "categories-listing.html"));//serve static file //working
 });//Call method get.
+*/
 //**************************************************************************************
 
 
 //REST based API (CRUD).
 //**************************************************************************************
+//Backend (general) - import from external routes file.
+//----------------------
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-records.js"));
+//----------------------
+
+
+//Login - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend.js"));
+//----------------------
+
+
 //Categories - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-records.js"));
 app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-categories.js"));
 
 //Frontend.
@@ -274,6 +288,13 @@ app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backe
 //API.
 app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-categories.js"));
 //app.use("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories, require("./" + gSystemConfig.configDirectorySystem + "/routes-api-categories.js"));
+//----------------------
+
+
+//Files - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-files.js"));
 //----------------------
 //**************************************************************************************
 

@@ -1358,4 +1358,53 @@ module.exports = class FunctionsDB
     //**************************************************************************************
     
     
+    //Function do return the table name of an id number.
+    //**************************************************************************************
+    /**
+     * Function do return the table name of an id number.
+     * @static
+     * @async
+     * @param {integer} idRecord 
+     * @returns {object}
+     */
+    static async tableFindGet(idRecord, _returnType = 3)
+    {
+        //Variables.
+        //----------------------
+        let objReturn = {tableName: "", tableData: null, returnStatus: false}; //{tableName: "string", tableData: null, returnStatus: false}
+        //----------------------
+
+
+        //Logic.
+        //----------------------
+        if(idRecord)
+        {
+            //Check categories table.
+            if(objReturn.returnStatus === false)
+            {
+                objReturn.tableData = await this.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
+                                                                    ["id;" + idRecord + ";i"], 
+                                                                    "", 
+                                                                    "1", 
+                                                                    "id, id_parent, title", 
+                                                                    1, 
+                                                                    {returnType: _returnType});
+
+                if(objReturn.tableData.length)
+                {
+                    objReturn.tableName = gSystemConfig.configSystemDBTableCategories;
+                    objReturn.returnStatus = true;
+                }
+            }
+
+        }
+        //----------------------
+
+
+        //Debug.
+        //strReturn = {tableName: "categories", tableData: {}, returnStatus: false};
+        return objReturn;
+    }
+    //**************************************************************************************
+
 };

@@ -1,5 +1,6 @@
 "use strict";
 
+
 //Import Node Modules.
 //----------------------
 const express = require("express");
@@ -321,7 +322,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     //Variables.
     //----------------------
     //let clBackend = new CategoriesListing();
-    let ceBackend;
+    let cdBackend;
     let idTbCategories = "";
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
@@ -372,25 +373,25 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     (async function(){ //async marks the block
         try
         { 
-            ceBackend = new CategoriesDetails({
+            //nRecords: nRecords
+            cdBackend = new CategoriesDetails({
                 idTbCategories: idTbCategories,
                 pageNumber: pageNumber,
                 masterPageSelect: masterPageSelect,
 
                 messageSuccess: messageSuccess,
                 messageError: messageError,
-                messageAlert: messageAlert,
-                nRecords: nRecords
+                messageAlert: messageAlert
             });
 
 
             //Build object data.
-            await ceBackend.build();
+            await cdBackend.build();
 
 
             //Render data with template.
             res.render(masterPageSelect, {
-                templateData: ceBackend,
+                templateData: cdBackend,
                 additianalData: {}
             });
 
@@ -940,12 +941,12 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                             //{
                                 //tblCategoriesImageMain = resultsFunctionsFiles.image_main;
                             //}
-                            tblCategoriesImageMain = (resultsFunctionsFiles.hasOwnProperty("image_main") === true) ? resultsFunctionsFiles.image_main : tblCategoriesImageMain
-                            tblCategoriesImageFile1 = (resultsFunctionsFiles.hasOwnProperty("file1") === true) ? resultsFunctionsFiles.file1 : tblCategoriesImageFile1
-                            tblCategoriesImageFile2 = (resultsFunctionsFiles.hasOwnProperty("file2") === true) ? resultsFunctionsFiles.file2 : tblCategoriesImageFile2
-                            tblCategoriesImageFile3 = (resultsFunctionsFiles.hasOwnProperty("file3") === true) ? resultsFunctionsFiles.file3 : tblCategoriesImageFile3
-                            tblCategoriesImageFile4 = (resultsFunctionsFiles.hasOwnProperty("file4") === true) ? resultsFunctionsFiles.file4 : tblCategoriesImageFile4
-                            tblCategoriesImageFile5 = (resultsFunctionsFiles.hasOwnProperty("file5") === true) ? resultsFunctionsFiles.file5 : tblCategoriesImageFile5
+                            tblCategoriesImageMain = (resultsFunctionsFiles.hasOwnProperty("image_main") === true) ? resultsFunctionsFiles.image_main : tblCategoriesImageMain;
+                            tblCategoriesImageFile1 = (resultsFunctionsFiles.hasOwnProperty("file1") === true) ? resultsFunctionsFiles.file1 : tblCategoriesImageFile1;
+                            tblCategoriesImageFile2 = (resultsFunctionsFiles.hasOwnProperty("file2") === true) ? resultsFunctionsFiles.file2 : tblCategoriesImageFile2;
+                            tblCategoriesImageFile3 = (resultsFunctionsFiles.hasOwnProperty("file3") === true) ? resultsFunctionsFiles.file3 : tblCategoriesImageFile3;
+                            tblCategoriesImageFile4 = (resultsFunctionsFiles.hasOwnProperty("file4") === true) ? resultsFunctionsFiles.file4 : tblCategoriesImageFile4;
+                            tblCategoriesImageFile5 = (resultsFunctionsFiles.hasOwnProperty("file5") === true) ? resultsFunctionsFiles.file5 : tblCategoriesImageFile5;
 
 
                             //Resize images.
@@ -1302,6 +1303,9 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
             });
             */
 
+
+            //Insert record.
+            //----------------------
             let categoriesInsertResult = await new Promise((resolve, reject)=>{
                 SyncSystemNS.FunctionsDBInsert.categoriesInsert_async({
                     _tblCategoriesID: tblCategoriesID,
@@ -1401,9 +1405,11 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                     } //working
                 });
             });            
+            //----------------------
 
 
             //Success.
+            //----------------------
             if(categoriesInsertResult == true)
             {
                 returnURL += "&messageSuccess=statusMessage2";
@@ -1417,6 +1423,7 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                 //Debug.
                 //console.log("tblCategoriesImageMain(categoriesInsertResult)=", tblCategoriesImageMain);
             }
+            //----------------------
 
 
             //Debug.
@@ -1455,7 +1462,7 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
 //**************************************************************************************
 
 
-//Backend - Categories - Put (edit).
+//Backend - Categories - PUT (edit).
 //**************************************************************************************
 router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit, (req, res)=>{ //working, with the async block
     //Variables
@@ -1924,12 +1931,12 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                             //{
                                 //tblCategoriesImageMain = resultsFunctionsFiles.image_main;
                             //}
-                            tblCategoriesImageMain = (resultsFunctionsFiles.hasOwnProperty("image_main") === true) ? resultsFunctionsFiles.image_main : tblCategoriesImageMain
-                            tblCategoriesImageFile1 = (resultsFunctionsFiles.hasOwnProperty("file1") === true) ? resultsFunctionsFiles.file1 : tblCategoriesImageFile1
-                            tblCategoriesImageFile2 = (resultsFunctionsFiles.hasOwnProperty("file2") === true) ? resultsFunctionsFiles.file2 : tblCategoriesImageFile2
-                            tblCategoriesImageFile3 = (resultsFunctionsFiles.hasOwnProperty("file3") === true) ? resultsFunctionsFiles.file3 : tblCategoriesImageFile3
-                            tblCategoriesImageFile4 = (resultsFunctionsFiles.hasOwnProperty("file4") === true) ? resultsFunctionsFiles.file4 : tblCategoriesImageFile4
-                            tblCategoriesImageFile5 = (resultsFunctionsFiles.hasOwnProperty("file5") === true) ? resultsFunctionsFiles.file5 : tblCategoriesImageFile5
+                            tblCategoriesImageMain = (resultsFunctionsFiles.hasOwnProperty("image_main") === true) ? resultsFunctionsFiles.image_main : tblCategoriesImageMain;
+                            tblCategoriesImageFile1 = (resultsFunctionsFiles.hasOwnProperty("file1") === true) ? resultsFunctionsFiles.file1 : tblCategoriesImageFile1;
+                            tblCategoriesImageFile2 = (resultsFunctionsFiles.hasOwnProperty("file2") === true) ? resultsFunctionsFiles.file2 : tblCategoriesImageFile2;
+                            tblCategoriesImageFile3 = (resultsFunctionsFiles.hasOwnProperty("file3") === true) ? resultsFunctionsFiles.file3 : tblCategoriesImageFile3;
+                            tblCategoriesImageFile4 = (resultsFunctionsFiles.hasOwnProperty("file4") === true) ? resultsFunctionsFiles.file4 : tblCategoriesImageFile4;
+                            tblCategoriesImageFile5 = (resultsFunctionsFiles.hasOwnProperty("file5") === true) ? resultsFunctionsFiles.file5 : tblCategoriesImageFile5;
 
 
                             //Resize images.
@@ -2157,7 +2164,7 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
             //Edit record.  
             //----------------------
-            let categoriesInsertResult = await new Promise((resolve, reject)=>{
+            let categoryUpdateResult = await new Promise((resolve, reject)=>{
                 SyncSystemNS.FunctionsDBUpdate.categoryUpdate_async({
                     _tblCategoriesID: tblCategoriesID,
                     _tblCategoriesIdParent: tblCategoriesIdParent,
@@ -2260,10 +2267,13 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
 
             //Success.
-            if(categoriesInsertResult == true)
+            //----------------------
+            if(categoryUpdateResult == true)
             {
                 returnURL += "&messageSuccess=statusMessage7&nRecords=1";
             }
+            //----------------------
+
 
 
             //Debug.
@@ -2278,7 +2288,7 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
 
             //Error.
-            returnURL += "&messageError=statusMessage3";
+            returnURL += "&messageError=statusMessage8";
 
 
             //Redirect.

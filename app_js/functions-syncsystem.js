@@ -541,6 +541,6 @@ export default {
 //{
     ////export default FunctionsSyncSystem;
     ////export { FunctionsSyncSystem, inputDataReorder };
-    export { FunctionsSyncSystem }; //working
+    //export { FunctionsSyncSystem }; //working //enable for react webpack compile
     ////module.exports { FunctionsSyncSystem };
 //}

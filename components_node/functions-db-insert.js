@@ -249,22 +249,27 @@ module.exports = class FunctionsDBInsert
         let tblCategoriesIdParent = 0;
         let tblCategoriesSortOrder = 0;
         let tblCategoriesCategoryType = "";
+
         let tblCategoriesDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
         let tblCategoriesDateTimezone = "";
         let tblCategoriesDateEdit = "";
+
         let tblCategoriesIdRegisterUser = 0;
         let tblCategoriesIdRegister1 = 0;
         let tblCategoriesIdRegister2 = 0;
         let tblCategoriesIdRegister3 = 0;
         let tblCategoriesIdRegister4 = 0;
         let tblCategoriesIdRegister5 = 0;
+
         let tblCategoriesTitle = "";
         let tblCategoriesDescription = "";
+
         let tblCategoriesURLAlias = "";
         let tblCategoriesKeywordsTags = "";
         let tblCategoriesMetaDescription = "";
         let tblCategoriesMetaTitle = "";
         let tblCategoriesMetaInfo = "";
+
         let tblCategoriesInfo1 = "";
         let tblCategoriesInfo2 = "";
         let tblCategoriesInfo3 = "";
@@ -275,16 +280,19 @@ module.exports = class FunctionsDBInsert
         let tblCategoriesInfo8 = "";
         let tblCategoriesInfo9 = "";
         let tblCategoriesInfo10 = "";
+
         let tblCategoriesInfoSmall1 = "";
         let tblCategoriesInfoSmall2 = "";
         let tblCategoriesInfoSmall3 = "";
         let tblCategoriesInfoSmall4 = "";
         let tblCategoriesInfoSmall5 = "";
+
         let tblCategoriesNumber1 = 0;
         let tblCategoriesNumber2 = 0;
         let tblCategoriesNumber3 = 0;
         let tblCategoriesNumber4 = 0;
         let tblCategoriesNumber5 = 0;
+
         let tblCategoriesNumberSmall1 = 0;
         let tblCategoriesNumberSmall2 = 0;
         let tblCategoriesNumberSmall3 = 0;
@@ -298,25 +306,30 @@ module.exports = class FunctionsDBInsert
         let tblCategoriesDate3 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
         let tblCategoriesDate4 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
         let tblCategoriesDate5 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+
         let tblCategoriesIdItem1 = 0;
         let tblCategoriesIdItem2 = 0;
         let tblCategoriesIdItem3 = 0;
         let tblCategoriesIdItem4 = 0;
         let tblCategoriesIdItem5 = 0;
+
         let tblCategoriesImageMain = "";
         let tblCategoriesFile1 = "";
         let tblCategoriesFile2 = "";
         let tblCategoriesFile3 = "";
         let tblCategoriesFile4 = "";
         let tblCategoriesFile5 = "";
+
         let tblCategoriesActivation = 1;
         let tblCategoriesActivation1 = 0;
         let tblCategoriesActivation2 = 0;
         let tblCategoriesActivation3 = 0;
         let tblCategoriesActivation4 = 0;
         let tblCategoriesActivation5 = 0;
+        
         let tblCategoriesIdStatus = 0;
         let tblCategoriesRestrictedAccess = 0;
+
         let tblCategoriesNotes = "";
 
         let arrIdsCategoriesFiltersGeneric1 = [];
@@ -1120,6 +1133,496 @@ module.exports = class FunctionsDBInsert
         })()
         */
         //----------------------
+
+
+        //Usage.
+        //----------------------
+        //----------------------
+    }
+    //**************************************************************************************
+
+
+    //Files - insert record.
+    //**************************************************************************************
+    /**
+     * Files - insert record.
+     * @static
+     * @async
+     * @param {object} _tblFilesDataObject
+     * @returns {boolean} true - successfull | false - error
+     */
+    static async filesInsert_async(_tblFilesDataObject)
+    {
+        //Variables.
+        //----------------------
+        let strReturn = false;
+
+        let tblFilesDataObject = {};
+
+        //Details - default values.
+        let tblFilesID = "";
+        let tblFilesIdParent = 0;
+        let tblFilesSortOrder = 0;
+        let tblFilesFileType = 0;
+        let tblFilesFileConfig = 0;
+
+        let tblFilesDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblFilesDateTimezone = "";
+        let tblFilesDateEdit = "";
+
+        let tblFilesTitle = "";
+        let tblFilesCaption = "";
+        let tblFilesDescription = "";
+        let tblFilesHTMLCode = "";
+
+        let tblFilesURLAlias = "";
+        let tblFilesKeywordsTags = "";
+        let tblFilesMetaDescription = "";
+        let tblFilesMetaTitle = "";
+        let tblFilesMetaInfo = "";
+
+        let tblFilesInfo1 = "";
+        let tblFilesInfo2 = "";
+        let tblFilesInfo3 = "";
+        let tblFilesInfo4 = "";
+        let tblFilesInfo5 = "";
+
+        let tblFilesInfoSmall1 = "";
+        let tblFilesInfoSmall2 = "";
+        let tblFilesInfoSmall3 = "";
+        let tblFilesInfoSmall4 = "";
+        let tblFilesInfoSmall5 = "";
+
+        let tblFilesNumber1 = 0;
+        let tblFilesNumber2 = 0;
+        let tblFilesNumber3 = 0;
+        let tblFilesNumber4 = 0;
+        let tblFilesNumber5 = 0;
+
+        let tblFilesNumberSmall1 = 0;
+        let tblFilesNumberSmall2 = 0;
+        let tblFilesNumberSmall3 = 0;
+        let tblFilesNumberSmall4 = 0;
+        let tblFilesNumberSmall5 = 0;
+
+        let tblFilesDate1 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblFilesDate2 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblFilesDate3 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblFilesDate4 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblFilesDate5 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+
+        let tblFilesFile = "";
+        let tblFilesFileSize = "";
+        let tblFilesFileDuration = "";
+        let tblFilesFileDimensions = "";
+        let tblFilesFileOriginalName = "";
+        let tblFilesFileThumbnail = "";
+
+        let tblFilesFile1 = "";
+        let tblFilesFile2 = "";
+        let tblFilesFile3 = "";
+        let tblFilesFile4 = "";
+        let tblFilesFile5 = "";
+
+        let tblFilesActivation = 1;
+        let tblFilesActivation1 = 0;
+        let tblFilesActivation2 = 0;
+        let tblFilesActivation3 = 0;
+        let tblFilesActivation4 = 0;
+        let tblFilesActivation5 = 0;
+
+        let tblFilesNotes = "";
+
+        let strSQLFilesInsert = "";
+        let strSQLFilesInsertParams = {};
+        let resultsSQLFilesInsert = null;
+        //----------------------
+
+
+        //Variables - value/data treatment.
+        //----------------------
+        tblFilesDataObject = _tblFilesDataObject;
+        
+        tblFilesID = tblFilesDataObject._tblFilesID;
+        //Check if id was passed. If not, create one.
+        //----------------------
+        if(tblFilesID == "" || tblFilesID === null || tblFilesID === undefined)
+        {
+            tblFilesID = await new Promise((resolve, reject)=>{
+                FunctionsDB.counterUniversalUpdate_async(1)
+                    .then((results)=>{
+                        if(results === undefined)
+                        {
+                            //Error.
+                            if(gSystemConfig.configDebug === true)
+                            {
+                                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage9"));
+                            }
+                            reject(new Error("nCounterUpdate is undefined."));
+                        }else{
+                            //Success.
+                            //resolve(nCounterUpdate);
+                            resolve(results);
+                        } //working
+        
+                    });
+            });
+        }
+        //----------------------
+        tblFilesIdParent = (tblFilesDataObject.hasOwnProperty("_tblFilesIdParent") === true) ? tblFilesDataObject._tblFilesIdParent : tblFilesIdParent;
+        tblFilesSortOrder = (tblFilesDataObject.hasOwnProperty("_tblFilesSortOrder") === true) ? tblFilesDataObject._tblFilesSortOrder : tblFilesSortOrder;
+        if(!tblFilesSortOrder)
+        {
+            tblFilesSortOrder = 0;
+        }
+
+        tblFilesFileType = tblFilesDataObject._tblFilesFileType;
+        tblFilesFileConfig = tblFilesDataObject._tblFilesFileConfig;
+
+        tblFilesDateCreation = (tblFilesDataObject.hasOwnProperty("_tblFilesDateCreation") === true) ? tblFilesDataObject._tblFilesDateCreation : tblFilesDateCreation; //x = condition ? true : false (default value declared)
+        if(!tblFilesDateCreation)
+        {
+            let tblFilesDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblFilesDateCreation = FunctionsGeneric.dateSQLWrite(tblFilesDateCreation_dateObj);
+        }
+
+        tblFilesDateTimezone = (tblFilesDataObject.hasOwnProperty("_tblFilesDateTimezone") === true) ? tblFilesDataObject._tblFilesDateTimezone : tblFilesDateTimezone;
+        
+        tblFilesDateEdit = (tblFilesDataObject.hasOwnProperty("_tblFilesDateEdit") === true) ? tblFilesDataObject._tblFilesDateEdit : tblFilesDateEdit;
+        if(!tblFilesDateEdit)
+        {
+            let tblFilesDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblFilesDateEdit = FunctionsGeneric.dateSQLWrite(tblFilesDateEdit_dateObj);
+        }
+
+        tblFilesTitle = (tblFilesDataObject.hasOwnProperty("_tblFilesTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesTitle, "db_write_text") : tblFilesTitle;
+        tblFilesCaption = (tblFilesDataObject.hasOwnProperty("_tblFilesCaption") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesCaption, "db_write_text") : tblFilesCaption;
+        tblFilesDescription = (tblFilesDataObject.hasOwnProperty("_tblFilesDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesDescription, "db_write_text") : tblFilesDescription;
+        tblFilesHTMLCode = (tblFilesDataObject.hasOwnProperty("_tblFilesHTMLCode") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesHTMLCode, "db_write_text") : tblFilesHTMLCode;
+        
+        tblFilesURLAlias = (tblFilesDataObject.hasOwnProperty("_tblFilesURLAlias") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesURLAlias, "db_write_text") : tblFilesURLAlias;
+        tblFilesKeywordsTags = (tblFilesDataObject.hasOwnProperty("_tblFilesKeywordsTags") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesKeywordsTags, "db_write_text") : tblFilesKeywordsTags;
+        tblFilesMetaDescription = (tblFilesDataObject.hasOwnProperty("_tblFilesMetaDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesMetaDescription, "db_write_text") : tblFilesMetaDescription;
+        tblFilesMetaTitle = (tblFilesDataObject.hasOwnProperty("_tblFilesMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesMetaTitle, "db_write_text") : tblFilesMetaTitle;
+        tblFilesMetaInfo = (tblFilesDataObject.hasOwnProperty("_tblFilesMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesMetaInfo, "db_write_text") : tblFilesMetaInfo;
+        
+        if(gSystemConfig.configFilesInfo1FieldType == 1 || gSystemConfig.configFilesInfo1FieldType == 2)
+        {
+            tblFilesInfo1 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo1") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo1, "db_write_text") : tblFilesInfo1;
+        }
+        if(gSystemConfig.configFilesInfo1FieldType == 11 || gSystemConfig.configFilesInfo1FieldType == 12)
+        {
+            tblFilesInfo1 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo1, "db_write_text"), 2) : tblFilesInfo1;
+        }
+
+        if(gSystemConfig.configFilesInfo2FieldType == 1 || gSystemConfig.configFilesInfo2FieldType == 2)
+        {
+            tblFilesInfo2 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo2") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo2, "db_write_text") : tblFilesInfo2;
+        }
+        if(gSystemConfig.configFilesInfo2FieldType == 11 || gSystemConfig.configFilesInfo2FieldType == 12)
+        {
+            tblFilesInfo2 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo2") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo2, "db_write_text"), 2) : tblFilesInfo2;
+        }
+
+        if(gSystemConfig.configFilesInfo3FieldType == 1 || gSystemConfig.configFilesInfo3FieldType == 2)
+        {
+            tblFilesInfo3 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo3") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo3, "db_write_text") : tblFilesInfo3;
+        }
+        if(gSystemConfig.configFilesInfo3FieldType == 11 || gSystemConfig.configFilesInfo3FieldType == 12)
+        {
+            tblFilesInfo3 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo3") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo3, "db_write_text"), 2) : tblFilesInfo3;
+        }
+
+        if(gSystemConfig.configFilesInfo4FieldType == 1 || gSystemConfig.configFilesInfo4FieldType == 2)
+        {
+            tblFilesInfo4 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo4") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo4, "db_write_text") : tblFilesInfo4;
+        }
+        if(gSystemConfig.configFilesInfo4FieldType == 11 || gSystemConfig.configFilesInfo4FieldType == 12)
+        {
+            tblFilesInfo4 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo4") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo4, "db_write_text"), 2) : tblFilesInfo1;
+        }
+
+        if(gSystemConfig.configFilesInfo5FieldType == 1 || gSystemConfig.configFilesInfo5FieldType == 2)
+        {
+            tblFilesInfo5 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo5") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo5, "db_write_text") : tblFilesInfo5;
+        }
+        if(gSystemConfig.configFilesInfo5FieldType == 11 || gSystemConfig.configFilesInfo5FieldType == 12)
+        {
+            tblFilesInfo5 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo5, "db_write_text"), 2) : tblFilesInfo5;
+        }
+
+        if(gSystemConfig.configFilesInfo6FieldType == 1 || gSystemConfig.configFilesInfo6FieldType == 2)
+        {
+            tblFilesInfo6 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo6") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo6, "db_write_text") : tblFilesInfo6;
+        }
+        if(gSystemConfig.configFilesInfo6FieldType == 11 || gSystemConfig.configFilesInfo6FieldType == 12)
+        {
+            tblFilesInfo6 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo6") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo6, "db_write_text"), 2) : tblFilesInfo6;
+        }
+
+        if(gSystemConfig.configFilesInfo7FieldType == 1 || gSystemConfig.configFilesInfo7FieldType == 2)
+        {
+            tblFilesInfo7 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo7") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo7, "db_write_text") : tblFilesInfo7;
+        }
+        if(gSystemConfig.configFilesInfo7FieldType == 11 || gSystemConfig.configFilesInfo7FieldType == 12)
+        {
+            tblFilesInfo7 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo7") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo7, "db_write_text"), 2) : tblFilesInfo7;
+        }
+
+        if(gSystemConfig.configFilesInfo8FieldType == 1 || gSystemConfig.configFilesInfo8FieldType == 2)
+        {
+            tblFilesInfo8 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo8") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo8, "db_write_text") : tblFilesInfo8;
+        }
+        if(gSystemConfig.configFilesInfo8FieldType == 11 || gSystemConfig.configFilesInfo8FieldType == 12)
+        {
+            tblFilesInfo8 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo8") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo8, "db_write_text"), 2) : tblFilesInfo8;
+        }
+
+        if(gSystemConfig.configFilesInfo9FieldType == 1 || gSystemConfig.configFilesInfo9FieldType == 2)
+        {
+            tblFilesInfo9 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo9") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo9, "db_write_text") : tblFilesInfo9;
+        }
+        if(gSystemConfig.configFilesInfo9FieldType == 11 || gSystemConfig.configFilesInfo9FieldType == 12)
+        {
+            tblFilesInfo9 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo9") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo9, "db_write_text"), 2) : tblFilesInfo9;
+        }
+
+        if(gSystemConfig.configFilesInfo10FieldType == 1 || gSystemConfig.configFilesInfo10FieldType == 2)
+        {
+            tblFilesInfo10 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo10") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo10, "db_write_text") : tblFilesInfo10;
+        }
+        if(gSystemConfig.configFilesInfo10FieldType == 11 || gSystemConfig.configFilesInfo10FieldType == 12)
+        {
+            tblFilesInfo10 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfo10") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfo10, "db_write_text"), 2) : tblFilesInfo10;
+        }
+
+        tblFilesInfoSmall1 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfoSmall1") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfoSmall1, "db_write_text") : tblFilesInfoSmall1;
+        tblFilesInfoSmall2 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfoSmall2") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfoSmall2, "db_write_text") : tblFilesInfoSmall2;
+        tblFilesInfoSmall3 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfoSmall3") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfoSmall3, "db_write_text") : tblFilesInfoSmall3;
+        tblFilesInfoSmall4 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfoSmall4") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfoSmall4, "db_write_text") : tblFilesInfoSmall4;
+        tblFilesInfoSmall5 = (tblFilesDataObject.hasOwnProperty("_tblFilesInfoSmall5") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesInfoSmall5, "db_write_text") : tblFilesInfoSmall5;
+        
+        tblFilesNumber1 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumber1") === true && (tblFilesDataObject._tblFilesNumber1)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumber1, gSystemConfig.configFilesNumber1FieldType) : tblFilesNumber1;
+        tblFilesNumber2 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumber2") === true && (tblFilesDataObject._tblFilesNumber2)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumber2, gSystemConfig.configFilesNumber2FieldType) : tblFilesNumber2;
+        tblFilesNumber3 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumber3") === true && (tblFilesDataObject._tblFilesNumber3)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumber3, gSystemConfig.configFilesNumber3FieldType) : tblFilesNumber3;
+        tblFilesNumber4 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumber4") === true && (tblFilesDataObject._tblFilesNumber4)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumber4, gSystemConfig.configFilesNumber4FieldType) : tblFilesNumber4;
+        tblFilesNumber5 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumber5") === true && (tblFilesDataObject._tblFilesNumber5)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumber5, gSystemConfig.configFilesNumber5FieldType) : tblFilesNumber5;
+
+        tblFilesNumberSmall1 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumberSmall1") === true && (tblFilesDataObject._tblFilesNumberSmall1)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumberSmall1, gSystemConfig.configFilesNumberS1FieldType) : tblFilesNumberSmall1;
+        tblFilesNumberSmall2 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumberSmall2") === true && (tblFilesDataObject._tblFilesNumberSmall2)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumberSmall2, gSystemConfig.configFilesNumberS2FieldType) : tblFilesNumberSmall2;
+        tblFilesNumberSmall3 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumberSmall3") === true && (tblFilesDataObject._tblFilesNumberSmall3)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumberSmall3, gSystemConfig.configFilesNumberS3FieldType) : tblFilesNumberSmall3;
+        tblFilesNumberSmall4 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumberSmall4") === true && (tblFilesDataObject._tblFilesNumberSmall4)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumberSmall4, gSystemConfig.configFilesNumberS4FieldType) : tblFilesNumberSmall4;
+        tblFilesNumberSmall5 = (tblFilesDataObject.hasOwnProperty("_tblFilesNumberSmall5") === true && (tblFilesDataObject._tblFilesNumberSmall5)) ? FunctionsGeneric.valueMaskWrite(tblFilesDataObject._tblFilesNumberSmall5, gSystemConfig.configFilesNumberS5FieldType) : tblFilesNumberSmall5;
+        
+        tblFilesDate1 = (tblFilesDataObject.hasOwnProperty("_tblFilesDate1") === true && (tblFilesDataObject._tblFilesDate1)) ? FunctionsGeneric.dateSQLWrite(tblFilesDataObject._tblFilesDate1, gSystemConfig.configBackendDateFormat) : tblFilesDate1;
+        tblFilesDate2 = (tblFilesDataObject.hasOwnProperty("_tblFilesDate2") === true && (tblFilesDataObject._tblFilesDate2)) ? FunctionsGeneric.dateSQLWrite(tblFilesDataObject._tblFilesDate2, gSystemConfig.configBackendDateFormat) : tblFilesDate2;
+        tblFilesDate3 = (tblFilesDataObject.hasOwnProperty("_tblFilesDate3") === true && (tblFilesDataObject._tblFilesDate3)) ? FunctionsGeneric.dateSQLWrite(tblFilesDataObject._tblFilesDate3, gSystemConfig.configBackendDateFormat) : tblFilesDate3;
+        tblFilesDate4 = (tblFilesDataObject.hasOwnProperty("_tblFilesDate4") === true && (tblFilesDataObject._tblFilesDate4)) ? FunctionsGeneric.dateSQLWrite(tblFilesDataObject._tblFilesDate4, gSystemConfig.configBackendDateFormat) : tblFilesDate4;
+        tblFilesDate5 = (tblFilesDataObject.hasOwnProperty("_tblFilesDate5") === true && (tblFilesDataObject._tblFilesDate5)) ? FunctionsGeneric.dateSQLWrite(tblFilesDataObject._tblFilesDate5, gSystemConfig.configBackendDateFormat) : tblFilesDate5;
+        
+        tblFilesFile = (tblFilesDataObject.hasOwnProperty("_tblFilesFile") === true) ? tblFilesDataObject._tblFilesFile : tblFilesFile;
+        tblFilesFileSize = (tblFilesDataObject.hasOwnProperty("_tblFilesFileSize") === true) ? tblFilesDataObject._tblFilesFileSize : tblFilesFileSize;
+        tblFilesFileDuration = (tblFilesDataObject.hasOwnProperty("_tblFilesFileDuration") === true) ? tblFilesDataObject._tblFilesFileDuration : tblFilesFileDuration;
+        tblFilesFileDimensions = (tblFilesDataObject.hasOwnProperty("_tblFilesFileDimensions") === true) ? tblFilesDataObject._tblFilesFileDimensions : tblFilesFileDimensions;
+        tblFilesFileOriginalName = (tblFilesDataObject.hasOwnProperty("_tblFilesFileOriginalName") === true) ? tblFilesDataObject._tblFilesFileOriginalName : tblFilesFileOriginalName;
+        
+        tblFilesFileThumbnail = (tblFilesDataObject.hasOwnProperty("_tblFilesFileThumbnail") === true) ? tblFilesDataObject._tblFilesFileThumbnail : tblFilesFileThumbnail;
+        
+        tblFilesFile1 = (tblFilesDataObject.hasOwnProperty("_tblFilesFile1") === true) ? tblFilesDataObject._tblFilesFile1 : tblFilesFile1;
+        tblFilesFile2 = (tblFilesDataObject.hasOwnProperty("_tblFilesFile2") === true) ? tblFilesDataObject._tblFilesFile2 : tblFilesFile2;
+        tblFilesFile3 = (tblFilesDataObject.hasOwnProperty("_tblFilesFile3") === true) ? tblFilesDataObject._tblFilesFile3 : tblFilesFile3;
+        tblFilesFile4 = (tblFilesDataObject.hasOwnProperty("_tblFilesFile4") === true) ? tblFilesDataObject._tblFilesFile4 : tblFilesFile4;
+        tblFilesFile5 = (tblFilesDataObject.hasOwnProperty("_tblFilesFile5") === true) ? tblFilesDataObject._tblFilesFile5 : tblFilesFile5;
+        
+        tblFilesActivation = (tblFilesDataObject.hasOwnProperty("_tblFilesActivation") === true && (tblFilesDataObject._tblFilesActivation)) ? tblFilesDataObject._tblFilesActivation : tblFilesActivation;
+        tblFilesActivation1 = (tblFilesDataObject.hasOwnProperty("_tblFilesActivation1") === true && (tblFilesDataObject._tblFilesActivation1)) ? tblFilesDataObject._tblFilesActivation1 : tblFilesActivation1;
+        tblFilesActivation2 = (tblFilesDataObject.hasOwnProperty("_tblFilesActivation2") === true && (tblFilesDataObject._tblFilesActivation2)) ? tblFilesDataObject._tblFilesActivation2 : tblFilesActivation2;
+        tblFilesActivation3 = (tblFilesDataObject.hasOwnProperty("_tblFilesActivation3") === true && (tblFilesDataObject._tblFilesActivation3)) ? tblFilesDataObject._tblFilesActivation3 : tblFilesActivation3;
+        tblFilesActivation4 = (tblFilesDataObject.hasOwnProperty("_tblFilesActivation5") === true && (tblFilesDataObject._tblFilesActivation4)) ? tblFilesDataObject._tblFilesActivation4 : tblFilesActivation5;
+        tblFilesActivation5 = (tblFilesDataObject.hasOwnProperty("_tblFilesActivation5") === true && (tblFilesDataObject._tblFilesActivation5)) ? tblFilesDataObject._tblFilesActivation5 : tblFilesActivation5;
+       
+        tblFilesNotes = (tblFilesDataObject.hasOwnProperty("_tblFilesNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblFilesDataObject._tblFilesNotes, "db_write_text") : tblFilesNotes;
+        //----------------------
+
+
+        //Query.
+        //----------------------
+        strSQLFilesInsert += "INSERT INTO " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + gSystemConfig.configSystemDBTableFiles + " ";
+        strSQLFilesInsert += "SET ?";
+        //----------------------
+
+        
+        //Parameters.
+        //----------------------
+        strSQLFilesInsertParams.id = tblFilesID;
+        strSQLFilesInsertParams.id_parent = tblFilesIdParent;
+        strSQLFilesInsertParams.sort_order = tblFilesSortOrder;
+        strSQLFilesInsertParams.file_type = tblFilesFileType;
+        strSQLFilesInsertParams.file_config = tblFilesFileConfig;
+
+        strSQLFilesInsertParams.date_creation = tblFilesDateCreation;
+        strSQLFilesInsertParams.date_timezone = tblFilesDateTimezone;
+        strSQLFilesInsertParams.date_edit = tblFilesDateEdit;
+
+        strSQLFilesInsertParams.title = tblFilesTitle;
+        strSQLFilesInsertParams.caption = tblFilesCaption;
+        strSQLFilesInsertParams.description = tblFilesDescription;
+        strSQLFilesInsertParams.html_code = tblFilesHTMLCode;
+
+        strSQLFilesInsertParams.url_alias = tblFilesURLAlias;
+        strSQLFilesInsertParams.keywords_tags = tblFilesKeywordsTags;
+        strSQLFilesInsertParams.meta_description = tblFilesMetaDescription;
+        strSQLFilesInsertParams.meta_title = tblFilesMetaTitle;
+        strSQLFilesInsertParams.meta_info = tblFilesMetaInfo;
+
+        strSQLFilesInsertParams.info1 = tblFilesInfo1;
+        strSQLFilesInsertParams.info2 = tblFilesInfo2;
+        strSQLFilesInsertParams.info3 = tblFilesInfo3;
+        strSQLFilesInsertParams.info4 = tblFilesInfo4;
+        strSQLFilesInsertParams.info5 = tblFilesInfo5;
+
+        strSQLFilesInsertParams.info_small1 = tblFilesInfoSmall1;
+        strSQLFilesInsertParams.info_small2 = tblFilesInfoSmall2;
+        strSQLFilesInsertParams.info_small3 = tblFilesInfoSmall3;
+        strSQLFilesInsertParams.info_small4 = tblFilesInfoSmall4;
+        strSQLFilesInsertParams.info_small5 = tblFilesInfoSmall5;
+
+        strSQLFilesInsertParams.number1 = tblFilesNumber1;
+        strSQLFilesInsertParams.number2 = tblFilesNumber2;
+        strSQLFilesInsertParams.number3 = tblFilesNumber3;
+        strSQLFilesInsertParams.number4 = tblFilesNumber4;
+        strSQLFilesInsertParams.number5 = tblFilesNumber5;
+
+        strSQLFilesInsertParams.number_small1 = tblFilesNumberSmall1;
+        strSQLFilesInsertParams.number_small2 = tblFilesNumberSmall2;
+        strSQLFilesInsertParams.number_small3 = tblFilesNumberSmall3;
+        strSQLFilesInsertParams.number_small4 = tblFilesNumberSmall4;
+        strSQLFilesInsertParams.number_small5 = tblFilesNumberSmall5;
+
+        strSQLFilesInsertParams.date1 = tblFilesDate1;
+        strSQLFilesInsertParams.date2 = tblFilesDate2;
+        strSQLFilesInsertParams.date3 = tblFilesDate3;
+        strSQLFilesInsertParams.date4 = tblFilesDate4;
+        strSQLFilesInsertParams.date5 = tblFilesDate5;
+        
+        strSQLFilesInsertParams.file = tblFilesFile;
+        strSQLFilesInsertParams.file_size = tblFilesFileSize;
+        strSQLFilesInsertParams.file_duration = tblFilesFileDuration;
+        strSQLFilesInsertParams.file_dimensions = tblFilesFileDimensions;
+        strSQLFilesInsertParams.file_original_name = tblFilesFileOriginalName;
+
+        strSQLFilesInsertParams.file_thumbnail = tblFilesFileThumbnail;
+
+        strSQLFilesInsertParams.file1 = tblFilesFile1;
+        strSQLFilesInsertParams.file2 = tblFilesFile2;
+        strSQLFilesInsertParams.file3 = tblFilesFile3;
+        strSQLFilesInsertParams.file4 = tblFilesFile4;
+        strSQLFilesInsertParams.file5 = tblFilesFile5;
+
+        strSQLFilesInsertParams.activation = tblFilesActivation;
+        strSQLFilesInsertParams.activation1 = tblFilesActivation1;
+        strSQLFilesInsertParams.activation2 = tblFilesActivation2;
+        strSQLFilesInsertParams.activation3 = tblFilesActivation3;
+        strSQLFilesInsertParams.activation4 = tblFilesActivation4;
+        strSQLFilesInsertParams.activation5 = tblFilesActivation5;
+
+        strSQLFilesInsertParams.notes = tblFilesNotes;
+        //----------------------
+
+
+        //Execute query.
+        //----------------------
+        resultsSQLFilesInsert = await new Promise((resolve, reject)=>{
+
+            dbSystemConPool.getConnection(function(dbSystemPoolError, dbSystemConPoolGetConnection){
+                if(dbSystemPoolError)
+                {
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                    }
+                    throw dbSystemPoolError;
+                }else{
+
+                    //dbSystemCon.query(strSQLFilesInsert, strSQLFilesInsertParams, (dbSystemError, results) => {
+                    dbSystemConPoolGetConnection.query(strSQLFilesInsert, strSQLFilesInsertParams, (dbSystemError, results) => {
+                        dbSystemConPoolGetConnection.release();
+
+                        if(dbSystemError)
+                        {
+                            //Error.
+                            if(gSystemConfig.configDebug === true)
+                            {
+                                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                            }
+        
+                            throw dbSystemError;
+                        }else{
+                            //Set success flag.
+                            //strReturn = true;
+        
+                            if(results)
+                            {
+                                //Success.
+                                if(gSystemConfig.configDebug === true)
+                                {
+                                    console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage2"));
+                                }
+                                //Return promise.
+                                resolve(results);
+                            }else{
+                                //Error.
+                                //reject(false);
+                                reject(new Error(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3")));
+                            }
+                                
+        
+                            //Debug.
+                            //resolve(resultsSQLCounterRows);
+                            //resolve(nCounter);
+                            //resolve(json(resultsSQLCounterRows));//working: returns [ RowDataPacket { id: 1, counter_global: 123, description: 'Node database test' } ]
+                        }
+                    });
+        
+                }
+            });
+            
+        });
+        //----------------------
+
+
+        //Return data treatment.
+        //----------------------
+        //resultsSQLFilesInsert object ex: 
+        /*
+        OkPacket {
+            fieldCount: 0,
+            affectedRows: 1,
+            insertId: 0,
+            serverStatus: 2,
+            warningCount: 0,
+            message: '',
+            protocol41: true,
+            changedRows: 0 
+        }
+        */
+        if(resultsSQLFilesInsert.affectedRows > 0)
+        {
+            strReturn = true;
+        }
+        //----------------------
+
+
+        //Debug.
+        //return tblCategoriesID;
+        //return resultsSQLCategoriesInsert;
+
+
+        return strReturn;
+
+        //Usage.
+        //----------------------
+        //----------------------
     }
     //**************************************************************************************
 
@@ -1128,7 +1631,7 @@ module.exports = class FunctionsDBInsert
     //Filters Generic Binding - insert record.
     //**************************************************************************************
     /**
-     * Categories - insert record.
+     * Filters Generic Binding - insert record.
      * @static
      * @param {object} _tblFiltersGenericBindingDataObject
      * @param {integter} returnMethod 1 - boolean | 2 - object

@@ -3,6 +3,10 @@
 exports.appLabels = {
     //Layout.
     //**************************************************************************************
+    layoutSiteTile: "SyncSystem - Multiplatform (debug: çáéã)",
+    layoutSystemName: "Sistema de Gerenciamento de Conteúdo",
+    layoutDevName: "Planejamento Visual - Arte e Tecnologia",
+    
     layoutDevelopment: "Development",
     layoutCopyright: "Copyright",
     layoutCopyright1: "All rights reserved",
@@ -36,12 +40,18 @@ exports.appLabels = {
     backendItemDateEnd: "Date - End",
         backendItemDateEndA: "D. E.",
         backendItemDateCreated: "Date Created",
-    backendItemParentLink: "Parent Link",
+    backendItemMinutes: "Minutes",
+        backendItemMinutesA: "Min.",
+    backendItemSeconds: "Seconds",
+        backendItemSecondsA: "Sec.",
+
+    backendItemParentLink: "Parent Record",
 
     backendItemURLAlias: "Friendly Name (Alias)",
     backendItemMetaTitle: "Meta Title",
     backendItemMetaDescription: "Meta Description",
     backendItemKeywords: "Keywords",
+    backendItemKeywordsInstruction01: "Key words or key phrases, separated by commas (,). Important for search mecanisms indexing.",
 
     backendItemNotes: "Notes",
     backendItemNotesInternal: "Internal Notes",
@@ -62,13 +72,33 @@ exports.appLabels = {
         backendItemRestrictedAccess1A: "R",
 
     backendItemDisplay: "Display",
+    backendItemDisplay1: "Pop-up Link",
+    backendItemDisplay2: "Open Directly on Page",
+    backendItemDisplay3: "Download Link",
+    backendItemDisplay4: "Open on Media",
+
     backendItemFunctions: "Functions",
+    backendItemInsertImages: "Insert Images",
+    backendItemInsertVideos: "Insert Videos",
+    backendItemInsertFiles: "Insert Files",
+    backendItemInsertFilesZip: "Insert Zip",
+    backendItemInsertContent: "Insert Content",
+    backendItemInsertCategories: "Insert Categories",
+    backendItemInsertNotes: "Insert Notes",
+    backendItemInsertTasks: "Insert Tasks",
+
     backendItemDetails: "Details",
     backendItemDetailsView: "View Details",
     backendItemEdit: "Edit",
     backendItemDelete: "Delete",
 
     backendItemValueDescription01: "Format: 1000,00",
+
+    backendItemDimensions: "Dimensions",
+    backendItemDimensionsW: "Width",
+    backendItemDimensionsH: "Height",
+
+    backendItemPixels: "Pixels",
 
     //Paging.
     backendPagingPageLabel: "Pagination Navigation",
@@ -87,10 +117,18 @@ exports.appLabels = {
     backendButtonSave: "Save",
     backendButtonClose: "Close",
     backendButtonFinish: "Finish",
+    backendButtonLogin: "Login",
     backendButtonSend: "Send",
 
     //Images.
     backendImgProgressBar: "Progress Bar",
+    //**************************************************************************************
+
+
+    //Login.
+    //**************************************************************************************
+    backendLoginUser: "User",
+    backendLoginPassword: "Password",
     //**************************************************************************************
 
 
@@ -204,6 +242,82 @@ exports.appLabels = {
     backendCategoriesActivation3: "Activation 3",
     backendCategoriesActivation4: "Activation 4",
     backendCategoriesActivation5: "Activation 5",
+    //**************************************************************************************
+
+
+    //Files.
+    //**************************************************************************************
+    backendFilesImagesTitleMain: "Images",
+    backendFilesVideosTitleMain: "Videos",
+    backendFilesTitleMain: "Files",
+    
+    backendFilesTitleEdit: "Edit Files",
+    backendFilesTitleDetails: "File Details",
+    backendFilesTitleTable: "Include Files",
+    backendFilesTitleTableInsert: "Include Files",
+    backendFilesTitleTableEdit: "Edit File",
+    backendFilesTitleTableDetails: "File Details",
+
+    backendFilesFileType: "File Type",
+    backendFilesFileConfig: "File Config",
+    backendFilesTitle: "Title",
+    backendFilesCaption: "Caption",
+    backendFilesDescription: "Description",
+    backendFilesHTMLCode: "HTML Code",
+
+    //backendFilesFile: "File",
+    backendFilesFileThumbnail: "Thumbnail",
+    backendFilesFileSize: "Size",
+    backendFilesFileDuration: "Duration",
+    backendFilesFileDimensions: "Dimensions",
+    backendFilesFileOriginalName: "Original Name",
+
+    backendFilesInfo1: "Information 1",
+    backendFilesInfo2: "Information 2",
+    backendFilesInfo3: "Information 3",
+    backendFilesInfo4: "Information 4",
+    backendFilesInfo5: "Information 5",
+    backendFilesInfo6: "Information 6",
+    backendFilesInfo7: "Information 7",
+    backendFilesInfo8: "Information 8",
+    backendFilesInfo9: "Information 9",
+    backendFilesInfo10: "Information 10",
+
+    backendFilesInfoS1: "Information Small 1",
+    backendFilesInfoS2: "Information Small 2",
+    backendFilesInfoS3: "Information Small 3",
+    backendFilesInfoS4: "Information Small 4",
+    backendFilesInfoS5: "Information Small 5",
+
+    backendFilesNumber1: "Number 1",
+    backendFilesNumber2: "Number 2",
+    backendFilesNumber3: "Number 3",
+    backendFilesNumber4: "Number 4",
+    backendFilesNumber5: "Number 5",
+
+    backendFilesNumberS1: "Number Small 1",
+    backendFilesNumberS2: "Number Small 2",
+    backendFilesNumberS3: "Number Small 3",
+    backendFilesNumberS4: "Number Small 4",
+    backendFilesNumberS5: "Number Small 5",
+
+    backendFilesDate1: "Date 1",
+    backendFilesDate2: "Date 2",
+    backendFilesDate3: "Date 3",
+    backendFilesDate4: "Date 4",
+    backendFilesDate5: "Date 5",
+
+    backendFilesFile1: "File 1",
+    backendFilesFile2: "File 2",
+    backendFilesFile3: "File 3",
+    backendFilesFile4: "File 4",
+    backendFilesFile5: "File 5",
+
+    backendFilesActivation1: "Activation 1",
+    backendFilesActivation2: "Activation 2",
+    backendFilesActivation3: "Activation 3",
+    backendFilesActivation4: "Activation 4",
+    backendFilesActivation5: "Activation 5",
     //**************************************************************************************
 
 

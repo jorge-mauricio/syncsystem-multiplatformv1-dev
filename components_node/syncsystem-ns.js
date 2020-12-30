@@ -21,5 +21,7 @@ module.exports = {
     FunctionsCrypto: require("./functions-crypto.js"),
     ObjectFiltersGenericListing: require("./object-filters-generic-listing.js"),
     ObjectCategoriesListing: require("./object-categories-listing.js"),
-    ObjectCategoriesDetails: require("./object-categories-details.js")
+    ObjectCategoriesDetails: require("./object-categories-details.js"),
+    ObjectFilesListing: require("./object-files-listing.js"),
+    ObjectFilesDetails: require("./object-files-details.js")
 };

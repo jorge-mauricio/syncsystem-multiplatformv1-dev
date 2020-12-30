@@ -36,6 +36,7 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     //let clBackend = new CategoriesListing();
     //let clBackend;
     let idParent = "";
+    let fileType = "";
     let pageReturn = "";
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
@@ -64,6 +65,10 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     if(req.body.idParent)
     {
         idParent = req.body.idParent;
+    }
+    if(req.body.fileType)
+    {
+        fileType = req.body.fileType;
     }
     if(req.body.pageReturn)
     {
@@ -119,6 +124,11 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
         
        idsRecordsDelete = idsRecordsDelete.concat(req.body.idsRecordsDelete); //best method, because it assumes single strings as arrays
     }
+
+
+    //Debug.
+    //console.log("strTable=", strTable);
+    //console.log("req.body=", req.body);
     //----------------------
 
 
@@ -129,6 +139,10 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     if(pageNumber)
     {
         returnURL += "&pageNumber=" + pageNumber;
+    }
+    if(fileType)
+    {
+        returnURL += "&fileType=" + fileType;
     }
     //----------------------
 

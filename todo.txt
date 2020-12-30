@@ -28,4 +28,17 @@
 	- frontend-categories-details-record-cb-component.js
 	- fix or change to native component;
 	- Research: https://www.npmjs.com/package/react-image-lightbox.
+
+
+- node - files / include / edit:
+	- check positioning of date calender;
+
+- node - files / edit / exe:
+	- working, but returning status 302
+	Request URL: http://localhost:3000/system/files/edit/?_method=PUT
+	Request Method: POST
+	Status Code: 302 Found
+	Remote Address: [::1]:3000
+	Referrer Policy: strict-origin-when-cross-origin
+
 		

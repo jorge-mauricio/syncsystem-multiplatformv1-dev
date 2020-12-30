@@ -176,7 +176,7 @@ app.get("/*", (req,res)=>
     */
    
 
-    const htmlContent = "<!DOCTYPE html>" + ReactDOMServer.renderToString(
+    const frontendHTML = "<!DOCTYPE html>" + ReactDOMServer.renderToString(
         <StaticRouter location={req.url} context={context}>
             <AppReactSSR />
         </StaticRouter>
@@ -243,7 +243,7 @@ app.get("/*", (req,res)=>
 
     //res.send(html);
     //res.send(content);
-    res.send(htmlContent);
+    res.send(frontendHTML);
 
 });//Call method get.
 //**************************************************************************************

@@ -55,8 +55,10 @@ $enableSystemDBSizeOtimize = 0; //0-disable (all fields created) | 1-enable (onl
 
 
 //Table names.
+//TODO: Update db setup file with variable names.
 $configSystemDBTableCounter = "counter";
 $configSystemDBTableCategories = "categories";
+$configSystemDBTableFiles = "files";
 $configSystemDBTableFiltersGeneric = "filters_generic";
 $configSystemDBTableFiltersGenericBinding = "filters_generic_binding";
 //----------------------
@@ -261,56 +263,176 @@ $configCategoriesFrontendPaginationNRecords = 20;
 //**************************************************************************************
 
 
-//Categorias - configuração dos recursos do módulo.
+//Files - configuration and resources.
 //**************************************************************************************
-$configClassificacaoCategorias = "categoria"; //opções: id | n_classificacao | data_categoria esc | data_categoria desc | categoria
-$habilitarCategoriasClassificacaoPersonalizada = 0; //0-desativado | 1-ativado 
+$configFilesSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | caption
+$enableFilesSortCustom = 1; //0 - disable | 1 - enable
+$configFilesInputOrder = ["inputRowFiles_id_parent", 
+                                            "inputRowFiles_sort_order", 
+                                            "inputRowFiles_date1", 
+                                            "inputRowFiles_id_register_user", 
+                                            "inputRowFiles_title", 
+                                            "inputRowFiles_description", 
+                                            "inputRowFiles_url_alias", 
+                                            "inputRowFiles_meta_title", 
+                                            "inputRowFiles_meta_description", 
+                                            "inputRowFiles_keywords_tags", 
+                                            "inputRowFiles_info1", 
+                                            "inputRowFiles_info_small1", 
+                                            "inputRowFiles_number1", 
+                                            "inputRowFiles_number_small1", 
+                                            "inputRowFiles_category_type", 
+                                            "inputRowFiles_image_main", 
+                                            "inputRowFiles_file1", 
+                                            "inputRowFiles_file2", 
+                                            "inputRowFiles_activation", 
+                                            "inputRowFiles_id_restricted_access", 
+                                            "inputRowFiles_id_status", 
+                                            "inputRowFiles_notes"
+                                          ];
 
-//Campos convencionais.
-$ativacaoCategoriasImagem = 0; //0-desativado | 1-ativado
-$ativacaoCategoriasDescricao = 0; //0-desativado | 1-ativado
-$habilitarCategoriasNClassificacao = 0; //0-desativado | 1-ativado 
-$habilitarCategoriasAcessoRestrito = 0; //0-desativado | 1-ativado 
-$habilitarCategoriasIdParentEdicao = 0; //0-desativado | 1-ativado 
+//Basic resources.
+$enableFilesIdParentEdit = 1; //0 - disable | 1 - enable
+$enableFilesSortOrder = 1; //0 - disable | 1 - enable
 
-//Paginação.
-$habilitarCategoriasSistemaPaginacao = 1; //0-desativado | 1-ativado
-$habilitarCategoriasSistemaPaginacaoNumeracao = 1; //0-desativado | 1-ativado-->
-$configCategoriasSistemaPaginacaoNRegistros = 20;
+$enableFilesTitle = 1; //0 - disable | 1 - enable
+$enableFilesDescription = 1; //0 - disable | 1 - enable
+$enableFilesHTMLCode = 1; //0 - disable | 1 - enable
+$enableFilesThumbnails = 1; //0 - disable | 1 - enable //Thumbnails for video files.
 
-//Recursos disponíveis para cada categoria.
-$habilitarCategoriasFotos = 0; //0-desativado | 1-ativado 
-$habilitarCategoriasVideos = 0; //0-desativado | 1-ativado 
-$habilitarCategoriasArquivos = 0; //0-desativado | 1-ativado 
-$habilitarCategoriasZip = 0; //0-desativado | 1-ativado 
-$habilitarCategoriasSwfs = 0; //0-desativado | 1-ativado 
-
-
-//Definição de quantas e quais informações complementares as categorias terão.
-$habilitarCategoriasIc1 = 0; //0-desativado | 1-ativado 
-$configTituloCategoriasIc1 = "Descrição 01";
-$configCategoriasBoxIc1 = 2; //1 - simples | 2 - multilinha
-
-$habilitarCategoriasIc2 = 0; //0-desativado | 1-ativado 
-$configTituloCategoriasIc2 = "Descrição 02"; 
-$configCategoriasBoxIc2 = 1; //1 - simples | 2 - multilinha
-
-$habilitarCategoriasIc3 = 0; //0-desativado | 1-ativado
-$configTituloCategoriasIc3 = "Descrição 03"; 
-$configCategoriasBoxIc3 = 1; //1 - simples | 2 - multilinha
-
-$habilitarCategoriasIc4 = 0; //0-desativado | 1-ativado 
-$configTituloCategoriasIc4 = "Descrição 04"; 
-$configCategoriasBoxIc4 = 1; //1 - simples | 2 - multilinha
-
-$habilitarCategoriasIc5 = 0; //0-desativado | 1-ativado 
-$configTituloCategoriasIc5 = "Descrição 05"; 
-$configCategoriasBoxIc5 = 1; //1 - simples | 2 - multilinha
+$configFilesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
+$enableFilesKeywordsTags = 1; //0 - disable | 1 - enable
+$enableFilesMetaDescription = 1; //0 - disable | 1 - enable
+$enableFilesMetaTitle = 1; //0 - disable | 1 - enable
+$enableFilesNotes = 1; //0 - disable | 1 - enable
 
 
-//Site.
-$habilitarCategoriasSitePaginacao = 0; //0-desativado | 1-ativado
-$habilitarCategoriasSitePaginacaoNumeracao = 1; //0-desativado | 1-ativado-->
-$configCategoriasSitePaginacaoNRegistros = 20;
+//Pagination.
+$enableFilesBackendPagination = 1; //0 - disable | 1 - enable
+$enableFilesBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+$configFilesBackendPaginationNRecords = 15;
+
+
+//Optioinal fields (field titles in the language configuration file).
+//Big information fields.
+$enableFilesInfo1 = 1; //0 - disable | 1 - enable
+$configFilesInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableFilesInfo2 = 1; //0 - disable | 1 - enable
+$configFilesInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableFilesInfo3 = 1; //0 - disable | 1 - enable
+$configFilesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableFilesInfo4 = 1; //0 - disable | 1 - enable
+$configFilesInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableFilesInfo5 = 1; //0 - disable | 1 - enable
+$configFilesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+//Small information fields.
+$enableFilesInfoS1 = 1; //0 - disable | 1 - enable
+$configFilesInfoS1FieldType = 2; //1 - single line | 2 - multiline
+
+$enableFilesInfoS2 = 1; //0 - disable | 1 - enable
+$configFilesInfoS2FieldType = 1; //1 - single line | 2 - multiline
+
+$enableFilesInfoS3 = 1; //0 - disable | 1 - enable
+$configFilesInfoS3FieldType = 1; //1 - single line | 2 - multiline
+
+$enableFilesInfoS4 = 1; //0 - disable | 1 - enable
+$configFilesInfoS4FieldType = 1; //1 - single line | 2 - multiline
+
+$enableFilesInfoS5 = 1; //0 - disable | 1 - enable
+$configFilesInfoS5FieldType = 1; //1 - single line | 2 - multiline
+
+//Big number fields (up to 34 digits).
+$enableFilesNumber1 = 1; //0 - disable | 1 - enable
+$configFilesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableFilesNumber2 = 1; //0 - disable | 1 - enable
+$configFilesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableFilesNumber3 = 1; //0 - disable | 1 - enable
+$configFilesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableFilesNumber4 = 1; //0 - disable | 1 - enable
+$configFilesNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableFilesNumber5 = 1; //0 - disable | 1 - enable
+$configFilesNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+//Small number fields (up to 9 digits).
+$enableFilesNumberS1 = 1; //0 - disable | 1 - enable
+$configFilesNumberS1FieldType = 2; //1 - general number | 2 - system currency
+
+$enableFilesNumberS2 = 1; //0 - disable | 1 - enable
+$configFilesNumberS2FieldType = 1; //1 - general number | 2 - system currency
+
+$enableFilesNumberS3 = 1; //0 - disable | 1 - enable
+$configFilesNumberS3FieldType = 1; //1 - general number | 2 - system currency
+
+$enableFilesNumberS4 = 1; //0 - disable | 1 - enable
+$configFilesNumberS4FieldType = 1; //1 - general number | 2 - system currency
+
+$enableFilesNumberS5 = 1; //0 - disable | 1 - enable
+$configFilesNumberS5FieldType = 1; //1 - general number | 2 - system currency
+
+//Date fields.
+$enableFilesDate1 = 1; //0 - disable | 1 - enable
+$configFilesDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configFilesDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+$enableFilesDate2 = 1; //0 - disable | 1 - enable
+$configFilesDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configFilesDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableFilesDate3 = 1; //0 - disable | 1 - enable
+$configFilesDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configFilesDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableFilesDate4 = 1; //0 - disable | 1 - enable
+$configFilesDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configFilesDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableFilesDate5 = 1; //0 - disable | 1 - enable
+$configFilesDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configFilesDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+//File fields.
+$enableFilesFile1 = 1; //0 - disable | 1 - enable
+$configFilesFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableFilesFile2 = 1; //0 - disable | 1 - enable
+$configFilesFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableFilesFile3 = 1; //0 - disable | 1 - enable
+$configFilesFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableFilesFile4 = 1; //0 - disable | 1 - enable
+$configFilesFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableFilesFile5 = 1; //0 - disable | 1 - enable
+$configFilesFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+//Activation fields.
+$enableFilesActivation1 = 1; //0 - disable | 1 - enable
+$enableFilesActivation2 = 1; //0 - disable | 1 - enable
+$enableFilesActivation3 = 1; //0 - disable | 1 - enable
+$enableFilesActivation4 = 1; //0 - disable | 1 - enable
+$enableFilesActivation5 = 1; //0 - disable | 1 - enable
+//----------------------
+
+
+//Frontend configuration.
+$configFilesImagePlaceholder = 1; //0 - disable | 1 - enable
+
+
+$enableFilesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$enableFilesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
+$configFilesFrontendPaginationNRecords = 10;
 //**************************************************************************************
+
+
+
 ?>

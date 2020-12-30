@@ -62,7 +62,7 @@ button {
 	padding: 0px 10px 0px 10px;
 }
 */ /*causing problems with other css (bootstrap, tinyMCE)*/
-input, textarea
+input, textarea, select
 {
 	/*Ajustar tamanho, caso utilize width: 100%;.*/
 	-webkit-box-sizing: border-box;
@@ -87,6 +87,21 @@ input, textarea
 	margin-top: 20px;
 }
 
+
+.ss-backend-layout-column01 {
+	position: relative; 
+	display: block; 
+	min-width: 350px; 
+	max-width: 350px; 
+	/*background: #efefef; */
+	border-right: 1px solid #b6bcc0;
+}
+.ss-backend-layout-column02 {
+	position: relative; 
+	display: block; 
+	width: 100%;
+	overflow: hidden;
+}
 
 .ss-backend-layout-div-records-empty {
 
@@ -226,6 +241,14 @@ input, textarea
 .ss-backend-list-item-v01 {
 	padding-top: 2px; 
 	padding-bottom: 2px;
+}
+
+
+/*Effects.*/
+.ss-backend-box-sizing {
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
 }
 /* ************************************************************************************** */
 
@@ -675,6 +698,9 @@ input, textarea
     
     border: 1px solid #6c7880;
 }
+.ss-backend-field-text-area-html-column {
+    width: 100%;
+}
 
 .ss-backend-field-text-area-url {
     width: 400px;
@@ -771,7 +797,8 @@ input, textarea
 /* ************************************************************************************** */
 .ss-backend-images-listing {
 	position: relative;
-    display: block;
+    /*display: block;*/
+    display: inline-block;
 
     width: 100px;
 }

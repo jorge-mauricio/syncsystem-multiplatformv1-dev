@@ -264,7 +264,7 @@ module.exports = class ObjectCategoriesDetails
     //**************************************************************************************
 
 
-    //Get categories listing according to search parameters.
+    //Get category details according to search parameters.
     //**************************************************************************************
     //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
     /**
@@ -551,13 +551,13 @@ module.exports = class ObjectCategoriesDetails
             //Define values.
             //if(this.resultsCategoryDetails[0])
             //{
-                //DEV: Create logic to chech if record exist.
+                //DEV: Create logic to check if record exist.
             //}
             this.tblCategoriesID = this.resultsCategoryDetails[0].id;
             this.tblCategoriesIdParent = this.resultsCategoryDetails[0].id_parent;
 
             this.tblCategoriesSortOrder = this.resultsCategoryDetails[0].sort_order;
-            this.tblCategoriesSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblCategoriesSortOrder, gSystemConfig.configSystemCurrency, 3);;
+            this.tblCategoriesSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblCategoriesSortOrder, gSystemConfig.configSystemCurrency, 3);
             
             this.tblCategoriesCategoryType = this.resultsCategoryDetails[0].category_type;
 

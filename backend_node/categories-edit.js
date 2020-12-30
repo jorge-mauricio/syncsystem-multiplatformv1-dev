@@ -613,7 +613,7 @@ module.exports = class CategoriesEdit
                             <caption class="ss-backend-table-header-text01 ss-backend-table-title">
                                 ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesTitleTableEdit") } 
                             </caption>
-                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01 ">
+                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
                                 
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
@@ -626,10 +626,14 @@ module.exports = class CategoriesEdit
                                     <td>
                                         ${ /*TODO: Convert to ajax.*/'' }
                                         <select id="categories_id_parent" name="id_parent" class="ss-backend-field-dropdown01">
-                                            <option value="0"${ ocdRecord.tblCategoriesIdParent == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectRoot") }</option>
+                                            <option value="0"${ ocdRecord.tblCategoriesIdParent == 0 ? ` selected` : `` }>
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectRoot") }
+                                            </option>
                                             ${ objCategoriesIdParent.map((categoriesIdParentRow)=>{
                                                 return `
-                                                    <option value="${ categoriesIdParentRow.id }"${ ocdRecord.tblCategoriesIdParent == categoriesIdParentRow.id ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesIdParentRow.title, "db") }</option>
+                                                    <option value="${ categoriesIdParentRow.id }"${ ocdRecord.tblCategoriesIdParent == categoriesIdParentRow.id ? ` selected` : `` }>
+                                                        ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesIdParentRow.title, "db") }
+                                                    </option>
                                                 `
                                             }) }
                                         </select>
@@ -774,6 +778,9 @@ module.exports = class CategoriesEdit
                                     </td>
                                     <td>
                                         <textarea id="categories_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01">${ ocdRecord.tblCategoriesKeywordsTags }</textarea>
+                                        <div>
+                                            (${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywordsInstruction01") })
+                                        </div>
                                     </td>
                                 </tr>
                                 ` : ``
@@ -3456,7 +3463,7 @@ module.exports = class CategoriesEdit
                                         ${ /*ocdRecord.tblCategoriesImageMain*/ '' }
                                         ${ ocdRecord.tblCategoriesImageMain != "" ? 
                                         `
-                                        <img id="imgCategoriesImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesTitle, "db") }" class="ss-backend-images-edit" />
+                                        <img id="imgCategoriesImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain }" alt="${ ocdRecord.tblCategoriesTitle }" class="ss-backend-images-edit" />
                                         <div id="divCategoriesImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
@@ -3516,7 +3523,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile1Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile1, "db") }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1 }" alt="${ ocdRecord.tblCategoriesFile1 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3605,7 +3612,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile2Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile2, "db") }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2 }" alt="${ ocdRecord.tblCategoriesFile2 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3694,7 +3701,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile3Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile3, "db") }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3 }" alt="${ ocdRecord.tblCategoriesFile3 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3783,7 +3790,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile4Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile4, "db") }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4 }" alt="${ ocdRecord.tblCategoriesFile4 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3872,7 +3879,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile5Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5 }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(ocdRecord.tblCategoriesFile5, "db") }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5 }" alt="${ ocdRecord.tblCategoriesFile5 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 

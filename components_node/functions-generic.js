@@ -779,6 +779,15 @@ module.exports = class FunctionsGeneric
             //----------------------
 
 
+            //db_sanitize
+            //----------------------
+            if(specialInstructions == "db_sanitize")
+            {
+                strReturn = strReturn;
+            }
+            //----------------------
+
+
             //env (.env - environment variables)
             //----------------------
             if(specialInstructions == "env")
@@ -1380,6 +1389,81 @@ module.exports = class FunctionsGeneric
         //----------------------
 
 
+        //Files.
+        //----------------------
+        //if(strTable == "categories")
+        if(strTable == gSystemConfig.configSystemDBTableFiles)
+        {
+            if(buildType == "all")
+            {
+                arrTableFieldsQueryBuild = ["id", "id_parent"];
+                gSystemConfig.enableFilesSortOrder == 1 ? arrTableFieldsQueryBuild.push("sort_order") : '';
+                arrTableFieldsQueryBuild.push("file_type", "file_config", "date_creation", "date_timezone", "date_edit");
+                gSystemConfig.enableFilesTitle == 1 ? arrTableFieldsQueryBuild.push("title") : '';
+                arrTableFieldsQueryBuild.push("caption");
+                gSystemConfig.enableFilesDescription == 1 ? arrTableFieldsQueryBuild.push("description") : '';
+                gSystemConfig.enableFilesHTMLCode == 1 ? arrTableFieldsQueryBuild.push("html_code") : '';
+                arrTableFieldsQueryBuild.push("url_alias", "keywords_tags", "meta_description", "meta_title", "meta_info");
+                gSystemConfig.enableFilesInfo1 == 1 ? arrTableFieldsQueryBuild.push("info1") : '';
+                gSystemConfig.enableFilesInfo2 == 1 ? arrTableFieldsQueryBuild.push("info2") : '';
+                gSystemConfig.enableFilesInfo3 == 1 ? arrTableFieldsQueryBuild.push("info3") : '';
+                gSystemConfig.enableFilesInfo4 == 1 ? arrTableFieldsQueryBuild.push("info4") : '';
+                gSystemConfig.enableFilesInfo5 == 1 ? arrTableFieldsQueryBuild.push("info5") : '';
+                gSystemConfig.enableFilesInfoS1 == 1 ? arrTableFieldsQueryBuild.push("info_small1") : '';
+                gSystemConfig.enableFilesInfoS2 == 1 ? arrTableFieldsQueryBuild.push("info_small2") : '';
+                gSystemConfig.enableFilesInfoS3 == 1 ? arrTableFieldsQueryBuild.push("info_small3") : '';
+                gSystemConfig.enableFilesInfoS4 == 1 ? arrTableFieldsQueryBuild.push("info_small4") : '';
+                gSystemConfig.enableFilesInfoS5 == 1 ? arrTableFieldsQueryBuild.push("info_small5") : '';
+                gSystemConfig.enableFilesNumber1 == 1 ? arrTableFieldsQueryBuild.push("number1") : '';
+                gSystemConfig.enableFilesNumber2 == 1 ? arrTableFieldsQueryBuild.push("number2") : '';
+                gSystemConfig.enableFilesNumber3 == 1 ? arrTableFieldsQueryBuild.push("number3") : '';
+                gSystemConfig.enableFilesNumber4 == 1 ? arrTableFieldsQueryBuild.push("number4") : '';
+                gSystemConfig.enableFilesNumber5 == 1 ? arrTableFieldsQueryBuild.push("number5") : '';
+                gSystemConfig.enableFilesNumberS1 == 1 ? arrTableFieldsQueryBuild.push("number_small1") : '';
+                gSystemConfig.enableFilesNumberS2 == 1 ? arrTableFieldsQueryBuild.push("number_small2") : '';
+                gSystemConfig.enableFilesNumberS3 == 1 ? arrTableFieldsQueryBuild.push("number_small3") : '';
+                gSystemConfig.enableFilesNumberS4 == 1 ? arrTableFieldsQueryBuild.push("number_small4") : '';
+                gSystemConfig.enableFilesNumberS5 == 1 ? arrTableFieldsQueryBuild.push("number_small5") : '';
+                gSystemConfig.enableFilesDate1 == 1 ? arrTableFieldsQueryBuild.push("date1") : '';
+                gSystemConfig.enableFilesDate2 == 1 ? arrTableFieldsQueryBuild.push("date2") : '';
+                gSystemConfig.enableFilesDate3 == 1 ? arrTableFieldsQueryBuild.push("date3") : '';
+                gSystemConfig.enableFilesDate4 == 1 ? arrTableFieldsQueryBuild.push("date4") : '';
+                gSystemConfig.enableFilesDate5 == 1 ? arrTableFieldsQueryBuild.push("date5") : '';
+                
+                arrTableFieldsQueryBuild.push("file");
+                gSystemConfig.enableFilesThumbnails == 1 ? arrTableFieldsQueryBuild.push("file_thumbnail") : '';
+                arrTableFieldsQueryBuild.push("file_size", "file_duration", "file_dimensions", "file_original_name");
+
+                gSystemConfig.enableFilesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+                gSystemConfig.enableFilesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+                gSystemConfig.enableFilesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+                gSystemConfig.enableFilesFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+                gSystemConfig.enableFilesFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+                arrTableFieldsQueryBuild.push("activation");
+                gSystemConfig.enableFilesActivation1 == 1 ? arrTableFieldsQueryBuild.push("activation1") : '';
+                gSystemConfig.enableFilesActivation2 == 1 ? arrTableFieldsQueryBuild.push("activation2") : '';
+                gSystemConfig.enableFilesActivation3 == 1 ? arrTableFieldsQueryBuild.push("activation3") : '';
+                gSystemConfig.enableFilesActivation4 == 1 ? arrTableFieldsQueryBuild.push("activation4") : '';
+                gSystemConfig.enableFilesActivation5 == 1 ? arrTableFieldsQueryBuild.push("activation5") : '';
+                gSystemConfig.enableFilesNotes == 1 ? arrTableFieldsQueryBuild.push("notes") : '';
+            }
+
+
+            //File fields.
+            if(buildType == "files")
+            {
+                arrTableFieldsQueryBuild.push("file");
+                gSystemConfig.enableFilesThumbnails == 1 ? arrTableFieldsQueryBuild.push("file_thumbnail") : '';
+                gSystemConfig.enableFilesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+                gSystemConfig.enableFilesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+                gSystemConfig.enableFilesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+                gSystemConfig.enableFilesFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+                gSystemConfig.enableFilesFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+            }
+        }
+        //----------------------
+
+
         //Filters generic.
         //----------------------
         //if(strTable == "filters_generic")
@@ -1425,6 +1509,7 @@ module.exports = class FunctionsGeneric
         //Usage.
         //----------------------
         //FunctionsGeneric.tableFieldsQueryBuild01("categories", "all", "string");
+        //FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFiles, "all", "string");
         //----------------------
     }
     //**************************************************************************************

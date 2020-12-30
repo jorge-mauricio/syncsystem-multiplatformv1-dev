@@ -75,6 +75,7 @@ const enableSystemDBSizeOtimize = 0; //0-disable (all fields created) | 1-enable
 //Table names.
 gSystemConfig.configSystemDBTableCounter = "counter";
 gSystemConfig.configSystemDBTableCategories = "categories";
+gSystemConfig.configSystemDBTableFiles = "files";
 gSystemConfig.configSystemDBTableFiltersGeneric = "filters_generic";
 gSystemConfig.configSystemDBTableFiltersGenericBinding = "filters_generic_binding";
 //----------------------
@@ -126,7 +127,7 @@ gSystemConfig.configDirectoryFilesLayoutSD = "files-layout";
 gSystemConfig.configDirectoryStylesSD = "css";
 gSystemConfig.configDirectoryJSSD = "js";
 gSystemConfig.configDirectoryDistSD = "dist";
-gSystemConfig.configDirectoryBuildReactSD = "build";
+gSystemConfig.configDirectoryBuildReactSD = "build"; //TODO: Maybe change to frontend_react
 gSystemConfig.configDirectoryBuildReactClientSD = "public";
 //----------------------
 
@@ -138,6 +139,7 @@ gSystemConfig.configRouteAPIActionEdit = "edit";
 gSystemConfig.configRouteAPIDetails = "details";
 gSystemConfig.configRouteAPIRecords = "records";
 gSystemConfig.configRouteAPICategories = "categories";
+gSystemConfig.configRouteAPIFiles = "files";
 
 
 gSystemConfig.configRouteBackend = "system";
@@ -145,6 +147,7 @@ gSystemConfig.configRouteBackendActionEdit = "edit";
 gSystemConfig.configRouteBackendDetails = "details";
 gSystemConfig.configRouteBackendRecords = "records";
 gSystemConfig.configRouteBackendCategories = "categories";
+gSystemConfig.configRouteBackendFiles = "files";
 
 gSystemConfig.configRouteFrontend = "pt";
 gSystemConfig.configRouteFrontendMobile = "pt-mobile";
@@ -154,6 +157,7 @@ gSystemConfig.configRouteFrontendDetails = "details";
 gSystemConfig.configRouteFrontendRecords = "records";
 
 gSystemConfig.configRouteFrontendCategories = "categories";
+gSystemConfig.configRouteFrontendFiles = "files";
 //----------------------
 
 
@@ -174,8 +178,9 @@ gSystemConfig.configCryptSalt = "syncsystem"; //generate a salt data
 
 //Image configuration.
 //----------------------
-gSystemConfig.configUploadComponent = 1 //1 - formidable
-gSystemConfig.configImageComponent = 1 //1 - sharp
+gSystemConfig.configUploadType = 1; //Sabe Files Locally | Amazon (TODO)
+gSystemConfig.configUploadComponent = 1; //1 - formidable
+gSystemConfig.configImageComponent = 1; //1 - sharp
 gSystemConfig.configImageQuality = 100; //image quality percentage on resizing
 gSystemConfig.configImageFormats = ".bmp, .gif, .jpg, .jpeg, .png"; //formats allowed for image resizing
 
@@ -186,6 +191,7 @@ gSystemConfig.enableDefaultImageSize  = 1; //0 - disable (image sizes diferent f
 //prefix;w;h
 gSystemConfig.configArrDefaultImageSize = ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
 gSystemConfig.configArrCategoriesImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
+gSystemConfig.configArrFilesImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
 //----------------------
 
 
@@ -484,13 +490,185 @@ gSystemConfig.configCategoriesImagePlaceholder = 1; //0 - disable | 1 - enable
 
 gSystemConfig.enableCategoriesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
 gSystemConfig.enableCategoriesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
-gSystemConfig.configCategoriesFrontendPaginationNRecords = 2;
+gSystemConfig.configCategoriesFrontendPaginationNRecords = 10;
+//**************************************************************************************
+
+
+//Files - configuration and resources.
+//**************************************************************************************
+gSystemConfig.configFilesSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | caption
+gSystemConfig.enableFilesSortCustom = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInputOrder = ["inputRowFiles_id_parent", 
+                                        "inputRowFiles_sort_order", 
+                                        "inputRowFiles_date1", 
+                                        "inputRowFiles_file_config", 
+                                        "inputRowFiles_caption", 
+                                        "inputRowFiles_description", 
+                                        "inputRowFiles_url_alias", 
+                                        "inputRowFiles_meta_title", 
+                                        "inputRowFiles_meta_description", 
+                                        "inputRowFiles_keywords_tags", 
+                                        "inputRowFiles_info1", 
+                                        "inputRowFiles_info_small1", 
+                                        "inputRowFiles_number1", 
+                                        "inputRowFiles_number_small1", 
+                                        "inputRowFiles_category_type", 
+                                        "inputRowFiles_file", 
+                                        "inputRowFiles_file1", 
+                                        "inputRowFiles_file2", 
+                                        "inputRowFiles_activation", 
+                                        "inputRowFiles_notes"
+                                      ];
+
+//Basic resources.
+gSystemConfig.enableFilesIdParentEdit = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesSortOrder = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableFilesTitle = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesDescription = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesHTMLCode = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesThumbnails = 1; //0 - disable | 1 - enable //Thumbnails for video files.
+
+gSystemConfig.configFilesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
+gSystemConfig.enableFilesKeywordsTags = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesMetaDescription = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesMetaTitle = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesNotes = 1; //0 - disable | 1 - enable
+
+
+//Pagination.
+gSystemConfig.enableFilesBackendPagination = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesBackendPaginationNRecords = 15;
+
+
+//Optioinal fields (field titles in the language configuration file).
+//Big information fields.
+gSystemConfig.enableFilesInfo1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfo1FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableFilesInfo2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfo2FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableFilesInfo3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableFilesInfo4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableFilesInfo5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+//Small information fields.
+gSystemConfig.enableFilesInfoS1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfoS1FieldType = 2; //1 - single line | 2 - multiline
+
+gSystemConfig.enableFilesInfoS2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfoS2FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableFilesInfoS3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfoS3FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableFilesInfoS4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfoS4FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableFilesInfoS5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesInfoS5FieldType = 1; //1 - single line | 2 - multiline
+
+//Big number fields (up to 34 digits).
+gSystemConfig.enableFilesNumber1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableFilesNumber2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableFilesNumber3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableFilesNumber4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableFilesNumber5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+//Small number fields (up to 9 digits).
+gSystemConfig.enableFilesNumberS1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumberS1FieldType = 2; //1 - general number | 2 - system currency
+
+gSystemConfig.enableFilesNumberS2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumberS2FieldType = 1; //1 - general number | 2 - system currency
+
+gSystemConfig.enableFilesNumberS3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumberS3FieldType = 1; //1 - general number | 2 - system currency
+
+gSystemConfig.enableFilesNumberS4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumberS4FieldType = 1; //1 - general number | 2 - system currency
+
+gSystemConfig.enableFilesNumberS5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesNumberS5FieldType = 1; //1 - general number | 2 - system currency
+
+//Date fields.
+gSystemConfig.enableFilesDate1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configFilesDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+gSystemConfig.enableFilesDate2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configFilesDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableFilesDate3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configFilesDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableFilesDate4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configFilesDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableFilesDate5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configFilesDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+//File fields.
+gSystemConfig.enableFilesFile1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableFilesFile2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableFilesFile3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableFilesFile4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableFilesFile5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+//Activation fields.
+gSystemConfig.enableFilesActivation1 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesActivation2 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesActivation3 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesActivation4 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableFilesActivation5 = 1; //0 - disable | 1 - enable
+//----------------------
+
+
+//Frontend configuration.
+gSystemConfig.configFilesImagePlaceholder = 1; //0 - disable | 1 - enable
+
+
+gSystemConfig.enableFilesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+gSystemConfig.enableFilesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
+gSystemConfig.configFilesFrontendPaginationNRecords = 10;
 //**************************************************************************************
 
 
 //Search.
 //**************************************************************************************
 //**************************************************************************************
+
+
+
 
 
 
