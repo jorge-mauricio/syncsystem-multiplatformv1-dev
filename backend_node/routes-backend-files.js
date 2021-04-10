@@ -1,6 +1,5 @@
 "use strict";
 
-
 //Import Node Modules.
 //----------------------
 const express = require("express");
@@ -16,7 +15,8 @@ const util = require("util");
 
 //Backend - Files - listing - GET.
 //**************************************************************************************
-router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/:idParent?", (req, res)=>{ //working, with the async block
+//router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/:idParent?", (req, res)=>{ //working, with the async block
+router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/:idParent?", [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     //app.get("/system/categories", async (req, res)=>{ //working
     //Import objects.
     //----------------------
@@ -39,8 +39,10 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     let flBackend;
     let idParent = "";
     let fileType = "";
+
     let pageNumber = "";
-    let masterPageSelect = "layout-backend-blank";
+    let masterPageSelect = "layout-backend-main";
+    let cookiesData;
 
     let messageSuccess = "";
     let messageError = "";
@@ -68,6 +70,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     {
         masterPageSelect = req.query.masterPageSelect;
     }
+
+    cookiesData = req.cookies;
 
     if(req.query.messageSuccess)
     {
@@ -98,8 +102,10 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             flBackend = new FilesListing({
                 idParent: idParent,
                 fileType: fileType,
+
                 pageNumber: pageNumber,
                 masterPageSelect: masterPageSelect,
+                cookiesData: cookiesData,
 
                 messageSuccess: messageSuccess,
                 messageError: messageError,
@@ -119,7 +125,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             //res.render("layout-backend-main", {
             res.render(masterPageSelect, {
                 templateData: flBackend,
-                additianalData: {}
+                additionalData: {cookiesData: cookiesData}
             });
 
         }catch(asyncError){
@@ -146,7 +152,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
 //Backend - Files - details - GET.
 //**************************************************************************************
-router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendDetails + "/:idTbFiles?", (req, res)=>{ //working, with the async block
+//router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendDetails + "/:idTbFiles?", (req, res)=>{ //working, with the async block
+router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendDetails + "/:idTbFiles?", [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     
     //Import objects.
     //----------------------
@@ -159,8 +166,10 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     //----------------------
     let fdBackend;
     let idTbFiles = "";
+
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
+    let cookiesData;
 
     let messageSuccess = "";
     let messageError = "";
@@ -183,6 +192,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     {
         masterPageSelect = req.query.masterPageSelect;
     }
+
+    cookiesData = req.cookies;
 
     if(req.query.messageSuccess)
     {
@@ -211,7 +222,9 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             fdBackend = new FilesDetails({
                 idTbFiles: idTbFiles,
                 pageNumber: pageNumber,
+
                 masterPageSelect: masterPageSelect,
+                cookiesData: cookiesData,
 
                 messageSuccess: messageSuccess,
                 messageError: messageError,
@@ -226,7 +239,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             //Render data with template.
             res.render(masterPageSelect, {
                 templateData: fdBackend,
-                additianalData: {}
+                additionalData: {cookiesData: cookiesData}
             });
 
         }catch(asyncError){
@@ -235,7 +248,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 console.error(asyncError);
             }
         }finally{
-
+            next();
         }
     })();
     //----------------------
@@ -262,8 +275,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
 //Backend - Files - POST (insert record).
 //**************************************************************************************
-router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles, (req, res)=>
-{
+//router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles, (req, res)=>{
+router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles, [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{
     //Variables
     //----------------------
     let tblFilesID = "";
@@ -313,12 +326,12 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
     let tblFilesDate5 = "", tblFilesDate5Hour = "", tblFilesDate5Minute = "", tblFilesDate5Seconds = "", tblFilesDate5Day = "", tblFilesDate5Month = "", tblFilesDate5Year = "";
 
     let tblFilesFile = "";
-    let tblFilesFileThumbnail = "";
     let tblFilesFileSize = "";
     let tblFilesFileDuration = "";
     let tblFilesFileDimensions = "";
     let tblFilesFileOriginalName = "";
-    
+    let tblFilesFileThumbnail = "";
+
     let tblFilesImageFile1 = "";
     let tblFilesImageFile2 = "";
     let tblFilesImageFile3 = "";
@@ -613,10 +626,10 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                                                                     gSystemConfig.configDirectoryFilesUpload, 
                                                                     "")*/
                             SyncSystemNS.FunctionsFiles.filesUploadMultiple(tblFilesID, 
-                                                                    this.openedFiles, 
-                                                                    gSystemConfig.configDirectoryFilesUpload, 
-                                                                    "", 
-                                                                    formfileFieldsReference)
+                                                                            this.openedFiles, 
+                                                                            gSystemConfig.configDirectoryFilesUpload, 
+                                                                            "", 
+                                                                            formfileFieldsReference)
                             .then(function(results){
                                 if(results === undefined)
                                 {
@@ -672,8 +685,11 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                             //Resize images.
                             if(tblFilesFile !== "")
                             {
-                                //resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrDefaultImageSize, gSystemConfig.configDirectoryFiles, tblFilesImageMain);
                                 resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrFilesImageSize, gSystemConfig.configDirectoryFiles, tblFilesFile);
+                            }
+                            if(tblFilesFileThumbnail !== "")
+                            {
+                                resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrFilesImageSize, gSystemConfig.configDirectoryFiles, tblFilesFileThumbnail);
                             }
                             if(tblFilesImageFile1 !== "")
                             {
@@ -942,11 +958,11 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                     _tblFilesDate4: tblFilesDate4,
                     _tblFilesDate5: tblFilesDate5,
                     _tblFilesFile: tblFilesFile,
-                    _tblFilesFileThumbnail: tblFilesFileThumbnail,
                     _tblFilesFileSize: tblFilesFileSize,
                     _tblFilesFileDuration: tblFilesFileDuration,
                     _tblFilesFileDimensions: tblFilesFileDimensions,
                     _tblFilesFileOriginalName: tblFilesFileOriginalName,
+                    _tblFilesFileThumbnail: tblFilesFileThumbnail,
                     _tblFilesFile1: tblFilesImageFile1,
                     _tblFilesFile2: tblFilesImageFile2,
                     _tblFilesFile3: tblFilesImageFile3,
@@ -1028,7 +1044,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
 
 //Backend - Files - edit - GET.
 //**************************************************************************************
-router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbFiles?", (req, res)=>{ //working, with the async block
+//router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbFiles?", (req, res)=>{ //working, with the async block
+router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbFiles?", [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     
     //Import objects.
     //----------------------
@@ -1044,6 +1061,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
+    let cookiesData;
 
     let messageSuccess = "";
     let messageError = "";
@@ -1071,6 +1089,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
         masterPageSelect = req.query.masterPageSelect;
     }
 
+    cookiesData = req.cookies;
+    
     if(req.query.messageSuccess)
     {
         messageSuccess = req.query.messageSuccess;
@@ -1101,6 +1121,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
                 pageNumber: pageNumber,
                 masterPageSelect: masterPageSelect,
+                cookiesData: cookiesData,
 
                 messageSuccess: messageSuccess,
                 messageError: messageError,
@@ -1116,7 +1137,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             //Render data with template.
             res.render(masterPageSelect, {
                 templateData: feBackend,
-                additianalData: {}
+                additionalData: {cookiesData: cookiesData}
             });
 
         }catch(asyncError){
@@ -1125,7 +1146,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 console.error(asyncError);
             }
         }finally{
-
+            next();
         }
     })();
     //----------------------
@@ -1150,10 +1171,10 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 //**************************************************************************************
 
 
-
 //Backend - Files - PUT (edit).
 //**************************************************************************************
-router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendActionEdit, (req, res)=>{ //working, with the async block
+//router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendActionEdit, (req, res)=>{ //working, with the async block
+router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendActionEdit, [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     //Variables
     //----------------------
     let tblFilesID = "";
@@ -1385,13 +1406,16 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                         //if(gSystemConfig.enableCategoriesImageMain == 1){
                             if(filesPost.hasOwnProperty("file") === true)
                             {
-                                formfileFieldsReference.file = {};
-                                formfileFieldsReference.file.originalFileName = filesPost.file.name;
-                                formfileFieldsReference.file.fileSize = filesPost.file.size;
-                                formfileFieldsReference.file.temporaryFilePath = filesPost.file.path;
-                                formfileFieldsReference.file.fileNamePrefix = "";
-                                formfileFieldsReference.file.fileNameSufix = "";
-                                formfileFieldsReference.file.fileDirectoryUpload = "";
+                                //if(filesPost.file.name != "")
+                                //{
+                                    formfileFieldsReference.file = {};
+                                    formfileFieldsReference.file.originalFileName = filesPost.file.name;
+                                    formfileFieldsReference.file.fileSize = filesPost.file.size;
+                                    formfileFieldsReference.file.temporaryFilePath = filesPost.file.path;
+                                    formfileFieldsReference.file.fileNamePrefix = "";
+                                    formfileFieldsReference.file.fileNameSufix = "";
+                                    formfileFieldsReference.file.fileDirectoryUpload = "";
+                                //}
                             }
                         //}
 
@@ -1525,7 +1549,13 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                             }
                         })*/;
 
-                       
+
+                        //Debug.
+                        //console.log("filesPost=", filesPost);
+                        //console.log("formfileFieldsReference=", formfileFieldsReference);
+                        //console.log("resultsFunctionsFiles=", resultsFunctionsFiles);
+
+                        
                         if(resultsFunctionsFiles.returnStatus == true)
                         {
                             //Define value for file name variable.
@@ -1547,6 +1577,10 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                             {
                                 //resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrDefaultImageSize, gSystemConfig.configDirectoryFiles, tblFilesImageMain);
                                 resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrFilesImageSize, gSystemConfig.configDirectoryFiles, tblFilesFile);
+                            }
+                            if(tblFilesFileThumbnail !== "")
+                            {
+                                resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrFilesImageSize, gSystemConfig.configDirectoryFiles, tblFilesFileThumbnail);
                             }
                             if(tblFilesImageFile1 !== "")
                             {
@@ -1768,7 +1802,7 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             //----------------------
 
 
-            //Edit record.  
+            //Update record.  
             //----------------------
             let fileUpdateResult = await new Promise((resolve, reject)=>{
                 SyncSystemNS.FunctionsDBUpdate.fileUpdate_async({
@@ -1815,11 +1849,11 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                     _tblFilesDate4: tblFilesDate4,
                     _tblFilesDate5: tblFilesDate5,
                     _tblFilesFile: tblFilesFile,
-                    _tblFilesFileThumbnail: tblFilesFileThumbnail,
                     _tblFilesFileSize: tblFilesFileSize,
                     _tblFilesFileDuration: tblFilesFileDuration,
                     _tblFilesFileDimensions: tblFilesFileDimensions,
                     _tblFilesFileOriginalName: tblFilesFileOriginalName,
+                    _tblFilesFileThumbnail: tblFilesFileThumbnail,
                     _tblFilesFile1: tblFilesImageFile1,
                     _tblFilesFile2: tblFilesImageFile2,
                     _tblFilesFile3: tblFilesImageFile3,

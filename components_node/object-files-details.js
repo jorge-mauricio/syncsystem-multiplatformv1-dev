@@ -49,7 +49,9 @@ module.exports = class ObjectFilesDetails
         this.tblFilesSortOrder = 0;
         this.tblFilesSortOrder_print = 0;
         this.tblFilesFileType = 0;
+        this.tblFilesFileType_print = "";
         this.tblFilesFileConfig = 0;
+        this.tblFilesFileConfig_print = "";
 
         this.tblFilesDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
         this.tblFilesDateTimezone = "";
@@ -146,7 +148,9 @@ module.exports = class ObjectFilesDetails
         this.tblFilesFile = "";
         this.tblFilesFileSize = "";
         this.tblFilesFileDuration = "";
+        this.tblFilesFileDuration_print = "";
         this.tblFilesFileDimensions = "";
+        this.tblFilesFileDimensions_print = "";
         this.tblFilesFileOriginalName = "";
         this.tblFilesFileThumbnail = "";
 
@@ -181,16 +185,15 @@ module.exports = class ObjectFilesDetails
     async build()
     {
         //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
-        return new ObjectFileDetails();
+        return new ObjectFilesDetails();
     }
     //**************************************************************************************
 
 
     //Get file details according to search parameters.
     //**************************************************************************************
-    //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
     /**
-     * Get categories listing according to search parameters.
+     * Get file listing according to search parameters.
      * @param {*} terminal 0 - backend | 1 - frontend
      * @param {*} returnType 1 - array | 3 - Json Object | 10 - html
      * @returns {json}
@@ -225,6 +228,20 @@ module.exports = class ObjectFilesDetails
             
             this.tblFilesFileType = this.resultsFileDetails[0].file_type;
             this.tblFilesFileConfig = this.resultsFileDetails[0].file_config;
+            switch(this.tblFilesFileConfig)
+            {
+                case 1:
+                    this.tblFilesFileConfig_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + "ItemDisplay1");
+                    break;
+                case 2:
+                    this.tblFilesFileConfig_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + "ItemDisplay2");
+                    break;
+                case 3:
+                    this.tblFilesFileConfig_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + "ItemDisplay3");
+                    break;
+                case 4:
+                    this.tblFilesFileConfig_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + "ItemDisplay4");
+            }
 
             this.tblFilesDateCreation = this.resultsFileDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
             this.tblFilesDateTimezone = this.resultsFileDetails[0].date_timezone;

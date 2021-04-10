@@ -1088,7 +1088,7 @@ module.exports = class FunctionsDB
     objSpecialParameters = {returnType: 3})
     {
         //arrSearchParameters: ["fieldNameSearch1;fieldValueSearch1;fieldTypeSearch1", "fieldNameSearch2;fieldValueSearch2;fieldTypeSearch2", "fieldNameSearch3;fieldValueSearch3;fieldTypeSearch3"]
-            //typeFieldSearch1: s (string) | i (integer) | d (date) | dif (initial date and final date) | ids (id IN)
+            //typeFieldSearch1: s (string) | !s (string - not equal) | i (integer) | !i (integer - not equal) | oi (integer - or) | d (date) | dif (initial date and final date) | ids (id IN)
         //strReturnFields: field names, separated by commas. Ex: id, id_parent
         //searchType: 1 - all results | 2 - first result | 3 - count records
         //objSpecialParameters {returnType: 3, pageNumber: 2, pagingNRecords: 20}
@@ -1158,11 +1158,42 @@ module.exports = class FunctionsDB
                 strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, "db_sanitize") + " = ?";
                 strSQLGenericTableSelectParams.push(searchParametersFieldValue);
             }
-
+            //Integer - not equal.
+            if(searchParametersFieldType == "!i")
+            {
+                strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, "db_sanitize") + " <> ?";
+                strSQLGenericTableSelectParams.push(searchParametersFieldValue);
+            }
+            //Integer - or.
+            if(searchParametersFieldType == "oi")
+            {
+                if(strOperator != "WHERE")
+                {
+                    strOperator = "OR"
+                }
+                strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, "db_sanitize") + " <> ?";
+                strSQLGenericTableSelectParams.push(searchParametersFieldValue);
+            }
 
             //String.
             if(searchParametersFieldType == "s")
             {
+                strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, "db_sanitize") + " = ?";
+                strSQLGenericTableSelectParams.push(searchParametersFieldValue);
+            }
+            //String - not equal.
+            if(searchParametersFieldType == "!s")
+            {
+                strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, "db_sanitize") + " <> ?";
+                strSQLGenericTableSelectParams.push(searchParametersFieldValue);
+            }
+            //String - or.
+            if(searchParametersFieldType == "os")
+            {
+                if(strOperator != "WHERE")
+                {
+                    strOperator = "OR"
+                }
                 strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, "db_sanitize") + " = ?";
                 strSQLGenericTableSelectParams.push(searchParametersFieldValue);
             }
@@ -1218,7 +1249,6 @@ module.exports = class FunctionsDB
             console.log("genericTableGet02.limitEnd = ", limitEnd);
             */
         }
-
 
 
         //Debug.
@@ -1367,8 +1397,10 @@ module.exports = class FunctionsDB
      * @param {integer} idRecord 
      * @returns {object}
      */
-    static async tableFindGet(idRecord, _returnType = 3)
+    static async tableFindGet(idRecord, objSpecialParameters = null)
     {
+        //objSpecialParameters = {_returnType = 3, activation: 1}
+
         //Variables.
         //----------------------
         let objReturn = {tableName: "", tableData: null, returnStatus: false}; //{tableName: "string", tableData: null, returnStatus: false}
@@ -1382,13 +1414,14 @@ module.exports = class FunctionsDB
             //Check categories table.
             if(objReturn.returnStatus === false)
             {
+                //"id, id_parent, title",
                 objReturn.tableData = await this.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
                                                                     ["id;" + idRecord + ";i"], 
                                                                     "", 
                                                                     "1", 
-                                                                    "id, id_parent, title", 
+                                                                    FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableCategories, "all", "string"),
                                                                     1, 
-                                                                    {returnType: _returnType});
+                                                                    {returnType: 3});
 
                 if(objReturn.tableData.length)
                 {
@@ -1397,6 +1430,65 @@ module.exports = class FunctionsDB
                 }
             }
 
+
+            //Check publications table.
+            if(objReturn.returnStatus === false)
+            {
+                //"id, id_parent, title",
+                objReturn.tableData = await this.genericTableGet02(gSystemConfig.configSystemDBTablePublications, 
+                                                                    ["id;" + idRecord + ";i"], 
+                                                                    "", 
+                                                                    "1", 
+                                                                    FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTablePublications, "all", "string"),
+                                                                    1, 
+                                                                    {returnType: 3});
+
+                if(objReturn.tableData.length)
+                {
+                    objReturn.tableName = gSystemConfig.configSystemDBTablePublications;
+                    objReturn.returnStatus = true;
+                }
+            }
+
+
+            //Check forms table.
+            if(objReturn.returnStatus === false)
+            {
+                //"id, id_parent, title",
+                objReturn.tableData = await this.genericTableGet02(gSystemConfig.configSystemDBTableForms, 
+                                                                    ["id;" + idRecord + ";i"], 
+                                                                    "", 
+                                                                    "1", 
+                                                                    FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableForms, "all", "string"),
+                                                                    1, 
+                                                                    {returnType: 3});
+
+                if(objReturn.tableData.length)
+                {
+                    objReturn.tableName = gSystemConfig.configSystemDBTableForms;
+                    objReturn.returnStatus = true;
+                }
+            }
+
+
+            //Check forms fields table.
+            if(objReturn.returnStatus === false)
+            {
+                //"id, id_parent, title",
+                objReturn.tableData = await this.genericTableGet02(gSystemConfig.configSystemDBTableFormsFields, 
+                                                                    ["id;" + idRecord + ";i"], 
+                                                                    "", 
+                                                                    "1", 
+                                                                    FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFormsFields, "all", "string"),
+                                                                    1, 
+                                                                    {returnType: 3});
+
+                if(objReturn.tableData.length)
+                {
+                    objReturn.tableName = gSystemConfig.configSystemDBTableFormsFields;
+                    objReturn.returnStatus = true;
+                }
+            }
         }
         //----------------------
 

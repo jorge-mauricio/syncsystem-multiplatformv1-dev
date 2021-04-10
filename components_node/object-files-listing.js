@@ -39,7 +39,7 @@ module.exports = class ObjectFilesListing
         */
 
         this.arrSearchParameters = (objParameters.hasOwnProperty("_arrSearchParameters")) ? objParameters._arrSearchParameters : [];
-        this.configSortOrder = (objParameters.hasOwnProperty("_configSortOrder")) ? objParameters._configSortOrder : gSystemConfig.configCategoriesSort;
+        this.configSortOrder = (objParameters.hasOwnProperty("_configSortOrder")) ? objParameters._configSortOrder : gSystemConfig.configFilesSort;
         this.strNRecords = (objParameters.hasOwnProperty("_strNRecords")) ? objParameters._strNRecords : "";
         //this.strReturnFields = (objParameters.hasOwnProperty("_strReturnFields")) ? objParameters._strReturnFields : "*";
         this.objSpecialParameters = (objParameters.hasOwnProperty("_objSpecialParameters")) ? objParameters._objSpecialParameters : {};

@@ -275,9 +275,15 @@ module.exports = class FunctionsFiles
             //----------------------
 
 
+            //if(fileNameOriginal != "")
             if(fileNameOriginal !== "")
             //if(fileNameOriginal)
             {
+                //Debug.
+                console.log("fileNameOriginal!=''=true");
+                console.log("fileNameOriginal=", fileNameOriginal);
+
+
                 //Define values.
                 fileExtension = path.extname(fileNameOriginal).toLowerCase();
                 fileName = idRecord + fileExtension;

@@ -1,6 +1,5 @@
 "use strict";
 
-
 //Import Node Modules.
 //----------------------
 const gSystemConfig = require("../config-application.js"); //System configuration.
@@ -123,7 +122,7 @@ module.exports = class Login
         {
             this.cphTitle = SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") + 
             " - " + 
-            SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesTitleMain");
+            SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendLoginTitleMain");
 
             if(this.titleCurrent)
             {
@@ -299,20 +298,21 @@ module.exports = class Login
                                 ''
                             }
                         </div>
-
-                        <div style="position: relative; display: block;">
-                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendLoginUser") }: 
-                            <input type="text" class="ss-backend-field-text01" />
-                        </div>
-                        <div style="position: relative; display: block; margin: 5px 0px;">
-                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendLoginPassword") }: 
-                            <input type="text" class="ss-backend-field-text01" />
-                        </div>
-                        <div style="position: relative; display: block;">
-                            <button class="ss-backend-btn-base ss-backend-btn-action">
-                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendButtonLogin") }
-                            </button>
-                        </div>
+                        <form id="formLogin" name="formLogin" method="POST" action="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendLogin  }" enctype="multipart/form-data">
+                            <div style="position: relative; display: block;">
+                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendLoginUser") }: 
+                                <input type="text" id="username" name="username" class="ss-backend-field-text01" />
+                            </div>
+                            <div style="position: relative; display: block; margin: 5px 0px;">
+                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendLoginPassword") }: 
+                                <input type="password" id="password" name="password" class="ss-backend-field-text01" />
+                            </div>
+                            <div style="position: relative; display: block;">
+                                <button class="ss-backend-btn-base ss-backend-btn-action">
+                                    ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendButtonLogin") }
+                                </button>
+                            </div>
+                        </form>
                     </main>
 
 

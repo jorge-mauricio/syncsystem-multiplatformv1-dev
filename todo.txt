@@ -29,6 +29,14 @@
 	- fix or change to native component;
 	- Research: https://www.npmjs.com/package/react-image-lightbox.
 
+- react / node:
+	- content link style
+
+- react - modules details (products, categories, publications)
+	- text fields - apply the respective styles
+		db,linkStyle=ss-frontend-content-links
+	
+
 
 - node - files / include / edit:
 	- check positioning of date calender;
@@ -41,4 +49,38 @@
 	Remote Address: [::1]:3000
 	Referrer Policy: strict-origin-when-cross-origin
 
-		
+- node - routes files:
+	- correction of variable name:
+		- formfileFieldsReference -> formFileFieldsReference
+
+- node - files module:
+	- files details - file duration and file dimensions data treatment;
+
+- node - variable name changes:
+	resultsFunctionsFiles
+	resultFunctionsFileUpload
+
+	formfileFieldsReference
+	formFileUploadFieldsReference
+
+- node - performance compare
+	- products edit (filters)
+		- measure multiple read x loop/filter
+		- theres an old working logic disabled
+	- substitute multiple filters include/update with one query
+
+- node - cookies inside objects, etc
+	- request.jar
+		- https://stackoverflow.com/questions/33506393/node-js-cookie-with-request-jar
+		- https://stackoverflow.com/questions/25821306/how-could-i-store-the-cookie-in-local-storage-using-node-request-package
+
+- node - api
+	- check for enables request domain (security);
+
+
+- node - forms
+	- apply width css logic (instead of size logic)
+			
+- node - create function (or object) to treat data from array/json
+	- integrate with the listing
+	- integrate with the details object

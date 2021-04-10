@@ -9,6 +9,9 @@ const gSystemConfig = require("../config-application.js"); //System configuratio
 const FunctionsGeneric = require("../" + gSystemConfig.configDirectoryComponents + "/functions-generic.js");
 const FunctionsCrypto = require("../" + gSystemConfig.configDirectoryComponents + "/functions-crypto.js");
 
+//Node objects.
+//const ObjectFormsDetails = require("../" + gSystemConfig.configDirectoryComponents + "/object-forms-details.js");
+
 
 //JS functions.
 //import {elementMessage01} from "../app_js/functions-syncsystem.js";
@@ -17,6 +20,8 @@ import { FunctionsSyncSystem } from "../app_js/functions-syncsystem.js";
 
 //Node modules.
 import HTMLReactParser from "html-react-parser"; //error / webpack
+const qs = require('query-string');
+import Safe from "react-safe";
 
 //GLightbox.
 /*
@@ -35,6 +40,11 @@ gLightboxBackendConfigOptions.descPosition = "bottom"; //global position for sli
 //import React from "react";
 import React, {Component, createContext} from "react";
 
+//const BrowserHistory = require('react-router/lib/BrowserHistory').default;
+
+//Custom components.
+//import FrontendFilesListingRecord from "./frontend-files-listing-record-cb-component.js";
+
 export const SyncSystemNSContext = createContext();
 //----------------------
 
@@ -42,18 +52,43 @@ export const SyncSystemNSContext = createContext();
 class SyncSystemNSContextProvider extends Component
 {
     state = {
+        //Custom react components.
+        /*
+        SyncSystemRC:
+        {
+            FrontendFilesListingRecord: FrontendFilesListingRecord
+        }
+        */
+        /*
+        SyncSystemRC:
+        {
+            FrontendFilesListingRecord: <FrontendFilesListingRecord></FrontendFilesListingRecord>
+        }
+        */
+        
+        //Modules and components.
+        HTMLReactParser: HTMLReactParser,
+        Safe: Safe,
+        qs: qs,
+        //BrowserHistory: BrowserHistory
+        //GLightbox: GLightbox,
+        //gLightboxBackendConfigOptions: gLightboxBackendConfigOptions
+        
+        //App config file.
         gSystemConfig: gSystemConfig,
-        //elementMessage01: elementMessage01,
+        
+        //JS functions.
+        FunctionsSyncSystem: FunctionsSyncSystem,
+        
+        //Node functions.
         SyncSystemNS: 
         {
             FunctionsGeneric: FunctionsGeneric, 
             FunctionsCrypto: FunctionsCrypto
-        },
-        FunctionsSyncSystem: FunctionsSyncSystem,
-        HTMLReactParser: HTMLReactParser
-        //GLightbox: GLightbox,
-        //gLightboxBackendConfigOptions: gLightboxBackendConfigOptions
+            //ObjectFormsDetails: ObjectFormsDetails
+        }
     }
+
 
     render()
     {
@@ -63,7 +98,6 @@ class SyncSystemNSContextProvider extends Component
             </SyncSystemNSContext.Provider>
         );
     }
-
 }
 
 export default SyncSystemNSContextProvider;

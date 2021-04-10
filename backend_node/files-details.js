@@ -299,19 +299,13 @@ module.exports = class FilesDetails
         //----------------------
         try
         {
-            //this.cphTitleCurrent += SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuStart");
+            this.cphTitleCurrent += SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesTitleDetails");
             //this.cphTitleCurrent += " - ";
 
-            //this.cphTitleCurrent += `
-            //<a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/0" }" class="ss-backend-links04">
-                //${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRoot") }
-            //</a>
-            //`;
-            //if(this.titleCurrent)
-            //{
-                //this.cphTitleCurrent += " - " + this.titleCurrent;
-                this.cphTitleCurrent += this.titleCurrent;
-            //}
+            if(this.titleCurrent)
+            {
+                this.cphTitleCurrent += " - " + this.titleCurrent;
+            }
 
 
             //Debug.
@@ -513,7 +507,7 @@ module.exports = class FilesDetails
                                     </td>
                                 </tr>
 
-                                ${ gSystemConfig.enableFilesSortCustom == 1 ? 
+                                ${ gSystemConfig.enableFilesSortOrder == 1 ? 
                                 `
                                 <tr id="inputRowFiles_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -526,98 +520,42 @@ module.exports = class FilesDetails
                                 ` : ``
                                 }
 
-                                ${ /*File config (depending on the file type).*/'' }
-                                ${ this._fileType == 1 ? 
-                                `
-                                <input type="hidden" id="files_file_config" name="file_config" value="1" />
-                                ` : ``
-                                }
-
-                                ${ this._fileType == 2 ? 
+                                ${ ofdRecord.tblFilesFileType == 2 || ofdRecord.tblFilesFileType == 3 || ofdRecord.tblFilesFileType == 4 ? 
                                 `
                                 <tr id="inputRowFiles_file_config" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesFileConfig") }: 
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay") }: 
                                     </td>
                                     <td>
-                                        <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="file_config" value="1"${ ofdRecord.tblFilesFileConfig == 1 ? ` checked` : `` } class="ss-backend-field-radio" />
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay1") }
-                                        </label>
-                                        <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="file_config" value="2"${ ofdRecord.tblFilesFileConfig == 2 ? ` checked` : `` } class="ss-backend-field-radio" />
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay2") }
-                                        </label>
-                                        <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="file_config" value="3"${ ofdRecord.tblFilesFileConfig == 3 ? ` checked` : `` } class="ss-backend-field-radio" />
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay3") }
-                                        </label>
-                                        <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="file_config" value="4"${ ofdRecord.tblFilesFileConfig == 4 ? ` checked` : `` } class="ss-backend-field-radio" />
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay4") }
-                                        </label>
+                                        ${ ofdRecord.tblFilesFileConfig_print }
                                     </td>
                                 </tr>
-                                ` : ``
-                                }
-
-                                ${ this._fileType == 3 ? 
-                                `
-                                <tr id="inputRowFiles_file_config" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesFileConfig") }: 
-                                    </td>
-                                    <td>
-                                        <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="file_config" value="3"${ ofdRecord.tblFilesFileConfig == 4 ? ` checked` : `` } checked class="ss-backend-field-radio" />
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay3") }
-                                        </label>
-                                        <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="file_config" value="4"${ ofdRecord.tblFilesFileConfig == 5 ? ` checked` : `` } class="ss-backend-field-radio" />
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay4") }
-                                        </label>
-                                    </td>
-                                </tr>
-                                ` : ``
-                                }
-
-                                ${ this._fileType == 4 ? 
-                                `
-                                <input type="hidden" id="files_file_config" name="file_config" value="3" />
                                 ` : ``
                                 }
 
                                 ${ /*File Duration.*/'' }
-                                ${ this._fileType == 2 ? 
-                                `
+                                ${ ofdRecord.tblFilesFileType == 2 ? 
+                                    `
                                 <tr id="inputRowFiles_duration" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesFileDuration") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="files_file_duration_min" name="file_duration_min" class="ss-backend-field-text02" maxlength="255" value="0" style="width: 40px;" />
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMinutesA") }
-                                        <input type="text" id="files_file_duration_sec" name="file_duration_sec" class="ss-backend-field-text02" maxlength="255" value="0" style="width: 40px;" />
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSecondsA") }
+                                        ${ ofdRecord.tblFilesFileDuration_print }
                                     </td>
                                 </tr>
                                 ` : ``
                                 }
 
                                 ${ /*File Dimensions.*/'' }
-                                ${ this._fileType == 5 ? 
+                                ${ ofdRecord.tblFilesFileType == 5 ? 
                                 `
                                 <tr id="inputRowFiles_duration" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesFileDimensions") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="files_file_dimensions_w" name="file_file_dimensions_w" class="ss-backend-field-text02" maxlength="255" value="0" style="width: 40px;" />
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDimensionsW") } 
-                                        (${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemPixels") })
-                                        <input type="text" id="files_file_dimensions_h" name="file_file_dimensions_h" class="ss-backend-field-text02" maxlength="255" value="0" style="width: 40px;" />
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDimensionsH") } 
-                                        (${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemPixels") })
+                                        ${ ofdRecord.tblFilesFileDimensions_print }
                                     </td>
                                 </tr>
                                 ` : ``

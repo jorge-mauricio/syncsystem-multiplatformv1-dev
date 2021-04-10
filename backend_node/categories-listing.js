@@ -1,6 +1,5 @@
 "use strict";
 
-
 //Import Node Modules.
 //----------------------
 const gSystemConfig = require("../config-application.js"); //System configuration.
@@ -400,59 +399,12 @@ module.exports = class CategoriesListing
         let arrSearchParameters = [];
         let arrFiltersGenericSearchParameters = [];
 
-
-        //Parameters build.
-        arrSearchParameters.push("id_parent;" + this._idParent + ";i");
-        //arrSearchParameters.push("activation;1;i");
-
-
         let oclRecords = "";
-        let oclRecordsParameters = {
-            _arrSearchParameters: arrSearchParameters,
-            _configSortOrder: gSystemConfig.configCategoriesSort,
-            _strNRecords: "",
-            _objSpecialParameters: {returnType: 3}
-        };
-        /*
-        let oclRecordsParameters = {
-            _arrSearchParameters: ["id_parent;0;i", "activation;1;i"],
-            _configSortOrder: gSystemConfig.configCategoriesSort,
-            _strNRecords: "5",
-            _objSpecialParameters: {}
-        };*/ //working (debug)
+        let oclRecordsParameters = {};
 
-
-        //arrSearchParameters.push("table_name;" + "categories" + ";s");
-        
         let ofglRecords = "";
-        let ofglRecordsParameters = {
-            _arrSearchParameters: arrFiltersGenericSearchParameters,
-            _configSortOrder: "title",
-            _strNRecords: "",
-            _objSpecialParameters: {returnType: 3}
-        };
+        let ofglRecordsParameters = {};
 
-
-        //Pagination.
-        if(gSystemConfig.enableCategoriesBackendPagination == 1)
-        {
-            //this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02("categories", 
-            this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
-                                                                                        arrSearchParameters, 
-                                                                                        gSystemConfig.configCategoriesSort, 
-                                                                                        "", 
-                                                                                        "id, id_parent", 
-                                                                                        3, 
-                                                                                        {});
-
-            this._pagingTotal = Math.ceil(this._pagingTotalRecords / this._pagingNRecords);
-
-
-            //Parameters build - paging.
-            //oclRecordsParameters._strNRecords = this._pagingNRecords;
-            oclRecordsParameters._objSpecialParameters._pageNumber = this._pageNumber;
-            oclRecordsParameters._objSpecialParameters._pagingNRecords = this._pagingNRecords;
-        }
 
 
         //Debug.
@@ -466,12 +418,74 @@ module.exports = class CategoriesListing
         //----------------------
         try
         {
+            //Parameters build.
+            arrSearchParameters.push("id_parent;" + this._idParent + ";i");
+            //arrSearchParameters.push("activation;1;i");
+
+            oclRecordsParameters = {
+                _arrSearchParameters: arrSearchParameters,
+                _configSortOrder: gSystemConfig.configCategoriesSort,
+                _strNRecords: "",
+                _objSpecialParameters: {returnType: 3}
+            };
+            /*
+            let oclRecordsParameters = {
+                _arrSearchParameters: ["id_parent;0;i", "activation;1;i"],
+                _configSortOrder: gSystemConfig.configCategoriesSort,
+                _strNRecords: "5",
+                _objSpecialParameters: {}
+            };*/ //working (debug)
+
+
+            //Pagination.
+            if(gSystemConfig.enableCategoriesBackendPagination == 1)
+            {
+                //this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02("categories", 
+                this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
+                                                                                            arrSearchParameters, 
+                                                                                            gSystemConfig.configCategoriesSort, 
+                                                                                            "", 
+                                                                                            "id, id_parent", 
+                                                                                            3, 
+                                                                                            {});
+
+                this._pagingTotal = Math.ceil(this._pagingTotalRecords / this._pagingNRecords);
+
+
+                //Parameters build - paging.
+                //oclRecordsParameters._strNRecords = this._pagingNRecords;
+                oclRecordsParameters._objSpecialParameters._pageNumber = this._pageNumber;
+                oclRecordsParameters._objSpecialParameters._pagingNRecords = this._pagingNRecords;
+            }
+
+            //Object build.
             oclRecords = new SyncSystemNS.ObjectCategoriesListing(oclRecordsParameters);
             await oclRecords.recordsListingGet(0, 3);
 
+
+            //Parameters build.
+            arrFiltersGenericSearchParameters.push("table_name;" + gSystemConfig.configSystemDBTableCategories + ";s");
+            
+            ofglRecordsParameters = {
+                _arrSearchParameters: arrFiltersGenericSearchParameters,
+                _configSortOrder: "title",
+                _strNRecords: "",
+                _objSpecialParameters: {returnType: 3}
+            };
+
+            //Object build.
             //Todo: check if filter is enabled.
             let ofglRecords = new SyncSystemNS.ObjectFiltersGenericListing(ofglRecordsParameters);
             await ofglRecords.recordsListingGet(0, 3);
+
+
+            //Filters - Status.
+            if(gSystemConfig.enableCategoriesStatus != 0)
+            {
+                var resultsCategoriesStatusListing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 2;
+                });
+            }
 
             //Filter results acording to filter_index.
             if(gSystemConfig.enableCategoriesFilterGeneric1 != 0)
@@ -541,13 +555,6 @@ module.exports = class CategoriesListing
             {
                 var resultsCategoriesFiltersGeneric10Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
                     return obj.filter_index == 110;
-                });
-            }
-
-            if(gSystemConfig.enableCategoriesStatus != 0)
-            {
-                var resultsCategoriesStatusListing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 2;
                 });
             }
 
@@ -671,7 +678,7 @@ module.exports = class CategoriesListing
                         id="categories_delete" 
                         name="categories_delete" 
                         onclick="elementMessage01('formCategoriesListing_method', 'DELETE');
-                                formSubmit('formCategoririesListing', '', '', '/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/?_method=DELETE');
+                                formSubmit('formCategoriesListing', '', '', '/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/?_method=DELETE');
                                 " 
                         class="ss-backend-btn-base ss-backend-btn-action-cancel" 
                         style="float: right;">
@@ -679,7 +686,7 @@ module.exports = class CategoriesListing
                     </button>
                 </div>
 
-                <form id="formCategoririesListing" name="formCategoririesListing" method="POST" action="" enctype="application/x-www-form-urlencoded">
+                <form id="formCategoriesListing" name="formCategoriesListing" method="POST" action="" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" id="formCategoriesListing_method" name="_method" value="">
 
                     <input type="hidden" id="formCategoriesListing_strTable" name="strTable" value="${ gSystemConfig.configSystemDBTableCategories }" />
@@ -696,9 +703,13 @@ module.exports = class CategoriesListing
                             </caption>
                             <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
                                 <tr>
+                                    ${ gSystemConfig.enableCategoriesSortOrder == 1 ? 
+                                    `
                                     <td style="width: 40px; text-align: left;">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSortOrderA") }  
                                     </td>
+                                    ` : ``
+                                    }
 
                                     ${ gSystemConfig.enableCategoriesImageMain == 1 ? 
                                     `
@@ -783,9 +794,13 @@ module.exports = class CategoriesListing
                             ${ oclRecords.resultsCategoriesListing.map((categoriesRow)=>{
                                 return `
                                     <tr class="ss-backend-table-bg-light">
+                                        ${ gSystemConfig.enableCategoriesSortOrder == 1 ? 
+                                        `
                                         <td style="text-align: center;">
                                             ${ SyncSystemNS.FunctionsGeneric.valueMaskRead(categoriesRow.sort_order, "", 3, null) } 
                                         </td>
+                                        ` : ``
+                                        }
 
                                         ${ gSystemConfig.enableCategoriesImageMain == 1 ? 
                                         `
@@ -1682,7 +1697,7 @@ module.exports = class CategoriesListing
                                             ${ /*Images.*/ '' }
                                             ${ gSystemConfig.enableCategoriesImages == 1 ? 
                                                 `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=1" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=1&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertImages") }
                                                     </a> 
                                                 ` : ``
@@ -1691,7 +1706,7 @@ module.exports = class CategoriesListing
                                             ${ /*Videos.*/ '' }
                                             ${ gSystemConfig.enableCategoriesVideos == 1 ? 
                                                 `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=2" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=2&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertVideos") }
                                                     </a> 
                                                 ` : ``
@@ -1700,7 +1715,7 @@ module.exports = class CategoriesListing
                                             ${ /*Files.*/ '' }
                                             ${ gSystemConfig.enableCategoriesFiles == 1 ? 
                                                 `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=3" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=3&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFiles") }
                                                     </a> 
                                                 ` : ``
@@ -1709,7 +1724,7 @@ module.exports = class CategoriesListing
                                             ${ /*Zip files.*/ '' }
                                             ${ gSystemConfig.enableCategoriesZip == 1 ? 
                                                 `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=4" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + categoriesRow.id + "?fileType=4&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFilesZip") }
                                                     </a> 
                                                 ` : ``
@@ -1735,7 +1750,7 @@ module.exports = class CategoriesListing
                                             ` : ``
                                         }
     
-                                        <td id="formCategoririesListing_elementActivation${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                        <td id="formCategoriesListing_elementActivation${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation == 1 ? "" : "ss-backend-table-bg-deactive"}">
                                             <a id="linkActivation${ categoriesRow.id }" class="ss-backend-links01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                          ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
@@ -1757,7 +1772,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '0')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSAdd('formCategoririesListing_elementActivation${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSAdd('formCategoriesListing_elementActivation${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
@@ -1766,7 +1781,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '1')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSRemove('formCategoririesListing_elementActivation${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSRemove('formCategoriesListing_elementActivation${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
@@ -1784,7 +1799,7 @@ module.exports = class CategoriesListing
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
                                                 ${ 
-                                                    categoriesRow.activation ? 
+                                                    categoriesRow.activation == "1" ? 
                                                     SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
                                                     : 
                                                     SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
@@ -1793,7 +1808,7 @@ module.exports = class CategoriesListing
                                         </td>
                                         ${ gSystemConfig.enableCategoriesActivation1 == 1 ? 
                                             `
-                                            <td id="formCategoririesListing_elementActivation1${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation1 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                            <td id="formCategoriesListing_elementActivation1${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation1 == 1 ? "" : "ss-backend-table-bg-deactive"}">
                                                 <a id="linkActivation1${ categoriesRow.id }" class="ss-backend-links01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                              ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
@@ -1813,7 +1828,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '0')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSAdd('formCategoririesListing_elementActivation1${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSAdd('formCategoriesListing_elementActivation1${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation1${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
@@ -1822,7 +1837,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '1')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSRemove('formCategoririesListing_elementActivation1${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSRemove('formCategoriesListing_elementActivation1${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation1${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
@@ -1839,7 +1854,7 @@ module.exports = class CategoriesListing
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
                                                     ${ 
-                                                        categoriesRow.activation1 ? 
+                                                        categoriesRow.activation1 == "1" ? 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
                                                         : 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
@@ -1850,7 +1865,7 @@ module.exports = class CategoriesListing
                                         }
                                         ${ gSystemConfig.enableCategoriesActivation2 == 1 ? 
                                             `
-                                            <td id="formCategoririesListing_elementActivation2${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation2 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                            <td id="formCategoriesListing_elementActivation2${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation2 == 1 ? "" : "ss-backend-table-bg-deactive"}">
                                                 <a id="linkActivation2${ categoriesRow.id }" class="ss-backend-links01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                              ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
@@ -1870,7 +1885,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '0')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSAdd('formCategoririesListing_elementActivation2${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSAdd('formCategoriesListing_elementActivation2${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation2${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
@@ -1879,7 +1894,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '1')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSRemove('formCategoririesListing_elementActivation2${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSRemove('formCategoriesListing_elementActivation2${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation2${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
@@ -1896,7 +1911,7 @@ module.exports = class CategoriesListing
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
                                                     ${ 
-                                                        categoriesRow.activation2 ? 
+                                                        categoriesRow.activation2 == "1" ? 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
                                                         : 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
@@ -1907,7 +1922,7 @@ module.exports = class CategoriesListing
                                         }
                                         ${ gSystemConfig.enableCategoriesActivation3 == 1 ? 
                                             `
-                                            <td id="formCategoririesListing_elementActivation3${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation3 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                            <td id="formCategoriesListing_elementActivation3${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation3 == 1 ? "" : "ss-backend-table-bg-deactive"}">
                                                 <a id="linkActivation3${ categoriesRow.id }" class="ss-backend-links01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                              ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
@@ -1927,7 +1942,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '0')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSAdd('formCategoririesListing_elementActivation3${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSAdd('formCategoriesListing_elementActivation3${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation3${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
@@ -1936,7 +1951,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '1')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSRemove('formCategoririesListing_elementActivation3${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSRemove('formCategoriesListing_elementActivation3${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation3${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
@@ -1953,7 +1968,7 @@ module.exports = class CategoriesListing
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
                                                     ${ 
-                                                        categoriesRow.activation3 ? 
+                                                        categoriesRow.activation3 == "1" ? 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
                                                         : 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
@@ -1964,7 +1979,7 @@ module.exports = class CategoriesListing
                                         }
                                         ${ gSystemConfig.enableCategoriesActivation4 == 1 ? 
                                             `
-                                            <td id="formCategoririesListing_elementActivation4${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation4 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                            <td id="formCategoriesListing_elementActivation4${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation4 == 1 ? "" : "ss-backend-table-bg-deactive"}">
                                                 <a id="linkActivation4${ categoriesRow.id }" class="ss-backend-links01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                              ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
@@ -1984,7 +1999,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '0')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSAdd('formCategoririesListing_elementActivation4${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSAdd('formCategoriesListing_elementActivation4${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation4${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
@@ -1993,7 +2008,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '1')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSRemove('formCategoririesListing_elementActivation4${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSRemove('formCategoriesListing_elementActivation4${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation4${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
@@ -2010,7 +2025,7 @@ module.exports = class CategoriesListing
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
                                                     ${ 
-                                                        categoriesRow.activation4 ? 
+                                                        categoriesRow.activation4 == "1" ? 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
                                                         : 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
@@ -2021,7 +2036,7 @@ module.exports = class CategoriesListing
                                         }
                                         ${ gSystemConfig.enableCategoriesActivation5 == 1 ? 
                                             `
-                                            <td id="formCategoririesListing_elementActivation5${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation5 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                            <td id="formCategoriesListing_elementActivation5${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.activation5 == 1 ? "" : "ss-backend-table-bg-deactive"}">
                                                 <a id="linkActivation5${ categoriesRow.id }" class="ss-backend-links01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                              ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
@@ -2041,7 +2056,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '0')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSAdd('formCategoririesListing_elementActivation5${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSAdd('formCategoriesListing_elementActivation5${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation5${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
@@ -2050,7 +2065,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '1')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSRemove('formCategoririesListing_elementActivation5${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSRemove('formCategoriesListing_elementActivation5${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkActivation5${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
@@ -2067,7 +2082,7 @@ module.exports = class CategoriesListing
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
                                                     ${ 
-                                                        categoriesRow.activation5 ? 
+                                                        categoriesRow.activation5 == "1" ? 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
                                                         : 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
@@ -2079,13 +2094,13 @@ module.exports = class CategoriesListing
 
                                         ${ gSystemConfig.enableCategoriesRestrictedAccess == 1 ? 
                                             `
-                                            <td id="formCategoririesListing_elementRestrictedAccess${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.restricted_access == 0 ? "" : "ss-backend-table-bg-deactive"}">
+                                            <td id="formCategoriesListing_elementRestrictedAccess${ categoriesRow.id }" style="text-align: center;" class="${ categoriesRow.restricted_access == 0 ? "" : "ss-backend-table-bg-deactive"}">
                                                 <a id="linkRestrictedAccess${ categoriesRow.id }" class="ss-backend-links01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                              ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
                                                                                     {
                                                                                         idRecord: '${ categoriesRow.id }', 
-                                                                                        strTable: 'categories', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableCategories }', 
                                                                                         strField:'restricted_access', 
                                                                                         recordValue: '${ categoriesRow.restricted_access == 1 ? 0 : 1}', 
                                                                                         patchType: 'toggleValue', 
@@ -2099,7 +2114,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '0')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSRemove('formCategoririesListing_elementRestrictedAccess${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSRemove('formCategoriesListing_elementRestrictedAccess${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkRestrictedAccess${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0A") }');
@@ -2108,7 +2123,7 @@ module.exports = class CategoriesListing
                                                                                             if(_resObjReturn.objReturn.recordUpdatedValue == '1')
                                                                                             {
                                                                                                 //Change cell color.
-                                                                                                elementCSSAdd('formCategoririesListing_elementRestrictedAccess${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
+                                                                                                elementCSSAdd('formCategoriesListing_elementRestrictedAccess${ categoriesRow.id }', 'ss-backend-table-bg-deactive');
 
                                                                                                 //Change link text.
                                                                                                 elementMessage01('linkRestrictedAccess${ categoriesRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1A") }');
@@ -2125,7 +2140,7 @@ module.exports = class CategoriesListing
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
                                                     ${ 
-                                                        categoriesRow.restricted_access ? 
+                                                        categoriesRow.restricted_access == "1" ? 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1A") 
                                                         : 
                                                         SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0A")
@@ -2300,20 +2315,7 @@ module.exports = class CategoriesListing
                                 
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
-
-                                <!--tr id="inputRowCategories_id_parent" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemParentLink") }: 
-                                    </td>
-                                    <td>
-                                        <select id="categories_id_parent" name="id_parent" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected="true">xxx</option>
-                                            <option value="2">yyy</option>
-                                        </select>
-                                    </td>
-                                </tr-->
-
-                                ${ gSystemConfig.enableCategoriesSortCustom == 1 ? 
+                                ${ gSystemConfig.enableCategoriesSortOrder == 1 ? 
                                 `
                                 <tr id="inputRowCategories_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -2356,7 +2358,9 @@ module.exports = class CategoriesListing
                                         </select>
                                     </td>
                                 </tr>
-                                ` : ``
+                                ` : `
+                                <input type="hidden" id="categories_id_register_user" name="id_register_user" value="0" />
+                                `
                                 }
 
                                 <tr id="inputRowCategories_title" class="ss-backend-table-bg-light">
@@ -2550,7 +2554,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric2 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric2") }: 
                                     </td>
@@ -2614,7 +2618,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric3 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric3") }: 
                                     </td>
@@ -2678,7 +2682,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric4 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric4") }: 
                                     </td>
@@ -2742,7 +2746,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric5 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric5") }: 
                                     </td>
@@ -2806,7 +2810,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric6 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter6" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric6") }: 
                                     </td>
@@ -2870,7 +2874,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric7 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter7" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric7") }: 
                                     </td>
@@ -2934,7 +2938,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric8 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter8" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric8") }: 
                                     </td>
@@ -2998,7 +3002,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric9 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter9" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric9") }: 
                                     </td>
@@ -3062,7 +3066,7 @@ module.exports = class CategoriesListing
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric10 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter10" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric10") }: 
                                     </td>

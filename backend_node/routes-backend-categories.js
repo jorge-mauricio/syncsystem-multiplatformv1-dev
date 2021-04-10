@@ -1,6 +1,5 @@
 "use strict";
 
-
 //Import Node Modules.
 //----------------------
 const express = require("express");
@@ -17,7 +16,8 @@ const util = require("util");
 //Backend - Categories - listing - GET.
 //**************************************************************************************
 //app.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ //working, with the async block
-router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ //working, with the async block
+//router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ //working, with the async block
+router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     //app.get("/system/categories", async (req, res)=>{ //working
     //Import objects.
     //----------------------
@@ -42,6 +42,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     let idParent = "";
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
+    let cookiesData;
 
     let messageSuccess = "";
     let messageError = "";
@@ -64,6 +65,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     {
         masterPageSelect = req.query.masterPageSelect;
     }
+
+    cookiesData = req.cookies;
 
     if(req.query.messageSuccess)
     {
@@ -95,6 +98,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 idParent: idParent,
                 pageNumber: pageNumber,
                 masterPageSelect: masterPageSelect,
+                cookiesData: cookiesData,
 
                 messageSuccess: messageSuccess,
                 messageError: messageError,
@@ -114,7 +118,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             //res.render("layout-backend-main", {
             res.render(masterPageSelect, {
                 templateData: clBackend,
-                additianalData: {}
+                additionalData: {cookiesData: cookiesData}
             });
 
 
@@ -162,7 +166,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 //Render data with template.
                 res.render("layout-backend-main", {
                     templateData: clBackend,
-                    additianalData: {}
+                    additionalData: {}
                 });
             });
             */
@@ -173,7 +177,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 console.error(asyncError);
             }
         }finally{
-
+            next();
         }
     })();
     //----------------------
@@ -192,7 +196,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 //Backend - Categories - edit - GET.
 //**************************************************************************************
 //app.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ //working, with the async block
-router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbCategories?", (req, res)=>{ //working, with the async block
+//router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbCategories?", (req, res)=>{ //working, with the async block
+router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbCategories?", [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     
     //Import objects.
     //----------------------
@@ -206,8 +211,10 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     //let clBackend = new CategoriesListing();
     let ceBackend;
     let idTbCategories = "";
+
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
+    let cookiesData;
 
     let messageSuccess = "";
     let messageError = "";
@@ -230,6 +237,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     {
         masterPageSelect = req.query.masterPageSelect;
     }
+
+    cookiesData = req.cookies;
 
     if(req.query.messageSuccess)
     {
@@ -259,6 +268,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 idTbCategories: idTbCategories,
                 pageNumber: pageNumber,
                 masterPageSelect: masterPageSelect,
+                cookiesData: cookiesData,
 
                 messageSuccess: messageSuccess,
                 messageError: messageError,
@@ -274,7 +284,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             //Render data with template.
             res.render(masterPageSelect, {
                 templateData: ceBackend,
-                additianalData: {}
+                additionalData: {cookiesData: cookiesData}
             });
 
         }catch(asyncError){
@@ -283,7 +293,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 console.error(asyncError);
             }
         }finally{
-
+            next();
         }
     })();
     //----------------------
@@ -310,7 +320,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
 //Backend - Categories - details - GET.
 //**************************************************************************************
-router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendDetails + "/:idTbCategories?", (req, res)=>{ //working, with the async block
+//router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendDetails + "/:idTbCategories?", (req, res)=>{ //working, with the async block
+router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendDetails + "/:idTbCategories?", [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     
     //Import objects.
     //----------------------
@@ -326,6 +337,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     let idTbCategories = "";
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
+    let cookiesData;
 
     let messageSuccess = "";
     let messageError = "";
@@ -348,6 +360,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     {
         masterPageSelect = req.query.masterPageSelect;
     }
+
+    cookiesData = req.cookies;
 
     if(req.query.messageSuccess)
     {
@@ -378,6 +392,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 idTbCategories: idTbCategories,
                 pageNumber: pageNumber,
                 masterPageSelect: masterPageSelect,
+                cookiesData: cookiesData,
 
                 messageSuccess: messageSuccess,
                 messageError: messageError,
@@ -392,7 +407,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
             //Render data with template.
             res.render(masterPageSelect, {
                 templateData: cdBackend,
-                additianalData: {}
+                additionalData: {cookiesData: cookiesData}
             });
 
         }catch(asyncError){
@@ -401,7 +416,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                 console.error(asyncError);
             }
         }finally{
-
+            next();
         }
     })();
     //----------------------
@@ -430,8 +445,8 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 //**************************************************************************************
 //app.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories, urlencodedParser, (req, res)=>
 //app.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories, (req, res)=>
-router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories, (req, res)=>
-{
+//router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories, (req, res)=>{
+router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories, [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{
     //Variables
     //----------------------
     /*(without enctype="multipart/form-data")
@@ -800,7 +815,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
 
                         //Build file fields references.
                         //image_main field.
-                        if(gSystemConfig.enableCategoriesImageMain == 1){
+                        if(gSystemConfig.enableCategoriesImageMain == 1)
+                        {
                             if(filesPost.hasOwnProperty("image_main") === true)
                             {
                                 formfileFieldsReference.image_main = {};
@@ -814,7 +830,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                         }
 
                         //file1 field.
-                        if(gSystemConfig.enableCategoriesFile1 == 1){
+                        if(gSystemConfig.enableCategoriesFile1 == 1)
+                        {
                             if(filesPost.hasOwnProperty("file1") === true)
                             {
                                 formfileFieldsReference.file1 = {};
@@ -828,7 +845,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                         }
 
                         //file2 field.
-                        if(gSystemConfig.enableCategoriesFile2 == 1){
+                        if(gSystemConfig.enableCategoriesFile2 == 1)
+                        {
                             if(filesPost.hasOwnProperty("file2") === true)
                             {
                                 formfileFieldsReference.file2 = {};
@@ -842,7 +860,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                         }
 
                         //file3 field.
-                        if(gSystemConfig.enableCategoriesFile3 == 1){
+                        if(gSystemConfig.enableCategoriesFile3 == 1)
+                        {
                             if(filesPost.hasOwnProperty("file3") === true)
                             {
                                 formfileFieldsReference.file3 = {};
@@ -856,7 +875,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                         }
 
                         //file4 field.
-                        if(gSystemConfig.enableCategoriesFile4 == 1){
+                        if(gSystemConfig.enableCategoriesFile4 == 1)
+                        {
                             if(filesPost.hasOwnProperty("file4") === true)
                             {
                                 formfileFieldsReference.file4 = {};
@@ -870,7 +890,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                         }
 
                         //file5 field.
-                        if(gSystemConfig.enableCategoriesFile5 == 1){
+                        if(gSystemConfig.enableCategoriesFile5 == 1)
+                        {
                             if(filesPost.hasOwnProperty("file5") === true)
                             {
                                 formfileFieldsReference.file5 = {};
@@ -995,8 +1016,6 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
             });
             //Debug.
             //console.log("formParseResults=", formParseResults);
-
-
 
 
             //Define values.
@@ -1445,8 +1464,6 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
             //res.redirect("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + idParent);
             //res.redirect(returnURL);
         }finally{
-
-
             //Page redirect.
             res.redirect(returnURL);
         }
@@ -1464,7 +1481,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
 
 //Backend - Categories - PUT (edit).
 //**************************************************************************************
-router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit, (req, res)=>{ //working, with the async block
+//router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit, (req, res)=>{ //working, with the async block
+router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit, [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
     //Variables
     //----------------------
     let tblCategoriesID = "";
@@ -1479,17 +1497,6 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     let tblCategoriesKeywordsTags = "";
     let tblCategoriesMetaDescription = "";
     let tblCategoriesMetaTitle = "";
-
-    let arrIdsCategoriesFiltersGeneric1 = [];
-    let arrIdsCategoriesFiltersGeneric2 = [];
-    let arrIdsCategoriesFiltersGeneric3 = [];
-    let arrIdsCategoriesFiltersGeneric4 = [];
-    let arrIdsCategoriesFiltersGeneric5 = [];
-    let arrIdsCategoriesFiltersGeneric6 = [];
-    let arrIdsCategoriesFiltersGeneric7 = [];
-    let arrIdsCategoriesFiltersGeneric8 = [];
-    let arrIdsCategoriesFiltersGeneric9 = [];
-    let arrIdsCategoriesFiltersGeneric10 = [];
 
     let tblCategoriesInfo1 = "";
     let tblCategoriesInfo2 = "";
@@ -1550,6 +1557,17 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     let tblCategoriesRestrictedAccess = "";
 
     let tblCategoriesNotes = "";
+
+    let arrIdsCategoriesFiltersGeneric1 = [];
+    let arrIdsCategoriesFiltersGeneric2 = [];
+    let arrIdsCategoriesFiltersGeneric3 = [];
+    let arrIdsCategoriesFiltersGeneric4 = [];
+    let arrIdsCategoriesFiltersGeneric5 = [];
+    let arrIdsCategoriesFiltersGeneric6 = [];
+    let arrIdsCategoriesFiltersGeneric7 = [];
+    let arrIdsCategoriesFiltersGeneric8 = [];
+    let arrIdsCategoriesFiltersGeneric9 = [];
+    let arrIdsCategoriesFiltersGeneric10 = [];
 
     let idParent = "";
     let pageNumber = "";
@@ -1874,7 +1892,6 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                         }
 
 
-                        /**/
                         //var resultsFunctionsFiles = await new Promise((resolve, reject)=>{
                         resultsFunctionsFiles = await new Promise((resolve, reject)=>{
                             /*SyncSystemNS.FunctionsFiles.filesUpload(tblCategoriesID, 
@@ -1922,7 +1939,6 @@ router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
                         })*/;
 
                        
-                        /**/
                         if(resultsFunctionsFiles.returnStatus == true)
                         {
                             //Define value for file name variable.

@@ -629,7 +629,7 @@ module.exports = class CategoriesDetails
                                 ` : ``
                                 }
 
-                                ${ gSystemConfig.enableCategoriesSortCustom == 1 ? 
+                                ${ gSystemConfig.enableCategoriesSortOrder == 1 ? 
                                 `
                                 <tr id="inputRowCategories_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">

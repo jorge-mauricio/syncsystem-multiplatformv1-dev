@@ -116,17 +116,25 @@ ref: https://ejs.co/#docs
                     <aside style="position: absolute; display: block; top: 6px; right: 8px; width: 150px;">
                         <ul class="ss-backend-menu-ul01" style="color: #000000; list-style-type: disc; line-height: 11px;">
                             <li class="ss-backend-menu-li01">
-                                <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" +  "0" %>" class="ss-backend-menu-header-link" title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuHomeToolTip") %>">
+                                <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendDashboard + "/" %>" 
+                                    class="ss-backend-menu-header-link" 
+                                    title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuHomeToolTip") %>">
                                     <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuHome") %>
                                 </a>
                             </li>
                             <li class="ss-backend-menu-li01">
-                                <a href="http://www.syncsystem.com.br" class="ss-backend-menu-header-link" target="_blank" title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuSiteSystemToolTip") %>">
+                                <a href="http://www.syncsystem.com.br" 
+                                    class="ss-backend-menu-header-link" 
+                                    target="_blank" 
+                                    title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuSiteSystemToolTip") %>">
                                     <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuSiteSystem") %>
                                 </a>
                             </li>
                             <li class="ss-backend-menu-li01">
-                                <a href="http://www.syncsystem.com.br/pt/Contato.aspx" class="ss-backend-menu-header-link" target="_blank" title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuContactToolTip") %>">
+                                <a href="http://www.syncsystem.com.br/pt/Contato.aspx" 
+                                    class="ss-backend-menu-header-link" 
+                                    target="_blank" 
+                                    title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuContactToolTip") %>">
                                     <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuContact") %>
                                 </a>
                             </li>
@@ -141,19 +149,484 @@ ref: https://ejs.co/#docs
                     <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-nav01-tb01-01.jpg" alt="Nav Element" style="position: absolute; display: block; top: 0px; left: 0px; margin-top: -25px;" /> 
                     
                     <nav style="position: relative; display: block; padding-top: 20px; margin-left: 37px; z-index: 1;">
-                        <ul class="ss-backend-menu-ul01">
-                            <li class="ss-backend-menu-li01">
-                                <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" +  "0" %>" class="ss-backend-menu-link">
-                                    <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuStart") %>
-                                </a>
-                            </li>
+                            <% if(additionalData.cookiesData){ %>
+                                <%# User.%>
+                                <%# TODO: detect if is on user admin page.%>
+                                <% if(additionalData.cookiesData[gSystemConfig.configCookiePrefix + "_" + gSystemConfig.configCookiePrefixUser]){ %>
+                                <ul class="ss-backend-menu-ul01">
+                                    <li class="ss-backend-menu-li01">
+                                        <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" +  "0" %>" 
+                                            class="ss-backend-menu-link" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuStartToolTip") %>">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuStart") %>
+                                        </a>
+                                    </li>
 
-                            <%if (gSystemConfig.enableBackendSearch == 1) { %>
-                            <li class="ss-backend-menu-li01">
-                                <a href="#" class="ss-backend-menu-link">
-                                    <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuSearch") %>
-                                </a>
-                            </li>
+                                    <%if (gSystemConfig.enableBackendSearch == 1) { %>
+                                    <li class="ss-backend-menu-li01">
+                                        <a href="#" 
+                                        class="ss-backend-menu-link" 
+                                        title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuSearch") %>">
+                                            <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuSearch") %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+
+                                    <%if (gSystemConfig.enableBackendMaintenanceCategories == 1) { %>
+                                    <li class="ss-backend-menu-li01">
+                                        <a onclick="htmlGenericStyle01('divSubmenuCategoriesFiltersGeneric', 'display', 'block');" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuCategoriesMaintenanceToolTip") %>" 
+                                            class="ss-backend-menu-link">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuCategoriesMaintenance") %>
+                                        </a>
+                                        <div id="divSubmenuCategoriesFiltersGeneric" style="position: relative; display: none; margin-left: 20px;">
+                                            <%if (gSystemConfig.enableCategoriesStatus == 1) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=2" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesStatus") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesStatus") %>
+                                            </a>
+                                            <% } %>
+
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric1 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=101" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric1") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric1") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric2 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=102" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric2") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric2") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric3 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=103" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric3") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric3") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric4 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=104" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric4") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric4") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric5 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=105" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric5") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric5") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric6 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=106" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric6") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric6") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric7 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=107" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric7") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric7") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric8 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=108" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric8") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric8") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric9 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=109" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric9") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric9") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableCategoriesFilterGeneric10 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableCategories + "&filterIndex=110" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric10") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric10") %>
+                                            </a>
+                                            <% } %>
+                                        </div>
+                                    </li>
+                                    <% } %>
+
+                                    <%if (gSystemConfig.enableBackendMaintenanceProducts == 1) { %>
+                                    <li class="ss-backend-menu-li01">
+                                        <a onclick="htmlGenericStyle01('divSubmenuProductsFiltersGeneric', 'display', 'block');" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuProductsMaintenanceToolTip") %>" 
+                                            class="ss-backend-menu-link">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuProductsMaintenance") %>
+                                        </a>
+                                        <div id="divSubmenuProductsFiltersGeneric" style="position: relative; display: none; margin-left: 20px;">
+                                            <%if (gSystemConfig.enableProductsType == 1) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=1" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsType") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsType") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsStatus == 1) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=2" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsStatus") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsStatus") %>
+                                            </a>
+                                            <% } %>
+
+                                            <%if (gSystemConfig.enableProductsFilterGeneric1 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=101" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric1") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric1") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric2 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=102" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric2") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric2") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric3 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=103" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric3") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric3") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric4 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=104" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric4") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric4") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric5 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=105" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric5") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric5") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric6 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=106" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric6") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric6") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric7 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=107" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric7") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric7") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric8 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=108" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric8") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric8") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric9 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=109" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric9") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric9") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric10 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=110" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric10") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric10") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric11 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=111" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric11") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric11") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric12 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=112" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric12") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric12") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric13 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=113" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric13") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric13") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric14 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=114" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric14") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric14") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric15 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=115" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric15") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric15") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric16 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=116" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric16") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric16") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric17 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=117" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric17") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric17") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric18 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=118" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric18") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric18") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric19 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=119" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric19") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric19") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric20 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=120" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric20") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric20") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric21 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=121" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric21") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric21") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric22 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=122" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric22") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric22") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric23 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=123" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric23") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric23") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric24 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=124" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric24") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric24") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric25 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=125" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric25") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric25") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric26 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=126" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric26") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric26") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric27 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=127" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric27") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric27") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric28 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=128" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric28") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric28") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric29 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=129" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric29") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric29") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enableProductsFilterGeneric30 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTableProducts + "&filterIndex=130" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric30") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsFilterGeneric30") %>
+                                            </a>
+                                            <% } %>
+                                        </div>
+                                    </li>
+                                    <% } %>
+
+
+                                    <%if (gSystemConfig.enableBackendMaintenancePublications == 1) { %>
+                                    <li class="ss-backend-menu-li01">
+                                        <a onclick="htmlGenericStyle01('divSubmenuPublicationsFiltersGeneric', 'display', 'block');" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuPublicationsMaintenanceToolTip") %>" 
+                                            class="ss-backend-menu-link">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuPublicationsMaintenance") %>
+                                        </a>
+                                        <div id="divSubmenuPublicationsFiltersGeneric" style="position: relative; display: none; margin-left: 20px;">
+                                            <%if (gSystemConfig.enablePublicationsStatus == 1) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=2" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsStatus") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsStatus") %>
+                                            </a>
+                                            <% } %>
+                                            
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric1 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=101" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric1") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric1") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric2 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=102" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric2") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric2") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric3 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=103" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric3") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric3") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric4 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=104" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric4") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric4") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric5 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=105" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric5") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric5") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric6 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=106" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric6") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric6") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric7 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=107" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric7") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric7") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric8 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=108" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric8") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric8") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric9 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=109" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric9") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric9") %>
+                                            </a>
+                                            <% } %>
+                                            <%if (gSystemConfig.enablePublicationsFilterGeneric10 != 0) { %>
+                                            <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiltersGeneric + "/?tableName=" +  gSystemConfig.configSystemDBTablePublications + "&filterIndex=110" %>" 
+                                                title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric10") %>" 
+                                                class="ss-backend-menu-link">
+                                                - <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsFilterGeneric10") %>
+                                            </a>
+                                            <% } %>
+                                        </div>
+                                    </li>
+                                    <% } %>
+
+
+                                    <li class="ss-backend-menu-li01" style="display: none;">
+                                        <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendUsers + "/" + gSystemConfig.configRouteBackendActionEdit + "/11/?masterPageSelect=layout-backend-main" %>" 
+                                            class="ss-backend-menu-link" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuUsersPasswordEditToolTip") %>">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuUsersPasswordEdit") %>
+                                        </a>
+                                    </li>
+
+                                    <li class="ss-backend-menu-li01">
+                                        <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendLogOff + "/" %>" 
+                                            class="ss-backend-menu-link" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuLogUsersOffToolTip") %>">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuUsersLogOff") %>
+                                        </a>
+                                    </li>
+                                <% } %>
+
+
+                                <%# User - Root.%>
+                                <% if(additionalData.cookiesData[gSystemConfig.configCookiePrefix + "_" + gSystemConfig.configCookiePrefixUserRoot]){ %>
+                                    <li class="ss-backend-menu-li01">
+                                        <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendUsers + "/" + gSystemConfig.configRouteBackendActionEdit + "/11/?masterPageSelect=layout-backend-main" %>" 
+                                            class="ss-backend-menu-link" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuUsersPasswordEditToolTip") %>">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuUsersPasswordEdit") %>
+                                        </a>
+                                    </li>
+
+                                    <li class="ss-backend-menu-li01">
+                                        <a href="/<%- gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendLogOffUsersRoot + "/" %>" 
+                                            class="ss-backend-menu-link" 
+                                            title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuLogUsersOffToolTip") %>">
+                                                <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuUsersLogOff") %>
+                                        </a>
+                                    </li>
+                                <% } %>
                             <% } %>
                         </ul>
                     </nav>

@@ -24,6 +24,8 @@ const request = require("request");
 const fs = require("fs"); //File System.
 const fsExtra = require("fs-extra"); //File System with extra functions.
 const express = require("express"); //Express Framework.
+const cookieParser = require('cookie-parser'); //Cookie parser.
+const session = require('express-session');
 const cors = require("cors"); //Allow api access from any location.
 const favicon = require("express-favicon"); //Express Favicon.
 //const favicon = require("serve-favicon"); //Serve Favicon (uninstalled).
@@ -36,7 +38,6 @@ const formidable = require("formidable"); //Form file upload.
 
 //const mysql = require("mysql");//MySQL package.
 const _ = require('lodash'); //Loadash
-
 
 //React.
 //const React = require("react");
@@ -93,6 +94,10 @@ app.use("/mstile-150x150.png", express.static(path.join(__dirname, "mstile-150x1
 app.use("/browserconfig.xml", express.static(path.join(__dirname, "browserconfig.xml"))); //set static folder
 app.use("/safari-pinned-tab.svg", express.static(path.join(__dirname, "safari-pinned-tab.svg"))); //set static folder
 */
+
+//Cookie parser.
+//app.use(express.cookieParser()); //not bundled anymore with express
+app.use(cookieParser()); //not bundled anymore with express
 
 //React - static.
 //app.use("/", express.static("build")); //set static folder
@@ -159,8 +164,16 @@ app.locals.SyncSystemNS = SyncSystemNS;
 //Personolized.
 //Note: Any function on this middleware will be executed when any address is hit.
 //----------------------
-const midApp = (req, res, next) =>
-{
+const midApp = (req, res, next) =>{
+    //Cookies - global.
+    //var globalCookies;
+    //const globalCookies = req.cookies;
+
+    //globalCookies = req.cookies;
+    //Debug.
+    //console.log("globalCookies (inside middleware)=", globalCookies);
+
+
     //console.log("test middleware")
     next();
 }
@@ -275,6 +288,10 @@ app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backe
 //----------------------
 //Backend.
 app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend.js"));
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-login-users.js"));
+
+//API.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-authentication.js"));
 //----------------------
 
 
@@ -295,6 +312,65 @@ app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-c
 //----------------------
 //Backend.
 app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-files.js"));
+
+//API.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-files.js"));
+//----------------------
+
+
+//Content - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-content.js"));
+
+//API.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-content.js"));
+//----------------------
+
+
+//Products - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-products.js"));
+
+//API.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-products.js"));
+//----------------------
+
+
+//Publications - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-publications.js"));
+
+//API.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-publications.js"));
+//----------------------
+
+
+//Forms, Forms Fields, Forms Fields Options - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-forms.js"));
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-forms-fields.js"));
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-forms-fields-options.js"));
+
+//API.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-forms.js"));
+//----------------------
+
+
+//Filters Generic - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-filters-generic.js"));
+//----------------------
+
+
+//Users - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-users.js"));
 //----------------------
 //**************************************************************************************
 

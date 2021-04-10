@@ -20,7 +20,7 @@ import { SyncSystemNSContext } from "./syncsystem-ns-cb-context.js";
 
 
 //Node modules.
-const qs = require('query-string');
+//const qs = require('query-string');
 
 //import React from "react";
 import React, {Component} from "react";
@@ -54,7 +54,7 @@ class FrontendCategoriesListing extends Component
         super(props, context);
 
         //Variables.
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, qs } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
 
 
         //Properties.
@@ -165,7 +165,6 @@ class FrontendCategoriesListing extends Component
         };
         
 
-
         //Bind objects, methods and functions.
         //this.objCategoriesListing = this.objCategoriesListing.bind(this);
         this.build = this.build.bind(this);
@@ -224,21 +223,20 @@ class FrontendCategoriesListing extends Component
         //const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
 
 
-        //Main build.
-        await this.build();
-
-        //Head content.
-        await this.headBuild();
-
-        //Title content.
-        await this.titleCurrentBuild();
-
-
         //Logic.
         //----------------------
         /**/
         try
         {
+            //Main build.
+            await this.build();
+
+            //Head content.
+            await this.headBuild();
+
+            //Title content.
+            await this.titleCurrentBuild();
+            
             /*
             fetch("http://localhost:3000/api/categories/details/813")
             .then(response => response.json())
@@ -312,132 +310,15 @@ class FrontendCategoriesListing extends Component
     async build()
     {
         //Variables.
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+        //----------------------
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
 
-        
         //const tagsMeta = document.getElementsByTagName('meta');
         //var idParentCategories = ""
         //var titleCurrent = ""
         var apiURLCategoriesDetailsCurrent = "";
         var apiCategoriesDetailsCurrentResponse;
-
-
-        //API - build URL string.
-        //apiURLCategoriesDetailsCurrent = "http://localhost:3000/api/categories/details/813"; //http://localhost:3000/api/categories/813/?apiKey=createSecretPassword
-        //apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + process.env.CONFIG_API_KEY_SYSTEM;
-        //apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-        //apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-        apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idParentCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-        //apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-        //apiURLCategoriesDetailsCurrent = process.env.REACT_APP_CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
-        //apiURLCategoriesDetailsCurrent = CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
-        //apiURLCategoriesDetailsCurrent = REACT_APP_CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
-        //console.log("apiURLCategoriesDetailsCurrent=", apiURLCategoriesDetailsCurrent);
-
-
-        //API - fetch data from backend.
-        //var response = await fetch(apiURLCategoriesDetailsCurrent);
-        apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
-        //this.objCategoriesCurrent = await response.json();
-        this.objCategoriesCurrent = await apiCategoriesDetailsCurrentResponse.json();
-        //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
-
-
-        //Value definition.
-        //this.titleCurrent = this.objCategoriesCurrent.tblCategoriesTitle;
-        this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesTitle);
-        //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
-
-        //idParentCategories = this.props.match.params.idParentCategories;
-
-        this.metaTitle = this.titleCurrent; //Bellow 160 characters.
-        this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesMetaDescription); //Bellow 100 characters.
-        this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); //Bellow 60 characters.
-        this.metaURLCurrent = gSystemConfig.configSystemURL + "/" + gSystemConfig.configRouteFrontendCategories + "/" + this._idParentCategories + "?pageNumber=" + this._pageNumber;
-        
-        this.objCategoriesListing = this.objCategoriesCurrent.oclRecords;
-        this.arrCategoriesListing = this.objCategoriesCurrent.oclRecords.resultsCategoriesListing;
-        
-        
-        //Pagination.
         //----------------------
-        if(gSystemConfig.enableCategoriesFrontendPagination != 0)
-        {
-            //this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02("categories", 
-            /*this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
-                                                                                        ["id_parent;" + this.objCategoriesCurrent.ocdRecord.tblCategoriesID + ";i", "activation;1;i"], 
-                                                                                        gSystemConfig.configCategoriesSort, 
-                                                                                        "", 
-                                                                                        "id, id_parent", 
-                                                                                        3, 
-                                                                                        {});
-
-            */
-
-            this._pagingTotalRecords = this.arrCategoriesListing.length
-            this._pagingTotal = Math.ceil(this._pagingTotalRecords / this._pagingNRecords);
-            
-
-            //Parameters build - paging.
-            //oclRecordsParameters._objSpecialParameters._pageNumber = this._pageNumber;
-            //oclRecordsParameters._objSpecialParameters._pagingNRecords = this._pagingNRecords;
-
-
-            //Slide array.
-            //TODO: Review this logic.
-            if(this._pagingTotal > 1)
-            {
-                //apiURLCategoriesDetailsCurrent += "&pageNumber=" + this._pageNumber;
-                //apiURLCategoriesDetailsCurrent += "&pagingNRecords=" + this._pagingNRecords;
-
-                //Variables.
-                let arrCategoriesListingSliceStart = 0;
-                let arrCategoriesListingSliceEnd = 0;
-
-
-                //Logic.
-                if(this._pageNumber == 1)
-                {
-                    arrCategoriesListingSliceStart = 0;
-                }else{
-                    //arrCategoriesListingSliceStart = (this._pageNumber * this._pagingNRecords) - this._pagingNRecords - 1;
-                    arrCategoriesListingSliceStart = (this._pageNumber * this._pagingNRecords) - this._pagingNRecords;
-                }
-
-                //arrCategoriesListingSliceEnd = (this._pageNumber - 1) * this._pagingNRecords;
-                arrCategoriesListingSliceEnd = arrCategoriesListingSliceStart + this._pagingNRecords;
-
-
-                //Slice.
-                this.arrCategoriesListing = this.arrCategoriesListing.slice(arrCategoriesListingSliceStart, arrCategoriesListingSliceEnd);
-            
-
-                //Debug.
-                //console.log("arrCategoriesListingSliceStart=", arrCategoriesListingSliceStart);
-                //console.log("arrCategoriesListingSliceEnd=", arrCategoriesListingSliceEnd);
-            }
-
-
-            //Debug.
-            //console.log("this._idParentCategories=", this._idParentCategories);
-            //console.log("this.objCategoriesCurrent.ocdRecord.tblCategoriesID=", this.objCategoriesCurrent.ocdRecord.tblCategoriesID);
-            //console.log("this.arrCategoriesListing.length=", this.arrCategoriesListing.length);
-            
-            //console.log("this._pagingTotalRecords=", this._pagingTotalRecords);
-            //console.log("this._pagingTotal=", this._pagingTotal);
-            //console.log("this._pageNumber=", this._pageNumber);
-            //console.log("this._pagingNRecords=", this._pagingNRecords);
-        }
-        //----------------------
-
-
-        //Update state.
-        this.setState({ objCategoriesListing: this.objCategoriesListing });
-        
-        this.setState({ arrCategoriesListing: this.arrCategoriesListing });
-
-        //Note: Place on the last part of the logic.
-        this.setState({ dataLoaded: true });
 
 
         //Logic.
@@ -445,6 +326,115 @@ class FrontendCategoriesListing extends Component
         /**/
         try
         {
+            //API - build URL string.
+            //apiURLCategoriesDetailsCurrent = "http://localhost:3000/api/categories/details/813"; //http://localhost:3000/api/categories/813/?apiKey=createSecretPassword
+            //apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + process.env.CONFIG_API_KEY_SYSTEM;
+            //apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idParentCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //apiURLCategoriesDetailsCurrent = process.env.REACT_APP_CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
+            //apiURLCategoriesDetailsCurrent = CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
+            //apiURLCategoriesDetailsCurrent = REACT_APP_CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
+            //console.log("apiURLCategoriesDetailsCurrent=", apiURLCategoriesDetailsCurrent);
+
+
+            //API - fetch data from backend.
+            //var response = await fetch(apiURLCategoriesDetailsCurrent);
+            apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
+            //this.objCategoriesCurrent = await response.json();
+            this.objCategoriesCurrent = await apiCategoriesDetailsCurrentResponse.json();
+            //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
+
+
+            //Value definition.
+            //this.titleCurrent = this.objCategoriesCurrent.tblCategoriesTitle;
+            this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesTitle);
+            //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
+
+            //idParentCategories = this.props.match.params.idParentCategories;
+
+            this.metaTitle = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configSiteTile");
+            this.metaTitle += " - " + this.titleCurrent; //Bellow 160 characters.
+
+            this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesMetaDescription); //Bellow 100 characters.
+            this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); //Bellow 60 characters.
+            this.metaURLCurrent = gSystemConfig.configSystemURL + "/" + gSystemConfig.configRouteFrontendCategories + "/" + this._idParentCategories + "?pageNumber=" + this._pageNumber;
+            
+            this.objCategoriesListing = this.objCategoriesCurrent.oclRecords;
+            this.arrCategoriesListing = this.objCategoriesCurrent.oclRecords.resultsCategoriesListing;
+            
+            
+            //Pagination.
+            //----------------------
+            if(gSystemConfig.enableCategoriesFrontendPagination != 0)
+            {
+                //this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02("categories", 
+                /*this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
+                                                                                            ["id_parent;" + this.objCategoriesCurrent.ocdRecord.tblCategoriesID + ";i", "activation;1;i"], 
+                                                                                            gSystemConfig.configCategoriesSort, 
+                                                                                            "", 
+                                                                                            "id, id_parent", 
+                                                                                            3, 
+                                                                                            {});
+
+                */
+
+                this._pagingTotalRecords = this.arrCategoriesListing.length
+                this._pagingTotal = Math.ceil(this._pagingTotalRecords / this._pagingNRecords);
+                
+
+                //Parameters build - paging.
+                //oclRecordsParameters._objSpecialParameters._pageNumber = this._pageNumber;
+                //oclRecordsParameters._objSpecialParameters._pagingNRecords = this._pagingNRecords;
+
+
+                //Slide array.
+                //TODO: Review this logic.
+                if(this._pagingTotal > 1)
+                {
+                    //apiURLCategoriesDetailsCurrent += "&pageNumber=" + this._pageNumber;
+                    //apiURLCategoriesDetailsCurrent += "&pagingNRecords=" + this._pagingNRecords;
+
+                    //Variables.
+                    let arrCategoriesListingSliceStart = 0;
+                    let arrCategoriesListingSliceEnd = 0;
+
+
+                    //Logic.
+                    if(this._pageNumber == 1)
+                    {
+                        arrCategoriesListingSliceStart = 0;
+                    }else{
+                        //arrCategoriesListingSliceStart = (this._pageNumber * this._pagingNRecords) - this._pagingNRecords - 1;
+                        arrCategoriesListingSliceStart = (this._pageNumber * this._pagingNRecords) - this._pagingNRecords;
+                    }
+
+                    //arrCategoriesListingSliceEnd = (this._pageNumber - 1) * this._pagingNRecords;
+                    arrCategoriesListingSliceEnd = arrCategoriesListingSliceStart + this._pagingNRecords;
+
+
+                    //Slice.
+                    this.arrCategoriesListing = this.arrCategoriesListing.slice(arrCategoriesListingSliceStart, arrCategoriesListingSliceEnd);
+                
+
+                    //Debug.
+                    //console.log("arrCategoriesListingSliceStart=", arrCategoriesListingSliceStart);
+                    //console.log("arrCategoriesListingSliceEnd=", arrCategoriesListingSliceEnd);
+                }
+
+
+                //Debug.
+                //console.log("this._idParentCategories=", this._idParentCategories);
+                //console.log("this.objCategoriesCurrent.ocdRecord.tblCategoriesID=", this.objCategoriesCurrent.ocdRecord.tblCategoriesID);
+                //console.log("this.arrCategoriesListing.length=", this.arrCategoriesListing.length);
+                
+                //console.log("this._pagingTotalRecords=", this._pagingTotalRecords);
+                //console.log("this._pagingTotal=", this._pagingTotal);
+                //console.log("this._pageNumber=", this._pageNumber);
+                //console.log("this._pagingNRecords=", this._pagingNRecords);
+            }
+            //----------------------
 
 
 
@@ -473,7 +463,12 @@ class FrontendCategoriesListing extends Component
                 console.error(asyncError);
             }
         }finally{
+            //Update state.
+            this.setState({ objCategoriesListing: this.objCategoriesListing });
+            this.setState({ arrCategoriesListing: this.arrCategoriesListing });
 
+            //Note: Place on the last part of the logic.
+            this.setState({ dataLoaded: true });
         }
         //----------------------
     }
@@ -485,7 +480,7 @@ class FrontendCategoriesListing extends Component
     async headBuild()
     {
         //Variables.
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
 
 
 
@@ -495,7 +490,8 @@ class FrontendCategoriesListing extends Component
         //Head elements.
         //document.title ="Example with title tag"; 
         //document.title = this.state.titleCurrent; 
-        document.title = this.titleCurrent; 
+        //document.title = this.titleCurrent; 
+        document.title = this.metaTitle; 
         
 
         //Meta tags.
@@ -518,7 +514,8 @@ class FrontendCategoriesListing extends Component
         //document.querySelector('meta[property="og:image:secure_url"]').setAttribute("content", "Example with image url secure");
         document.querySelector('meta[property="og:image:alt"]').setAttribute("content", this.metaTitle);
         
-        document.querySelector('meta[property="og:locale"]').setAttribute("content", gSystemConfig.configBackendLanguage);
+        //document.querySelector('meta[property="og:locale"]').setAttribute("content", gSystemConfig.configBackendLanguage);
+        document.querySelector('meta[property="og:locale"]').setAttribute("content", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configFrontendLanguage"));
         //document.querySelector('meta[property="og:title"]').setAttribute("content", "Example with title meta tag");
         
 
@@ -605,7 +602,7 @@ class FrontendCategoriesListing extends Component
     async titleCurrentBuild()
     {
         //Variables.
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
 
 
         //Title Current.
@@ -636,7 +633,7 @@ class FrontendCategoriesListing extends Component
     render()
     {
         //Variables.
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
 
 
         //Head.
@@ -669,295 +666,295 @@ class FrontendCategoriesListing extends Component
 
         return(
             <React.Fragment>
-                
-                { /*Categories records.*/ }
-                <FrontendCategoriesListingRecord 
-                    arrCategoriesListing={ this.state.arrCategoriesListing } 
-                    configLayoutType={ 22 }>
-                        {/*arrCategoriesListing={ this.arrCategoriesListing } also works*/}
-                </FrontendCategoriesListingRecord>
-                
+                <section className="ss-frontend-layout-section-content01">
+                    { /*Categories records.*/ }
+                    <FrontendCategoriesListingRecord 
+                        arrCategoriesListing={ this.state.arrCategoriesListing } 
+                        configLayoutType={ 33 }>
+                            {/*arrCategoriesListing={ this.arrCategoriesListing } also works*/}
+                    </FrontendCategoriesListingRecord>
+                    
 
-                { /*pagination (custom).*/ }
-                { gSystemConfig.enableCategoriesFrontendPagination == 1 ?
-                    <div style={{position: "relative", display: "block", overflow: "hidden", textAlign: "center", margin: "20px 0px 0px 0px" }}>
-                        <div style={{position: "relative", display: "block", overflow: "hidden"}}>
-                            { /*First page.*/ }
-                            { this._pageNumber == 1 ? 
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
-                                </a>
-                            :
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
-                                </a>
-                            }
-
-
-                            { /*Previous page.*/ }
-                            { this._pageNumber == 1 ? 
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
-                                </a>
-                            :
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + (parseInt(this._pageNumber) - parseInt(1)) + this.queryDefault }
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
-                                </a>
-                            }
-
-
-                            { /*Next page.*/ }
-                            { this._pageNumber == this._pagingTotal ? 
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
-                                </a>
-                            :
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  (parseInt(this._pageNumber) + parseInt(1)) + this.queryDefault } 
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
-                                </a>
-                            }
-
-
-                            { /*Last page.*/ }
-                            { this._pageNumber == this._pagingTotal ? 
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
-                                </a>
-                            :
-                                <a className="ss-frontend-categories-listing-link01" 
-                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
-                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
-                                </a>
-                            }
-                        </div>
-
-                        { /*Numbering.*/ }
-                        { gSystemConfig.enableCategoriesFrontendPaginationNumbering == 1 ? 
+                    { /*pagination (custom).*/ }
+                    { gSystemConfig.enableCategoriesFrontendPagination == 1 ?
+                        <div style={{position: "relative", display: "block", overflow: "hidden", textAlign: "center", margin: "20px 0px 0px 0px" }}>
                             <div style={{position: "relative", display: "block", overflow: "hidden"}}>
-                                { /*Loop through total pages.*/ }
-                                {Array.from(Array(this._pagingTotal), (item, index) => {
-                                    
-                                    let pageNumberOutput = index + 1;
-                                    
-                                    return (
-                                        this._pageNumber == pageNumberOutput ?
-                                            <span className="ss-frontend-categories-pagination">
-                                                    { pageNumberOutput }
-                                            </span>
-                                        :
-                                            <a className="ss-frontend-categories-pagination-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + pageNumberOutput + this.queryDefault }
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput }>
-                                                    { pageNumberOutput }
-                                            </a>
-                                    );
-                                })}
+                                { /*First page.*/ }
+                                { this._pageNumber == 1 ? 
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
+                                    </a>
+                                :
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
+                                    </a>
+                                }
+
+
+                                { /*Previous page.*/ }
+                                { this._pageNumber == 1 ? 
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
+                                    </a>
+                                :
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + (parseInt(this._pageNumber) - parseInt(1)) + this.queryDefault }
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
+                                    </a>
+                                }
+
+
+                                { /*Next page.*/ }
+                                { this._pageNumber == this._pagingTotal ? 
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
+                                    </a>
+                                :
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  (parseInt(this._pageNumber) + parseInt(1)) + this.queryDefault } 
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
+                                    </a>
+                                }
+
+
+                                { /*Last page.*/ }
+                                { this._pageNumber == this._pagingTotal ? 
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
+                                    </a>
+                                :
+                                    <a className="ss-frontend-categories-listing-link01" 
+                                        href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
+                                        title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
+                                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
+                                    </a>
+                                }
                             </div>
-                        : ``}
-                    </div>
-                    :
-                    ``
-                }
 
-
-                { /*Paging (bootstrap 4).*/ }
-                { /* ************************************************************************************** */ }
-                { gSystemConfig.enableCategoriesFrontendPagination == 11 ? 
-                    this._pagingTotal != 0 ?
-                        <div className="container">
-                            { /*Pagination (bootstrap 4).*/ }
-                            <nav aria-label={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageLabel") }>
-                                <ul className="pagination"> { /*justify-content-center (centered) | justify-content-end (aligned right*/ }
-                                    { /*First page.*/ }
-                                    { this._pageNumber == 1 ? 
-                                        <li className="page-item disabled">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
-                                            </a>
-                                        </li>
-                                    :
-                                        <li className="page-item">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
-                                            </a>
-                                        </li>
-                                    }
-
-
-                                    { /*Previous page.*/ }
-                                    { this._pageNumber == 1 ? 
-                                        <li className="page-item disabled">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
-                                            </a>
-                                        </li>
-                                    :
-                                        <li className="page-item">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + (parseInt(this._pageNumber) - parseInt(1)) + this.queryDefault }
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
-                                            </a>
-                                        </li>
-                                    }
-
-
-                                    { /*Numbering.*/ }
-                                    { gSystemConfig.enableCategoriesFrontendPaginationNumbering == 1 ? 
-                                        <React.Fragment>
-                                            { /*Loop through total pages.*/ }
-                                            {Array.from(Array(this._pagingTotal), (item, index) => {
-                                                
-                                                let pageNumberOutput = index + 1;
-                                                
-                                                return (
-                                                    this._pageNumber == pageNumberOutput ?
-                                                        <li className="page-item active">
-                                                            <a className="page-link" 
-                                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + pageNumberOutput + this.queryDefault }
-                                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput }>
-                                                                    { pageNumberOutput }
-                                                            </a>
-                                                        </li>
-                                                    :
-                                                        <li className="page-item">
-                                                            <a className="page-link" 
-                                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + pageNumberOutput + this.queryDefault }
-                                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput }>
-                                                                    { pageNumberOutput }
-                                                            </a>
-                                                        </li>
-                                                );
-                                            })}
-                                        </React.Fragment>
-                                    : ``}
-                                    
-
-                                    { /*Next page.*/ }
-                                    { this._pageNumber == this._pagingTotal ? 
-                                        <li className="page-item disabled">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
-                                            </a>
-                                        </li>
-                                    :
-                                        <li className="page-item">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  (parseInt(this._pageNumber) + parseInt(1)) + this.queryDefault } 
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
-                                            </a>
-                                        </li>
-                                    }
-
-
-                                    { /*Last page.*/ }
-                                    { this._pageNumber == this._pagingTotal ? 
-                                        <li className="page-item disabled">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal } 
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
-                                            </a>
-                                        </li>
-                                    :
-                                        <li className="page-item">
-                                            <a className="page-link" 
-                                                href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal } 
-                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
-                                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            </nav>
+                            { /*Numbering.*/ }
+                            { gSystemConfig.enableCategoriesFrontendPaginationNumbering == 1 ? 
+                                <div style={{position: "relative", display: "block", overflow: "hidden"}}>
+                                    { /*Loop through total pages.*/ }
+                                    {Array.from(Array(this._pagingTotal), (item, index) => {
+                                        
+                                        let pageNumberOutput = index + 1;
+                                        
+                                        return (
+                                            this._pageNumber == pageNumberOutput ?
+                                                <span className="ss-frontend-categories-pagination">
+                                                        { pageNumberOutput }
+                                                </span>
+                                            :
+                                                <a className="ss-frontend-categories-pagination-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + pageNumberOutput + this.queryDefault }
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput }>
+                                                        { pageNumberOutput }
+                                                </a>
+                                        );
+                                    })}
+                                </div>
+                            : ``}
                         </div>
-                    : ``
-                 : ``}
-                { /* ************************************************************************************** */ }
-
-
-                { /*pagination (bootstrap 3).*/ }
-                <div className="container" style={{display: "none"}}>
-                    <ul className="pagination pagination-md">
-                        <li><a href="#">&laquo;</a></li>
-                        <li className="disabled"><a href="#">1</a></li>
-                        <li className="active"><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-
-                    { /*pager.*/ }
-                    <ul className="pager">
-                        <li><a href="#">Previous</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
-                    <ul className="pager">
-                        <li className="previous"><a href="#">Previous</a></li>
-                        <li className="next"><a href="#">Next</a></li>
-                    </ul>
-                </div>
-
-
-                <div style={{position: "relative", display: "block", overflow: "hidden", textAlign: "center", margin: "20px 0px 0px 0px" }}>
-                    <button>
-                        Back
-                    </button>
-                </div>
-
-
-                { /*Debug.*/ }
-                { /*"this.objCategoriesListing=" + this.objCategoriesListing*/ }
-                { /*"this.state.objCategoriesListing=" + JSON.stringify(this.state.objCategoriesListing)*/ }
-                { /*"this.state.arrCategoriesListing=" + JSON.stringify(this.state.arrCategoriesListing)*/ }
-
-                {/*this.state.arrCategoriesListing.map((objCategoriesRecord, objCategoriesRecordkey) =>
-                    {
-                        return <div key={objCategoriesRecordkey}>
-                            <div>
-                                id: {objCategoriesRecord.id}
-                            </div>
-                            <div>
-                                title: {objCategoriesRecord.title}
-                            </div>
-                            <div>
-                                activation: {objCategoriesRecord.activation}
-                            </div>
-                            <br />
-                            <br />
-                        </div>
+                        :
+                        ``
                     }
-                )*/ /*working*/ }
 
-                Single component
-                { /*onClick={this.elementMessage01("titleCurrent", "current title example")} */ }
-                <button onClick={ /*elementMessage01("titleCurrent", "current title example")*/ + '' }>
-                    Click me
-                </button>
 
+                    { /*Paging (bootstrap 4).*/ }
+                    { /* ************************************************************************************** */ }
+                    { gSystemConfig.enableCategoriesFrontendPagination == 11 ? 
+                        this._pagingTotal != 0 ?
+                            <div className="container">
+                                { /*Pagination (bootstrap 4).*/ }
+                                <nav aria-label={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageLabel") }>
+                                    <ul className="pagination"> { /*justify-content-center (centered) | justify-content-end (aligned right*/ }
+                                        { /*First page.*/ }
+                                        { this._pageNumber == 1 ? 
+                                            <li className="page-item disabled">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
+                                                </a>
+                                            </li>
+                                        :
+                                            <li className="page-item">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingFirst") }
+                                                </a>
+                                            </li>
+                                        }
+
+
+                                        { /*Previous page.*/ }
+                                        { this._pageNumber == 1 ? 
+                                            <li className="page-item disabled">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=1" + this.queryDefault }
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
+                                                </a>
+                                            </li>
+                                        :
+                                            <li className="page-item">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + (parseInt(this._pageNumber) - parseInt(1)) + this.queryDefault }
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPrevious") }
+                                                </a>
+                                            </li>
+                                        }
+
+
+                                        { /*Numbering.*/ }
+                                        { gSystemConfig.enableCategoriesFrontendPaginationNumbering == 1 ? 
+                                            <React.Fragment>
+                                                { /*Loop through total pages.*/ }
+                                                {Array.from(Array(this._pagingTotal), (item, index) => {
+                                                    
+                                                    let pageNumberOutput = index + 1;
+                                                    
+                                                    return (
+                                                        this._pageNumber == pageNumberOutput ?
+                                                            <li className="page-item active">
+                                                                <a className="page-link" 
+                                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + pageNumberOutput + this.queryDefault }
+                                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput }>
+                                                                        { pageNumberOutput }
+                                                                </a>
+                                                            </li>
+                                                        :
+                                                            <li className="page-item">
+                                                                <a className="page-link" 
+                                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" + pageNumberOutput + this.queryDefault }
+                                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput }>
+                                                                        { pageNumberOutput }
+                                                                </a>
+                                                            </li>
+                                                    );
+                                                })}
+                                            </React.Fragment>
+                                        : ``}
+                                        
+
+                                        { /*Next page.*/ }
+                                        { this._pageNumber == this._pagingTotal ? 
+                                            <li className="page-item disabled">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal + this.queryDefault } 
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
+                                                </a>
+                                            </li>
+                                        :
+                                            <li className="page-item">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  (parseInt(this._pageNumber) + parseInt(1)) + this.queryDefault } 
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingNext") }
+                                                </a>
+                                            </li>
+                                        }
+
+
+                                        { /*Last page.*/ }
+                                        { this._pageNumber == this._pagingTotal ? 
+                                            <li className="page-item disabled">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal } 
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
+                                                </a>
+                                            </li>
+                                        :
+                                            <li className="page-item">
+                                                <a className="page-link" 
+                                                    href={ "/" + gSystemConfig.configRouteFrontendCategories + "/" +  this._idParentCategories + "?pageNumber=" +  this._pagingTotal } 
+                                                    title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }>
+                                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendPagingLast") }
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </nav>
+                            </div>
+                        : ``
+                    : ``}
+                    { /* ************************************************************************************** */ }
+
+
+                    { /*pagination (bootstrap 3).*/ }
+                    <div className="container" style={{display: "none"}}>
+                        <ul className="pagination pagination-md">
+                            <li><a href="#">&laquo;</a></li>
+                            <li className="disabled"><a href="#">1</a></li>
+                            <li className="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+
+                        { /*pager.*/ }
+                        <ul className="pager">
+                            <li><a href="#">Previous</a></li>
+                            <li><a href="#">Next</a></li>
+                        </ul>
+                        <ul className="pager">
+                            <li className="previous"><a href="#">Previous</a></li>
+                            <li className="next"><a href="#">Next</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div style={{position: "relative", display: "block", overflow: "hidden", textAlign: "center", margin: "20px 0px 0px 0px" }}>
+                        <button>
+                            Back
+                        </button>
+                    </div>
+
+
+                    { /*Debug.*/ }
+                    { /*"this.objCategoriesListing=" + this.objCategoriesListing*/ }
+                    { /*"this.state.objCategoriesListing=" + JSON.stringify(this.state.objCategoriesListing)*/ }
+                    { /*"this.state.arrCategoriesListing=" + JSON.stringify(this.state.arrCategoriesListing)*/ }
+
+                    {/*this.state.arrCategoriesListing.map((objCategoriesRecord, objCategoriesRecordkey) =>
+                        {
+                            return <div key={objCategoriesRecordkey}>
+                                <div>
+                                    id: {objCategoriesRecord.id}
+                                </div>
+                                <div>
+                                    title: {objCategoriesRecord.title}
+                                </div>
+                                <div>
+                                    activation: {objCategoriesRecord.activation}
+                                </div>
+                                <br />
+                                <br />
+                            </div>
+                        }
+                    )*/ /*working*/ }
+
+                    Single component
+                    { /*onClick={this.elementMessage01("titleCurrent", "current title example")} */ }
+                    <button onClick={ /*elementMessage01("titleCurrent", "current title example")*/ + '' }>
+                        Click me
+                    </button>
+                </section>
             </React.Fragment>
         );
     }

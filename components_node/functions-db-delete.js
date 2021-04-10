@@ -45,9 +45,6 @@ module.exports = class FunctionsDBDelete
         //----------------------
         strSQLRecordsGenericDelete += "DELETE FROM " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + FunctionsGeneric.contentMaskWrite(strTable, "db_sanitize");
         //strSQLRecordsGenericDelete += " SET ?";
-        
-        //Debug.
-        //console.log("strSQLRecordsGenericDelete=", strSQLRecordsGenericDelete);
         //----------------------
 
         //Parameters.
@@ -93,16 +90,14 @@ module.exports = class FunctionsDBDelete
                 }
             }
 
-            //Debug.
-            //print("arrSearchParameters=" + arrSearchParameters[countArray]);
-            //print("searchParametersFieldName=" + searchParametersFieldName);
-            //print("searchParametersFieldValue=" + searchParametersFieldValue);
-            //print("searchParametersFieldType=" + searchParametersFieldType);
         }
+        //Debug.
+        //console.log("strSQLRecordsGenericDelete=", strSQLRecordsGenericDelete);
+        //console.log("arrSearchParameters=", arrSearchParameters);
         //console.log("strSQLRecordsGenericDelete=", strSQLRecordsGenericDelete);
         //----------------------
 
-
+        
         //Execute query.
         //----------------------
         return new Promise((resolve, reject) => {

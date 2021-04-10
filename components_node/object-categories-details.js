@@ -75,6 +75,7 @@ module.exports = class ObjectCategoriesDetails
         this.tblCategoriesTitle = "";
         this.tblCategoriesDescription = "";
         this.tblCategoriesDescription_edit = "";
+        
         this.tblCategoriesURLAlias = "";
         this.tblCategoriesKeywordsTags = "";
         this.tblCategoriesMetaDescription = "";
@@ -268,7 +269,7 @@ module.exports = class ObjectCategoriesDetails
     //**************************************************************************************
     //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
     /**
-     * Get categories listing according to search parameters.
+     * Get categories details according to search parameters.
      * @param {*} terminal 0 - backend | 1 - frontend
      * @param {*} returnType 1 - array | 3 - Json Object | 10 - html
      * @returns {json}
@@ -1039,4 +1040,22 @@ module.exports = class ObjectCategoriesDetails
                                             
     }
     //**************************************************************************************
+
+
+    //Usage.
+    //----------------------
+    /*
+    this.arrSearchParameters = [];
+    this.ocdRecord = "";
+    this.ocdRecordParameters = {
+        _arrSearchParameters: this.arrSearchParameters,
+        _idTbCategories: this._idTbCategories,
+        _terminal: 0,
+        _objSpecialParameters: {returnType: 3}
+    };
+
+    this.ocdRecord = new SyncSystemNS.ObjectFormsFieldsDetails(this.ocdRecordParameters);
+    await this.ocdRecord.recordDetailsGet(0, 3);
+    */
+    //----------------------
 };

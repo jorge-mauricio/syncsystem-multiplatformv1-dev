@@ -1,6 +1,5 @@
 "use strict";
 
-
 //Import.
 //----------------------
 import "babel-polyfill"; //with babel, we can use the import syntax.
@@ -74,6 +73,8 @@ import { StaticRouter } from "react-router";
 //var AppReact = require("./components_react/app.js");
 import AppReactSSR from "./components_react/app.js";
 //import { renderToString } from "react-dom/server";
+
+import HTMLReactParser from "html-react-parser"; //error / webpack
 
 
 //Layout
@@ -175,12 +176,19 @@ app.get("/*", (req,res)=>
     );
     */
    
-
+   
     const frontendHTML = "<!DOCTYPE html>" + ReactDOMServer.renderToString(
         <StaticRouter location={req.url} context={context}>
             <AppReactSSR />
         </StaticRouter>
     );
+     /*
+    const frontendHTML = HTMLReactParser("<!DOCTYPE html>" + ReactDOMServer.renderToString(
+        <StaticRouter location={req.url} context={context}>
+            <AppReactSSR />
+        </StaticRouter>
+    ));
+    */
     
     
     /*error

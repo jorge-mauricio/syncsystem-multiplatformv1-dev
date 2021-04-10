@@ -7,7 +7,7 @@
 import { SyncSystemNSContext } from "./syncsystem-ns-cb-context.js";
 
 //Node modules.
-const qs = require('query-string');
+//const qs = require('query-string');
 
 //React.
 import React, {Component} from "react";
@@ -16,6 +16,8 @@ import ReactDOM from "react-dom";
 
 //Components.
 import FrontendCategoriesDetailsRecord from "./frontend-categories-details-record-cb-component.js";
+import FrontendFilesImages from "./frontend-files-images-cb-component.js";
+import FrontendFiles from "./frontend-files-cb-component.js";
 //----------------------
 
 
@@ -32,7 +34,7 @@ class FrontendCategoriesDetails extends Component
         super(props, context);
 
         //Variables.
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, qs } = this.context;
     
         //Properties.
         //----------------------
@@ -51,6 +53,7 @@ class FrontendCategoriesDetails extends Component
         this.objCategoryCurrent = {};
         this.titleCurrent = "";
 
+        this.objCategoriesDetailsJson;
         this.objCategoriesDetails = {};
         this.objCategoriesListing = {};
         this.arrCategoriesListing = [];
@@ -112,9 +115,9 @@ class FrontendCategoriesDetails extends Component
 
 
         //Debug.
-        console.log("this.objParametersQueryString=", this.objParametersQueryString);
-        console.log("this._idTbCategories=", this._idTbCategories);
-        console.log("this.queryDefault=", this.queryDefault);
+        //console.log("this.objParametersQueryString=", this.objParametersQueryString);
+        //console.log("this._idTbCategories=", this._idTbCategories);
+        //console.log("this.queryDefault=", this.queryDefault);
     }
     //**************************************************************************************
 
@@ -132,14 +135,27 @@ class FrontendCategoriesDetails extends Component
     //**************************************************************************************
     async componentDidMount()
     {
-        //Main build.
-        await this.build();
+        //Logic.
+        //----------------------
+        try
+        {
+            //Main build.
+            await this.build();
 
-        //Head content.
-        await this.headBuild();
+            //Head content.
+            await this.headBuild();
 
-        //Title content.
-        await this.titleCurrentBuild();
+            //Title content.
+            await this.titleCurrentBuild();
+        }catch(asyncError){
+            if(gSystemConfig.configDebug === true)
+            {
+                console.error(asyncError);
+            }
+        }finally{
+
+        }
+        //----------------------
     }
     //**************************************************************************************
 
@@ -149,52 +165,71 @@ class FrontendCategoriesDetails extends Component
     async build()
     {
         //Variables.
+        //----------------------
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
     
         var apiURLCategoriesDetailsCurrent = "";
         var apiCategoriesDetailsCurrentResponse;
+        //----------------------
 
 
-        //API - build URL string.
-        apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idTbCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-    
+        //Logic.
+        //----------------------
+        try
+        {
+            //API - build URL string.
+            //apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idTbCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //TODO: check to see if this api call should be changed to /details
 
-        //API - fetch data from backend.
-        apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
-        this.objCategoriesCurrent = await apiCategoriesDetailsCurrentResponse.json();
+            //API - fetch data from backend.
+            apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
+            this.objCategoriesDetailsJson = await apiCategoriesDetailsCurrentResponse.json();
+            this.objCategoriesDetails = this.objCategoriesDetailsJson.ocdRecord;
 
+            //Value definition.
+            this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesDetails.tblCategoriesTitle);
 
-        //Value definition.
-        this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesTitle);
-
-        this.metaTitle = this.titleCurrent; //Bellow 160 characters.
-        this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesMetaDescription); //Bellow 100 characters.
-        this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); //Bellow 60 characters.
-        this.metaURLCurrent = gSystemConfig.configSystemURL + "/" + gSystemConfig.configRouteFrontendCategories + "/" + this._idParentCategories + "?pageNumber=" + this._pageNumber;
-        
-        this.objCategoriesDetails = this.objCategoriesCurrent.ocdRecord;
-        //this.objCategoriesDetails = this.objCategoriesCurrent;
-        //this.objCategoriesDetails = JSON.parse(JSON.stringify(this.objCategoriesCurrent.ocdRecord));
-        //this.objCategoriesDetails = Object.assign({}, this.objCategoriesCurrent.ocdRecord);
-        //this.objCategoriesDetails = Object.create(this.objCategoriesCurrent.ocdRecord);
-
-
-        //Update state.
-        //this.setState({ objCategoryCurrent: this.objCategoryCurrent });
-        this.setState({ objCategoriesDetails: this.objCategoriesDetails });
-
-        //this.setState({ objCategoriesListing: this.objCategoriesListing });
-        //this.setState({ arrCategoriesListing: this.arrCategoriesListing });
-
-        //Note: Place on the last part of the logic.
-        this.setState({ dataLoaded: true });
+            this.metaTitle = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configSiteTile");
+            this.metaTitle += " - " + this.titleCurrent; //Bellow 160 characters.
+            
+            this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesDetails.tblCategoriesMetaDescription); //Bellow 100 characters.
+            this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesDetails.tblCategoriesKeywordsTags); //Bellow 60 characters.
+            this.metaURLCurrent = gSystemConfig.configSystemURL + "/" + gSystemConfig.configRouteFrontendCategories + "/" + gSystemConfig.configRouteFrontendDetails + "/" + this._idTbCategories + "?pageNumber=" + this._pageNumber;
+            
+            //this.objCategoriesDetails = this.objCategoriesDetailsJson;
+            //this.objCategoriesDetails = JSON.parse(JSON.stringify(this.objCategoriesDetails));
+            //this.objCategoriesDetails = Object.assign({}, this.objCategoriesDetails);
+            //this.objCategoriesDetails = Object.create(this.objCategoriesDetails);
 
 
-        //Debug.
-        //console.log("this.objCategoryCurrent", this.objCategoryCurrent);
-        //console.log("this.objCategoriesCurrent.ocdRecord=", this.objCategoriesCurrent.ocdRecord);
-        console.log("this.objCategoriesDetails=", this.objCategoriesDetails);
-        //console.log("this.objCategoriesDetails(stringify)=", JSON.stringify(this.objCategoriesDetails));
+            //Update state.
+            //this.setState({ objCategoryCurrent: this.objCategoryCurrent });
+            this.setState({ objCategoriesDetails: this.objCategoriesDetails });
+
+            //this.setState({ objCategoriesListing: this.objCategoriesListing });
+            //this.setState({ arrCategoriesListing: this.arrCategoriesListing });
+
+            //Note: Place on the last part of the logic.
+            this.setState({ dataLoaded: true });
+
+
+            //Debug.
+            //console.log("this.objCategoryCurrent", this.objCategoryCurrent);
+            //console.log("this.objCategoriesDetails=", this.objCategoriesDetails);
+            //console.log("this.objCategoriesDetails=", this.objCategoriesDetails);
+            //console.log("this.objCategoriesDetails(stringify)=", JSON.stringify(this.objCategoriesDetails));
+        }catch(asyncError){
+            if(gSystemConfig.configDebug === true)
+            {
+                console.error(asyncError);
+            }
+        }finally{
+
+        }
+        //----------------------
+
+
     }
     //**************************************************************************************
 
@@ -207,15 +242,15 @@ class FrontendCategoriesDetails extends Component
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
 
 
-
         //console.log("this.objCategoriesListing=",this.objCategoriesListing);
 
 
         //Head elements.
         //document.title ="Example with title tag"; 
         //document.title = this.state.titleCurrent; 
-        document.title = this.titleCurrent; 
-        
+        //document.title = this.titleCurrent; 
+        document.title = this.metaTitle; 
+
 
         //Meta tags.
         /**/
@@ -228,16 +263,17 @@ class FrontendCategoriesDetails extends Component
         document.querySelector('meta[property="og:url"]').setAttribute("content", this.metaURLCurrent);
         document.querySelector('meta[property="og:description"]').setAttribute("content", this.metaDescription);
         
-        if(this.objCategoriesCurrent.ocdRecord.tblCategoriesImageMain != "")
+        if(this.objCategoriesDetails.tblCategoriesImageMain != "")
         {
-            document.querySelector('meta[property="og:image"]').setAttribute("content", gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.objCategoriesCurrent.ocdRecord.tblCategoriesImageMain);
+            document.querySelector('meta[property="og:image"]').setAttribute("content", gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.objCategoriesDetails.tblCategoriesImageMain);
         }else{
             document.querySelector('meta[property="og:image"]').setAttribute("content", gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png");
         }
         //document.querySelector('meta[property="og:image:secure_url"]').setAttribute("content", "Example with image url secure");
         document.querySelector('meta[property="og:image:alt"]').setAttribute("content", this.metaTitle);
         
-        document.querySelector('meta[property="og:locale"]').setAttribute("content", gSystemConfig.configBackendLanguage);
+        //document.querySelector('meta[property="og:locale"]').setAttribute("content", gSystemConfig.configBackendLanguage);
+        document.querySelector('meta[property="og:locale"]').setAttribute("content", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configFrontendLanguage"));
         //document.querySelector('meta[property="og:title"]').setAttribute("content", "Example with title meta tag");
         
 
@@ -283,17 +319,54 @@ class FrontendCategoriesDetails extends Component
             }
 
             return '';
+        }else{
+            console.log("Data loaded.");
         }
         //----------------------
 
 
+        //Output.
         return(
             <React.Fragment>
-                { /*Categories records.*/ }
-                <FrontendCategoriesDetailsRecord 
-                    objCategoriesDetails={ this.state.objCategoriesDetails } 
-                    configLayoutType={ 2 }>
-                </FrontendCategoriesDetailsRecord>
+                <section className="ss-frontend-layout-section-content01">
+                    { /*Categories records.*/ }
+                    <FrontendCategoriesDetailsRecord 
+                        objCategoriesDetails={ this.state.objCategoriesDetails } 
+                        configLayoutType={ 2 }>
+                    </FrontendCategoriesDetailsRecord>
+
+
+                    { /*Files - images - records.*/ }
+                    { gSystemConfig.enableCategoriesImages == 1 ? 
+                        <FrontendFilesImages
+                            idParentFiles={ this._idTbCategories } 
+                            configLayoutType={ 1 } 
+                            configFilesNRecords={ "" } 
+                            configFilesSort={ "" } 
+                            configFilesZoom={ 0 }>
+                        </FrontendFilesImages>
+                    :``
+                    }
+
+
+                    { /*Files - records.*/ }
+                    { gSystemConfig.enableCategoriesFiles == 1 ? 
+                        <FrontendFiles
+                            idParentFiles={ this._idTbCategories } 
+                            configLayoutType={ 1 } 
+                            configFilesNRecords={ "" } 
+                            configFilesSort={ "" }>
+                        </FrontendFiles>
+                    :``
+                    }
+
+
+                    <div style={{position: "relative", display: "block", textAlign: "center", overflow: "hidden", marginTop: "20px;"}}>
+                        <a onClick={this.props.history.goBack} className="ss-frontend-btn-base ss-frontend-btn-action">
+                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonBack") }
+                        </a>
+                    </div>
+                </section>
             </React.Fragment>
         );
     }

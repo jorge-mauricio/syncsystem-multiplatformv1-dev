@@ -13,7 +13,19 @@ module.exports = class FilesEdit
     //**************************************************************************************
     constructor(objParameters = {})
     {
-        //objParameters = {idTbFiles: 123, fileType: 123}
+        /*objParameters = {
+                            idTbFiles: idTbFiles,
+                            fileType: fileType,
+
+                            pageNumber: pageNumber,
+                            masterPageSelect: masterPageSelect,
+
+                            messageSuccess: messageSuccess,
+                            messageError: messageError,
+                            messageAlert: messageAlert,
+                            nRecords: nRecords
+                        }
+        */
 
 
         //Properties.
@@ -191,7 +203,6 @@ module.exports = class FilesEdit
 
     //Build content placeholder title.
     //**************************************************************************************
-    //static async cphBodyBuild()
     async cphTitleBuild()
     {
         //Logic.
@@ -269,13 +280,13 @@ module.exports = class FilesEdit
         //----------------------
         try
         {
-            /*
+            this.cphTitleCurrent += SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesTitleEdit");
+            //this.cphTitleCurrent += " - ";
+
             if(this.titleCurrent)
             {
                 this.cphTitleCurrent += " - " + this.titleCurrent;
             }
-            */
-            this.cphTitleCurrent += this.titleCurrent;
 
 
             //Debug.
@@ -393,7 +404,7 @@ module.exports = class FilesEdit
 
 
             ${ /*Form.*/'' }
-            <section class="ss-backend-layout-section-form01" style="width: 100%;">
+            <section class="ss-backend-layout-section-form01">
                 <form id="formFilesEdit" name="formFilesEdit" method="POST" action="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + gSystemConfig.configRouteBackendActionEdit }/?_method=PUT" enctype="multipart/form-data">
                     <input type="hidden" id="formFilesEdit_method" name="_method" value="PUT">
                     
@@ -453,7 +464,7 @@ module.exports = class FilesEdit
                                 ` : ``
                                 }
 
-                                ${ gSystemConfig.enableFilesSortCustom == 1 ? 
+                                ${ gSystemConfig.enableFilesSortOrder == 1 ? 
                                 `
                                 <tr id="inputRowFiles_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -480,7 +491,7 @@ module.exports = class FilesEdit
                                 `
                                 <tr id="inputRowFiles_file_config" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesFileConfig") }: 
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay") }: 
                                     </td>
                                     <td>
                                         <label class="ss-backend-field-radio-label">
@@ -508,7 +519,7 @@ module.exports = class FilesEdit
                                 `
                                 <tr id="inputRowFiles_file_config" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendFilesFileConfig") }: 
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDisplay") }: 
                                     </td>
                                     <td>
                                         <label class="ss-backend-field-radio-label">
@@ -3148,5 +3159,4 @@ module.exports = class FilesEdit
         //----------------------
     }
     //**************************************************************************************
-
 };

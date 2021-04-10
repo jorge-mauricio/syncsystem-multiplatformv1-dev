@@ -1,6 +1,5 @@
 "use strict";
 
-
 //Import Node Modules.
 //----------------------
 //const gSystemConfig = require("../config-application.js"); //System configuration.
@@ -15,7 +14,7 @@ import { SyncSystemNSContext } from "./syncsystem-ns-cb-context.js";
 //import React from "react";
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
-import reactSafe from "react-safe";
+//import reactSafe from "react-safe";
 //import { Link } from 'react-router-dom';
 //----------------------
 
@@ -158,7 +157,7 @@ class FrontendCategoriesDetailsRecord extends Component
         //Variables.
         //----------------------
         //const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem,  HTMLReactParser} = this.context;
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem,  HTMLReactParser } = this.context;
         var configLayoutType = null;
         var objCategoriesDetails;
         //----------------------
@@ -173,7 +172,7 @@ class FrontendCategoriesDetailsRecord extends Component
 
 
         //Debug.
-        console.log("objCategoriesDetails(details record)=", objCategoriesDetails);
+        //console.log("objCategoriesDetails(details record)=", objCategoriesDetails);
         
 
         //Div (custom).
@@ -184,43 +183,57 @@ class FrontendCategoriesDetailsRecord extends Component
             //{
                 //Not empty.
                 return(
-                    <section className="ss-backend-layout-section-data01 ss-frontend-categories-details-text01">
+                    <div className="ss-frontend-categories-details-text01">
                         <figure className="ss-frontend-categories-details-image01-container">
-                            { /*No pop-up.*/'' }
-                            { gSystemConfig.configImagePopup == 0 ? 
-                                <img src={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesImageMain } 
-                                    alt={ SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesTitle, "db") } 
-                                    className="ss-frontend-categories-details-image01" />
-                                : ``
-                            }
-
-                            { /*GLightbox.*/'' }
-                            { /*TODO: Not working.*/'' }
-                            { /*Research: https://www.npmjs.com/package/react-image-lightbox.*/'' }
-                            { gSystemConfig.configImagePopup == 4 ? 
+                            { objCategoriesDetails.tblCategoriesImageMain != "" ?
                                 <React.Fragment>
-                                    <a href={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + objCategoriesDetails.tblCategoriesImageMain }
-                                        title={ SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesTitle, "db") } 
-                                        className="glightbox_categories_image_main"
-                                        data-glightbox={"title:" + SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesTitle, "db") + ";"}>
+                                    { /*No pop-up.*/'' }
+                                    { gSystemConfig.configImagePopup == 0 ? 
                                         <img src={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesImageMain } 
-                                            alt={ SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesTitle, "db") } 
+                                            alt={ objCategoriesDetails.tblCategoriesTitle } 
                                             className="ss-frontend-categories-details-image01" />
-                                    </a>
-                                    { HTMLReactParser(`
-                                        <script type="text/babel">
-                                        //$(document).ready(function() {
-                                            gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main";
-                                            var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
-                                        //});
-                                        </script>
-                                    `) }
+                                        : ``
+                                    }
+
+                                    { /*GLightbox.*/'' }
+                                    { /*TODO: Not working.*/'' }
+                                    { /*Research: https://www.npmjs.com/package/react-image-lightbox.*/'' }
+                                    { gSystemConfig.configImagePopup == 4 ? 
+                                        <React.Fragment>
+                                            <a href={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + objCategoriesDetails.tblCategoriesImageMain }
+                                                title={ objCategoriesDetails.tblCategoriesTitle } 
+                                                className="glightbox_categories_image_main"
+                                                data-glightbox={"title:" + objCategoriesDetails.tblCategoriesTitle + ";"}>
+                                                <img src={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesImageMain } 
+                                                    alt={ objCategoriesDetails.tblCategoriesTitle } 
+                                                    className="ss-frontend-categories-details-image01" />
+                                            </a>
+                                            { HTMLReactParser(`
+                                                <script type="text/babel">
+                                                //$(document).ready(function() {
+                                                    gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main";
+                                                    var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
+                                                //});
+                                                </script>
+                                            `) }
+                                        </React.Fragment>
+                                        : ``
+                                    }
                                 </React.Fragment>
-                                : ``
+                            :
+                                <React.Fragment>
+                                    { /*Placeholder.*/ }
+                                    { gSystemConfig.configCategoriesImagePlaceholder == 1 ? 
+                                        <img src={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesLayoutSD + "/frontend-layout-image-placeholder-t0.png" } 
+                                            alt={ objCategoriesDetails.tblCategoriesTitle } 
+                                            className="ss-frontend-categories-details-image01" />
+                                        : ``
+                                    }
+                                </React.Fragment>
                             }
 
                             <figcaption>
-                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesTitle, "db") }
+                                { objCategoriesDetails.tblCategoriesTitle }
                             </figcaption>
                         </figure>
 
@@ -233,7 +246,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo1") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo1, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo1) }
                                     </div>
                                 </div>
                                 : ``
@@ -246,7 +259,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo2") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo2, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo2) }
                                     </div>
                                 </div>
                                 : ``
@@ -259,7 +272,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo3") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo3, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo3) }
                                     </div>
                                 </div>
                                 : ``
@@ -272,7 +285,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo4") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo4, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo4) }
                                     </div>
                                 </div>
                                 : ``
@@ -285,20 +298,20 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo5") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo5, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo5) }
                                     </div>
                                 </div>
                                 : ``
                             }
                             
-                            { /*Information 5.*/ }
-                            { gSystemConfig.enableCategoriesInfo5 == 1 && gSystemConfig.configCategoriesInfo5FieldType == 2 && objCategoriesDetails.tblCategoriesInfo5 != "" ? 
+                            { /*Information 6.*/ }
+                            { gSystemConfig.enableCategoriesInfo6 == 1 && gSystemConfig.configCategoriesInfo6FieldType == 2 && objCategoriesDetails.tblCategoriesInfo6 != "" ? 
                                 <div className="ss-frontend-categories-details-content-row01">
                                     <div className="ss-frontend-categories-details-content-row-label01 ss-frontend-categories-details-subheading01">
-                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo5") }:
+                                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo6") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo5, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo6) }
                                     </div>
                                 </div>
                                 : ``
@@ -311,7 +324,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo7") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo7, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo7) }
                                     </div>
                                 </div>
                                 : ``
@@ -324,7 +337,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo8") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo8, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo8) }
                                     </div>
                                 </div>
                                 : ``
@@ -337,7 +350,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo9") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo9, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo9) }
                                     </div>
                                 </div>
                                 : ``
@@ -350,7 +363,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo10") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo10, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo10) }
                                     </div>
                                 </div>
                                 : ``
@@ -363,7 +376,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS1") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall1, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall1) }
                                     </div>
                                 </div>
                                 : ``
@@ -376,7 +389,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS2") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall2, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall2) }
                                     </div>
                                 </div>
                                 : ``
@@ -389,7 +402,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS3") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall3, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall3) }
                                     </div>
                                 </div>
                                 : ``
@@ -402,7 +415,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS4") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall4, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall4) }
                                     </div>
                                 </div>
                                 : ``
@@ -415,7 +428,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS5") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-row-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall5, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall5) }
                                     </div>
                                 </div>
                                 : ``
@@ -432,7 +445,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo1") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo1, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo1) }
                                     </div>
                                 </div>
                                 : ``
@@ -445,7 +458,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo2") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo2, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo2) }
                                     </div>
                                 </div>
                                 : ``
@@ -458,7 +471,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo3") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo3, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo3) }
                                     </div>
                                 </div>
                                 : ``
@@ -471,7 +484,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo4") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo4, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo4) }
                                     </div>
                                 </div>
                                 : ``
@@ -484,7 +497,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo5") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo5, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo5) }
                                     </div>
                                 </div>
                                 : ``
@@ -497,7 +510,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo6") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo6, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo6) }
                                     </div>
                                 </div>
                                 : ``
@@ -510,7 +523,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo7") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo7, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo7) }
                                     </div>
                                 </div>
                                 : ``
@@ -523,7 +536,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo8") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo8, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo8) }
                                     </div>
                                 </div>
                                 : ``
@@ -536,7 +549,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo9") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo9, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo9) }
                                     </div>
                                 </div>
                                 : ``
@@ -549,7 +562,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfo10") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfo10, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfo10) }
                                     </div>
                                 </div>
                                 : ``
@@ -563,7 +576,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS1") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall1, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall1) }
                                     </div>
                                 </div>
                                 : ``
@@ -576,7 +589,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS2") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall2, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall2) }
                                     </div>
                                 </div>
                                 : ``
@@ -589,7 +602,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS3") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall3, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall3) }
                                     </div>
                                 </div>
                                 : ``
@@ -602,7 +615,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS4") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall4, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall4) }
                                     </div>
                                 </div>
                                 : ``
@@ -615,7 +628,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                         { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendCategoriesInfoS5") }:
                                     </div>
                                     <div className="ss-frontend-categories-details-content-block-data01">
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesInfoSmall5, "db") }
+                                        { HTMLReactParser(objCategoriesDetails.tblCategoriesInfoSmall5) }
                                     </div>
                                 </div>
                                 : ``
@@ -950,7 +963,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumber1_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumber1_print }
                                     </div>
                                 </div>
                                 : ``
@@ -970,7 +983,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumber2_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumber2_print }
                                     </div>
                                 </div>
                                 : ``
@@ -990,7 +1003,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
 
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumber3_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumber3_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1010,7 +1023,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumber4_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumber4_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1030,7 +1043,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumber5_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumber5_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1051,7 +1064,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumberSmall1_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumberSmall1_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1071,7 +1084,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumberSmall2_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumberSmall2_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1091,7 +1104,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumberSmall3_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumberSmall3_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1111,7 +1124,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumberSmall4_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumberSmall4_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1131,7 +1144,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             : ``
                                         }
                                         
-                                        { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesNumberSmall5_print, "db") }
+                                        { objCategoriesDetails.tblCategoriesNumberSmall5_print }
                                     </div>
                                 </div>
                                 : ``
@@ -1224,7 +1237,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                                 download={ objCategoriesDetails.tblCategoriesFile1 }  
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile1, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile1 }
                                             </a>
                                             : ``
                                         }
@@ -1233,7 +1246,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             <a href={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesFile1 } 
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile1, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile1 }
                                             </a>
                                             : ``
                                         }
@@ -1255,7 +1268,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                                 download={ objCategoriesDetails.tblCategoriesFile2 }  
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile2, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile2 }
                                             </a>
                                             : ``
                                         }
@@ -1264,7 +1277,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             <a href={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesFile2 } 
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile2, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile2 }
                                             </a>
                                             : ``
                                         }
@@ -1286,7 +1299,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                                 download={ objCategoriesDetails.tblCategoriesFile3 }  
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile3, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile3 }
                                             </a>
                                             : ``
                                         }
@@ -1295,7 +1308,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             <a href={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesFile3 } 
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile3, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile3 }
                                             </a>
                                             : ``
                                         }
@@ -1317,7 +1330,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                                 download={ objCategoriesDetails.tblCategoriesFile4 }  
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile4, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile4 }
                                             </a>
                                             : ``
                                         }
@@ -1326,7 +1339,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             <a href={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesFile4 } 
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile4, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile4 }
                                             </a>
                                             : ``
                                         }
@@ -1348,7 +1361,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                                 download={ objCategoriesDetails.tblCategoriesFile5 }  
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile5, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile5 }
                                             </a>
                                             : ``
                                         }
@@ -1357,7 +1370,7 @@ class FrontendCategoriesDetailsRecord extends Component
                                             <a href={ gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + "/" + objCategoriesDetails.tblCategoriesFile5 } 
                                                 target="_blank"
                                                 className="ss-frontend-categories-details-link01">
-                                                { SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesDetails.tblCategoriesFile5, "db") }
+                                                { objCategoriesDetails.tblCategoriesFile5 }
                                             </a>
                                             : ``
                                         }
@@ -1367,7 +1380,7 @@ class FrontendCategoriesDetailsRecord extends Component
                             }
                         </p>
 
-                    </section>
+                    </div>
                 );
 
             //}else{

@@ -69,21 +69,11 @@ module.exports = class CategoriesEdit
 
         this.arrSearchParameters = [];
         this.ocdRecord = "";
-        this.ocdRecordParameters = {
-            _arrSearchParameters: this.arrSearchParameters,
-            _idTbCategories: this._idTbCategories,
-            _terminal: 0,
-            _objSpecialParameters: {returnType: 3}
-        };
+        this.ocdRecordParameters = {};
 
         this.arrFiltersGenericSearchParameters = [];
         this.ofglRecords = "";
-        this.ofglRecordsParameters = {
-            _arrSearchParameters: this.arrFiltersGenericSearchParameters,
-            _configSortOrder: "title",
-            _strNRecords: "",
-            _objSpecialParameters: {returnType: 3}
-        };
+        this.ofglRecordsParameters = {};
 
         this.resultsCategoriesFiltersGeneric1Listing;
         this.resultsCategoriesFiltersGeneric2Listing;
@@ -126,17 +116,43 @@ module.exports = class CategoriesEdit
             //Parameters build.
             this.arrSearchParameters.push("id;" + this._idTbCategories + ";i"); 
 
+            this.ocdRecordParameters = {
+                _arrSearchParameters: this.arrSearchParameters,
+                _idTbCategories: this._idTbCategories,
+                _terminal: 0,
+                _objSpecialParameters: {returnType: 3}
+            };
 
-            //Build objects.
+            //Object build.
             this.ocdRecord = new SyncSystemNS.ObjectCategoriesDetails(this.ocdRecordParameters);
             await this.ocdRecord.recordDetailsGet(0, 3);
             //console.log("this.ocdRecord = ", this.ocdRecord);
 
+
+            //Parameters build.
+            this.arrFiltersGenericSearchParameters.push("table_name;" + gSystemConfig.configSystemDBTableCategories + ";s");
+            
+            this.ofglRecordsParameters = {
+                _arrSearchParameters: this.arrFiltersGenericSearchParameters,
+                _configSortOrder: "title",
+                _strNRecords: "",
+                _objSpecialParameters: {returnType: 3}
+            };
+                
+            //Object build.
             //Todo: check if filter is enabled.
             this.ofglRecords = new SyncSystemNS.ObjectFiltersGenericListing(this.ofglRecordsParameters);
             await this.ofglRecords.recordsListingGet(0, 3);
 
             
+            //Filters - Status.
+            if(gSystemConfig.enableCategoriesStatus != 0)
+            {
+                this.resultsCategoriesStatusListing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 2;
+                });
+            }
+
             //Filter results acording to filter_index.
             if(gSystemConfig.enableCategoriesFilterGeneric1 != 0)
             {
@@ -146,12 +162,6 @@ module.exports = class CategoriesEdit
                 });
                 //console.log("ofglRecords.resultsFiltersGenericListing = ", ofglRecords.resultsFiltersGenericListing);
                 //console.log("resultsFiltersGeneric1Listing = ", resultsFiltersGeneric1Listing);
-            }
-            if(gSystemConfig.enableCategoriesFilterGeneric2 != 0)
-            {
-                this.resultsCategoriesFiltersGeneric2Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 102;
-                });
             }
             if(gSystemConfig.enableCategoriesFilterGeneric2 != 0)
             {
@@ -205,13 +215,6 @@ module.exports = class CategoriesEdit
             {
                 this.resultsCategoriesFiltersGeneric10Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
                     return obj.filter_index == 110;
-                });
-            }
-
-            if(gSystemConfig.enableCategoriesStatus != 0)
-            {
-                this.resultsCategoriesStatusListing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 2;
                 });
             }
 
@@ -642,7 +645,7 @@ module.exports = class CategoriesEdit
                                 ` : ``
                                 }
 
-                                ${ gSystemConfig.enableCategoriesSortCustom == 1 ? 
+                                ${ gSystemConfig.enableCategoriesSortOrder == 1 ? 
                                 `
                                 <tr id="inputRowCategories_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -879,7 +882,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric2 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric2") }: 
                                     </td>
@@ -943,7 +946,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric3 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric3") }: 
                                     </td>
@@ -1007,7 +1010,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric4 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric4") }: 
                                     </td>
@@ -1071,7 +1074,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric5 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric5") }: 
                                     </td>
@@ -1135,7 +1138,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric6 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter6" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric6") }: 
                                     </td>
@@ -1199,7 +1202,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric7 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter7" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric7") }: 
                                     </td>
@@ -1263,7 +1266,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric8 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter8" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric8") }: 
                                     </td>
@@ -1327,7 +1330,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric9 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter9" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric9") }: 
                                     </td>
@@ -1391,7 +1394,7 @@ module.exports = class CategoriesEdit
 
                                 ${ gSystemConfig.enableCategoriesFilterGeneric10 != 0 ? 
                                 `
-                                <tr id="inputRowCategories_generic_filter1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowCategories_generic_filter10" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendCategoriesFilterGeneric10") }: 
                                     </td>

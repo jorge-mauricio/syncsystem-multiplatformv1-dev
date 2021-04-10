@@ -23,12 +23,14 @@ const formidable = require("formidable"); //Form file upload.
 
 
 //Backend - Records - Delete.
+//TODO: middleware function to check user_root or user_backend
 //**************************************************************************************
 //app.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ //working, with the async block
 //router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/delete/", (req, res)=>{ //working, with the async block
-router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, (req, res)=>{ //working, with the async block
-    //router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/delete", (req, res)=>{ //working, with the async block
-    
+//router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/delete", (req, res)=>{ //working, with the async block
+//router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, (req, res)=>{ //working, with the async block
+//router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, (req, res, next)=>{ //working, with the async block
+router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_root_or_user_backend")], (req, res, next)=>{ //working, with the async block
     //Variables.
     //----------------------
     let strTable = "";
@@ -36,7 +38,15 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     //let clBackend = new CategoriesListing();
     //let clBackend;
     let idParent = "";
+
     let fileType = "";
+
+    let idForms = "";
+    let idFormsFields = "";
+
+    let tableName = "";
+    let filterIndex = "";
+
     let pageReturn = "";
     let pageNumber = "";
     let masterPageSelect = "layout-backend-main";
@@ -70,6 +80,24 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     {
         fileType = req.body.fileType;
     }
+    if(req.body.idForms)
+    {
+        idForms = req.body.idForms;
+    }
+    if(req.body.idFormsFields)
+    {
+        idFormsFields = req.body.idFormsFields;
+    }
+
+    if(req.body.tableName)
+    {
+        tableName = req.body.tableName;
+    }
+    if(req.body.filterIndex)
+    {
+        filterIndex = req.body.filterIndex;
+    }
+
     if(req.body.pageReturn)
     {
         pageReturn = req.body.pageReturn;
@@ -134,7 +162,22 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
 
     //Return URL build.
     //----------------------
-    returnURL = "/" + pageReturn + "/" + idParent;
+    returnURL = "/" + pageReturn;
+    if(idParent != "")
+    {
+        //returnURL = "/" + pageReturn + "/" + idParent;
+        returnURL += "/" + idParent;
+    }
+    if(idForms != "")
+    {
+        //returnURL = "/" + pageReturn + "/" + idForms;
+        returnURL += "/" + idForms;
+    }
+    if(idFormsFields != "")
+    {
+        //returnURL = "/" + pageReturn + "/" + idFormsFields;
+        returnURL += "/" + idFormsFields;
+    }
     returnURL += "?masterPageSelect=" + masterPageSelect;
     if(pageNumber)
     {
@@ -143,6 +186,15 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     if(fileType)
     {
         returnURL += "&fileType=" + fileType;
+    }
+
+    if(tableName)
+    {
+        returnURL += "&tableName=" + tableName;
+    }
+    if(filterIndex)
+    {
+        returnURL += "&filterIndex=" + filterIndex;
     }
     //----------------------
 
@@ -156,7 +208,11 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
             {
                 //Delete files.
                 deleteRecordsFilesFields = SyncSystemNS.FunctionsGeneric.tableFieldsQueryBuild01(strTable, "files", "array");
-                if(deleteRecordsFilesFields)
+                //console.log("deleteRecordsFilesFields=", deleteRecordsFilesFields);
+
+                //if(deleteRecordsFilesFields)
+                //if(typeof deleteRecordsFilesFields != "undefined" && deleteRecordsFilesFields != null && deleteRecordsFilesFields.length != null && deleteRecordsFilesFields.length > 0) //pre ES5
+                if(Array.isArray(deleteRecordsFilesFields) && deleteRecordsFilesFields.length)
                 {
                     deleteRecordsFilesResult = await SyncSystemNS.FunctionsDB.genericTableGet02(strTable, 
                                                                                                 ["id;" + idsRecordsDelete.join(",") + ";ids"], 
@@ -165,7 +221,6 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
                                                                                                 //"image_main, file1, file2, file3, file4, file5",
                                                                                                 deleteRecordsFilesFields.join(","),
                                                                                                 1);
-                                                                                                console.log("deleteRecordsFilesResult=", deleteRecordsFilesResult);
                     //Debug.                                                                                                
                     //console.log("deleteRecordsFilesResult=", deleteRecordsFilesResult);
                     //console.log("deleteRecordsFilesFields=", deleteRecordsFilesFields);
@@ -264,10 +319,11 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
 //**************************************************************************************
 
 
-
 //Backend - Records - Patch (small changes).
 //**************************************************************************************
-router.patch("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, (req, res)=>{ //working, with the async block
+//router.patch("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, (req, res)=>{ //working, with the async block
+//router.patch("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, (req, res, next)=>{ //working, with the async block
+router.patch("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords, [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_root_or_user_backend")], (req, res, next)=>{ //working, with the async block
     //Variables.
     //----------------------
     let objReturn = {returnStatus: false, nRecords: 0, recordUpdatedValue: null};

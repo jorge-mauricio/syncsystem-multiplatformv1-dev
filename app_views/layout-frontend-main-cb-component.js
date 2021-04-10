@@ -337,6 +337,11 @@ class LayoutFrontendMain extends Component
             </script-->
 
 
+            ${ /*Babel. */ '' }
+            <!--script type="text/babel" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script-->${ /*No errors. */ '' }
+            <!--script type="text/babel" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script-->${ /*No errors. */ '' }
+
+
             ${ /*GLightbox. */ '' }
             ${ /*type="text/javascript"*/ '' }
             <script type="text/babel" src="/${ gSystemConfig.configDirectoryJSSD }/glightbox/dist/js/glightbox.min.js"></script>
