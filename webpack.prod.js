@@ -17,14 +17,12 @@ module.exports = merge(webpackConfig, {
     mode: "production", //production is default
     devtool: "none", //prevents from wrapping the code in "eval()"
     //entry: "./src/index.js",
-    /*
     entry: {
         "backend":"./src/backend.src.js",
         "backend-vendor":"./src/backend-vendor.src.js"
         //"functions-syncsystem":"./app_js/functions-syncsystem.js"
         //vendor: "./src/vendor.js" 
     }, 
-    */
     output: {
         //filename: "main.js",
         //filename: "main.[contentHash].js", //prevents file from caching
