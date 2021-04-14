@@ -10,7 +10,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "backend:node": "node app"
+    "start": "node app"
   },
   "repository": {
     "type": "git",
