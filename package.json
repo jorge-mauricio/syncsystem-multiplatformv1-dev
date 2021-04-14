@@ -66,9 +66,9 @@
     "tether": "^1.4.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.8.3",
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.26.0",
@@ -101,6 +101,5 @@
     "webpack-dev-server": "^3.10.1",
     "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2"
-
   }
 }
