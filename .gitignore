@@ -50,6 +50,6 @@ gitignore.txt
 #Webpack.
 #Note: Desabled for debug.
 #**************************************************************************************
-webpack.config.js
-webpack.dev.js
-webpack.prod.js
+#webpack.config.js
+#webpack.dev.js
+#webpack.prod.js
