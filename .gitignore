@@ -38,3 +38,10 @@ node_modules
 #Third party php dependencies. Note: maybe change to /vendor
 vendor
 
+
+#Webpack.
+#Note: Desabled for debug.
+#**************************************************************************************
+webpack.config.js
+webpack.dev.js
+webpack.prod.js
