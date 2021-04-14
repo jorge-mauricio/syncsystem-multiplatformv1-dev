@@ -5,7 +5,7 @@
 //import "babel-polyfill"; //with babel, we can use the import syntax.
 //require("babel-polyfill"); //with babel, we can use the import syntax.
 
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
+require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
 
 const gSystemConfig = require("./config-application.js"); //System configuration.
 const dbSystemCon = require("./config-application-db.js").dbSystemCon; //DB System - simple connection.
