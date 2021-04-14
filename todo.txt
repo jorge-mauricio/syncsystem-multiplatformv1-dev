@@ -84,3 +84,7 @@
 - node - create function (or object) to treat data from array/json
 	- integrate with the listing
 	- integrate with the details object
+
+- node - webpack error
+	check why this script doesn´t work (package.json)
+		webpack --config webpack.prod.js
