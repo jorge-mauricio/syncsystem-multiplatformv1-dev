@@ -14,12 +14,18 @@ setup
 
 #Backup directories.
 root_node_backup
+components_node/backup
+backend_node/backup
+components_react/backup
+app_views/backup
+
 
 #Image upload test files.
 app_files_public/*
 !app_files_public/.gitkeep.txt
 #Note: to exclude specific file from gitignore:
 #!app_files_public/filename.ext
+
 
 #Extra languages.
 #**************************************************************************************

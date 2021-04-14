@@ -12,7 +12,7 @@ import React, {Component} from "react"; //working
 import ReactDOM from 'react-dom';
 //import ReactDOMServer from 'react-dom/server';
 //import {Helmet} from "react-helmet";
-import Safe from "react-safe";
+//import Safe from "react-safe";
 
 //import HTMLReactParser from "html-react-parser"; //error / webpack //put in the context
 //const Parser = require('html-react-parser');
@@ -63,6 +63,9 @@ import StylesFrontend from "../app_styles/styles-frontend.css";
 //require('bootstrap'); //caused error: $.fn.emulateTransitionEnd = function (duration)
 //window.Bootstrap = require('bootstrap'); //caused: ReferenceError: window is not defined
 //import "bootstrap/dist/js/bootstrap.js";
+
+//Components.
+import FrontendBanners from "../components_react/frontend-banners-cb-component.js";
 //----------------------
 
 
@@ -256,7 +259,7 @@ class LayoutFrontendMain extends Component
     render()
     {
         //Variables.
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context;
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser, Safe } = this.context;
         //var objHtmlToReactParser = new HtmlToReactParser();
         //var hrpTrackingCode = objHtmlToReactParser.parse(TrackingCode);
 
@@ -431,44 +434,43 @@ class LayoutFrontendMain extends Component
 
                 <body className={/*StylesFrontend["ss-frontend-body01"]*/ "ss-frontend-body01"}>
                     <div id="root">
+                        { this.props.location.pathname == "/" ?
+                            <FrontendBanners
+                                idParentBanners={""} 
+                                idTbCategories={""} 
+                                configLayoutType={22} 
+                                configDisplay={"horizontal"} 
+                                configContentNRecords={""} 
+                                configContentSort={""}
+                                >
+
+                            </FrontendBanners>
+                        :
+                            ``
+                        }
+
+
                         { /*Content place holder - current title*/ }
                         <h1 id="titleCurrent" className="ss-frontend-title-text01">
                             { this.state.titleCurrent }
                             {/*this.props.cphTitle*/''}
                         </h1>
-
-
-                        Layout Main (Debug Elements)
-                        {/*onClick={()=>this.changeState()}*/}
-                        <button className="btn btn-primary">
-                            layout button change state
-                        </button>
                         
 
                         { /*Content place holder - body*/ }
                         <main>
                             { this.props.cphBody }
                         </main>
-
-
-
-                        { /*tlScriptBundleReactClient*/ }
-
-                        {/*<Helmet>
-                            <script src="/bundle.react.client.js"></script>
-                            <script>{
-                        `try{Typekit.load({ async: true });}catch(e){}`
-                        }</script>
-                        </Helmet>*/}
-
                     </div>
 
+
+                    { /*React bundle script - SSR.*/ }
                     <Safe.script src="/bundle.react.client.js"></Safe.script>
                     <Safe.script>{
                     `try{Typekit.load({ async: true });}catch(e){}`
                     }
                     </Safe.script>
-                    
+
 
                     { HTMLReactParser(javaScriptFoot) }
                 </body>

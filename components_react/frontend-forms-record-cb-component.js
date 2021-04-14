@@ -40,7 +40,7 @@ class FrontendFormsRecord extends Component
         }
         this.arrCategoriesListing = props.arrCategoriesListing;
         */
-        //Bind methods
+        //Bind methods.
         this.handleSubmit = this.handleFormSubmit.bind(this);
 
 

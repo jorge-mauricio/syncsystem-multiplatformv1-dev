@@ -38,6 +38,8 @@ if (typeof window !== 'undefined') {
 //Components.
 //import FrontendCategoriesListingRecord from "./frontend-categories-listing-record-cb-component.jsx";
 //import FrontendCategoriesListingRecord from "./frontend-categories-listing-record-cb-component.js";
+//import FrontendBanners from "./frontend-banners-cb-component.js";
+import FrontendProducts from "./frontend-products-cb-component.js";
 //----------------------
 
 
@@ -512,56 +514,81 @@ class FrontendHome extends Component
         //Output.
         return(
             <React.Fragment>
-                { /*div layout (custom). */}
-                { this.configLayoutType == 1 ?
-                    <section className="ss-frontend-layout-section-content01">
-                        home content
+                <React.Fragment>
+                    { /*div layout (custom). */}
+                    { this.configLayoutType == 1 ?
+                        <React.Fragment>
+                            <section className="ss-frontend-layout-section-content01">
+                                home content
 
-                        <a className="ss-frontend-link01"
-                            href={"/"} 
-                            title={"Home"}>
-                            Link - Home
-                        </a>
-                        <a className="ss-frontend-link01"
-                            href={"/" + gSystemConfig.configRouteFrontendCategories + "/813/"} 
-                            title={"Categories"}>
-                            Link - Categories
-                        </a>
-                        <a className="ss-frontend-link01"
-                            href={"/" + gSystemConfig.configRouteFrontendContent + "/849/"} 
-                            title={"Content"}>
-                            Link - Content
-                        </a>
-                        <a className="ss-frontend-link01"
-                            href={"/" + gSystemConfig.configRouteFrontendContent + "/849/?idTbForms=904"} 
-                            title={"Content"}>
-                            Link - Content with form
-                        </a>
-                        <a className="ss-frontend-link01"
-                            href={"/" + gSystemConfig.configRouteFrontendProducts + "/960/"} 
-                            title={"Products"}>
-                            Link - Products
-                        </a>
-                        <a className="ss-frontend-link01"
-                            href={"/" + gSystemConfig.configRouteFrontendPublications + "/1369/"} 
-                            title={"Publications"}>
-                            Link - Publications
-                        </a>
-                    </section>
-                :``
-                }
+                                <a className="ss-frontend-link01"
+                                    href={"/"} 
+                                    title={"Home"}>
+                                    Link - Home
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendCategories + "/813/"} 
+                                    title={"Categories"}>
+                                    Link - Categories
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendContent + "/849/"} 
+                                    title={"Content"}>
+                                    Link - Content
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendContent + "/849/?idTbForms=904"} 
+                                    title={"Content"}>
+                                    Link - Content with form
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendProducts + "/960/"} 
+                                    title={"Products"}>
+                                    Link - Products
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendPublications + "/1369/"} 
+                                    title={"Publications"}>
+                                    Link - Publications
+                                </a>
+                            </section>
+                        </React.Fragment>
+                    :``
+                    }
 
-                { /*div layout (bootstrap). */}
-                { this.configLayoutType == 11 ?
-                    <section className="container">
-                        <div className="alert alert-success" role="alert" style={{textAlign: "center"}}>
-                        </div>
+                    { /*div layout (bootstrap). */}
+                    { this.configLayoutType == 11 ?
+                        <section className="container">
+                            <div className="alert alert-success" role="alert" style={{textAlign: "center"}}>
+                            </div>
 
-                        bootstrap
-                    </section>
-                :``
-                }
+                            bootstrap
+                        </section>
+                    :``
+                    }
+                </React.Fragment>
+
+
+                { /*Products component. */}
+                <FrontendProducts
+                    idParentProducts={"960"} 
+                    idRegisterUser={""} 
+
+                    configLayoutType={2} 
+                    configProductsNRecords={"3"} 
+                    configProductsSort={gSystemConfig.configProductsSort} 
+
+                    activation={1} 
+                    activation1={""} 
+                    activation2={""} 
+                    activation3={""} 
+                    activation4={""} 
+                    activation5={""}>
+
+                </FrontendProducts>
+
             </React.Fragment>
+
         );
     }
     //**************************************************************************************

@@ -32,6 +32,7 @@ router.get("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteA
     let idParentProducts = "";
     let pageNumber = "";
     let pagingNRecords = "";
+    let strNRecords = "";
     let terminal = 0; //get from query
     //let masterPageSelect = "layout-backend-main";
 
@@ -57,8 +58,12 @@ router.get("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteA
     }
     if(req.query.pagingNRecords)
     {
-        pageNumber = req.query.pagingNRecords;
+        pagingNRecords = req.query.pagingNRecords;
     }
+    if(req.query.strNRecords)
+    {
+        strNRecords = req.query.strNRecords;
+    }    
 
     if(req.query.apiKey)
     {
@@ -67,7 +72,8 @@ router.get("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteA
 
 
     //Debug.
-    console.log("idParentProducts=", idParentProducts);
+    //console.log("idParentProducts=", idParentProducts);
+    //console.log("strNRecords=", strNRecords);
     //----------------------
 
 
@@ -129,6 +135,11 @@ router.get("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteA
                         _objSpecialParameters: objSpecialParameters
                     };
                     //Revision {returnType: 3} = objSpecialParameters
+
+                    if(strNRecords != "")
+                    {
+                        oplRecordsParameters._strNRecords = strNRecords;
+                    }
 
                     //Build object - listing.
                     oplRecords = new SyncSystemNS.ObjectProductsListing(oplRecordsParameters);

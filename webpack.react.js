@@ -80,6 +80,7 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 { from: "app_js/functions-syncsystem.js", to: gSystemConfig.configDirectoryBuildReactClient},
+                { from: "app_files_layout/", to: gSystemConfig.configDirectoryBuildReactClient + "/" + gSystemConfig.configDirectoryFilesLayoutSD},
                 
                 { from: "android-chrome-192x192.png", to: gSystemConfig.configDirectoryBuildReactClient},
                 { from: "android-chrome-512x512.png", to: gSystemConfig.configDirectoryBuildReactClient},

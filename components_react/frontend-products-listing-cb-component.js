@@ -52,6 +52,14 @@ class FrontendProductsListing extends Component
     {
         super(props, context);
 
+        //Bind objects, methods and functions.
+        //Note: Maybe, not needed.
+        //this.objCategoriesListing = this.objCategoriesListing.bind(this);
+        this.build = this.build.bind(this);
+        this.headBuild = this.headBuild.bind(this);
+        this.titleCurrentBuild = this.titleCurrentBuild.bind(this);
+
+
         //Variables.
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, qs } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
 
@@ -154,25 +162,10 @@ class FrontendProductsListing extends Component
         {
             this.queryDefault += "&masterPageFrontendSelect=" + this._masterPageFrontendSelect;
         }
+       
 
-
-        //State creation.
-        this.state = {
-            objProductsListing: this.objProductsListing,
-            arrProductsListing: this.arrProductsListing,
-            dataLoaded: false
-        };
-
-
-        //Bind objects, methods and functions.
-        //this.objCategoriesListing = this.objCategoriesListing.bind(this);
-        this.build = this.build.bind(this);
-        this.headBuild = this.headBuild.bind(this);
-        this.titleCurrentBuild = this.titleCurrentBuild.bind(this);
-        
-
-        //Build.
-        (async function(){ 
+        //Logic.
+        //(async function(){ 
             try{
 
 
@@ -184,9 +177,14 @@ class FrontendProductsListing extends Component
                     console.error(asyncError);
                 }
             }finally{
-                
+                //State creation.
+                this.state = {
+                    objProductsListing: this.objProductsListing,
+                    arrProductsListing: this.arrProductsListing,
+                    dataLoaded: false
+                };
             }
-        })();
+        //})();
 
 
         //Debug.

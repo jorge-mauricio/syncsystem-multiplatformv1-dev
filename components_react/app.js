@@ -18,7 +18,6 @@ import SyncSystemNSContextProvider from "./syncsystem-ns-cb-context.js";
 //import Home from "./testHomePageComponent.js"; //Debug.
 
 //Layoouts
-import LayoutFrontendMainMulti from "../app_views/layout-frontend-main-multi-cb-component.js";
 //import LayoutFrontendMain from "../app_views/layout-frontend-main-cb-component.js";
 //import LayoutFrontendMain from("../app_views/layout-frontend-main-cb-component.js");
 const LayoutFrontendMain = require("../app_views/layout-frontend-main-cb-component.js").default; //working
@@ -30,11 +29,6 @@ import FrontendHome from "./frontend-home-cb-component";
 //Categories.
 import FrontendCategoriesListing from "./frontend-categories-listing-cb-component.js";
 import FrontendCategoriesDetails from "./frontend-categories-details-cb-component.js";
-
-import FrontendCategoriesListingBody from "./frontend-categories-listing-body-cb-component.js"; //Testing
-import FrontendCategoriesListingHead from "./frontend-categories-listing-head-cb-component.js"; //Testing
-import FrontendCategoriesListingTitle from "./frontend-categories-listing-title-cb-component.js"; //Testing
-import FrontendCategoriesListingTitleCurrent from "./frontend-categories-listing-title-current-cb-component.js"; //Testing
 
 //Content.
 import FrontendContentListing from "./frontend-content-listing-cb-component.js";
@@ -167,7 +161,6 @@ class App extends React.Component {
                     */}
                     
                     
-
                     {/*Home. */}
                     {/*//---------------------- */}
                     <Route exact 

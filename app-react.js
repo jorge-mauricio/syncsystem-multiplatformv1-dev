@@ -98,6 +98,9 @@ app.use("/", express.static("build/public"));
 
 //app.use("/tracking-code.txt", express.static(path.join(__dirname, "tracking-code.txt")));
 
+app.use("/" + gSystemConfig.configDirectoryFilesLayoutSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryFilesLayout))); //set static folder
+
+
 //Favicons - static
 /*
 app.use("/android-chrome-192x192.png", express.static(path.join(__dirname, "android-chrome-192x192.png"))); //set static folder
