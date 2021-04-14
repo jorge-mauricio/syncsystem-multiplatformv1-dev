@@ -18,8 +18,8 @@ module.exports = merge(webpackConfig, {
     devtool: "none", //prevents from wrapping the code in "eval()"
     //entry: "./src/index.js",
     entry: {
-        "backend":"./src/backend.src.js",
-        "backend-vendor":"./src/backend-vendor.src.js"
+        //"backend":"./src/backend.src.js",
+        //"backend-vendor":"./src/backend-vendor.src.js"
         //"functions-syncsystem":"./app_js/functions-syncsystem.js"
         //vendor: "./src/vendor.js" 
     }, 
@@ -50,7 +50,7 @@ module.exports = merge(webpackConfig, {
         new HtmlWebpackPlugin({
             //inject: true,
             //filename: "index.html", //optional, if you want to use multiple files or rename the files
-            filename: "index.webpack_debug.html", //optional, if you want to use multiple files or rename the files
+            //filename: "index.webpack_debug.html", //optional, if you want to use multiple files or rename the files
             //template: "./src/template.html",
             //chunks: [], //optional, to specify which file entries it should select
             minify: {
