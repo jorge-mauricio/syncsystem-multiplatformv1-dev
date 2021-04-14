@@ -50,6 +50,7 @@ module.exports = merge(webpackConfig, {
         new HtmlWebpackPlugin({
             //inject: true,
             //filename: "index.html", //optional, if you want to use multiple files or rename the files
+            filename: "index.webpack_debug.html", //optional, if you want to use multiple files or rename the files
             //template: "./src/template.html",
             //chunks: [], //optional, to specify which file entries it should select
             minify: {
