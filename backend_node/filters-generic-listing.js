@@ -76,6 +76,8 @@ module.exports = class FiltersGenericListing
         this.dateNowMinute = this.dateNow.getMinutes();
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
+
+        this.cacheClear = this.dateNow.getTime().toString();
         //----------------------
 
 
@@ -606,12 +608,12 @@ module.exports = class FiltersGenericListing
                                                     ${ /*GLightbox.*/'' }
                                                     ${ gSystemConfig.configImagePopup == 4 ? 
                                                     `
-                                                        <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + filtersGenericRow.image_main }"
-                                                        title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filtersGenericRow.title, "db") }"
-                                                        class="glightbox_filters_generic_image_main${ filtersGenericRow.id }"
-                                                        data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filtersGenericRow.title, "db") };">
+                                                        <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + filtersGenericRow.image_main + "?v=" + this.cacheClear }"
+                                                            title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filtersGenericRow.title, "db") }"
+                                                            class="glightbox_filters_generic_image_main${ filtersGenericRow.id }"
+                                                            data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filtersGenericRow.title, "db") };">
 
-                                                            <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + filtersGenericRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filtersGenericRow.title, "db") }" class="ss-backend-images-listing" />
+                                                            <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + filtersGenericRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filtersGenericRow.title, "db") }" class="ss-backend-images-listing" />
                                                         </a>
                                                         <script>
                                                             gLightboxBackendConfigOptions.selector = "glightbox_filters_generic_image_main${ filtersGenericRow.id }";

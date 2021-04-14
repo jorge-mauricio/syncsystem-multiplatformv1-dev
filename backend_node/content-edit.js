@@ -58,6 +58,8 @@ module.exports = class ContentEdit
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         //this.objParentTableLevel2;
         this.objParentTable;
@@ -266,7 +268,7 @@ module.exports = class ContentEdit
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
                 ${ this.ocdRecord.tblContentFile != "" ? 
                     `
-                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ocdRecord.tblContentFile }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ocdRecord.tblContentFile + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
                     ` : 
                     `
                         <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }

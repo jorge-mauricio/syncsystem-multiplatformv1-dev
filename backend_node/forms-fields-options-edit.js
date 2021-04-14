@@ -58,6 +58,8 @@ module.exports = class FormsFieldsOptionsEdit
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         //this.objParentTableLevel2;
         this.objParentTable;
@@ -636,7 +638,7 @@ module.exports = class FormsFieldsOptionsEdit
 
                                         ${ offodRecord.tblFormsFieldsOptionsImageMain != "" && offodRecord.tblFormsFieldsOptionsImageMain !== undefined && offodRecord.tblFormsFieldsOptionsImageMain !== null ? 
                                         `
-                                        <img id="imgFormsFieldsOptionsImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + offodRecord.tblFormsFieldsOptionsImageMain }" alt="${ offodRecord.tblFormsFieldsOptionsOptionName }" class="ss-backend-images-edit" />
+                                        <img id="imgFormsFieldsOptionsImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + offodRecord.tblFormsFieldsOptionsImageMain + "?v=" + this.cacheClear }" alt="${ offodRecord.tblFormsFieldsOptionsOptionName }" class="ss-backend-images-edit" />
                                         <div id="divFormsFieldsOptionsImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');

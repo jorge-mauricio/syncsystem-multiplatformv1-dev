@@ -74,6 +74,8 @@ module.exports = class ProductsListing
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         this.objParentTable;
         //----------------------
@@ -799,19 +801,19 @@ module.exports = class ProductsListing
                                                 ${ /*No pop-up.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 0 ? 
                                                 `
-                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + productsRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, "db") }" class="ss-backend-images-listing" />
+                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + productsRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, "db") }" class="ss-backend-images-listing" />
                                                 ` : ``
                                                 }
 
                                                 ${ /*GLightbox.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 4 ? 
                                                 `
-                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + productsRow.image_main }"
+                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + productsRow.image_main + "?v=" + this.cacheClear }"
                                                        title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, "db") }"
                                                        class="glightbox_products_image_main${ productsRow.id }"
                                                        data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, "db") };">
 
-                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + productsRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, "db") }" class="ss-backend-images-listing" />
+                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + productsRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, "db") }" class="ss-backend-images-listing" />
                                                     </a>
                                                     <script>
                                                         gLightboxBackendConfigOptions.selector = "glightbox_products_image_main${ productsRow.id }";
@@ -6451,7 +6453,7 @@ module.exports = class ProductsListing
                                 ${ /*URL fields.*/'' }
                                 ${ gSystemConfig.enableProductsURL1 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL1") }: 
                                     </td>
@@ -6465,7 +6467,7 @@ module.exports = class ProductsListing
 
                                 ${ gSystemConfig.enableProductsURL2 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url2" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL2") }: 
                                     </td>
@@ -6479,7 +6481,7 @@ module.exports = class ProductsListing
 
                                 ${ gSystemConfig.enableProductsURL3 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url3" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL3") }: 
                                     </td>
@@ -6493,7 +6495,7 @@ module.exports = class ProductsListing
 
                                 ${ gSystemConfig.enableProductsURL4 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url4" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL4") }: 
                                     </td>
@@ -6507,7 +6509,7 @@ module.exports = class ProductsListing
 
                                 ${ gSystemConfig.enableProductsURL5 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url5" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL5") }: 
                                     </td>

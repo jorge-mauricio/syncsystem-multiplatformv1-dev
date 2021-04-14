@@ -76,6 +76,8 @@ module.exports = class FilesListing
         this.dateNowMinute = this.dateNow.getMinutes();
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
+
+        this.cacheClear = this.dateNow.getTime().toString();
         //----------------------
     }
     //**************************************************************************************
@@ -2684,19 +2686,19 @@ module.exports = class FilesListing
                                                                 ${ /*No pop-up.*/'' }
                                                                 ${ gSystemConfig.configImagePopup == 0 ? 
                                                                 `
-                                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + filesRow.file }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filesRow.caption, "db") }" class="ss-backend-images-listing" style="width: auto;" />
+                                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + filesRow.file + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filesRow.caption, "db") }" class="ss-backend-images-listing" style="width: auto;" />
                                                                 ` : ``
                                                                 }
 
                                                                 ${ /*GLightbox.*/'' }
                                                                 ${ gSystemConfig.configImagePopup == 4 ? 
                                                                 `
-                                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + filesRow.file }"
+                                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + filesRow.file + "?v=" + this.cacheClear }"
                                                                         title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filesRow.title, "db") }"
                                                                         class="glightbox_files_file${ filesRow.id }"
                                                                         data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filesRow.caption, "db") };">
                                                                         
-                                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + filesRow.file }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filesRow.caption, "db") }" class="ss-backend-images-listing" style="width: auto;" />
+                                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + filesRow.file + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(filesRow.caption, "db") }" class="ss-backend-images-listing" style="width: auto;" />
                                                                     </a>
                                                                     <script>
                                                                         gLightboxBackendConfigOptions.selector = "glightbox_files_file${ filesRow.id }";

@@ -57,8 +57,11 @@ window.location.hash: "#2"
 window.location.search: "?query=1"
 */
 
-gSystemConfig.configSystemURLImages = "/"; //".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path
-gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + "/";
+//gSystemConfig.configSystemURLImages = "/"; //".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https://multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
+gSystemConfig.configSystemURLImages = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com";
+gSystemConfig.configSystemURLImagesRemote = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com"; //maybe it´s not needed
+//gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + "/";
+gSystemConfig.configFrontendReactURLImages = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com";
 
 gSystemConfig.configFrontendDefaultView = "frontend_react"; //frontend_node | frontend_react
 gSystemConfig.configFrontendMobileDefaultView = "frontend_node_mobile";
@@ -130,7 +133,8 @@ gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot 
 gSystemConfig.configFrontendDefaultViewSD = "frontend";
 gSystemConfig.configDirectorySystemSD = "backend";
 
-gSystemConfig.configDirectoryFilesSD = "files";
+gSystemConfig.configDirectoryFilesSD = ""; //"" - when using remote file storage
+//gSystemConfig.configDirectoryFilesSD = "files"; //"" - when using remote
 gSystemConfig.configDirectoryFilesLayoutSD = "files-layout";
 gSystemConfig.configDirectoryStylesSD = "css";
 gSystemConfig.configDirectoryJSSD = "js";
@@ -254,8 +258,8 @@ gSystemConfig.configCryptSalt = "syncsystem"; //generate a salt data
 
 //Image configuration.
 //----------------------
-gSystemConfig.configUploadType = 1; //Sabe Files Locally | Amazon (TODO)
-gSystemConfig.configUploadComponent = 1; //1 - formidable
+gSystemConfig.configUploadType = 2; //1 - Save Files Locally | 2 - Amazon S3
+gSystemConfig.configUploadComponent = 1; //1 - formidable | 2 - multer (TODO) | 3 - multyparty (TODO)
 gSystemConfig.configImageComponent = 1; //1 - sharp
 gSystemConfig.configImageQuality = 100; //image quality percentage on resizing
 gSystemConfig.configImageFormats = ".bmp, .gif, .jpg, .jpeg, .png"; //formats allowed for image resizing

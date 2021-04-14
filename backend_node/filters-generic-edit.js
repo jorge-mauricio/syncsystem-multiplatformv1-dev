@@ -60,6 +60,8 @@ module.exports = class FiltersGenericEdit
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         //this.objParentTableLevel2;
         this.objParentTable;
@@ -939,7 +941,7 @@ module.exports = class FiltersGenericEdit
 
                                         ${ ofgdRecord.tblFiltersGenericImageMain != "" && ofgdRecord.tblFiltersGenericImageMain !== undefined && ofgdRecord.tblFiltersGenericImageMain !== null ? 
                                         `
-                                        <img id="imgFiltersGenericImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofgdRecord.tblFiltersGenericImageMain }" alt="${ ofgdRecord.tblFiltersGenericOptionName }" class="ss-backend-images-edit" />
+                                        <img id="imgFiltersGenericImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofgdRecord.tblFiltersGenericImageMain + "?v=" + this.cacheClear }" alt="${ ofgdRecord.tblFiltersGenericOptionName }" class="ss-backend-images-edit" />
                                         <div id="divFiltersGenericImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');

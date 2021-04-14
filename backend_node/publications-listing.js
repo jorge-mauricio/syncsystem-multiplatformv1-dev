@@ -79,6 +79,8 @@ module.exports = class PublicationsListing
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         this.objParentTable;
         //----------------------
@@ -704,19 +706,19 @@ module.exports = class PublicationsListing
                                                 ${ /*No pop-up.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 0 ? 
                                                 `
-                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + publicationsRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsRow.title, "db") }" class="ss-backend-images-listing" />
+                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + publicationsRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsRow.title, "db") }" class="ss-backend-images-listing" />
                                                 ` : ``
                                                 }
 
                                                 ${ /*GLightbox.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 4 ? 
                                                 `
-                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + publicationsRow.image_main }"
+                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + publicationsRow.image_main + "?v=" + this.cacheClear }"
                                                        title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsRow.title, "db") }"
                                                        class="glightbox_publications_image_main${ publicationsRow.id }"
                                                        data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsRow.title, "db") };">
 
-                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + publicationsRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsRow.title, "db") }" class="ss-backend-images-listing" />
+                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + publicationsRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsRow.title, "db") }" class="ss-backend-images-listing" />
                                                     </a>
                                                     <script>
                                                         gLightboxBackendConfigOptions.selector = "glightbox_publications_image_main${ publicationsRow.id }";
@@ -3035,7 +3037,7 @@ module.exports = class PublicationsListing
 
                                 ${ gSystemConfig.enablePublicationsSourceURL == 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_source_url" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_source_url" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsSourceURL") }: 
                                     </td>
@@ -3271,7 +3273,7 @@ module.exports = class PublicationsListing
                                 ${ /*URL fields.*/'' }
                                 ${ gSystemConfig.enablePublicationsURL1 == 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL1") }: 
                                     </td>
@@ -3285,7 +3287,7 @@ module.exports = class PublicationsListing
 
                                 ${ gSystemConfig.enablePublicationsURL2 == 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url2" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL2") }: 
                                     </td>
@@ -3299,7 +3301,7 @@ module.exports = class PublicationsListing
 
                                 ${ gSystemConfig.enablePublicationsURL3 == 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url3" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL3") }: 
                                     </td>
@@ -3313,7 +3315,7 @@ module.exports = class PublicationsListing
 
                                 ${ gSystemConfig.enablePublicationsURL4 == 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url4" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL4") }: 
                                     </td>
@@ -3327,7 +3329,7 @@ module.exports = class PublicationsListing
 
                                 ${ gSystemConfig.enablePublicationsURL5 == 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url5" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL5") }: 
                                     </td>

@@ -74,7 +74,7 @@ module.exports = class ContentListing
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
-        this.cacheClear = this.dateNow.getTime().toString();
+        this.imageClearCache = this.dateNow.getTime().toString(); //variable to clear image cache
 
         this.objParentTableLevel1;
         this.objParentTable;
@@ -603,10 +603,22 @@ module.exports = class ContentListing
                                                                     `
                                                                         <a href="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.content_url, "url") }" target="_blank">
                                                                             <img src="${contentRow.content_type == 9 ?
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
+                                                                                            `
+                                                                                            ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file 
+                                                                                            :
+                                                                                                gSystemConfig.configSystemURLImagesRemote + "/o" + contentRow.file 
+                                                                                            }
+                                                                                            `
                                                                                         :
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
-                                                                                        }" 
+                                                                                            `
+                                                                                            ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file
+                                                                                            :
+                                                                                                gSystemConfig.configSystemURLImagesRemote + "/r" + contentRow.file 
+                                                                                            }
+                                                                                            `
+                                                                                        }?v=${this.imageClearCache}" 
                                                                                 alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                                 class="ss-backend-content-images" 
                                                                             />
@@ -616,10 +628,22 @@ module.exports = class ContentListing
                                                                         ${ gSystemConfig.configImagePopup == 0 ? 
                                                                         `
                                                                             <img src="${contentRow.content_type == 9 ?
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
+                                                                                            `
+                                                                                            ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file
+                                                                                            :
+                                                                                                gSystemConfig.configSystemURLImagesRemote + "/o" + contentRow.file 
+                                                                                            }
+                                                                                            `
                                                                                         :
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
-                                                                                        }" 
+                                                                                            `
+                                                                                            ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file
+                                                                                            :
+                                                                                                gSystemConfig.configSystemURLImagesRemote + "/t" + contentRow.file
+                                                                                            }
+                                                                                            `
+                                                                                        }?v=${this.imageClearCache}" 
                                                                                 alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                                 class="ss-backend-content-images" 
                                                                             />
@@ -630,22 +654,35 @@ module.exports = class ContentListing
                                                                         ${ /*GLightbox.*/'' }
                                                                         ${ gSystemConfig.configImagePopup == 4 ? 
                                                                         `
-                                                                            <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + contentRow.file + "?v=" + this.cacheClear }"
+                                                                            <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + contentRow.file }"
                                                                                 title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }"
-                                                                                class="glightbox_content_file${ contentRow.id }"
+                                                                                class="glightbox_categories_image_main${ contentRow.id }"
                                                                                 data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") };">
 
                                                                                 <img src="${contentRow.content_type == 9 ?
-                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
+                                                                                                `
+                                                                                                ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                    gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file 
+                                                                                                :
+                                                                                                    gSystemConfig.configSystemURLImagesRemote + "/o" + contentRow.file  
+                                                                                                }
+                                                                                                `
                                                                                             :
-                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
-                                                                                            }" 
+                                                                                                `
+                                                                                                ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                    gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file
+                                                                                                :
+                                                                                                    gSystemConfig.configSystemURLImagesRemote + "/r" + contentRow.file 
+                                                                                                }
+                                                                                                `
+                                                                                                 
+                                                                                            }?v=${this.imageClearCache}" 
                                                                                     alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                                     class="ss-backend-content-images" 
                                                                                 />
                                                                             </a>
                                                                             <script>
-                                                                                gLightboxBackendConfigOptions.selector = "glightbox_content_file${ contentRow.id }";
+                                                                                gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main${ contentRow.id }";
                                                                                 //Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                                                 //data-glightbox="title: Title example.; description: Description example."
                                                                                 var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
@@ -695,10 +732,22 @@ module.exports = class ContentListing
                                                                 `
                                                                     <a href="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.content_url, "url") }" target="_blank">
                                                                         <img src="${contentRow.content_type == 9 ?
-                                                                                        gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
+                                                                                        `
+                                                                                        ${ gSystemConfig.configUploadType == 1 ?
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file
+                                                                                        :
+                                                                                            gSystemConfig.configSystemURLImagesRemote + "/o" + contentRow.file 
+                                                                                        }
+                                                                                        `
                                                                                     :
-                                                                                        gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
-                                                                                    }" 
+                                                                                        `
+                                                                                        ${ gSystemConfig.configUploadType == 1 ?
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file
+                                                                                        :
+                                                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + contentRow.file 
+                                                                                        }
+                                                                                        `
+                                                                                    }?v=${this.imageClearCache}" 
                                                                             alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                             class="ss-backend-content-images" 
                                                                         />
@@ -708,10 +757,22 @@ module.exports = class ContentListing
                                                                     ${ gSystemConfig.configImagePopup == 0 ? 
                                                                     `
                                                                         <img src="${contentRow.content_type == 9 ?
-                                                                                        gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
+                                                                                        `
+                                                                                        ${ gSystemConfig.configUploadType == 1 ?
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file
+                                                                                        :
+                                                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + contentRow.file
+                                                                                        }
+                                                                                        `
                                                                                     :
-                                                                                        gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
-                                                                                    }" 
+                                                                                        `
+                                                                                        ${ gSystemConfig.configUploadType == 1 ?
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file
+                                                                                        :
+                                                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + contentRow.file
+                                                                                        }
+                                                                                        `
+                                                                                    }?v=${this.imageClearCache}" 
                                                                             alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                             class="ss-backend-content-images" 
                                                                         />
@@ -722,27 +783,37 @@ module.exports = class ContentListing
                                                                     ${ /*GLightbox.*/'' }
                                                                     ${ gSystemConfig.configImagePopup == 4 ? 
                                                                     `
-                                                                        <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + contentRow.file + "?v=" + this.cacheClear }"
+                                                                        <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + contentRow.file }"
                                                                             title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }"
-                                                                            class="glightbox_content_file${ contentRow.id }"
+                                                                            class="glightbox_categories_image_main${ contentRow.id }"
                                                                             data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") };">
 
                                                                             <img src="${contentRow.content_type == 9 ?
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
+                                                                                            `
+                                                                                            ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file 
+                                                                                            :
+                                                                                                gSystemConfig.configSystemURLImagesRemote + "/t" + contentRow.file 
+                                                                                            }
+                                                                                            `
                                                                                         :
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
+                                                                                            `
+                                                                                            ${ gSystemConfig.configUploadType == 1 ?
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file
+                                                                                            :
+                                                                                                gSystemConfig.configSystemURLImagesRemote + "/t" + contentRow.file
+                                                                                            }
+                                                                                            `
                                                                                         }" 
                                                                                 alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                                 class="ss-backend-content-images" 
                                                                             />
                                                                         </a>
                                                                         <script>
-                                                                            //document.addEventListener('DOMContentLoaded', function(event) {
-                                                                                gLightboxBackendConfigOptions.selector = "glightbox_content_file${ contentRow.id }";
-                                                                                //Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
-                                                                                //data-glightbox="title: Title example.; description: Description example."
-                                                                                var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
-                                                                            //});
+                                                                            gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main${ contentRow.id }";
+                                                                            //Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
+                                                                            //data-glightbox="title: Title example.; description: Description example."
+                                                                            var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
                                                                         </script>
                                                                     ` : ``
                                                                     }
@@ -788,10 +859,11 @@ module.exports = class ContentListing
                                                                     ${ contentRow.content_url != "" ? 
                                                                     `
                                                                         <a href="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.content_url, "url") }" target="_blank">
-                                                                            <img src="${contentRow.content_type == 9 ?
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
-                                                                                        :
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
+                                                                            <img src="${ 
+                                                                                            contentRow.content_type == 9 ?
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file 
+                                                                                            :
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file 
                                                                                         }" 
                                                                                 alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                                 class="ss-backend-content-images" 
@@ -801,10 +873,11 @@ module.exports = class ContentListing
                                                                         ${ /*No pop-up.*/'' }
                                                                         ${ gSystemConfig.configImagePopup == 0 ? 
                                                                         `
-                                                                            <img src="${contentRow.content_type == 9 ?
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
-                                                                                        :
-                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
+                                                                            <img src="${ 
+                                                                                            contentRow.content_type == 9 ?
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file 
+                                                                                            :
+                                                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file 
                                                                                         }" 
                                                                                 alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                                 class="ss-backend-content-images" 
@@ -816,22 +889,23 @@ module.exports = class ContentListing
                                                                         ${ /*GLightbox.*/'' }
                                                                         ${ gSystemConfig.configImagePopup == 4 ? 
                                                                         `
-                                                                            <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + contentRow.file + "?v=" + this.cacheClear }"
+                                                                            <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + contentRow.file }"
                                                                                 title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }"
-                                                                                class="glightbox_content_file${ contentRow.id }"
+                                                                                class="glightbox_categories_image_main${ contentRow.id }"
                                                                                 data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") };">
 
-                                                                                <img src="${contentRow.content_type == 9 ?
-                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file + "?v=" + this.cacheClear
-                                                                                            :
-                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file + "?v=" + this.cacheClear
+                                                                                <img src="${ 
+                                                                                                contentRow.content_type == 9 ?
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/o" + contentRow.file 
+                                                                                                :
+                                                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/r" + contentRow.file 
                                                                                             }" 
                                                                                     alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(contentRow.caption, "db") }" 
                                                                                     class="ss-backend-content-images" 
                                                                                 />
                                                                             </a>
                                                                             <script>
-                                                                                gLightboxBackendConfigOptions.selector = "glightbox_content_file${ contentRow.id }";
+                                                                                gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main${ contentRow.id }";
                                                                                 //Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                                                 //data-glightbox="title: Title example.; description: Description example."
                                                                                 var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);

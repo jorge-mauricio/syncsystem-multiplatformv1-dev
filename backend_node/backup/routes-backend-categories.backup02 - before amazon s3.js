@@ -10,16 +10,6 @@ const SyncSystemNS = require("../" + gSystemConfig.configDirectoryComponents + "
 
 const formidable = require("formidable"); //Form file upload.
 const util = require("util");
-
-/*
-const AWS = require("aws-sdk");
-var s3 = new AWS.S3({
-    accessKeyId: process.env.CONFIG_API_AWS_S3_ID,
-    secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY
-    //apiVersion: '2006-03-01'
-});
-var s3Stream = require('s3-upload-stream')(s3);
-*/
 //----------------------
 
 
@@ -587,11 +577,6 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
         //ref: https://www.youtube.com/watch?v=cNG6VrGszck
         //var resultsFunctionsFiles;
     }
-
-
-    //Debug.
-    //console.log("JSON.parse(req.get('body'))=", JSON.parse(req.get('body')));
-    //console.log("req=", req);
     //----------------------
 
 
@@ -633,16 +618,7 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
     
                 });
             });
-
-
-
-            /*
-            var formParseResultsS3 = await new Promise(function(resolve, reject){
-
-                resolve();   
-            });
-            */
-
+                
 
             //var formParseResults = await new Promise(async function(resolve, reject){
             var formParseResults = await new Promise(function(resolve, reject){
@@ -653,15 +629,9 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                 var formParseErrorPost;
 
 
-                //Formidable.
                 if(gSystemConfig.configUploadComponent == 1)
                 {
 
-
-
-
-
-                    
                     //Request post data.
                     //----------------------
                     form.parse(req, function(formParseError, fields, files){
@@ -696,96 +666,11 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                             //console.log("formParseResults.files.image_main=", formParseResults.files.image_main);
 
                             //resolve({fields: fields, files: files}); //working
-
-                                    
                         }
 
 
                     });
                     //----------------------
-
-
-                    //var formPart = await new Promise(function(resolve, reject){
-                            //Part.
-                            //----------------------
-                            /*form.onPart = (part) => {
-                                part.on('data', (buffer) => {
-                                // do whatever you want here
-                                });
-                            };*/
-
-                            /*  
-                            form.onPart = (part) => {
-                                console.log('part=',part);
-                                part.on('data', (buffer) => {
-                                    console.log('buffer=',buffer);
-                                // do whatever you want here
-                                });
-                            };
-                            */
-
-
-                            /**/
-                            //form.onPart = function(part) {
-                                //form.onPart = async function(part) {
-                                    //if(part.filename !== undefined)
-                                    /*
-                                    if(part.filename)
-                                    {
-                                        console.log('part=',part);
-                                        
-                                        // part looks like this
-                                        //    {
-                                        //        readable: true,
-                                        //        headers:
-                                        //        {
-                                        //            'content-disposition': 'form-data; name="upload"; filename="00video38.mp4"',
-                                        //            'content-type': 'video/mp4'
-                                        //        },
-                                        //        name: 'upload',
-                                        //            filename: '00video38.mp4',
-                                        //        mime: 'video/mp4',
-                                        //        transferEncoding: 'binary',
-                                        //        transferBuffer: ''
-                                        //    }
-                            
-                                        var start = new Date().getTime();
-                                        var upload = s3Stream.upload({
-                                            "Bucket": process.env.CONFIG_API_AWS_S3_BUCKET,
-                                            "Key": part.filename
-                                        });
-                            
-                                        // Optional configuration
-                                        //upload.maxPartSize(20971520); // 20 MB
-                                        upload.concurrentParts(5);
-                            
-                                        // Handle errors.
-                                        upload.on('error', function (error) {
-                                            console.log('errr=',error);
-                                        });
-                                        upload.on('part', function (details) {
-                                            console.log('part details=',details);
-                                        });
-                                        upload.on('uploaded', function (details) {
-                                            var end = new Date().getTime();
-                                            console.log('it took',end-start);
-                                            console.log('uploaded',details);
-                                        });
-                            
-                                        // Maybe you could add compress like
-                                        // part.pipe(compress).pipe(upload)
-                                        part.pipe(upload);
-                                    }
-                                    */
-                                    //return '';
-                                    //next();
-                                    //return;
-                                    //resolve(objReturn);
-                                //};
-                                //----------------------
-
-                                //resolve();
-                    //}); //Causing problem with fields data
 
 
                     //Field parsing.
@@ -912,20 +797,6 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                     //----------------------
 
 
-                    //Part.
-                    //----------------------
-                    /*
-                    form.onPart = function(part)
-                    {
-                        //Debug.
-                        console.log('part',part);
-
-                        //part.pipe();
-                    };
-                    */
-                    //----------------------
-
-
                     //Renaming.
                     //----------------------
                     //form.on("end", function(fields, files){
@@ -1032,6 +903,7 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                                 formfileFieldsReference.file5.fileDirectoryUpload = "";
                             }
                         }
+
 
                         /**/
                         //var resultsFunctionsFiles = await new Promise((resolve, reject)=>{
@@ -1140,34 +1012,10 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                     });
                     //----------------------
 
-
-                    /*
-                    (async function(){
-                        let resultsFunctionsFilesS3 = await new Promise((resolve, reject)=>{
-
-                            form.onPart = function (part) {
-
-                                
-        
-                                
-                            };
-
-                            //resolve({fields: fieldsPost, files: filesPost});
-                            resolve();
-
-                        });
-                    })();
-                    */
-
-
-
-
                 }    
             });
             //Debug.
             //console.log("formParseResults=", formParseResults);
-
-
 
 
             //Define values.
@@ -1585,20 +1433,6 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
             {
                 returnURL += "&messageSuccess=statusMessage2";
 
-
-                /*            
-                function handleRequest(req, res, form)
-                {
-                    console.log("handleRequest=true");
-                    form.onPart = function (part) {
-                        console.log("part=", part);
-                                        
-                
-                             
-                    };
-                }
-                handleRequest(req, res, form);
-                */
 
                 //Redirect.
                 //res.redirect("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + idParent);

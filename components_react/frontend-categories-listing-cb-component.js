@@ -670,7 +670,7 @@ class FrontendCategoriesListing extends Component
                     { /*Categories records.*/ }
                     <FrontendCategoriesListingRecord 
                         arrCategoriesListing={ this.state.arrCategoriesListing } 
-                        configLayoutType={ 33 }>
+                        configLayoutType={ 2 }>
                             {/*arrCategoriesListing={ this.arrCategoriesListing } also works*/}
                     </FrontendCategoriesListingRecord>
                     

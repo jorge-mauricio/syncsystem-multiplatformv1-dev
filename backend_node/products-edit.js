@@ -66,6 +66,8 @@ module.exports = class ProductsEdit
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         //this.objParentTableLevel2;
         this.objParentTable;
@@ -495,7 +497,7 @@ module.exports = class ProductsEdit
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
                 ${ this.opdRecord.tblProductsImageMain != "" ? 
                     `
-                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/t" + this.opdRecord.tblProductsImageMain }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/t" + this.opdRecord.tblProductsImageMain + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
                     ` : 
                     `
                         <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
@@ -5649,7 +5651,7 @@ module.exports = class ProductsEdit
                                 ${ /*URL fields.*/'' }
                                 ${ gSystemConfig.enableProductsURL1 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL1") }: 
                                     </td>
@@ -5663,7 +5665,7 @@ module.exports = class ProductsEdit
 
                                 ${ gSystemConfig.enableProductsURL2 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url2" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL2") }: 
                                     </td>
@@ -5677,7 +5679,7 @@ module.exports = class ProductsEdit
 
                                 ${ gSystemConfig.enableProductsURL3 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url3" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL3") }: 
                                     </td>
@@ -5691,7 +5693,7 @@ module.exports = class ProductsEdit
 
                                 ${ gSystemConfig.enableProductsURL4 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url4" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL4") }: 
                                     </td>
@@ -5705,7 +5707,7 @@ module.exports = class ProductsEdit
 
                                 ${ gSystemConfig.enableProductsURL5 != 1 ? 
                                 `
-                                <tr id="inputRowProductsImage_url5" class="ss-backend-table-bg-light">
+                                <tr id="inputRowProducts_url5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsURL5") }: 
                                     </td>
@@ -6538,7 +6540,7 @@ module.exports = class ProductsEdit
 
                                         ${ opdRecord.tblProductsImageMain != "" ? 
                                         `
-                                        <img id="imgProductsImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsImageMain }" alt="${ opdRecord.tblProductsTitle }" class="ss-backend-images-edit" />
+                                        <img id="imgProductsImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsImageMain + "?v=" + this.cacheClear }" alt="${ opdRecord.tblProductsTitle }" class="ss-backend-images-edit" />
                                         <div id="divProductsImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
@@ -6610,7 +6612,7 @@ module.exports = class ProductsEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configProductsFile1Type == 1 ? 
                                             `
-                                                <img id="imgProductsFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile1 }" alt="${ opdRecord.tblProductsFile1 }" class="ss-backend-images-edit" />
+                                                <img id="imgProductsFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile1 + "?v=" + this.cacheClear }" alt="${ opdRecord.tblProductsFile1 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -6699,7 +6701,7 @@ module.exports = class ProductsEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configProductsFile2Type == 1 ? 
                                             `
-                                                <img id="imgProductsFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile2 }" alt="${ opdRecord.tblProductsFile2 }" class="ss-backend-images-edit" />
+                                                <img id="imgProductsFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile2 + "?v=" + this.cacheClear }" alt="${ opdRecord.tblProductsFile2 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -6788,7 +6790,7 @@ module.exports = class ProductsEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configProductsFile3Type == 1 ? 
                                             `
-                                                <img id="imgProductsFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile3 }" alt="${ opdRecord.tblProductsFile3 }" class="ss-backend-images-edit" />
+                                                <img id="imgProductsFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile3 + "?v=" + this.cacheClear }" alt="${ opdRecord.tblProductsFile3 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -6877,7 +6879,7 @@ module.exports = class ProductsEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configProductsFile4Type == 1 ? 
                                             `
-                                                <img id="imgProductsFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile4 }" alt="${ opdRecord.tblProductsFile4 }" class="ss-backend-images-edit" />
+                                                <img id="imgProductsFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile4 + "?v=" + this.cacheClear }" alt="${ opdRecord.tblProductsFile4 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -6966,7 +6968,7 @@ module.exports = class ProductsEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configProductsFile5Type == 1 ? 
                                             `
-                                                <img id="imgProductsFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile5 }" alt="${ opdRecord.tblProductsFile5 }" class="ss-backend-images-edit" />
+                                                <img id="imgProductsFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblProductsFile5 + "?v=" + this.cacheClear }" alt="${ opdRecord.tblProductsFile5 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 

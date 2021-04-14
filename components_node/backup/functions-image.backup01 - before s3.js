@@ -12,18 +12,10 @@ const FunctionsGeneric = require("./functions-generic.js");
 //require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
 //const mysql = require("mysql"); //MySQL package.
 //const lodash = require("lodash"); //Utils. 
-const fs = require("fs"); //File System
+//const fs = require("fs"); //File System
 //const fsExtra = require("fs-extra"); //File System
 const path = require("path"); //Necessary to serve static files.
 const sharp = require('sharp'); //Resize image.
-
-const AWS = require("aws-sdk");
-/**/
-var s3 = new AWS.S3({
-    accessKeyId: process.env.CONFIG_API_AWS_S3_ID,
-    secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY
-    //apiVersion: '2006-03-01'
-});
 //----------------------
 
 
@@ -99,65 +91,9 @@ module.exports = class FunctionsImage
                                 console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage19s"));
                             }
                         }
-                    })
-                    .toBuffer()
-                    .then((fileInfo)=>{
-                        //AWS S3.
-                        //----------------------
-                        //if(resultsFSExtraCopy === true)
-                        //{
-                            if(gSystemConfig.configUploadType == 2)
-                            {
-                                const fileContent = fs.readFileSync(directoryFiles + "/" + imagePrefix + fileName);
-                                //const fileContent = await fs.readFileSync(directoryFiles + "/" + imagePrefix + fileName);
-
-                                /*
-                                const s3 = new AWS.S3({
-                                    accesssKeyId: process.env.CONFIG_API_AWS_S3_ID,
-                                    secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY
-                                })
-                                */
-        
-                                const uploadParameters = {
-                                    Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
-                                    Key: imagePrefix + fileName,
-                                    //Key: fileNameOriginal,
-                                    //Body: postedFile[countArrayPostedFiles] //didn´t work
-                                    //Body: postedFile
-                                    Body: fileContent
-                                };
-
-                                //if(gSystemConfig.configImageFormats.includes(fileExtension) == true)
-                                if(gSystemConfig.configImageFormats.includes(path.extname(imagePrefix + fileName).toLowerCase()) == true)
-                                {
-                                    uploadParameters.ContentType = "image/jpeg"
-                                }
-                
-                                s3.upload(uploadParameters, (s3UploadError, s3DataReturn)=>{
-                                    if(s3UploadError)
-                                    {
-                                        if(gSystemConfig.configDebug === true)
-                                        {
-                                            console.log("s3UploadError=", s3UploadError);
-                                        }
-                                    }
-        
-                                    //Debug.
-                                    //console.log("s3DataReturn=", s3DataReturn)
-                                });
-                            }
-                        //}
-                        //----------------------
-                        //Debug.
-                        //console.log("fileInfo=", fileInfo);
-                        //console.log("key=", directoryFiles + "/" + imagePrefix + fileName);
                     });
                 }
                 //----------------------
-
-
-
-
 
 
                 //Debug.
@@ -184,4 +120,5 @@ module.exports = class FunctionsImage
         //resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrDefaultImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageMain);
     }
 	//**************************************************************************************
+
 }

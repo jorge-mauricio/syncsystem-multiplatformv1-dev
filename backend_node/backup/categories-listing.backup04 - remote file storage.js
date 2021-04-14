@@ -84,7 +84,7 @@ module.exports = class CategoriesListing
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
-        this.cacheClear = this.dateNow.getTime().toString();
+        this.imageClearCache = this.dateNow.getTime().toString();
         //----------------------
 
         /*
@@ -812,7 +812,11 @@ module.exports = class CategoriesListing
                                                 ${ /*No pop-up.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 0 ? 
                                                 `
-                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main + "?v=" + this.cacheClear }" 
+                                                    <img src="${ gSystemConfig.configUploadType == 1 ?
+                                                                    gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main
+                                                                :
+                                                                    gSystemConfig.configSystemURLImagesRemote + "/t" + categoriesRow.image_main 
+                                                                }?v=${this.imageClearCache}" 
                                                     alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }" 
                                                     class="ss-backend-images-listing" />
                                                 ` : ``
@@ -821,12 +825,16 @@ module.exports = class CategoriesListing
                                                 ${ /*GLightbox.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 4 ? 
                                                 `
-                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + categoriesRow.image_main + "?v=" + this.cacheClear }"
+                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + categoriesRow.image_main }"
                                                        title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }"
                                                        class="glightbox_categories_image_main${ categoriesRow.id }"
                                                        data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") };">
 
-                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main + "?v=" + this.cacheClear }" 
+                                                        <img src="${ gSystemConfig.configUploadType == 1 ?
+                                                                        gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main
+                                                                    :
+                                                                        gSystemConfig.configSystemURLImagesRemote + "/t" + categoriesRow.image_main 
+                                                                    }?v=${this.imageClearCache}" 
                                                             alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }" 
                                                             class="ss-backend-images-listing" />
                                                     </a>

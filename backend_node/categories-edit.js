@@ -65,6 +65,8 @@ module.exports = class CategoriesEdit
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString(); //variable to clear image cache
+
         this.objCategoriesIdParent;
 
         this.arrSearchParameters = [];
@@ -358,7 +360,7 @@ module.exports = class CategoriesEdit
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
                 ${ this.ocdRecord.tblCategoriesImageMain != "" ? 
                     `
-                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ocdRecord.tblCategoriesImageMain }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ocdRecord.tblCategoriesImageMain + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
                     ` : 
                     `
                         <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
@@ -3466,7 +3468,7 @@ module.exports = class CategoriesEdit
                                         ${ /*ocdRecord.tblCategoriesImageMain*/ '' }
                                         ${ ocdRecord.tblCategoriesImageMain != "" ? 
                                         `
-                                        <img id="imgCategoriesImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain }" alt="${ ocdRecord.tblCategoriesTitle }" class="ss-backend-images-edit" />
+                                        <img id="imgCategoriesImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain + "?v=" + this.cacheClear }" alt="${ ocdRecord.tblCategoriesTitle }" class="ss-backend-images-edit" />
                                         <div id="divCategoriesImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
@@ -3526,7 +3528,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile1Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1 }" alt="${ ocdRecord.tblCategoriesFile1 }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1 + "?v=" + this.cacheClear }" alt="${ ocdRecord.tblCategoriesFile1 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3615,7 +3617,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile2Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2 }" alt="${ ocdRecord.tblCategoriesFile2 }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2 + "?v=" + this.cacheClear }" alt="${ ocdRecord.tblCategoriesFile2 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3704,7 +3706,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile3Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3 }" alt="${ ocdRecord.tblCategoriesFile3 }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3 + "?v=" + this.cacheClear }" alt="${ ocdRecord.tblCategoriesFile3 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3793,7 +3795,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile4Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4 }" alt="${ ocdRecord.tblCategoriesFile4 }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4 + "?v=" + this.cacheClear }" alt="${ ocdRecord.tblCategoriesFile4 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 
@@ -3882,7 +3884,7 @@ module.exports = class CategoriesEdit
                                             ${ /*Image.*/ '' }
                                             ${ gSystemConfig.configCategoriesFile5Type == 1 ? 
                                             `
-                                                <img id="imgCategoriesFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5 }" alt="${ ocdRecord.tblCategoriesFile5 }" class="ss-backend-images-edit" />
+                                                <img id="imgCategoriesFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5 + "?v=" + this.cacheClear }" alt="${ ocdRecord.tblCategoriesFile5 }" class="ss-backend-images-edit" />
                                             ` : ``
                                             }
 

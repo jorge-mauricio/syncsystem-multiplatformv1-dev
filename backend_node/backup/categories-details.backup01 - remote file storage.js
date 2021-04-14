@@ -75,7 +75,7 @@ module.exports = class CategoriesDetails
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
-        this.cacheClear = this.dateNow.getTime().toString();
+        this.imageClearCache = this.dateNow.getTime().toString(); //variable to clear image cache
 
         this.objCategoriesIdParent;
 
@@ -367,7 +367,11 @@ module.exports = class CategoriesDetails
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
                 ${ this.ocdRecord.tblCategoriesImageMain != "" ? 
                     `
-                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ocdRecord.tblCategoriesImageMain + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                        <meta property="og:image" content="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ocdRecord.tblCategoriesImageMain
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + this.ocdRecord.tblCategoriesImageMain 
+                                                            }?v=${this.imageClearCache}" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
                     ` : 
                     `
                         <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
@@ -1395,7 +1399,11 @@ module.exports = class CategoriesDetails
                                         ${ ocdRecord.tblCategoriesImageMain != "" ? 
                                         `
                                             <img id="imgCategoriesImageMain" 
-                                                src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain + "?v=" + this.cacheClear }" 
+                                                src="${ gSystemConfig.configUploadType == 1 ?
+                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesImageMain
+                                                        :
+                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + ocdRecord.tblCategoriesImageMain
+                                                        }?v=${this.imageClearCache}" 
                                                 alt="${ ocdRecord.tblCategoriesTitle }" 
                                                 class="ss-backend-images-details" 
                                             />
@@ -1419,7 +1427,11 @@ module.exports = class CategoriesDetails
                                             ${ gSystemConfig.configCategoriesFile1Type == 1 ? 
                                             `
                                                 <img id="imgCategoriesFile1" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1 + "?v=" + this.cacheClear }" 
+                                                    src="${ gSystemConfig.configUploadType == 1 ?
+                                                        gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile1
+                                                        :
+                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + ocdRecord.tblCategoriesFile1 
+                                                        }?v=${this.imageClearCache}" 
                                                     alt="${ ocdRecord.tblCategoriesFile1 }" 
                                                     class="ss-backend-images-details" 
                                                 />
@@ -1429,7 +1441,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (download).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile1Type == 3 ? 
                                             `
-                                                <a id="imgCategoriesFile1" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile1 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile1" download 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile1
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile1
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile1 }
                                                 </a>
                                             ` : ``
@@ -1438,7 +1457,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (open direct).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile1Type == 34 ? 
                                             `
-                                                <a id="imgCategoriesFile1" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile1 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile1" 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile1
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile1
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile1 }
                                                 </a>
                                             ` : ``
@@ -1464,7 +1490,11 @@ module.exports = class CategoriesDetails
                                             ${ gSystemConfig.configCategoriesFile2Type == 1 ? 
                                             `
                                                 <img id="imgCategoriesFile2" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2 + "?v=" + this.cacheClear }" 
+                                                    src="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile2
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/t" + ocdRecord.tblCategoriesFile2 
+                                                            }?v=${this.imageClearCache}" 
                                                     alt="${ ocdRecord.tblCategoriesFile2 }" 
                                                     class="ss-backend-images-details" 
                                                 />
@@ -1474,7 +1504,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (download).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile2Type == 3 ? 
                                             `
-                                                <a id="imgCategoriesFile2" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile2 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile2" download 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile2
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile2 
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile2 }
                                                 </a>
                                             ` : ``
@@ -1483,7 +1520,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (open direct).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile2Type == 34 ? 
                                             `
-                                                <a id="imgCategoriesFile2" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile2 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile2" 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile2
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile2 
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile2 }
                                                 </a>
                                             ` : ``
@@ -1508,7 +1552,11 @@ module.exports = class CategoriesDetails
                                             ${ gSystemConfig.configCategoriesFile3Type == 1 ? 
                                             `
                                                 <img id="imgCategoriesFile3" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3 + "?v=" + this.cacheClear }" 
+                                                    src="${ gSystemConfig.configUploadType == 1 ?
+                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile3
+                                                        :
+                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + ocdRecord.tblCategoriesFile3 
+                                                        }?v=${this.imageClearCache}" 
                                                     alt="${ ocdRecord.tblCategoriesFile3 }" 
                                                     class="ss-backend-images-details" 
                                                 />
@@ -1518,7 +1566,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (download).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile3Type == 3 ? 
                                             `
-                                                <a id="imgCategoriesFile3" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile3 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile3" download 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile3
+                                                        :
+                                                            gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile3 
+                                                        }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile3 }
                                                 </a>
                                             ` : ``
@@ -1527,7 +1582,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (open direct).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile3Type == 34 ? 
                                             `
-                                                <a id="imgCategoriesFile3" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile3 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile3" 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile3
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile3 
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile3 }
                                                 </a>
                                             ` : ``
@@ -1552,7 +1614,11 @@ module.exports = class CategoriesDetails
                                             ${ gSystemConfig.configCategoriesFile4Type == 1 ? 
                                             `
                                                 <img id="imgCategoriesFile4" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4 + "?v=" + this.cacheClear }" 
+                                                    src="${ gSystemConfig.configUploadType == 1 ?
+                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile4
+                                                        :
+                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + ocdRecord.tblCategoriesFile4 
+                                                        }?v=${this.imageClearCache}" 
                                                     alt="${ ocdRecord.tblCategoriesFile4 }" 
                                                     class="ss-backend-images-details" 
                                                 />
@@ -1562,7 +1628,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (download).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile4Type == 3 ? 
                                             `
-                                                <a id="imgCategoriesFile4" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile4 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile4" download 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile4
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile4 
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile4 }
                                                 </a>
                                             ` : ``
@@ -1571,7 +1644,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (open direct).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile4Type == 34 ? 
                                             `
-                                                <a id="imgCategoriesFile4" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile4 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile4" 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                        gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile4
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile4 
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile4 }
                                                 </a>
                                             ` : ``
@@ -1596,7 +1676,11 @@ module.exports = class CategoriesDetails
                                             ${ gSystemConfig.configCategoriesFile5Type == 1 ? 
                                             `
                                                 <img id="imgCategoriesFile5" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5 + "?v=" + this.cacheClear }" 
+                                                    src="${ gSystemConfig.configUploadType == 1 ?
+                                                            gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ocdRecord.tblCategoriesFile5
+                                                        :
+                                                            gSystemConfig.configSystemURLImagesRemote + "/t" + ocdRecord.tblCategoriesFile5
+                                                        }?v=${this.imageClearCache}" 
                                                     alt="${ ocdRecord.tblCategoriesFile5 }" 
                                                     class="ss-backend-images-details" 
                                                 />
@@ -1606,7 +1690,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (download).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile5Type == 3 ? 
                                             `
-                                                <a id="imgCategoriesFile5" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile5 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile5" download 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile5
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile5 
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile5 }
                                                 </a>
                                             ` : ``
@@ -1615,7 +1706,14 @@ module.exports = class CategoriesDetails
                                             ${ /*File (open direct).*/ '' }
                                             ${ gSystemConfig.configCategoriesFile5Type == 34 ? 
                                             `
-                                                <a id="imgCategoriesFile5" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile5 }" target="_blank" class="ss-backend-links01">
+                                                <a id="imgCategoriesFile5" 
+                                                    href="${ gSystemConfig.configUploadType == 1 ?
+                                                                gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ocdRecord.tblCategoriesFile5
+                                                            :
+                                                                gSystemConfig.configSystemURLImagesRemote + "/" + ocdRecord.tblCategoriesFile5
+                                                            }" 
+                                                    target="_blank" 
+                                                    class="ss-backend-links01">
                                                     ${ ocdRecord.tblCategoriesFile5 }
                                                 </a>
                                             ` : ``

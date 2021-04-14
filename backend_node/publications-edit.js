@@ -72,6 +72,8 @@ module.exports = class PublicationsEdit
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         //this.objParentTableLevel2;
         this.objParentTable;
@@ -394,7 +396,7 @@ module.exports = class PublicationsEdit
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
                 ${ this.opdRecord.tblPublicationsImageMain != "" ? 
                     `
-                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/t" + this.opdRecord.tblPublicationsImageMain }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/t" + this.opdRecord.tblPublicationsImageMain + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
                     ` : 
                     `
                         <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
@@ -2319,7 +2321,7 @@ module.exports = class PublicationsEdit
 
                                 ${ gSystemConfig.enablePublicationsSourceURL == 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_source_url" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_source_url" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsSourceURL") }: 
                                     </td>
@@ -2556,7 +2558,7 @@ module.exports = class PublicationsEdit
                                 ${ /*URL fields.*/'' }
                                 ${ gSystemConfig.enablePublicationsURL1 != 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url1" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL1") }: 
                                     </td>
@@ -2570,7 +2572,7 @@ module.exports = class PublicationsEdit
 
                                 ${ gSystemConfig.enablePublicationsURL2 != 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url2" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL2") }: 
                                     </td>
@@ -2584,7 +2586,7 @@ module.exports = class PublicationsEdit
 
                                 ${ gSystemConfig.enablePublicationsURL3 != 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url3" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL3") }: 
                                     </td>
@@ -2598,7 +2600,7 @@ module.exports = class PublicationsEdit
 
                                 ${ gSystemConfig.enablePublicationsURL4 != 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url4" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL4") }: 
                                     </td>
@@ -2612,7 +2614,7 @@ module.exports = class PublicationsEdit
 
                                 ${ gSystemConfig.enablePublicationsURL5 != 1 ? 
                                 `
-                                <tr id="inputRowPublicationsImage_url5" class="ss-backend-table-bg-light">
+                                <tr id="inputRowPublications_url5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPublicationsURL5") }: 
                                     </td>
@@ -3445,7 +3447,7 @@ module.exports = class PublicationsEdit
 
                                         ${ opdRecord.tblPublicationsImageMain != "" ? 
                                         `
-                                        <img id="imgPublicationsImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblPublicationsImageMain }" alt="${ opdRecord.tblPublicationsTitle }" class="ss-backend-images-edit" />
+                                        <img id="imgPublicationsImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblPublicationsImageMain + "?v=" + this.cacheClear }" alt="${ opdRecord.tblPublicationsTitle }" class="ss-backend-images-edit" />
                                         <div id="divPublicationsImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');

@@ -84,7 +84,7 @@ module.exports = class CategoriesListing
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
-        this.cacheClear = this.dateNow.getTime().toString();
+        this.cacheClear = this.dateNow.getTime().toString(); //variable to clear image cache
         //----------------------
 
         /*
@@ -812,23 +812,19 @@ module.exports = class CategoriesListing
                                                 ${ /*No pop-up.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 0 ? 
                                                 `
-                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main + "?v=" + this.cacheClear }" 
-                                                    alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }" 
-                                                    class="ss-backend-images-listing" />
+                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }" class="ss-backend-images-listing" />
                                                 ` : ``
                                                 }
 
                                                 ${ /*GLightbox.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 4 ? 
                                                 `
-                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + categoriesRow.image_main + "?v=" + this.cacheClear }"
+                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + categoriesRow.image_main }"
                                                        title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }"
                                                        class="glightbox_categories_image_main${ categoriesRow.id }"
                                                        data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") };">
 
-                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main + "?v=" + this.cacheClear }" 
-                                                            alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }" 
-                                                            class="ss-backend-images-listing" />
+                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + categoriesRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, "db") }" class="ss-backend-images-listing" />
                                                     </a>
                                                     <script>
                                                         /*
@@ -873,8 +869,6 @@ module.exports = class CategoriesListing
                                             ` : ``
                                             }
 
-
-                                            <div style="display: none;">
                                             ${ gSystemConfig.enableCategoriesInfo1 == 1 ? 
                                                 `
                                                 <div>
@@ -1675,7 +1669,6 @@ module.exports = class CategoriesListing
                                                 //SyncSystemNS.FunctionsGeneric.dateSQLWrite(categoriesRow.date1, gSystemConfig.configBackendDateFormat) + "<br />" +
                                                 SyncSystemNS.FunctionsGeneric.dateSQLWrite("15/02/2020", gSystemConfig.configBackendDateFormat) + "<br />" +*/ ''
                                             }
-                                            </div>
                                         </td>
 
                                         <td style="text-align: center;">

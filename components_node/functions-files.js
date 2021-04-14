@@ -2,6 +2,8 @@
 
 //Import Node Modules.
 //----------------------
+require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
+
 const gSystemConfig = require("../config-application.js"); //System configuration.
 //const dbSystemCon = require("../config-application-db.js").dbSystemCon; //DB System - simple connection.
 //const dbSystemConPool = require("../config-application-db.js").dbSystemConPool; //DB System - pool connection.
@@ -17,6 +19,15 @@ const fsExtra = require("fs-extra"); //File System
 const path = require("path"); //Necessary to serve static files.
 
 const http = require('http');
+
+const AWS = require("aws-sdk");
+/**/
+var s3 = new AWS.S3({
+    accessKeyId: process.env.CONFIG_API_AWS_S3_ID,
+    secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY
+    //apiVersion: '2006-03-01'
+});
+//var s3Stream = require('s3-upload-stream')(s3);
 //----------------------
 
 
@@ -280,8 +291,8 @@ module.exports = class FunctionsFiles
             //if(fileNameOriginal)
             {
                 //Debug.
-                console.log("fileNameOriginal!=''=true");
-                console.log("fileNameOriginal=", fileNameOriginal);
+                //console.log("fileNameOriginal!=''=true");
+                //console.log("fileNameOriginal=", fileNameOriginal);
 
 
                 //Define values.
@@ -382,10 +393,85 @@ module.exports = class FunctionsFiles
                 //----------------------
 
 
+                //AWS S3.
+                //----------------------
+                if(resultsFSExtraCopy === true)
+                {
+                    if(gSystemConfig.configUploadType == 2)
+                    {
+                    //if(fileNameOriginal != "")
+                    //{
+                        const fileContent = fs.readFileSync(directoryFilesUpload + fileName);
+
+                        /*
+                        const s3 = new AWS.S3({
+                            accesssKeyId: process.env.CONFIG_API_AWS_S3_ID,
+                            secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY
+                        })
+                        */
+
+                        const uploadParameters = {
+                            Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
+                            Key: fileName,
+                            //Key: fileNameOriginal,
+                            //Body: postedFile[countArrayPostedFiles] //didn´t work
+                            //Body: postedFile
+                            Body: fileContent
+                        };
+
+                        //Include content type if it´s an image.
+                        //Note: So it won´t donwloa the file with link to it.
+                        if(gSystemConfig.configImageFormats.includes(fileExtension) == true)
+                        {
+                            uploadParameters.ContentType = "image/jpeg"
+                        }
+        
+                        s3.upload(uploadParameters, (s3UploadError, s3DataReturn)=>{
+                            if(s3UploadError)
+                            {
+                                if(gSystemConfig.configDebug === true)
+                                {
+                                    console.log("s3UploadError=", s3UploadError);
+                                }
+                            }
+
+                            //Debug.
+                            //console.log("s3DataReturn=", s3DataReturn)
+                        });
+                        
+
+                        /*
+                        var start = new Date().getTime();
+                        var upload = s3Stream.upload({
+                            "Bucket": process.env.CONFIG_API_AWS_S3_BUCKET,
+                            "Key": fileNameOriginal
+                        });
+
+                        upload.concurrentParts(5);
+
+                        // Handle errors.
+                        upload.on('error', function (error) {
+                            console.log('errr(inside filesUpload)=',error);
+                        });
+                        
+                        postedFile[countArrayPostedFiles].pipe(upload);
+                        */
+
+                        //Debug.
+                        //console.log("postedFile[countArrayPostedFiles](inside filesUpload)=", postedFile[countArrayPostedFiles]);
+                        //console.log("postedFile (inside filesUpload)=", postedFile);
+                        //console.log("fileContent (inside filesUpload)=", fileContent);
+                    //}
+                    }
+                }
+                //----------------------
+
+
                 //Define value.
                 //strReturn = resultsFSExtraCopy;
                 strReturn.returnStatus = resultsFSExtraCopy;
                 //strReturn.returnFileName = fileName;
+
             }else{
                 strReturn.returnStatus = true;
             }
@@ -505,8 +591,8 @@ module.exports = class FunctionsFiles
 
 
         //Logic.
+        //----------------------
         try{
-            //Logic.
             if(fileName)
             {
                 //if(arrImageSize !== null)
@@ -549,6 +635,31 @@ module.exports = class FunctionsFiles
                                 //console.error(fileAccessError)
                             }
                         }
+
+
+                        //AWS S3.
+                        if(gSystemConfig.configUploadType == 2)
+                        {
+                            const deleteParameters = {
+                                Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
+                                Key: "o" + fileName
+                            };
+
+                            s3.deleteObject(deleteParameters, function(s3DeleteError, s3DataReturn) {
+                                if(s3DeleteError)
+                                {
+                                    if(gSystemConfig.configDebug === true)
+                                    {
+                                        console.log(s3DeleteError, s3DeleteError.stack); 
+                                    }
+                                }else{
+
+                                    //Debug.
+                                    console.log("s3DataReturn=", s3DataReturn);
+                                }                                
+                            });                    
+                        }
+
                     });
 
 
@@ -599,6 +710,31 @@ module.exports = class FunctionsFiles
                                         //Define file name.
                                         //tblCategoriesImageMain = fileName;
                                     }
+
+
+                                    //AWS S3.
+                                    if(gSystemConfig.configUploadType == 2)
+                                    {
+                                        const deleteParameters = {
+                                            Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
+                                            Key: imagePrefix + fileName
+                                        };
+
+                                        s3.deleteObject(deleteParameters, function(s3DeleteError, s3DataReturn) {
+                                            if(s3DeleteError)
+                                            {
+                                                if(gSystemConfig.configDebug === true)
+                                                {
+                                                    console.log(s3DeleteError, s3DeleteError.stack); 
+                                                }
+                                            }else{
+
+                                                //Debug.
+                                                console.log("s3DataReturn=", s3DataReturn);
+                                            }                                
+                                        });                    
+                                    }
+
                                 });
                             }else{
                                 if(gSystemConfig.configDebug === true)
@@ -610,11 +746,12 @@ module.exports = class FunctionsFiles
         
 
                         //Debug.
-                        /**/
+                        /*
                         console.log("arrImageSize = " + arrImageSize[arrCountImageSize]);
                         console.log("imagePrefix = " + imagePrefix);
                         console.log("fileDeletePath = " + fileDeletePath);
                         console.log("\n");
+                        */
                     }
                 }else{
                     //Delete - single file.
@@ -648,6 +785,31 @@ module.exports = class FunctionsFiles
                                     //objReturn.returnStatus = true;
                                 }
                                 //objReturn.nRecords = 1;
+
+
+                                //AWS S3.
+                                if(gSystemConfig.configUploadType == 2)
+                                {
+                                    const deleteParameters = {
+                                        Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
+                                        Key: fileName
+                                    };
+
+                                    s3.deleteObject(deleteParameters, function(s3DeleteError, s3DataReturn) {
+                                        if(s3DeleteError)
+                                        {
+                                            if(gSystemConfig.configDebug === true)
+                                            {
+                                                console.log(s3DeleteError, s3DeleteError.stack); 
+                                            }
+                                        }else{
+
+                                            //Debug.
+                                            console.log("s3DataReturn=", s3DataReturn);
+                                        }                                
+                                    });                    
+                                }
+                                
                             });
                         }else{
                             if(gSystemConfig.configDebug === true)
@@ -673,6 +835,7 @@ module.exports = class FunctionsFiles
 
             return objReturn;
         }
+        //----------------------
     }
     //**************************************************************************************
 

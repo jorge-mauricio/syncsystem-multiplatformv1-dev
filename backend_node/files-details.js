@@ -73,6 +73,8 @@ module.exports = class FilesDetails
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         this.objParentTable;
 
@@ -269,7 +271,7 @@ module.exports = class FilesDetails
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
                 ${ this.ofdRecord.tblFilesFile != "" ? 
                     `
-                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ofdRecord.tblFilesFile }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.ofdRecord.tblFilesFile + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
                     ` : 
                     `
                         <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
@@ -982,7 +984,7 @@ module.exports = class FilesDetails
                                         ${ ofdRecord.tblFilesFile != "" ? 
                                         `
                                             <img id="imgFilesFile" 
-                                                src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile }" 
+                                                src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile + "?v=" + this.cacheClear }" 
                                                 alt="${ ofdRecord.tblCategoriesTitle }" 
                                                 class="ss-backend-images-details" 
                                             />
@@ -1001,7 +1003,7 @@ module.exports = class FilesDetails
                                         ${ ofdRecord.tblFilesFileThumbnail != "" ? 
                                         `
                                             <img id="imgFilesFileThumbnail" 
-                                                src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFileThumbnail }" 
+                                                src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFileThumbnail + "?v=" + this.cacheClear }" 
                                                 alt="${ ofdRecord.tblCategoriesTitle }" 
                                                 class="ss-backend-images-details" 
                                             />
@@ -1025,7 +1027,7 @@ module.exports = class FilesDetails
                                             ${ gSystemConfig.configFilesFile1Type == 1 ? 
                                             `
                                                 <img id="imgFilesFile1" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile1 }" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile1 + "?v=" + this.cacheClear }" 
                                                     alt="${ ofdRecord.tblFilesFile1 }" 
                                                     class="ss-backend-images-edit" 
                                                 />
@@ -1069,7 +1071,7 @@ module.exports = class FilesDetails
                                             ${ gSystemConfig.configFilesFile2Type == 1 ? 
                                             `
                                                 <img id="imgFilesFile2" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile2 }" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile2 + "?v=" + this.cacheClear }" 
                                                     alt="${ ofdRecord.tblFilesFile2 }" 
                                                     class="ss-backend-images-edit" 
                                                 />
@@ -1113,7 +1115,7 @@ module.exports = class FilesDetails
                                             ${ gSystemConfig.configFilesFile3Type == 1 ? 
                                             `
                                                 <img id="imgFilesFile3" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile3 }" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile3 + "?v=" + this.cacheClear }" 
                                                     alt="${ ofdRecord.tblFilesFile3 }" 
                                                     class="ss-backend-images-edit" 
                                                 />
@@ -1157,7 +1159,7 @@ module.exports = class FilesDetails
                                             ${ gSystemConfig.configFilesFile4Type == 1 ? 
                                             `
                                                 <img id="imgFilesFile4" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile4 }" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile4 + "?v=" + this.cacheClear }" 
                                                     alt="${ ofdRecord.tblFilesFile4 }" 
                                                     class="ss-backend-images-edit" 
                                                 />
@@ -1201,7 +1203,7 @@ module.exports = class FilesDetails
                                             ${ gSystemConfig.configFilesFile5Type == 1 ? 
                                             `
                                                 <img id="imgFilesFile5" 
-                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile5 }" 
+                                                    src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ofdRecord.tblFilesFile5 + "?v=" + this.cacheClear }" 
                                                     alt="${ ofdRecord.tblFilesFile5 }" 
                                                     class="ss-backend-images-edit" 
                                                 />

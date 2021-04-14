@@ -62,6 +62,8 @@ module.exports = class FormsFieldsOptionsListing
         this.dateNowHour = this.dateNow.getHours();
         this.dateNowSecond = this.dateNow.getSeconds();
 
+        this.cacheClear = this.dateNow.getTime().toString();
+
         this.objParentTableLevel1;
         this.objParentTable;
         //----------------------
@@ -543,19 +545,19 @@ module.exports = class FormsFieldsOptionsListing
                                                 ${ /*No pop-up.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 0 ? 
                                                 `
-                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + formsFieldsOptionsRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(formsFieldsOptionsRow.title, "db") }" class="ss-backend-images-listing" />
+                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + formsFieldsOptionsRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(formsFieldsOptionsRow.title, "db") }" class="ss-backend-images-listing" />
                                                 ` : ``
                                                 }
 
                                                 ${ /*GLightbox.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 4 ? 
                                                 `
-                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + formsFieldsOptionsRow.image_main }"
+                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + formsFieldsOptionsRow.image_main + "?v=" + this.cacheClear }"
                                                        title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(formsFieldsOptionsRow.title, "db") }"
                                                        class="glightbox_categories_image_main${ formsFieldsOptionsRow.id }"
                                                        data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(formsFieldsOptionsRow.title, "db") };">
 
-                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + formsFieldsOptionsRow.image_main }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(formsFieldsOptionsRow.title, "db") }" class="ss-backend-images-listing" />
+                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + formsFieldsOptionsRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(formsFieldsOptionsRow.title, "db") }" class="ss-backend-images-listing" />
                                                     </a>
                                                     <script>
                                                         gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main${ formsFieldsOptionsRow.id }";
