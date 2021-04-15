@@ -8,9 +8,9 @@
   },
   "description": "SyncSystem - Multiplatform",
   "private": true,
-  "main": "node build/bundle.react.js",
+  "main": "node -r dotenv/config build/bundle.react.js",
   "scripts": {
-     "start": "node build/bundle.react.js",
+     "start": "node -r dotenv/config build/bundle.react.js",
      "build": "webpack --config webpack.react.js --progress && webpack --config webpack.react.client.js --progress",
      "build:start": "webpack --config webpack.react.js --progress && webpack --config webpack.react.client.js --progress && node build/bundle.js"
   },
