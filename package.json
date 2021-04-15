@@ -10,7 +10,17 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node app"
+    "backend:node": "node app",
+    "frontend:react": "node -r dotenv/config build/bundle.react.js",
+    "start": "webpack-dev-server --config webpack.dev.js --open",
+    "build": "webpack --config webpack.prod.js",
+    "test": "jest --verbose",
+    "react:webpackclient": "webpack --config webpack.react.client.js --watch",
+    "react:webpack": "webpack --config webpack.react.js --watch",
+    "react:start": "nodemon --watch build --exec node build/bundle.react.js",
+    "react-build": "webpack --config webpack.react.js --progress && webpack --config webpack.react.client.js --progress",
+    "react-app": "npm-run-all --parallel react:* backend:node",
+    "app-start": "npm-run-all --parallel backend:node frontend:react"
   },
   "repository": {
     "type": "git",
