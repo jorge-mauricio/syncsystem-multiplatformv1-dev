@@ -261,8 +261,8 @@ app.get("/*", (req,res)=>
 
 
 //Listen setup.
-//app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT, ()=>{
-app.listen(3001, ()=>{
+app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_REACT_PORT, ()=>{
+//app.listen(3001, ()=>{
     if(gSystemConfig.configDebug === true)
     {
         console.log(`app-react running on port: ${ process.env.PORT || process.env.CONFIG_SYSTEM_PORT }`);
