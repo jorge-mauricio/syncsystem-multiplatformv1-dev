@@ -8,7 +8,7 @@
   },
   "description": "SyncSystem - Multiplatform",
   "private": true,
-  "main": "app-react.js",
+  "main": "node -r dotenv/config build/bundle.react.js",
   "scripts": {
      "build": "webpack --config webpack.react.js --progress && webpack --config webpack.react.client.js --progress",
      "start": "node -r dotenv/config build/bundle.react.js"
