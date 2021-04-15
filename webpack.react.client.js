@@ -31,7 +31,7 @@ fs.readdirSync('node_modules')
 
 module.exports = {
     mode: "production", //production is default | development
-    target: "node",//causing error: require not defined
+    //target: "node",//causing error: require not defined
     //target: "web",
     entry: "./components_react/client.js",
     //externals: nodeModules,
