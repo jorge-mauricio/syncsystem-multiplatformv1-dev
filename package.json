@@ -11,6 +11,7 @@
   "main": "node -r dotenv/config build/bundle.react.js",
   "scripts": {
      "heroku-postbuild": "node -r dotenv/config build/bundle.react.js",
+     "build": "webpack --config webpack.react.js --progress && webpack --config webpack.react.client.js --progress",
      "start": "node -r dotenv/config build/bundle.react.js"
   },
   "repository": {
