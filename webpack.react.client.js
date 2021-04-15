@@ -163,7 +163,7 @@ module.exports = {
                         //plugins: ["transform-class-properties", "@babel/plugin-syntax-dynamic-import"],
                         presets: [
                             "react", 
-                            //"es2015", 
+                            "es2015", 
                             "stage-0", 
                             ["env", {
                                 "targets": {
