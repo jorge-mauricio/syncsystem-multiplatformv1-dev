@@ -1,4 +1,6 @@
 "use strict";
+import "babel-polyfill"; //with babel, we can use the import syntax.
+
 
 //Import Node Modules.
 //----------------------
