@@ -44,7 +44,7 @@ gSystemConfig.configSystemURL = process.env.CONFIG_SYSTEM_URL; //http://multipla
 gSystemConfig.configSystemURLSSL = process.env.CONFIG_SYSTEM_URL_SSL; //http://multiplatformv1.syncsystem.com.br
 //gSystemConfig.configSystemURLSSL = window.location.origin; //http://multiplatformv1.syncsystem.com.br
 
-gSystemConfig.configAPIURL = gSystemConfig.configSystemURLSSL; //process.env.CONFIG_API_URL;
+gSystemConfig.configAPIURL = process.env.CONFIG_API_URL; //gSystemConfig.configSystemURLSSL | process.env.CONFIG_API_URL;
 gSystemConfig.configURLFrontendReact = process.env.CONFIG_URL_FRONTEND_REACT;
 
 /*
