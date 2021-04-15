@@ -4,7 +4,6 @@
 //----------------------
 import 'babel-polyfill';
 
-
 //JQuery.
 //import $ from 'jquery';
 //import jQuery from 'jquery';
