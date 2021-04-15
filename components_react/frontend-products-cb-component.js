@@ -10,7 +10,7 @@
 import { SyncSystemNSContext } from "./syncsystem-ns-cb-context.js";
 
 //import React from "react";
-import React, { Component } from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
 //import { Link } from 'react-router-dom';
 
@@ -57,7 +57,7 @@ class FrontendProducts extends Component
 
         //Variables.
         //----------------------
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
         //----------------------
 
 
@@ -200,7 +200,7 @@ class FrontendProducts extends Component
     {
         //Variables.
         //----------------------
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
         
         var apiURLProductsListing = "";
         var apiProductsListingResponse;
