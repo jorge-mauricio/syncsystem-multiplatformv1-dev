@@ -174,7 +174,8 @@ class FrontendPublicationsDetails extends Component
         try
         {
             //API - build URL string.
-            apiURLPublicationsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIPublications + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbPublications + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //apiURLPublicationsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIPublications + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbPublications + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            apiURLPublicationsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIPublications + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbPublications + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
         
             //API - fetch data from backend.
             apiPublicationsDetailsResponse = await fetch(apiURLPublicationsDetails);
@@ -272,6 +273,7 @@ class FrontendPublicationsDetails extends Component
 
         //Title Current.
         FunctionsSyncSystem.elementMessage01("titleCurrent", this.titleCurrent);
+        FunctionsSyncSystem.elementMessage01("titleCurrentMobile", this.titleCurrent);
     }
     //**************************************************************************************
 
@@ -336,7 +338,7 @@ class FrontendPublicationsDetails extends Component
                     }
 
 
-                    <div style={{position: "relative", display: "block", textAlign: "center", overflow: "hidden", marginTop: "20px;"}}>
+                    <div style={{position: "relative", display: "block", textAlign: "center", overflow: "hidden", marginTop: "20px"}}>
                         <a onClick={this.props.history.goBack} className="ss-frontend-btn-base ss-frontend-btn-action">
                             { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonBack") }
                         </a>

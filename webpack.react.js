@@ -265,10 +265,10 @@ module.exports = {
             }
             */
 
-            //Fonts.
+            //Files.
             {
-                
-                test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                //test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, //fonts
+                test: /\.(svg|jpg|jpeg|png|gif|ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
                 use: {
                     loader: "file-loader"
                     /*loader: "file-loader",

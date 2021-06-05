@@ -965,7 +965,8 @@ module.exports = class FunctionsGeneric
 
 
         //Logic.
-        if(strValue !== null || typeof(strValue) !== "undefined")
+        //if(strValue !== null || typeof(strValue) !== "undefined")
+        if(strValue !== null && typeof(strValue) !== "undefined")
         {
             //Set default configuration.
             //Note: Check if this configuration can be applied only to an instance.
@@ -2094,6 +2095,46 @@ module.exports = class FunctionsGeneric
     //**************************************************************************************
 
 
+    //Limit the maximum number of characters.
+    //**************************************************************************************
+    /**
+     * Limit the maximum number of characters.
+     * @static
+     * @param {string} strData 
+     * @param {integer} nCharacters 
+     * @returns {string}
+     */
+    static limitChar(strData, nCharacters)
+    {
+        //Variables.
+        //----------------------
+        var strReturn = strData;
+        //----------------------
+
+
+        //Logic.
+        if(strReturn != "" && nCharacters != 0)
+        {
+            if(strReturn.length > nCharacters)
+            {
+                strReturn = strReturn.substring(0, nCharacters);
+            }
+        }else{
+            strReturn = "";
+        }
+
+
+        return strReturn;
+
+
+        //Usage.
+        //----------------------
+        //FunctionsGeneric.limitChar("string", 123);
+        //----------------------
+    }
+    //**************************************************************************************
+
+    
     //Remove non numerical characters.
     //**************************************************************************************
     /**

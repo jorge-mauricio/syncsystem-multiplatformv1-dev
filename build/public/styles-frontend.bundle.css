@@ -1,3 +1,18 @@
+/*Especial fonts.*/
+/* ************************************************************************************** */
+/*@font-face {
+    font-family: 'Especial';
+    src: url('fonts/font_name.eot');
+    src: url('fonts/font_name.eot?#iefix') format('embedded-opentype'),
+         url('fonts/font_name.woff') format('woff'),
+         url('fonts/font_name.ttf') format('truetype'),
+         url('fonts/font_name.svg#exobold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}*/
+/* ************************************************************************************** */
+
+
 /*Variables - default.*/
 /* ************************************************************************************** */
 :root{
@@ -20,11 +35,18 @@
 /*Useful parameters .*/
 /* ************************************************************************************** */
 /*pointer-events: none;*//*element click through*/
+
+/*Inline variable use*/
+/*
+<div style="--ssFrontendDesktopBtnBG: style value; --ssFrontendDesktopBtnBGhover: style value;">
+</div>
+*/
 /* ************************************************************************************** */
 
 
 /*Bootstrap break points.*/
 /* ************************************************************************************** */
+/*ref: https://getbootstrap.com/docs/4.0/layout/overview/*/
 @media (max-width: 767px) {
 	/*xs*/
 }
@@ -53,6 +75,16 @@ html, body {
 
     margin: 0px;
     padding: 0px;
+
+
+	/*overflow-x: hidden;*/
+	/*overflow: hidden;*/
+	
+	/*background-image: url(img/layout-bg1.png); 
+	background-repeat: no-repeat; 
+	background-attachment: fixed;
+	background-position: center 70px;
+	background-color: #f57d0a;*/
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -122,6 +154,7 @@ input, textarea, select
 }
 
 /*Texts.*/
+
 .ss-frontend-title-text01 {
 	font-family: var(--ssFrontendDefaultFont);
 	font-size: var(--ssFrontendDefaultTitleFontSize);
@@ -130,8 +163,18 @@ input, textarea, select
 	text-decoration: none; 
 	font-weight: normal;
 	/*margin-top: 0px;*/
-}
+}/*Not in use.*/
 
+.ss-frontend-heading01 {
+	font-family: var(--ssFrontendDefaultFont);
+	font-size: var(--ssFrontendDefaultTitleFontSize);
+	/*letter-spacing: 1px;*/
+	color: #000000; 
+	text-transform: uppercase;
+	text-decoration: none; 
+	font-weight: normal;
+	/*margin-top: 0px;*/
+}
 .ss-frontend-text01 {
 	position: relative;
 	display: block;
@@ -150,6 +193,12 @@ input, textarea, select
 	text-decoration: none;
 }
 
+.ss-frontend-footer-heading01 {
+	 font-family: var(--ssFrontendDefaultFont); 
+	font-size: var(--ssFrontendDefaultSubheadingFontSize);
+	color: #78c3ae;
+}
+
 .ss-frontend-footer-text01 {
 	font-family: var(--ssFrontendDefaultFont);
 	font-size: var(--ssFrontendDefaultFontSize);
@@ -157,12 +206,35 @@ input, textarea, select
 	text-decoration: none;
 }
 
+.ss-frontend-footer-links01 {
+	font-family: var(--ssFrontendDefaultFont);
+	font-size: var(--ssFrontendDefaultFontSize);
+	color: #78c3ae;
+}
+.ss-frontend-footer-links01:hover {
+	color: #0000ff;
+}
+
 .ss-frontend-copyright {
+	font-family: var(--ssFrontendDefaultFont);
     font-family: var(--ssFrontendDefaultFont);
-    font-size: 10px;
+    font-size: 11px;
     color: #000000;
     /*text-align: left;*/
 }
+
+.ss-frontend-credit {
+	font-family: var(--ssFrontendDefaultFont);
+    font-family: var(--ssFrontendDefaultFont);
+    font-size: 11px;
+    color: #78c3ae;
+    /*text-align: left;*/
+}
+.ss-frontend-credit:hover {
+    color: #0000ff;
+    /*text-align: left;*/
+}
+
 
 
 /*List blocks.*/
@@ -251,18 +323,6 @@ input, textarea, select
 	clear: both;
 } /*Delete this class.*/
 
-
-.ss-frontend-layout-section-containers01 {
-	position: relative; 
-	display: flex; 
-
-	flex-flow: row wrap; 
-	justify-content: space-around; 
-	flex-wrap: wrap; 
-
-	overflow: hidden;
-	clear: both;
-}
 
 /*Messages.*/
 .ss-frontend-error {
@@ -364,6 +424,29 @@ input, textarea, select
 	background-color: #0000ff; 
 }
 
+.ss-frontend-btn-generic-bg01 {
+	position: relative;
+	display: inline-block;
+
+	/*width: 20px;
+	height: 20px;*/
+
+	/*background-color: #fff;*/
+	background-image: var(--btnGenericBG);
+	background-repeat: no-repeat;
+	background-position: top left;
+	opacity: 0.3;
+
+	/*Usage*/
+	/*style={{['--btnGenericBG' as any]: 'url(img/image-name)'}}*//*React*/
+	/*style="--btnGenericBG: url(img/image-name)"*//*HTML*/
+}
+.ss-frontend-btn-generic-bg01:hover {
+	opacity: 1;
+}
+
+
+
 /*Forms.*/
 .ss-frontend-form-input01 {
 	margin: 0px;
@@ -371,6 +454,25 @@ input, textarea, select
 }
 
 /*Effects.*/
+.ss-frontend-fauntain01 {
+	background-image: linear-gradient(to left, #78c3ae, #000000);
+	/*background-image: radial-gradient(#ffffff, #78c3ae);*//*radial*/
+	
+	/*background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(255,0,0,0.7));*/ /*transparent*/
+	
+	/*background: repeating-linear-gradient(to left, #74ABDD, #78c3ae 49.9%, #0000ff, #000000 50.1%);*/ /*with limitations*/
+}
+
+.ss-frontend-flip01 {
+	/* width: 100%;
+	height: 100%; */
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
 .ss-frontend-text-stroke {
     text-shadow: calc(var(--ssFrontendDefaultfontStrokeWidth) * 1) calc(var(--ssFrontendDefaultfontStrokeWidth) * 0) 0
       var(--ssFrontendDefaultfontStrokeColor),
@@ -432,6 +534,25 @@ input, textarea, select
     width: 100%;
 
     background: #78c3ae;
+}
+
+.ss-frontend-mobile-layout-section-content01 {
+	position: relative; 
+	display: block; 
+
+	margin: 15px 15px 25px 15px;
+	overflow: hidden; 
+}
+
+.ss-frontend-mobile-text01 {
+	position: relative;
+	display: block;
+
+    font-family: var(--ssFrontendDefaultFont);
+	 font-size: var(--ssFrontendDefaultFontSize); /*TODO: Change to default mobile size*/
+	line-height: 17px;
+
+	color: #000000;
 }
 
 .ss-frontend-mobile-links01
@@ -585,7 +706,6 @@ input, textarea, select
 /* ************************************************************************************** */
 
 
-
 /*Categories.*/
 /* ************************************************************************************** */
 .ss-frontend-categories-listing-container {
@@ -707,7 +827,7 @@ input, textarea, select
 
 	vertical-align: top;
 
-	margin: 0px; 
+	margin: 0px 0px 10px 0px; 
 	padding: 0px; 
 }
 /*
@@ -802,7 +922,7 @@ input, textarea, select
 
 	vertical-align: top;
 
-	margin: 0px; 
+	margin: 0px 0px 10px 0px; 
 	padding: 0px; 
 }
 .ss-frontend-categories-details-content-row-label01 {
@@ -812,6 +932,8 @@ input, textarea, select
 .ss-frontend-categories-details-content-row-data01 {
 	position: relative;
 	display: block;
+
+	text-align: justify;
 }
 .ss-frontend-categories-details-content-block01 {
 	position: relative;
@@ -1242,7 +1364,7 @@ input, textarea, select
 
 	vertical-align: top;
 
-	margin: 0px; 
+	margin: 0px 0px 10px 0px; 
 	padding: 0px; 
 }
 /*
@@ -1337,7 +1459,7 @@ input, textarea, select
 
 	vertical-align: top;
 
-	margin: 0px; 
+	margin: 0px 0px 10px 0px; 
 	padding: 0px; 
 }
 .ss-frontend-products-details-content-row-label01 {
@@ -1347,6 +1469,8 @@ input, textarea, select
 .ss-frontend-products-details-content-row-data01 {
 	position: relative;
 	display: block;
+
+	text-align: justify;
 }
 .ss-frontend-products-details-content-block01 {
 	position: relative;
@@ -1599,7 +1723,7 @@ input, textarea, select
 
 	vertical-align: top;
 
-	margin: 0px; 
+	margin: 0px 0px 10px 0px; 
 	padding: 0px; 
 }
 /*
@@ -1694,7 +1818,7 @@ input, textarea, select
 
 	vertical-align: top;
 
-	margin: 0px; 
+	margin: 0px 0px 10px 0px; 
 	padding: 0px; 
 }
 .ss-frontend-publications-details-content-row-label01 {
@@ -1704,6 +1828,8 @@ input, textarea, select
 .ss-frontend-publications-details-content-row-data01 {
 	position: relative;
 	display: block;
+
+	text-align: justify;
 }
 .ss-frontend-publications-details-content-block01 {
 	position: relative;
@@ -2320,6 +2446,10 @@ input, textarea, select
 
 /*Bootstrap.*/
 /* ************************************************************************************** */
+/*ref: https://stackoverflow.com/questions/35351353/missing-visible-and-hidden-in-bootstrap-v4*/
+	/*- Div configuration Conversion bootstrap 3 to 4*/
+
+
 /*Product.*/
 .product-grid:hover {
 	border: 1px solid #000000;
@@ -2381,7 +2511,7 @@ input, textarea, select
 }
 
 
-/*Pagination.*/
+/*Pagination (bootstrap 4 - confirm/verify).*/
 .pagination > li > a {
     background-color: #ffffff;
     color: #000000;
@@ -2409,8 +2539,8 @@ input, textarea, select
     border: 0px solid #ffffff;
 }
 
-/*Pager.*/
-.pager li>a, .pager li>span {
+/*Pager (bootstrap 3 - confirm/verify).*/
+.pager li > a, .pager li > span {
     display: inline-block;
 
     color: #78c3ae;
@@ -2422,7 +2552,7 @@ input, textarea, select
 
     padding: 5px 14px;
 }
-.pager li>a:hover{
+.pager li > a:hover {
     color: #ffffff;
     background-color: #78c3ae;
 }

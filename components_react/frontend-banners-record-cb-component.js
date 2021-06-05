@@ -158,27 +158,54 @@ class FrontendBannersRecord extends Component
 
                 { /*Slide show (bootstrap).*/ }
                 { configLayoutType == 22 ?
-                    <div style={{position: "relative", display: "block", width: "100%", height: "150px;", overflow: "hidden"}}>
-                        <div id="bannersSlideshowBootstrap22" className="carousel slide carousel-fade" data-ride="carousel">
-                            <div className="carousel-inner">
-                                <div className="carousel-item active">
-                                    <div style={{position: "relative", display: "block", width: "100%", height: "150px", backgroundImage: "url(https://dummyimage.com/600x200/666/999.jpg&text=test1)", backgroundPosition: "center center"}}>
+                    <React.Fragment>
+                        { /*Desktop.*/ }
+                        <div className="d-none d-lg-block" style={{position: "relative", display: "block", width: "100%", height: "525px;", overflow: "hidden"}}>
+                            <div id="bannersSlideshowBootstrap22" className="carousel slide carousel-fade" data-ride="carousel">
+                                <div className="carousel-inner">
+                                    <div className="carousel-item active">
+                                        <div style={{position: "relative", display: "block", width: "100%", height: "525px", backgroundImage: "url(/files-layout/layout-frontend-home-banner1.jpg)", backgroundPosition: "center center"}}>
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="carousel-item">
-                                    <div style={{position: "relative", display: "block", width: "100%", height: "150px", backgroundImage: "url(https://dummyimage.com/600x200/666/ccc.jpg&text=test2)", backgroundPosition: "center center"}}>
+                                    <div className="carousel-item">
+                                        <div style={{position: "relative", display: "block", width: "100%", height: "525px", backgroundImage: "url(/files-layout/layout-frontend-home-banner2.jpg)", backgroundPosition: "center center"}}>
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="carousel-item">
-                                    <div style={{position: "relative", display: "block", width: "100%", height: "150px", backgroundImage: "url(https://dummyimage.com/600x200/666/999.jpg&text=test3)", backgroundPosition: "center center"}}>
+                                    <div className="carousel-item">
+                                        <div style={{position: "relative", display: "block", width: "100%", height: "525px", backgroundImage: "url(/files-layout/layout-frontend-home-banner3.jpg)", backgroundPosition: "center center"}}>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        
+
+                        { /*Mobile.*/ }
+                        <div className="d-lg-none" style={{position: "relative", display: "block", width: "100%", height: "275px;", overflow: "hidden"}}>
+                            <div id="bannersSlideshowBootstrap22" className="carousel slide carousel-fade" data-ride="carousel">
+                                <div className="carousel-inner">
+                                    <div className="carousel-item active">
+                                        <div style={{position: "relative", display: "block", width: "100%", height: "275px", backgroundImage: "url(/files-layout/layout-frontend-mobile-home-banner1.jpg)", backgroundPosition: "center center"}}>
+
+                                        </div>
+                                    </div>
+                                    <div className="carousel-item">
+                                        <div style={{position: "relative", display: "block", width: "100%", height: "275px", backgroundImage: "url(/files-layout/layout-frontend-mobile-home-banner2.jpg)", backgroundPosition: "center center"}}>
+
+                                        </div>
+                                    </div>
+                                    <div className="carousel-item">
+                                        <div style={{position: "relative", display: "block", width: "100%", height: "275px", backgroundImage: "url(/files-layout/layout-frontend-mobile-home-banner3.jpg)", backgroundPosition: "center center"}}>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </React.Fragment>
                 :
                 ``}
             </React.Fragment>

@@ -16,6 +16,8 @@ import ReactDOM from "react-dom";
 
 //Components.
 import FrontendProductsDetailsRecord from "./frontend-products-details-record-cb-component.js";
+import FrontendFilesImages from "./frontend-files-images-cb-component.js";
+import FrontendFiles from "./frontend-files-cb-component.js";
 //----------------------
 
 class FrontendProductsDetails extends Component
@@ -172,7 +174,8 @@ class FrontendProductsDetails extends Component
         try
         {
             //API - build URL string.
-            apiURLProductsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbProducts + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //apiURLProductsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbProducts + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            apiURLProductsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbProducts + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
         
             //API - fetch data from backend.
             apiProductsDetailsResponse = await fetch(apiURLProductsDetails);
@@ -270,6 +273,9 @@ class FrontendProductsDetails extends Component
 
         //Title Current.
         FunctionsSyncSystem.elementMessage01("titleCurrent", this.titleCurrent);
+        //FunctionsSyncSystem.elementMessage01("titleCurrent", "Details");
+        FunctionsSyncSystem.elementMessage01("titleCurrentMobile", this.titleCurrent);
+        //FunctionsSyncSystem.elementMessage01("titleCurrentMobile", "Details");
     }
     //**************************************************************************************
 
@@ -301,19 +307,45 @@ class FrontendProductsDetails extends Component
         //Output.
         return(
             <React.Fragment>
+                {/* 
                 <section className="ss-frontend-layout-section-content01">
-                    { /*Products records. */ }
-                    <FrontendProductsDetailsRecord 
-                        objProductsDetails={ this.state.objProductsDetails } 
-                        configLayoutType={ 2 }>
-                    </FrontendProductsDetailsRecord>
-
-                    <div style={{position: "relative", display: "block", textAlign: "center", overflow: "hidden", marginTop: "20px;"}}>
-                        <a onClick={this.props.history.goBack} className="ss-frontend-btn-base ss-frontend-btn-action">
-                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonBack") }
-                        </a>
-                    </div>
                 </section>
+                */}
+
+                { /*Products records. */ }
+                <FrontendProductsDetailsRecord 
+                    objProductsDetails={ this.state.objProductsDetails } 
+                    configLayoutType={ 2 }>
+                </FrontendProductsDetailsRecord>
+
+                { /*Files - images - records.*/ }
+                { gSystemConfig.enableProductsImages == 1 ? 
+                    <FrontendFilesImages
+                        idParentFiles={ this._idTbProducts } 
+                        configLayoutType={ 1 } 
+                        configFilesNRecords={ "" } 
+                        configFilesSort={ "" } 
+                        configFilesZoom={ 0 }>
+                    </FrontendFilesImages>
+                :``
+                }
+
+                { /*Files - records.*/ }
+                { gSystemConfig.enableProductsFiles == 1 ? 
+                    <FrontendFiles
+                        idParentFiles={ this._idTbProducts } 
+                        configLayoutType={ 1 } 
+                        configFilesNRecords={ "" } 
+                        configFilesSort={ "" }>
+                    </FrontendFiles>
+                :``
+                }
+
+                <div style={{position: "relative", display: "block", textAlign: "center", overflow: "hidden", marginTop: "20px"}}>
+                    <a onClick={this.props.history.goBack} className="ss-frontend-btn-base ss-frontend-btn-action">
+                        { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonBack") }
+                    </a>
+                </div>
             </React.Fragment>
         );
     }

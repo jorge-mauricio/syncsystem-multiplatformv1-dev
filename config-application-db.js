@@ -22,6 +22,7 @@ const dbSystemCon = mysql.createConnection({
     supportBigNumbers: true,
     bigNumberStrings: true,
     connectTimeout: 30000,
+    //port: 3306, //may be needed if returns Error: connect ETIMEDOUT
     host     : process.env.DB_SYSTEM_HOST,
     user     : process.env.DB_SYSTEM_USER,
     password : process.env.DB_SYSTEM_PASSWORD,
@@ -43,6 +44,7 @@ const dbSystemConPool = mysql.createPool({
     bigNumberStrings: true,
     connectionLimit : 99, //check limit on MySql database server, minus 1
     connectTimeout: 30000,
+    //port: 3306, //may be needed if returns Error: connect ETIMEDOUT
     host     : process.env.DB_SYSTEM_HOST,
     user     : process.env.DB_SYSTEM_USER,
     password : process.env.DB_SYSTEM_PASSWORD,

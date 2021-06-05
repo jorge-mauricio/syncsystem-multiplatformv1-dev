@@ -151,7 +151,13 @@ class FrontendProductsListingRecord extends Component
                                         
                                         { gSystemConfig.enableProductsDescription == 1 && productsRow.description != "" ? 
                                             <p className="ss-frontend-products-listing-content-row01">
-                                                { HTMLReactParser(SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.description, "db")) }
+                                                { SyncSystemNS.FunctionsGeneric.limitChar(SyncSystemNS.FunctionsGeneric.removeHTML01(SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.description, "db")), gSystemConfig.configProductsDescriptionLimitChar) }
+                                                {
+                                                    SyncSystemNS.FunctionsGeneric.removeHTML01(SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.description, "db")).length > gSystemConfig.configProductsDescriptionLimitChar ?
+                                                    `...`
+                                                    :
+                                                    ``
+                                                }
                                             </p>
                                             : ``
                                         }

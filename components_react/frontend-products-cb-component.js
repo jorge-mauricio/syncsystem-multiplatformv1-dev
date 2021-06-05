@@ -10,7 +10,7 @@
 import { SyncSystemNSContext } from "./syncsystem-ns-cb-context.js";
 
 //import React from "react";
-import React, { Component } from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
 //import { Link } from 'react-router-dom';
 
@@ -57,7 +57,7 @@ class FrontendProducts extends Component
 
         //Variables.
         //----------------------
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
         //----------------------
 
 
@@ -85,7 +85,6 @@ class FrontendProducts extends Component
         //----------------------
 
 
-
         //Define values - props parameters.
         //----------------------
         this.idParentProducts = this.props.idParentProducts;
@@ -106,8 +105,6 @@ class FrontendProducts extends Component
 
         //Logic
         try{
-
-
             //State creation.
             /*
             this.state = {
@@ -200,7 +197,7 @@ class FrontendProducts extends Component
     {
         //Variables.
         //----------------------
-        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
         
         var apiURLProductsListing = "";
         var apiProductsListingResponse;
@@ -213,8 +210,35 @@ class FrontendProducts extends Component
         {
             //API - build URL string.
             //apiURLProductsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + this.idParentProducts + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-            apiURLProductsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + this.idParentProducts + "/?strNRecords=" + this.configProductsNRecords + "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-            //TODO: Develop
+            //apiURLProductsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + this.idParentProducts + "/?strNRecords=" + this.configProductsNRecords + "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //apiURLProductsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + this.idParentProducts + "/?strNRecords=" + this.configProductsNRecords + "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
+            apiURLProductsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + this.idParentProducts + "/?strNRecords=" + this.configProductsNRecords;
+            if(this.activation)
+            {
+                apiURLProductsListing += "&activation=" + this.activation;
+            }
+            if(this.activation1)
+            {
+                apiURLProductsListing += "&activation1=" + this.activation1;
+            }
+            if(this.activation2)
+            {
+                apiURLProductsListing += "&activation2=" + this.activation2;
+            }
+            if(this.activation3)
+            {
+                apiURLProductsListing += "&activation3=" + this.activation3;
+            }
+            if(this.activation4)
+            {
+                apiURLProductsListing += "&activation4=" + this.activation4;
+            }
+            if(this.activation5)
+            {
+                apiURLProductsListing += "&activation5=" + this.activation5;
+            }
+            //apiURLProductsListing += "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            apiURLProductsListing += "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2)
 
             //API - fetch data from backend.
             apiProductsListingResponse = await fetch(apiURLProductsListing);

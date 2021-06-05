@@ -40,6 +40,7 @@ if (typeof window !== 'undefined') {
 //import FrontendCategoriesListingRecord from "./frontend-categories-listing-record-cb-component.js";
 //import FrontendBanners from "./frontend-banners-cb-component.js";
 import FrontendProducts from "./frontend-products-cb-component.js";
+import FrontendContent from "./frontend-content-cb-component.js";
 //----------------------
 
 
@@ -54,7 +55,7 @@ class FrontendHome extends Component
     constructor(props, context)
     {
         //Component options.
-        //configLayoutType: 1 - div layout (custom) | 11 - div layout (bootstrap)
+        //configLayoutType: 1 - div layout (custom) | 11 - div layout (bootstrap) | 111 - responsive
 
 
         super(props, context);
@@ -472,6 +473,7 @@ class FrontendHome extends Component
         //elementMessage01("titleCurrent", this.titleCurrent); //working
         //console.log("FunctionsSyncSystem=", FunctionsSyncSystem);
         FunctionsSyncSystem.elementMessage01("titleCurrent", this.titleCurrent);
+        FunctionsSyncSystem.elementMessage01("titleCurrentMobile", this.titleCurrent);
     }
     //**************************************************************************************
     
@@ -520,41 +522,11 @@ class FrontendHome extends Component
                         <React.Fragment>
                             <section className="ss-frontend-layout-section-content01">
                                 home content
-
-                                <a className="ss-frontend-link01"
-                                    href={"/"} 
-                                    title={"Home"}>
-                                    Link - Home
-                                </a>
-                                <a className="ss-frontend-link01"
-                                    href={"/" + gSystemConfig.configRouteFrontendCategories + "/813/"} 
-                                    title={"Categories"}>
-                                    Link - Categories
-                                </a>
-                                <a className="ss-frontend-link01"
-                                    href={"/" + gSystemConfig.configRouteFrontendContent + "/849/"} 
-                                    title={"Content"}>
-                                    Link - Content
-                                </a>
-                                <a className="ss-frontend-link01"
-                                    href={"/" + gSystemConfig.configRouteFrontendContent + "/849/?idTbForms=904"} 
-                                    title={"Content"}>
-                                    Link - Content with form
-                                </a>
-                                <a className="ss-frontend-link01"
-                                    href={"/" + gSystemConfig.configRouteFrontendProducts + "/960/"} 
-                                    title={"Products"}>
-                                    Link - Products
-                                </a>
-                                <a className="ss-frontend-link01"
-                                    href={"/" + gSystemConfig.configRouteFrontendPublications + "/1369/"} 
-                                    title={"Publications"}>
-                                    Link - Publications
-                                </a>
                             </section>
                         </React.Fragment>
                     :``
                     }
+
 
                     { /*div layout (bootstrap). */}
                     { this.configLayoutType == 11 ?
@@ -566,7 +538,41 @@ class FrontendHome extends Component
                         </section>
                     :``
                     }
+
+
+                    { /*div layout (responsive). */}
+                    { this.configLayoutType == 111 ?
+                        <React.Fragment>
+                            { /*Desktop */}
+                            <div className="d-none d-lg-block d-xl-block"> { /*Note: If the content is not complex, these parameters can be incorporate to the section tag.*/}
+                                <section className="ss-frontend-layout-section-content01 ss-frontend-text01">
+                                    home content desktop
+                                </section>
+                            </div>
+
+
+                            { /*Mobile */}
+                            <div className="d-lg-none">
+                                <section class="ss-frontend-mobile-layout-section-content01 ss-frontend-text01">
+                                    home content mobile
+                                </section>
+                            </div>
+                        </React.Fragment>
+                    :``
+                    }
                 </React.Fragment>
+
+
+                { /*Content component.*/ }
+                <FrontendContent 
+                    idParentContent={ "106" } 
+                    idTbContent={ "" } 
+                    contentType={ "" } 
+                    configLayoutType={ 2 } 
+                    configContentNRecords={ "" } 
+                    configContentSort={ "" }>
+                        {/*arrCategoriesListing={ this.arrCategoriesListing } also works*/}
+                </FrontendContent>
 
 
                 { /*Products component. */}
@@ -584,11 +590,8 @@ class FrontendHome extends Component
                     activation3={""} 
                     activation4={""} 
                     activation5={""}>
-
                 </FrontendProducts>
-
             </React.Fragment>
-
         );
     }
     //**************************************************************************************

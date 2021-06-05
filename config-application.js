@@ -30,7 +30,7 @@ gSystemConfig.configDebug = true; //true (debug mode) | false (production mode)
 gSystemConfig.configSystemClientName = "Planejamento Visual"; //(Note: moved to language file)
 
 gSystemConfig.configSiteTitle = "SyncSystem - Multiplatform (debug: çáéã)"; //site name (Note: moved to language file)
-gSystemConfig.configSystemName = "Sistema de Gerenciamento de Conteúdo"; //Sistema de Controle | Sistema Administrativo | CRM
+gSystemConfig.configSystemName = "Sistema de Gerenciamento de Conteúdo"; //Sistema de Controle | Sistema Administrativo | CRM | Content Management System
 gSystemConfig.configDevName = "Planejamento Visual - Arte e Tecnologia"; //Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Criação e Treinamento Web | Web Inventor - Imagine, realize. (Note: moved to language file)
 gSystemConfig.configDevSite = "http://www.planejamentovisual.com.br"; //http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br
 gSystemConfig.configCopyrightYear = "2008";
@@ -205,7 +205,7 @@ gSystemConfig.configRouteFrontendDashboardCategories = "dashboard-categories";
 gSystemConfig.configRouteFrontendDashboardFiles = "dashboard-files";
 gSystemConfig.configRouteFrontendDashboardContent = "dashboard-content";
 gSystemConfig.configRouteFrontendDashboardProducts = "dashboard-products";
-gSystemConfig.configRouteFrontendDashboardPublications = "dashboard-products";
+gSystemConfig.configRouteFrontendDashboardPublications = "dashboard-publications"; //TODO: change on other branches
 //----------------------
 
 
@@ -252,7 +252,7 @@ gSystemConfig.configCryptKey16Byte = "95f19c6f734f9f4fdc1d4258277a1c7d"; //not i
 gSystemConfig.configCryptKey32Byte = "d0a7e7997b6d5fcd55f4b5c32611b87cd923e88837b63bf2941ef819dc8ca282"; //not in use
 gSystemConfig.configCryptiv16Byte = "bd1e41c05f861867e225d5d998f10813"; //not in use
 gSystemConfig.configCryptiv32Byte = "21f534b09237b9716ab561149367ebb8d2d0ab0e0bfec395baf7ba112cb2872f"; //not in use
-gSystemConfig.configCryptSalt = "syncsystem"; //generate a salt data
+gSystemConfig.configCryptSalt = "syncsystem"; //generate a salt data //TODO: think of a way to change salt and key and generate a new master user password
 //----------------------
 
 
@@ -291,7 +291,9 @@ gSystemConfig.configEmailFormat = 1; //0 - text | 1 - HTML
 //APIs.
 //----------------------
 //.env
-//gSystemConfig.configAPIKeyInternal = "";
+//gSystemConfig.configAPIKeyInternal = "createSecretPassword";
+gSystemConfig.configAPIKeySystem = "createSecretPassword"; //Note: for node deploy, value must be hard coded (TODO: Reaserch architecture to retrieve server variables .env in react).
+  //gSystemConfig.configAPIKeySystem = process.env.CONFIG_API_KEY_SYSTEM;
 //----------------------
 //**************************************************************************************
 
@@ -303,7 +305,7 @@ gSystemConfig.configBackendTemplateEngine = 1 //1 - EJS
 gSystemConfig.configBackendTextBox = 17; //1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
 gSystemConfig.configFrontendTextBox = 1; //1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
 
-gSystemConfig.configSystemTimeZone = "America/Sao_Paulo"; //America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | (en-GB)
+gSystemConfig.configSystemTimeZone = "America/Sao_Paulo"; //America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
 gSystemConfig.configBackendLanguage = "en_US"; // en_US | pt_BR - DELETE - moved to language (check to see if node code uses)
 gSystemConfig.configFrontendLanguage = "en_US"; // en_US | pt_BR
 
@@ -345,14 +347,14 @@ gSystemConfig.configLanguageBackend = require("./" + gSystemConfig.configDirecto
 //Categories - configuration and resources.
 //**************************************************************************************
 gSystemConfig.configCategoryType = [
-  {category_type: 1, category_type_function_label: "backendCategoriesType1Function", queryString: ""}, 
-  {category_type: 2, category_type_function_label: "backendCategoriesType2Function", queryString: ""}, 
-  {category_type: 3, category_type_function_label: "backendCategoriesType3Function", queryString: "publicationType=1"}, 
-  {category_type: 4, category_type_function_label: "backendCategoriesType4Function", queryString: "publicationType=2"}, 
-  {category_type: 5, category_type_function_label: "backendCategoriesType5Function", queryString: "publicationType=3"}, 
-  {category_type: 6, category_type_function_label: "backendCategoriesType6Function", queryString: "publicationType=4"}, 
-  {category_type: 9, category_type_function_label: "backendCategoriesType9Function", queryString: "-"}, 
-  {category_type: 12, category_type_function_label: "backendCategoriesType12Function", queryString: ""}
+  {category_type: 1, category_type_function_label: "backendCategoriesType1Function", queryString: ""}, //Content
+  {category_type: 2, category_type_function_label: "backendCategoriesType2Function", queryString: ""}, //Products
+  {category_type: 3, category_type_function_label: "backendCategoriesType3Function", queryString: "publicationType=1"}, //News
+  {category_type: 4, category_type_function_label: "backendCategoriesType4Function", queryString: "publicationType=2"}, //Photo Gallery
+  {category_type: 5, category_type_function_label: "backendCategoriesType5Function", queryString: "publicationType=3"}, //Articles
+  {category_type: 6, category_type_function_label: "backendCategoriesType6Function", queryString: "publicationType=4"}, //Publications
+  {category_type: 9, category_type_function_label: "backendCategoriesType9Function", queryString: "-"}, //Segment
+  {category_type: 12, category_type_function_label: "backendCategoriesType12Function", queryString: ""} //Forms
 ]
 //**************************************************************************************
 
@@ -1589,7 +1591,7 @@ gSystemConfig.configFiltersGenericImagePlaceholder = 1; //0 - disable | 1 - enab
 
 //Users.
 //**************************************************************************************
-gSystemConfig.configUsersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
+gSystemConfig.configUsersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | name_full
 gSystemConfig.enableUsersSortCustom = 1; //0 - disable | 1 - enable
 gSystemConfig.configUsersInputOrder = ["inputRowUsers_id_parent", 
                                         "inputRowUsers_sort_order", 

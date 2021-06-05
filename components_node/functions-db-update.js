@@ -2169,7 +2169,8 @@ module.exports = class FunctionsDBUpdate
 
         tblContentIdRegisterUser = tblContentDataObject._tblContentIdRegisterUser;
         tblContentContentType = tblContentDataObject._tblContentContentType;
-        tblContentContentColumns = tblContentDataObject._tblContentContentColumns;
+        //tblContentContentColumns = tblContentDataObject._tblContentContentColumns;
+        tblContentContentColumns = (tblContentDataObject.hasOwnProperty("_tblContentContentColumns") === true && (tblContentDataObject._tblContentContentColumns) && tblContentDataObject._tblContentContentColumns !== "undefined") ? tblContentDataObject._tblContentContentColumns : tblContentContentColumns;
 
         tblContentAlignText = tblContentDataObject._tblContentAlignText;
         tblContentAlignImage = tblContentDataObject._tblContentAlignImage;
@@ -2644,7 +2645,8 @@ module.exports = class FunctionsDBUpdate
             tblProductsSortOrder = 0;
         }
 
-        tblProductsIdType = tblProductsDataObject._tblProductsIdType;
+        //tblProductsIdType = tblProductsDataObject._tblProductsIdType;
+        tblProductsIdType = (tblProductsDataObject.hasOwnProperty("_tblProductsIdType") === true && (tblProductsDataObject._tblProductsIdType)) ? tblProductsDataObject._tblProductsIdType : tblProductsIdType;
 
         /*tblProductsDateCreation = (tblProductsDataObject.hasOwnProperty("_tblProductsDateCreation") === true) ? tblProductsDataObject._tblProductsDateCreation : tblProductsDateCreation; //x = condition ? true : false (default value declared)
         if(!tblProductsDateCreation)
@@ -6823,7 +6825,8 @@ module.exports = class FunctionsDBUpdate
         tblFormsSenderEmail = (tblFormsDataObject.hasOwnProperty("_tblFormsSenderEmail") === true) ? FunctionsGeneric.contentMaskWrite(tblFormsDataObject._tblFormsSenderEmail, "db_write_text") : tblFormsSenderEmail;
         tblFormsSenderConfig = (tblFormsDataObject.hasOwnProperty("_tblFormsSenderConfig") === true) ? FunctionsGeneric.contentMaskWrite(tblFormsDataObject._tblFormsSenderConfig, "db_write_text") : tblFormsSenderConfig;
         
-        tblFormsEmailFormat = tblFormsDataObject._tblFormsEmailFormat;
+        //tblFormsEmailFormat = tblFormsDataObject._tblFormsEmailFormat;
+        tblFormsEmailFormat = (tblFormsDataObject.hasOwnProperty("_tblFormsEmailFormat") === true && (tblFormsDataObject._tblFormsEmailFormat)) ? tblFormsDataObject._tblFormsEmailFormat : tblFormsEmailFormat;
         tblFormsMessageSuccess = (tblFormsDataObject.hasOwnProperty("_tblFormsMessageSuccess") === true) ? FunctionsGeneric.contentMaskWrite(tblFormsDataObject._tblFormsMessageSuccess, "db_write_text") : tblFormsMessageSuccess;
         tblFormsActivation = (tblFormsDataObject.hasOwnProperty("_tblFormsActivation") === true && (tblFormsDataObject._tblFormsActivation)) ? tblFormsDataObject._tblFormsActivation : tblFormsActivation;
         tblFormsNotes = (tblFormsDataObject.hasOwnProperty("_tblFormsNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblFormsDataObject._tblFormsNotes, "db_write_text") : tblFormsNotes;
@@ -7589,12 +7592,12 @@ module.exports = class FunctionsDBUpdate
         let tblFiltersGenericImageMain = "";
         let tblFiltersGenericConfigSelection = 0;
     
-        let tblFiltersGenericActivation = "";
-        let tblFiltersGenericActivation1 = "";
-        let tblFiltersGenericActivation2 = "";
-        let tblFiltersGenericActivation3 = "";
-        let tblFiltersGenericActivation4 = "";
-        let tblFiltersGenericActivation5 = "";
+        let tblFiltersGenericActivation = 1;
+        let tblFiltersGenericActivation1 = 0;
+        let tblFiltersGenericActivation2 = 0;
+        let tblFiltersGenericActivation3 = 0;
+        let tblFiltersGenericActivation4 = 0;
+        let tblFiltersGenericActivation5 = 0;
     
         let tblFiltersGenericNotes = "";
     

@@ -280,11 +280,11 @@ class FrontendBanners extends Component
         configContentSort = this.props.configContentSort;
 
         //Debug.
-        console.log("idParentBanners=", this.idParentBanners);
-        console.log("configLayoutType=", this.configLayoutType);
-        console.log("configDisplay=", this.configDisplay);
-        console.log("configContentNRecords=", this.configContentNRecords);
-        console.log("configContentSort=", this.configContentSort);
+        //console.log("idParentBanners=", this.idParentBanners);
+        //console.log("configLayoutType=", this.configLayoutType);
+        //console.log("configDisplay=", this.configDisplay);
+        //console.log("configContentNRecords=", this.configContentNRecords);
+        //console.log("configContentSort=", this.configContentSort);
         
         //console.log("arrContentListing=", arrContentListing);
         //----------------------

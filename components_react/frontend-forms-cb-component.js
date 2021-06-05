@@ -143,7 +143,6 @@ class FrontendForms extends Component
         /**/
         try
         {
-
             //Main build.
             await this.build();
 
@@ -208,6 +207,10 @@ class FrontendForms extends Component
 
         var apiURLFormsDetails = "";
         var apiFormsDetailsResponse;
+
+        //Debug.
+        //console.log("gSystemConfig (inside home cb component)=", gSystemConfig);
+        //console.log("this.context (inside home cb component)=", this.context);
         //----------------------
         
 
@@ -217,7 +220,8 @@ class FrontendForms extends Component
         try
         {
             //API - build URL string.
-            apiURLFormsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIForms + "/" + gSystemConfig.configRouteAPIDetails + "/" + this.idTbForms + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            //apiURLFormsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIForms + "/" + gSystemConfig.configRouteAPIDetails + "/" + this.idTbForms + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            apiURLFormsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIForms + "/" + gSystemConfig.configRouteAPIDetails + "/" + this.idTbForms + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
             //console.log("apiURLCategoriesDetailsCurrent=", apiURLCategoriesDetailsCurrent);
 
             //API - fetch data from backend.

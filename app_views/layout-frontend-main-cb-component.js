@@ -277,6 +277,9 @@ class LayoutFrontendMain extends Component
             <link rel="stylesheet" type="text/css" href="/styles-frontend.bundle.css" media="screen" title="Default" />
         `;
 
+		//Favicon - 16x16 | 32x32 | 64x64 (pixels).
+		//Exportação PNG: 558 x 558 pixels.
+		//https://realfavicongenerator.net/
         const tagsFavicons = `
             <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
             <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -434,6 +437,83 @@ class LayoutFrontendMain extends Component
 
                 <body className={/*StylesFrontend["ss-frontend-body01"]*/ "ss-frontend-body01"}>
                     <div id="root">
+                        <noscript>Please Enable JavaScript</noscript>
+                        {/*Desktop.*/}
+                        <div className="d-none d-lg-block d-xl-block">
+                            <nav>
+                                <a className="ss-frontend-link01"
+                                    href={"/"} 
+                                    title={"Home"}>
+                                    Link - Home
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendCategories + "/813/"} 
+                                    title={"Categories"}>
+                                    Link - Categories
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendContent + "/849/"} 
+                                    title={"Content"}>
+                                    Link - Content
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendContent + "/849/?idTbForms=904"} 
+                                    title={"Content"}>
+                                    Link - Content with form
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendProducts + "/960/"} 
+                                    title={"Products"}>
+                                    Link - Products
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendPublications + "/1369/"} 
+                                    title={"Publications"}>
+                                    Link - Publications
+                                </a>
+                            </nav>
+                        </div>
+
+                        {/*Mobile.*/}
+                        <div className="d-lg-none">
+                            {/*Menu mobile.*/}
+                            <nav id="divMenuMobile01" style={{position: 'fixed', display: 'none', width: '200px', height: '100%', right: '0px', top: '0px', backgroundColor: '#0082c6', overflow: 'hidden', zIndex: 9999, boxShadow: '3px 3px 10px #000000'}}>
+                                <a onClick={()=>{
+                                        FunctionsSyncSystem.htmlGenericStyle01('divMenuMobile01', 'display', 'none');
+                                    }} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" style={{cursor: 'pointer'}} title="Close">
+                                    X Close
+                                </a>
+                                <a href="/" className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Home">
+                                    Home
+                                </a>
+                                <a href={"/" + gSystemConfig.configRouteFrontendContent + "/107/"} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="About Us">
+                                    About Us
+                                </a>
+                                <a href={"/" + gSystemConfig.configRouteFrontendProducts + "/108/"} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Real Estate Showcase">
+                                    Real Estate Showcase
+                                </a>
+                                <a href={"/" + gSystemConfig.configRouteFrontendContent + "/109/?idTbForms=117"} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Send Us Your Project">
+                                    Send Us Your Project
+                                </a>
+                                <a href={"/" + gSystemConfig.configRouteFrontendContent + "/111/"} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Partnerships">
+                                    Partnerships
+                                </a>
+                                <a href={"/" + gSystemConfig.configRouteFrontendContent + "/110/?idTbForms=115"} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Contact">
+                                    Contact
+                                </a>
+                                <a href={"/" + gSystemConfig.configRouteFrontendContent + "/112/"} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Privacy and Cookie Policy">
+                                    Privacy and Cookie Policy
+                                </a>
+                            </nav>
+
+                            <a onClick={()=>{
+                                    FunctionsSyncSystem.htmlGenericStyle01('divMenuMobile01', 'display', 'block');
+                                }} style={{position: 'relative', display: 'block', padding: '5px', cursor: 'pointer'}} title="Menu">
+                                <img src="/files-layout/frontend-mobile-menu01.png" alt="Menu" />
+                            </a>
+                        </div>
+
+
                         { this.props.location.pathname == "/" ?
                             <FrontendBanners
                                 idParentBanners={""} 
@@ -451,7 +531,13 @@ class LayoutFrontendMain extends Component
 
 
                         { /*Content place holder - current title*/ }
-                        <h1 id="titleCurrent" className="ss-frontend-title-text01">
+                        <h1 id="titleCurrent" className="ss-frontend-heading01">
+                            { this.state.titleCurrent }
+                            {/*this.props.cphTitle*/''}
+                        </h1>
+
+                        { /*Content place holder - current title (mobile*/ }
+                        <h1 id="titleCurrentMobile" className="ss-frontend-heading01">
                             { this.state.titleCurrent }
                             {/*this.props.cphTitle*/''}
                         </h1>
@@ -461,6 +547,21 @@ class LayoutFrontendMain extends Component
                         <main>
                             { this.props.cphBody }
                         </main>
+
+
+                        {/*Credits.*/}
+                        <small className="ss-frontend-copyright" style={{position: 'absolute', display: 'block', bottom: '35px', left: '25px', right: '25px', height: '40px', lineHeight: '40px', borderTop: '1px dashed #a2b9c6'}}>
+                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutCopyright") } © 
+                            { gSystemConfig.configCopyrightYear } 
+                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configSiteTile") }.
+                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutCopyright1") }
+
+                            {/*Development.*/}
+                            <a href={gSystemConfig.configDevSite} target="_blank" className="ss-frontend-credit" style={{float: 'right'}}>
+                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutDevelopment") }: 
+                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutDevName") }
+                            </a>
+                        </small>
                     </div>
 
 

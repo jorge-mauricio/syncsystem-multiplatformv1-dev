@@ -23,7 +23,7 @@ exports.appLabels = {
     //**************************************************************************************
     layoutDevelopment: "Development",
     layoutCopyright: "Copyright",
-    layoutCopyright1: "All rights reserved",
+    layoutCopyright1: "All rights reserved.",
     layoutVersion: "Version",
     layoutDesktopAccess: "Access Desktop Version",
     //**************************************************************************************

@@ -5649,7 +5649,7 @@ module.exports = class ProductsEdit
                                 }
 
                                 ${ /*URL fields.*/'' }
-                                ${ gSystemConfig.enableProductsURL1 != 1 ? 
+                                ${ gSystemConfig.enableProductsURL1 != 0 ? 
                                 `
                                 <tr id="inputRowProducts_url1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -5663,7 +5663,7 @@ module.exports = class ProductsEdit
                                 ` : ``
                                 }
 
-                                ${ gSystemConfig.enableProductsURL2 != 1 ? 
+                                ${ gSystemConfig.enableProductsURL2 != 0 ? 
                                 `
                                 <tr id="inputRowProducts_url2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -5677,7 +5677,7 @@ module.exports = class ProductsEdit
                                 ` : ``
                                 }
 
-                                ${ gSystemConfig.enableProductsURL3 != 1 ? 
+                                ${ gSystemConfig.enableProductsURL3 != 0 ? 
                                 `
                                 <tr id="inputRowProducts_url3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -5691,7 +5691,7 @@ module.exports = class ProductsEdit
                                 ` : ``
                                 }
 
-                                ${ gSystemConfig.enableProductsURL4 != 1 ? 
+                                ${ gSystemConfig.enableProductsURL4 != 0 ? 
                                 `
                                 <tr id="inputRowProducts_url4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -5705,7 +5705,7 @@ module.exports = class ProductsEdit
                                 ` : ``
                                 }
 
-                                ${ gSystemConfig.enableProductsURL5 != 1 ? 
+                                ${ gSystemConfig.enableProductsURL5 != 0 ? 
                                 `
                                 <tr id="inputRowProducts_url5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
