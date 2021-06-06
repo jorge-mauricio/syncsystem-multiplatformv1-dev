@@ -471,6 +471,11 @@ class LayoutFrontendMain extends Component
                                     title={"Publications"}>
                                     Link - Publications
                                 </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendQuizzes + "/1369/"} 
+                                    title={"Quizzes"}>
+                                    Link - Quizzes
+                                </a>
                             </nav>
                         </div>
 
@@ -550,7 +555,7 @@ class LayoutFrontendMain extends Component
 
 
                         {/*Credits.*/}
-                        <small className="ss-frontend-copyright" style={{position: 'absolute', display: 'block', bottom: '35px', left: '25px', right: '25px', height: '40px', lineHeight: '40px', borderTop: '1px dashed #a2b9c6'}}>
+                        <small className="ss-frontend-copyright" style={{position: 'absolute', display: 'block', bottom: '35px', left: '25px', right: '25px', height: '40px', lineHeight: '40px', borderTop: '1px dashed #cccccc'}}>
                             { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutCopyright") } © 
                             { gSystemConfig.configCopyrightYear } 
                             { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configSiteTile") }.

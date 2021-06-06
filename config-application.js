@@ -83,6 +83,7 @@ gSystemConfig.configSystemDBTableFiles = "files";
 gSystemConfig.configSystemDBTableContent = "content";
 gSystemConfig.configSystemDBTableProducts = "products";
 gSystemConfig.configSystemDBTablePublications = "publications";
+gSystemConfig.configSystemDBTableQuizzes = "quizzes";
 gSystemConfig.configSystemDBTableForms = "forms";
 gSystemConfig.configSystemDBTableFormsFields = "forms_fields";
 gSystemConfig.configSystemDBTableFormsFieldsOptions = "forms_fields_options";
@@ -157,6 +158,7 @@ gSystemConfig.configRouteAPIFiles = "files";
 gSystemConfig.configRouteAPIContent = "content";
 gSystemConfig.configRouteAPIProducts = "products";
 gSystemConfig.configRouteAPIPublications = "publications";
+gSystemConfig.configRouteAPIQuizzes = "quizzes";
 gSystemConfig.configRouteAPIForms = "forms";
 gSystemConfig.configRouteAPIFormsFields = "forms-fields";
 gSystemConfig.configRouteAPIFormsFieldsOptions = "forms-fields-options";
@@ -180,6 +182,7 @@ gSystemConfig.configRouteBackendFiles = "files";
 gSystemConfig.configRouteBackendContent = "content";
 gSystemConfig.configRouteBackendProducts = "products";
 gSystemConfig.configRouteBackendPublications = "publications";
+gSystemConfig.configRouteBackendQuizzes = "quizzes";
 gSystemConfig.configRouteBackendForms = "forms";
 gSystemConfig.configRouteBackendFormsFields = "forms-fields";
 gSystemConfig.configRouteBackendFormsFieldsOptions = "forms-fields-options";
@@ -200,12 +203,14 @@ gSystemConfig.configRouteFrontendContent = "content";
 gSystemConfig.configRouteFrontendForms = "forms";
 gSystemConfig.configRouteFrontendProducts = "products";
 gSystemConfig.configRouteFrontendPublications = "publications";
+gSystemConfig.configRouteFrontendQuizzes = "quizzes";
 
 gSystemConfig.configRouteFrontendDashboardCategories = "dashboard-categories";
 gSystemConfig.configRouteFrontendDashboardFiles = "dashboard-files";
 gSystemConfig.configRouteFrontendDashboardContent = "dashboard-content";
 gSystemConfig.configRouteFrontendDashboardProducts = "dashboard-products";
-gSystemConfig.configRouteFrontendDashboardPublications = "dashboard-publications"; //TODO: change on other branches
+gSystemConfig.configRouteFrontendDashboardPublications = "dashboard-publications";
+gSystemConfig.configRouteFrontendDashboardQuizzes = "dashboard-quizzes";
 //----------------------
 
 

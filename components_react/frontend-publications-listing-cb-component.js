@@ -347,7 +347,7 @@ class FrontendPublicationsListing extends Component
                 this._pagingTotal = Math.ceil(this._pagingTotalRecords / this._pagingNRecords);
                 
 
-                //Slide array.
+                //Slice array.
                 //TODO: Review this logic.
                 if(this._pagingTotal > 1)
                 {
@@ -741,9 +741,9 @@ class FrontendPublicationsListing extends Component
                     }
                 </section>
             </React.Fragment>
-            );
-        }
-        //**************************************************************************************
+        );
+    }
+    //**************************************************************************************
     
 
 }

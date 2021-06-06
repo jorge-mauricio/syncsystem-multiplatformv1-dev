@@ -43,6 +43,10 @@ import FrontendProductsDetails from "./frontend-products-details-cb-component.js
 //Publications.
 import FrontendPublicationsListing from "./frontend-publications-listing-cb-component.js";
 import FrontendPublicationsDetails from "./frontend-publications-details-cb-component.js";
+
+//Quizzes.
+import FrontendQuizzesListing from "./frontend-quizzes-listing-cb-component.js";
+//import FrontendQuizzesDetails from "./frontend-quizzes-details-cb-component.js";
 //----------------------
 
 
@@ -401,6 +405,34 @@ class App extends React.Component {
                                         <LayoutFrontendMain
                                             cphBody={<FrontendPublicationsDetails {...props} />}
                                             {...props}>
+                                        </LayoutFrontendMain>
+                                    }
+                                </React.Fragment>
+                            )} 
+                    />
+                    {/*//---------------------- */}
+
+
+                    {/*Quizzes - listing. */}
+                    {/*//---------------------- */}
+                    {/*Debug: http://localhost:3001/quizzes/1369/ */}
+                    <Route exact 
+                            path={"/" + gSystemConfig.configRouteFrontendQuizzes + "/:idParentQuizzes?"} 
+                            render={props => (
+                                <React.Fragment>
+                                    {/*Layout select. */}
+                                    { /*new URLSearchParams(props.location.search).get("masterPageSelect") == "layout-frontend-iframe" ?*/ }
+                                    { this._masterPageFrontendSelect == "layout-frontend-iframe" ?
+                                        <LayoutFrontendIframe
+                                            cphBody={<FrontendQuizzesListing {...props} />}
+                                            {...props}>
+                                                {/*setTitleCurrent={this.setTitleCurrent} */ /*passing function as prop - not in use */}
+                                        </LayoutFrontendIframe>
+                                    :
+                                        <LayoutFrontendMain
+                                            cphBody={<FrontendQuizzesListing {...props} />}
+                                            {...props}>
+                                                {/*setTitleCurrent={this.setTitleCurrent} */ /*passing function as prop - not in use */}
                                         </LayoutFrontendMain>
                                     }
                                 </React.Fragment>

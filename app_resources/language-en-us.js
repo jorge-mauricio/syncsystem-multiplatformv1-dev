@@ -14,8 +14,8 @@ exports.appLabels = {
 
     configFrontendLanguage: "en_US", // en_US | pt_BR
 
-    layoutSystemName: "Sistema de Gerenciamento de Conteúdo",
-    layoutDevName: "Planejamento Visual - Arte e Tecnologia",
+    layoutSystemName: "Content Management System", //Sistema de Gerenciamento de Conteúdo
+    layoutDevName: "Planejamento Visual - Arte e Tecnologia", //Planejamento Visual - Arte e Tecnologia
     //**************************************************************************************
 
 
@@ -717,6 +717,71 @@ exports.appLabels = {
     backendPublicationsActivation5: "Activation 5",
     //**************************************************************************************
 
+
+    //Quizzes.
+    //**************************************************************************************
+    backendQuizzesTitleMain: "Quizzes",
+    backendQuizzesTitleEdit: "Edit Quizzes",
+    backendQuizzesTitleDetails: "Quizzes Details",
+    backendQuizzesTitleTable: "Include Quizzes",
+    backendQuizzesTitleTableInsert: "Include Quiz",
+    backendQuizzesTitleTableEdit: "Edit Quiz",
+    backendQuizzesTitleTableDetails: "Quiz Details",
+
+    backendQuizzesType: "Type",
+        backendQuizzesType1: "Poll",
+            backendQuizzesType1A: "P",
+        backendQuizzesType2: "Quiz",
+            backendQuizzesType2A: "Q",
+        backendQuizzesType3: "Answer",
+            backendQuizzesType3A: "A",
+    backendQuizzesRU: "Registered User",
+    backendQuizzesTitle: "Quizzes Title",
+    backendQuizzesDescription: "Description",
+    backendQuizzesStatus: "Status",
+
+    backendQuizzesInfo1: "Information 1",
+    backendQuizzesInfo2: "Information 2",
+    backendQuizzesInfo3: "Information 3",
+    backendQuizzesInfo4: "Information 4",
+    backendQuizzesInfo5: "Information 5",
+
+    backendQuizzesNumber1: "Number 1",
+    backendQuizzesNumber2: "Number 2",
+    backendQuizzesNumber3: "Number 3",
+    backendQuizzesNumber4: "Number 4",
+    backendQuizzesNumber5: "Number 5",
+
+    backendQuizzesActivation1: "Activation 1",
+    backendQuizzesActivation2: "Activation 2",
+    backendQuizzesActivation3: "Activation 3",
+    backendQuizzesActivation4: "Activation 4",
+    backendQuizzesActivation5: "Activation 5",
+
+    //Options.
+    backendQuizzesOptionsTitleMain: "Options",
+    backendQuizzesOptionsTitleEdit: "Edit Options",
+    backendQuizzesOptionsTitleDetails: "Options Details",
+    backendQuizzesOptionsTitleTable: "Include Options",
+    backendQuizzesOptionsTitleTableInsert: "Include Option",
+    backendQuizzesOptionsTitleTableEdit: "Edit Option",
+    backendQuizzesOptionsTitleTableDetails: "Option Details",
+    backendQuizzesOptions: "Options",
+
+    //Frontend.
+    frontendQuizzesAnswer: "Answer",
+        frontendQuizzesAnswerA: "Ans.",
+        frontendQuizzesAnswerYes: "Yes",
+        frontendQuizzesAnswerNo: "No",
+
+    frontendQuizzesAnswerRight: "Your answer is right.",
+    frontendQuizzesAnswerWrong: "Your answer is wrong.",
+
+    //Frontend - ADM.
+    frontendQuizzesDashboardInstructions01: "Fill in the fields below and include a quiz.",
+    //**************************************************************************************
+
+
     //Forms.
     //**************************************************************************************
     backendFormsTitleMain: "Forms",
@@ -988,6 +1053,7 @@ exports.appLabels = {
     frontendMessageCategoriesEmpty: "No categories found at the moment.",
     frontendMessageProductsEmpty: "No products found at the moment.",
     frontendMessagePublicationsEmpty: "No publications found at the moment.",
+    frontendMessageQuizzesEmpty: "No quizzes found at the moment.",
     //**************************************************************************************
 
 

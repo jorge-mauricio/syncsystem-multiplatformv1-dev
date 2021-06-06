@@ -392,7 +392,7 @@ class FrontendCategoriesListing extends Component
                 //oclRecordsParameters._objSpecialParameters._pagingNRecords = this._pagingNRecords;
 
 
-                //Slide array.
+                //Slice array.
                 //TODO: Review this logic.
                 if(this._pagingTotal > 1)
                 {
