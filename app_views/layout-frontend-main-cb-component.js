@@ -563,7 +563,7 @@ class LayoutFrontendMain extends Component
 
                             {/*Development.*/}
                             <a href={gSystemConfig.configDevSite} target="_blank" className="ss-frontend-credit" style={{float: 'right'}}>
-                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutDevelopment") }: 
+                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutDevelopment") }:&nbsp; 
                                 { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutDevName") }
                             </a>
                         </small>

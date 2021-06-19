@@ -14,14 +14,12 @@ import { withRouter } from 'react-router-dom';
 //Provider.
 import SyncSystemNSContextProvider from "./syncsystem-ns-cb-context.js";
 
-//Components.
-//import Home from "./testHomePageComponent.js"; //Debug.
 
-//Layoouts
+//Layout templates.
 //import LayoutFrontendMain from "../app_views/layout-frontend-main-cb-component.js";
 //import LayoutFrontendMain from("../app_views/layout-frontend-main-cb-component.js");
-const LayoutFrontendMain = require("../app_views/layout-frontend-main-cb-component.js").default; //working
-const LayoutFrontendIframe = require("../app_views/layout-frontend-iframe-cb-component.js").default; //working
+const LayoutFrontendMain = require("../app_views/layout-frontend-main-cb-component.js").default;
+const LayoutFrontendIframe = require("../app_views/layout-frontend-iframe-cb-component.js").default;
 
 //Home
 import FrontendHome from "./frontend-home-cb-component";

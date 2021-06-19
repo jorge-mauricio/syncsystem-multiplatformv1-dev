@@ -159,6 +159,8 @@ exports.appLabels = {
     backendButtonUpload: "Upload",
     backendButtonSave: "Save",
     backendButtonClose: "Close",
+    backendButtonReset: "Reset",
+    backendButtonStart: "Start",
     backendButtonFinish: "Finish",
     backendButtonLogin: "Login",
     backendButtonSend: "Send",
