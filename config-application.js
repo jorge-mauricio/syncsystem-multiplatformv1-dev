@@ -73,7 +73,7 @@ gSystemConfig.configFrontendMobileDefaultView = "frontend_node_mobile";
 /*Moved to .env file.
 const configSystemDBTablePrefix = "prefix_ssmv1_";
 const configSystemDBType = 2; //2 - MySQL | 3 - SQL Server
-const enableSystemDBSizeOtimize = 0; //0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
+const enableSystemDBSizeOptimize = 0; //0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
 */
 
 //Table names.
@@ -83,7 +83,10 @@ gSystemConfig.configSystemDBTableFiles = "files";
 gSystemConfig.configSystemDBTableContent = "content";
 gSystemConfig.configSystemDBTableProducts = "products";
 gSystemConfig.configSystemDBTablePublications = "publications";
+gSystemConfig.configSystemDBTableRegisters = "registers";
 gSystemConfig.configSystemDBTableQuizzes = "quizzes";
+gSystemConfig.configSystemDBTableQuizzesOptions = "quizzes_options";
+gSystemConfig.configSystemDBTableQuizzesLog = "quizzes_log";
 gSystemConfig.configSystemDBTableForms = "forms";
 gSystemConfig.configSystemDBTableFormsFields = "forms_fields";
 gSystemConfig.configSystemDBTableFormsFieldsOptions = "forms_fields_options";
@@ -158,7 +161,9 @@ gSystemConfig.configRouteAPIFiles = "files";
 gSystemConfig.configRouteAPIContent = "content";
 gSystemConfig.configRouteAPIProducts = "products";
 gSystemConfig.configRouteAPIPublications = "publications";
+gSystemConfig.configRouteAPIRegisters = "registers";
 gSystemConfig.configRouteAPIQuizzes = "quizzes";
+gSystemConfig.configRouteAPIQuizzesOptions = "quizzes-options";
 gSystemConfig.configRouteAPIForms = "forms";
 gSystemConfig.configRouteAPIFormsFields = "forms-fields";
 gSystemConfig.configRouteAPIFormsFieldsOptions = "forms-fields-options";
@@ -182,7 +187,9 @@ gSystemConfig.configRouteBackendFiles = "files";
 gSystemConfig.configRouteBackendContent = "content";
 gSystemConfig.configRouteBackendProducts = "products";
 gSystemConfig.configRouteBackendPublications = "publications";
+gSystemConfig.configRouteBackendRegisters = "registers";
 gSystemConfig.configRouteBackendQuizzes = "quizzes";
+gSystemConfig.configRouteBackendQuizzesOptions = "quizzes-options";
 gSystemConfig.configRouteBackendForms = "forms";
 gSystemConfig.configRouteBackendFormsFields = "forms-fields";
 gSystemConfig.configRouteBackendFormsFieldsOptions = "forms-fields-options";
@@ -203,6 +210,7 @@ gSystemConfig.configRouteFrontendContent = "content";
 gSystemConfig.configRouteFrontendForms = "forms";
 gSystemConfig.configRouteFrontendProducts = "products";
 gSystemConfig.configRouteFrontendPublications = "publications";
+gSystemConfig.configRouteFrontendRegisters = "registers";
 gSystemConfig.configRouteFrontendQuizzes = "quizzes";
 
 gSystemConfig.configRouteFrontendDashboardCategories = "dashboard-categories";
@@ -210,6 +218,7 @@ gSystemConfig.configRouteFrontendDashboardFiles = "dashboard-files";
 gSystemConfig.configRouteFrontendDashboardContent = "dashboard-content";
 gSystemConfig.configRouteFrontendDashboardProducts = "dashboard-products";
 gSystemConfig.configRouteFrontendDashboardPublications = "dashboard-publications";
+gSystemConfig.configRouteFrontendDashboardRegisters = "dashboard-registers";
 gSystemConfig.configRouteFrontendDashboardQuizzes = "dashboard-quizzes";
 //----------------------
 
@@ -280,6 +289,9 @@ gSystemConfig.configArrFilesImageSize = gSystemConfig.enableDefaultImageSize == 
 gSystemConfig.configArrContentImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
 gSystemConfig.configArrProductsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
 gSystemConfig.configArrPublicationsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
+gSystemConfig.configArrRegistersImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
+gSystemConfig.configArrQuizzesImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
+gSystemConfig.configArrQuizzesOptionsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
 gSystemConfig.configArrFormsFieldsOptionsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
 gSystemConfig.configArrFiltersGenericImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
 gSystemConfig.configArrUsersImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ["g;667;500","NULL;370;277","r;205;154","t;120;90"];
@@ -358,8 +370,11 @@ gSystemConfig.configCategoryType = [
   {category_type: 4, category_type_function_label: "backendCategoriesType4Function", queryString: "publicationType=2"}, //Photo Gallery
   {category_type: 5, category_type_function_label: "backendCategoriesType5Function", queryString: "publicationType=3"}, //Articles
   {category_type: 6, category_type_function_label: "backendCategoriesType6Function", queryString: "publicationType=4"}, //Publications
+  {category_type: 7, category_type_function_label: "backendCategoriesType7Function", queryString: "-"}, //Polls
   {category_type: 9, category_type_function_label: "backendCategoriesType9Function", queryString: "-"}, //Segment
-  {category_type: 12, category_type_function_label: "backendCategoriesType12Function", queryString: ""} //Forms
+  {category_type: 12, category_type_function_label: "backendCategoriesType12Function", queryString: ""}, //Forms
+  {category_type: 13, category_type_function_label: "backendCategoriesType13Function", queryString: ""}, //Registers
+  {category_type: 17, category_type_function_label: "backendCategoriesType17Function", queryString: ""} //Quizzes
 ]
 //**************************************************************************************
 
@@ -870,7 +885,7 @@ gSystemConfig.enableProductsFiles = 1; //0 - disable | 1 - enable
 gSystemConfig.enableProductsZip = 1; //0 - disable | 1 - enable
                    
 
-//User bind (link categories to registers).
+//User bind (link products to registers).
 //----------------------
 gSystemConfig.enableProductsBindRegisterUser = 1; //0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
@@ -1398,10 +1413,614 @@ gSystemConfig.enablePublicationsActivation5 = 1; //0 - disable | 1 - enable
 //Frontend configuration.
 gSystemConfig.configPublicationsImagePlaceholder = 1; //0 - disable | 1 - enable
 
-
 gSystemConfig.enablePublicationsFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
 gSystemConfig.enablePublicationsFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
 gSystemConfig.configPublicationsFrontendPaginationNRecords = 10;
+//**************************************************************************************
+
+
+//Registers - configuration and resources.
+//**************************************************************************************
+gSystemConfig.configRegistersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | name_full
+gSystemConfig.enableRegistersSortCustom = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInputOrder = ["inputRowRegisters_id_parent", 
+                                        "inputRowRegisters_sort_order", 
+                                        "inputRowRegisters_name", 
+                                        "inputRowRegisters_info1", 
+                                        "inputRowRegisters_image_main", 
+                                        "inputRowRegisters_activation", 
+                                        "inputRowRegisters_id_status", 
+                                        "inputRowRegisters_notes"
+                                      ];
+
+//Authentication method.
+gSystemConfig.configRegistersAuthenticationMethod = 1; //1 - cookie | 2 session
+gSystemConfig.configRegistersAuthenticationCheck = 1; //0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+
+//Basic resources.
+gSystemConfig.enableRegistersIdParentEdit = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersSortOrder = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersType = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersActivity = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersRegisterType = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersNameTitle = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersNameFull = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersNameFirst = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersNameLast = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersCompanyNameLegal = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersCompanyNameAlias = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersDescription = 1; //0 - disable | 1 - enable
+
+gSystemConfig.configRegistersURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
+gSystemConfig.enableRegistersKeywordsTags = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersMetaDescription = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersMetaTitle = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersDateBirth = 11; //0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+gSystemConfig.enableRegistersGender = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersHeight = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersWeight = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersDocumentType = 1; //0 - no rule | 1 - social security (USA) | 55 - cpf (BRA)
+gSystemConfig.enableRegistersDocument = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersDocument1Type = 1; //0 - no rule
+gSystemConfig.enableRegistersDocument1 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersDocument2Type = 1; //0 - no rule
+gSystemConfig.enableRegistersDocument2 = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersDocumentCompanyType = 1; //0 - no rule | 1 - federal register (USA) | 55 - cnpj (BRA)
+gSystemConfig.enableRegistersDocumentCompany = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersDocumentCompany1Type = 1; //0 - no rule | 1 - county register (USA) | 55 - municipal register (BRA)
+gSystemConfig.enableRegistersDocumentCompany1 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersDocumentCompany2Type = 1; //0 - no rule | 1 - state register (USA) | 55 - state register (BRA)
+gSystemConfig.enableRegistersDocumentCompany2 = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersZIPCode = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersAddressStreet = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersAddressNumber = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersAddressComplement = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersNeighborhood = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersDistrict = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersCounty = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersCity = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersState = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersCountry = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersAddressConfig = 1; //0 - disable | 1 - fields | 2 - dropdown (internal DB) | 3 - dropdown (zip code DB) | 4 API (research)
+
+gSystemConfig.enableRegistersLocationReference = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersLocationMap = 1; //0 - disable | 1 - enable (google maps iframe embeded)
+
+gSystemConfig.enableRegistersPhoneInternationalCode = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersPhone1 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersPhone2 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersPhone3 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersWebsite = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersUsername = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersEmail = 1; //0 - disable | 1 - enable
+
+gSystemConfig.configRegistersPassword = 1; //0 - don´t display | 1 - display
+gSystemConfig.configRegistersPasswordMethod = 26; //23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
+
+gSystemConfig.enableRegistersImageMain = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersImageMainCaption = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersImageLogo = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersImageBanner = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersStatus = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersRestrictedAccess = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersNotes = 1; //0 - disable | 1 - enable
+
+//Pagination.
+gSystemConfig.enableRegistersBackendPagination = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersBackendPaginationNRecords = 15;
+
+//Resources.
+gSystemConfig.enableRegistersContent = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersImages = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersVideos = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersFiles = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersZip = 1; //0 - disable | 1 - enable
+
+//User bind (link registers to registers).
+//----------------------
+gSystemConfig.enableRegistersBindRegisterUser = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
+gSystemConfig.configRegistersBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
+gSystemConfig.configRegistersBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+gSystemConfig.enableRegistersBindRegister1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersBindRegister1Method = 1; //1 - category ID | 2 - register type
+gSystemConfig.configRegistersBindRegister1IDReference = 3892; //category ID / register type ID | 0 - all register categories
+gSystemConfig.configRegistersBindRegister1Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+gSystemConfig.enableRegistersBindRegister2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersBindRegister2Method = 1; //1 - category ID | 2 - register type
+gSystemConfig.configRegistersBindRegister2IDReference = 3892; //category ID / register type ID | 0 - all register categories
+gSystemConfig.configRegistersBindRegister2Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+gSystemConfig.enableRegistersBindRegister3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersBindRegister3Method = 1; //1 - category ID | 2 - register type
+gSystemConfig.configRegistersBindRegister3IDReference = 3892; //category ID / register type ID | 0 - all register categories
+gSystemConfig.configRegistersBindRegister3Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+gSystemConfig.enableRegistersBindRegister4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersBindRegister4Method = 1; //1 - category ID | 2 - register type
+gSystemConfig.configRegistersBindRegister4IDReference = 3892; //category ID / register type ID | 0 - all register categories
+gSystemConfig.configRegistersBindRegister4Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+gSystemConfig.enableRegistersBindRegister5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersBindRegister5Method = 1; //1 - category ID | 2 - register type
+gSystemConfig.configRegistersBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
+gSystemConfig.configRegistersBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+//----------------------
+
+//Optional fields (field titles in the language configuration file).
+//----------------------
+//Generic filters.
+gSystemConfig.enableRegistersFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric3 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric4 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric5 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric6 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric7 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric8 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric9 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric10 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric11 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric12 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric13 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric14 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric15 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric16 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric17 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric18 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric19 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric20 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric21 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric22 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric23 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric24 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric25 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric26 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric27 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric28 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric29 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric30 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric31 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric32 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric33 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric34 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric35 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric36 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric37 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric38 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric39 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+gSystemConfig.enableRegistersFilterGeneric40 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+
+//Big information fields.
+gSystemConfig.enableRegistersInfo1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo6 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo6FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo7 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo7FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo8 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo8FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo9 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo9FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo10 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo10FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo11 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo11FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo12 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo12FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo13 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo13FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo14 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo14FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo15 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo15FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo16 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo16FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo17 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo17FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo18 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo18FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo19 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo19FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableRegistersInfo20 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfo20FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+//Small information fields.
+gSystemConfig.enableRegistersInfoS1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS1FieldType = 2; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS2FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS3FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS4FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS5FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS6 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS6FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS7 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS7FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS8 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS8FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS9 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS9FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS10 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS10FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS11 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS11FieldType = 2; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS12 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS12FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS13 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS13FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS14 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS14FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS15 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS15FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS16 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS16FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS17 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS17FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS18 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS18FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS19 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS19FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS20 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS20FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS21 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS21FieldType = 2; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS22 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS22FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS23 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS23FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS24 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS24FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS25 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS25FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS26 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS26FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS27 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS27FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS28 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS28FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS29 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS29FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableRegistersInfoS30 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersInfoS30FieldType = 1; //1 - single line | 2 - multiline
+
+//Big number fields (up to 34 digits).
+gSystemConfig.enableRegistersNumber1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableRegistersNumber2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableRegistersNumber3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableRegistersNumber4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableRegistersNumber5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+//Small number fields (up to 9 digits).
+gSystemConfig.enableRegistersNumberS1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumberS1FieldType = 2; //1 - general number | 2 - system currency
+
+gSystemConfig.enableRegistersNumberS2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumberS2FieldType = 1; //1 - general number | 2 - system currency
+
+gSystemConfig.enableRegistersNumberS3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumberS3FieldType = 1; //1 - general number | 2 - system currency
+
+gSystemConfig.enableRegistersNumberS4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumberS4FieldType = 1; //1 - general number | 2 - system currency
+
+gSystemConfig.enableRegistersNumberS5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersNumberS5FieldType = 1; //1 - general number | 2 - system currency
+
+//URLs.
+gSystemConfig.enableRegistersURL1 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersURL2 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersURL3 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersURL4 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersURL5 = 1; //0 - disable | 1 - enable
+
+//Date fields.
+gSystemConfig.enableRegistersDate1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+gSystemConfig.enableRegistersDate2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate6 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate6FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate6Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate7 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate7FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate7Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate8 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate8FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate8Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate9 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate9FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate9Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+gSystemConfig.enableRegistersDate10 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersDate10FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+gSystemConfig.configRegistersDate10Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+//File fields.
+gSystemConfig.enableRegistersFile1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableRegistersFile2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableRegistersFile3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableRegistersFile4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+gSystemConfig.enableRegistersFile5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+//Activation fields.
+gSystemConfig.enableRegistersActivation1 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersActivation2 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersActivation3 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersActivation4 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableRegistersActivation5 = 1; //0 - disable | 1 - enable
+
+//Register types.
+gSystemConfig.configRegistersIDClient = 123;
+gSystemConfig.configRegistersIDUser = 123;
+gSystemConfig.configRegistersIDUserSeller = 123;
+gSystemConfig.configRegistersIDUserHR = 123;
+gSystemConfig.configRegistersIDSubscriber = 123;
+
+
+//Frontend configuration.
+//Register forms.
+gSystemConfig.configRegistersFormFieldsClient = [];
+gSystemConfig.configRegistersFormFieldsUser = [];
+gSystemConfig.configRegistersFormFieldsUserSeller = [];
+gSystemConfig.configRegistersFormFieldsUserHR = [];
+gSystemConfig.configRegistersFormFieldsSubscriber = [];
+
+//Terms.
+gSystemConfig.configRegistersIDTerms = 123; //0 - disable | 123 (content ID)
+
+//e-mail validation / confirmation.
+gSystemConfig.configRegistersIDEmailValidation = 123; //0 - disable | 123 (content ID)
+
+//Password resend.
+gSystemConfig.configRegistersIDPasswordResend = 123; //0 - disable | 123 (content ID)
+
+gSystemConfig.configRegistersImagePlaceholder = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableRegistersFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+gSystemConfig.enableRegistersFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
+gSystemConfig.configRegistersFrontendPaginationNRecords = 10;
+//**************************************************************************************
+
+
+//Quizzes / Polls - configuration and resources.
+//**************************************************************************************
+gSystemConfig.configQuizzesSort = "id DESC"; //options: id | sort_order | title 
+gSystemConfig.configQuizzesOptionsSort = "id DESC"; //options: id | sort_order | title
+
+//Basic resources.
+gSystemConfig.enableQuizzesIdParentEdit = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesSortOrder = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesType = 0; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesTypeDefault = 2; //1 - poll | 2 - quiz (multiple questions)  | 3 - (written template answer) | (Valid only if enableQuizzesType = 0)
+
+gSystemConfig.enableQuizzesBindRegisterUser = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
+gSystemConfig.configQuizzesBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
+gSystemConfig.configQuizzesBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+gSystemConfig.enableQuizzesDescription = 1; //0 - disable | 1 - enable
+
+gSystemConfig.configQuizzesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
+gSystemConfig.enableQuizzesKeywordsTags = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesMetaDescription = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesMetaTitle = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableQuizzesImageMain = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesImageMainCaption = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableQuizzesStatus = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesNotes = 1; //0 - disable | 1 - enable
+
+//Pagination.
+gSystemConfig.enableQuizzesBackendPagination = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesBackendPaginationNRecords = 15;
+
+//Resources.
+gSystemConfig.enableQuizzesContent = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesImages = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesVideos = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesFiles = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesZip = 1; //0 - disable | 1 - enable
+
+//Big information fields.
+gSystemConfig.enableQuizzesInfo1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableQuizzesInfo2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableQuizzesInfo3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableQuizzesInfo4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+gSystemConfig.enableQuizzesInfo5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+//Big number fields (up to 34 digits).
+gSystemConfig.enableQuizzesNumber1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesNumber2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesNumber3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesNumber4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesNumber5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+//Activation fields.
+gSystemConfig.enableQuizzesActivation1 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesActivation2 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesActivation3 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesActivation4 = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesActivation5 = 1; //0 - disable | 1 - enable
+
+
+//Frontend configuration.
+gSystemConfig.configQuizzesImagePlaceholder = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableQuizzesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+gSystemConfig.enableQuizzesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesFrontendPaginationNRecords = 10;
+
+
+//Options.
+gSystemConfig.enableQuizzesOptionsSortOrder = 1; //0 - disable | 1 - enable
+
+//gSystemConfig.enableQuizzesOptionsTitle = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesOptionsDescription = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesOptionsImageMain = 1; //0 - disable | 1 - enable
+gSystemConfig.enableQuizzesOptionsImageMainCaption = 1; //0 - disable | 1 - enable
+
+gSystemConfig.enableQuizzesOptionsAnswer = 1; //0 - disable | 1 - enable
+
+//Optional fields (field titles in the language configuration file).
+//Small information fields.
+gSystemConfig.enableQuizzesOptionsInfoS1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfoS1FieldType = 2; //1 - single line | 2 - multiline
+
+gSystemConfig.enableQuizzesOptionsInfoS2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfoS2FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableQuizzesOptionsInfoS3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfoS3FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableQuizzesOptionsInfoS4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfoS4FieldType = 1; //1 - single line | 2 - multiline
+
+gSystemConfig.enableQuizzesOptionsInfoS5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfoS5FieldType = 1; //1 - single line | 2 - multiline
+
+//Big number fields (up to 34 digits).
+gSystemConfig.enableQuizzesOptionsNumber1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesOptionsNumber2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesOptionsNumber3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesOptionsNumber4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+gSystemConfig.enableQuizzesOptionsNumber5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 //**************************************************************************************
 
 
@@ -1491,7 +2110,7 @@ gSystemConfig.configFormsFieldsOptionsInfoS5FieldType = 1; //1 - single line | 2
 //**************************************************************************************
 
 
-//email - configuration and resources.
+//e-mail - configuration and resources.
 //**************************************************************************************
 gSystemConfig.enableEmailSenderDefault = "portfolio@sistemadinamico.com.br";
 gSystemConfig.enableEmailSenderNameDefault = "Sistema Dinâmico (Dev - debug: çáéã)";
@@ -1627,7 +2246,7 @@ gSystemConfig.enableUsersNameLast = 1; //0 - disable | 1 - enable
 gSystemConfig.enableUsersDateBirth = 11; //0 - disable | 2 - dropdown menu | 11 - js-datepicker 
 gSystemConfig.enableUsersGender = 1; //0 - disable | 1 - enable
 gSystemConfig.enableUsersDocument = 1; //0 - disable | 1 - enable
-gSystemConfig.configUsersDocument = 0; //11 - CPF (BR) | 12 - CNPJ (BR)
+gSystemConfig.configUsersDocument = 0; //1 - USA | 55 - CPF (BRA) | 1055 - CNPJ (BRA)
 gSystemConfig.enableUsersAddress = 1; //0 - disable | 1 - enable
 gSystemConfig.enableUsersPhoneInternationalCode = 1; //0 - disable | 1 - enable
 gSystemConfig.enableUsersPhone1 = 1; //0 - disable | 1 - enable

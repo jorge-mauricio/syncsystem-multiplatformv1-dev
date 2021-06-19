@@ -51,7 +51,7 @@ $configFrontendMobileDefaultView = "frontend_php_mobile";
 //----------------------
 $configSystemDBTablePrefix = "prefix_ssmv1_";
 $configSystemDBType = 2; //2 - MySQL | 3 - SQL Server
-$enableSystemDBSizeOtimize = 0; //0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
+$enableSystemDBSizeOptimize = 0; //0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
 
 
 //Table names.
