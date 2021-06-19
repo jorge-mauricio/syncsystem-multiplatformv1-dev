@@ -1451,6 +1451,26 @@ module.exports = class FunctionsDB
             }
 
 
+            //Check registers table.
+            if(objReturn.returnStatus === false)
+            {
+                //"id, id_parent, title",
+                objReturn.tableData = await this.genericTableGet02(gSystemConfig.configSystemDBTableRegisters, 
+                                                                    ["id;" + idRecord + ";i"], 
+                                                                    "", 
+                                                                    "1", 
+                                                                    FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableRegisters, "all", "string"),
+                                                                    1, 
+                                                                    {returnType: 3});
+
+                if(objReturn.tableData.length)
+                {
+                    objReturn.tableName = gSystemConfig.configSystemDBTableRegisters;
+                    objReturn.returnStatus = true;
+                }
+            }
+
+
             //Check forms table.
             if(objReturn.returnStatus === false)
             {

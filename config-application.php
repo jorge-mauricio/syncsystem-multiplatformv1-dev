@@ -62,6 +62,10 @@ $configSystemDBTableFiles = "files";
 $configSystemDBTableContent = "content";
 $configSystemDBTableProducts = "products";
 $configSystemDBTablePublications = "publications";
+$configSystemDBTableRegisters = "registers";
+$configSystemDBTableQuizzes = "quizzes";
+$configSystemDBTableQuizzesOptions = "quizzes_options";
+$configSystemDBTableQuizzesLog = "quizzes_log";
 $configSystemDBTableForms = "forms";
 $configSystemDBTableFormsFields = "forms_fields";
 $configSystemDBTableFormsFieldsOptions = "forms_fields_options";
@@ -899,15 +903,15 @@ $enablePublicationsMetaDescription = 1; //0 - disable | 1 - enable
 $enablePublicationsMetaTitle = 1; //0 - disable | 1 - enable
 
 //Pagination.
-$enablePPublicationsBackendPagination = 1; //0 - disable | 1 - enable
-$enablePPublicationsBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configPPublicationsBackendPaginationNRecords = 15;
+$enablePublicationsBackendPagination = 1; //0 - disable | 1 - enable
+$enablePublicationsBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+$configPublicationsBackendPaginationNRecords = 15;
 
 //Resources.
-$enablePPublicationsImages = 1; //0 - disable | 1 - enable
-$enablePPublicationsVideos = 1; //0 - disable | 1 - enable
-$enablePPublicationsFiles = 1; //0 - disable | 1 - enable
-$enablePPublicationsZip = 1; //0 - disable | 1 - enable
+$enablePublicationsImages = 1; //0 - disable | 1 - enable
+$enablePublicationsVideos = 1; //0 - disable | 1 - enable
+$enablePublicationsFiles = 1; //0 - disable | 1 - enable
+$enablePublicationsZip = 1; //0 - disable | 1 - enable
                    
 
 //User bind (link categories to registers).
@@ -1056,6 +1060,611 @@ $enablePublicationsActivation2 = 1; //0 - disable | 1 - enable
 $enablePublicationsActivation3 = 1; //0 - disable | 1 - enable
 $enablePublicationsActivation4 = 1; //0 - disable | 1 - enable
 $enablePublicationsActivation5 = 1; //0 - disable | 1 - enable
+//**************************************************************************************
+
+
+//Registers - configuration and resources.
+//**************************************************************************************
+$configRegistersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | name_full
+$enableRegistersSortCustom = 1; //0 - disable | 1 - enable
+$configRegistersInputOrder = ["inputRowRegisters_id_parent", 
+                                        "inputRowRegisters_sort_order", 
+                                        "inputRowRegisters_name", 
+                                        "inputRowRegisters_info1", 
+                                        "inputRowRegisters_image_main", 
+                                        "inputRowRegisters_activation", 
+                                        "inputRowRegisters_id_status", 
+                                        "inputRowRegisters_notes"
+                                      ];
+
+//Authentication method.
+$configRegistersAuthenticationMethod = 1; //1 - cookie | 2 session
+$configRegistersAuthenticationCheck = 1; //0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+
+//Basic resources.
+$enableRegistersIdParentEdit = 1; //0 - disable | 1 - enable
+$enableRegistersSortOrder = 1; //0 - disable | 1 - enable
+$enableRegistersType = 1; //0 - disable | 1 - enable
+$enableRegistersActivity = 1; //0 - disable | 1 - enable
+
+$enableRegistersRegisterType = 1; //0 - disable | 1 - enable
+$enableRegistersNameTitle = 1; //0 - disable | 1 - enable
+$enableRegistersNameFull = 1; //0 - disable | 1 - enable
+$enableRegistersNameFirst = 1; //0 - disable | 1 - enable
+$enableRegistersNameLast = 1; //0 - disable | 1 - enable
+$enableRegistersCompanyNameLegal = 1; //0 - disable | 1 - enable
+$enableRegistersCompanyNameAlias = 1; //0 - disable | 1 - enable
+
+$enableRegistersDescription = 1; //0 - disable | 1 - enable
+
+$configRegistersURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
+$enableRegistersKeywordsTags = 1; //0 - disable | 1 - enable
+$enableRegistersMetaDescription = 1; //0 - disable | 1 - enable
+$enableRegistersMetaTitle = 1; //0 - disable | 1 - enable
+
+$enableRegistersDateBirth = 11; //0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+$enableRegistersGender = 1; //0 - disable | 1 - enable
+$enableRegistersHeight = 1; //0 - disable | 1 - enable
+$enableRegistersWeight = 1; //0 - disable | 1 - enable
+
+$enableRegistersDocumentType = 1; //0 - no rule | 1 - social security (USA) | 55 - cpf (BRA)
+$enableRegistersDocument = 1; //0 - disable | 1 - enable
+$enableRegistersDocument1Type = 1; //0 - no rule
+$enableRegistersDocument1 = 1; //0 - disable | 1 - enable
+$enableRegistersDocument2Type = 1; //0 - no rule
+$enableRegistersDocument2 = 1; //0 - disable | 1 - enable
+
+$enableRegistersDocumentCompanyType = 1; //0 - no rule | 1 - federal register (USA) | 55 - cnpj (BRA)
+$enableRegistersDocumentCompany = 1; //0 - disable | 1 - enable
+$enableRegistersDocumentCompany1Type = 1; //0 - no rule | 1 - county register (USA) | 55 - municipal register (BRA)
+$enableRegistersDocumentCompany1 = 1; //0 - disable | 1 - enable
+$enableRegistersDocumentCompany2Type = 1; //0 - no rule | 1 - state register (USA) | 55 - state register (BRA)
+$enableRegistersDocumentCompany2 = 1; //0 - disable | 1 - enable
+
+$enableRegistersZIPCode = 1; //0 - disable | 1 - enable
+$enableRegistersAddressStreet = 1; //0 - disable | 1 - enable
+$enableRegistersAddressNumber = 1; //0 - disable | 1 - enable
+$enableRegistersAddressComplement = 1; //0 - disable | 1 - enable
+$enableRegistersNeighborhood = 1; //0 - disable | 1 - enable
+$enableRegistersDistrict = 1; //0 - disable | 1 - enable
+$enableRegistersCounty = 1; //0 - disable | 1 - enable
+$enableRegistersCity = 1; //0 - disable | 1 - enable
+$enableRegistersState = 1; //0 - disable | 1 - enable
+$enableRegistersCountry = 1; //0 - disable | 1 - enable
+
+$enableRegistersAddressConfig = 1; //0 - disable | 1 - fields | 2 - dropdown (internal DB) | 3 - dropdown (zip code DB) | 4 API (research)
+
+$enableRegistersLocationReference = 1; //0 - disable | 1 - enable
+$enableRegistersLocationMap = 1; //0 - disable | 1 - enable (google maps iframe embeded)
+
+$enableRegistersPhoneInternationalCode = 1; //0 - disable | 1 - enable
+$enableRegistersPhone1 = 1; //0 - disable | 1 - enable
+$enableRegistersPhone2 = 1; //0 - disable | 1 - enable
+$enableRegistersPhone3 = 1; //0 - disable | 1 - enable
+$enableRegistersWebsite = 1; //0 - disable | 1 - enable
+
+$enableRegistersUsername = 1; //0 - disable | 1 - enable
+$enableRegistersEmail = 1; //0 - disable | 1 - enable
+
+$configRegistersPassword = 1; //0 - don´t display | 1 - display
+$configRegistersPasswordMethod = 26; //23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
+
+$enableRegistersImageMain = 1; //0 - disable | 1 - enable
+$enableRegistersImageMainCaption = 1; //0 - disable | 1 - enable
+$enableRegistersImageLogo = 1; //0 - disable | 1 - enable
+$enableRegistersImageBanner = 1; //0 - disable | 1 - enable
+$enableRegistersStatus = 1; //0 - disable | 1 - enable
+$enableRegistersRestrictedAccess = 1; //0 - disable | 1 - enable
+$enableRegistersNotes = 1; //0 - disable | 1 - enable
+
+//Pagination.
+$enableRegistersBackendPagination = 1; //0 - disable | 1 - enable
+$enableRegistersBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+$configRegistersBackendPaginationNRecords = 15;
+
+//Resources.
+$enableRegistersContent = 1; //0 - disable | 1 - enable
+$enableRegistersImages = 1; //0 - disable | 1 - enable
+$enableRegistersVideos = 1; //0 - disable | 1 - enable
+$enableRegistersFiles = 1; //0 - disable | 1 - enable
+$enableRegistersZip = 1; //0 - disable | 1 - enable
+
+//User bind (link registers to registers).
+//----------------------
+$enableRegistersBindRegisterUser = 1; //0 - disable | 1 - enable
+$configRegistersBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
+$configRegistersBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
+$configRegistersBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$enableRegistersBindRegister1 = 1; //0 - disable | 1 - enable
+$configRegistersBindRegister1Method = 1; //1 - category ID | 2 - register type
+$configRegistersBindRegister1IDReference = 3892; //category ID / register type ID | 0 - all register categories
+$configRegistersBindRegister1Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$enableRegistersBindRegister2 = 1; //0 - disable | 1 - enable
+$configRegistersBindRegister2Method = 1; //1 - category ID | 2 - register type
+$configRegistersBindRegister2IDReference = 3892; //category ID / register type ID | 0 - all register categories
+$configRegistersBindRegister2Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$enableRegistersBindRegister3 = 1; //0 - disable | 1 - enable
+$configRegistersBindRegister3Method = 1; //1 - category ID | 2 - register type
+$configRegistersBindRegister3IDReference = 3892; //category ID / register type ID | 0 - all register categories
+$configRegistersBindRegister3Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$enableRegistersBindRegister4 = 1; //0 - disable | 1 - enable
+$configRegistersBindRegister4Method = 1; //1 - category ID | 2 - register type
+$configRegistersBindRegister4IDReference = 3892; //category ID / register type ID | 0 - all register categories
+$configRegistersBindRegister4Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$enableRegistersBindRegister5 = 1; //0 - disable | 1 - enable
+$configRegistersBindRegister5Method = 1; //1 - category ID | 2 - register type
+$configRegistersBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
+$configRegistersBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+//----------------------
+
+//Optional fields (field titles in the language configuration file).
+//----------------------
+//Generic filters.
+$enableRegistersFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric3 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric4 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric5 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric6 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric7 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric8 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric9 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric10 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric11 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric12 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric13 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric14 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric15 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric16 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric17 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric18 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric19 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric20 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric21 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric22 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric23 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric24 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric25 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric26 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric27 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric28 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric29 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric30 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric31 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric32 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric33 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric34 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric35 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric36 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric37 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric38 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric39 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$enableRegistersFilterGeneric40 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+
+//Big information fields.
+$enableRegistersInfo1 = 1; //0 - disable | 1 - enable
+$configRegistersInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo2 = 1; //0 - disable | 1 - enable
+$configRegistersInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo3 = 1; //0 - disable | 1 - enable
+$configRegistersInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo4 = 1; //0 - disable | 1 - enable
+$configRegistersInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo5 = 1; //0 - disable | 1 - enable
+$configRegistersInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo6 = 1; //0 - disable | 1 - enable
+$configRegistersInfo6FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo7 = 1; //0 - disable | 1 - enable
+$configRegistersInfo7FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo8 = 1; //0 - disable | 1 - enable
+$configRegistersInfo8FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo9 = 1; //0 - disable | 1 - enable
+$configRegistersInfo9FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo10 = 1; //0 - disable | 1 - enable
+$configRegistersInfo10FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo11 = 1; //0 - disable | 1 - enable
+$configRegistersInfo11FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo12 = 1; //0 - disable | 1 - enable
+$configRegistersInfo12FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo13 = 1; //0 - disable | 1 - enable
+$configRegistersInfo13FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo14 = 1; //0 - disable | 1 - enable
+$configRegistersInfo14FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo15 = 1; //0 - disable | 1 - enable
+$configRegistersInfo15FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo16 = 1; //0 - disable | 1 - enable
+$configRegistersInfo16FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo17 = 1; //0 - disable | 1 - enable
+$configRegistersInfo17FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo18 = 1; //0 - disable | 1 - enable
+$configRegistersInfo18FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo19 = 1; //0 - disable | 1 - enable
+$configRegistersInfo19FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableRegistersInfo20 = 1; //0 - disable | 1 - enable
+$configRegistersInfo20FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+//Small information fields.
+$enableRegistersInfoS1 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS1FieldType = 2; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS2 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS2FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS3 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS3FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS4 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS4FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS5 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS5FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS6 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS6FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS7 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS7FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS8 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS8FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS9 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS9FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS10 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS10FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS11 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS11FieldType = 2; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS12 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS12FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS13 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS13FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS14 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS14FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS15 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS15FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS16 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS16FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS17 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS17FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS18 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS18FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS19 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS19FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS20 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS20FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS21 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS21FieldType = 2; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS22 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS22FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS23 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS23FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS24 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS24FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS25 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS25FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS26 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS26FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS27 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS27FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS28 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS28FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS29 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS29FieldType = 1; //1 - single line | 2 - multiline
+
+$enableRegistersInfoS30 = 1; //0 - disable | 1 - enable
+$configRegistersInfoS30FieldType = 1; //1 - single line | 2 - multiline
+
+//Big number fields (up to 34 digits).
+$enableRegistersNumber1 = 1; //0 - disable | 1 - enable
+$configRegistersNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableRegistersNumber2 = 1; //0 - disable | 1 - enable
+$configRegistersNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableRegistersNumber3 = 1; //0 - disable | 1 - enable
+$configRegistersNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableRegistersNumber4 = 1; //0 - disable | 1 - enable
+$configRegistersNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableRegistersNumber5 = 1; //0 - disable | 1 - enable
+$configRegistersNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+//Small number fields (up to 9 digits).
+$enableRegistersNumberS1 = 1; //0 - disable | 1 - enable
+$configRegistersNumberS1FieldType = 2; //1 - general number | 2 - system currency
+
+$enableRegistersNumberS2 = 1; //0 - disable | 1 - enable
+$configRegistersNumberS2FieldType = 1; //1 - general number | 2 - system currency
+
+$enableRegistersNumberS3 = 1; //0 - disable | 1 - enable
+$configRegistersNumberS3FieldType = 1; //1 - general number | 2 - system currency
+
+$enableRegistersNumberS4 = 1; //0 - disable | 1 - enable
+$configRegistersNumberS4FieldType = 1; //1 - general number | 2 - system currency
+
+$enableRegistersNumberS5 = 1; //0 - disable | 1 - enable
+$configRegistersNumberS5FieldType = 1; //1 - general number | 2 - system currency
+
+//URLs.
+$enableRegistersURL1 = 1; //0 - disable | 1 - enable
+$enableRegistersURL2 = 1; //0 - disable | 1 - enable
+$enableRegistersURL3 = 1; //0 - disable | 1 - enable
+$enableRegistersURL4 = 1; //0 - disable | 1 - enable
+$enableRegistersURL5 = 1; //0 - disable | 1 - enable
+
+//Date fields.
+$enableRegistersDate1 = 1; //0 - disable | 1 - enable
+$configRegistersDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+$enableRegistersDate2 = 1; //0 - disable | 1 - enable
+$configRegistersDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate3 = 1; //0 - disable | 1 - enable
+$configRegistersDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate4 = 1; //0 - disable | 1 - enable
+$configRegistersDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate5 = 1; //0 - disable | 1 - enable
+$configRegistersDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate6 = 1; //0 - disable | 1 - enable
+$configRegistersDate6FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate6Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate7 = 1; //0 - disable | 1 - enable
+$configRegistersDate7FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate7Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate8 = 1; //0 - disable | 1 - enable
+$configRegistersDate8FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate8Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate9 = 1; //0 - disable | 1 - enable
+$configRegistersDate9FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate9Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$enableRegistersDate10 = 1; //0 - disable | 1 - enable
+$configRegistersDate10FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$configRegistersDate10Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+//File fields.
+$enableRegistersFile1 = 1; //0 - disable | 1 - enable
+$configRegistersFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableRegistersFile2 = 1; //0 - disable | 1 - enable
+$configRegistersFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableRegistersFile3 = 1; //0 - disable | 1 - enable
+$configRegistersFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableRegistersFile4 = 1; //0 - disable | 1 - enable
+$configRegistersFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+$enableRegistersFile5 = 1; //0 - disable | 1 - enable
+$configRegistersFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+
+//Activation fields.
+$enableRegistersActivation1 = 1; //0 - disable | 1 - enable
+$enableRegistersActivation2 = 1; //0 - disable | 1 - enable
+$enableRegistersActivation3 = 1; //0 - disable | 1 - enable
+$enableRegistersActivation4 = 1; //0 - disable | 1 - enable
+$enableRegistersActivation5 = 1; //0 - disable | 1 - enable
+
+//Register types.
+$configRegistersIDClient = 123;
+$configRegistersIDUser = 123;
+$configRegistersIDUserSeller = 123;
+$configRegistersIDUserHR = 123;
+$configRegistersIDSubscriber = 123;
+
+
+//Frontend configuration.
+//Register forms.
+$configRegistersFormFieldsClient = [];
+$configRegistersFormFieldsUser = [];
+$configRegistersFormFieldsUserSeller = [];
+$configRegistersFormFieldsUserHR = [];
+$configRegistersFormFieldsSubscriber = [];
+
+//Terms.
+$configRegistersIDTerms = 123; //0 - disable | 123 (content ID)
+
+//e-mail validation / confirmation.
+$configRegistersIDEmailValidation = 123; //0 - disable | 123 (content ID)
+
+//Password resend.
+$configRegistersIDPasswordResend = 123; //0 - disable | 123 (content ID)
+
+$configRegistersImagePlaceholder = 1; //0 - disable | 1 - enable
+
+$enableRegistersFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$enableRegistersFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
+$configRegistersFrontendPaginationNRecords = 10;
+//**************************************************************************************
+
+
+//Quizzes / Polls - configuration and resources.
+//**************************************************************************************
+$configQuizzesSort = "id DESC"; //options: id | sort_order | title 
+$configQuizzesOptionsSort = "id DESC"; //options: id | sort_order | title
+
+//Basic resources.
+$enableQuizzesIdParentEdit = 1; //0 - disable | 1 - enable
+$enableQuizzesSortOrder = 1; //0 - disable | 1 - enable
+$enableQuizzesType = 0; //0 - disable | 1 - enable
+//$configQuizzesTypeDefault = 2; //1 - poll | 2 - quiz (multiple questions)  | 3 - (written template answer) | (Valid only if enableQuizzesType = 0)
+
+$enableQuizzesBindRegisterUser = 1; //0 - disable | 1 - enable
+$configQuizzesBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
+$configQuizzesBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
+$configQuizzesBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$enableQuizzesDescription = 1; //0 - disable | 1 - enable
+
+$configQuizzesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
+$enableQuizzesKeywordsTags = 1; //0 - disable | 1 - enable
+$enableQuizzesMetaDescription = 1; //0 - disable | 1 - enable
+$enableQuizzesMetaTitle = 1; //0 - disable | 1 - enable
+
+$enableQuizzesImageMain = 1; //0 - disable | 1 - enable
+$enableQuizzesImageMainCaption = 1; //0 - disable | 1 - enable
+
+$enableQuizzesStatus = 1; //0 - disable | 1 - enable
+$enableQuizzesNotes = 1; //0 - disable | 1 - enable
+
+//Pagination.
+$enableQuizzesBackendPagination = 1; //0 - disable | 1 - enable
+$enableQuizzesBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+$configQuizzesBackendPaginationNRecords = 15;
+
+//Resources.
+$enableQuizzesContent = 1; //0 - disable | 1 - enable
+$enableQuizzesImages = 1; //0 - disable | 1 - enable
+$enableQuizzesVideos = 1; //0 - disable | 1 - enable
+$enableQuizzesFiles = 1; //0 - disable | 1 - enable
+$enableQuizzesZip = 1; //0 - disable | 1 - enable
+
+//Big information fields.
+$enableQuizzesInfo1 = 1; //0 - disable | 1 - enable
+$configQuizzesInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesInfo2 = 1; //0 - disable | 1 - enable
+$configQuizzesInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesInfo3 = 1; //0 - disable | 1 - enable
+$configQuizzesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesInfo4 = 1; //0 - disable | 1 - enable
+$configQuizzesInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesInfo5 = 1; //0 - disable | 1 - enable
+$configQuizzesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+//Big number fields (up to 34 digits).
+$enableQuizzesNumber1 = 1; //0 - disable | 1 - enable
+$configQuizzesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesNumber2 = 1; //0 - disable | 1 - enable
+$configQuizzesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesNumber3 = 1; //0 - disable | 1 - enable
+$configQuizzesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesNumber4 = 1; //0 - disable | 1 - enable
+$configQuizzesNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesNumber5 = 1; //0 - disable | 1 - enable
+$configQuizzesNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+//Activation fields.
+$enableQuizzesActivation1 = 1; //0 - disable | 1 - enable
+$enableQuizzesActivation2 = 1; //0 - disable | 1 - enable
+$enableQuizzesActivation3 = 1; //0 - disable | 1 - enable
+$enableQuizzesActivation4 = 1; //0 - disable | 1 - enable
+$enableQuizzesActivation5 = 1; //0 - disable | 1 - enable
+
+
+//Frontend configuration.
+$configQuizzesImagePlaceholder = 1; //0 - disable | 1 - enable
+
+$enableQuizzesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$enableQuizzesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
+$configQuizzesFrontendPaginationNRecords = 10;
+
+
+//Options.
+$enableQuizzesOptionsSortOrder = 1; //0 - disable | 1 - enable
+
+//$enableQuizzesOptionsTitle = 1; //0 - disable | 1 - enable
+$enableQuizzesOptionsDescription = 1; //0 - disable | 1 - enable
+$enableQuizzesOptionsImageMain = 1; //0 - disable | 1 - enable
+$enableQuizzesOptionsImageMainCaption = 1; //0 - disable | 1 - enable
+
+$enableQuizzesOptionsAnswer = 1; //0 - disable | 1 - enable
+
+//Optional fields (field titles in the language configuration file).
+//Big information fields.
+$enableQuizzesOptionsInfo1 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesOptionsInfo2 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesOptionsInfo3 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesOptionsInfo4 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$enableQuizzesOptionsInfo5 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+//Big number fields (up to 34 digits).
+$enableQuizzesOptionsNumber1 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesOptionsNumber2 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesOptionsNumber3 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesOptionsNumber4 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$enableQuizzesOptionsNumber5 = 1; //0 - disable | 1 - enable
+$configQuizzesOptionsNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 //**************************************************************************************
 
 

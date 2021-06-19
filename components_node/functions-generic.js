@@ -1262,6 +1262,24 @@ module.exports = class FunctionsGeneric
             pageLinkDashboard = gSystemConfig.configRouteFrontendDashboardPublications;
             variableDashboard = "idParentPublications";
         }
+
+        //Polls.
+        if(categoryType == 7)
+        {
+            pageLinkFrontend = gSystemConfig.configRouteFrontendQuizzes;
+            variableFrontend = "idParentQuizzes";
+
+            pageLinkBackend = gSystemConfig.configRouteBackendQuizzes;
+            variableBackend = "idParentQuizzes";
+
+            pageLinkDashboard = gSystemConfig.configRouteFrontendDashboardQuizzes;
+            variableDashboard = "idParentQuizzes";
+    
+
+            //Debug.
+            //console.log("configCategoryType=");
+            //console.log(gSystemConfig.configCategoryType);
+        }
         
 
 
@@ -1297,6 +1315,44 @@ module.exports = class FunctionsGeneric
 
             pageLinkDashboard = "dashboard-forms";
             variableDashboard = "idParentForms";
+    
+
+            //Debug.
+            //console.log("configCategoryType=");
+            //console.log(gSystemConfig.configCategoryType);
+        }
+
+
+        //Registers.
+        if(categoryType == 13)
+        {
+            pageLinkFrontend = gSystemConfig.configRouteFrontendRegisters;
+            variableFrontend = "idParentRegisters";
+
+            pageLinkBackend = gSystemConfig.configRouteBackendRegisters;
+            variableBackend = "idParentRegisters";
+
+            pageLinkDashboard = gSystemConfig.configRouteFrontendDashboardRegisters;
+            variableDashboard = "idParentRegisters";
+    
+
+            //Debug.
+            //console.log("configCategoryType=");
+            //console.log(gSystemConfig.configCategoryType);
+        }
+
+
+        //Quizzes.
+        if(categoryType == 17)
+        {
+            pageLinkFrontend = gSystemConfig.configRouteFrontendQuizzes;
+            variableFrontend = "idParentQuizzes";
+
+            pageLinkBackend = gSystemConfig.configRouteBackendQuizzes;
+            variableBackend = "idParentQuizzes";
+
+            pageLinkDashboard = gSystemConfig.configRouteFrontendDashboardQuizzes;
+            variableDashboard = "idParentQuizzes";
     
 
             //Debug.
@@ -1440,9 +1496,9 @@ module.exports = class FunctionsGeneric
                 gSystemConfig.enableCategoriesBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push("id_register_user") : '';
                 gSystemConfig.enableCategoriesBindRegister1 == 1 ? arrTableFieldsQueryBuild.push("id_register1") : '';
                 gSystemConfig.enableCategoriesBindRegister2 == 1 ? arrTableFieldsQueryBuild.push("id_register2") : '';
-                gSystemConfig.enableCategoriesBindRegister1 == 3 ? arrTableFieldsQueryBuild.push("id_register3") : '';
-                gSystemConfig.enableCategoriesBindRegister1 == 4 ? arrTableFieldsQueryBuild.push("id_register4") : '';
-                gSystemConfig.enableCategoriesBindRegister1 == 5 ? arrTableFieldsQueryBuild.push("id_register5") : '';
+                gSystemConfig.enableCategoriesBindRegister3 == 1 ? arrTableFieldsQueryBuild.push("id_register3") : '';
+                gSystemConfig.enableCategoriesBindRegister4 == 1 ? arrTableFieldsQueryBuild.push("id_register4") : '';
+                gSystemConfig.enableCategoriesBindRegister5 == 1 ? arrTableFieldsQueryBuild.push("id_register5") : '';
                 arrTableFieldsQueryBuild.push("title", "url_alias", "keywords_tags", "meta_description", "meta_title", "meta_info");
                 gSystemConfig.enableCategoriesDescription == 1 ? arrTableFieldsQueryBuild.push("description") : '';
                 gSystemConfig.enableCategoriesInfo1 == 1 ? arrTableFieldsQueryBuild.push("info1") : '';
@@ -1475,7 +1531,8 @@ module.exports = class FunctionsGeneric
                 gSystemConfig.enableCategoriesDate3 == 1 ? arrTableFieldsQueryBuild.push("date3") : '';
                 gSystemConfig.enableCategoriesDate4 == 1 ? arrTableFieldsQueryBuild.push("date4") : '';
                 gSystemConfig.enableCategoriesDate5 == 1 ? arrTableFieldsQueryBuild.push("date5") : '';
-                arrTableFieldsQueryBuild.push("image_main");
+                //arrTableFieldsQueryBuild.push("image_main");
+                gSystemConfig.enableCategoriesImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
                 gSystemConfig.enableCategoriesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
                 gSystemConfig.enableCategoriesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
                 gSystemConfig.enableCategoriesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
@@ -1628,11 +1685,12 @@ module.exports = class FunctionsGeneric
                 gSystemConfig.enableProductsBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push("id_register_user") : '';
                 gSystemConfig.enableProductsBindRegister1 == 1 ? arrTableFieldsQueryBuild.push("id_register1") : '';
                 gSystemConfig.enableProductsBindRegister2 == 1 ? arrTableFieldsQueryBuild.push("id_register2") : '';
-                gSystemConfig.enableProductsBindRegister1 == 3 ? arrTableFieldsQueryBuild.push("id_register3") : '';
-                gSystemConfig.enableProductsBindRegister1 == 4 ? arrTableFieldsQueryBuild.push("id_register4") : '';
-                gSystemConfig.enableProductsBindRegister1 == 5 ? arrTableFieldsQueryBuild.push("id_register5") : '';
+                gSystemConfig.enableProductsBindRegister3 == 1 ? arrTableFieldsQueryBuild.push("id_register3") : '';
+                gSystemConfig.enableProductsBindRegister4 == 1 ? arrTableFieldsQueryBuild.push("id_register4") : '';
+                gSystemConfig.enableProductsBindRegister5 == 1 ? arrTableFieldsQueryBuild.push("id_register5") : '';
                 
-                arrTableFieldsQueryBuild.push("code", "title");
+                //arrTableFieldsQueryBuild.push("code", "title");
+                arrTableFieldsQueryBuild.push("title");
                 gSystemConfig.enableProductsDescription == 1 ? arrTableFieldsQueryBuild.push("description") : '';
                 arrTableFieldsQueryBuild.push("url_alias", "keywords_tags", "meta_description", "meta_title", "meta_info");
                 
@@ -1706,11 +1764,11 @@ module.exports = class FunctionsGeneric
                 gSystemConfig.enableProductsNumberS4 == 1 ? arrTableFieldsQueryBuild.push("number_small4") : '';
                 gSystemConfig.enableProductsNumberS5 == 1 ? arrTableFieldsQueryBuild.push("number_small5") : '';
                 
-                gSystemConfig.enableProductsURL1 == 1 ? arrTableFieldsQueryBuild.push("url1") : '';
-                gSystemConfig.enableProductsURL2 == 1 ? arrTableFieldsQueryBuild.push("url2") : '';
-                gSystemConfig.enableProductsURL3 == 1 ? arrTableFieldsQueryBuild.push("url3") : '';
-                gSystemConfig.enableProductsURL4 == 1 ? arrTableFieldsQueryBuild.push("url4") : '';
-                gSystemConfig.enableProductsURL5 == 1 ? arrTableFieldsQueryBuild.push("url5") : '';
+                gSystemConfig.enableProductsURL1 != 0 ? arrTableFieldsQueryBuild.push("url1") : '';
+                gSystemConfig.enableProductsURL2 != 0 ? arrTableFieldsQueryBuild.push("url2") : '';
+                gSystemConfig.enableProductsURL3 != 0 ? arrTableFieldsQueryBuild.push("url3") : '';
+                gSystemConfig.enableProductsURL4 != 0 ? arrTableFieldsQueryBuild.push("url4") : '';
+                gSystemConfig.enableProductsURL5 != 0 ? arrTableFieldsQueryBuild.push("url5") : '';
                 
                 gSystemConfig.enableProductsDate1 == 1 ? arrTableFieldsQueryBuild.push("date1") : '';
                 gSystemConfig.enableProductsDate2 == 1 ? arrTableFieldsQueryBuild.push("date2") : '';
@@ -1742,7 +1800,7 @@ module.exports = class FunctionsGeneric
             //File fields.
             if(buildType == "files")
             {
-                arrTableFieldsQueryBuild.push("image_main");
+                gSystemConfig.enableProductsImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
                 gSystemConfig.enableProductsFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
                 gSystemConfig.enableProductsFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
                 gSystemConfig.enableProductsFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
@@ -1765,9 +1823,9 @@ module.exports = class FunctionsGeneric
                 gSystemConfig.enablePublicationsBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push("id_register_user") : '';
                 gSystemConfig.enablePublicationsBindRegister1 == 1 ? arrTableFieldsQueryBuild.push("id_register1") : '';
                 gSystemConfig.enablePublicationsBindRegister2 == 1 ? arrTableFieldsQueryBuild.push("id_register2") : '';
-                gSystemConfig.enablePublicationsBindRegister1 == 3 ? arrTableFieldsQueryBuild.push("id_register3") : '';
-                gSystemConfig.enablePublicationsBindRegister1 == 4 ? arrTableFieldsQueryBuild.push("id_register4") : '';
-                gSystemConfig.enablePublicationsBindRegister1 == 5 ? arrTableFieldsQueryBuild.push("id_register5") : '';
+                gSystemConfig.enablePublicationsBindRegister3 == 1 ? arrTableFieldsQueryBuild.push("id_register3") : '';
+                gSystemConfig.enablePublicationsBindRegister4 == 1 ? arrTableFieldsQueryBuild.push("id_register4") : '';
+                gSystemConfig.enablePublicationsBindRegister5 == 1 ? arrTableFieldsQueryBuild.push("id_register5") : '';
 
                 gSystemConfig.enablePublicationsDateStart == 1 ? arrTableFieldsQueryBuild.push("date_start") : '';
                 gSystemConfig.enablePublicationsDateEnd == 1 ? arrTableFieldsQueryBuild.push("date_end") : '';
@@ -1796,11 +1854,11 @@ module.exports = class FunctionsGeneric
                 gSystemConfig.enablePublicationsNumber4 == 1 ? arrTableFieldsQueryBuild.push("number4") : '';
                 gSystemConfig.enablePublicationsNumber5 == 1 ? arrTableFieldsQueryBuild.push("number5") : '';
                 
-                gSystemConfig.enablePublicationsURL1 == 1 ? arrTableFieldsQueryBuild.push("url1") : '';
-                gSystemConfig.enablePublicationsURL2 == 1 ? arrTableFieldsQueryBuild.push("url2") : '';
-                gSystemConfig.enablePublicationsURL3 == 1 ? arrTableFieldsQueryBuild.push("url3") : '';
-                gSystemConfig.enablePublicationsURL4 == 1 ? arrTableFieldsQueryBuild.push("url4") : '';
-                gSystemConfig.enablePublicationsURL5 == 1 ? arrTableFieldsQueryBuild.push("url5") : '';
+                gSystemConfig.enablePublicationsURL1 != 0 ? arrTableFieldsQueryBuild.push("url1") : '';
+                gSystemConfig.enablePublicationsURL2 != 0 ? arrTableFieldsQueryBuild.push("url2") : '';
+                gSystemConfig.enablePublicationsURL3 != 0 ? arrTableFieldsQueryBuild.push("url3") : '';
+                gSystemConfig.enablePublicationsURL4 != 0 ? arrTableFieldsQueryBuild.push("url4") : '';
+                gSystemConfig.enablePublicationsURL5 != 0 ? arrTableFieldsQueryBuild.push("url5") : '';
                 
                 gSystemConfig.enablePublicationsDate1 == 1 ? arrTableFieldsQueryBuild.push("date1") : '';
                 gSystemConfig.enablePublicationsDate2 == 1 ? arrTableFieldsQueryBuild.push("date2") : '';
@@ -1832,12 +1890,208 @@ module.exports = class FunctionsGeneric
             //File fields.
             if(buildType == "files")
             {
-                arrTableFieldsQueryBuild.push("image_main");
+                gSystemConfig.enablePublicationsImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
                 gSystemConfig.enablePublicationsFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
                 gSystemConfig.enablePublicationsFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
                 gSystemConfig.enablePublicationsFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
                 gSystemConfig.enablePublicationsFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
                 gSystemConfig.enablePublicationsFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+            }
+        }
+        //----------------------
+
+
+        //Registers.
+        //----------------------
+        if(strTable == gSystemConfig.configSystemDBTableRegisters)
+        {
+            if(buildType == "all")
+            {
+                arrTableFieldsQueryBuild = ["id", "id_parent"];
+                gSystemConfig.enableRegistersSortOrder == 1 ? arrTableFieldsQueryBuild.push("sort_order") : '';
+                //gSystemConfig.enableRegistersType == 1 ? arrTableFieldsQueryBuild.push("id_type") : '';
+                arrTableFieldsQueryBuild.push("date_creation", "date_timezone", "date_edit", "id_type");
+                gSystemConfig.enableRegistersActivity == 1 ? arrTableFieldsQueryBuild.push("id_activity") : '';
+
+                gSystemConfig.enableRegistersBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push("id_register_user") : '';
+                gSystemConfig.enableRegistersBindRegister1 == 1 ? arrTableFieldsQueryBuild.push("id_register1") : '';
+                gSystemConfig.enableRegistersBindRegister2 == 1 ? arrTableFieldsQueryBuild.push("id_register2") : '';
+                gSystemConfig.enableRegistersBindRegister3 == 1 ? arrTableFieldsQueryBuild.push("id_register3") : '';
+                gSystemConfig.enableRegistersBindRegister4 == 1 ? arrTableFieldsQueryBuild.push("id_register4") : '';
+                gSystemConfig.enableRegistersBindRegister5 == 1 ? arrTableFieldsQueryBuild.push("id_register5") : '';
+
+                gSystemConfig.enableRegistersRegisterType == 1 ? arrTableFieldsQueryBuild.push("register_type") : '';
+                
+                gSystemConfig.enableRegistersNameTitle == 1 ? arrTableFieldsQueryBuild.push("name_title") : '';
+                gSystemConfig.enableRegistersNameFull == 1 ? arrTableFieldsQueryBuild.push("name_full") : '';
+                gSystemConfig.enableRegistersNameFirst == 1 ? arrTableFieldsQueryBuild.push("name_first") : '';
+                gSystemConfig.enableRegistersNameLast == 1 ? arrTableFieldsQueryBuild.push("name_last") : '';
+                gSystemConfig.enableRegistersCompanyNameLegal == 1 ? arrTableFieldsQueryBuild.push("company_name_legal") : '';
+                gSystemConfig.enableRegistersCompanyNameAlias == 1 ? arrTableFieldsQueryBuild.push("company_name_alias") : '';
+                gSystemConfig.enableRegistersDescription == 1 ? arrTableFieldsQueryBuild.push("description") : '';
+                
+                arrTableFieldsQueryBuild.push("url_alias", "keywords_tags", "meta_description", "meta_title", "meta_info"); //27
+                
+                gSystemConfig.enableRegistersDateBirth == 1 ? arrTableFieldsQueryBuild.push("date_birth") : '';
+                gSystemConfig.enableUsersGender == 1 ? arrTableFieldsQueryBuild.push("gender") : '';
+                gSystemConfig.enableRegistersHeight == 1 ? arrTableFieldsQueryBuild.push("height") : '';
+                gSystemConfig.enableRegistersWeight == 1 ? arrTableFieldsQueryBuild.push("weight") : '';
+
+                gSystemConfig.enableRegistersDocumentType == 1 ? arrTableFieldsQueryBuild.push("document_type") : '';
+                gSystemConfig.enableRegistersDocument == 1 ? arrTableFieldsQueryBuild.push("document_type") : '';
+                gSystemConfig.enableRegistersDocument1Type == 1 ? arrTableFieldsQueryBuild.push("document1_type") : '';
+                gSystemConfig.enableRegistersDocument1 == 1 ? arrTableFieldsQueryBuild.push("document1") : '';
+                gSystemConfig.enableRegistersDocument2Type == 1 ? arrTableFieldsQueryBuild.push("document2_type") : '';
+                gSystemConfig.enableRegistersDocument2 == 1 ? arrTableFieldsQueryBuild.push("document2") : '';
+
+                gSystemConfig.enableRegistersDocumentCompanyType == 1 ? arrTableFieldsQueryBuild.push("document_company_type") : '';
+                gSystemConfig.enableRegistersDocumentCompany == 1 ? arrTableFieldsQueryBuild.push("document_company") : '';
+                gSystemConfig.enableRegistersDocumentCompany2Type == 1 ? arrTableFieldsQueryBuild.push("document_company1_type") : '';
+                gSystemConfig.enableRegistersDocumentCompany2 == 1 ? arrTableFieldsQueryBuild.push("document_company1") : '';
+                gSystemConfig.enableRegistersDocumentCompany2Type == 1 ? arrTableFieldsQueryBuild.push("document_company2_type") : '';
+                gSystemConfig.enableRegistersDocumentCompany2 == 1 ? arrTableFieldsQueryBuild.push("document_company2") : '';
+
+                gSystemConfig.enableRegistersZIPCode == 1 ? arrTableFieldsQueryBuild.push("zip_code") : '';
+                gSystemConfig.enableRegistersAddressStreet == 1 ? arrTableFieldsQueryBuild.push("address_street") : '';
+                gSystemConfig.enableRegistersAddressNumber == 1 ? arrTableFieldsQueryBuild.push("address_number") : '';
+                gSystemConfig.enableRegistersAddressComplement == 1 ? arrTableFieldsQueryBuild.push("address_complement") : '';
+                gSystemConfig.enableRegistersNeighborhood == 1 ? arrTableFieldsQueryBuild.push("neighborhood") : '';
+                gSystemConfig.enableRegistersDistrict == 1 ? arrTableFieldsQueryBuild.push("district") : '';
+                gSystemConfig.enableRegistersCounty == 1 ? arrTableFieldsQueryBuild.push("county") : '';
+                gSystemConfig.enableRegistersCity == 1 ? arrTableFieldsQueryBuild.push("city") : '';
+                gSystemConfig.enableRegistersState == 1 ? arrTableFieldsQueryBuild.push("state") : '';
+                gSystemConfig.enableRegistersCountry == 1 ? arrTableFieldsQueryBuild.push("country") : '';
+                arrTableFieldsQueryBuild.push("id_street", "id_neighborhood", "id_district", "id_county", "id_city", "id_state", "id_country");
+                
+                gSystemConfig.enableRegistersLocationReference == 1 ? arrTableFieldsQueryBuild.push("location_reference") : '';
+                gSystemConfig.enableRegistersLocationMap != 0 ? arrTableFieldsQueryBuild.push("location_map") : ''; //62
+
+                gSystemConfig.enableRegistersPhone1 == 1 ? arrTableFieldsQueryBuild.push("phone1_international_code", "phone1_area_code", "phone1") : '';
+                gSystemConfig.enableRegistersPhone2 == 1 ? arrTableFieldsQueryBuild.push("phone2_international_code", "phone2_area_code", "phone2") : '';
+                gSystemConfig.enableRegistersPhone3 == 1 ? arrTableFieldsQueryBuild.push("phone3_international_code", "phone3_area_code", "phone3") : '';
+                gSystemConfig.enableRegistersWebsite == 1 ? arrTableFieldsQueryBuild.push("website") : '';
+                
+                gSystemConfig.enableRegistersUsername == 1 ? arrTableFieldsQueryBuild.push("username") : '';
+                gSystemConfig.enableRegistersEmail == 1 ? arrTableFieldsQueryBuild.push("email") : '';
+                //arrTableFieldsQueryBuild.push("password", "password_hint", "password_length");
+                gSystemConfig.configRegistersPassword == 1 ? arrTableFieldsQueryBuild.push("password", "password_hint", "password_length") : ''; //78
+
+                gSystemConfig.enableRegistersInfo1 == 1 ? arrTableFieldsQueryBuild.push("info1") : '';
+                gSystemConfig.enableRegistersInfo2 == 1 ? arrTableFieldsQueryBuild.push("info2") : '';
+                gSystemConfig.enableRegistersInfo3 == 1 ? arrTableFieldsQueryBuild.push("info3") : '';
+                gSystemConfig.enableRegistersInfo4 == 1 ? arrTableFieldsQueryBuild.push("info4") : '';
+                gSystemConfig.enableRegistersInfo5 == 1 ? arrTableFieldsQueryBuild.push("info5") : '';
+                gSystemConfig.enableRegistersInfo6 == 1 ? arrTableFieldsQueryBuild.push("info6") : '';
+                gSystemConfig.enableRegistersInfo7 == 1 ? arrTableFieldsQueryBuild.push("info7") : '';
+                gSystemConfig.enableRegistersInfo8 == 1 ? arrTableFieldsQueryBuild.push("info8") : '';
+                gSystemConfig.enableRegistersInfo9 == 1 ? arrTableFieldsQueryBuild.push("info9") : '';
+                gSystemConfig.enableRegistersInfo10 == 1 ? arrTableFieldsQueryBuild.push("info10") : '';
+                gSystemConfig.enableRegistersInfo11 == 1 ? arrTableFieldsQueryBuild.push("info11") : '';
+                gSystemConfig.enableRegistersInfo12 == 1 ? arrTableFieldsQueryBuild.push("info12") : '';
+                gSystemConfig.enableRegistersInfo13 == 1 ? arrTableFieldsQueryBuild.push("info13") : '';
+                gSystemConfig.enableRegistersInfo14 == 1 ? arrTableFieldsQueryBuild.push("info14") : '';
+                gSystemConfig.enableRegistersInfo15 == 1 ? arrTableFieldsQueryBuild.push("info15") : '';
+                gSystemConfig.enableRegistersInfo16 == 1 ? arrTableFieldsQueryBuild.push("info16") : '';
+                gSystemConfig.enableRegistersInfo17 == 1 ? arrTableFieldsQueryBuild.push("info17") : '';
+                gSystemConfig.enableRegistersInfo18 == 1 ? arrTableFieldsQueryBuild.push("info18") : '';
+                gSystemConfig.enableRegistersInfo19 == 1 ? arrTableFieldsQueryBuild.push("info19") : '';
+                gSystemConfig.enableRegistersInfo20 == 1 ? arrTableFieldsQueryBuild.push("info20") : '';
+
+                gSystemConfig.enableRegistersInfoS1 == 1 ? arrTableFieldsQueryBuild.push("info_small1") : '';
+                gSystemConfig.enableRegistersInfoS2 == 1 ? arrTableFieldsQueryBuild.push("info_small2") : '';
+                gSystemConfig.enableRegistersInfoS3 == 1 ? arrTableFieldsQueryBuild.push("info_small3") : '';
+                gSystemConfig.enableRegistersInfoS4 == 1 ? arrTableFieldsQueryBuild.push("info_small4") : '';
+                gSystemConfig.enableRegistersInfoS5 == 1 ? arrTableFieldsQueryBuild.push("info_small5") : '';
+                gSystemConfig.enableRegistersInfoS6 == 1 ? arrTableFieldsQueryBuild.push("info_small6") : '';
+                gSystemConfig.enableRegistersInfoS7 == 1 ? arrTableFieldsQueryBuild.push("info_small7") : '';
+                gSystemConfig.enableRegistersInfoS8 == 1 ? arrTableFieldsQueryBuild.push("info_small8") : '';
+                gSystemConfig.enableRegistersInfoS9 == 1 ? arrTableFieldsQueryBuild.push("info_small9") : '';
+                gSystemConfig.enableRegistersInfoS10 == 1 ? arrTableFieldsQueryBuild.push("info_small10") : '';
+                gSystemConfig.enableRegistersInfoS11 == 1 ? arrTableFieldsQueryBuild.push("info_small11") : '';
+                gSystemConfig.enableRegistersInfoS12 == 1 ? arrTableFieldsQueryBuild.push("info_small12") : '';
+                gSystemConfig.enableRegistersInfoS13 == 1 ? arrTableFieldsQueryBuild.push("info_small13") : '';
+                gSystemConfig.enableRegistersInfoS14 == 1 ? arrTableFieldsQueryBuild.push("info_small14") : '';
+                gSystemConfig.enableRegistersInfoS15 == 1 ? arrTableFieldsQueryBuild.push("info_small15") : '';
+                gSystemConfig.enableRegistersInfoS16 == 1 ? arrTableFieldsQueryBuild.push("info_small16") : '';
+                gSystemConfig.enableRegistersInfoS17 == 1 ? arrTableFieldsQueryBuild.push("info_small17") : '';
+                gSystemConfig.enableRegistersInfoS18 == 1 ? arrTableFieldsQueryBuild.push("info_small18") : '';
+                gSystemConfig.enableRegistersInfoS19 == 1 ? arrTableFieldsQueryBuild.push("info_small19") : '';
+                gSystemConfig.enableRegistersInfoS20 == 1 ? arrTableFieldsQueryBuild.push("info_small20") : '';
+                gSystemConfig.enableRegistersInfoS21 == 1 ? arrTableFieldsQueryBuild.push("info_small21") : '';
+                gSystemConfig.enableRegistersInfoS22 == 1 ? arrTableFieldsQueryBuild.push("info_small22") : '';
+                gSystemConfig.enableRegistersInfoS23 == 1 ? arrTableFieldsQueryBuild.push("info_small23") : '';
+                gSystemConfig.enableRegistersInfoS24 == 1 ? arrTableFieldsQueryBuild.push("info_small24") : '';
+                gSystemConfig.enableRegistersInfoS25 == 1 ? arrTableFieldsQueryBuild.push("info_small25") : '';
+                gSystemConfig.enableRegistersInfoS26 == 1 ? arrTableFieldsQueryBuild.push("info_small26") : '';
+                gSystemConfig.enableRegistersInfoS27 == 1 ? arrTableFieldsQueryBuild.push("info_small27") : '';
+                gSystemConfig.enableRegistersInfoS28 == 1 ? arrTableFieldsQueryBuild.push("info_small28") : '';
+                gSystemConfig.enableRegistersInfoS29 == 1 ? arrTableFieldsQueryBuild.push("info_small29") : '';
+                gSystemConfig.enableRegistersInfoS30 == 1 ? arrTableFieldsQueryBuild.push("info_small30") : ''; //127
+                
+                gSystemConfig.enableRegistersNumber1 == 1 ? arrTableFieldsQueryBuild.push("number1") : '';
+                gSystemConfig.enableRegistersNumber2 == 1 ? arrTableFieldsQueryBuild.push("number2") : '';
+                gSystemConfig.enableRegistersNumber3 == 1 ? arrTableFieldsQueryBuild.push("number3") : '';
+                gSystemConfig.enableRegistersNumber4 == 1 ? arrTableFieldsQueryBuild.push("number4") : '';
+                gSystemConfig.enableRegistersNumber5 == 1 ? arrTableFieldsQueryBuild.push("number5") : '';
+                
+                gSystemConfig.enableRegistersNumberS1 == 1 ? arrTableFieldsQueryBuild.push("number_small1") : '';
+                gSystemConfig.enableRegistersNumberS2 == 1 ? arrTableFieldsQueryBuild.push("number_small2") : '';
+                gSystemConfig.enableRegistersNumberS3 == 1 ? arrTableFieldsQueryBuild.push("number_small3") : '';
+                gSystemConfig.enableRegistersNumberS4 == 1 ? arrTableFieldsQueryBuild.push("number_small4") : '';
+                gSystemConfig.enableRegistersNumberS5 == 1 ? arrTableFieldsQueryBuild.push("number_small5") : '';
+                
+                gSystemConfig.enableRegistersURL1 != 0 ? arrTableFieldsQueryBuild.push("url1") : '';
+                gSystemConfig.enableRegistersURL2 != 0 ? arrTableFieldsQueryBuild.push("url2") : '';
+                gSystemConfig.enableRegistersURL3 != 0 ? arrTableFieldsQueryBuild.push("url3") : '';
+                gSystemConfig.enableRegistersURL4 != 0 ? arrTableFieldsQueryBuild.push("url4") : '';
+                gSystemConfig.enableRegistersURL5 != 0 ? arrTableFieldsQueryBuild.push("url5") : '';
+                
+                gSystemConfig.enableRegistersDate1 == 1 ? arrTableFieldsQueryBuild.push("date1") : '';
+                gSystemConfig.enableRegistersDate2 == 1 ? arrTableFieldsQueryBuild.push("date2") : '';
+                gSystemConfig.enableRegistersDate3 == 1 ? arrTableFieldsQueryBuild.push("date3") : '';
+                gSystemConfig.enableRegistersDate4 == 1 ? arrTableFieldsQueryBuild.push("date4") : '';
+                gSystemConfig.enableRegistersDate5 == 1 ? arrTableFieldsQueryBuild.push("date5") : '';
+                gSystemConfig.enableRegistersDate6 == 1 ? arrTableFieldsQueryBuild.push("date6") : '';
+                gSystemConfig.enableRegistersDate7 == 1 ? arrTableFieldsQueryBuild.push("date7") : '';
+                gSystemConfig.enableRegistersDate8 == 1 ? arrTableFieldsQueryBuild.push("date8") : '';
+                gSystemConfig.enableRegistersDate9 == 1 ? arrTableFieldsQueryBuild.push("date9") : '';
+                gSystemConfig.enableRegistersDate10 == 1 ? arrTableFieldsQueryBuild.push("date10") : ''; //152
+                
+                gSystemConfig.enableRegistersImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
+                gSystemConfig.enableRegistersImageMainCaption == 1 ? arrTableFieldsQueryBuild.push("image_main_caption") : '';
+                gSystemConfig.enableRegistersImageLogo == 1 ? arrTableFieldsQueryBuild.push("image_logo") : '';
+                gSystemConfig.enableRegistersImageBanner == 1 ? arrTableFieldsQueryBuild.push("image_banner") : '';
+
+                gSystemConfig.enableRegistersFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+                gSystemConfig.enableRegistersFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+                gSystemConfig.enableRegistersFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+                gSystemConfig.enableRegistersFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+                gSystemConfig.enableRegistersFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+                
+                arrTableFieldsQueryBuild.push("activation");
+                gSystemConfig.enableRegistersActivation1 == 1 ? arrTableFieldsQueryBuild.push("activation1") : '';
+                gSystemConfig.enableRegistersActivation2 == 1 ? arrTableFieldsQueryBuild.push("activation2") : '';
+                gSystemConfig.enableRegistersActivation3 == 1 ? arrTableFieldsQueryBuild.push("activation3") : '';
+                gSystemConfig.enableRegistersActivation4 == 1 ? arrTableFieldsQueryBuild.push("activation4") : '';
+                gSystemConfig.enableRegistersActivation5 == 1 ? arrTableFieldsQueryBuild.push("activation5") : '';
+                gSystemConfig.enableRegistersStatus == 1 ? arrTableFieldsQueryBuild.push("id_status") : '';
+                gSystemConfig.enableRegistersRestrictedAccess == 1 ? arrTableFieldsQueryBuild.push("restricted_access") : '';
+                gSystemConfig.enableRegistersNotes == 1 ? arrTableFieldsQueryBuild.push("notes") : '';
+            }
+
+
+            //File fields.
+            if(buildType == "files")
+            {
+                gSystemConfig.enableRegistersImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
+                gSystemConfig.enableRegistersImageMainCaption == 1 ? arrTableFieldsQueryBuild.push("image_main_caption") : '';
+                gSystemConfig.enableRegistersImageLogo == 1 ? arrTableFieldsQueryBuild.push("image_logo") : '';
+                gSystemConfig.enableRegistersImageBanner == 1 ? arrTableFieldsQueryBuild.push("image_banner") : '';
+                gSystemConfig.enableRegistersFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+                gSystemConfig.enableRegistersFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+                gSystemConfig.enableRegistersFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+                gSystemConfig.enableRegistersFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+                gSystemConfig.enableRegistersFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
             }
         }
         //----------------------
@@ -2029,7 +2283,8 @@ module.exports = class FunctionsGeneric
             //File fields.
             if(buildType == "files")
             {
-                arrTableFieldsQueryBuild.push("image_main");
+                //arrTableFieldsQueryBuild.push("image_main");
+                gSystemConfig.enableUsersImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
             }
         }
         //----------------------

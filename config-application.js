@@ -57,11 +57,11 @@ window.location.hash: "#2"
 window.location.search: "?query=1"
 */
 
-//gSystemConfig.configSystemURLImages = "/"; //".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https://multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
-gSystemConfig.configSystemURLImages = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com";
+gSystemConfig.configSystemURLImages = "/"; //".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https://multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
+//gSystemConfig.configSystemURLImages = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com";
 gSystemConfig.configSystemURLImagesRemote = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com"; //maybe it´s not needed
-//gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + "/";
-gSystemConfig.configFrontendReactURLImages = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com";
+gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + "/";
+//gSystemConfig.configFrontendReactURLImages = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com";
 
 gSystemConfig.configFrontendDefaultView = "frontend_react"; //frontend_node | frontend_react
 gSystemConfig.configFrontendMobileDefaultView = "frontend_node_mobile";
@@ -272,7 +272,7 @@ gSystemConfig.configCryptSalt = "syncsystem"; //generate a salt data //TODO: thi
 
 //Image configuration.
 //----------------------
-gSystemConfig.configUploadType = 2; //1 - Save Files Locally | 2 - Amazon S3
+gSystemConfig.configUploadType = 1; //1 - Save Files Locally | 2 - Amazon S3
 gSystemConfig.configUploadComponent = 1; //1 - formidable | 2 - multer (TODO) | 3 - multyparty (TODO)
 gSystemConfig.configImageComponent = 1; //1 - sharp
 gSystemConfig.configImageQuality = 100; //image quality percentage on resizing
@@ -370,11 +370,11 @@ gSystemConfig.configCategoryType = [
   {category_type: 4, category_type_function_label: "backendCategoriesType4Function", queryString: "publicationType=2"}, //Photo Gallery
   {category_type: 5, category_type_function_label: "backendCategoriesType5Function", queryString: "publicationType=3"}, //Articles
   {category_type: 6, category_type_function_label: "backendCategoriesType6Function", queryString: "publicationType=4"}, //Publications
-  {category_type: 7, category_type_function_label: "backendCategoriesType7Function", queryString: "-"}, //Polls
+  {category_type: 7, category_type_function_label: "backendCategoriesType7Function", queryString: "idType=1"}, //Polls
   {category_type: 9, category_type_function_label: "backendCategoriesType9Function", queryString: "-"}, //Segment
   {category_type: 12, category_type_function_label: "backendCategoriesType12Function", queryString: ""}, //Forms
   {category_type: 13, category_type_function_label: "backendCategoriesType13Function", queryString: ""}, //Registers
-  {category_type: 17, category_type_function_label: "backendCategoriesType17Function", queryString: ""} //Quizzes
+  {category_type: 17, category_type_function_label: "backendCategoriesType17Function", queryString: "idType=2"} //Quizzes
 ]
 //**************************************************************************************
 
@@ -1899,7 +1899,7 @@ gSystemConfig.configQuizzesOptionsSort = "id DESC"; //options: id | sort_order |
 gSystemConfig.enableQuizzesIdParentEdit = 1; //0 - disable | 1 - enable
 gSystemConfig.enableQuizzesSortOrder = 1; //0 - disable | 1 - enable
 gSystemConfig.enableQuizzesType = 0; //0 - disable | 1 - enable
-gSystemConfig.configQuizzesTypeDefault = 2; //1 - poll | 2 - quiz (multiple questions)  | 3 - (written template answer) | (Valid only if enableQuizzesType = 0)
+//gSystemConfig.configQuizzesTypeDefault = 2; //1 - poll | 2 - quiz (multiple questions)  | 3 - (written template answer) | (Valid only if enableQuizzesType = 0)
 
 gSystemConfig.enableQuizzesBindRegisterUser = 1; //0 - disable | 1 - enable
 gSystemConfig.configQuizzesBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
@@ -1990,21 +1990,21 @@ gSystemConfig.enableQuizzesOptionsImageMainCaption = 1; //0 - disable | 1 - enab
 gSystemConfig.enableQuizzesOptionsAnswer = 1; //0 - disable | 1 - enable
 
 //Optional fields (field titles in the language configuration file).
-//Small information fields.
-gSystemConfig.enableQuizzesOptionsInfoS1 = 1; //0 - disable | 1 - enable
-gSystemConfig.configQuizzesOptionsInfoS1FieldType = 2; //1 - single line | 2 - multiline
+//Big information fields.
+gSystemConfig.enableQuizzesOptionsInfo1 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-gSystemConfig.enableQuizzesOptionsInfoS2 = 1; //0 - disable | 1 - enable
-gSystemConfig.configQuizzesOptionsInfoS2FieldType = 1; //1 - single line | 2 - multiline
+gSystemConfig.enableQuizzesOptionsInfo2 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-gSystemConfig.enableQuizzesOptionsInfoS3 = 1; //0 - disable | 1 - enable
-gSystemConfig.configQuizzesOptionsInfoS3FieldType = 1; //1 - single line | 2 - multiline
+gSystemConfig.enableQuizzesOptionsInfo3 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-gSystemConfig.enableQuizzesOptionsInfoS4 = 1; //0 - disable | 1 - enable
-gSystemConfig.configQuizzesOptionsInfoS4FieldType = 1; //1 - single line | 2 - multiline
+gSystemConfig.enableQuizzesOptionsInfo4 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-gSystemConfig.enableQuizzesOptionsInfoS5 = 1; //0 - disable | 1 - enable
-gSystemConfig.configQuizzesOptionsInfoS5FieldType = 1; //1 - single line | 2 - multiline
+gSystemConfig.enableQuizzesOptionsInfo5 = 1; //0 - disable | 1 - enable
+gSystemConfig.configQuizzesOptionsInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
 //Big number fields (up to 34 digits).
 gSystemConfig.enableQuizzesOptionsNumber1 = 1; //0 - disable | 1 - enable
