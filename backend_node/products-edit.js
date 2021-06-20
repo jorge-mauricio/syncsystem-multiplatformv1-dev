@@ -5234,7 +5234,7 @@ module.exports = class ProductsEdit
                                 `
                                 <tr id="inputRowProducts_weight" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsWight") }: 
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsWeight") }: 
                                     </td>
                                     <td>
                                         <input type="text" id="products_weight" name="weight" class="ss-backend-field-numeric02" value="${ opdRecord.tblProductsWeight_print }" maxlength="34" />

@@ -575,7 +575,7 @@ module.exports = class PublicationsListing
                     <input type="hidden" id="formPublicationsListing_strTable" name="strTable" value="${ gSystemConfig.configSystemDBTablePublications }" />
                     
                     <input type="hidden" id="formPublicationsListing_idParent" name="idParent" value="${ this._idParent }" />
-                    <input type="hidden" id="formPublicationsListing_idType" name="idTyp" value="${ this._idTyp }" />
+                    <input type="hidden" id="formPublicationsListing_idType" name="idType" value="${ this._idType }" />
                     <input type="hidden" id="formPublicationsListing_pageReturn" name="pageReturn" value="${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendPublications }" />
                     <input type="hidden" id="formPublicationsListing_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
                     <input type="hidden" id="formPublicationsListing_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />

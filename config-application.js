@@ -1250,9 +1250,9 @@ gSystemConfig.enablePublicationsMetaDescription = 1; //0 - disable | 1 - enable
 gSystemConfig.enablePublicationsMetaTitle = 1; //0 - disable | 1 - enable
 
 //Pagination.
-gSystemConfig.enablePPublicationsBackendPagination = 1; //0 - disable | 1 - enable
-gSystemConfig.enablePPublicationsBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-gSystemConfig.configPPublicationsBackendPaginationNRecords = 15;
+gSystemConfig.enablePublicationsBackendPagination = 1; //0 - disable | 1 - enable
+gSystemConfig.enablePublicationsBackendPaginationNumbering = 1; //0 - disable | 1 - enable
+gSystemConfig.configPublicationsBackendPaginationNRecords = 15;
 
 //Resources.
 gSystemConfig.enablePublicationsContent = 1; //0 - disable | 1 - enable

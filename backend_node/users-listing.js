@@ -1152,7 +1152,7 @@ module.exports = class UsersListing
                                             ${ gSystemConfig.configBackendDateFormat == 1 ? 
                                                 `
                                                     <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configProductsDate5Type}).map((arrayRow)=>{
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
                                                                     ${ this.dateNowDay == arrayRow ? ' selected' : ``}
@@ -1161,7 +1161,7 @@ module.exports = class UsersListing
                                                     </select>
                                                     /
                                                     <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configProductsDate5Type}).map((arrayRow)=>{
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
                                                                     ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
@@ -1170,7 +1170,7 @@ module.exports = class UsersListing
                                                     </select>
                                                     /
                                                     <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configProductsDate5Type}).map((arrayRow)=>{
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
                                                                     ${ this.dateNowYear == arrayRow ? ' selected' : ''}
@@ -1179,7 +1179,7 @@ module.exports = class UsersListing
                                                     </select>
                                                 ` : `
                                                     <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configProductsDate5Type}).map((arrayRow)=>{
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
                                                                     ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
@@ -1188,7 +1188,7 @@ module.exports = class UsersListing
                                                     </select>
                                                     /
                                                     <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configProductsDate5Type}).map((arrayRow)=>{
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
                                                                     ${ this.dateNowDay == arrayRow ? ' selected' : ``}
@@ -1197,7 +1197,7 @@ module.exports = class UsersListing
                                                     </select>
                                                     /
                                                     <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configProductsDate5Type}).map((arrayRow)=>{
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
                                                                     ${ this.dateNowYear == arrayRow ? ' selected' : ``}

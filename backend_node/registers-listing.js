@@ -659,7 +659,1322 @@ module.exports = class RegistersListing
 
 
             <section class="ss-backend-layout-section-data01">
-            registers listing
+            ${oplRecords.resultsRegistersListing == "" ? `
+                <div class="ss-backend-alert ss-backend-layout-div-records-empty">
+                    ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage1") }
+                </div>
+            ` : `
+                <div style="position: relative; display: block; overflow: hidden; margin-bottom: 2px;">
+                    <button 
+                        id="registers_delete" 
+                        name="registers_delete" 
+                        onclick="elementMessage01('formRegistersListing_method', 'DELETE');
+                                formSubmit('formRegistersListing', '', '', '/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/?_method=DELETE');
+                                " 
+                        class="ss-backend-btn-base ss-backend-btn-action-cancel" 
+                        style="float: right;">
+                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDelete") }
+                    </button>
+                </div>
+
+                <form id="formRegistersListing" name="formRegistersListing" method="POST" action="" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" id="formRegistersListing_method" name="_method" value="">
+
+                    <input type="hidden" id="formRegistersListing_strTable" name="strTable" value="${ gSystemConfig.configSystemDBTableRegisters }" />
+                    
+                    <input type="hidden" id="formRegistersListing_idParent" name="idParent" value="${ this._idParent }" />
+                    <input type="hidden" id="formRegistersListing_pageReturn" name="pageReturn" value="${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters }" />
+                    <input type="hidden" id="formRegistersListing_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
+                    <input type="hidden" id="formRegistersListing_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
+
+                    <div style="position: relative; display: block; overflow: hidden;">
+                        <table class="ss-backend-table-listing01">
+                            <caption class="ss-backend-table-header-text01 ss-backend-table-title">
+                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleMain") }
+                            </caption>
+                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
+                                <tr>
+                                    ${ gSystemConfig.enableRegistersSortOrder == 1 ? 
+                                    `
+                                    <td style="width: 40px; text-align: left;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSortOrderA") }  
+                                    </td>
+                                    ` : ``
+                                    }
+
+                                    <td style="width: 100px; text-align: center;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDateCreated") }  
+                                    </td>
+
+                                    ${ gSystemConfig.enableRegistersImageMain == 1 ? 
+                                    `
+                                    <td style="width: 100px; text-align: center;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImage") }  
+                                    </td>
+                                    ` : ``
+                                    }
+
+                                    <td style="text-align: left;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegister") }  
+                                    </td>
+
+                                    <td style="width: 100px; text-align: center;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemFunctions") }  
+                                    </td>
+
+                                    ${ gSystemConfig.enableRegistersStatus == 1 ? 
+                                        `
+                                        <td style="width: 100px; text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersStatus") }  
+                                        </td>
+                                        ` : ``
+                                    }
+
+                                    <td style="width: 40px; text-align: center;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivationA") }  
+                                    </td>
+                                    ${ gSystemConfig.enableRegistersActivation1 == 1 ? 
+                                        `
+                                        <td style="width: 40px; text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation1") }  
+                                        </td>
+                                        ` : ``
+                                    }
+                                    ${ gSystemConfig.enableRegistersActivation2 == 1 ? 
+                                        `
+                                        <td style="width: 40px; text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation2") }  
+                                        </td>
+                                        ` : ``
+                                    }
+                                    ${ gSystemConfig.enableRegistersActivation3 == 1 ? 
+                                        `
+                                        <td style="width: 40px; text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation3") }  
+                                        </td>
+                                        ` : ``
+                                    }
+                                    ${ gSystemConfig.enableRegistersActivation4 == 1 ? 
+                                        `
+                                        <td style="width: 40px; text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation4") }  
+                                        </td>
+                                        ` : ``
+                                    }
+                                    ${ gSystemConfig.enableRegistersActivation5 == 1 ? 
+                                        `
+                                        <td style="width: 40px; text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation5") }  
+                                        </td>
+                                        ` : ``
+                                    }
+
+                                    ${ gSystemConfig.enableRegistersRestrictedAccess == 1 ? 
+                                        `
+                                        <td style="width: 40px; text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccessA") }  
+                                        </td>
+                                        ` : ``
+                                    }
+
+                                    <td style="width: 40px; text-align: center;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEdit") }  
+                                    </td>
+                                    <td style="width: 40px; text-align: center;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDelete") }  
+                                    </td>
+                                </tr>
+                            </thead>
+
+                            <tbody class="ss-backend-table-listing-text01">
+                            ${ oplRecords.resultsRegistersListing.map((registersRow)=>{
+                                return `
+                                    <tr class="ss-backend-table-bg-light">
+                                        ${ gSystemConfig.enableRegistersSortOrder == 1 ? 
+                                        `
+                                        <td style="text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.valueMaskRead(registersRow.sort_order, "", 3, null) } 
+                                        </td>
+                                        ` : ``
+                                        }
+
+                                        <td style="text-align: center;">
+                                            ${ SyncSystemNS.FunctionsGeneric.dateRead01(registersRow.date_creation, 
+                                                                                        gSystemConfig.configBackendDateFormat, 
+                                                                                        0, 
+                                                                                        3) }
+                                        </td>
+
+                                        ${ gSystemConfig.enableRegistersImageMain == 1 ? 
+                                        `
+                                        <td style="text-align: center;">
+                                            ${ registersRow.image_main !== "" ? 
+                                            `
+                                                ${ /*No pop-up.*/'' }
+                                                ${ gSystemConfig.configImagePopup == 0 ? 
+                                                `
+                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") }" class="ss-backend-images-listing" />
+                                                ` : ``
+                                                }
+
+                                                ${ /*GLightbox.*/'' }
+                                                ${ gSystemConfig.configImagePopup == 4 ? 
+                                                `
+                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + registersRow.image_main + "?v=" + this.cacheClear }"
+                                                       title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") }"
+                                                       class="glightbox_registers_image_main${ registersRow.id }"
+                                                       data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") };">
+
+                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") }" class="ss-backend-images-listing" />
+                                                    </a>
+                                                    <script>
+                                                        gLightboxBackendConfigOptions.selector = "glightbox_registers_image_main${ registersRow.id }";
+                                                        //Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
+                                                        //data-glightbox="title: Title example.; description: Description example."
+                                                        var glightboxRegistersImageMain = GLightbox(gLightboxBackendConfigOptions);
+                                                    </script>
+                                                ` : ``
+                                                }
+                                            ` : ``
+                                            }
+                                        </td>
+                                        ` : ``
+                                        }
+                                        
+                                        <td style="text-align: left;">
+                                            ${ gSystemConfig.enableRegistersNameFull == 1 ? 
+                                                `
+                                                <div>
+                                                    <strong>
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFull") }
+                                                    </strong>
+                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") } 
+                                                </div>
+                                                ` : ``
+                                            }
+
+                                            ${ gSystemConfig.enableRegistersNameFirst == 1 ? 
+                                                `
+                                                <div>
+                                                    <strong>
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFirst") }
+                                                    </strong>
+                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_first, "db") } 
+                                                </div>
+                                                ` : ``
+                                            }
+
+                                            ${ gSystemConfig.enableRegistersNameLast == 1 ? 
+                                                `
+                                                <div>
+                                                    <strong>
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameLast") }
+                                                    </strong>
+                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_last, "db") } 
+                                                </div>
+                                                ` : ``
+                                            }
+
+                                            ${ gSystemConfig.enableRegistersCompanyNameLegal == 1 ? 
+                                                `
+                                                <div>
+                                                    <strong>
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameLegal") }
+                                                    </strong>
+                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.company_name_legal, "db") } 
+                                                </div>
+                                                ` : ``
+                                            }
+
+                                            ${ gSystemConfig.enableRegistersCompanyNameAlias == 1 ? 
+                                                `
+                                                <div>
+                                                    <strong>
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameAlias") }
+                                                    </strong>
+                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.company_name_alias, "db") } 
+                                                </div>
+                                                ` : ``
+                                            }
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            ${ /*SyncSystemNS.FunctionsGeneric.categoryConfigSelect(registersRow.category_type, 4)*/'' }
+                                            
+                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" + gSystemConfig.configRouteBackendDetails + "/" + registersRow.id + "/" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDetailsView") }
+                                            </a> 
+                                            <!--a href="/${ gSystemConfig.configRouteFrontend + "/" + gSystemConfig.configRouteFrontendRegisters + "/" + gSystemConfig.configRouteFrontendDetails + "/" + registersRow.id + "/" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDetailsView") }
+                                            </a--> ${ /*TODO: Change address to access frontend.*/ '' }
+
+
+                                            ${ /*Content.*/ '' }
+                                            ${ gSystemConfig.enableRegistersContent == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendContent + "/" + registersRow.id + "/?masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertContent") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+
+                                            ${ /*Images.*/ '' }
+                                            ${ gSystemConfig.enableRegistersImages == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=1&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertImages") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+
+                                            ${ /*Videos.*/ '' }
+                                            ${ gSystemConfig.enableRegistersVideos == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=2&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertVideos") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+                                            
+                                            ${ /*Files.*/ '' }
+                                            ${ gSystemConfig.enableRegistersFiles == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=3&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFiles") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+
+                                            ${ /*Zip files.*/ '' }
+                                            ${ gSystemConfig.enableRegistersZip == 1 ? 
+                                                `
+                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=4&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFilesZip") }
+                                                    </a> 
+                                                ` : ``
+                                            }
+                                        </td>
+
+                                        ${ gSystemConfig.enableRegistersStatus == 1 ? 
+                                            `
+                                            <td style="text-align: center;">
+                                                ${ registersRow.id_status == 0 ? `
+                                                    ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }
+                                                ` : `
+                                                    ${ ofglRecords.resultsFiltersGenericListing.filter(function(objFiltered){
+                                                        return objFiltered.id == registersRow.id_status;
+                                                    }).map(function(objMapped){
+                                                        //return objMapped.title
+                                                        return SyncSystemNS.FunctionsGeneric.contentMaskRead(objMapped.title, "db");
+                                                    }) }
+
+                                                    ${ /*registersRow.id_status*/ '' }
+                                                ` }
+                                            </td>
+                                            ` : ``
+                                        }
+    
+                                        <td id="formRegistersListing_elementActivation${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                            <a id="linkActivation${ registersRow.id }" class="ss-backend-links01" 
+                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                         ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ registersRow.id }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                        strField:'activation', 
+                                                                                        recordValue: '${ registersRow.activation == 1 ? 0 : 1}', 
+                                                                                        patchType: 'toggleValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        //alert(JSON.stringify(_resObjReturn));
+                                                                                        
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Check status.
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSAdd('formRegistersListing_elementActivation${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
+                                                                                            }
+
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSRemove('formRegistersListing_elementActivation${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
+                                                                                            }
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                ${ 
+                                                    registersRow.activation == "1" ? 
+                                                    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
+                                                    : 
+                                                    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
+                                                } 
+                                            </a>
+                                        </td>
+                                        ${ gSystemConfig.enableRegistersActivation1 == 1 ? 
+                                            `
+                                            <td id="formRegistersListing_elementActivation1${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation1 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                                <a id="linkActivation1${ registersRow.id }" class="ss-backend-links01"
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ registersRow.id }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                        strField:'activation1', 
+                                                                                        recordValue: '${ registersRow.activation1 == 1 ? 0 : 1}', 
+                                                                                        patchType: 'toggleValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Check status.
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSAdd('formRegistersListing_elementActivation1${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation1${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
+                                                                                            }
+
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSRemove('formRegistersListing_elementActivation1${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation1${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
+                                                                                            }
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                    ${ 
+                                                        registersRow.activation1 == "1" ? 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
+                                                        : 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
+                                                    } 
+                                                </a>
+                                            </td>
+                                            ` : ``
+                                        }
+                                        ${ gSystemConfig.enableRegistersActivation2 == 1 ? 
+                                            `
+                                            <td id="formRegistersListing_elementActivation2${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation2 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                                <a id="linkActivation2${ registersRow.id }" class="ss-backend-links01"
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ registersRow.id }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                        strField:'activation2', 
+                                                                                        recordValue: '${ registersRow.activation2 == 1 ? 0 : 1}', 
+                                                                                        patchType: 'toggleValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Check status.
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSAdd('formRegistersListing_elementActivation2${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation2${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
+                                                                                            }
+
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSRemove('formRegistersListing_elementActivation2${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation2${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
+                                                                                            }
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                    ${ 
+                                                        registersRow.activation2 == "1" ? 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
+                                                        : 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
+                                                    } 
+                                                </a>
+                                            </td>
+                                            ` : ``
+                                        }
+                                        ${ gSystemConfig.enableRegistersActivation3 == 1 ? 
+                                            `
+                                            <td id="formRegistersListing_elementActivation3${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation3 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                                <a id="linkActivation3${ registersRow.id }" class="ss-backend-links01"
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ registersRow.id }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                        strField:'activation3', 
+                                                                                        recordValue: '${ registersRow.activation3 == 1 ? 0 : 1}', 
+                                                                                        patchType: 'toggleValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Check status.
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSAdd('formRegistersListing_elementActivation3${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation3${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
+                                                                                            }
+
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSRemove('formRegistersListing_elementActivation3${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation3${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
+                                                                                            }
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                    ${ 
+                                                        registersRow.activation3 == "1" ? 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
+                                                        : 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
+                                                    } 
+                                                </a>
+                                            </td>
+                                            ` : ``
+                                        }
+                                        ${ gSystemConfig.enableRegistersActivation4 == 1 ? 
+                                            `
+                                            <td id="formRegistersListing_elementActivation4${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation4 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                                <a id="linkActivation4${ registersRow.id }" class="ss-backend-links01"
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ registersRow.id }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                        strField:'activation4', 
+                                                                                        recordValue: '${ registersRow.activation4 == 1 ? 0 : 1}', 
+                                                                                        patchType: 'toggleValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Check status.
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSAdd('formRegistersListing_elementActivation4${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation4${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
+                                                                                            }
+
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSRemove('formRegistersListing_elementActivation4${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation4${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
+                                                                                            }
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                    ${ 
+                                                        registersRow.activation4 == "1" ? 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
+                                                        : 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
+                                                    } 
+                                                </a>
+                                            </td>
+                                            ` : ``
+                                        }
+                                        ${ gSystemConfig.enableRegistersActivation5 == 1 ? 
+                                            `
+                                            <td id="formRegistersListing_elementActivation5${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation5 == 1 ? "" : "ss-backend-table-bg-deactive"}">
+                                                <a id="linkActivation5${ registersRow.id }" class="ss-backend-links01"
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ registersRow.id }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                        strField:'activation5', 
+                                                                                        recordValue: '${ registersRow.activation5 == 1 ? 0 : 1}', 
+                                                                                        patchType: 'toggleValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Check status.
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSAdd('formRegistersListing_elementActivation5${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation5${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
+                                                                                            }
+
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSRemove('formRegistersListing_elementActivation5${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkActivation5${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
+                                                                                            }
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                    ${ 
+                                                        registersRow.activation5 == "1" ? 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
+                                                        : 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
+                                                    } 
+                                                </a>
+                                            </td>
+                                            ` : ``
+                                        }
+
+                                        ${ gSystemConfig.enableRegistersRestrictedAccess == 1 ? 
+                                            `
+                                            <td id="formRegistersListing_elementRestrictedAccess${ registersRow.id }" style="text-align: center;" class="${ registersRow.restricted_access == 0 ? "" : "ss-backend-table-bg-deactive"}">
+                                                <a id="linkRestrictedAccess${ registersRow.id }" class="ss-backend-links01"
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ registersRow.id }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                        strField:'restricted_access', 
+                                                                                        recordValue: '${ registersRow.restricted_access == 1 ? 0 : 1}', 
+                                                                                        patchType: 'toggleValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Check status.
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSRemove('formRegistersListing_elementRestrictedAccess${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkRestrictedAccess${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0A") }');
+                                                                                            }
+
+                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
+                                                                                            {
+                                                                                                //Change cell color.
+                                                                                                elementCSSAdd('formRegistersListing_elementRestrictedAccess${ registersRow.id }', 'ss-backend-table-bg-deactive');
+
+                                                                                                //Change link text.
+                                                                                                elementMessage01('linkRestrictedAccess${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1A") }');
+                                                                                            }
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                    ${ 
+                                                        registersRow.restricted_access == "1" ? 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1A") 
+                                                        : 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0A")
+                                                    } 
+                                                </a>
+                                            </td>
+                                            ` : ``
+                                        }
+        
+                                        <td style="text-align: center;">
+                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" + gSystemConfig.configRouteBackendActionEdit + "/" +  registersRow.id + "/?" + this.queryDefault }" class="ss-backend-links01">
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEdit") }  
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <!--input type="checkbox" name="idsRecordsDelete[]" value="${registersRow.id}" class="ss-backend-field-checkbox" /--> 
+                                            <input type="checkbox" name="idsRecordsDelete" value="${registersRow.id}" class="ss-backend-field-checkbox" /> 
+                                            <!--input type="checkbox" name="arrIdsRecordsDelete" value="${registersRow.id}" class="ss-backend-field-checkbox" /--> 
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join("")}
+                            </tbody>
+
+                            <tfoot class="ss-backend-table-foot ss-backend-table-listing-text01" style="display: none;">
+                                <tr>
+                                    <td style="text-align: left;">
+                                         
+                                    </td>
+                                    <td style="text-align: center;">
+                                         
+                                    </td>
+                                    <td style="text-align: center;">
+                                         
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+                    ${ /*Paging.*/'' }
+                    ${ /*----------------------*/'' }
+                    ${ gSystemConfig.enableRegistersBackendPagination == 1 ? 
+                    `
+                        <div class="ss-backend-paging" style="position: relative; display: block; overflow: hidden; text-align: center;">
+
+                            ${ /*Page numbers.*/'' }
+                            ${ gSystemConfig.enableRegistersBackendPaginationNumbering == 1 ? 
+                            `
+                                <div class="ss-backend-paging-number-link-a" style="position: relative; display: block; overflow: hidden;">
+                                    ${Array(this._pagingTotal).fill().map((item, pageNumberOutput)=>{
+                                        return `
+                                            ${ (pageNumberOutput + 1) == this._pageNumber ? `
+                                                ${ pageNumberOutput + 1 }
+                                            ` : `
+                                                <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ pageNumberOutput + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput + 1 }" class="ss-backend-paging-number-link">
+                                                    ${ pageNumberOutput + 1 }
+                                                </a>
+                                            `}
+                                        `;
+                                    }).join("")}
+                                </div>
+                            ` : ``
+                            }
+    
+                            ${ /*Page controls.*/'' }
+
+                            
+                            <div style="position: relative; display: block; overflow: hidden;">
+                                ${ this._pageNumber == 1 ? 
+                                    `
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=1" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") }" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") } 
+                                    </a>
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) - 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") }" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") } 
+                                    </a>
+                                    ` : `
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=1" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") }" class="ss-backend-paging-btn">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") } 
+                                    </a>
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) - 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") }" class="ss-backend-paging-btn">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") } 
+                                    </a>
+                                    `
+                                }
+
+                                
+                                ${ this._pageNumber == this._pagingTotal ? 
+                                    `
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") }" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") } 
+                                    </a>
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ this._pagingTotal }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") }" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") } 
+                                    </a>
+                                    ` : `
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") }" class="ss-backend-paging-btn">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") } 
+                                    </a>
+                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ this._pagingTotal }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") }" class="ss-backend-paging-btn">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") } 
+                                    </a>
+                                    `
+                                }
+                            </div>
+
+                            <div style="position: relative; display: block; overflow: hidden;">
+                                ${ this._pageNumber } / ${ this._pagingTotal }
+                            </div>
+                        </div>
+                    ` : ``
+                    }
+                    ${ /*----------------------*/'' }
+
+                </form>
+            ` }
+            </section>
+
+
+            ${ /*Form.*/'' }
+            <section class="ss-backend-layout-section-form01">
+                <form id="formRegisters" name="formRegisters" method="POST" action="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters }" enctype="multipart/form-data">
+                    <div style="position: relative; display: block; overflow: hidden;">
+                        <script>
+                            //Debug.
+                            //webpackDebugTest(); //webpack debug
+
+
+                            //Reorder table rows.
+                            //TODO: Create variable in config to enable it.
+                            document.addEventListener('DOMContentLoaded', function() {
+                                inputDataReorder([${ gSystemConfig.configRegistersInputOrder.map((arrayRow)=>{
+                                                    return `"${ arrayRow }"`}).join(",") 
+                                                }]); //necessary to map the array in order to display as an array inside template literals
+
+                            }, false);
+                        </script>
+
+                        <table id="input_table_registers" class="ss-backend-table-input01">
+                            <caption class="ss-backend-table-header-text01 ss-backend-table-title">
+                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleTable") } 
+                            </caption>
+                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
+                                
+                            </thead>
+                            <tbody class="ss-backend-table-listing-text01">
+                                ${ gSystemConfig.enableRegistersSortOrder == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_sort_order" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSortOrder") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="0" />
+                                        <script>
+                                            Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_sort_order");
+                                        </script>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersType == 1 ? 
+                                    `
+                                    <tr id="inputRowRegisters_id_type" class="ss-backend-table-bg-light">
+                                        <td class="ss-backend-table-bg-medium">
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersType") }: 
+                                        </td>
+                                        <td>
+                                            <select id="registers_id_type" name="id_type" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersTypeListing.map((statusRow)=>{
+                                                    return `
+                                                        <option value="${ statusRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
+                                                    `;
+                                                }).join("") }
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersBindRegisterUser == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_id_register_user" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRU") }: 
+                                    </td>
+                                    <td>
+                                        <select id="registers_id_register_user" name="id_register_user" class="ss-backend-field-dropdown01">
+                                            <option value="0" selected="true">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                ` : `
+                                <input type="hidden" id="registers_id_register_user" name="id_register_user" value="0" />
+                                `
+                                }
+
+                                ${ gSystemConfig.enableRegistersRegisterType == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_register_type" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegisterType") }: 
+                                    </td>
+                                    <td>
+                                        <select id="registers_register_type" name="register_type" class="ss-backend-field-dropdown01">
+                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegisterType1") }</option>
+                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegisterType2") }</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                ` : `
+                                <input type="hidden" id="registers_register_type" name="register_type" value="0" />
+                                `
+                                }
+
+                                ${ gSystemConfig.enableRegistersNameTitle == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_name_title" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMetaTitle") }: 
+                                    </td>
+                                    <td>
+                                        <select id="registers_name_title" name="name_title" class="ss-backend-field-dropdown01">
+                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle1") }</option>
+                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle2") }</option>
+                                            <option value="3">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle3") }</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersNameFull == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_name_full" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFull") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_name_full" name="name_full" class="ss-backend-field-text01" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersNameFirst == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_name_first" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFirst") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_name_first" name="name_first" class="ss-backend-field-text01" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersNameLast == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_name_last" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameLast") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_name_last" name="name_last" class="ss-backend-field-text01" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersCompanyNameLegal == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_company_name_legal" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameLegal") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_company_name_legal" name="company_name_legal" class="ss-backend-field-text01" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersCompanyNameAlias == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_company_name_alias" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameAlias") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_company_name_alias" name="company_name_alias" class="ss-backend-field-text01" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersDescription == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_description" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDescription") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*No formatting*/'' }
+                                        ${ gSystemConfig.configBackendTextBox == 1 ? `
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                        ` : ``}
+
+
+                                        ${ /*Quill*/'' }
+                                        ${ gSystemConfig.configBackendTextBox == 13 ? `
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                            <div id="toolbar">
+                                                <button class="ql-bold">Bold</button>
+                                                <button class="ql-italic">Italic</button>
+                                            </div>
+                                            <div id="editor">
+                                                <p></p>
+                                            </div>
+                                            <script>
+                                                var editor = new Quill('#editor', {
+                                                    modules: { toolbar: '#toolbar' },
+                                                    theme: 'snow'
+                                                });
+                                            </script>
+                                         ` : ``}
+
+
+                                         ${ /*FroalaEditor*/'' }
+                                         ${ gSystemConfig.configBackendTextBox == 15 ? `
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                            <script>
+                                                new FroalaEditor("#registers_description");
+                                            </script>
+                                         ` : ``}
+
+
+                                         ${ /*TinyMCE*/'' }
+                                         ${ gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18 ? `
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                            <script>
+                                                /*
+                                                tinymce.init({
+                                                    selector: "#registers_description",
+                                                });
+                                                */ /*working*/
+
+                                                tinyMCEBackendConfig.selector = "#registers_description";
+                                                tinymce.init(tinyMCEBackendConfig);
+                                            </script>
+                                         ` : ``}
+                                     </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.configRegistersURLAlias == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_url_alias" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLAlias") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_url_alias" name="url_alias" class="ss-backend-field-text01" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersKeywordsTags == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_keywords_tags" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywords") }: 
+                                    </td>
+                                    <td>
+                                        <textarea id="registers_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01"></textarea>
+                                        <div>
+                                            (${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywordsInstruction01") })
+                                        </div>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+    
+                                ${ gSystemConfig.enableRegistersMetaDescription == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_meta_description" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMetaDescription") }: 
+                                    </td>
+                                    <td>
+                                        <textarea id="registers_meta_description" name="meta_description" class="ss-backend-field-text-area01"></textarea>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersMetaTitle == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_meta_title" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMetaTitle") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_meta_title" name="meta_title" class="ss-backend-field-text01" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersDateBirth != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_date_birth" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDateBirth") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Dropdown menu.*/'' }
+                                        ${ gSystemConfig.enableRegistersDateBirth == 2 ? 
+                                            `
+                                            ${ gSystemConfig.configBackendDateFormat == 1 ? 
+                                                `
+                                                    <select id="registers_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: 4}).map((arrayRow)=>{
+                                                            return `
+                                                                <option value="${ arrayRow }"
+                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                >${ arrayRow }</option>
+                                                            `}).join(",") }
+                                                    </select>
+                                                    /
+                                                    <select id="registers_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: 4}).map((arrayRow)=>{
+                                                            return `
+                                                                <option value="${ arrayRow }"
+                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                >${ arrayRow }</option>
+                                                            `}).join(",") }
+                                                    </select>
+                                                    /
+                                                    <select id="registers_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: 4}).map((arrayRow)=>{
+                                                            return `
+                                                                <option value="${ arrayRow }"
+                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                >${ arrayRow }</option>
+                                                            `}).join(",") }
+                                                    </select>
+                                                ` : `
+                                                    <select id="registers_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: 4}).map((arrayRow)=>{
+                                                            return `
+                                                                <option value="${ arrayRow }"
+                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                >${ arrayRow }</option>
+                                                            `}).join(",") }
+                                                    </select>
+                                                    /
+                                                    <select id="registers_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: 4}).map((arrayRow)=>{
+                                                            return `
+                                                                <option value="${ arrayRow }"
+                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                >${ arrayRow }</option>
+                                                            `}).join(",") }
+                                                    </select>
+                                                    /
+                                                    <select id="registers_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
+                                                        ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: 4}).map((arrayRow)=>{
+                                                            return `
+                                                                <option value="${ arrayRow }"
+                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                >${ arrayRow }</option>
+                                                            `}).join(",") }
+                                                    </select>
+                                                `
+                                            }
+                                            ` : ``
+                                        }
+
+                                        ${ /*js-datepicker.*/'' }
+                                        ${ /*TODO: Think about a logic that takes account jsDatepickerBirthBackendConfigOptions.dateSelected as default value, if field is required.*/'' }
+                                        ${ gSystemConfig.enableRegistersDateBirth == 11 ? 
+                                            `
+                                            <input type="text" id="registers_date_birth" name="date_birth" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <script>
+                                                const dpDateBirth = datepicker("#registers_date_birth", jsDatepickerBirthBackendConfigOptions);
+                                            </script>
+                                            ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+                                ${ gSystemConfig.enableRegistersGender == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_gender" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemGender") }: 
+                                    </td>
+                                    <td>
+                                        <label class="ss-backend-field-radio-label">
+                                            <input type="radio" name="gender" checked value="0" class="ss-backend-field-radio" />
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemGender0") }
+                                        </label>
+                                        <label class="ss-backend-field-radio-label">
+                                            <input type="radio" name="gender" value="1" class="ss-backend-field-radio" />
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemGender1") }
+                                        </label>
+                                        <label class="ss-backend-field-radio-label">
+                                            <input type="radio" name="gender" value="2" class="ss-backend-field-radio" />
+                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemGender2") }
+                                        </label>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersHeight == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_height" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersHeight") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_height" name="height" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                        ${ gSystemConfig.configSystemHeight }
+
+                                        <script>
+                                            Inputmask(inputmaskDecimalBackendConfigOptions).mask("registers_height");
+                                        </script>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersWeight == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_weight" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersWeight") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_weight" name="weight" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                        ${ gSystemConfig.configSystemWeight }
+
+                                        <script>
+                                            Inputmask(inputmaskDecimalBackendConfigOptions).mask("registers_weight");
+                                        </script>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersDocumentType == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_document_typer" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType") }: 
+                                    </td>
+                                    <td>
+                                        <select id="registers_document_type" name="document_type" class="ss-backend-field-dropdown01">
+                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType1") }</option>
+                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType55") }</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersDocument == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_document" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocument") }: 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="registers_document" name="document" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+
+
+                                
+                            </tbody>
+                            <tfoot class="ss-backend-table-foot ss-backend-table-listing-text01">
+
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div style="position: relative; display: block; overflow: hidden; clear: both; margin-top: 2px;">
+                        <button id="registers_include" name="registers_include" class="ss-backend-btn-base ss-backend-btn-action-execute" style="float: left;">
+                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendButtonSend") }
+                        </button>
+                    </div>
+
+                    <input type="hidden" id="registers_id_parent" name="id_parent" value="${ this._idParent }" />
+
+                    <input type="hidden" id="registers_idParent" name="idParent" value="${ this._idParent }" />
+                    <input type="hidden" id="registers_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
+                    <input type="hidden" id="registers_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
+                </form>
             </section>
             `; 
 

@@ -778,8 +778,8 @@ module.exports = class FormsListing
                                     </td>
                                     <td>
                                         <select id="forms_email_format" name="email_format" class="ss-backend-field-dropdown01">
-                                        <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEmailFormat0") }</option>
-                                        <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEmailFormat1") }</option>
+                                            <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEmailFormat0") }</option>
+                                            <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEmailFormat1") }</option>
                                         </select>
                                     </td>
                                 </tr>

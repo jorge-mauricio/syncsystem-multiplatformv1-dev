@@ -54,7 +54,7 @@ exports.appLabels = {
         backendItemDateStartA: "D. S.",
     backendItemDateEnd: "Date - End",
         backendItemDateEndA: "D. E.",
-        backendItemDateCreated: "Date Created",
+    backendItemDateCreated: "Date Created",
     backendItemMinutes: "Minutes",
         backendItemMinutesA: "Min.",
     backendItemSeconds: "Seconds",
@@ -246,7 +246,7 @@ exports.appLabels = {
     backendCategoriesType9Function: "Segment", /*Manage Categories */
     backendCategoriesType12Function: "Manage Forms",
     backendCategoriesType13Function: "Manage Registers",
-    backendCategoriesType17Function: "Quizzes",
+    backendCategoriesType17Function: "Manage Quizzes",
     //**************************************************************************************
 
 
@@ -504,7 +504,7 @@ exports.appLabels = {
     backendProductsValue: "Value",
     backendProductsValue1: "Value 1",
     backendProductsValue2: "Value 2",
-    backendProductsWight: "Weight",
+    backendProductsWeight: "Weight",
     backendProductsCoefficient: "Coefficient",
     backendProductsCoefficientInstructions: "Coefficient Instructions.",
     
@@ -751,7 +751,11 @@ exports.appLabels = {
         backendRegistersRegisterType1: "Physical Person",
         backendRegistersRegisterType2: "Company",
 
+    backendRegistersRegister: "Register",
     backendRegistersNameTitle: "Name Title",
+        backendRegistersNameTitle1: "Mr.",
+        backendRegistersNameTitle2: "Mrs.",
+        backendRegistersNameTitle3: "Ms.",
     backendRegistersNameFull: "Full Name",
     backendRegistersNameFirst: "First Name",
     backendRegistersNameLast: "Last Name",
@@ -769,7 +773,8 @@ exports.appLabels = {
     backendRegistersDocument1: "Document 1",
     backendRegistersDocument2Type: "Document 2 Type",
     backendRegistersDocument2: "Document 2",
-
+        backendRegistersDocumentType1: "Social Security",
+        backendRegistersDocumentType55: "CPF",
     backendRegistersDocumentCompanyType: "Document Type",
     backendRegistersDocumentCompany: "Document",
     backendRegistersDocumentCompany1Type: "Document 1 Type",

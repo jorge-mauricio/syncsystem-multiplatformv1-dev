@@ -865,7 +865,7 @@ module.exports = class ProductsListing
                                                 ${ gSystemConfig.enableProductsWeight == 1 ? 
                                                     `
                                                     <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsWight") }:
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsWeight") }:
                                                     </strong>
                                                     ${ SyncSystemNS.FunctionsGeneric.valueMaskRead(productsRow.weight, gSystemConfig.configSystemCurrency, 3) } 
                                                     ${ gSystemConfig.configSystemWeight }
@@ -5982,7 +5982,7 @@ module.exports = class ProductsListing
                                 `
                                 <tr id="inputRowProducts_weight" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsWight") }: 
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendProductsWeight") }: 
                                     </td>
                                     <td>
                                         <input type="text" id="products_weight" name="weight" class="ss-backend-field-numeric02" value="0" maxlength="34" />
