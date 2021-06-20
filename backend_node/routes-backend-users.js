@@ -562,7 +562,7 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                                                                     },  
                                                                     gSystemConfig.configBackendDateFormat, 
                                                                     "");/**/
-            console.log("tblUsersDateBirth=", tblUsersDateBirth);
+            //console.log("tblUsersDateBirth=", tblUsersDateBirth);
             tblUsersGender = formParseResults.fields.gender; 
         
             tblUsersDocument = formParseResults.fields.document;

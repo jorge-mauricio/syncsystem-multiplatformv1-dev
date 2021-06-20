@@ -83,6 +83,7 @@ exports.appLabels = {
 
     backendItemEmail: "e-mail",
     backendItemPassword: "Password",
+    backendItemWebsite: "Website",
 
     backendItemURLAlias: "Friendly Name (Alias)",
     backendItemMetaTitle: "Meta Title",
@@ -775,12 +776,14 @@ exports.appLabels = {
     backendRegistersDocument2: "Document 2",
         backendRegistersDocumentType1: "Social Security",
         backendRegistersDocumentType55: "CPF",
-    backendRegistersDocumentCompanyType: "Document Type",
-    backendRegistersDocumentCompany: "Document",
-    backendRegistersDocumentCompany1Type: "Document 1 Type",
-    backendRegistersDocumentCompany1: "Document 1",
-    backendRegistersDocumentCompany2Type: "Document 2 Type",
-    backendRegistersDocumen2Company2: "Document 2",
+    backendRegistersDocumentCompanyType: "Company Document Type",
+    backendRegistersDocumentCompany: "Company Document ",
+    backendRegistersDocumentCompany1Type: "Company Document 1 Type",
+    backendRegistersDocumentCompany1: "Company Document 1",
+    backendRegistersDocumentCompany2Type: "Company Document 2 Type",
+    backendRegistersDocumentCompany2: "Company Document 2",
+        backendRegistersDocumentCompanyType1: "Federal Registry",
+        backendRegistersDocumentCompanyType55: "CNPJ",
 
     backendRegistersLocationReference: "Location Reference",
     backendRegistersLocationMap: "Map",
@@ -788,7 +791,6 @@ exports.appLabels = {
     backendRegistersPhone1: "Phone 1",
     backendRegistersPhone2: "Phone 2",
     backendRegistersPhone3: "Phone 3",
-    backendRegistersWebsite: "Website",
     backendRegistersUsername: "Username",
 
     backendRegistersImageLogo: "Logo",
