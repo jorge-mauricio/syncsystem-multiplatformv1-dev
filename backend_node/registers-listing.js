@@ -646,7 +646,6 @@ module.exports = class RegistersListing
                     return obj.filter_index == 140;
                 });
             }
-            
 
 
             //Build HTML.
@@ -880,7 +879,7 @@ module.exports = class RegistersListing
                                                 ${ /*No pop-up.*/'' }
                                                 ${ gSystemConfig.configImagePopup == 0 ? 
                                                 `
-                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") }" class="ss-backend-images-listing" />
+                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") }" class="ss-backend-images-listing" />
                                                 ` : ``
                                                 }
 
@@ -888,11 +887,11 @@ module.exports = class RegistersListing
                                                 ${ gSystemConfig.configImagePopup == 4 ? 
                                                 `
                                                     <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + registersRow.image_main + "?v=" + this.cacheClear }"
-                                                       title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") }"
+                                                       title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") }"
                                                        class="glightbox_registers_image_main${ registersRow.id }"
-                                                       data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") };">
+                                                       data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") };">
 
-                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.title, "db") }" class="ss-backend-images-listing" />
+                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") }" class="ss-backend-images-listing" />
                                                     </a>
                                                     <script>
                                                         gLightboxBackendConfigOptions.selector = "glightbox_registers_image_main${ registersRow.id }";

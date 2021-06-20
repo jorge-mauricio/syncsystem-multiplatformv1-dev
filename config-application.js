@@ -137,8 +137,8 @@ gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot 
 gSystemConfig.configFrontendDefaultViewSD = "frontend";
 gSystemConfig.configDirectorySystemSD = "backend";
 
-gSystemConfig.configDirectoryFilesSD = ""; //"" - when using remote file storage
-//gSystemConfig.configDirectoryFilesSD = "files"; //"" - when using remote
+//gSystemConfig.configDirectoryFilesSD = ""; //"" - when using remote file storage
+gSystemConfig.configDirectoryFilesSD = "files"; //"" - when using remote
 gSystemConfig.configDirectoryFilesLayoutSD = "files-layout";
 gSystemConfig.configDirectoryStylesSD = "css";
 gSystemConfig.configDirectoryJSSD = "js";
