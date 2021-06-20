@@ -4531,6 +4531,2166 @@ module.exports = class FunctionsDBInsert
     //**************************************************************************************
     
 
+    //Registers - insert record.
+    //**************************************************************************************
+    /**
+     * Registers - insert record.
+     * @static
+     * @async
+     * @param {object} _tblRegistersDataObject
+     * @returns {boolean} true - successfull | false - error
+     */
+    static async registersInsert_async(_tblRegistersDataObject)
+    {
+        //Variables.
+        //----------------------
+        let strReturn = false;
+
+        let tblRegistersDataObject = {};
+
+        //Details - default values.
+        let tblRegistersID = "";
+        let tblRegistersIdParent = "";
+        let tblRegistersSortOrder = 0;
+
+        let tblRegistersDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDateTimezone = "";
+        let tblRegistersDateEdit = "";
+
+        let tblRegistersIdType = 0; 
+        let tblRegistersIdActivity = 0; 
+
+        let tblRegistersIdRegisterUser = 0;
+        let tblRegistersIdRegister1 = 0;
+        let tblRegistersIdRegister2 = 0;
+        let tblRegistersIdRegister3 = 0;
+        let tblRegistersIdRegister4 = 0;
+        let tblRegistersIdRegister5 = 0;
+
+        let tblRegistersType = 0;
+
+        let tblRegistersNameTitle = "";
+        let tblRegistersNameFull = "";
+        let tblRegistersNameFirst = "";
+        let tblRegistersNameLast = "";
+    
+        let tblRegistersCompanyNameLegal = "";
+        let tblRegistersCompanyNameAlias = "";
+    
+        let tblRegistersDescription = "";
+    
+        let tblRegistersURLAlias = "";
+        let tblRegistersKeywordsTags = "";
+        let tblRegistersMetaDescription = "";
+        let tblRegistersMetaTitle = "";
+        let tblRegistersMetaInfo = "";
+
+        let tblRegistersDateBirth = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersGender = 0; 
+        let tblRegistersHeight = 0; 
+        let tblRegistersWeight = 0; 
+
+        let tblRegistersDocumentType = 0;
+        let tblRegistersDocument = "";
+        let tblRegistersDocument1Type = 0;
+        let tblRegistersDocument1 = "";
+        let tblRegistersDocument2Type = 0;
+        let tblRegistersDocument2 = "";
+    
+        let tblRegistersDocumentCompanyType = 0;
+        let tblRegistersDocumentCompany1 = "";
+        let tblRegistersDocumentCompany1Type = 0;
+        let tblRegistersDocumentCompany2 = "";
+        let tblRegistersDocumentCompany2Type = 0;
+        let tblRegistersDocumentCompany = "";
+    
+        let tblRegistersZipCode = "";
+        let tblRegistersAddressStreet = "";
+        let tblRegistersAddressNumber = "";
+        let tblRegistersAddressComplement = "";
+        let tblRegistersNeighborhood = "";
+        let tblRegistersDistrict = "";
+        let tblRegistersCounty = "";
+        let tblRegistersCity = "";
+        let tblRegistersState = "";
+        let tblRegistersCountry = "";
+    
+        let tblRegistersIdStreet = 0;
+        let tblRegistersIdNeighborhood = 0;
+        let tblRegistersIdDistrict = 0;
+        let tblRegistersIdCounty = 0;
+        let tblRegistersIdCity = 0;
+        let tblRegistersIdState = 0;
+        let tblRegistersIdCountry = 0;   
+        
+        let tblRegistersLocationReference = "";
+        let tblRegistersLocationMap = "";
+    
+        let tblRegistersPhone1InternationalCode = "";
+        let tblRegistersPhone1AreaCode = "";
+        let tblRegistersPhone1 = "";
+    
+        let tblRegistersPhone2InternationalCode = "";
+        let tblRegistersPhone2AreaCode = "";
+        let tblRegistersPhone2 = "";
+    
+        let tblRegistersPhone3InternationalCode = "";
+        let tblRegistersPhone3AreaCode = "";
+        let tblRegistersPhone3 = "";
+    
+        let tblRegistersWebsite = "";
+    
+        let tblRegistersUsername = "";
+        let tblRegistersEmail = "";
+        let tblRegistersPassword = "";
+        let tblRegistersPasswordHint = "";
+        let tblRegistersPasswordLength = "";
+                
+        let tblRegistersInfo1 = "";
+        let tblRegistersInfo2 = "";
+        let tblRegistersInfo3 = "";
+        let tblRegistersInfo4 = "";
+        let tblRegistersInfo5 = "";
+        let tblRegistersInfo6 = "";
+        let tblRegistersInfo7 = "";
+        let tblRegistersInfo8 = "";
+        let tblRegistersInfo9 = "";
+        let tblRegistersInfo10 = "";
+        let tblRegistersInfo11 = "";
+        let tblRegistersInfo12 = "";
+        let tblRegistersInfo13 = "";
+        let tblRegistersInfo14 = "";
+        let tblRegistersInfo15 = "";
+        let tblRegistersInfo16 = "";
+        let tblRegistersInfo17 = "";
+        let tblRegistersInfo18 = "";
+        let tblRegistersInfo19 = "";
+        let tblRegistersInfo20 = "";
+    
+        let tblRegistersInfoSmall1 = "";
+        let tblRegistersInfoSmall2 = "";
+        let tblRegistersInfoSmall3 = "";
+        let tblRegistersInfoSmall4 = "";
+        let tblRegistersInfoSmall5 = "";
+        let tblRegistersInfoSmall6 = "";
+        let tblRegistersInfoSmall7 = "";
+        let tblRegistersInfoSmall8 = "";
+        let tblRegistersInfoSmall9 = "";
+        let tblRegistersInfoSmall10 = "";
+        let tblRegistersInfoSmall11 = "";
+        let tblRegistersInfoSmall12 = "";
+        let tblRegistersInfoSmall13 = "";
+        let tblRegistersInfoSmall14 = "";
+        let tblRegistersInfoSmall15 = "";
+        let tblRegistersInfoSmall16 = "";
+        let tblRegistersInfoSmall17 = "";
+        let tblRegistersInfoSmall18 = "";
+        let tblRegistersInfoSmall19 = "";
+        let tblRegistersInfoSmall20 = "";
+        let tblRegistersInfoSmall21 = "";
+        let tblRegistersInfoSmall22 = "";
+        let tblRegistersInfoSmall23 = "";
+        let tblRegistersInfoSmall24 = "";
+        let tblRegistersInfoSmall25 = "";
+        let tblRegistersInfoSmall26 = "";
+        let tblRegistersInfoSmall27 = "";
+        let tblRegistersInfoSmall28 = "";
+        let tblRegistersInfoSmall29 = "";
+        let tblRegistersInfoSmall30 = "";
+
+        let tblRegistersNumber1 = 0;
+        let tblRegistersNumber2 = 0;
+        let tblRegistersNumber3 = 0;
+        let tblRegistersNumber4 = 0;
+        let tblRegistersNumber5 = 0;
+
+        let tblRegistersNumberSmall1 = 0;
+        let tblRegistersNumberSmall2 = 0;
+        let tblRegistersNumberSmall3 = 0;
+        let tblRegistersNumberSmall4 = 0;
+        let tblRegistersNumberSmall5 = 0;
+
+        let tblRegistersURL1 = "";
+        let tblRegistersURL2 = "";
+        let tblRegistersURL3 = "";
+        let tblRegistersURL4 = "";
+        let tblRegistersURL5 = "";
+            
+        let tblRegistersDate1 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate2 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate3 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate4 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate5 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate6 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate7 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate8 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate9 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate10 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+
+        let tblRegistersImageMain = "";
+        let tblRegistersImageMainCaption = "";
+        let tblRegistersImageLogo = "";
+        let tblRegistersImageBanner = "";
+
+        let tblRegistersFile1 = "";
+        let tblRegistersFile2 = "";
+        let tblRegistersFile3 = "";
+        let tblRegistersFile4 = "";
+        let tblRegistersFile5 = "";
+
+        let tblRegistersActivation = 1;
+        let tblRegistersActivation1 = 0;
+        let tblRegistersActivation2 = 0;
+        let tblRegistersActivation3 = 0;
+        let tblRegistersActivation4 = 0;
+        let tblRegistersActivation5 = 0;
+        
+        let tblRegistersIdStatus = 0;
+        let tblRegistersRestrictedAccess = 0;
+        let tblRegistersNotes = "";
+
+        let arrIdsRegistersFiltersGeneric1 = [];
+        let arrIdsRegistersFiltersGeneric2 = [];
+        let arrIdsRegistersFiltersGeneric3 = [];
+        let arrIdsRegistersFiltersGeneric4 = [];
+        let arrIdsRegistersFiltersGeneric5 = [];
+        let arrIdsRegistersFiltersGeneric6 = [];
+        let arrIdsRegistersFiltersGeneric7 = [];
+        let arrIdsRegistersFiltersGeneric8 = [];
+        let arrIdsRegistersFiltersGeneric9 = [];
+        let arrIdsRegistersFiltersGeneric10 = [];
+        let arrIdsRegistersFiltersGeneric11 = [];
+        let arrIdsRegistersFiltersGeneric12 = [];
+        let arrIdsRegistersFiltersGeneric13 = [];
+        let arrIdsRegistersFiltersGeneric14 = [];
+        let arrIdsRegistersFiltersGeneric15 = [];
+        let arrIdsRegistersFiltersGeneric16 = [];
+        let arrIdsRegistersFiltersGeneric17 = [];
+        let arrIdsRegistersFiltersGeneric18 = [];
+        let arrIdsRegistersFiltersGeneric19 = [];
+        let arrIdsRegistersFiltersGeneric20 = [];
+        let arrIdsRegistersFiltersGeneric21 = [];
+        let arrIdsRegistersFiltersGeneric22 = [];
+        let arrIdsRegistersFiltersGeneric23 = [];
+        let arrIdsRegistersFiltersGeneric24 = [];
+        let arrIdsRegistersFiltersGeneric25 = [];
+        let arrIdsRegistersFiltersGeneric26 = [];
+        let arrIdsRegistersFiltersGeneric27 = [];
+        let arrIdsRegistersFiltersGeneric28 = [];
+        let arrIdsRegistersFiltersGeneric29 = [];
+        let arrIdsRegistersFiltersGeneric30 = [];
+        let arrIdsRegistersFiltersGeneric31 = [];
+        let arrIdsRegistersFiltersGeneric32 = [];
+        let arrIdsRegistersFiltersGeneric33 = [];
+        let arrIdsRegistersFiltersGeneric34 = [];
+        let arrIdsRegistersFiltersGeneric35 = [];
+        let arrIdsRegistersFiltersGeneric36 = [];
+        let arrIdsRegistersFiltersGeneric37 = [];
+        let arrIdsRegistersFiltersGeneric38 = [];
+        let arrIdsRegistersFiltersGeneric39 = [];
+        let arrIdsRegistersFiltersGeneric40 = [];
+
+        let strSQLRegistersInsert = "";
+        let strSQLRegistersInsertParams = {};
+        let resultsSQLRegistersInsert = null;
+        //----------------------
+
+
+        //Variables - value/data treatment.
+        //----------------------
+        tblRegistersDataObject = _tblRegistersDataObject;
+        
+        tblRegistersID = tblRegistersDataObject._tblRegistersID;
+        //Check if id was passed. If not, create one.
+        //----------------------
+        if(tblRegistersID == "" || tblRegistersID === null || tblRegistersID === undefined)
+        {
+            tblRegistersID = await new Promise((resolve, reject)=>{
+                FunctionsDB.counterUniversalUpdate_async(1)
+                    .then((results)=>{
+                        if(results === undefined)
+                        {
+                            //Error.
+                            if(gSystemConfig.configDebug === true)
+                            {
+                                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage9"));
+                            }
+                            reject(new Error("nCounterUpdate is undefined."));
+                        }else{
+                            //Success.
+                            //resolve(nCounterUpdate);
+                            resolve(results);
+                        } //working
+        
+                    });
+            });
+        }
+        //----------------------
+
+        //tblRegistersIdParent = tblRegistersDataObject._tblRegistersIdParent;
+        tblRegistersIdParent = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdParent") === true) ? tblRegistersDataObject._tblRegistersIdParent : tblRegistersIdParent;
+
+        //tblRegistersSortOrder = tblRegistersDataObject._tblRegistersSortOrder;
+        tblRegistersSortOrder = (tblRegistersDataObject.hasOwnProperty("_tblRegistersSortOrder") === true) ? tblRegistersDataObject._tblRegistersSortOrder : tblRegistersSortOrder;
+        if(!tblRegistersSortOrder)
+        {
+            tblRegistersSortOrder = 0;
+        }
+
+        tblRegistersDateCreation = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateCreation") === true) ? tblRegistersDataObject._tblRegistersDateCreation : tblRegistersDateCreation; //x = condition ? true : false (default value declared)
+        if(!tblRegistersDateCreation)
+        {
+            let tblRegistersDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblRegistersDateCreation = FunctionsGeneric.dateSQLWrite(tblRegistersDateCreation_dateObj);
+        }
+
+        tblRegistersDateTimezone = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateTimezone") === true) ? tblRegistersDataObject._tblRegistersDateTimezone : tblRegistersDateTimezone;
+        
+        tblRegistersDateEdit = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateEdit") === true) ? tblRegistersDataObject._tblRegistersDateEdit : tblRegistersDateEdit;
+        if(!tblRegistersDateEdit)
+        {
+            let tblRegistersDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblRegistersDateEdit = FunctionsGeneric.dateSQLWrite(tblRegistersDateEdit_dateObj);
+        }
+
+        tblRegistersIdType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdType") === true && (tblRegistersDataObject._tblRegistersIdType)) ? tblRegistersDataObject._tblRegistersIdType : tblRegistersIdType;
+        tblRegistersIdActivity = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdActivity") === true && (tblRegistersDataObject._tblRegistersIdActivity)) ? tblRegistersDataObject._tblRegistersIdActivity : tblRegistersIdActivity;
+
+        tblRegistersIdRegisterUser = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegisterUser") === true) ? tblRegistersDataObject._tblRegistersIdRegisterUser : tblRegistersIdRegisterUser;
+        if(!tblRegistersIdRegisterUser)
+        {
+            tblRegistersIdRegisterUser = 0;
+        }
+        tblRegistersIdRegister1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister1") === true) ? tblRegistersDataObject._tblRegistersIdRegister1 : tblRegistersIdRegister1;
+        if(!tblRegistersIdRegister1)
+        {
+            tblRegistersIdRegister1 = 0;
+        }
+        tblRegistersIdRegister2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister2") === true) ? tblRegistersDataObject._tblRegistersIdRegister2 : tblRegistersIdRegister2;
+        if(!tblRegistersIdRegister2)
+        {
+            tblRegistersIdRegister2 = 0;
+        }
+        tblRegistersIdRegister3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister3") === true) ? tblRegistersDataObject._tblRegistersIdRegister3 : tblRegistersIdRegister3;
+        if(!tblRegistersIdRegister3)
+        {
+            tblRegistersIdRegister3 = 0;
+        }
+        tblRegistersIdRegister4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister4") === true) ? tblRegistersDataObject._tblRegistersIdRegister4 : tblRegistersIdRegister4;
+        if(!tblRegistersIdRegister4)
+        {
+            tblRegistersIdRegister4 = 0;
+        }
+        tblRegistersIdRegister5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister5") === true) ? tblRegistersDataObject._tblRegistersIdRegister5 : tblRegistersIdRegister5;
+        if(!tblRegistersIdRegister5)
+        {
+            tblRegistersIdRegister5 = 0;
+        }
+
+        tblRegistersType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersType") === true && (tblRegistersDataObject._tblRegistersType)) ? tblRegistersDataObject._tblRegistersType : tblRegistersType;
+
+        tblRegistersNameTitle = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameTitle, "db_write_text") : tblRegistersNameTitle;
+        tblRegistersNameFull = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameFull") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameFull, "db_write_text") : tblRegistersNameFull;
+        tblRegistersNameFirst = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameFirst") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameFirst, "db_write_text") : tblRegistersNameFirst;
+        tblRegistersNameLast = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameLast") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameLast, "db_write_text") : tblRegistersNameLast;
+        
+        tblRegistersCompanyNameLegal = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCompanyNameLegal") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCompanyNameLegal, "db_write_text") : tblRegistersCompanyNameLegal;
+        tblRegistersCompanyNameAlias = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCompanyNameAlias") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCompanyNameAlias, "db_write_text") : tblRegistersCompanyNameAlias;
+        
+        tblRegistersDescription = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDescription, "db_write_text") : tblRegistersDescription;
+        
+        tblRegistersURLAlias = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURLAlias") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURLAlias, "db_write_text") : tblRegistersURLAlias;
+        tblRegistersKeywordsTags = (tblRegistersDataObject.hasOwnProperty("_tblRegistersKeywordsTags") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersKeywordsTags, "db_write_text") : tblRegistersKeywordsTags;
+        tblRegistersMetaDescription = (tblRegistersDataObject.hasOwnProperty("_tblRegistersMetaDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersMetaDescription, "db_write_text") : tblRegistersMetaDescription;
+        tblRegistersMetaTitle = (tblRegistersDataObject.hasOwnProperty("_tblRegistersMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersMetaTitle, "db_write_text") : tblRegistersMetaTitle;
+        tblRegistersMetaInfo = (tblRegistersDataObject.hasOwnProperty("_tblRegistersMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersMetaInfo, "db_write_text") : tblRegistersMetaInfo;
+        
+        tblRegistersDateBirth = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateBirth") === true && (tblRegistersDataObject._tblRegistersDateBirth)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDateBirth, gSystemConfig.configBackendDateFormat) : tblRegistersDateBirth;
+        tblRegistersGender = (tblRegistersDataObject.hasOwnProperty("_tblRegistersGender") === true) ? tblRegistersDataObject._tblRegistersGender : tblRegistersGender;
+        if(!tblRegistersGender)
+        {
+            tblRegistersGender = 0;
+        }
+        tblRegistersHeight = (tblRegistersDataObject.hasOwnProperty("_tblRegistersHeight") === true) ? tblRegistersDataObject._tblRegistersHeight : tblRegistersHeight;
+        if(!tblRegistersHeight)
+        {
+            tblRegistersHeight = 0;
+        }
+        tblRegistersWeight = (tblRegistersDataObject.hasOwnProperty("_tblRegistersWeight") === true) ? tblRegistersDataObject._tblRegistersWeight : tblRegistersWeight;
+        if(!tblRegistersWeight)
+        {
+            tblRegistersWeight = 0;
+        }
+
+        tblRegistersDocumentType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentType") === true && (tblRegistersDataObject._tblRegistersDocumentType)) ? tblRegistersDataObject._tblRegistersDocumentType : tblRegistersDocumentType;
+        tblRegistersDocument = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocument, "db_write_text") : tblRegistersDocument;
+        tblRegistersDocument1Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument1Type") === true && (tblRegistersDataObject._tblRegistersDocument1Type)) ? tblRegistersDataObject._tblRegistersDocument1Type : tblRegistersDocument1Type;
+        tblRegistersDocument1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocument1, "db_write_text") : tblRegistersDocument1;
+        tblRegistersDocument2Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument2Type") === true && (tblRegistersDataObject._tblRegistersDocument2Type)) ? tblRegistersDataObject._tblRegistersDocument2Type : tblRegistersDocument2Type;
+        tblRegistersDocument2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocument2, "db_write_text") : tblRegistersDocument2;
+
+        tblRegistersDocumentCompanyType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompanyType") === true && (tblRegistersDataObject._tblRegistersDocumentCompanyType)) ? tblRegistersDataObject._tblRegistersDocumentCompanyType : tblRegistersDocumentCompanyType;
+        tblRegistersDocumentCompany = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocumentCompany, "db_write_text") : tblRegistersDocumentCompany;
+        tblRegistersDocumentCompany1Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany1Type") === true && (tblRegistersDataObject._tblRegistersDocumentCompany1Type)) ? tblRegistersDataObject._tblRegistersDocumentCompany1Type : tblRegistersDocumentCompany1Type;
+        tblRegistersDocumentCompany1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocumentCompany1, "db_write_text") : tblRegistersDocumentCompany1;
+        tblRegistersDocumentCompany2Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany2Type") === true && (tblRegistersDataObject._tblRegistersDocumentCompany2Type)) ? tblRegistersDataObject._tblRegistersDocumentCompany2Type : tblRegistersDocumentCompany2Type;
+        tblRegistersDocumentCompany2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocumentCompany2, "db_write_text") : tblRegistersDocumentCompany2;
+
+        tblRegistersZipCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersZipCode") === true) ? FunctionsGeneric.removeNonNumerical(tblRegistersDataObject._tblRegistersZipCode) : tblRegistersZipCode;
+        tblRegistersAddressStreet = (tblRegistersDataObject.hasOwnProperty("_tblRegistersAddressStreet") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersAddressStreet, "db_write_text") : tblRegistersAddressStreet;
+        tblRegistersAddressNumber = (tblRegistersDataObject.hasOwnProperty("_tblRegistersAddressNumber") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersAddressNumber, "db_write_text") : tblRegistersAddressNumber;
+        tblRegistersAddressComplement = (tblRegistersDataObject.hasOwnProperty("_tblRegistersAddressComplement") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersAddressComplement, "db_write_text") : tblRegistersAddressComplement;
+        tblRegistersNeighborhood = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNeighborhood") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNeighborhood, "db_write_text") : tblRegistersNeighborhood;
+        tblRegistersDistrict = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDistrict") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDistrict, "db_write_text") : tblRegistersDistrict;
+        tblRegistersCounty = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCounty") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCounty, "db_write_text") : tblRegistersCounty;
+        tblRegistersCity = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCity") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCity, "db_write_text") : tblRegistersCity;
+        tblRegistersState = (tblRegistersDataObject.hasOwnProperty("_tblRegistersState") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersState, "db_write_text") : tblRegistersState;
+        tblRegistersCountry = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCountry") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCountry, "db_write_text") : tblRegistersCountry;
+
+        tblRegistersIdStreet = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdStreet") === true && (tblRegistersDataObject._tblRegistersIdStreet)) ? tblRegistersDataObject._tblRegistersIdStreet : tblRegistersIdStreet;
+        tblRegistersIdNeighborhood = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdNeighborhood") === true && (tblRegistersDataObject._tblRegistersIdNeighborhood)) ? tblRegistersDataObject._tblRegistersIdNeighborhood : tblRegistersIdNeighborhood;
+        tblRegistersIdDistrict = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdDistrict") === true && (tblRegistersDataObject._tblRegistersIdDistrict)) ? tblRegistersDataObject._tblRegistersIdDistrict : tblRegistersIdDistrict;
+        tblRegistersIdCounty = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdCounty") === true && (tblRegistersDataObject._tblRegistersIdCounty)) ? tblRegistersDataObject._tblRegistersIdCounty : tblRegistersIdCounty;
+        tblRegistersIdCity = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdCity") === true && (tblRegistersDataObject._tblRegistersIdCity)) ? tblRegistersDataObject._tblRegistersIdCity : tblRegistersIdCity;
+        tblRegistersIdState = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdState") === true && (tblRegistersDataObject._tblRegistersIdState)) ? tblRegistersDataObject._tblRegistersIdState : tblRegistersIdState;
+        tblRegistersIdCountry = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdCountry") === true && (tblRegistersDataObject._tblRegistersIdCountry)) ? tblRegistersDataObject._tblRegistersIdCountry : tblRegistersIdCountry;
+
+        tblRegistersLocationReference = (tblRegistersDataObject.hasOwnProperty("_tblRegistersLocationReference") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersLocationReference, "db_write_text") : tblRegistersLocationReference;
+        tblRegistersLocationMap = (tblRegistersDataObject.hasOwnProperty("_tblRegistersLocationMap") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersLocationMap, "db_write_text") : tblRegistersLocationMap;
+
+        tblRegistersPhone1InternationalCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone1InternationalCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone1InternationalCode, "db_write_text") : tblRegistersPhone1InternationalCode;
+        tblRegistersPhone1AreaCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone1AreaCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone1AreaCode, "db_write_text") : tblRegistersPhone1AreaCode;
+        tblRegistersPhone1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone1, "db_write_text") : tblRegistersPhone1;
+
+        tblRegistersPhone2InternationalCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone2InternationalCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone2InternationalCode, "db_write_text") : tblRegistersPhone2InternationalCode;
+        tblRegistersPhone2AreaCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone2AreaCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone2AreaCode, "db_write_text") : tblRegistersPhone2AreaCode;
+        tblRegistersPhone2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone2, "db_write_text") : tblRegistersPhone2;
+
+        tblRegistersPhone3InternationalCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone3InternationalCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone3InternationalCode, "db_write_text") : tblRegistersPhone3InternationalCode;
+        tblRegistersPhone3AreaCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone3AreaCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone3AreaCode, "db_write_text") : tblRegistersPhone3AreaCode;
+        tblRegistersPhone3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone3, "db_write_text") : tblRegistersPhone3;
+
+        tblRegistersWebsite = (tblRegistersDataObject.hasOwnProperty("_tblRegistersWebsite") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersWebsite, "db_write_text") : tblRegistersWebsite;
+
+        tblRegistersUsername = (tblRegistersDataObject.hasOwnProperty("_tblRegistersUsername") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersUsername, "db_write_text") : tblRegistersUsername;
+        tblRegistersEmail = (tblRegistersDataObject.hasOwnProperty("_tblRegistersEmail") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersEmail, "db_write_text") : tblRegistersEmail;
+        
+        //tblRegistersPassword = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPassword") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPassword, "db_write_text") : tblRegistersPassword;
+        tblRegistersPassword = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPassword") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPassword, "db_write_text"), 2) : tblRegistersPassword;
+
+        tblRegistersPasswordHint = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPasswordHint") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPasswordHint, "db_write_text") : tblRegistersPasswordHint;
+        tblRegistersPasswordLength = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPasswordLength") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPasswordLength, "db_write_text") : tblRegistersPasswordLength;
+
+        if(gSystemConfig.configRegistersInfo1FieldType == 1 || gSystemConfig.configRegistersInfo1FieldType == 2)
+        {
+            tblRegistersInfo1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo1, "db_write_text") : tblRegistersInfo1;
+        }
+        if(gSystemConfig.configRegistersInfo1FieldType == 11 || gSystemConfig.configRegistersInfo1FieldType == 12)
+        {
+            tblRegistersInfo1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo1, "db_write_text"), 2) : tblRegistersInfo1;
+        }
+
+        if(gSystemConfig.configRegistersInfo2FieldType == 1 || gSystemConfig.configRegistersInfo2FieldType == 2)
+        {
+            tblRegistersInfo2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo2, "db_write_text") : tblRegistersInfo2;
+        }
+        if(gSystemConfig.configRegistersInfo2FieldType == 11 || gSystemConfig.configRegistersInfo2FieldType == 12)
+        {
+            tblRegistersInfo2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo2") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo2, "db_write_text"), 2) : tblRegistersInfo2;
+        }
+
+        if(gSystemConfig.configRegistersInfo3FieldType == 1 || gSystemConfig.configRegistersInfo3FieldType == 2)
+        {
+            tblRegistersInfo3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo3, "db_write_text") : tblRegistersInfo3;
+        }
+        if(gSystemConfig.configRegistersInfo3FieldType == 11 || gSystemConfig.configRegistersInfo3FieldType == 12)
+        {
+            tblRegistersInfo3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo3") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo3, "db_write_text"), 2) : tblRegistersInfo3;
+        }
+
+        if(gSystemConfig.configRegistersInfo4FieldType == 1 || gSystemConfig.configRegistersInfo4FieldType == 2)
+        {
+            tblRegistersInfo4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo4") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo4, "db_write_text") : tblRegistersInfo4;
+        }
+        if(gSystemConfig.configRegistersInfo4FieldType == 11 || gSystemConfig.configRegistersInfo4FieldType == 12)
+        {
+            tblRegistersInfo4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo4") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo4, "db_write_text"), 2) : tblRegistersInfo1;
+        }
+
+        if(gSystemConfig.configRegistersInfo5FieldType == 1 || gSystemConfig.configRegistersInfo5FieldType == 2)
+        {
+            tblRegistersInfo5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo5") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo5, "db_write_text") : tblRegistersInfo5;
+        }
+        if(gSystemConfig.configRegistersInfo5FieldType == 11 || gSystemConfig.configRegistersInfo5FieldType == 12)
+        {
+            tblRegistersInfo5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo5, "db_write_text"), 2) : tblRegistersInfo5;
+        }
+
+        if(gSystemConfig.configRegistersInfo6FieldType == 1 || gSystemConfig.configRegistersInfo6FieldType == 2)
+        {
+            tblRegistersInfo6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo6") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo6, "db_write_text") : tblRegistersInfo6;
+        }
+        if(gSystemConfig.configRegistersInfo6FieldType == 11 || gSystemConfig.configRegistersInfo6FieldType == 12)
+        {
+            tblRegistersInfo6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo6") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo6, "db_write_text"), 2) : tblRegistersInfo6;
+        }
+
+        if(gSystemConfig.configRegistersInfo7FieldType == 1 || gSystemConfig.configRegistersInfo7FieldType == 2)
+        {
+            tblRegistersInfo7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo7") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo7, "db_write_text") : tblRegistersInfo7;
+        }
+        if(gSystemConfig.configRegistersInfo7FieldType == 11 || gSystemConfig.configRegistersInfo7FieldType == 12)
+        {
+            tblRegistersInfo7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo7") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo7, "db_write_text"), 2) : tblRegistersInfo7;
+        }
+
+        if(gSystemConfig.configRegistersInfo8FieldType == 1 || gSystemConfig.configRegistersInfo8FieldType == 2)
+        {
+            tblRegistersInfo8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo8") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo8, "db_write_text") : tblRegistersInfo8;
+        }
+        if(gSystemConfig.configRegistersInfo8FieldType == 11 || gSystemConfig.configRegistersInfo8FieldType == 12)
+        {
+            tblRegistersInfo8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo8") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo8, "db_write_text"), 2) : tblRegistersInfo8;
+        }
+
+        if(gSystemConfig.configRegistersInfo9FieldType == 1 || gSystemConfig.configRegistersInfo9FieldType == 2)
+        {
+            tblRegistersInfo9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo9") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo9, "db_write_text") : tblRegistersInfo9;
+        }
+        if(gSystemConfig.configRegistersInfo9FieldType == 11 || gSystemConfig.configRegistersInfo9FieldType == 12)
+        {
+            tblRegistersInfo9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo9") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo9, "db_write_text"), 2) : tblRegistersInfo9;
+        }
+
+        if(gSystemConfig.configRegistersInfo10FieldType == 1 || gSystemConfig.configRegistersInfo10FieldType == 2)
+        {
+            tblRegistersInfo10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo10") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo10, "db_write_text") : tblRegistersInfo10;
+        }
+        if(gSystemConfig.configRegistersInfo10FieldType == 11 || gSystemConfig.configRegistersInfo10FieldType == 12)
+        {
+            tblRegistersInfo10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo10") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo10, "db_write_text"), 2) : tblRegistersInfo10;
+        }
+
+        if(gSystemConfig.configRegistersInfo11FieldType == 1 || gSystemConfig.configRegistersInfo11FieldType == 2)
+        {
+            tblRegistersInfo11 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo11") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo11, "db_write_text") : tblRegistersInfo11;
+        }
+        if(gSystemConfig.configRegistersInfo11FieldType == 11 || gSystemConfig.configRegistersInfo11FieldType == 12)
+        {
+            tblRegistersInfo11 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo11") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo11, "db_write_text"), 2) : tblRegistersInfo11;
+        }
+
+        if(gSystemConfig.configRegistersInfo12FieldType == 1 || gSystemConfig.configRegistersInfo12FieldType == 2)
+        {
+            tblRegistersInfo12 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo12") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo12, "db_write_text") : tblRegistersInfo12;
+        }
+        if(gSystemConfig.configRegistersInfo12FieldType == 11 || gSystemConfig.configRegistersInfo12FieldType == 12)
+        {
+            tblRegistersInfo12 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo12") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo12, "db_write_text"), 2) : tblRegistersInfo12;
+        }
+
+        if(gSystemConfig.configRegistersInfo13FieldType == 1 || gSystemConfig.configRegistersInfo13FieldType == 2)
+        {
+            tblRegistersInfo13 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo13") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo13, "db_write_text") : tblRegistersInfo13;
+        }
+        if(gSystemConfig.configRegistersInfo13FieldType == 11 || gSystemConfig.configRegistersInfo13FieldType == 12)
+        {
+            tblRegistersInfo13 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo13") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo13, "db_write_text"), 2) : tblRegistersInfo13;
+        }
+
+        if(gSystemConfig.configRegistersInfo14FieldType == 1 || gSystemConfig.configRegistersInfo14FieldType == 2)
+        {
+            tblRegistersInfo14 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo14") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo14, "db_write_text") : tblRegistersInfo14;
+        }
+        if(gSystemConfig.configRegistersInfo14FieldType == 11 || gSystemConfig.configRegistersInfo14FieldType == 12)
+        {
+            tblRegistersInfo14 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo14") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo14, "db_write_text"), 2) : tblRegistersInfo11;
+        }
+
+        if(gSystemConfig.configRegistersInfo15FieldType == 1 || gSystemConfig.configRegistersInfo15FieldType == 2)
+        {
+            tblRegistersInfo15 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo15") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo15, "db_write_text") : tblRegistersInfo15;
+        }
+        if(gSystemConfig.configRegistersInfo15FieldType == 11 || gSystemConfig.configRegistersInfo15FieldType == 12)
+        {
+            tblRegistersInfo15 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo11") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo15, "db_write_text"), 2) : tblRegistersInfo15;
+        }
+
+        if(gSystemConfig.configRegistersInfo16FieldType == 1 || gSystemConfig.configRegistersInfo16FieldType == 2)
+        {
+            tblRegistersInfo16 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo16") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo16, "db_write_text") : tblRegistersInfo16;
+        }
+        if(gSystemConfig.configRegistersInfo16FieldType == 11 || gSystemConfig.configRegistersInfo16FieldType == 12)
+        {
+            tblRegistersInfo16 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo16") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo16, "db_write_text"), 2) : tblRegistersInfo16;
+        }
+
+        if(gSystemConfig.configRegistersInfo17FieldType == 1 || gSystemConfig.configRegistersInfo17FieldType == 2)
+        {
+            tblRegistersInfo17 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo17") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo17, "db_write_text") : tblRegistersInfo17;
+        }
+        if(gSystemConfig.configRegistersInfo17FieldType == 11 || gSystemConfig.configRegistersInfo17FieldType == 12)
+        {
+            tblRegistersInfo17 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo17") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo17, "db_write_text"), 2) : tblRegistersInfo17;
+        }
+
+        if(gSystemConfig.configRegistersInfo18FieldType == 1 || gSystemConfig.configRegistersInfo18FieldType == 2)
+        {
+            tblRegistersInfo18 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo18") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo18, "db_write_text") : tblRegistersInfo18;
+        }
+        if(gSystemConfig.configRegistersInfo18FieldType == 11 || gSystemConfig.configRegistersInfo18FieldType == 12)
+        {
+            tblRegistersInfo18 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo18") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo18, "db_write_text"), 2) : tblRegistersInfo18;
+        }
+
+        if(gSystemConfig.configRegistersInfo19FieldType == 1 || gSystemConfig.configRegistersInfo19FieldType == 2)
+        {
+            tblRegistersInfo19 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo19") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo19, "db_write_text") : tblRegistersInfo19;
+        }
+        if(gSystemConfig.configRegistersInfo19FieldType == 11 || gSystemConfig.configRegistersInfo19FieldType == 12)
+        {
+            tblRegistersInfo19 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo19") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo19, "db_write_text"), 2) : tblRegistersInfo19;
+        }
+
+        if(gSystemConfig.configRegistersInfo20FieldType == 1 || gSystemConfig.configRegistersInfo20FieldType == 2)
+        {
+            tblRegistersInfo20 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo20") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo20, "db_write_text") : tblRegistersInfo20;
+        }
+        if(gSystemConfig.configRegistersInfo20FieldType == 11 || gSystemConfig.configRegistersInfo20FieldType == 12)
+        {
+            tblRegistersInfo20 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo20") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo20, "db_write_text"), 2) : tblRegistersInfo20;
+        }
+        
+        tblRegistersInfoSmall1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall1, "db_write_text") : tblRegistersInfoSmall1;
+        tblRegistersInfoSmall2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall2, "db_write_text") : tblRegistersInfoSmall2;
+        tblRegistersInfoSmall3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall3, "db_write_text") : tblRegistersInfoSmall3;
+        tblRegistersInfoSmall4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall4") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall4, "db_write_text") : tblRegistersInfoSmall4;
+        tblRegistersInfoSmall5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall5") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall5, "db_write_text") : tblRegistersInfoSmall5;
+        tblRegistersInfoSmall6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall6") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall6, "db_write_text") : tblRegistersInfoSmall6;
+        tblRegistersInfoSmall7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall7") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall7, "db_write_text") : tblRegistersInfoSmall7;
+        tblRegistersInfoSmall8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall8") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall8, "db_write_text") : tblRegistersInfoSmall8;
+        tblRegistersInfoSmall9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall9") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall9, "db_write_text") : tblRegistersInfoSmall9;
+        tblRegistersInfoSmall10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall10") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall10, "db_write_text") : tblRegistersInfoSmall10;
+        tblRegistersInfoSmall11 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall11") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall11, "db_write_text") : tblRegistersInfoSmall11;
+        tblRegistersInfoSmall12 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall12") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall12, "db_write_text") : tblRegistersInfoSmall12;
+        tblRegistersInfoSmall13 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall13") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall13, "db_write_text") : tblRegistersInfoSmall13;
+        tblRegistersInfoSmall14 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall14") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall14, "db_write_text") : tblRegistersInfoSmall14;
+        tblRegistersInfoSmall15 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall15") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall15, "db_write_text") : tblRegistersInfoSmall15;
+        tblRegistersInfoSmall16 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall16") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall16, "db_write_text") : tblRegistersInfoSmall16;
+        tblRegistersInfoSmall17 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall17") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall17, "db_write_text") : tblRegistersInfoSmall17;
+        tblRegistersInfoSmall18 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall18") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall18, "db_write_text") : tblRegistersInfoSmall18;
+        tblRegistersInfoSmall19 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall19") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall19, "db_write_text") : tblRegistersInfoSmall19;
+        tblRegistersInfoSmall20 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall20") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall20, "db_write_text") : tblRegistersInfoSmall20;
+        tblRegistersInfoSmall21 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall21") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall21, "db_write_text") : tblRegistersInfoSmall21;
+        tblRegistersInfoSmall22 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall22") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall22, "db_write_text") : tblRegistersInfoSmall22;
+        tblRegistersInfoSmall23 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall23") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall23, "db_write_text") : tblRegistersInfoSmall23;
+        tblRegistersInfoSmall24 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall24") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall24, "db_write_text") : tblRegistersInfoSmall24;
+        tblRegistersInfoSmall25 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall25") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall25, "db_write_text") : tblRegistersInfoSmall25;
+        tblRegistersInfoSmall26 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall26") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall26, "db_write_text") : tblRegistersInfoSmall26;
+        tblRegistersInfoSmall27 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall27") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall27, "db_write_text") : tblRegistersInfoSmall27;
+        tblRegistersInfoSmall28 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall28") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall28, "db_write_text") : tblRegistersInfoSmall28;
+        tblRegistersInfoSmall29 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall29") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall29, "db_write_text") : tblRegistersInfoSmall29;
+        tblRegistersInfoSmall30 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall30") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall30, "db_write_text") : tblRegistersInfoSmall30;
+
+        tblRegistersNumber1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber1") === true && (tblRegistersDataObject._tblRegistersNumber1)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber1, gSystemConfig.configRegistersNumber1FieldType) : tblRegistersNumber1;
+        tblRegistersNumber2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber2") === true && (tblRegistersDataObject._tblRegistersNumber2)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber2, gSystemConfig.configRegistersNumber2FieldType) : tblRegistersNumber2;
+        tblRegistersNumber3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber3") === true && (tblRegistersDataObject._tblRegistersNumber3)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber3, gSystemConfig.configRegistersNumber3FieldType) : tblRegistersNumber3;
+        tblRegistersNumber4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber4") === true && (tblRegistersDataObject._tblRegistersNumber4)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber4, gSystemConfig.configRegistersNumber4FieldType) : tblRegistersNumber4;
+        tblRegistersNumber5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber5") === true && (tblRegistersDataObject._tblRegistersNumber5)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber5, gSystemConfig.configRegistersNumber5FieldType) : tblRegistersNumber5;
+        
+        tblRegistersNumberSmall1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall1") === true && (tblRegistersDataObject._tblRegistersNumberSmall1)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall1, gSystemConfig.configRegistersNumberS1FieldType) : tblRegistersNumberSmall1;
+        tblRegistersNumberSmall2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall2") === true && (tblRegistersDataObject._tblRegistersNumberSmall2)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall2, gSystemConfig.configRegistersNumberS2FieldType) : tblRegistersNumberSmall2;
+        tblRegistersNumberSmall3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall3") === true && (tblRegistersDataObject._tblRegistersNumberSmall3)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall3, gSystemConfig.configRegistersNumberS3FieldType) : tblRegistersNumberSmall3;
+        tblRegistersNumberSmall4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall4") === true && (tblRegistersDataObject._tblRegistersNumberSmall4)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall4, gSystemConfig.configRegistersNumberS4FieldType) : tblRegistersNumberSmall4;
+        tblRegistersNumberSmall5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall5") === true && (tblRegistersDataObject._tblRegistersNumberSmall5)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall5, gSystemConfig.configRegistersNumberS5FieldType) : tblRegistersNumberSmall5;
+        
+        tblRegistersURL1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL1, "db_write_text") : tblRegistersURL1;
+        tblRegistersURL2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL2, "db_write_text") : tblRegistersURL2;
+        tblRegistersURL3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL3, "db_write_text") : tblRegistersURL3;
+        tblRegistersURL4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL4") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL4, "db_write_text") : tblRegistersURL4;
+        tblRegistersURL5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL5") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL5, "db_write_text") : tblRegistersURL5;
+        
+        tblRegistersDate1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate1") === true && (tblRegistersDataObject._tblRegistersDate1)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate1, gSystemConfig.configBackendDateFormat) : tblRegistersDate1;
+        tblRegistersDate2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate2") === true && (tblRegistersDataObject._tblRegistersDate2)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate2, gSystemConfig.configBackendDateFormat) : tblRegistersDate2;
+        tblRegistersDate3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate3") === true && (tblRegistersDataObject._tblRegistersDate3)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate3, gSystemConfig.configBackendDateFormat) : tblRegistersDate3;
+        tblRegistersDate4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate4") === true && (tblRegistersDataObject._tblRegistersDate4)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate4, gSystemConfig.configBackendDateFormat) : tblRegistersDate4;
+        tblRegistersDate5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate5") === true && (tblRegistersDataObject._tblRegistersDate5)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate5, gSystemConfig.configBackendDateFormat) : tblRegistersDate5;
+        tblRegistersDate6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate6") === true && (tblRegistersDataObject._tblRegistersDate6)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate6, gSystemConfig.configBackendDateFormat) : tblRegistersDate6;
+        tblRegistersDate7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate7") === true && (tblRegistersDataObject._tblRegistersDate7)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate7, gSystemConfig.configBackendDateFormat) : tblRegistersDate7;
+        tblRegistersDate8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate8") === true && (tblRegistersDataObject._tblRegistersDate8)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate8, gSystemConfig.configBackendDateFormat) : tblRegistersDate8;
+        tblRegistersDate9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate9") === true && (tblRegistersDataObject._tblRegistersDate9)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate9, gSystemConfig.configBackendDateFormat) : tblRegistersDate9;
+        tblRegistersDate10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate10") === true && (tblRegistersDataObject._tblRegistersDate10)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate10, gSystemConfig.configBackendDateFormat) : tblRegistersDate10;
+        
+        tblRegistersImageMain = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageMain") === true) ? tblRegistersDataObject._tblRegistersImageMain : tblRegistersImageMain;
+        tblRegistersImageMainCaption = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageMainCaption") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersImageMainCaption, "db_write_text") : tblRegistersImageMainCaption;
+        tblRegistersImageLogo = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageLogo") === true) ? tblRegistersDataObject._tblRegistersImageLogo : tblRegistersImageLogo;
+        tblRegistersImageBanner = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageBanner") === true) ? tblRegistersDataObject._tblRegistersImageBanner : tblRegistersImageBanner;
+        
+        tblRegistersFile1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile1") === true) ? tblRegistersDataObject._tblRegistersFile1 : tblRegistersFile1;
+        tblRegistersFile2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile2") === true) ? tblRegistersDataObject._tblRegistersFile2 : tblRegistersFile2;
+        tblRegistersFile3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile3") === true) ? tblRegistersDataObject._tblRegistersFile3 : tblRegistersFile3;
+        tblRegistersFile4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile4") === true) ? tblRegistersDataObject._tblRegistersFile4 : tblRegistersFile4;
+        tblRegistersFile5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile5") === true) ? tblRegistersDataObject._tblRegistersFile5 : tblRegistersFile5;
+        
+        tblRegistersActivation = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation") === true && (tblRegistersDataObject._tblRegistersActivation)) ? tblRegistersDataObject._tblRegistersActivation : tblRegistersActivation;
+        tblRegistersActivation1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation1") === true && (tblRegistersDataObject._tblRegistersActivation1)) ? tblRegistersDataObject._tblRegistersActivation1 : tblRegistersActivation1;
+        tblRegistersActivation2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation2") === true && (tblRegistersDataObject._tblRegistersActivation2)) ? tblRegistersDataObject._tblRegistersActivation2 : tblRegistersActivation2;
+        tblRegistersActivation3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation3") === true && (tblRegistersDataObject._tblRegistersActivation3)) ? tblRegistersDataObject._tblRegistersActivation3 : tblRegistersActivation3;
+        tblRegistersActivation4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation5") === true && (tblRegistersDataObject._tblRegistersActivation4)) ? tblRegistersDataObject._tblRegistersActivation4 : tblRegistersActivation5;
+        tblRegistersActivation5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation5") === true && (tblRegistersDataObject._tblRegistersActivation5)) ? tblRegistersDataObject._tblRegistersActivation5 : tblRegistersActivation5;
+        
+        tblRegistersIdStatus = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdStatus") === true && (tblRegistersDataObject._tblRegistersIdStatus)) ? tblRegistersDataObject._tblRegistersIdStatus : tblRegistersIdStatus;
+        tblRegistersRestrictedAccess = (tblRegistersDataObject.hasOwnProperty("_tblRegistersRestrictedAccess") === true && (tblRegistersDataObject._tblRegistersRestrictedAccess)) ? tblRegistersDataObject._tblRegistersRestrictedAccess : tblRegistersRestrictedAccess;
+        tblRegistersNotes = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNotes, "db_write_text") : tblRegistersNotes;
+        
+        arrIdsRegistersFiltersGeneric1 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric1") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric1)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric1 : arrIdsRegistersFiltersGeneric1;
+        arrIdsRegistersFiltersGeneric2 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric2") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric2)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric2 : arrIdsRegistersFiltersGeneric2;
+        arrIdsRegistersFiltersGeneric3 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric3") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric3)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric3 : arrIdsRegistersFiltersGeneric3;
+        arrIdsRegistersFiltersGeneric4 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric4") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric4)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric4 : arrIdsRegistersFiltersGeneric4;
+        arrIdsRegistersFiltersGeneric5 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric5") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric5)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric5 : arrIdsRegistersFiltersGeneric5;
+        arrIdsRegistersFiltersGeneric6 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric6") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric6)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric6 : arrIdsRegistersFiltersGeneric6;
+        arrIdsRegistersFiltersGeneric5 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric5") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric5)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric5 : arrIdsRegistersFiltersGeneric5;
+        arrIdsRegistersFiltersGeneric6 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric6") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric6)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric6 : arrIdsRegistersFiltersGeneric6;
+        arrIdsRegistersFiltersGeneric7 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric7") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric7)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric7 : arrIdsRegistersFiltersGeneric7;
+        arrIdsRegistersFiltersGeneric8 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric8") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric8)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric8 : arrIdsRegistersFiltersGeneric8;
+        arrIdsRegistersFiltersGeneric9 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric9") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric9)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric9 : arrIdsRegistersFiltersGeneric9;
+        arrIdsRegistersFiltersGeneric10 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric10") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric10)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric10 : arrIdsRegistersFiltersGeneric10;
+        arrIdsRegistersFiltersGeneric11 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric11") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric11)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric11 : arrIdsRegistersFiltersGeneric11;
+        arrIdsRegistersFiltersGeneric12 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric12") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric12)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric12 : arrIdsRegistersFiltersGeneric12;
+        arrIdsRegistersFiltersGeneric13 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric13") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric13)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric13 : arrIdsRegistersFiltersGeneric13;
+        arrIdsRegistersFiltersGeneric14 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric14") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric14)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric14 : arrIdsRegistersFiltersGeneric14;
+        arrIdsRegistersFiltersGeneric15 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric15") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric15)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric15 : arrIdsRegistersFiltersGeneric15;
+        arrIdsRegistersFiltersGeneric16 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric16") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric16)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric16 : arrIdsRegistersFiltersGeneric16;
+        arrIdsRegistersFiltersGeneric15 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric15") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric15)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric15 : arrIdsRegistersFiltersGeneric15;
+        arrIdsRegistersFiltersGeneric16 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric16") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric16)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric16 : arrIdsRegistersFiltersGeneric16;
+        arrIdsRegistersFiltersGeneric17 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric17") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric17)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric17 : arrIdsRegistersFiltersGeneric17;
+        arrIdsRegistersFiltersGeneric18 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric18") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric18)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric18 : arrIdsRegistersFiltersGeneric18;
+        arrIdsRegistersFiltersGeneric19 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric19") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric19)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric19 : arrIdsRegistersFiltersGeneric19;
+        arrIdsRegistersFiltersGeneric20 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric20") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric20)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric20 : arrIdsRegistersFiltersGeneric20;
+        arrIdsRegistersFiltersGeneric21 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric21") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric21)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric21 : arrIdsRegistersFiltersGeneric21;
+        arrIdsRegistersFiltersGeneric22 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric22") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric22)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric22 : arrIdsRegistersFiltersGeneric22;
+        arrIdsRegistersFiltersGeneric23 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric23") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric23)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric23 : arrIdsRegistersFiltersGeneric23;
+        arrIdsRegistersFiltersGeneric24 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric24") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric24)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric24 : arrIdsRegistersFiltersGeneric24;
+        arrIdsRegistersFiltersGeneric25 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric25") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric25)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric25 : arrIdsRegistersFiltersGeneric25;
+        arrIdsRegistersFiltersGeneric26 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric26") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric26)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric26 : arrIdsRegistersFiltersGeneric26;
+        arrIdsRegistersFiltersGeneric25 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric25") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric25)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric25 : arrIdsRegistersFiltersGeneric25;
+        arrIdsRegistersFiltersGeneric26 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric26") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric26)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric26 : arrIdsRegistersFiltersGeneric26;
+        arrIdsRegistersFiltersGeneric27 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric27") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric27)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric27 : arrIdsRegistersFiltersGeneric27;
+        arrIdsRegistersFiltersGeneric28 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric28") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric28)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric28 : arrIdsRegistersFiltersGeneric28;
+        arrIdsRegistersFiltersGeneric29 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric29") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric29)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric29 : arrIdsRegistersFiltersGeneric29;
+        arrIdsRegistersFiltersGeneric30 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric30") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric30)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric30 : arrIdsRegistersFiltersGeneric30;
+        arrIdsRegistersFiltersGeneric31 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric31") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric31)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric31 : arrIdsRegistersFiltersGeneric31;
+        arrIdsRegistersFiltersGeneric32 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric32") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric32)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric32 : arrIdsRegistersFiltersGeneric32;
+        arrIdsRegistersFiltersGeneric33 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric33") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric33)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric33 : arrIdsRegistersFiltersGeneric33;
+        arrIdsRegistersFiltersGeneric34 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric34") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric34)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric34 : arrIdsRegistersFiltersGeneric34;
+        arrIdsRegistersFiltersGeneric35 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric35") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric35)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric35 : arrIdsRegistersFiltersGeneric35;
+        arrIdsRegistersFiltersGeneric36 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric36") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric36)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric36 : arrIdsRegistersFiltersGeneric36;
+        arrIdsRegistersFiltersGeneric35 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric35") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric35)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric35 : arrIdsRegistersFiltersGeneric35;
+        arrIdsRegistersFiltersGeneric36 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric36") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric36)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric36 : arrIdsRegistersFiltersGeneric36;
+        arrIdsRegistersFiltersGeneric37 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric37") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric37)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric37 : arrIdsRegistersFiltersGeneric37;
+        arrIdsRegistersFiltersGeneric38 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric38") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric38)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric38 : arrIdsRegistersFiltersGeneric38;
+        arrIdsRegistersFiltersGeneric39 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric39") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric39)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric39 : arrIdsRegistersFiltersGeneric39;
+        arrIdsRegistersFiltersGeneric40 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric40") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric40)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric40 : arrIdsRegistersFiltersGeneric40;
+        //----------------------
+
+
+        //Debug.
+        //console.log("tblRegistersDataObject=", tblRegistersDataObject);
+
+
+        //Query.
+        //----------------------
+        //strSQLRegistersInsert += "INSERT INTO " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + "categories";
+        strSQLRegistersInsert += "INSERT INTO " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + gSystemConfig.configSystemDBTableRegisters + " ";
+        strSQLRegistersInsert += "SET ?";
+        //----------------------
+
+
+        //Parameters.
+        //----------------------
+        strSQLRegistersInsertParams.id = tblRegistersID;
+        strSQLRegistersInsertParams.id_parent = tblRegistersIdParent;
+        strSQLRegistersInsertParams.sort_order = tblRegistersSortOrder;
+
+        strSQLRegistersInsertParams.date_creation = tblRegistersDateCreation;
+        strSQLRegistersInsertParams.date_timezone = tblRegistersDateTimezone;
+        strSQLRegistersInsertParams.date_edit = tblRegistersDateEdit;
+
+        strSQLRegistersInsertParams.id_type = tblRegistersIdType;
+        strSQLRegistersInsertParams.id_activity = tblRegistersIdActivity;
+
+        strSQLRegistersInsertParams.id_register_user = tblRegistersIdRegisterUser;
+        strSQLRegistersInsertParams.id_register1 = tblRegistersIdRegister1;
+        strSQLRegistersInsertParams.id_register2 = tblRegistersIdRegister2;
+        strSQLRegistersInsertParams.id_register3 = tblRegistersIdRegister3;
+        strSQLRegistersInsertParams.id_register4 = tblRegistersIdRegister4;
+        strSQLRegistersInsertParams.id_register5 = tblRegistersIdRegister5;
+
+        strSQLRegistersInsertParams.register_type = tblRegistersType;
+
+        strSQLRegistersInsertParams.name_title = tblRegistersNameTitle;
+        strSQLRegistersInsertParams.name_full = tblRegistersNameFull;
+        strSQLRegistersInsertParams.name_first = tblRegistersNameFirst;
+        strSQLRegistersInsertParams.name_last = tblRegistersNameLast;
+
+        strSQLRegistersInsertParams.company_name_legal = tblRegistersCompanyNameLegal;
+        strSQLRegistersInsertParams.company_name_alias = tblRegistersCompanyNameAlias;
+
+        strSQLRegistersInsertParams.description = tblRegistersDescription;
+
+        strSQLRegistersInsertParams.url_alias = tblRegistersURLAlias;
+        strSQLRegistersInsertParams.keywords_tags = tblRegistersKeywordsTags;
+        strSQLRegistersInsertParams.meta_description = tblRegistersMetaDescription;
+        strSQLRegistersInsertParams.meta_title = tblRegistersMetaTitle;
+        strSQLRegistersInsertParams.meta_info = tblRegistersMetaInfo;
+
+        strSQLRegistersInsertParams.date_birth = tblRegistersDateBirth;
+        strSQLRegistersInsertParams.gender = tblRegistersGender;
+        strSQLRegistersInsertParams.height = tblRegistersHeight;
+        strSQLRegistersInsertParams.weight = tblRegistersWeight;
+
+        strSQLRegistersInsertParams.document_type = tblRegistersDocumentType;
+        strSQLRegistersInsertParams.document = tblRegistersDocument;
+        strSQLRegistersInsertParams.document1_type = tblRegistersDocument1Type;
+        strSQLRegistersInsertParams.document1 = tblRegistersDocument1;
+        strSQLRegistersInsertParams.document2_type = tblRegistersDocument2Type;
+        strSQLRegistersInsertParams.document2 = tblRegistersDocument2;
+
+        strSQLRegistersInsertParams.document_company_type = tblRegistersDocumentCompanyType;
+        strSQLRegistersInsertParams.document_company = tblRegistersDocumentCompany;
+        strSQLRegistersInsertParams.document_company1_type = tblRegistersDocumentCompany1Type;
+        strSQLRegistersInsertParams.document_company1 = tblRegistersDocumentCompany1;
+        strSQLRegistersInsertParams.document_company2_type = tblRegistersDocumentCompany2Type;
+        strSQLRegistersInsertParams.document_company2 = tblRegistersDocumentCompany2;
+
+        strSQLRegistersInsertParams.zip_code = tblRegistersZipCode;
+        strSQLRegistersInsertParams.address_street = tblRegistersAddressStreet;
+        strSQLRegistersInsertParams.address_number = tblRegistersAddressNumber;
+        strSQLRegistersInsertParams.address_complement = tblRegistersAddressComplement;
+        strSQLRegistersInsertParams.neighborhood = tblRegistersNeighborhood;
+        strSQLRegistersInsertParams.district = tblRegistersDistrict;
+        strSQLRegistersInsertParams.county = tblRegistersCounty;
+        strSQLRegistersInsertParams.city = tblRegistersCity;
+        strSQLRegistersInsertParams.state = tblRegistersState;
+        strSQLRegistersInsertParams.country = tblRegistersCountry;
+        
+        strSQLRegistersInsertParams.id_street = tblRegistersIdStreet;
+        strSQLRegistersInsertParams.id_neighborhood = tblRegistersIdNeighborhood;
+        strSQLRegistersInsertParams.id_district = tblRegistersIdDistrict;
+        strSQLRegistersInsertParams.id_county = tblRegistersIdCounty;
+        strSQLRegistersInsertParams.id_city = tblRegistersIdCity;
+        strSQLRegistersInsertParams.id_state = tblRegistersIdState;
+        strSQLRegistersInsertParams.id_country = tblRegistersIdCountry;
+
+        strSQLRegistersInsertParams.location_reference = tblRegistersLocationReference;
+        strSQLRegistersInsertParams.location_map = tblRegistersLocationMap;
+
+        strSQLRegistersInsertParams.phone1_international_code = tblRegistersPhone1InternationalCode;
+        strSQLRegistersInsertParams.phone1_area_code = tblRegistersPhone1AreaCode;
+        strSQLRegistersInsertParams.phone1 = tblRegistersPhone1;
+
+        strSQLRegistersInsertParams.phone2_international_code = tblRegistersPhone2InternationalCode;
+        strSQLRegistersInsertParams.phone2_area_code = tblRegistersPhone2AreaCode;
+        strSQLRegistersInsertParams.phone2 = tblRegistersPhone2;
+
+        strSQLRegistersInsertParams.phone3_international_code = tblRegistersPhone3InternationalCode;
+        strSQLRegistersInsertParams.phone3_area_code = tblRegistersPhone3AreaCode;
+        strSQLRegistersInsertParams.phone3 = tblRegistersPhone3;
+
+        strSQLRegistersInsertParams.website = tblRegistersWebsite;
+
+        strSQLRegistersInsertParams.username = tblRegistersUsername;
+        strSQLRegistersInsertParams.email = tblRegistersEmail;
+        strSQLRegistersInsertParams.password = tblRegistersPassword;
+        strSQLRegistersInsertParams.password_hint = tblRegistersPasswordHint;
+        strSQLRegistersInsertParams.password_length = tblRegistersPasswordLength;
+
+        strSQLRegistersInsertParams.info1 = tblRegistersInfo1;
+        strSQLRegistersInsertParams.info2 = tblRegistersInfo2;
+        strSQLRegistersInsertParams.info3 = tblRegistersInfo3;
+        strSQLRegistersInsertParams.info4 = tblRegistersInfo4;
+        strSQLRegistersInsertParams.info5 = tblRegistersInfo5;
+        strSQLRegistersInsertParams.info6 = tblRegistersInfo6;
+        strSQLRegistersInsertParams.info7 = tblRegistersInfo7;
+        strSQLRegistersInsertParams.info8 = tblRegistersInfo8;
+        strSQLRegistersInsertParams.info9 = tblRegistersInfo9;
+        strSQLRegistersInsertParams.info10 = tblRegistersInfo10;
+        strSQLRegistersInsertParams.info11 = tblRegistersInfo11;
+        strSQLRegistersInsertParams.info12 = tblRegistersInfo12;
+        strSQLRegistersInsertParams.info13 = tblRegistersInfo13;
+        strSQLRegistersInsertParams.info14 = tblRegistersInfo14;
+        strSQLRegistersInsertParams.info15 = tblRegistersInfo15;
+        strSQLRegistersInsertParams.info16 = tblRegistersInfo16;
+        strSQLRegistersInsertParams.info17 = tblRegistersInfo17;
+        strSQLRegistersInsertParams.info18 = tblRegistersInfo18;
+        strSQLRegistersInsertParams.info19 = tblRegistersInfo19;
+        strSQLRegistersInsertParams.info20 = tblRegistersInfo20;
+
+        strSQLRegistersInsertParams.info_small1 = tblRegistersInfoSmall1;
+        strSQLRegistersInsertParams.info_small2 = tblRegistersInfoSmall2;
+        strSQLRegistersInsertParams.info_small3 = tblRegistersInfoSmall3;
+        strSQLRegistersInsertParams.info_small4 = tblRegistersInfoSmall4;
+        strSQLRegistersInsertParams.info_small5 = tblRegistersInfoSmall5;
+        strSQLRegistersInsertParams.info_small6 = tblRegistersInfoSmall6;
+        strSQLRegistersInsertParams.info_small7 = tblRegistersInfoSmall7;
+        strSQLRegistersInsertParams.info_small8 = tblRegistersInfoSmall8;
+        strSQLRegistersInsertParams.info_small9 = tblRegistersInfoSmall9;
+        strSQLRegistersInsertParams.info_small10 = tblRegistersInfoSmall10;
+        strSQLRegistersInsertParams.info_small11 = tblRegistersInfoSmall11;
+        strSQLRegistersInsertParams.info_small12 = tblRegistersInfoSmall12;
+        strSQLRegistersInsertParams.info_small13 = tblRegistersInfoSmall13;
+        strSQLRegistersInsertParams.info_small14 = tblRegistersInfoSmall14;
+        strSQLRegistersInsertParams.info_small15 = tblRegistersInfoSmall15;
+        strSQLRegistersInsertParams.info_small16 = tblRegistersInfoSmall16;
+        strSQLRegistersInsertParams.info_small17 = tblRegistersInfoSmall17;
+        strSQLRegistersInsertParams.info_small18 = tblRegistersInfoSmall18;
+        strSQLRegistersInsertParams.info_small19 = tblRegistersInfoSmall19;
+        strSQLRegistersInsertParams.info_small20 = tblRegistersInfoSmall20;
+        strSQLRegistersInsertParams.info_small21 = tblRegistersInfoSmall21;
+        strSQLRegistersInsertParams.info_small22 = tblRegistersInfoSmall22;
+        strSQLRegistersInsertParams.info_small23 = tblRegistersInfoSmall23;
+        strSQLRegistersInsertParams.info_small24 = tblRegistersInfoSmall24;
+        strSQLRegistersInsertParams.info_small25 = tblRegistersInfoSmall25;
+        strSQLRegistersInsertParams.info_small26 = tblRegistersInfoSmall26;
+        strSQLRegistersInsertParams.info_small27 = tblRegistersInfoSmall27;
+        strSQLRegistersInsertParams.info_small28 = tblRegistersInfoSmall28;
+        strSQLRegistersInsertParams.info_small29 = tblRegistersInfoSmall29;
+        strSQLRegistersInsertParams.info_small30 = tblRegistersInfoSmall30;
+
+        strSQLRegistersInsertParams.number1 = tblRegistersNumber1;
+        strSQLRegistersInsertParams.number2 = tblRegistersNumber2;
+        strSQLRegistersInsertParams.number3 = tblRegistersNumber3;
+        strSQLRegistersInsertParams.number4 = tblRegistersNumber4;
+        strSQLRegistersInsertParams.number5 = tblRegistersNumber5;
+
+        strSQLRegistersInsertParams.number_small1 = tblRegistersNumberSmall1;
+        strSQLRegistersInsertParams.number_small2 = tblRegistersNumberSmall2;
+        strSQLRegistersInsertParams.number_small3 = tblRegistersNumberSmall3;
+        strSQLRegistersInsertParams.number_small4 = tblRegistersNumberSmall4;
+        strSQLRegistersInsertParams.number_small5 = tblRegistersNumberSmall5;
+
+        strSQLRegistersInsertParams.url1 = tblRegistersURL1;
+        strSQLRegistersInsertParams.url2 = tblRegistersURL2;
+        strSQLRegistersInsertParams.url3 = tblRegistersURL3;
+        strSQLRegistersInsertParams.url4 = tblRegistersURL4;
+        strSQLRegistersInsertParams.url5 = tblRegistersURL5;
+
+        strSQLRegistersInsertParams.date1 = tblRegistersDate1;
+        strSQLRegistersInsertParams.date2 = tblRegistersDate2;
+        strSQLRegistersInsertParams.date3 = tblRegistersDate3;
+        strSQLRegistersInsertParams.date4 = tblRegistersDate4;
+        strSQLRegistersInsertParams.date5 = tblRegistersDate5;
+        strSQLRegistersInsertParams.date6 = tblRegistersDate6;
+        strSQLRegistersInsertParams.date7 = tblRegistersDate7;
+        strSQLRegistersInsertParams.date8 = tblRegistersDate8;
+        strSQLRegistersInsertParams.date9 = tblRegistersDate9;
+        strSQLRegistersInsertParams.date10 = tblRegistersDate10;
+        
+        strSQLRegistersInsertParams.image_main = tblRegistersImageMain;
+        strSQLRegistersInsertParams.image_main_caption = tblRegistersImageMainCaption;
+        strSQLRegistersInsertParams.image_logo = tblRegistersImageLogo;
+        strSQLRegistersInsertParams.image_banner = tblRegistersImageBanner;
+
+        strSQLRegistersInsertParams.file1 = tblRegistersFile1;
+        strSQLRegistersInsertParams.file2 = tblRegistersFile2;
+        strSQLRegistersInsertParams.file3 = tblRegistersFile3;
+        strSQLRegistersInsertParams.file4 = tblRegistersFile4;
+        strSQLRegistersInsertParams.file5 = tblRegistersFile5;
+
+        strSQLRegistersInsertParams.activation = tblRegistersActivation;
+        strSQLRegistersInsertParams.activation1 = tblRegistersActivation1;
+        strSQLRegistersInsertParams.activation2 = tblRegistersActivation2;
+        strSQLRegistersInsertParams.activation3 = tblRegistersActivation3;
+        strSQLRegistersInsertParams.activation4 = tblRegistersActivation4;
+        strSQLRegistersInsertParams.activation5 = tblRegistersActivation5;
+        
+        strSQLRegistersInsertParams.id_status = tblRegistersIdStatus;
+        strSQLRegistersInsertParams.restricted_access = tblRegistersRestrictedAccess;
+        strSQLRegistersInsertParams.notes = tblRegistersNotes;
+        //----------------------
+
+
+        //Execute query.
+        //----------------------
+        resultsSQLRegistersInsert = await new Promise((resolve, reject)=>{
+
+            dbSystemConPool.getConnection(function(dbSystemPoolError, dbSystemConPoolGetConnection){
+                if(dbSystemPoolError)
+                {
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                    }
+                    throw dbSystemPoolError;
+                }else{
+
+                    //dbSystemCon.query(strSQLRegistersInsert, strSQLRegistersInsertParams, (dbSystemError, results) => {
+                    dbSystemConPoolGetConnection.query(strSQLRegistersInsert, strSQLRegistersInsertParams, (dbSystemError, results) => {
+                        dbSystemConPoolGetConnection.release();
+
+                        if(dbSystemError)
+                        {
+                            //Error.
+                            if(gSystemConfig.configDebug === true)
+                            {
+                                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                            }
+        
+                            throw dbSystemError;
+                        }else{
+                            //Set success flag.
+                            //strReturn = true;
+        
+                            if(results)
+                            {
+                                //Success.
+                                if(gSystemConfig.configDebug === true)
+                                {
+                                    console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage2"));
+                                }
+                                //Return promise.
+                                resolve(results);
+                            }else{
+                                //Error.
+                                //reject(false);
+                                reject(new Error(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3")));
+                            }
+                                
+        
+                            //Debug.
+                            //resolve(resultsSQLCounterRows);
+                            //resolve(nCounter);
+                            //resolve(json(resultsSQLCounterRows));//working: returns [ RowDataPacket { id: 1, counter_global: 123, description: 'Node database test' } ]
+                        }
+                    });
+        
+                }
+            });
+            
+        });
+        //----------------------
+
+
+        //Return data treatment.
+        //----------------------
+        //resultsSQLRegistersInsert object ex: 
+        /*
+        OkPacket {
+            fieldCount: 0,
+            affectedRows: 1,
+            insertId: 0,
+            serverStatus: 2,
+            warningCount: 0,
+            message: '',
+            protocol41: true,
+            changedRows: 0 
+        }
+        */
+        if(resultsSQLRegistersInsert.affectedRows > 0)
+        {
+            //Record filters generic.
+            //OPTIMIZE: make only one insert with multiple records
+
+            //Filters generic 1 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric1 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric1)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric1.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric1[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 101,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+
+                        //console.log("arrIdsRegistersFiltersGeneric1[]=", arrIdsRegistersFiltersGeneric1[countArray]);
+                    }
+                }
+            }
+
+            //Filters generic 2 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric2)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric2.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric2[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 102,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 3 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric3 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric3)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric3.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric3[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 103,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 4 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric4 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric4)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric4.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric4[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 104,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 5 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric5 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric5)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric5.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric5[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 105,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 6 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric6 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric6)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric6.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric6[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 106,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 7 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric7 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric7)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric7.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric7[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 107,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 8 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric8 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric8)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric8.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric8[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 108,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 9 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric9 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric9)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric9.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric9[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 109,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 10 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric10 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric10)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric10.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric10[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 110,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 11 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric11 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric11)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric11.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric11[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 111,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+
+                        //console.log("arrIdsRegistersFiltersGeneric11[]=", arrIdsRegistersFiltersGeneric11[countArray]);
+                    }
+                }
+            }
+
+            //Filters generic 12 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric12 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric12)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric12.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric12[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 112,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 13 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric13 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric13)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric13.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric13[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 113,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+
+                        //Debug.
+                        //console.log("arrIdsRegistersFiltersGeneric13=", arrIdsRegistersFiltersGeneric13[countArray]);
+                    }
+                }
+
+                //Debug.
+                //console.log("tblRegistersID=", tblRegistersID);
+                //console.log("arrIdsRegistersFiltersGeneric13=", arrIdsRegistersFiltersGeneric13);
+            }
+
+            //Filters generic 14 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric14 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric14)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric14.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric14[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 114,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 15 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric15 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric15)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric15.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric15[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 115,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 16 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric16 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric16)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric16.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric16[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 116,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 17 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric17 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric17)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric17.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric17[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 117,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 18 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric18 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric18)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric18.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric18[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 118,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 19 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric19 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric19)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric19.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric19[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 119,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 20 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric20 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric20)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric20.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric20[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 120,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 21 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric21 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric21)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric21.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric21[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 121,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+
+                        //console.log("arrIdsRegistersFiltersGeneric21[]=", arrIdsRegistersFiltersGeneric21[countArray]);
+                    }
+                }
+            }
+
+            //Filters generic 22 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric22 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric22)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric22.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric22[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 122,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 23 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric23 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric23)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric23.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric23[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 123,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 24 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric24 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric24)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric24.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric24[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 124,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 25 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric25 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric25)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric25.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric25[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 125,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 26 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric26 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric26)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric26.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric26[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 126,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 27 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric27 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric27)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric27.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric27[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 127,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 28 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric28 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric28)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric28.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric28[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 128,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 29 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric29 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric29)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric29.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric29[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 129,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 30 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric30 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric30)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric30.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric30[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 130,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 31 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric31 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric31)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric31.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric31[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 131,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+
+                        //console.log("arrIdsRegistersFiltersGeneric31[]=", arrIdsRegistersFiltersGeneric31[countArray]);
+                    }
+                }
+            }
+
+            //Filters generic 32 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric32)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric32.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric32[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 132,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 33 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric33 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric33)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric33.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric33[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 133,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 34 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric34 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric34)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric34.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric34[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 134,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 35 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric35 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric35)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric35.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric35[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 135,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 36 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric36 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric36)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric36.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric36[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 136,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 37 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric37 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric37)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric37.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric37[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 137,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 38 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric38 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric38)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric38.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric38[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 138,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 39 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric39 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric39)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric39.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric39[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 139,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+            //Filters generic 40 - record.
+            if(gSystemConfig.enableRegistersFilterGeneric40 != 0)
+            {
+                if(arrIdsRegistersFiltersGeneric40)
+                {
+                    for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric40.length; countArray++)
+                    {
+                        await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                            _tblFiltersGenericBindingID: "",
+                            _tblFiltersGenericBindingSortOrder: "",
+                            _tblFiltersGenericBindingDateCreation: "",
+                            _tblFiltersGenericBindingDateEdit: "",
+                            _tblFiltersGenericBindingIdFiltersGeneric: arrIdsRegistersFiltersGeneric40[countArray],
+                            _tblFiltersGenericBindingIdFilterIndex: 140,
+                            _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                            _tblFiltersGenericBindingNotes: ""
+                        });
+                    }
+                }
+            }
+
+
+
+            strReturn = true;
+        }
+        //----------------------
+
+
+        //Debug.
+        //return tblRegistersID;
+        //return resultsSQLRegistersInsert;
+
+
+        return strReturn;
+
+
+        //Usage.
+        //----------------------
+        /*
+        (async function(){ //async marks the block
+            try{ 
+                let registersInsertResult = await new Promise((resolve, reject)=>{
+                SyncSystemNS.FunctionsDBInsert.registersInsert_async({
+                    _tblRegistersID: tblRegistersID,
+                    _tblRegistersIdParent: tblRegistersIdParent,
+                    _tblRegistersSortOrder: tblRegistersSortOrder,
+                    _tblRegistersIdType: tblRegistersIdType,
+                    _tblRegistersIdActivity: tblRegistersIdActivity,
+                    _tblRegistersDateCreation: "",
+                    _tblRegistersDateTimezone: "",
+                    _tblRegistersDateEdit: "",
+                    _tblRegistersIdRegisterUser: tblRegistersIdRegisterUser,
+                    _tblRegistersIdRegister1: tblRegistersIdRegister1,
+                    _tblRegistersIdRegister2: tblRegistersIdRegister2,
+                    _tblRegistersIdRegister3: tblRegistersIdRegister3,
+                    _tblRegistersIdRegister4: tblRegistersIdRegister4,
+                    _tblRegistersIdRegister5: tblRegistersIdRegister5,
+                    _tblRegistersType: tblRegistersType,
+                    _tblRegistersNameTitle: tblRegistersNameTitle,
+                    _tblRegistersNameFull: tblRegistersNameFull,
+                    _tblRegistersNameFirst: tblRegistersNameFirst,
+                    _tblRegistersNameLast: tblRegistersNameLast,
+                    _tblRegistersCompanyNameLegal: tblRegistersCompanyNameLegal,
+                    _tblRegistersCompanyNameAlias: tblRegistersCompanyNameAlias,
+                    _tblRegistersDescription: tblRegistersDescription,
+                    _tblRegistersURLAlias: tblRegistersURLAlias,
+                    _tblRegistersKeywordsTags: tblRegistersKeywordsTags,
+                    _tblRegistersMetaDescription: tblRegistersMetaDescription,
+                    _tblRegistersMetaTitle: tblRegistersMetaTitle,
+                    _tblRegistersMetaInfo: tblRegistersMetaInfo,
+                    _tblRegistersDateBirth: tblRegistersDateBirth,
+                    _tblRegistersGender: tblRegistersGender,
+                    _tblRegistersHeight: tblRegistersHeight,
+                    _tblRegistersWeight: tblRegistersWeight,
+                    _tblRegistersDocumentType: tblRegistersDocumentType,
+                    _tblRegistersDocument: tblRegistersDocument,
+                    _tblRegistersDocument1Type: tblRegistersDocument1Type,
+                    _tblRegistersDocument1: tblRegistersDocument1,
+                    _tblRegistersDocument2Type: tblRegistersDocument2Type,
+                    _tblRegistersDocument2: tblRegistersDocument2,
+                    _tblRegistersDocumentCompanyType: tblRegistersDocumentCompanyType,
+                    _tblRegistersDocumentCompany: tblRegistersDocumentCompany,
+                    _tblRegistersDocument1CompanyType: tblRegistersDocumentCompany1Type,
+                    _tblRegistersDocument1Company: tblRegistersDocumentCompany1,
+                    _tblRegistersDocument2CompanyType: tblRegistersDocumentCompany2Type,
+                    _tblRegistersDocument2Company: tblRegistersDocumentCompany2,
+                    _tblRegistersZipCode: tblRegistersZipCode,
+                    _tblRegistersAddressStreet: tblRegistersAddressStreet,
+                    _tblRegistersAddressNumber: tblRegistersAddressNumber,
+                    _tblRegistersAddressComplement: tblRegistersAddressComplement,
+                    _tblRegistersNeighborhood: tblRegistersNeighborhood,
+                    _tblRegistersDistrict: tblRegistersDistrict,
+                    _tblRegistersCounty: tblRegistersCounty,
+                    _tblRegistersCity: tblRegistersCity,
+                    _tblRegistersState: tblRegistersState,
+                    _tblRegistersCountry: tblRegistersCountry,
+                    _tblRegistersIdStreet: tblRegistersIdStreet,
+                    _tblRegistersIdNeighborhood: tblRegistersIdNeighborhood,
+                    _tblRegistersIdDistrict: tblRegistersIdDistrict,
+                    _tblRegistersIdCounty: tblRegistersIdCounty,
+                    _tblRegistersIdCity: tblRegistersIdCity,
+                    _tblRegistersIdState: tblRegistersIdState,
+                    _tblRegistersIdCountry: tblRegistersIdCountry,
+                    _tblRegistersLocationReference: tblRegistersLocationReference,
+                    _tblRegistersLocationMap: tblRegistersLocationMap,
+                    _tblRegistersPhone1InternationalCode: tblRegistersPhone1InternationalCode,
+                    _tblRegistersPhone1AreaCode: tblRegistersPhone1AreaCode,
+                    _tblRegistersPhone1: tblRegistersPhone1,
+                    _tblRegistersPhone2InternationalCode: tblRegistersPhone2InternationalCode,
+                    _tblRegistersPhone2AreaCode: tblRegistersPhone2AreaCode,
+                    _tblRegistersPhone2: tblRegistersPhone2,
+                    _tblRegistersPhone3InternationalCode: tblRegistersPhone3InternationalCode,
+                    _tblRegistersPhone3AreaCode: tblRegistersPhone3AreaCode,
+                    _tblRegistersPhone3: tblRegistersPhone3,
+                    _tblRegistersWebsite: tblRegistersWebsite,
+                    _tblRegistersUsername: tblRegistersUsername,
+                    _tblRegistersEmail: tblRegistersEmail,
+                    _tblRegistersPassword: tblRegistersPassword,
+                    _tblRegistersPasswordHint: tblRegistersPasswordHint,
+                    _tblRegistersPasswordLength: tblRegistersPasswordLength,
+                    _tblRegistersInfo1: tblRegistersInfo1,
+                    _tblRegistersInfo2: tblRegistersInfo2,
+                    _tblRegistersInfo3: tblRegistersInfo3,
+                    _tblRegistersInfo4: tblRegistersInfo4,
+                    _tblRegistersInfo5: tblRegistersInfo5,
+                    _tblRegistersInfo6: tblRegistersInfo6,
+                    _tblRegistersInfo7: tblRegistersInfo7,
+                    _tblRegistersInfo8: tblRegistersInfo8,
+                    _tblRegistersInfo9: tblRegistersInfo9,
+                    _tblRegistersInfo10: tblRegistersInfo10,
+                    _tblRegistersInfo11: tblRegistersInfo11,
+                    _tblRegistersInfo12: tblRegistersInfo12,
+                    _tblRegistersInfo13: tblRegistersInfo13,
+                    _tblRegistersInfo14: tblRegistersInfo14,
+                    _tblRegistersInfo15: tblRegistersInfo15,
+                    _tblRegistersInfo16: tblRegistersInfo16,
+                    _tblRegistersInfo17: tblRegistersInfo17,
+                    _tblRegistersInfo18: tblRegistersInfo18,
+                    _tblRegistersInfo19: tblRegistersInfo19,
+                    _tblRegistersInfo20: tblRegistersInfo20,
+                    _tblRegistersInfoSmall1: tblRegistersInfoSmall1,
+                    _tblRegistersInfoSmall2: tblRegistersInfoSmall2,
+                    _tblRegistersInfoSmall3: tblRegistersInfoSmall3,
+                    _tblRegistersInfoSmall4: tblRegistersInfoSmall4,
+                    _tblRegistersInfoSmall5: tblRegistersInfoSmall5,
+                    _tblRegistersInfoSmall6: tblRegistersInfoSmall6,
+                    _tblRegistersInfoSmall7: tblRegistersInfoSmall7,
+                    _tblRegistersInfoSmall8: tblRegistersInfoSmall8,
+                    _tblRegistersInfoSmall9: tblRegistersInfoSmall9,
+                    _tblRegistersInfoSmall10: tblRegistersInfoSmall10,
+                    _tblRegistersInfoSmall11: tblRegistersInfoSmall11,
+                    _tblRegistersInfoSmall12: tblRegistersInfoSmall12,
+                    _tblRegistersInfoSmall13: tblRegistersInfoSmall13,
+                    _tblRegistersInfoSmall14: tblRegistersInfoSmall14,
+                    _tblRegistersInfoSmall15: tblRegistersInfoSmall15,
+                    _tblRegistersInfoSmall16: tblRegistersInfoSmall16,
+                    _tblRegistersInfoSmall17: tblRegistersInfoSmall17,
+                    _tblRegistersInfoSmall18: tblRegistersInfoSmall18,
+                    _tblRegistersInfoSmall19: tblRegistersInfoSmall19,
+                    _tblRegistersInfoSmall20: tblRegistersInfoSmall20,
+                    _tblRegistersInfoSmall21: tblRegistersInfoSmall21,
+                    _tblRegistersInfoSmall22: tblRegistersInfoSmall22,
+                    _tblRegistersInfoSmall23: tblRegistersInfoSmall23,
+                    _tblRegistersInfoSmall24: tblRegistersInfoSmall24,
+                    _tblRegistersInfoSmall25: tblRegistersInfoSmall25,
+                    _tblRegistersInfoSmall26: tblRegistersInfoSmall26,
+                    _tblRegistersInfoSmall27: tblRegistersInfoSmall27,
+                    _tblRegistersInfoSmall28: tblRegistersInfoSmall28,
+                    _tblRegistersInfoSmall29: tblRegistersInfoSmall29,
+                    _tblRegistersInfoSmall30: tblRegistersInfoSmall30,
+                    _tblRegistersNumber1: tblRegistersNumber1,
+                    _tblRegistersNumber2: tblRegistersNumber2,
+                    _tblRegistersNumber3: tblRegistersNumber3,
+                    _tblRegistersNumber4: tblRegistersNumber4,
+                    _tblRegistersNumber5: tblRegistersNumber5,
+                    _tblRegistersNumberSmall1: tblRegistersNumberSmall1,
+                    _tblRegistersNumberSmall2: tblRegistersNumberSmall2,
+                    _tblRegistersNumberSmall3: tblRegistersNumberSmall3,
+                    _tblRegistersNumberSmall4: tblRegistersNumberSmall4,
+                    _tblRegistersNumberSmall5: tblRegistersNumberSmall5,
+                    _tblRegistersURL1: tblRegistersURL1,
+                    _tblRegistersURL2: tblRegistersURL2,
+                    _tblRegistersURL3: tblRegistersURL3,
+                    _tblRegistersURL4: tblRegistersURL4,
+                    _tblRegistersURL5: tblRegistersURL5,
+                    _tblRegistersDate1: tblRegistersDate1,
+                    _tblRegistersDate2: tblRegistersDate2,
+                    _tblRegistersDate3: tblRegistersDate3,
+                    _tblRegistersDate4: tblRegistersDate4,
+                    _tblRegistersDate5: tblRegistersDate5,
+                    _tblRegistersDate6: tblRegistersDate6,
+                    _tblRegistersDate7: tblRegistersDate7,
+                    _tblRegistersDate8: tblRegistersDate8,
+                    _tblRegistersDate9: tblRegistersDate9,
+                    _tblRegistersDate10: tblRegistersDate10,
+                    _tblRegistersImageMain: tblRegistersImageMain,
+                    _tblRegistersImageMainCaption: tblRegistersImageMainCaption,
+                    _tblRegistersImageLogo: tblRegistersImageLogo,
+                    _tblRegistersImageBanner: tblRegistersImageBanner,
+                    _tblRegistersFile1: tblRegistersImageFile1,
+                    _tblRegistersFile2: tblRegistersImageFile2,
+                    _tblRegistersFile3: tblRegistersImageFile3,
+                    _tblRegistersFile4: tblRegistersImageFile4,
+                    _tblRegistersFile5: tblRegistersImageFile5,
+                    _tblRegistersActivation: tblRegistersActivation,
+                    _tblRegistersActivation1: tblRegistersActivation1,
+                    _tblRegistersActivation2: tblRegistersActivation2,
+                    _tblRegistersActivation3: tblRegistersActivation3,
+                    _tblRegistersActivation4: tblRegistersActivation4,
+                    _tblRegistersActivation5: tblRegistersActivation5,
+                    _tblRegistersIdStatus: tblRegistersIdStatus,
+                    _tblRegistersRestrictedAccess: tblRegistersRestrictedAccess,
+                    _tblRegistersNotes: tblRegistersNotes,
+                    _arrIdsRegistersFiltersGeneric1: arrIdsRegistersFiltersGeneric1,
+                    _arrIdsRegistersFiltersGeneric2: arrIdsRegistersFiltersGeneric2,
+                    _arrIdsRegistersFiltersGeneric3: arrIdsRegistersFiltersGeneric3,
+                    _arrIdsRegistersFiltersGeneric4: arrIdsRegistersFiltersGeneric4,
+                    _arrIdsRegistersFiltersGeneric5: arrIdsRegistersFiltersGeneric5,
+                    _arrIdsRegistersFiltersGeneric6: arrIdsRegistersFiltersGeneric6,
+                    _arrIdsRegistersFiltersGeneric7: arrIdsRegistersFiltersGeneric7,
+                    _arrIdsRegistersFiltersGeneric8: arrIdsRegistersFiltersGeneric8,
+                    _arrIdsRegistersFiltersGeneric9: arrIdsRegistersFiltersGeneric9,
+                    _arrIdsRegistersFiltersGeneric10: arrIdsRegistersFiltersGeneric10,
+                    _arrIdsRegistersFiltersGeneric11: arrIdsRegistersFiltersGeneric11,
+                    _arrIdsRegistersFiltersGeneric12: arrIdsRegistersFiltersGeneric12,
+                    _arrIdsRegistersFiltersGeneric13: arrIdsRegistersFiltersGeneric13,
+                    _arrIdsRegistersFiltersGeneric14: arrIdsRegistersFiltersGeneric14,
+                    _arrIdsRegistersFiltersGeneric15: arrIdsRegistersFiltersGeneric15,
+                    _arrIdsRegistersFiltersGeneric16: arrIdsRegistersFiltersGeneric16,
+                    _arrIdsRegistersFiltersGeneric17: arrIdsRegistersFiltersGeneric17,
+                    _arrIdsRegistersFiltersGeneric18: arrIdsRegistersFiltersGeneric18,
+                    _arrIdsRegistersFiltersGeneric19: arrIdsRegistersFiltersGeneric19,
+                    _arrIdsRegistersFiltersGeneric20: arrIdsRegistersFiltersGeneric20,
+                    _arrIdsRegistersFiltersGeneric21: arrIdsRegistersFiltersGeneric21,
+                    _arrIdsRegistersFiltersGeneric22: arrIdsRegistersFiltersGeneric22,
+                    _arrIdsRegistersFiltersGeneric23: arrIdsRegistersFiltersGeneric23,
+                    _arrIdsRegistersFiltersGeneric24: arrIdsRegistersFiltersGeneric24,
+                    _arrIdsRegistersFiltersGeneric25: arrIdsRegistersFiltersGeneric25,
+                    _arrIdsRegistersFiltersGeneric26: arrIdsRegistersFiltersGeneric26,
+                    _arrIdsRegistersFiltersGeneric27: arrIdsRegistersFiltersGeneric27,
+                    _arrIdsRegistersFiltersGeneric28: arrIdsRegistersFiltersGeneric28,
+                    _arrIdsRegistersFiltersGeneric29: arrIdsRegistersFiltersGeneric29,
+                    _arrIdsRegistersFiltersGeneric30: arrIdsRegistersFiltersGeneric30,
+                    _arrIdsRegistersFiltersGeneric31: arrIdsRegistersFiltersGeneric31,
+                    _arrIdsRegistersFiltersGeneric32: arrIdsRegistersFiltersGeneric32,
+                    _arrIdsRegistersFiltersGeneric33: arrIdsRegistersFiltersGeneric33,
+                    _arrIdsRegistersFiltersGeneric34: arrIdsRegistersFiltersGeneric34,
+                    _arrIdsRegistersFiltersGeneric35: arrIdsRegistersFiltersGeneric35,
+                    _arrIdsRegistersFiltersGeneric36: arrIdsRegistersFiltersGeneric36,
+                    _arrIdsRegistersFiltersGeneric37: arrIdsRegistersFiltersGeneric37,
+                    _arrIdsRegistersFiltersGeneric38: arrIdsRegistersFiltersGeneric38,
+                    _arrIdsRegistersFiltersGeneric39: arrIdsRegistersFiltersGeneric39,
+                    _arrIdsRegistersFiltersGeneric40: arrIdsRegistersFiltersGeneric40
+                });
+            }catch(aError){
+                //console.error(aError);
+            }finally{
+        
+            }
+        })()
+        */
+        //----------------------
+    }
+    //**************************************************************************************
+
+
     //Forms - insert record.
     //**************************************************************************************
     /**
@@ -5120,6 +7280,9 @@ module.exports = class FunctionsDBInsert
         //----------------------
     }
     //**************************************************************************************
+
+
+    
 
 
     //Forms Fields Options - insert record.

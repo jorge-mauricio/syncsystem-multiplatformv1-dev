@@ -182,10 +182,10 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
 
     let tblRegistersDocumentCompanyType = 0;
     let tblRegistersDocumentCompany = "";
-    let tblRegistersDocument1CompanyType = 0;
-    let tblRegistersDocument1Company = "";
-    let tblRegistersDocument2CompanyType = 0;
-    let tblRegistersDocument2Company = "";
+    let tblRegistersDocumentCompany1Type = 0;
+    let tblRegistersDocumentCompany1 = "";
+    let tblRegistersDocumentCompany2Type = 0;
+    let tblRegistersDocumentCompany2 = "";
 
     let tblRegistersZipCode = "";
     let tblRegistersAddressStreet = "";
@@ -328,9 +328,8 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
     let tblRegistersActivation4 = "";
     let tblRegistersActivation5 = "";
 
-    let tblRegistersIdStatus = "";
-    let tblRegistersRestrictedAccess = "";
-
+    let tblRegistersIdStatus = 0;
+    let tblRegistersRestrictedAccess = 0;
     let tblRegistersNotes = "";
 
     let arrIdsRegistersFiltersGeneric1 = [];
@@ -985,7 +984,6 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
             tblRegistersMetaTitle = formParseResults.fields.meta_title;
             //tblRegistersMetaInfo = formParseResults.fields.meta_info;
 
-        
             tblRegistersDateBirth = formParseResults.fields.date_birth;
             tblRegistersDateBirthHour = formParseResults.fields.date_birth_hour;
             tblRegistersDateBirthMinute = formParseResults.fields.date_birth_minute;
@@ -1018,10 +1016,10 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
             
             tblRegistersDocumentCompanyType = formParseResults.fields.document_company_type; 
             tblRegistersDocumentCompany = formParseResults.fields.document_company; 
-            tblRegistersDocument1CompanyType = formParseResults.fields.document1_company_type; 
-            tblRegistersDocument1Company = formParseResults.fields.document1_company; 
-            tblRegistersDocument2CompanyType = formParseResults.fields.document2_company_type; 
-            tblRegistersDocument2Company = formParseResults.fields.document2_company; 
+            tblRegistersDocumentCompany1Type = formParseResults.fields.document_company1_type; 
+            tblRegistersDocumentCompany1 = formParseResults.fields.document_company1; 
+            tblRegistersDocumentCompany2Type = formParseResults.fields.document_company2_type; 
+            tblRegistersDocumentCompany2 = formParseResults.fields.document_company2; 
 
             tblRegistersZipCode = formParseResults.fields.zip_code;
             tblRegistersAddressStreet = formParseResults.fields.address_street;
@@ -1407,10 +1405,10 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                     _tblRegistersDocument2: tblRegistersDocument2,
                     _tblRegistersDocumentCompanyType: tblRegistersDocumentCompanyType,
                     _tblRegistersDocumentCompany: tblRegistersDocumentCompany,
-                    _tblRegistersDocument1CompanyType: tblRegistersDocument1CompanyType,
-                    _tblRegistersDocument1Company: tblRegistersDocument1Company,
-                    _tblRegistersDocument2CompanyType: tblRegistersDocument2CompanyType,
-                    _tblRegistersDocument2Company: tblRegistersDocument2Company,
+                    _tblRegistersDocument1CompanyType: tblRegistersDocumentCompany1Type,
+                    _tblRegistersDocument1Company: tblRegistersDocumentCompany1,
+                    _tblRegistersDocument2CompanyType: tblRegistersDocumentCompany2Type,
+                    _tblRegistersDocument2Company: tblRegistersDocumentCompany2,
                     _tblRegistersZipCode: tblRegistersZipCode,
                     _tblRegistersAddressStreet: tblRegistersAddressStreet,
                     _tblRegistersAddressNumber: tblRegistersAddressNumber,

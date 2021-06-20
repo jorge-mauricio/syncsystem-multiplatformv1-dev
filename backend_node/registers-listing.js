@@ -580,6 +580,73 @@ module.exports = class RegistersListing
                     return obj.filter_index == 130;
                 });
             }
+            if(gSystemConfig.enableRegistersFilterGeneric31 != 0)
+            {
+                var resultsRegistersFiltersGeneric31Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 131;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
+            {
+                var resultsRegistersFiltersGeneric32Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 132;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
+            {
+                var resultsRegistersFiltersGeneric32Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 132;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric33 != 0)
+            {
+                var resultsRegistersFiltersGeneric33Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 133;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric34 != 0)
+            {
+                var resultsRegistersFiltersGeneric34Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 134;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric35 != 0)
+            {
+                var resultsRegistersFiltersGeneric35Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 135;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric36 != 0)
+            {
+                var resultsRegistersFiltersGeneric36Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 136;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric37 != 0)
+            {
+                var resultsRegistersFiltersGeneric37Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 137;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric38 != 0)
+            {
+                var resultsRegistersFiltersGeneric38Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 138;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric39 != 0)
+            {
+                var resultsRegistersFiltersGeneric39Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 139;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric40 != 0)
+            {
+                var resultsRegistersFiltersGeneric40Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 140;
+                });
+            }
+            
 
 
             //Build HTML.
@@ -4312,6 +4379,646 @@ module.exports = class RegistersListing
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
                                                         <input type="radio" name="idsRegistersFiltersGeneric30" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric31 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter31" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric31") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric31 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric31" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric31 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric31" name="idsRegistersFiltersGeneric31" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric31 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric31" name="idsRegistersFiltersGeneric31" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric31 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric31" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric32 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter32" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric32") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric32 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric32" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric32 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric32" name="idsRegistersFiltersGeneric32" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric32 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric32" name="idsRegistersFiltersGeneric32" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric32 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric32" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric33 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter33" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric33") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric33 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric33" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric33 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric33" name="idsRegistersFiltersGeneric33" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric33 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric33" name="idsRegistersFiltersGeneric33" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric33 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric33" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric34 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter34" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric34") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric34 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric34" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric34 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric34" name="idsRegistersFiltersGeneric34" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric34 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric34" name="idsRegistersFiltersGeneric34" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric34 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric34" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric35 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter35" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric35") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric35 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric35" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric35 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric35" name="idsRegistersFiltersGeneric35" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric35 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric35" name="idsRegistersFiltersGeneric35" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric35 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric35" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric36 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter36" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric36") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric36 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric36" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric36 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric36" name="idsRegistersFiltersGeneric36" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric36 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric36" name="idsRegistersFiltersGeneric36" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric36 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric36" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric37 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter37" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric37") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric37 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric37" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric37 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric37" name="idsRegistersFiltersGeneric37" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric37 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric37" name="idsRegistersFiltersGeneric37" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric37 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric37" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric38 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter38" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric38") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric38 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric38" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric38 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric38" name="idsRegistersFiltersGeneric38" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric38 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric38" name="idsRegistersFiltersGeneric38" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric38 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric38" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric39 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter39" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric39") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric39 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric39" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric39 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric39" name="idsRegistersFiltersGeneric39" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric39 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric39" name="idsRegistersFiltersGeneric39" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric39 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric39" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+                                    </td>
+                                </tr>
+                                ` : ``
+                                }
+
+                                ${ gSystemConfig.enableRegistersFilterGeneric40 != 0 ? 
+                                `
+                                <tr id="inputRowRegisters_generic_filter40" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric40") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*Checkbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric40 == 1 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-checkbox-label">
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric40" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                    </label>
+                                                `;
+                                            }).join("")}
+                                        ` : ``
+                                        }
+
+                                        ${ /*Listbox.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric40 == 2 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric40" name="idsRegistersFiltersGeneric40" class="ss-backend-field-listbox01" size="5" multiple="multiple">
+                                                ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Dropdown.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric40 == 3 ? 
+                                        `
+                                            <select id="idsRegistersFiltersGeneric40" name="idsRegistersFiltersGeneric40" class="ss-backend-field-dropdown01">
+                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
+                                                    return `
+                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                    `;
+                                                }).join("")}
+                                            </select>
+                                        ` : ``
+                                        }
+
+                                        ${ /*Radio.*/'' }
+                                        ${ gSystemConfig.enableRegistersFilterGeneric40 == 4 ? 
+                                        `
+                                            ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
+                                                return `
+                                                    <label class="ss-backend-field-radio-label">
+                                                        <input type="radio" name="idsRegistersFiltersGeneric40" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}

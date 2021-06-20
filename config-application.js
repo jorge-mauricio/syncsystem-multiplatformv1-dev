@@ -344,6 +344,7 @@ gSystemConfig.configSystemMetricDistance = "KM" //KM | MI
 //**************************************************************************************
 gSystemConfig.enableBackendSearch = 1; //0 - disable | 1 - enable
 
+gSystemConfig.enableBackendMaintenanceRegisters = 1; //0 - disable | 1 - enable
 gSystemConfig.enableBackendMaintenanceCategories = 1; //0 - disable | 1 - enable
 gSystemConfig.enableBackendMaintenanceProducts = 1; //0 - disable | 1 - enable
 gSystemConfig.enableBackendMaintenancePublications = 1; //0 - disable | 1 - enable
