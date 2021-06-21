@@ -1644,7 +1644,7 @@ module.exports = class ObjectProductsDetails
                 this.tblProductsDate2_print = FunctionsGeneric.dateRead01(this.tblProductsDate2, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configProductsDate1Type);
+                                                                            gSystemConfig.configProductsDate2Type);
             }
 
             this.tblProductsDate3 = this.resultsProductsDetails[0].date3;
@@ -1667,7 +1667,7 @@ module.exports = class ObjectProductsDetails
                 this.tblProductsDate3_print = FunctionsGeneric.dateRead01(this.tblProductsDate3, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configProductsDate1Type);
+                                                                            gSystemConfig.configProductsDate3Type);
             }
 
             this.tblProductsDate4 = this.resultsProductsDetails[0].date4;
@@ -1690,7 +1690,7 @@ module.exports = class ObjectProductsDetails
                 this.tblProductsDate4_print = FunctionsGeneric.dateRead01(this.tblProductsDate4, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configProductsDate1Type);
+                                                                            gSystemConfig.configProductsDate4Type);
             }
 
             this.tblProductsDate5 = this.resultsProductsDetails[0].date5;
@@ -1713,7 +1713,7 @@ module.exports = class ObjectProductsDetails
                 this.tblProductsDate5_print = FunctionsGeneric.dateRead01(this.tblProductsDate5, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configProductsDate1Type);
+                                                                            gSystemConfig.configProductsDate5Type);
             }
             
             this.tblProductsIdItem1 = this.resultsProductsDetails[0].id_item1;

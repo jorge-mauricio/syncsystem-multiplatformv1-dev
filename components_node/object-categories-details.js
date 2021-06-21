@@ -836,7 +836,7 @@ module.exports = class ObjectCategoriesDetails
                 this.tblCategoriesDate2_print = FunctionsGeneric.dateRead01(this.tblCategoriesDate2, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configCategoriesDate1Type);
+                                                                            gSystemConfig.configCategoriesDate2Type);
             }
 
             this.tblCategoriesDate3 = this.resultsCategoryDetails[0].date3;
@@ -859,7 +859,7 @@ module.exports = class ObjectCategoriesDetails
                 this.tblCategoriesDate3_print = FunctionsGeneric.dateRead01(this.tblCategoriesDate3, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configCategoriesDate1Type);
+                                                                            gSystemConfig.configCategoriesDate3Type);
             }
 
             this.tblCategoriesDate4 = this.resultsCategoryDetails[0].date4;
@@ -882,7 +882,7 @@ module.exports = class ObjectCategoriesDetails
                 this.tblCategoriesDate4_print = FunctionsGeneric.dateRead01(this.tblCategoriesDate4, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configCategoriesDate1Type);
+                                                                            gSystemConfig.configCategoriesDate4Type);
             }
 
             this.tblCategoriesDate5 = this.resultsCategoryDetails[0].date5;
@@ -905,7 +905,7 @@ module.exports = class ObjectCategoriesDetails
                 this.tblCategoriesDate5_print = FunctionsGeneric.dateRead01(this.tblCategoriesDate5, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configCategoriesDate1Type);
+                                                                            gSystemConfig.configCategoriesDate5Type);
             }
             
             this.tblCategoriesIdItem1 = this.resultsCategoryDetails[0].id_item1;

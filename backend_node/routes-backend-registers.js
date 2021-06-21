@@ -26,7 +26,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
     //Variables.
     //----------------------
-    let plBackend;
+    let rlBackend;
     let idParent = "";
 
     let pageNumber = "";
@@ -82,7 +82,7 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
     (async function(){ //async marks the block
         try
         { 
-            plBackend = new RegistersListing({
+            rlBackend = new RegistersListing({
                 idParent: idParent,
                 pageNumber: pageNumber,
                 masterPageSelect: masterPageSelect,
@@ -97,14 +97,14 @@ router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRo
 
             /**/
             //Build object data.
-            //await plBackend.cphBodyBuild(); //working
-            await plBackend.build();
+            //await rlBackend.cphBodyBuild(); //working
+            await rlBackend.build();
             
             //Render data with template.
             //gSystemConfig: gSystemConfig, //moved to locals
             //res.render("layout-backend-main", {
             res.render(masterPageSelect, {
-                templateData: plBackend,
+                templateData: rlBackend,
                 additionalData: {cookiesData: cookiesData}
             });
 
@@ -1405,10 +1405,10 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
                     _tblRegistersDocument2: tblRegistersDocument2,
                     _tblRegistersDocumentCompanyType: tblRegistersDocumentCompanyType,
                     _tblRegistersDocumentCompany: tblRegistersDocumentCompany,
-                    _tblRegistersDocument1CompanyType: tblRegistersDocumentCompany1Type,
-                    _tblRegistersDocument1Company: tblRegistersDocumentCompany1,
-                    _tblRegistersDocument2CompanyType: tblRegistersDocumentCompany2Type,
-                    _tblRegistersDocument2Company: tblRegistersDocumentCompany2,
+                    _tblRegistersDocumentCompany1Type: tblRegistersDocumentCompany1Type,
+                    _tblRegistersDocumentCompany1: tblRegistersDocumentCompany1,
+                    _tblRegistersDocumentCompany2Type: tblRegistersDocumentCompany2Type,
+                    _tblRegistersDocumentCompany2: tblRegistersDocumentCompany2,
                     _tblRegistersZipCode: tblRegistersZipCode,
                     _tblRegistersAddressStreet: tblRegistersAddressStreet,
                     _tblRegistersAddressNumber: tblRegistersAddressNumber,
@@ -1638,6 +1638,118 @@ router.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configR
         }
     })();
     //----------------------
+});
+//**************************************************************************************
+
+
+//Backend - Registers - edit - GET.
+//**************************************************************************************
+//router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbRegisters?", (req, res)=>{ //working, with the async block
+router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbRegisters?", [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware("user_backend")], (req, res, next)=>{ //working, with the async block
+    
+    //Import objects.
+    //----------------------
+    const RegistersEdit = require("../" + gSystemConfig.configDirectorySystem + "/registers-edit.js");
+    //----------------------
+    
+
+    //Variables.
+    //----------------------
+    let reBackend;
+    let idTbRegisters = "";
+
+    let pageNumber = "";
+    let masterPageSelect = "layout-backend-main";
+    let cookiesData;
+
+    let messageSuccess = "";
+    let messageError = "";
+    let messageAlert = "";
+    let nRecords = "";
+    //----------------------
+
+    
+    //Value definition.
+    //----------------------
+    if(req.params.idTbRegisters)
+    {
+        idTbRegisters = req.params.idTbRegisters;
+    }
+
+    if(req.query.pageNumber)
+    {
+        pageNumber = req.query.pageNumber;
+    }
+    if(req.query.masterPageSelect)
+    {
+        masterPageSelect = req.query.masterPageSelect;
+    }
+
+    cookiesData = req.cookies;
+
+    if(req.query.messageSuccess)
+    {
+        messageSuccess = req.query.messageSuccess;
+    }
+    if(req.query.messageError)
+    {
+        messageError = req.query.messageError;
+    }
+    if(req.query.messageAlert)
+    {
+        messageAlert = req.query.messageAlert;
+    }
+    //if(req.query.nRecords)
+    //{
+        //nRecords = req.query.nRecords;
+    //}
+    //----------------------
+
+
+    //Logic.
+    //----------------------
+    (async function(){ //async marks the block
+        try
+        { 
+            reBackend = new RegistersEdit({
+                idTbRegisters: idTbRegisters,
+
+                pageNumber: pageNumber,
+                masterPageSelect: masterPageSelect,
+                cookiesData: cookiesData,
+
+                messageSuccess: messageSuccess,
+                messageError: messageError,
+                messageAlert: messageAlert
+            });
+
+
+            //Build object data.
+            await reBackend.build();
+
+
+            //Render data with template.
+            res.render(masterPageSelect, {
+                templateData: reBackend,
+                additionalData: {cookiesData: cookiesData}
+            });
+
+        }catch(asyncError){
+            if(gSystemConfig.configDebug === true)
+            {
+                console.error(asyncError);
+            }
+        }finally{
+            next();
+        }
+    })();
+    //----------------------
+
+    
+    //Degug.
+    //console.log("idTbCategories=", idTbCategories);
+    //console.log("pageNumber=", pageNumber);
+    //console.log("masterPageSelect=", masterPageSelect);
 });
 //**************************************************************************************
 

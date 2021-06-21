@@ -7,33 +7,27 @@ const SyncSystemNS = require("../" + gSystemConfig.configDirectoryComponents + "
 //----------------------
 
 
-module.exports = class RegistersListing
+module.exports = class RegistersEdit
 {
     //Constructor.
     //**************************************************************************************
     constructor(objParameters = {})
     {
-        /*
-        objParameters = {
-                            idParent: idParent,
+        /*objParameters = {
+                            idTbRegisters: idTbRegisters,
                             pageNumber: pageNumber,
                             masterPageSelect: masterPageSelect,
 
                             messageSuccess: messageSuccess,
                             messageError: messageError,
-                            messageAlert: messageAlert,
-                            nRecords: nRecords
-                        }
+                            messageAlert: messageAlert
+                        };
         */
 
 
         //Properties.
         //----------------------
-        this._idParent = objParameters.idParent;
-
-        this._pagingNRecords = gSystemConfig.configRegistersBackendPaginationNRecords;
-        this._pagingTotalRecords = 0;
-        this._pagingTotal = 0;
+        this._idTbRegisters = objParameters.idTbRegisters;
         this._pageNumber = objParameters.pageNumber;
         if(gSystemConfig.enableRegistersBackendPagination == 1)
         {
@@ -48,11 +42,9 @@ module.exports = class RegistersListing
         this._messageSuccess = objParameters.messageSuccess;
         this._messageError = objParameters.messageError;
         this._messageAlert = objParameters.messageAlert;
-        this._nRecords = objParameters.nRecords;
+        //this._nRecords = objParameters.nRecords;
 
         this.queryDefault = "";
-
-        //this.contentType = "categories-default"; //categories-default | 
 
         this.cphTitle = ""; //text
         this.cphHead = ""; //HTML
@@ -77,7 +69,60 @@ module.exports = class RegistersListing
         this.cacheClear = this.dateNow.getTime().toString();
 
         this.objParentTableLevel1;
+        //this.objParentTableLevel2;
         this.objParentTable;
+
+        this.arrSearchParameters = [];
+        this.ordRecord = "";
+        this.ordRecordParameters = {};
+
+        this.arrFiltersGenericSearchParameters = [];
+        this.ofglRecords = "";
+        this.ofglRecordsParameters = {};
+
+        this.resultsRegistersFiltersGeneric1Listing;
+        this.resultsRegistersFiltersGeneric2Listing;
+        this.resultsRegistersFiltersGeneric3Listing;
+        this.resultsRegistersFiltersGeneric4Listing;
+        this.resultsRegistersFiltersGeneric5Listing;
+        this.resultsRegistersFiltersGeneric6Listing;
+        this.resultsRegistersFiltersGeneric7Listing;
+        this.resultsRegistersFiltersGeneric8Listing;
+        this.resultsRegistersFiltersGeneric9Listing;
+        this.resultsRegistersFiltersGeneric10Listing;
+        this.resultsRegistersFiltersGeneric11Listing;
+        this.resultsRegistersFiltersGeneric12Listing;
+        this.resultsRegistersFiltersGeneric13Listing;
+        this.resultsRegistersFiltersGeneric14Listing;
+        this.resultsRegistersFiltersGeneric15Listing;
+        this.resultsRegistersFiltersGeneric16Listing;
+        this.resultsRegistersFiltersGeneric17Listing;
+        this.resultsRegistersFiltersGeneric18Listing;
+        this.resultsRegistersFiltersGeneric19Listing;
+        this.resultsRegistersFiltersGeneric20Listing;
+        this.resultsRegistersFiltersGeneric21Listing;
+        this.resultsRegistersFiltersGeneric22Listing;
+        this.resultsRegistersFiltersGeneric23Listing;
+        this.resultsRegistersFiltersGeneric24Listing;
+        this.resultsRegistersFiltersGeneric25Listing;
+        this.resultsRegistersFiltersGeneric26Listing;
+        this.resultsRegistersFiltersGeneric27Listing;
+        this.resultsRegistersFiltersGeneric28Listing;
+        this.resultsRegistersFiltersGeneric29Listing;
+        this.resultsRegistersFiltersGeneric30Listing;
+        this.resultsRegistersFiltersGeneric31Listing;
+        this.resultsRegistersFiltersGeneric32Listing;
+        this.resultsRegistersFiltersGeneric33Listing;
+        this.resultsRegistersFiltersGeneric34Listing;
+        this.resultsRegistersFiltersGeneric35Listing;
+        this.resultsRegistersFiltersGeneric36Listing;
+        this.resultsRegistersFiltersGeneric37Listing;
+        this.resultsRegistersFiltersGeneric38Listing;
+        this.resultsRegistersFiltersGeneric39Listing;
+        this.resultsRegistersFiltersGeneric40Listing;
+
+        this.resultsRegistersTypeListing;
+        this.resultsRegistersStatusListing;
         //----------------------
     }
     //**************************************************************************************
@@ -91,6 +136,317 @@ module.exports = class RegistersListing
         //----------------------
         try
         {
+            //Parameters build.
+            this.arrSearchParameters.push("id;" + this._idTbRegisters + ";i"); 
+
+            this.ordRecordParameters = {
+                _arrSearchParameters: this.arrSearchParameters,
+                _idTbRegisters: this._idTbRegisters,
+                _terminal: 0,
+                _objSpecialParameters: {returnType: 3}
+            };
+
+            //Object build.
+            this.ordRecord = new SyncSystemNS.ObjectRegistersDetails(this.ordRecordParameters);
+            await this.ordRecord.recordDetailsGet(0, 3);
+            //console.log("this.ordRecord=", this.ordRecord);
+
+
+            //Parameters build.
+            this.arrFiltersGenericSearchParameters.push("table_name;" + gSystemConfig.configSystemDBTableRegisters + ";s");
+
+            this.ofglRecordsParameters = {
+                _arrSearchParameters: this.arrFiltersGenericSearchParameters,
+                _configSortOrder: "title",
+                _strNRecords: "",
+                _objSpecialParameters: {returnType: 3}
+            };
+
+            this.ofglRecords = new SyncSystemNS.ObjectFiltersGenericListing(this.ofglRecordsParameters);
+            await this.ofglRecords.recordsListingGet(0, 3);
+
+            
+            //Filters - Type.
+            if(gSystemConfig.enableRegistersType != 0)
+            {
+                this.resultsRegistersTypeListing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 1;
+                });
+            }
+
+            //Filters - Status.
+            if(gSystemConfig.enableRegistersStatus != 0)
+            {
+                this.resultsRegistersStatusListing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 2;
+                });
+            }
+
+            //Filter results acording to filter_index.
+            if(gSystemConfig.enableRegistersFilterGeneric1 != 0)
+            {
+                this.resultsRegistersFiltersGeneric1Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 101;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
+            {
+                this.resultsRegistersFiltersGeneric2Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 102;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric3 != 0)
+            {
+                this.resultsRegistersFiltersGeneric3Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 103;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric4 != 0)
+            {
+                this.resultsRegistersFiltersGeneric4Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 104;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric5 != 0)
+            {
+                this.resultsRegistersFiltersGeneric5Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 105;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric6 != 0)
+            {
+                this.resultsRegistersFiltersGeneric6Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 106;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric7 != 0)
+            {
+                this.resultsRegistersFiltersGeneric7Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 107;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric8 != 0)
+            {
+                this.resultsRegistersFiltersGeneric8Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 108;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric9 != 0)
+            {
+                this.resultsRegistersFiltersGeneric9Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 109;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric10 != 0)
+            {
+                this.resultsRegistersFiltersGeneric10Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 110;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric11 != 0)
+            {
+                this.resultsRegistersFiltersGeneric11Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 111;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric12 != 0)
+            {
+                this.resultsRegistersFiltersGeneric12Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 112;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric13 != 0)
+            {
+                this.resultsRegistersFiltersGeneric13Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 113;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric14 != 0)
+            {
+                this.resultsRegistersFiltersGeneric14Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 114;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric15 != 0)
+            {
+                this.resultsRegistersFiltersGeneric15Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 115;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric16 != 0)
+            {
+                this.resultsRegistersFiltersGeneric16Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 116;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric17 != 0)
+            {
+                this.resultsRegistersFiltersGeneric17Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 117;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric18 != 0)
+            {
+                this.resultsRegistersFiltersGeneric18Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 118;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric19 != 0)
+            {
+                this.resultsRegistersFiltersGeneric19Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 119;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric20 != 0)
+            {
+                this.resultsRegistersFiltersGeneric20Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 120;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric21 != 0)
+            {
+                this.resultsRegistersFiltersGeneric21Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 121;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric22 != 0)
+            {
+                this.resultsRegistersFiltersGeneric22Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 122;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric23 != 0)
+            {
+                this.resultsRegistersFiltersGeneric23Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 123;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric24 != 0)
+            {
+                this.resultsRegistersFiltersGeneric24Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 124;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric25 != 0)
+            {
+                this.resultsRegistersFiltersGeneric25Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 125;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric26 != 0)
+            {
+                this.resultsRegistersFiltersGeneric26Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 126;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric27 != 0)
+            {
+                this.resultsRegistersFiltersGeneric27Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 127;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric28 != 0)
+            {
+                this.resultsRegistersFiltersGeneric28Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 128;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric29 != 0)
+            {
+                this.resultsRegistersFiltersGeneric29Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 129;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric30 != 0)
+            {
+                this.resultsRegistersFiltersGeneric30Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 130;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric31 != 0)
+            {
+                this.resultsRegistersFiltersGeneric31Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 131;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
+            {
+                this.resultsRegistersFiltersGeneric32Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 132;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric33 != 0)
+            {
+                this.resultsRegistersFiltersGeneric33Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 133;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric34 != 0)
+            {
+                this.resultsRegistersFiltersGeneric34Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 134;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric35 != 0)
+            {
+                this.resultsRegistersFiltersGeneric35Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 135;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric36 != 0)
+            {
+                this.resultsRegistersFiltersGeneric36Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 136;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric37 != 0)
+            {
+                this.resultsRegistersFiltersGeneric37Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 137;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric38 != 0)
+            {
+                this.resultsRegistersFiltersGeneric38Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 138;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric39 != 0)
+            {
+                this.resultsRegistersFiltersGeneric39Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 139;
+                });
+            }
+            if(gSystemConfig.enableRegistersFilterGeneric40 != 0)
+            {
+                this.resultsRegistersFiltersGeneric40Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                    return obj.filter_index == 140;
+                });
+            }
+            
+            //Parent ID Records.
+            if(gSystemConfig.enableRegistersIdParentEdit == 1)
+            {
+                //Check table of parent id.
+                this.objParentTableLevel1 = await SyncSystemNS.FunctionsDB.tableFindGet(this.ordRecord.tblRegistersIdParent);
+
+                //Categories.
+                if(this.objParentTableLevel1.tableName == gSystemConfig.configSystemDBTableCategories)
+                {
+                    this.objParentTable = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
+                                                                                            ["category_type;13;i"], 
+                                                                                            gSystemConfig.configCategoriesSort, 
+                                                                                            "", 
+                                                                                            "id, title", 
+                                                                                            1);
+                }
+
+
+                //Debug.
+                //console.log("this.objParentTableLevel1=", this.objParentTableLevel1);
+            }
+
+
             //Default query.
             this.queryDefault += "masterPageSelect=" + this._masterPageSelect;
             if(this._pageNumber)
@@ -99,53 +455,32 @@ module.exports = class RegistersListing
             }
 
 
-            //Check table of parent id.
-            this.objParentTable = await SyncSystemNS.FunctionsDB.tableFindGet(this._idParent);
-
-            //Categories.
-            if(this.objParentTable.tableName == gSystemConfig.configSystemDBTableCategories)
-            {
-                //Tittle - current.
-                this.titleCurrent = SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].title, "db");
-                
-                //Meta keywords.
-                this.metaKeywords += SyncSystemNS.FunctionsGeneric.removeHTML01(SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].keywords_tags, "db"));
-
-                //Meta description.
-                if(gSystemConfig.enableCategoriesDescription == 1)
-                {
-                    this.metaDescription += SyncSystemNS.FunctionsGeneric.removeHTML01(SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].description, "db"));
-                }else{
-                    this.metaDescription += this.titleCurrent;
-                }
-            }
-
-            //Debug.
-            //console.log("this.objParentTable = ", this.objParentTable); 
-            //console.log("this.titleCurrent = ", this.titleCurrent);
+            //Tittle - current.
+            this.titleCurrent = this.ordRecord.tblRegistersNameFull;
 
 
             //Meta title.
             this.metaTitle += SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") + 
             " - " + 
-            SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleMain");
-            
+            SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleEdit");
             if(this.titleCurrent)
             {
                 this.metaTitle += " - " + this.titleCurrent;
             }
 
             //Meta description.
-            //this.metaDescription += "";
+            this.metaDescription += "";
 
             //Meta keywords.
-            //this.metaKeywords += SyncSystemNS.FunctionsGeneric.removeHTML01(SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].keywords_tags, "db"));
+            this.metaKeywords += "";
 
             //Meta URL current.
             this.metaURLCurrent += gSystemConfig.configSystemURL + "/";
             this.metaURLCurrent += gSystemConfig.configRouteBackend + "/";
             this.metaURLCurrent += gSystemConfig.configRouteBackendRegisters + "/";
-            this.metaURLCurrent += this._idParent + "/";
+            this.metaURLCurrent += gSystemConfig.configRouteBackendActionEdit + "/";
+            this.metaURLCurrent += this._idTbRegisters + "/";
+
             //if(this._masterPageSelect !== "")
             //{
                 this.metaURLCurrent += "?masterPageSelect=" + this._masterPageSelect;
@@ -154,7 +489,6 @@ module.exports = class RegistersListing
             {
                 this.metaURLCurrent += "&pageNumber=" + this._pageNumber;
             }
-
 
             //Title content placeholder.
             await this.cphTitleBuild();
@@ -193,8 +527,8 @@ module.exports = class RegistersListing
         {
             this.cphTitle = SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") + 
             " - " + 
-            SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleMain");
-            //TODO: Check file type and show the equivalent tile name.
+            SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleEdit");
+
             if(this.titleCurrent)
             {
                 this.cphTitle += " - " + this.titleCurrent;
@@ -230,7 +564,14 @@ module.exports = class RegistersListing
                 <meta property="og:type" content="website" /> ${ /*http://ogp.me/#types | https://developers.facebook.com/docs/reference/opengraph/*/'' }
                 <meta property="og:url" content="${ this.metaURLCurrent }" />
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
-                <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                ${ this.ordRecord.tblRegistersImageMain != "" ? 
+                    `
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/t" + this.ordRecord.tblRegistersImageMain + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                    ` : 
+                    `
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                    `
+                }
                 <meta property="og:image:alt" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaTitle) }" />
                 <meta property="og:locale" content="${ gSystemConfig.configBackendLanguage }" />
             `;
@@ -255,19 +596,13 @@ module.exports = class RegistersListing
         //----------------------
         try
         {
-            this.cphTitleCurrent += SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleMain");
-            this.cphTitleCurrent += " - ";
+            this.cphTitleCurrent += SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleEdit");
+            //this.cphTitleCurrent += " - ";
 
-            this.cphTitleCurrent += `
-            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/0" }" class="ss-backend-links04">
-                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRoot") }
-            </a>
-            `;
             if(this.titleCurrent)
             {
                 this.cphTitleCurrent += " - " + this.titleCurrent;
             }
-            //TODO: breadcrums.
 
 
             //Debug.
@@ -294,18 +629,63 @@ module.exports = class RegistersListing
         //let strReturn = "<h1>Testing layout body</h1>"; //debug.
         let strReturn = "";
         let backendHTML = "";
-        let arrSearchParameters = [];
-        let arrFiltersGenericSearchParameters = [];
+        //let arrSearchParameters = [];
+        //let arrFiltersGenericSearchParameters = [];
 
-        let oplRecords = "";
-        let oplRecordsParameters = {};
-        
-        let ofglRecords = "";
-        let ofglRecordsParameters = {};
 
-        
+        //Redefine values.
+        let ordRecord = this.ordRecord;
+        let objParentTableLevel1 = this.objParentTableLevel1;
+        let objParentTable = this.objParentTable;
+
+        let resultsRegistersFiltersGeneric1Listing = this.resultsRegistersFiltersGeneric1Listing;
+        let resultsRegistersFiltersGeneric2Listing = this.resultsRegistersFiltersGeneric2Listing;
+        let resultsRegistersFiltersGeneric3Listing = this.resultsRegistersFiltersGeneric3Listing;
+        let resultsRegistersFiltersGeneric4Listing = this.resultsRegistersFiltersGeneric4Listing;
+        let resultsRegistersFiltersGeneric5Listing = this.resultsRegistersFiltersGeneric5Listing;
+        let resultsRegistersFiltersGeneric6Listing = this.resultsRegistersFiltersGeneric6Listing;
+        let resultsRegistersFiltersGeneric7Listing = this.resultsRegistersFiltersGeneric7Listing;
+        let resultsRegistersFiltersGeneric8Listing = this.resultsRegistersFiltersGeneric8Listing;
+        let resultsRegistersFiltersGeneric9Listing = this.resultsRegistersFiltersGeneric9Listing;
+        let resultsRegistersFiltersGeneric10Listing = this.resultsRegistersFiltersGeneric10Listing;
+        let resultsRegistersFiltersGeneric11Listing = this.resultsRegistersFiltersGeneric11Listing;
+        let resultsRegistersFiltersGeneric12Listing = this.resultsRegistersFiltersGeneric12Listing;
+        let resultsRegistersFiltersGeneric13Listing = this.resultsRegistersFiltersGeneric13Listing;
+        let resultsRegistersFiltersGeneric14Listing = this.resultsRegistersFiltersGeneric14Listing;
+        let resultsRegistersFiltersGeneric15Listing = this.resultsRegistersFiltersGeneric15Listing;
+        let resultsRegistersFiltersGeneric16Listing = this.resultsRegistersFiltersGeneric16Listing;
+        let resultsRegistersFiltersGeneric17Listing = this.resultsRegistersFiltersGeneric17Listing;
+        let resultsRegistersFiltersGeneric18Listing = this.resultsRegistersFiltersGeneric18Listing;
+        let resultsRegistersFiltersGeneric19Listing = this.resultsRegistersFiltersGeneric19Listing;
+        let resultsRegistersFiltersGeneric20Listing = this.resultsRegistersFiltersGeneric20Listing;
+        let resultsRegistersFiltersGeneric21Listing = this.resultsRegistersFiltersGeneric21Listing;
+        let resultsRegistersFiltersGeneric22Listing = this.resultsRegistersFiltersGeneric22Listing;
+        let resultsRegistersFiltersGeneric23Listing = this.resultsRegistersFiltersGeneric23Listing;
+        let resultsRegistersFiltersGeneric24Listing = this.resultsRegistersFiltersGeneric24Listing;
+        let resultsRegistersFiltersGeneric25Listing = this.resultsRegistersFiltersGeneric25Listing;
+        let resultsRegistersFiltersGeneric26Listing = this.resultsRegistersFiltersGeneric26Listing;
+        let resultsRegistersFiltersGeneric27Listing = this.resultsRegistersFiltersGeneric27Listing;
+        let resultsRegistersFiltersGeneric28Listing = this.resultsRegistersFiltersGeneric28Listing;
+        let resultsRegistersFiltersGeneric29Listing = this.resultsRegistersFiltersGeneric29Listing;
+        let resultsRegistersFiltersGeneric30Listing = this.resultsRegistersFiltersGeneric30Listing;
+        let resultsRegistersFiltersGeneric31Listing = this.resultsRegistersFiltersGeneric31Listing;
+        let resultsRegistersFiltersGeneric32Listing = this.resultsRegistersFiltersGeneric32Listing;
+        let resultsRegistersFiltersGeneric33Listing = this.resultsRegistersFiltersGeneric33Listing;
+        let resultsRegistersFiltersGeneric34Listing = this.resultsRegistersFiltersGeneric34Listing;
+        let resultsRegistersFiltersGeneric35Listing = this.resultsRegistersFiltersGeneric35Listing;
+        let resultsRegistersFiltersGeneric36Listing = this.resultsRegistersFiltersGeneric36Listing;
+        let resultsRegistersFiltersGeneric37Listing = this.resultsRegistersFiltersGeneric37Listing;
+        let resultsRegistersFiltersGeneric38Listing = this.resultsRegistersFiltersGeneric38Listing;
+        let resultsRegistersFiltersGeneric39Listing = this.resultsRegistersFiltersGeneric39Listing;
+        let resultsRegistersFiltersGeneric40Listing = this.resultsRegistersFiltersGeneric40Listing;
+
+        let resultsRegistersTypeListing = this.resultsRegistersTypeListing;
+        let resultsRegistersStatusListing = this.resultsRegistersStatusListing;
+
+
         //Debug.
-        //console.log("oplRecordsParameters=", oplRecordsParameters);
+        //console.log("this._idTbCategories=", this._idTbCategories);
+        //console.log("oclRecordsParameters=", oclRecordsParameters);
         //console.log("_pagingTotalRecords=", this._pagingTotalRecords);
         //console.log("_pagingTotal=", this._pagingTotal);
         //----------------------
@@ -315,351 +695,8 @@ module.exports = class RegistersListing
         //----------------------
         try
         {
-            //Parameters build.
-            arrSearchParameters.push("id_parent;" + this._idParent + ";i");
-
-            oplRecordsParameters = {
-                _arrSearchParameters: arrSearchParameters,
-                _configSortOrder: gSystemConfig.configRegistersSort,
-                _strNRecords: "",
-                _objSpecialParameters: {returnType: 3}
-            };
-
-            //Pagination.
-            if(gSystemConfig.enableRegistersBackendPagination == 1)
-            {
-                //this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02("categories", 
-                this._pagingTotalRecords = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableRegisters, 
-                                                                                            arrSearchParameters, 
-                                                                                            gSystemConfig.configRegistersSort, 
-                                                                                            "", 
-                                                                                            "id, id_parent", 
-                                                                                            3, 
-                                                                                            {});
-
-                this._pagingTotal = Math.ceil(this._pagingTotalRecords / this._pagingNRecords);
-
-
-                //Parameters build - paging.
-                oplRecordsParameters._objSpecialParameters._pageNumber = this._pageNumber;
-                oplRecordsParameters._objSpecialParameters._pagingNRecords = this._pagingNRecords;
-            }
-            
-            //Object build.
-            oplRecords = new SyncSystemNS.ObjectRegistersListing(oplRecordsParameters);
-            await oplRecords.recordsListingGet(0, 3);
-
-
-            //Parameters build.
-            arrFiltersGenericSearchParameters.push("table_name;" + gSystemConfig.configSystemDBTableRegisters + ";s");
-
-            ofglRecordsParameters = {
-                _arrSearchParameters: arrFiltersGenericSearchParameters,
-                _configSortOrder: "title",
-                _strNRecords: "",
-                _objSpecialParameters: {returnType: 3}
-            };
-
-            //Object build.
-            ofglRecords = new SyncSystemNS.ObjectFiltersGenericListing(ofglRecordsParameters);
-            await ofglRecords.recordsListingGet(0, 3);
-
-
-            //Filters - Type.
-            if(gSystemConfig.enableRegistersType != 0)
-            {
-                var resultsRegistersTypeListing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 1;
-                });
-            }
-
-            //Filters - Status.
-            if(gSystemConfig.enableRegistersStatus != 0)
-            {
-                var resultsRegistersStatusListing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 2;
-                });
-            }
-            
-            //Filter results acording to filter_index.
-            if(gSystemConfig.enableRegistersFilterGeneric1 != 0)
-            {
-                var resultsRegistersFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 101;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
-            {
-                var resultsRegistersFiltersGeneric2Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 102;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
-            {
-                var resultsRegistersFiltersGeneric2Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 102;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric3 != 0)
-            {
-                var resultsRegistersFiltersGeneric3Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 103;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric4 != 0)
-            {
-                var resultsRegistersFiltersGeneric4Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 104;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric5 != 0)
-            {
-                var resultsRegistersFiltersGeneric5Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 105;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric6 != 0)
-            {
-                var resultsRegistersFiltersGeneric6Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 106;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric7 != 0)
-            {
-                var resultsRegistersFiltersGeneric7Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 107;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric8 != 0)
-            {
-                var resultsRegistersFiltersGeneric8Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 108;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric9 != 0)
-            {
-                var resultsRegistersFiltersGeneric9Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 109;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric10 != 0)
-            {
-                var resultsRegistersFiltersGeneric10Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 110;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric11 != 0)
-            {
-                var resultsRegistersFiltersGeneric11Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 111;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric12 != 0)
-            {
-                var resultsRegistersFiltersGeneric12Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 112;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric12 != 0)
-            {
-                var resultsRegistersFiltersGeneric12Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 112;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric13 != 0)
-            {
-                var resultsRegistersFiltersGeneric13Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 113;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric14 != 0)
-            {
-                var resultsRegistersFiltersGeneric14Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 114;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric15 != 0)
-            {
-                var resultsRegistersFiltersGeneric15Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 115;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric16 != 0)
-            {
-                var resultsRegistersFiltersGeneric16Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 116;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric17 != 0)
-            {
-                var resultsRegistersFiltersGeneric17Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 117;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric18 != 0)
-            {
-                var resultsRegistersFiltersGeneric18Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 118;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric19 != 0)
-            {
-                var resultsRegistersFiltersGeneric19Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 119;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric20 != 0)
-            {
-                var resultsRegistersFiltersGeneric20Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 120;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric21 != 0)
-            {
-                var resultsRegistersFiltersGeneric21Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 121;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric22 != 0)
-            {
-                var resultsRegistersFiltersGeneric22Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 122;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric22 != 0)
-            {
-                var resultsRegistersFiltersGeneric22Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 122;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric23 != 0)
-            {
-                var resultsRegistersFiltersGeneric23Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 123;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric24 != 0)
-            {
-                var resultsRegistersFiltersGeneric24Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 124;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric25 != 0)
-            {
-                var resultsRegistersFiltersGeneric25Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 125;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric26 != 0)
-            {
-                var resultsRegistersFiltersGeneric26Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 126;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric27 != 0)
-            {
-                var resultsRegistersFiltersGeneric27Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 127;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric28 != 0)
-            {
-                var resultsRegistersFiltersGeneric28Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 128;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric29 != 0)
-            {
-                var resultsRegistersFiltersGeneric29Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 129;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric30 != 0)
-            {
-                var resultsRegistersFiltersGeneric30Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 130;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric31 != 0)
-            {
-                var resultsRegistersFiltersGeneric31Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 131;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
-            {
-                var resultsRegistersFiltersGeneric32Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 132;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
-            {
-                var resultsRegistersFiltersGeneric32Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 132;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric33 != 0)
-            {
-                var resultsRegistersFiltersGeneric33Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 133;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric34 != 0)
-            {
-                var resultsRegistersFiltersGeneric34Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 134;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric35 != 0)
-            {
-                var resultsRegistersFiltersGeneric35Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 135;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric36 != 0)
-            {
-                var resultsRegistersFiltersGeneric36Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 136;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric37 != 0)
-            {
-                var resultsRegistersFiltersGeneric37Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 137;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric38 != 0)
-            {
-                var resultsRegistersFiltersGeneric38Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 138;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric39 != 0)
-            {
-                var resultsRegistersFiltersGeneric39Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 139;
-                });
-            }
-            if(gSystemConfig.enableRegistersFilterGeneric40 != 0)
-            {
-                var resultsRegistersFiltersGeneric40Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 140;
-                });
-            }
-
-
-            //Build HTML.
             backendHTML = `
             <div id="divMessageSuccess" class="ss-backend-success">
-                ${ 
-                    (this._nRecords) ? 
-                    `
-                        ${ this._nRecords + " " }
-                    `
-                    : 
-                    ``
-                } 
-            
                 ${ 
                     (this._messageSuccess) ? 
                     `
@@ -691,16 +728,9 @@ module.exports = class RegistersListing
             
                 ${
                     /*Debug.*/
-                    /*"FunctionsCrypto.encryptValue=" + SyncSystemNS.FunctionsCrypto.encryptValue("testing encryption", 2) + "<br />" +*/
-                    /*"FunctionsCrypto.decryptValue 23=" + SyncSystemNS.FunctionsCrypto.decryptValue("7d9690aa7af8350618fba2d1060fdefd233480f4a2de8227e605a9522b44f0e4", 2) + "<br />" +*/ /* 23 */
-                    /*"FunctionsCrypto.decryptValue 26=" + SyncSystemNS.FunctionsCrypto.decryptValue("1c7839affd95d5bc4c638d4c57fa903a326d6a5bb326f6eaa4b8c08269a400bd", 2) + "<br />" +*/ /* 26 */
-                    /*"_idParent=" + this._idParent + "<br />" +*/ /*working*/
-                    /*"_idParent=" + this._idParent + "<br />" +*/ /*working*/
-                    /*"_pageNumber=" + this._pageNumber + "<br />" +*/ /*working*/
-                    /*"_masterPageSelect=" + this._masterPageSelect + "<br />"*/ /*working*/
-                    /*"FunctionsGeneric=" + SyncSystemNS.FunctionsGeneric.categoryConfigSelect(2, 5)*/ /*working*/
-                    /*"hostname=" + os.hostname() + "<br />" +*/
-                    /*"networkInterfaces=" + JSON.stringify(os.networkInterfaces()) + "<br />" +*/
+                    
+                    /*"this.objCategoriesIdParent=" + this.objCategoriesIdParent + "<br />" +*/
+                    /*"ordRecord.arrIdsCategoriesFiltersGenericBinding=" + ordRecord.arrIdsCategoriesFiltersGenericBinding + "<br />" +*/
                     /*"networkInterfaces=" + _(os.networkInterfaces()).values().flatten().where({ family: 'IPv4', internal: false }).pluck('address').first() + "<br />" +*/
                     /*"networkInterfaces=" + Object.values(os.networkInterfaces())
                     .reduce((r,a)=>{
@@ -724,837 +754,11 @@ module.exports = class RegistersListing
             </script>
 
 
-            <section class="ss-backend-layout-section-data01">
-            ${oplRecords.resultsRegistersListing == "" ? `
-                <div class="ss-backend-alert ss-backend-layout-div-records-empty">
-                    ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage1") }
-                </div>
-            ` : `
-                <div style="position: relative; display: block; overflow: hidden; margin-bottom: 2px;">
-                    <button 
-                        id="registers_delete" 
-                        name="registers_delete" 
-                        onclick="elementMessage01('formRegistersListing_method', 'DELETE');
-                                formSubmit('formRegistersListing', '', '', '/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/?_method=DELETE');
-                                " 
-                        class="ss-backend-btn-base ss-backend-btn-action-cancel" 
-                        style="float: right;">
-                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDelete") }
-                    </button>
-                </div>
-
-                <form id="formRegistersListing" name="formRegistersListing" method="POST" action="" enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" id="formRegistersListing_method" name="_method" value="">
-
-                    <input type="hidden" id="formRegistersListing_strTable" name="strTable" value="${ gSystemConfig.configSystemDBTableRegisters }" />
-                    
-                    <input type="hidden" id="formRegistersListing_idParent" name="idParent" value="${ this._idParent }" />
-                    <input type="hidden" id="formRegistersListing_pageReturn" name="pageReturn" value="${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters }" />
-                    <input type="hidden" id="formRegistersListing_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
-                    <input type="hidden" id="formRegistersListing_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
-
-                    <div style="position: relative; display: block; overflow: hidden;">
-                        <table class="ss-backend-table-listing01">
-                            <caption class="ss-backend-table-header-text01 ss-backend-table-title">
-                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleMain") }
-                            </caption>
-                            <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
-                                <tr>
-                                    ${ gSystemConfig.enableRegistersSortOrder == 1 ? 
-                                    `
-                                    <td style="width: 40px; text-align: left;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSortOrderA") }  
-                                    </td>
-                                    ` : ``
-                                    }
-
-                                    <td style="width: 100px; text-align: center;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDateCreated") }  
-                                    </td>
-
-                                    ${ gSystemConfig.enableRegistersImageMain == 1 ? 
-                                    `
-                                    <td style="width: 100px; text-align: center;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImage") }  
-                                    </td>
-                                    ` : ``
-                                    }
-
-                                    <td style="text-align: left;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegister") }  
-                                    </td>
-
-                                    <td style="width: 100px; text-align: center;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemFunctions") }  
-                                    </td>
-
-                                    ${ gSystemConfig.enableRegistersStatus == 1 ? 
-                                        `
-                                        <td style="width: 100px; text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersStatus") }  
-                                        </td>
-                                        ` : ``
-                                    }
-
-                                    <td style="width: 40px; text-align: center;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivationA") }  
-                                    </td>
-                                    ${ gSystemConfig.enableRegistersActivation1 == 1 ? 
-                                        `
-                                        <td style="width: 40px; text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation1") }  
-                                        </td>
-                                        ` : ``
-                                    }
-                                    ${ gSystemConfig.enableRegistersActivation2 == 1 ? 
-                                        `
-                                        <td style="width: 40px; text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation2") }  
-                                        </td>
-                                        ` : ``
-                                    }
-                                    ${ gSystemConfig.enableRegistersActivation3 == 1 ? 
-                                        `
-                                        <td style="width: 40px; text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation3") }  
-                                        </td>
-                                        ` : ``
-                                    }
-                                    ${ gSystemConfig.enableRegistersActivation4 == 1 ? 
-                                        `
-                                        <td style="width: 40px; text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation4") }  
-                                        </td>
-                                        ` : ``
-                                    }
-                                    ${ gSystemConfig.enableRegistersActivation5 == 1 ? 
-                                        `
-                                        <td style="width: 40px; text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersActivation5") }  
-                                        </td>
-                                        ` : ``
-                                    }
-
-                                    ${ gSystemConfig.enableRegistersRestrictedAccess == 1 ? 
-                                        `
-                                        <td style="width: 40px; text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccessA") }  
-                                        </td>
-                                        ` : ``
-                                    }
-
-                                    <td style="width: 40px; text-align: center;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEdit") }  
-                                    </td>
-                                    <td style="width: 40px; text-align: center;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDelete") }  
-                                    </td>
-                                </tr>
-                            </thead>
-
-                            <tbody class="ss-backend-table-listing-text01">
-                            ${ oplRecords.resultsRegistersListing.map((registersRow)=>{
-                                return `
-                                    <tr class="ss-backend-table-bg-light">
-                                        ${ gSystemConfig.enableRegistersSortOrder == 1 ? 
-                                        `
-                                        <td style="text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.valueMaskRead(registersRow.sort_order, "", 3, null) } 
-                                        </td>
-                                        ` : ``
-                                        }
-
-                                        <td style="text-align: center;">
-                                            ${ SyncSystemNS.FunctionsGeneric.dateRead01(registersRow.date_creation, 
-                                                                                        gSystemConfig.configBackendDateFormat, 
-                                                                                        0, 
-                                                                                        3) }
-                                        </td>
-
-                                        ${ gSystemConfig.enableRegistersImageMain == 1 ? 
-                                        `
-                                        <td style="text-align: center;">
-                                            ${ registersRow.image_main !== "" ? 
-                                            `
-                                                ${ /*No pop-up.*/'' }
-                                                ${ gSystemConfig.configImagePopup == 0 ? 
-                                                `
-                                                    <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") }" class="ss-backend-images-listing" />
-                                                ` : ``
-                                                }
-
-                                                ${ /*GLightbox.*/'' }
-                                                ${ gSystemConfig.configImagePopup == 4 ? 
-                                                `
-                                                    <a href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/g" + registersRow.image_main + "?v=" + this.cacheClear }"
-                                                       title="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") }"
-                                                       class="glightbox_registers_image_main${ registersRow.id }"
-                                                       data-glightbox="title:${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") };">
-
-                                                        <img src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + registersRow.image_main + "?v=" + this.cacheClear }" alt="${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") }" class="ss-backend-images-listing" />
-                                                    </a>
-                                                    <script>
-                                                        gLightboxBackendConfigOptions.selector = "glightbox_registers_image_main${ registersRow.id }";
-                                                        //Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
-                                                        //data-glightbox="title: Title example.; description: Description example."
-                                                        var glightboxRegistersImageMain = GLightbox(gLightboxBackendConfigOptions);
-                                                    </script>
-                                                ` : ``
-                                                }
-                                            ` : ``
-                                            }
-                                        </td>
-                                        ` : ``
-                                        }
-                                        
-                                        <td style="text-align: left;">
-                                            ${ gSystemConfig.enableRegistersNameFull == 1 ? 
-                                                `
-                                                <div>
-                                                    <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFull") }
-                                                    </strong>
-                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") } 
-                                                </div>
-                                                ` : ``
-                                            }
-
-                                            ${ gSystemConfig.enableRegistersNameFirst == 1 ? 
-                                                `
-                                                <div>
-                                                    <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFirst") }
-                                                    </strong>
-                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_first, "db") } 
-                                                </div>
-                                                ` : ``
-                                            }
-
-                                            ${ gSystemConfig.enableRegistersNameLast == 1 ? 
-                                                `
-                                                <div>
-                                                    <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameLast") }
-                                                    </strong>
-                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_last, "db") } 
-                                                </div>
-                                                ` : ``
-                                            }
-
-                                            ${ gSystemConfig.enableRegistersCompanyNameLegal == 1 ? 
-                                                `
-                                                <div>
-                                                    <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameLegal") }
-                                                    </strong>
-                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.company_name_legal, "db") } 
-                                                </div>
-                                                ` : ``
-                                            }
-
-                                            ${ gSystemConfig.enableRegistersCompanyNameAlias == 1 ? 
-                                                `
-                                                <div>
-                                                    <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameAlias") }
-                                                    </strong>
-                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.company_name_alias, "db") } 
-                                                </div>
-                                                ` : ``
-                                            }
-                                        </td>
-
-                                        <td style="text-align: center;">
-                                            ${ /*SyncSystemNS.FunctionsGeneric.categoryConfigSelect(registersRow.category_type, 4)*/'' }
-                                            
-                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" + gSystemConfig.configRouteBackendDetails + "/" + registersRow.id + "/" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
-                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDetailsView") }
-                                            </a> 
-                                            <!--a href="/${ gSystemConfig.configRouteFrontend + "/" + gSystemConfig.configRouteFrontendRegisters + "/" + gSystemConfig.configRouteFrontendDetails + "/" + registersRow.id + "/" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
-                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDetailsView") }
-                                            </a--> ${ /*TODO: Change address to access frontend.*/ '' }
-
-
-                                            ${ /*Content.*/ '' }
-                                            ${ gSystemConfig.enableRegistersContent == 1 ? 
-                                                `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendContent + "/" + registersRow.id + "/?masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertContent") }
-                                                    </a> 
-                                                ` : ``
-                                            }
-
-                                            ${ /*Images.*/ '' }
-                                            ${ gSystemConfig.enableRegistersImages == 1 ? 
-                                                `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=1&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertImages") }
-                                                    </a> 
-                                                ` : ``
-                                            }
-
-                                            ${ /*Videos.*/ '' }
-                                            ${ gSystemConfig.enableRegistersVideos == 1 ? 
-                                                `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=2&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertVideos") }
-                                                    </a> 
-                                                ` : ``
-                                            }
-                                            
-                                            ${ /*Files.*/ '' }
-                                            ${ gSystemConfig.enableRegistersFiles == 1 ? 
-                                                `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=3&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFiles") }
-                                                    </a> 
-                                                ` : ``
-                                            }
-
-                                            ${ /*Zip files.*/ '' }
-                                            ${ gSystemConfig.enableRegistersZip == 1 ? 
-                                                `
-                                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendFiles + "/" + registersRow.id + "/?fileType=4&masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemInsertFilesZip") }
-                                                    </a> 
-                                                ` : ``
-                                            }
-                                        </td>
-
-                                        ${ gSystemConfig.enableRegistersStatus == 1 ? 
-                                            `
-                                            <td style="text-align: center;">
-                                                ${ registersRow.id_status == 0 ? `
-                                                    ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }
-                                                ` : `
-                                                    ${ ofglRecords.resultsFiltersGenericListing.filter(function(objFiltered){
-                                                        return objFiltered.id == registersRow.id_status;
-                                                    }).map(function(objMapped){
-                                                        //return objMapped.title
-                                                        return SyncSystemNS.FunctionsGeneric.contentMaskRead(objMapped.title, "db");
-                                                    }) }
-
-                                                    ${ /*registersRow.id_status*/ '' }
-                                                ` }
-                                            </td>
-                                            ` : ``
-                                        }
-    
-                                        <td id="formRegistersListing_elementActivation${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation == 1 ? "" : "ss-backend-table-bg-deactive"}">
-                                            <a id="linkActivation${ registersRow.id }" class="ss-backend-links01" 
-                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                         ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
-                                                                                    {
-                                                                                        idRecord: '${ registersRow.id }', 
-                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
-                                                                                        strField:'activation', 
-                                                                                        recordValue: '${ registersRow.activation == 1 ? 0 : 1}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
-                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
-                                                                                    }, 
-                                                                                    async function(_resObjReturn){
-                                                                                        //alert(JSON.stringify(_resObjReturn));
-                                                                                        
-                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                        {
-                                                                                            //Check status.
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSAdd('formRegistersListing_elementActivation${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
-                                                                                            }
-
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSRemove('formRegistersListing_elementActivation${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
-                                                                                            }
-
-                                                                                            //Success message.
-                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
-
-                                                                                        }else{
-                                                                                            //Show error.
-                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
-                                                                                        }
-
-                                                                                        //Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                ${ 
-                                                    registersRow.activation == "1" ? 
-                                                    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
-                                                    : 
-                                                    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
-                                                } 
-                                            </a>
-                                        </td>
-                                        ${ gSystemConfig.enableRegistersActivation1 == 1 ? 
-                                            `
-                                            <td id="formRegistersListing_elementActivation1${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation1 == 1 ? "" : "ss-backend-table-bg-deactive"}">
-                                                <a id="linkActivation1${ registersRow.id }" class="ss-backend-links01"
-                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
-                                                                                    {
-                                                                                        idRecord: '${ registersRow.id }', 
-                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
-                                                                                        strField:'activation1', 
-                                                                                        recordValue: '${ registersRow.activation1 == 1 ? 0 : 1}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
-                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
-                                                                                    }, 
-                                                                                    async function(_resObjReturn){
-                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                        {
-                                                                                            //Check status.
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSAdd('formRegistersListing_elementActivation1${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation1${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
-                                                                                            }
-
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSRemove('formRegistersListing_elementActivation1${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation1${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
-                                                                                            }
-
-                                                                                            //Success message.
-                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
-                                                                                        }else{
-                                                                                            //Show error.
-                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
-                                                                                        }
-
-                                                                                        //Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                    ${ 
-                                                        registersRow.activation1 == "1" ? 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
-                                                        : 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
-                                                    } 
-                                                </a>
-                                            </td>
-                                            ` : ``
-                                        }
-                                        ${ gSystemConfig.enableRegistersActivation2 == 1 ? 
-                                            `
-                                            <td id="formRegistersListing_elementActivation2${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation2 == 1 ? "" : "ss-backend-table-bg-deactive"}">
-                                                <a id="linkActivation2${ registersRow.id }" class="ss-backend-links01"
-                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
-                                                                                    {
-                                                                                        idRecord: '${ registersRow.id }', 
-                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
-                                                                                        strField:'activation2', 
-                                                                                        recordValue: '${ registersRow.activation2 == 1 ? 0 : 1}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
-                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
-                                                                                    }, 
-                                                                                    async function(_resObjReturn){
-                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                        {
-                                                                                            //Check status.
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSAdd('formRegistersListing_elementActivation2${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation2${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
-                                                                                            }
-
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSRemove('formRegistersListing_elementActivation2${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation2${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
-                                                                                            }
-
-                                                                                            //Success message.
-                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
-                                                                                        }else{
-                                                                                            //Show error.
-                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
-                                                                                        }
-
-                                                                                        //Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                    ${ 
-                                                        registersRow.activation2 == "1" ? 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
-                                                        : 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
-                                                    } 
-                                                </a>
-                                            </td>
-                                            ` : ``
-                                        }
-                                        ${ gSystemConfig.enableRegistersActivation3 == 1 ? 
-                                            `
-                                            <td id="formRegistersListing_elementActivation3${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation3 == 1 ? "" : "ss-backend-table-bg-deactive"}">
-                                                <a id="linkActivation3${ registersRow.id }" class="ss-backend-links01"
-                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
-                                                                                    {
-                                                                                        idRecord: '${ registersRow.id }', 
-                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
-                                                                                        strField:'activation3', 
-                                                                                        recordValue: '${ registersRow.activation3 == 1 ? 0 : 1}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
-                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
-                                                                                    }, 
-                                                                                    async function(_resObjReturn){
-                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                        {
-                                                                                            //Check status.
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSAdd('formRegistersListing_elementActivation3${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation3${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
-                                                                                            }
-
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSRemove('formRegistersListing_elementActivation3${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation3${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
-                                                                                            }
-
-                                                                                            //Success message.
-                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
-                                                                                        }else{
-                                                                                            //Show error.
-                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
-                                                                                        }
-
-                                                                                        //Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                    ${ 
-                                                        registersRow.activation3 == "1" ? 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
-                                                        : 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
-                                                    } 
-                                                </a>
-                                            </td>
-                                            ` : ``
-                                        }
-                                        ${ gSystemConfig.enableRegistersActivation4 == 1 ? 
-                                            `
-                                            <td id="formRegistersListing_elementActivation4${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation4 == 1 ? "" : "ss-backend-table-bg-deactive"}">
-                                                <a id="linkActivation4${ registersRow.id }" class="ss-backend-links01"
-                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
-                                                                                    {
-                                                                                        idRecord: '${ registersRow.id }', 
-                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
-                                                                                        strField:'activation4', 
-                                                                                        recordValue: '${ registersRow.activation4 == 1 ? 0 : 1}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
-                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
-                                                                                    }, 
-                                                                                    async function(_resObjReturn){
-                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                        {
-                                                                                            //Check status.
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSAdd('formRegistersListing_elementActivation4${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation4${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
-                                                                                            }
-
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSRemove('formRegistersListing_elementActivation4${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation4${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
-                                                                                            }
-
-                                                                                            //Success message.
-                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
-                                                                                        }else{
-                                                                                            //Show error.
-                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
-                                                                                        }
-
-                                                                                        //Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                    ${ 
-                                                        registersRow.activation4 == "1" ? 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
-                                                        : 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
-                                                    } 
-                                                </a>
-                                            </td>
-                                            ` : ``
-                                        }
-                                        ${ gSystemConfig.enableRegistersActivation5 == 1 ? 
-                                            `
-                                            <td id="formRegistersListing_elementActivation5${ registersRow.id }" style="text-align: center;" class="${ registersRow.activation5 == 1 ? "" : "ss-backend-table-bg-deactive"}">
-                                                <a id="linkActivation5${ registersRow.id }" class="ss-backend-links01"
-                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
-                                                                                    {
-                                                                                        idRecord: '${ registersRow.id }', 
-                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
-                                                                                        strField:'activation5', 
-                                                                                        recordValue: '${ registersRow.activation5 == 1 ? 0 : 1}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
-                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
-                                                                                    }, 
-                                                                                    async function(_resObjReturn){
-                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                        {
-                                                                                            //Check status.
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSAdd('formRegistersListing_elementActivation5${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation5${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") }');
-                                                                                            }
-
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSRemove('formRegistersListing_elementActivation5${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkActivation5${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A") }');
-                                                                                            }
-
-                                                                                            //Success message.
-                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
-                                                                                        }else{
-                                                                                            //Show error.
-                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
-                                                                                        }
-
-                                                                                        //Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                    ${ 
-                                                        registersRow.activation5 == "1" ? 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1A")
-                                                        : 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0A") 
-                                                    } 
-                                                </a>
-                                            </td>
-                                            ` : ``
-                                        }
-
-                                        ${ gSystemConfig.enableRegistersRestrictedAccess == 1 ? 
-                                            `
-                                            <td id="formRegistersListing_elementRestrictedAccess${ registersRow.id }" style="text-align: center;" class="${ registersRow.restricted_access == 0 ? "" : "ss-backend-table-bg-deactive"}">
-                                                <a id="linkRestrictedAccess${ registersRow.id }" class="ss-backend-links01"
-                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                             ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
-                                                                                    {
-                                                                                        idRecord: '${ registersRow.id }', 
-                                                                                        strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
-                                                                                        strField:'restricted_access', 
-                                                                                        recordValue: '${ registersRow.restricted_access == 1 ? 0 : 1}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
-                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
-                                                                                    }, 
-                                                                                    async function(_resObjReturn){
-                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                        {
-                                                                                            //Check status.
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '0')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSRemove('formRegistersListing_elementRestrictedAccess${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkRestrictedAccess${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0A") }');
-                                                                                            }
-
-                                                                                            if(_resObjReturn.objReturn.recordUpdatedValue == '1')
-                                                                                            {
-                                                                                                //Change cell color.
-                                                                                                elementCSSAdd('formRegistersListing_elementRestrictedAccess${ registersRow.id }', 'ss-backend-table-bg-deactive');
-
-                                                                                                //Change link text.
-                                                                                                elementMessage01('linkRestrictedAccess${ registersRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1A") }');
-                                                                                            }
-
-                                                                                            //Success message.
-                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
-                                                                                        }else{
-                                                                                            //Show error.
-                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
-                                                                                        }
-
-                                                                                        //Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                    ${ 
-                                                        registersRow.restricted_access == "1" ? 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1A") 
-                                                        : 
-                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0A")
-                                                    } 
-                                                </a>
-                                            </td>
-                                            ` : ``
-                                        }
-        
-                                        <td style="text-align: center;">
-                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" + gSystemConfig.configRouteBackendActionEdit + "/" +  registersRow.id + "/?" + this.queryDefault }" class="ss-backend-links01">
-                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEdit") }  
-                                            </a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <!--input type="checkbox" name="idsRecordsDelete[]" value="${registersRow.id}" class="ss-backend-field-checkbox" /--> 
-                                            <input type="checkbox" name="idsRecordsDelete" value="${registersRow.id}" class="ss-backend-field-checkbox" /> 
-                                            <!--input type="checkbox" name="arrIdsRecordsDelete" value="${registersRow.id}" class="ss-backend-field-checkbox" /--> 
-                                        </td>
-                                    </tr>
-                                `;
-                            }).join("")}
-                            </tbody>
-
-                            <tfoot class="ss-backend-table-foot ss-backend-table-listing-text01" style="display: none;">
-                                <tr>
-                                    <td style="text-align: left;">
-                                         
-                                    </td>
-                                    <td style="text-align: center;">
-                                         
-                                    </td>
-                                    <td style="text-align: center;">
-                                         
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-
-                    ${ /*Paging.*/'' }
-                    ${ /*----------------------*/'' }
-                    ${ gSystemConfig.enableRegistersBackendPagination == 1 ? 
-                    `
-                        <div class="ss-backend-paging" style="position: relative; display: block; overflow: hidden; text-align: center;">
-
-                            ${ /*Page numbers.*/'' }
-                            ${ gSystemConfig.enableRegistersBackendPaginationNumbering == 1 ? 
-                            `
-                                <div class="ss-backend-paging-number-link-a" style="position: relative; display: block; overflow: hidden;">
-                                    ${Array(this._pagingTotal).fill().map((item, pageNumberOutput)=>{
-                                        return `
-                                            ${ (pageNumberOutput + 1) == this._pageNumber ? `
-                                                ${ pageNumberOutput + 1 }
-                                            ` : `
-                                                <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ pageNumberOutput + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPageCounter01") + " " + pageNumberOutput + 1 }" class="ss-backend-paging-number-link">
-                                                    ${ pageNumberOutput + 1 }
-                                                </a>
-                                            `}
-                                        `;
-                                    }).join("")}
-                                </div>
-                            ` : ``
-                            }
-    
-                            ${ /*Page controls.*/'' }
-
-                            
-                            <div style="position: relative; display: block; overflow: hidden;">
-                                ${ this._pageNumber == 1 ? 
-                                    `
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=1" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") }" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") } 
-                                    </a>
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) - 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") }" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") } 
-                                    </a>
-                                    ` : `
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=1" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") }" class="ss-backend-paging-btn">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingFirst") } 
-                                    </a>
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) - 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") }" class="ss-backend-paging-btn">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingPrevious") } 
-                                    </a>
-                                    `
-                                }
-
-                                
-                                ${ this._pageNumber == this._pagingTotal ? 
-                                    `
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") }" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") } 
-                                    </a>
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ this._pagingTotal }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") }" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") } 
-                                    </a>
-                                    ` : `
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ parseFloat(this._pageNumber) + 1 }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") }" class="ss-backend-paging-btn">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingNext") } 
-                                    </a>
-                                    <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" +  this._idParent }?pageNumber=${ this._pagingTotal }" title="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") }" class="ss-backend-paging-btn">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendPagingLast") } 
-                                    </a>
-                                    `
-                                }
-                            </div>
-
-                            <div style="position: relative; display: block; overflow: hidden;">
-                                ${ this._pageNumber } / ${ this._pagingTotal }
-                            </div>
-                        </div>
-                    ` : ``
-                    }
-                    ${ /*----------------------*/'' }
-
-                </form>
-            ` }
-            </section>
-
-
             ${ /*Form.*/'' }
             <section class="ss-backend-layout-section-form01">
-                <form id="formRegisters" name="formRegisters" method="POST" action="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters }" enctype="multipart/form-data">
+                <form id="formRegistersEdit" name="formRegistersEdit" method="POST" action="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRegisters + "/" + gSystemConfig.configRouteBackendActionEdit }/?_method=PUT" enctype="multipart/form-data">
+                    <input type="hidden" id="formRegistersEdit_method" name="_method" value="PUT">
+
                     <div style="position: relative; display: block; overflow: hidden;">
                         <script>
                             //Debug.
@@ -1573,12 +777,39 @@ module.exports = class RegistersListing
 
                         <table id="input_table_registers" class="ss-backend-table-input01">
                             <caption class="ss-backend-table-header-text01 ss-backend-table-title">
-                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleTable") } 
+                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersTitleTableEdit") } 
                             </caption>
                             <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
                                 
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
+                            ${ gSystemConfig.enableRegistersIdParentEdit == 1 ? 
+                                `
+                                <tr id="inputRowRegisters_id_parent" class="ss-backend-table-bg-light">
+                                    <td class="ss-backend-table-bg-medium">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemParentLink") }: 
+                                    </td>
+                                    <td>
+                                        ${ /*TODO: Convert to ajax.*/'' }
+                                        <select id="registers_id_parent" name="id_parent" class="ss-backend-field-dropdown01">
+                                            <option value="0"${ ordRecord.tblRegistersIdParent == 0 ? ` selected` : `` }>
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectRoot") }
+                                            </option>
+                                            ${ objParentTable.map((recordRow)=>{
+                                                return `
+                                                    <option value="${ recordRow.id }"${ ordRecord.tblRegistersIdParent == recordRow.id ? ` selected` : `` }>
+                                                        ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(recordRow.title, "db") }
+                                                    </option>
+                                                `
+                                            }) }
+                                        </select>
+                                    </td>
+                                </tr>
+                                ` : `
+                                <input type="hidden" id="registers_id_parent" name="id_parent" value="${ ordRecord.tblRegistersIdParent }" />
+                                `
+                                }
+                            
                                 ${ gSystemConfig.enableRegistersSortOrder == 1 ? 
                                 `
                                 <tr id="inputRowRegisters_sort_order" class="ss-backend-table-bg-light">
@@ -1586,7 +817,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSortOrder") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="0" />
+                                        <input type="text" id="registers_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="${ ordRecord.tblRegistersSortOrder_print }" />
                                         <script>
                                             Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_sort_order");
                                         </script>
@@ -1603,7 +834,7 @@ module.exports = class RegistersListing
                                         </td>
                                         <td>
                                             <select id="registers_id_type" name="id_type" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.tblRegistersIdType == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersTypeListing.map((statusRow)=>{
                                                     return `
                                                         <option value="${ statusRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
@@ -1612,7 +843,9 @@ module.exports = class RegistersListing
                                             </select>
                                         </td>
                                     </tr>
-                                    ` : ``
+                                    ` : `
+                                    <input type="hidden" id="registers_register_type" name="register_type" value="0" />
+                                    `
                                 }
 
                                 ${ gSystemConfig.enableRegistersBindRegisterUser == 1 ? 
@@ -1623,7 +856,7 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_id_register_user" name="id_register_user" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected="true">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                            <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -1640,8 +873,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_register_type" name="register_type" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegisterType1") }</option>
-                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegisterType2") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersRegisterType == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegisterType1") }</option>
+                                            <option value="2"${ ordRecord.tblRegistersRegisterType == 2 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersRegisterType2") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -1658,9 +891,9 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_name_title" name="name_title" class="ss-backend-field-dropdown01">
-                                            <option value="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle1") }" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle1") }</option>
-                                            <option value="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle2") }">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle2") }</option>
-                                            <option value="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle3") }">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle3") }</option>
+                                            <option value="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle1") }"${ ordRecord.tblRegistersNameTitle == SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle1") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle1") }</option>
+                                            <option value="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle2") }"${ ordRecord.tblRegistersNameTitle == SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle2") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle2") }</option>
+                                            <option value="${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle3") }"${ ordRecord.tblRegistersNameTitle == SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle3") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameTitle3") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -1674,7 +907,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFull") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_name_full" name="name_full" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_name_full" name="name_full" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersNameFull }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1687,7 +920,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFirst") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_name_first" name="name_first" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_name_first" name="name_first" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersNameFirst }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1700,7 +933,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameLast") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_name_last" name="name_last" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_name_last" name="name_last" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersNameLast }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1713,7 +946,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameLegal") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_company_name_legal" name="company_name_legal" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_company_name_legal" name="company_name_legal" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersCompanyNameLegal }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1726,7 +959,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameAlias") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_company_name_alias" name="company_name_alias" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_company_name_alias" name="company_name_alias" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersCompanyNameAlias }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1741,13 +974,13 @@ module.exports = class RegistersListing
                                     <td>
                                         ${ /*No formatting*/'' }
                                         ${ gSystemConfig.configBackendTextBox == 1 ? `
-                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersDescription_edit }</textarea>
                                         ` : ``}
 
 
                                         ${ /*Quill*/'' }
                                         ${ gSystemConfig.configBackendTextBox == 13 ? `
-                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersDescription_edit }</textarea>
                                             <div id="toolbar">
                                                 <button class="ql-bold">Bold</button>
                                                 <button class="ql-italic">Italic</button>
@@ -1766,7 +999,7 @@ module.exports = class RegistersListing
 
                                          ${ /*FroalaEditor*/'' }
                                          ${ gSystemConfig.configBackendTextBox == 15 ? `
-                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersDescription_edit }</textarea>
                                             <script>
                                                 new FroalaEditor("#registers_description");
                                             </script>
@@ -1775,7 +1008,7 @@ module.exports = class RegistersListing
 
                                          ${ /*TinyMCE*/'' }
                                          ${ gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18 ? `
-                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_description" name="description" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersDescription_edit }</textarea>
                                             <script>
                                                 /*
                                                 tinymce.init({
@@ -1799,7 +1032,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLAlias") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_url_alias" name="url_alias" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_url_alias" name="url_alias" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersURLAlias }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1812,7 +1045,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywords") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="registers_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersKeywordsTags }</textarea>
                                         <div>
                                             (${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywordsInstruction01") })
                                         </div>
@@ -1828,7 +1061,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMetaDescription") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_meta_description" name="meta_description" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="registers_meta_description" name="meta_description" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersMetaDescription_edit }</textarea>
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1841,7 +1074,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMetaTitle") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_meta_title" name="meta_title" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_meta_title" name="meta_title" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersMetaTitle }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1859,56 +1092,62 @@ module.exports = class RegistersListing
                                             `
                                             ${ gSystemConfig.configBackendDateFormat == 1 ? 
                                                 `
-                                                    <select id="registers_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
+                                                    <select id="registers_birth_day_day" name="birth_day_day" class="ss-backend-field-dropdown01">
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDateBirthDateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
                                                     /
-                                                    <select id="registers_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
+                                                    <select id="registers_birth_day_month" name="birth_day_month" class="ss-backend-field-dropdown01">
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDateBirthDateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
                                                     /
-                                                    <select id="registers_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
+                                                    <select id="registers_birth_day_year" name="birth_day_year" class="ss-backend-field-dropdown01">
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDateBirthDateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
                                                 ` : `
-                                                    <select id="registers_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
+                                                    <select id="registers_birth_day_month" name="birth_day_month" class="ss-backend-field-dropdown01">
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDateBirthDateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
                                                     /
-                                                    <select id="registers_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
+                                                    <select id="registers_birth_day_day" name="birth_day_day" class="ss-backend-field-dropdown01">
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDateBirthDateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
                                                     /
-                                                    <select id="registers_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
+                                                    <select id="registers_birth_day_year" name="birth_day_year" class="ss-backend-field-dropdown01">
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: 4}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDateBirthDateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -1918,15 +1157,17 @@ module.exports = class RegistersListing
                                         }
 
                                         ${ /*js-datepicker.*/'' }
-                                        ${ /*TODO: Think about a logic that takes account jsDatepickerBirthBackendConfigOptions.dateSelected as default value, if field is required.*/'' }
                                         ${ gSystemConfig.enableRegistersDateBirth == 11 ? 
                                             `
-                                            <input type="text" id="registers_date_birth" name="date_birth" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date_birth" name="date_birth" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDateBirth_print }" />
                                             <script>
                                                 const dpDateBirth = datepicker("#registers_date_birth", jsDatepickerBirthBackendConfigOptions);
                                             </script>
                                             ` : ``
                                         }
+
+                                        ${ /*"tblRegistersDateBirth_print=" + ordRecord.tblRegistersDateBirth_print*/'' }
+                                        ${ /*"tblRegistersDateBirth=" + ordRecord.tblRegistersDateBirth*/'' }
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1939,15 +1180,15 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="gender" checked value="0" class="ss-backend-field-radio" />
+                                            <input type="radio" name="gender"${ ordRecord.tblRegistersGender == 0 ? ` checked` : `` } value="0" class="ss-backend-field-radio" />
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemGender0") }
                                         </label>
                                         <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="gender" value="1" class="ss-backend-field-radio" />
+                                            <input type="radio" name="gender"${ ordRecord.tblRegistersGender == 1 ? ` checked` : `` } value="1" class="ss-backend-field-radio" />
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemGender1") }
                                         </label>
                                         <label class="ss-backend-field-radio-label">
-                                            <input type="radio" name="gender" value="2" class="ss-backend-field-radio" />
+                                            <input type="radio" name="gender"${ ordRecord.tblRegistersGender == 2 ? ` checked` : `` } value="2" class="ss-backend-field-radio" />
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemGender2") }
                                         </label>
                                     </td>
@@ -1962,7 +1203,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersHeight") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_height" name="height" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                        <input type="text" id="registers_height" name="height" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersHeight_print }" maxlength="34" />
                                         ${ gSystemConfig.configSystemHeight }
 
                                         <script>
@@ -1980,7 +1221,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersWeight") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_weight" name="weight" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                        <input type="text" id="registers_weight" name="weight" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersWeight_print }" maxlength="34" />
                                         ${ gSystemConfig.configSystemWeight }
 
                                         <script>
@@ -1999,8 +1240,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_document_type" name="document_type" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType1") }</option>
-                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType55") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersDocumentType == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType1") }</option>
+                                            <option value="2"${ ordRecord.tblRegistersDocumentType == 2 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType55") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -2014,7 +1255,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocument") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_document" name="document" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_document" name="document" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersDocument }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2028,8 +1269,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_document1_type" name="document1_type" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType1") }</option>
-                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType55") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersDocument1Type == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType1") }</option>
+                                            <option value="2"${ ordRecord.tblRegistersDocument1Type == 2 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType55") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -2043,7 +1284,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocument1") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_document1" name="document1" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_document1" name="document1" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersDocument1 }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2057,8 +1298,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_document2_type" name="document2_type" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType1") }</option>
-                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType55") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersDocument2Type == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType1") }</option>
+                                            <option value="2"${ ordRecord.tblRegistersDocument2Type == 2 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentType55") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -2072,7 +1313,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocument2") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_document2" name="document2" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_document2" name="document2" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersDocument2 }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2087,8 +1328,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_document_company_type" name="document_company_type" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType1") }</option>
-                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType55") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersDocumentCompanyType == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType1") }</option>
+                                            <option value="2"${ ordRecord.tblRegistersDocumentCompanyType == 2 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType55") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -2102,7 +1343,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompany") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_document_company" name="document_company" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_document_company" name="document_company" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersDocumentCompany }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2116,8 +1357,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_document_company1_type" name="document_company1_type" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType1") }</option>
-                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType55") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersDocumentCompany1Type == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType1") }</option>
+                                            <option value="2"${ ordRecord.tblRegistersDocumentCompany1Type == 2 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType55") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -2131,7 +1372,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompany1") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_document_company1" name="document_company1" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_document_company1" name="document_company1" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersDocumentCompany1 }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2145,8 +1386,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_document_company2_type" name="document_company2_type" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType1") }</option>
-                                            <option value="2">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType55") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersDocumentCompany2Type == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType1") }</option>
+                                            <option value="2"${ ordRecord.tblRegistersDocumentCompany2Type == 2 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompanyType55") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -2160,7 +1401,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersDocumentCompany2") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_document_company2" name="document_company2" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_document_company2" name="document_company2" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersDocumentCompany2 }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2173,7 +1414,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressZipCode") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_zip_code" name="zip_code" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_zip_code" name="zip_code" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersZipCode }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2185,7 +1426,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressStreet") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_address_street" name="address_street" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_address_street" name="address_street" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersAddressStreet }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2197,7 +1438,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressNumber") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_address_number" name="address_number" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_address_number" name="address_number" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersAddressNumber }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2209,7 +1450,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressComplement") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_address_complement" name="address_complement" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_address_complement" name="address_complement" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersAddressComplement }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2221,7 +1462,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressNeighborhood") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_neighborhood" name="neighborhood" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_neighborhood" name="neighborhood" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersNeighborhood }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2233,7 +1474,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressDistrict") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_district" name="district" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_district" name="district" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersDistrict }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2245,7 +1486,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressCounty") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_county" name="county" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_county" name="county" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersCounty }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2257,7 +1498,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressCity") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_city" name="city" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_city" name="city" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersCity }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2269,7 +1510,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressState") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_state" name="state" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_state" name="state" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersState }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2281,7 +1522,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemAddressCountry") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_country" name="country" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_country" name="country" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersCountry }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2296,13 +1537,13 @@ module.exports = class RegistersListing
                                     <td>
                                         ${ /*No formatting*/'' }
                                         ${ gSystemConfig.configBackendTextBox == 1 ? `
-                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersLocationReference_edit }</textarea>
                                         ` : ``}
 
 
                                         ${ /*Quill*/'' }
                                         ${ gSystemConfig.configBackendTextBox == 13 ? `
-                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersLocationReference_edit }</textarea>
                                             <div id="toolbar">
                                                 <button class="ql-bold">Bold</button>
                                                 <button class="ql-italic">Italic</button>
@@ -2321,7 +1562,7 @@ module.exports = class RegistersListing
 
                                          ${ /*FroalaEditor*/'' }
                                          ${ gSystemConfig.configBackendTextBox == 15 ? `
-                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersLocationReference_edit }</textarea>
                                             <script>
                                                 new FroalaEditor("#registers_location_reference");
                                             </script>
@@ -2330,7 +1571,7 @@ module.exports = class RegistersListing
 
                                          ${ /*TinyMCE*/'' }
                                          ${ gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18 ? `
-                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_location_reference" name="location_reference" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersLocationReference_edit }</textarea>
                                             <script>
                                                 /*
                                                 tinymce.init({
@@ -2354,7 +1595,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersLocationMap") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_location_map" name="location_map" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="registers_location_map" name="location_map" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersLocationMap }</textarea>
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2369,11 +1610,11 @@ module.exports = class RegistersListing
                                     <td>
                                         ${ gSystemConfig.enableRegistersPhoneInternationalCode == 1 ? 
                                         `
-                                            +<input type="text" id="registers_phone1_international_code" name="phone1_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="" />
+                                            +<input type="text" id="registers_phone1_international_code" name="phone1_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="${ ordRecord.tblRegistersPhone1InternationalCode }" />
                                         ` : ``
                                         }
-                                        (<input type="text" id="registers_phone1_area_code" name="phone1_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="" />)
-                                        <input type="text" id="registers_phone1" name="phone1" class="ss-backend-field-tel01" maxlength="255" value="" />
+                                        (<input type="text" id="registers_phone1_area_code" name="phone1_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="${ ordRecord.tblRegistersPhone1AreaCode }" />)
+                                        <input type="text" id="registers_phone1" name="phone1" class="ss-backend-field-tel01" maxlength="255" value="${ ordRecord.tblRegistersPhone1 }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2387,11 +1628,11 @@ module.exports = class RegistersListing
                                     <td>
                                         ${ gSystemConfig.enableRegistersPhoneInternationalCode == 1 ? 
                                         `
-                                            +<input type="text" id="registers_phone2_international_code" name="phone2_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="" />
+                                            +<input type="text" id="registers_phone2_international_code" name="phone2_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="${ ordRecord.tblRegistersPhone2InternationalCode }" />
                                         ` : ``
                                         }
-                                        (<input type="text" id="registers_phone2_area_code" name="phone2_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="" />)
-                                        <input type="text" id="registers_phone2" name="phone2" class="ss-backend-field-tel01" maxlength="255" value="" />
+                                        (<input type="text" id="registers_phone2_area_code" name="phone2_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="${ ordRecord.tblRegistersPhone2AreaCode }" />)
+                                        <input type="text" id="registers_phone2" name="phone2" class="ss-backend-field-tel01" maxlength="255" value="${ ordRecord.tblRegistersPhone2 }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2405,11 +1646,11 @@ module.exports = class RegistersListing
                                     <td>
                                         ${ gSystemConfig.enableRegistersPhoneInternationalCode == 1 ? 
                                         `
-                                            +<input type="text" id="registers_phone3_international_code" name="phone3_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="" />
+                                            +<input type="text" id="registers_phone3_international_code" name="phone3_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="${ ordRecord.tblRegistersPhone3InternationalCode }" />
                                         ` : ``
                                         }
-                                        (<input type="text" id="registers_phone3_area_code" name="phone3_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="" />)
-                                        <input type="text" id="registers_phone3" name="phone3" class="ss-backend-field-tel01" maxlength="255" value="" />
+                                        (<input type="text" id="registers_phone3_area_code" name="phone3_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="${ ordRecord.tblRegistersPhone3AreaCode }" />)
+                                        <input type="text" id="registers_phone3" name="phone3" class="ss-backend-field-tel01" maxlength="255" value="${ ordRecord.tblRegistersPhone3 }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2422,7 +1663,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemWebsite") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_website" name="website" class="ss-backend-field-text-area-url"></textarea>
+                                        <textarea id="registers_website" name="website" class="ss-backend-field-text-area-url">${ ordRecord.tblRegistersWebsite }</textarea>
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLInstructions1") }
                                     </td>
                                 </tr>
@@ -2436,7 +1677,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersUsername") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_username" name="username" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_username" name="username" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersUsername }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2449,7 +1690,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEmail") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_email" name="email" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_email" name="email" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersEmail }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2461,7 +1702,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemPassword") }: 
                                     </td>
                                     <td>
-                                        <input type="password" id="registers_password" name="password" class="ss-backend-field-text01" maxlength="255" value="" />
+                                        <input type="text" id="registers_password" name="password" class="ss-backend-field-text01" maxlength="255" value="${ ordRecord.tblRegistersPassword_edit }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -2481,7 +1722,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric1Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric1" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric1" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric1Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2494,7 +1735,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric1" name="idsRegistersFiltersGeneric1" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric1Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric1Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2505,10 +1746,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric1 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric1" name="idsRegistersFiltersGeneric1" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric1Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric1Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric1Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2521,7 +1762,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric1Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric1" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric1" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric1Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2545,7 +1786,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric2Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric2" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric2" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric2Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2558,7 +1799,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric2" name="idsRegistersFiltersGeneric2" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric2Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric2Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2569,10 +1810,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric2 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric2" name="idsRegistersFiltersGeneric2" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric2Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric2Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric2Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2585,7 +1826,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric2Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric2" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric2" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric2Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2609,7 +1850,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric3Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric3" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric3" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric3Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2622,7 +1863,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric3" name="idsRegistersFiltersGeneric3" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric3Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric3Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2633,10 +1874,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric3 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric3" name="idsRegistersFiltersGeneric3" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric3Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric3Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric3Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2649,7 +1890,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric3Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric3" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric3" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric3Binding.includes("0") ? ` selected` : `` } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2673,7 +1914,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric4Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric4" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric4" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric4Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2686,7 +1927,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric4" name="idsRegistersFiltersGeneric4" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric4Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric4Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2697,10 +1938,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric4 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric4" name="idsRegistersFiltersGeneric4" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric4Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric4Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric4Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2713,7 +1954,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric4Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric4" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric4" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric4Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2726,7 +1967,7 @@ module.exports = class RegistersListing
 
                                 ${ gSystemConfig.enableRegistersFilterGeneric5 != 0 ? 
                                 `
-                                <tr id="inputRowRegisters_generic_filter6" class="ss-backend-table-bg-light">
+                                <tr id="inputRowRegisters_generic_filter5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric5") }: 
                                     </td>
@@ -2737,7 +1978,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric5Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric5" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric5" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric5Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2750,7 +1991,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric5" name="idsRegistersFiltersGeneric5" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric5Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric5Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2761,10 +2002,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric5 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric5" name="idsRegistersFiltersGeneric5" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric5Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric5Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric5Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2777,7 +2018,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric5Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric5" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric5" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric5Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2801,7 +2042,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric6Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric6" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric6" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric6Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2814,7 +2055,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric6" name="idsRegistersFiltersGeneric6" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric6Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric6Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2825,10 +2066,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric6 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric6" name="idsRegistersFiltersGeneric6" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric6Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric6Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric6Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2841,7 +2082,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric6Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric6" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric6" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric6Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2865,7 +2106,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric7Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric7" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric7" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric7Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2878,7 +2119,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric7" name="idsRegistersFiltersGeneric7" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric7Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric7Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2889,10 +2130,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric7 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric7" name="idsRegistersFiltersGeneric7" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric7Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric7Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric7Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2905,7 +2146,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric7Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric7" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric7" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric7Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2929,7 +2170,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric8Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric8" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric8" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric8Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2942,7 +2183,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric8" name="idsRegistersFiltersGeneric8" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric8Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric8Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2956,7 +2197,7 @@ module.exports = class RegistersListing
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric8Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric8Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -2969,7 +2210,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric8Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric8" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric8" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric8Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -2993,7 +2234,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric9Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric9" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric9" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric9Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3006,7 +2247,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric9" name="idsRegistersFiltersGeneric9" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric9Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric9Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3017,10 +2258,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric9 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric9" name="idsRegistersFiltersGeneric9" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric9Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric9Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric9Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3033,7 +2274,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric9Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric9" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric9" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric9Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3057,7 +2298,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric10Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric10" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric10" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric10Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3070,7 +2311,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric10" name="idsRegistersFiltersGeneric10" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric10Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric10Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3084,7 +2325,7 @@ module.exports = class RegistersListing
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric10Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric10Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3097,7 +2338,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric10Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric10" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric10" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric10Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3121,7 +2362,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric11Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric11" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric11" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric11Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3134,7 +2375,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric11" name="idsRegistersFiltersGeneric11" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric11Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric11Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3145,10 +2386,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric11 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric11" name="idsRegistersFiltersGeneric11" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric11Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric11Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric11Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3161,7 +2402,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric11Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric11" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric11" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric11Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3185,7 +2426,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric12Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric12" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric12" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric12Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3198,7 +2439,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric12" name="idsRegistersFiltersGeneric12" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric12Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric12Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3209,10 +2450,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric12 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric12" name="idsRegistersFiltersGeneric12" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric12Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric12Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric12Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3225,7 +2466,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric12Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric12" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric12" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric12Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3249,7 +2490,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric13Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric13" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric13" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric13Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3262,7 +2503,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric13" name="idsRegistersFiltersGeneric13" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric13Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric13Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3273,10 +2514,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric13 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric13" name="idsRegistersFiltersGeneric13" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric13Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric13Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric13Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3289,7 +2530,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric13Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric13" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric13" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric13Binding.includes("0") ? ` selected` : `` } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3313,7 +2554,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric14Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric14" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric14" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric14Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3326,7 +2567,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric14" name="idsRegistersFiltersGeneric14" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric14Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric14Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3337,10 +2578,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric14 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric14" name="idsRegistersFiltersGeneric14" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric14Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric14Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric14Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3353,7 +2594,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric14Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric14" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric14" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric14Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3377,7 +2618,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric15Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric15" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric15" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric15Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3390,7 +2631,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric15" name="idsRegistersFiltersGeneric15" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric15Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric15Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3401,10 +2642,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric15 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric15" name="idsRegistersFiltersGeneric15" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric15Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric15Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric15Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3417,7 +2658,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric15Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric15" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric15" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric15Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3441,7 +2682,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric16Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric16" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric16" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric16Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3454,7 +2695,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric16" name="idsRegistersFiltersGeneric16" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric16Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric16Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3465,10 +2706,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric16 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric16" name="idsRegistersFiltersGeneric16" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric16Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric16Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric16Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3481,7 +2722,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric16Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric16" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric16" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric16Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3505,7 +2746,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric17Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric17" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric17" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric17Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3518,7 +2759,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric17" name="idsRegistersFiltersGeneric17" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric17Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric17Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3529,10 +2770,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric17 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric17" name="idsRegistersFiltersGeneric17" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric17Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric17Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric17Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3545,7 +2786,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric17Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric17" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric17" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric17Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3569,7 +2810,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric18Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric18" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric18" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric18Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3582,7 +2823,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric18" name="idsRegistersFiltersGeneric18" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric18Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric18Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3596,7 +2837,7 @@ module.exports = class RegistersListing
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric18Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric18Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3609,7 +2850,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric18Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric18" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric18" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric18Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3633,7 +2874,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric19Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric19" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric19" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric19Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3646,7 +2887,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric19" name="idsRegistersFiltersGeneric19" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric19Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric19Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3657,10 +2898,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric19 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric19" name="idsRegistersFiltersGeneric19" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric19Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric19Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric19Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3673,7 +2914,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric19Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric19" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric19" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric19Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3688,7 +2929,7 @@ module.exports = class RegistersListing
                                 `
                                 <tr id="inputRowRegisters_generic_filter20" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric20") }teste: 
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFilterGeneric20") }: 
                                     </td>
                                     <td>
                                         ${ /*Checkbox.*/'' }
@@ -3697,7 +2938,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric20Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric20" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric20" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric20Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3710,7 +2951,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric20" name="idsRegistersFiltersGeneric20" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric20Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric20Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3718,13 +2959,13 @@ module.exports = class RegistersListing
                                         }
 
                                         ${ /*Dropdown.*/'' }
-                                        ${ gSystemConfig.enableRegistersFilterGeneric20 == 3 ? 
+                                        ${ gSystemConfig.enableRegistersFilterGeneri20 == 3 ? 
                                         `
-                                            <select id="idsRegistersFiltersGeneric20" name="idsRegistersFiltersGeneric20" class="ss-backend-field-dropdown01">
+                                            <select id="idsRegistersFiltersGeneri20" name="idsRegistersFiltersGeneri20" class="ss-backend-field-dropdown01">
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
-                                                ${resultsRegistersFiltersGeneric20Listing.map((registersFiltersGenericRow)=>{
+                                                ${resultsRegistersFiltersGeneri20Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneri20Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3732,12 +2973,12 @@ module.exports = class RegistersListing
                                         }
 
                                         ${ /*Radio.*/'' }
-                                        ${ gSystemConfig.enableRegistersFilterGeneric20 == 4 ? 
+                                        ${ gSystemConfig.enableRegistersFilterGeneri20 == 4 ? 
                                         `
-                                            ${resultsRegistersFiltersGeneric20Listing.map((registersFiltersGenericRow)=>{
+                                            ${resultsRegistersFiltersGeneri20Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric20" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneri20" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric110Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3761,7 +3002,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric21Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric21" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric21" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric21Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3774,7 +3015,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric21" name="idsRegistersFiltersGeneric21" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric21Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric21Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3785,10 +3026,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric21 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric21" name="idsRegistersFiltersGeneric21" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric21Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric21Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric21Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3801,7 +3042,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric21Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric21" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric21" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric21Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3825,7 +3066,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric22Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric22" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric22" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric22Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3838,7 +3079,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric22" name="idsRegistersFiltersGeneric22" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric22Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric22Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3849,10 +3090,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric22 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric22" name="idsRegistersFiltersGeneric22" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric22Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric22Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric22Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3865,7 +3106,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric22Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric22" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric22" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric22Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3889,7 +3130,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric23Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric23" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric23" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric23Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3902,7 +3143,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric23" name="idsRegistersFiltersGeneric23" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric23Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric23Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3913,10 +3154,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric23 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric23" name="idsRegistersFiltersGeneric23" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric23Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric23Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric23Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3929,7 +3170,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric23Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric23" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric23" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric23Binding.includes("0") ? ` selected` : `` } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3953,7 +3194,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric24Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric24" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric24" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric24Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -3966,7 +3207,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric24" name="idsRegistersFiltersGeneric24" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric24Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric24Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3977,10 +3218,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric24 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric24" name="idsRegistersFiltersGeneric24" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric24Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric24Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric24Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -3993,7 +3234,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric24Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric24" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric24" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric24Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4017,7 +3258,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric25Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric25" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric25" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric25Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4030,7 +3271,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric25" name="idsRegistersFiltersGeneric25" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric25Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric25Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4041,10 +3282,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric25 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric25" name="idsRegistersFiltersGeneric25" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric25Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric25Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric25Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4057,7 +3298,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric25Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric25" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric25" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric25Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4081,7 +3322,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric26Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric26" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric26" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric26Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4094,7 +3335,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric26" name="idsRegistersFiltersGeneric26" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric26Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric26Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4105,10 +3346,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric26 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric26" name="idsRegistersFiltersGeneric26" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric26Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric26Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric26Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4121,7 +3362,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric26Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric26" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric26" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric26Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4145,7 +3386,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric27Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric27" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric27" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric27Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4158,7 +3399,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric27" name="idsRegistersFiltersGeneric27" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric27Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric27Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4169,10 +3410,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric27 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric27" name="idsRegistersFiltersGeneric27" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric27Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric27Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric27Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4185,7 +3426,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric27Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric27" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric27" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric27Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4209,7 +3450,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric28Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric28" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric28" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric28Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4222,7 +3463,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric28" name="idsRegistersFiltersGeneric28" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric28Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric28Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4236,7 +3477,7 @@ module.exports = class RegistersListing
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric28Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric28Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4249,7 +3490,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric28Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric28" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric28" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric28Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4273,7 +3514,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric29Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric29" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric29" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric29Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4286,7 +3527,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric29" name="idsRegistersFiltersGeneric29" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric29Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric29Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4297,10 +3538,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric29 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric29" name="idsRegistersFiltersGeneric29" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric29Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric29Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric29Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4313,7 +3554,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric29Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric29" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric29" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric29Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4337,7 +3578,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric30Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric30" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric30" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric30Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4350,7 +3591,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric30" name="idsRegistersFiltersGeneric30" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric30Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric30Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4364,7 +3605,7 @@ module.exports = class RegistersListing
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric30Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric30Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4377,7 +3618,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric30Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric30" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric30" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric30Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4401,7 +3642,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric31" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric31" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric31Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4414,7 +3655,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric31" name="idsRegistersFiltersGeneric31" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric31Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4425,10 +3666,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric31 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric31" name="idsRegistersFiltersGeneric31" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric31Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric31Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4441,7 +3682,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric31Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric31" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric31" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric31Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4465,7 +3706,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric32" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric32" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric32Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4478,7 +3719,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric32" name="idsRegistersFiltersGeneric32" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric32Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4489,10 +3730,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric32 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric32" name="idsRegistersFiltersGeneric32" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric32Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric32Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4505,7 +3746,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric32Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric32" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric32" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric32Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4529,7 +3770,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric33" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric33" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric33Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4542,7 +3783,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric33" name="idsRegistersFiltersGeneric33" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric33Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4553,10 +3794,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric33 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric33" name="idsRegistersFiltersGeneric33" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric33Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric33Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4569,7 +3810,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric33Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric33" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric33" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric33Binding.includes("0") ? ` selected` : `` } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4593,7 +3834,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric34" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric34" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric34Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4606,7 +3847,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric34" name="idsRegistersFiltersGeneric34" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric34Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4617,10 +3858,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric34 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric34" name="idsRegistersFiltersGeneric34" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric34Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric34Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4633,7 +3874,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric34Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric34" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric34" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric34Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4657,7 +3898,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric35" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric35" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric35Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4670,7 +3911,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric35" name="idsRegistersFiltersGeneric35" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric35Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4681,10 +3922,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric35 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric35" name="idsRegistersFiltersGeneric35" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric35Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric35Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4697,7 +3938,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric35Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric35" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric35" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric35Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4721,7 +3962,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric36" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric36" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric36Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4734,7 +3975,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric36" name="idsRegistersFiltersGeneric36" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric36Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4745,10 +3986,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric36 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric36" name="idsRegistersFiltersGeneric36" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric36Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric36Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4761,7 +4002,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric36Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric36" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric36" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric36Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4785,7 +4026,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric37" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric37" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric37Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4798,7 +4039,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric37" name="idsRegistersFiltersGeneric37" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric37Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4809,10 +4050,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric37 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric37" name="idsRegistersFiltersGeneric37" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric37Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric37Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4825,7 +4066,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric37Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric37" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric37" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric37Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4849,7 +4090,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric38" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric38" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric38Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4862,7 +4103,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric38" name="idsRegistersFiltersGeneric38" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric38Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4876,7 +4117,7 @@ module.exports = class RegistersListing
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric38Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4889,7 +4130,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric38Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric38" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric38" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric38Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4913,7 +4154,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric39" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric39" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric39Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4926,7 +4167,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric39" name="idsRegistersFiltersGeneric39" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric39Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4937,10 +4178,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.enableRegistersFilterGeneric39 == 3 ? 
                                         `
                                             <select id="idsRegistersFiltersGeneric39" name="idsRegistersFiltersGeneric39" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.arrIdsRegistersFiltersGeneric39Binding.includes("0") ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric39Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -4953,7 +4194,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric39Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric39" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric39" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric39Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4977,7 +4218,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-checkbox-label">
-                                                        <input type="checkbox" name="idsRegistersFiltersGeneric40" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="checkbox" name="idsRegistersFiltersGeneric40" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric40Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-checkbox" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -4990,7 +4231,7 @@ module.exports = class RegistersListing
                                             <select id="idsRegistersFiltersGeneric40" name="idsRegistersFiltersGeneric40" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                                 ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric40Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -5004,7 +4245,7 @@ module.exports = class RegistersListing
                                                 <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
                                                     return `
-                                                        <option value="${ registersFiltersGenericRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
+                                                        <option value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric40Binding.includes(registersFiltersGenericRow.id.toString()) ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }</option>
                                                     `;
                                                 }).join("")}
                                             </select>
@@ -5017,7 +4258,7 @@ module.exports = class RegistersListing
                                             ${resultsRegistersFiltersGeneric40Listing.map((registersFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsRegistersFiltersGeneric40" value="${ registersFiltersGenericRow.id }" class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsRegistersFiltersGeneric40" value="${ registersFiltersGenericRow.id }"${ ordRecord.arrIdsRegistersFiltersGeneric40Binding.includes(registersFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
@@ -5039,7 +4280,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo1FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info1" name="info1" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info1" name="info1" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo1_edit }" />
                                         ` : ``
                                         }
 
@@ -5049,14 +4290,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info1" name="info1" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info1" name="info1" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo1_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info1" name="info1" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info1" name="info1" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo1_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info1";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5069,14 +4310,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo1FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info1" name="info1" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info1" name="info1" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo1_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo1FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info1" name="info1" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info1" name="info1" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo1_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5094,7 +4335,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo2FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info2" name="info2" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info2" name="info2" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo2_edit }" />
                                         ` : ``
                                         }
 
@@ -5104,14 +4345,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info2" name="info2" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info2" name="info2" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo2_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info2" name="info2" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info2" name="info2" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo2_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info2";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5124,14 +4365,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo2FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info2" name="info2" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info2" name="info2" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo2_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo2FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info2" name="info2" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info2" name="info2" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo2_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5149,7 +4390,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo3FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info3" name="info3" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info3" name="info3" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo3_edit }" />
                                         ` : ``
                                         }
 
@@ -5159,14 +4400,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info3" name="info3" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info3" name="info3" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo3_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info3" name="info3" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info3" name="info3" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo3_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info3";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5179,14 +4420,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo3FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info3" name="info3" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info3" name="info3" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo3_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo3FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info3" name="info3" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info3" name="info3" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo3_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5204,7 +4445,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo4FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info4" name="info4" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info4" name="info4" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo4_edit }" />
                                         ` : ``
                                         }
 
@@ -5214,14 +4455,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info4" name="info4" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info4" name="info4" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo4_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info4" name="info4" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info4" name="info4" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo4_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info4";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5234,14 +4475,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo4FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info4" name="info4" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info4" name="info4" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo4_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo4FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info4" name="info4" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info4" name="info4" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo4_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5259,7 +4500,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo5FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info5" name="info5" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info5" name="info5" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo5_edit }" />
                                         ` : ``
                                         }
 
@@ -5269,14 +4510,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info5" name="info5" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info5" name="info5" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo5_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info5" name="info5" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info5" name="info5" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo5_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info5";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5289,14 +4530,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo5FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info5" name="info5" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info5" name="info5" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo5_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo5FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info5" name="info5" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info5" name="info5" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo5_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5314,7 +4555,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo6FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info6" name="info6" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info6" name="info6" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo6_edit }" />
                                         ` : ``
                                         }
 
@@ -5324,14 +4565,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info6" name="info6" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info6" name="info6" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo6_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info6" name="info6" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info6" name="info6" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo6_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info6";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5344,14 +4585,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo6FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info6" name="info6" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info6" name="info6" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo6_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo6FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info6" name="info6" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info6" name="info6" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo6_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5369,7 +4610,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo7FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info7" name="info7" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info7" name="info7" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo7_edit }" />
                                         ` : ``
                                         }
 
@@ -5379,14 +4620,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info7" name="info7" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info7" name="info7" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo7_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info7" name="info7" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info7" name="info7" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo7_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info7";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5399,14 +4640,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo7FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info7" name="info7" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info7" name="info7" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo7_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo7FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info7" name="info7" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info7" name="info7" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo7_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5424,7 +4665,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo8FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info8" name="info8" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info8" name="info8" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo8_edit }" />
                                         ` : ``
                                         }
 
@@ -5434,14 +4675,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info8" name="info8" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info8" name="info8" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo8_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info8" name="info8" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info8" name="info8" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo8_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info8";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5454,14 +4695,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo8FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info8" name="info8" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info8" name="info8" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo8_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo8FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info8" name="info8" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info8" name="info8" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo8_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5479,7 +4720,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo9FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info9" name="info9" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info9" name="info9" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo9_edit }" />
                                         ` : ``
                                         }
 
@@ -5489,14 +4730,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info9" name="info9" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info9" name="info9" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo9_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info9" name="info9" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info9" name="info9" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo9_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info9";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5509,14 +4750,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo9FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info9" name="info9" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info9" name="info9" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo9_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo9FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info9" name="info9" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info9" name="info9" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo9_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5534,7 +4775,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo10FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info10" name="info10" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info10" name="info10" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo10_edit }" />
                                         ` : ``
                                         }
 
@@ -5544,14 +4785,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info10" name="info10" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info10" name="info10" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo10_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info10" name="info10" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info10" name="info10" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo10_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info10";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5564,14 +4805,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo10FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info10" name="info10" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info10" name="info10" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo10_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo10FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info10" name="info10" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info10" name="info10" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo10_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5589,7 +4830,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo11FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info11" name="info11" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info11" name="info11" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo11_edit }" />
                                         ` : ``
                                         }
 
@@ -5599,14 +4840,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info11" name="info11" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info11" name="info11" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo11_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info11" name="info11" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info11" name="info11" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo11_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info11";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5619,14 +4860,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo11FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info11" name="info11" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info11" name="info11" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo11_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo11FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info11" name="info11" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info11" name="info11" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo11_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5644,7 +4885,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo12FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info12" name="info12" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info12" name="info12" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo12_edit }" />
                                         ` : ``
                                         }
 
@@ -5654,14 +4895,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info12" name="info12" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info12" name="info12" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo12_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info12" name="info12" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info12" name="info12" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo12_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info12";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5674,14 +4915,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo12FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info12" name="info12" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info12" name="info12" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo12_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo12FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info12" name="info12" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info12" name="info12" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo12_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5699,7 +4940,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo13FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info13" name="info13" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info13" name="info13" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo13_edit }" />
                                         ` : ``
                                         }
 
@@ -5709,14 +4950,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info13" name="info13" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info13" name="info13" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo13_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info13" name="info13" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info13" name="info13" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo13_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info13";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5729,14 +4970,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo13FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info13" name="info13" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info13" name="info13" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo13_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo13FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info13" name="info13" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info13" name="info13" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo13_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5754,7 +4995,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo14FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info14" name="info14" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info14" name="info14" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo14_edit }" />
                                         ` : ``
                                         }
 
@@ -5764,14 +5005,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info14" name="info14" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info14" name="info14" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo14_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info14" name="info14" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info14" name="info14" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo14_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info14";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5784,14 +5025,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo14FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info14" name="info14" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info14" name="info14" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo14_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo14FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info14" name="info14" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info14" name="info14" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo14_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5809,7 +5050,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo15FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info15" name="info15" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info15" name="info15" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo15_edit }" />
                                         ` : ``
                                         }
 
@@ -5819,14 +5060,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info15" name="info15" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info15" name="info15" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo15_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info15" name="info15" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info15" name="info15" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo15_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info15";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5839,14 +5080,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo15FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info15" name="info15" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info15" name="info15" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo15_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo15FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info15" name="info15" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info15" name="info15" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo15_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5864,7 +5105,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo16FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info16" name="info16" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info16" name="info16" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo16_edit }" />
                                         ` : ``
                                         }
 
@@ -5874,14 +5115,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info16" name="info16" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info16" name="info16" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo16_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info16" name="info16" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info16" name="info16" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo16_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info16";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5894,14 +5135,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo16FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info16" name="info16" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info16" name="info16" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo16_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo16FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info16" name="info16" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info16" name="info16" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo16_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5919,7 +5160,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo17FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info17" name="info17" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info17" name="info17" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo17_edit }" />
                                         ` : ``
                                         }
 
@@ -5929,14 +5170,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info17" name="info17" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info17" name="info17" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo17_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info17" name="info17" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info17" name="info17" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo17_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info17";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -5949,14 +5190,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo17FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info17" name="info17" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info17" name="info17" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo17_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo17FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info17" name="info17" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info17" name="info17" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo17_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -5974,7 +5215,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo18FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info18" name="info18" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info18" name="info18" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo18_edit }" />
                                         ` : ``
                                         }
 
@@ -5984,14 +5225,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info18" name="info18" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info18" name="info18" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo18_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info18" name="info18" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info18" name="info18" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo18_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info18";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6004,14 +5245,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo18FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info18" name="info18" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info18" name="info18" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo18_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo18FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info18" name="info18" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info18" name="info18" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo18_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -6029,7 +5270,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo19FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info19" name="info19" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info19" name="info19" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo19_edit }" />
                                         ` : ``
                                         }
 
@@ -6039,14 +5280,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info19" name="info19" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info19" name="info19" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo19_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info19" name="info19" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info19" name="info19" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo19_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info19";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6059,14 +5300,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo19FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info19" name="info19" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info19" name="info19" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo19_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo19FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info19" name="info19" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info19" name="info19" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo19_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -6084,7 +5325,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfo20FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info20" name="info20" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info20" name="info20" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo20_edit }" />
                                         ` : ``
                                         }
 
@@ -6094,14 +5335,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info20" name="info20" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info20" name="info20" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo20_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info20" name="info20" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info20" name="info20" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo20_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info20";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6114,14 +5355,14 @@ module.exports = class RegistersListing
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo20FieldType == 11 ? 
                                         `
-                                            <input type="text" id="registers_info20" name="info20" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info20" name="info20" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfo20_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configRegistersInfo20FieldType == 12 ? 
                                         `
-                                            <textarea id="registers_info20" name="info20" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="registers_info20" name="info20" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfo20_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -6140,7 +5381,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS1FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small1" name="info_small1" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small1" name="info_small1" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall1_edit }" />
                                         ` : ``
                                         }
 
@@ -6150,14 +5391,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small1" name="info_small1" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small1" name="info_small1" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall1_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small1" name="info_small1" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small1" name="info_small1" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall1_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small1";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6181,7 +5422,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS2FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small2" name="info_small2" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small2" name="info_small2" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall2_edit }" />
                                         ` : ``
                                         }
 
@@ -6191,14 +5432,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small2" name="info_small2" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small2" name="info_small2" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall2_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small2" name="info_small2" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small2" name="info_small2" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall2_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small2";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6222,7 +5463,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS3FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small3" name="info_small3" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small3" name="info_small3" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall3_edit }" />
                                         ` : ``
                                         }
 
@@ -6232,14 +5473,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small3" name="info_small3" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small3" name="info_small3" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall3_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small3" name="info_small3" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small3" name="info_small3" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall3_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small3";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6263,7 +5504,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS4FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small4" name="info_small4" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small4" name="info_small4" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall4_edit }" />
                                         ` : ``
                                         }
 
@@ -6273,14 +5514,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small4" name="info_small4" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small4" name="info_small4" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall4_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small4" name="info_small4" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small4" name="info_small4" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall4_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small4";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6304,7 +5545,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS5FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small5" name="info_small5" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small5" name="info_small5" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall5_edit }" />
                                         ` : ``
                                         }
 
@@ -6314,14 +5555,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small5" name="info_small5" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small5" name="info_small5" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall5_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small5" name="info_small5" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small5" name="info_small5" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall5_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small5";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6345,7 +5586,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS6FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small6" name="info_small6" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small6" name="info_small6" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall6_edit }" />
                                         ` : ``
                                         }
 
@@ -6355,14 +5596,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small6" name="info_small6" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small6" name="info_small6" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall6_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small6" name="info_small6" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small6" name="info_small6" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall6_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small6";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6386,7 +5627,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS7FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small7" name="info_small7" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small7" name="info_small7" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall7_edit }" />
                                         ` : ``
                                         }
 
@@ -6396,14 +5637,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small7" name="info_small7" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small7" name="info_small7" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall7_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small7" name="info_small7" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small7" name="info_small7" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall7_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small7";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6427,7 +5668,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS8FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small8" name="info_small8" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small8" name="info_small8" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall8_edit }" />
                                         ` : ``
                                         }
 
@@ -6437,14 +5678,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small8" name="info_small8" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small8" name="info_small8" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall8_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small8" name="info_small8" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small8" name="info_small8" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall8_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small8";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6468,7 +5709,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS9FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small9" name="info_small9" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small9" name="info_small9" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall9_edit }" />
                                         ` : ``
                                         }
 
@@ -6478,14 +5719,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small9" name="info_small9" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small9" name="info_small9" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall9_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small9" name="info_small9" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small9" name="info_small9" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall9_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small9";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6509,7 +5750,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS10FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small10" name="info_small10" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small10" name="info_small10" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall10_edit }" />
                                         ` : ``
                                         }
 
@@ -6519,14 +5760,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small10" name="info_small10" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small10" name="info_small10" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall10_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small10" name="info_small10" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small10" name="info_small10" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall10_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small10";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6550,7 +5791,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS11FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small11" name="info_small11" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small11" name="info_small11" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall11_edit }" />
                                         ` : ``
                                         }
 
@@ -6560,14 +5801,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small11" name="info_small11" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small11" name="info_small11" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall11_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small11" name="info_small11" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small11" name="info_small11" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall11_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small11";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6591,7 +5832,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS12FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small12" name="info_small12" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small12" name="info_small12" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall12_edit }" />
                                         ` : ``
                                         }
 
@@ -6601,14 +5842,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small12" name="info_small12" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small12" name="info_small12" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall12_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small12" name="info_small12" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small12" name="info_small12" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall12_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small12";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6632,7 +5873,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS13FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small13" name="info_small13" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small13" name="info_small13" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall13_edit }" />
                                         ` : ``
                                         }
 
@@ -6642,14 +5883,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small13" name="info_small13" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small13" name="info_small13" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall13_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small13" name="info_small13" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small13" name="info_small13" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall13_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small13";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6673,7 +5914,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS14FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small14" name="info_small14" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small14" name="info_small14" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall14_edit }" />
                                         ` : ``
                                         }
 
@@ -6683,14 +5924,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small14" name="info_small14" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small14" name="info_small14" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall14_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small14" name="info_small14" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small14" name="info_small14" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall14_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small14";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6714,7 +5955,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS15FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small15" name="info_small15" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small15" name="info_small15" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall15_edit }" />
                                         ` : ``
                                         }
 
@@ -6724,14 +5965,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small15" name="info_small15" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small15" name="info_small15" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall15_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small15" name="info_small15" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small15" name="info_small15" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall15_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small15";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6755,7 +5996,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS16FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small16" name="info_small16" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small16" name="info_small16" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall16_edit }" />
                                         ` : ``
                                         }
 
@@ -6765,14 +6006,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small16" name="info_small16" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small16" name="info_small16" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall16_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small16" name="info_small16" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small16" name="info_small16" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall16_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small16";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6796,7 +6037,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS17FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small17" name="info_small17" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small17" name="info_small17" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall17_edit }" />
                                         ` : ``
                                         }
 
@@ -6806,14 +6047,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small17" name="info_small17" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small17" name="info_small17" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall17_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small17" name="info_small17" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small17" name="info_small17" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall17_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small17";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6837,7 +6078,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS18FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small18" name="info_small18" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small18" name="info_small18" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall18_edit }" />
                                         ` : ``
                                         }
 
@@ -6847,14 +6088,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small18" name="info_small18" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small18" name="info_small18" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall18_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small18" name="info_small18" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small18" name="info_small18" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall18_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small18";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6878,7 +6119,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS19FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small19" name="info_small19" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small19" name="info_small19" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall19_edit }" />
                                         ` : ``
                                         }
 
@@ -6888,14 +6129,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small19" name="info_small19" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small19" name="info_small19" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall19_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small19" name="info_small19" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small19" name="info_small19" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall19_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small19";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6919,7 +6160,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS20FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small20" name="info_small20" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small20" name="info_small20" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall20_edit }" />
                                         ` : ``
                                         }
 
@@ -6929,14 +6170,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small20" name="info_small20" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small20" name="info_small20" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall20_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small20" name="info_small20" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small20" name="info_small20" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall20_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small20";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -6960,7 +6201,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS21FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small21" name="info_small21" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small21" name="info_small21" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall21_edit }" />
                                         ` : ``
                                         }
 
@@ -6970,14 +6211,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small21" name="info_small21" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small21" name="info_small21" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall21_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small21" name="info_small21" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small21" name="info_small21" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall21_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small21";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7001,7 +6242,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS22FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small22" name="info_small22" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small22" name="info_small22" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall22_edit }" />
                                         ` : ``
                                         }
 
@@ -7011,14 +6252,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small22" name="info_small22" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small22" name="info_small22" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall22_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small22" name="info_small22" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small22" name="info_small22" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall22_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small22";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7042,7 +6283,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS23FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small23" name="info_small23" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small23" name="info_small23" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall23_edit }" />
                                         ` : ``
                                         }
 
@@ -7052,14 +6293,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small23" name="info_small23" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small23" name="info_small23" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall23_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small23" name="info_small23" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small23" name="info_small23" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall23_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small23";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7083,7 +6324,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS24FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small24" name="info_small24" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small24" name="info_small24" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall24_edit }" />
                                         ` : ``
                                         }
 
@@ -7093,14 +6334,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small24" name="info_small24" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small24" name="info_small24" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall24_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small24" name="info_small24" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small24" name="info_small24" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall24_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small24";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7124,7 +6365,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS25FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small25" name="info_small25" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small25" name="info_small25" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall25_edit }" />
                                         ` : ``
                                         }
 
@@ -7134,14 +6375,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small25" name="info_small25" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small25" name="info_small25" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall25_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small25" name="info_small25" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small25" name="info_small25" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall25_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small25";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7165,7 +6406,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS26FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small26" name="info_small26" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small26" name="info_small26" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall26_edit }" />
                                         ` : ``
                                         }
 
@@ -7175,14 +6416,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small26" name="info_small26" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small26" name="info_small26" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall26_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small26" name="info_small26" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small26" name="info_small26" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall26_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small26";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7206,7 +6447,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS27FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small27" name="info_small27" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small27" name="info_small27" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall27_edit }" />
                                         ` : ``
                                         }
 
@@ -7216,14 +6457,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small27" name="info_small27" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small27" name="info_small27" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall27_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small27" name="info_small27" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small27" name="info_small27" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall27_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small27";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7247,7 +6488,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS28FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small28" name="info_small28" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small28" name="info_small28" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall28_edit }" />
                                         ` : ``
                                         }
 
@@ -7257,14 +6498,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small28" name="info_small28" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small28" name="info_small28" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall28_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small28" name="info_small28" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small28" name="info_small28" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall28_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small28";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7288,7 +6529,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS29FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small29" name="info_small29" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small29" name="info_small29" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall29_edit }" />
                                         ` : ``
                                         }
 
@@ -7298,14 +6539,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small29" name="info_small29" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small29" name="info_small29" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall29_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small29" name="info_small29" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small29" name="info_small29" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall29_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small29";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7329,7 +6570,7 @@ module.exports = class RegistersListing
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configRegistersInfoS30FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_info_small30" name="info_small30" class="ss-backend-field-text01" value="" />
+                                            <input type="text" id="registers_info_small30" name="info_small30" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersInfoSmall30_edit }" />
                                         ` : ``
                                         }
 
@@ -7339,14 +6580,14 @@ module.exports = class RegistersListing
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="registers_info_small30" name="info_small30" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small30" name="info_small30" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall30_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="registers_info_small30" name="info_small30" class="ss-backend-field-text-area01"></textarea>
+                                                <textarea id="registers_info_small30" name="info_small30" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersInfoSmall30_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#registers_info_small30";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -7371,7 +6612,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumber1FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number1" name="number1" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number1" name="number1" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber1_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number1");
                                             </script>
@@ -7382,64 +6623,10 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumber1FieldType == 2 || gSystemConfig.configRegistersNumber1FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number1" name="number1" class="ss-backend-field-currency01" value="0" maxlength="45" />
+                                            <input type="text" id="registers_number1" name="number1" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumber1_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("registers_number1")*/'' }
                                             <script>
-                                                //var  selector = document.getElementById("registers_number1");
-
-                                                //var im = new Inputmask("99-9999999");
-                                                //im.mask(selector);
-
-                                                //Inputmask("9", { repeat: 10 }).mask(selector);
-
-                                                //if(typeof window !== 'undefined')
-                                                //{
-                                                    //Inputmask("9", { repeat: 10 }).mask(selector);
-                                                //}
-
-
-                                                //Inputmask("9", { repeat: 10 }).mask("registers_number1"); //debug //working
-                                                /*Inputmask("(.999){+|1},00", {
-                                                    /*positionCaretOnClick: "radixFocus",
-                                                    radixPoint: ",",
-                                                    _radixDance: true,
-                                                    numericInput: true,
-                                                    placeholder: "0",
-                                                }).mask("registers_number1");*/
-
-                                                /*
-                                                Inputmask({
-                                                    //mask: "9[.99]{0,}",
-                                                    //mask: "9[.99]",
-                                                    //repeat: *,
-                                                    greedy: false,
-                                                    //numericInput: true
-
-                                                    //R$
-                                                    groupSeparator: ".",
-                                                    radixPoint: ",",
-
-                                                    //$
-                                                    //groupSeparator: ",",
-                                                    //radixPoint: ".",
-
-                                                    alias: "numeric",
-                                                    //alias: "currency",
-                                                    //alias: "decimal",
-                                                    digits: 2,
-                                                    autoGroup: true,
-                                                    digitsOptional: false,
-                                                    allowMinus: false
-                                                }).mask("registers_number1");
-                                                */ //working
-
-                                                /*Inputmask('Regex', {
-                                                    regex: "^[0-9]{1,6}(\\.\\d{1,2})?$"
-                                                }).mask("registers_number1");
-                                                */
-
-
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("registers_number1");
                                             </script>
                                         ` : ``
@@ -7448,7 +6635,7 @@ module.exports = class RegistersListing
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configRegistersNumber1FieldType == 3 ? 
                                         `
-                                            <input type="text" id="registers_number1" name="number1" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number1" name="number1" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber1_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("registers_number1");
                                             </script>
@@ -7469,7 +6656,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumber2FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number2" name="number2" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number2" name="number2" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber2_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number2");
                                             </script>
@@ -7480,7 +6667,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumber2FieldType == 2 || gSystemConfig.configRegistersNumber2FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number2" name="number2" class="ss-backend-field-currency01" value="0" maxlength="45" />
+                                            <input type="text" id="registers_number2" name="number2" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumber2_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("registers_number2")*/'' }
                                             <script>
@@ -7492,7 +6679,7 @@ module.exports = class RegistersListing
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configRegistersNumber2FieldType == 3 ? 
                                         `
-                                            <input type="text" id="registers_number2" name="number2" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number2" name="number2" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber2_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("registers_number2");
                                             </script>
@@ -7513,7 +6700,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumber3FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number3" name="number3" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number3" name="number3" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber3_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number3");
                                             </script>
@@ -7524,7 +6711,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumber3FieldType == 2 || gSystemConfig.configRegistersNumber3FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number3" name="number3" class="ss-backend-field-currency01" value="0" maxlength="45" />
+                                            <input type="text" id="registers_number3" name="number3" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumber3_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("registers_number3")*/'' }
                                             <script>
@@ -7536,7 +6723,7 @@ module.exports = class RegistersListing
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configRegistersNumber3FieldType == 3 ? 
                                         `
-                                            <input type="text" id="registers_number3" name="number3" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number3" name="number3" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber3_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("registers_number3");
                                             </script>
@@ -7557,7 +6744,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumber4FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number4" name="number4" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number4" name="number4" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber4_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number4");
                                             </script>
@@ -7568,7 +6755,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumber4FieldType == 2 || gSystemConfig.configRegistersNumber4FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number4" name="number4" class="ss-backend-field-currency01" value="0" maxlength="45" />
+                                            <input type="text" id="registers_number4" name="number4" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumber4_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("registers_number4")*/'' }
                                             <script>
@@ -7580,7 +6767,7 @@ module.exports = class RegistersListing
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configRegistersNumber4FieldType == 3 ? 
                                         `
-                                            <input type="text" id="registers_number4" name="number4" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number4" name="number4" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber4_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("registers_number4");
                                             </script>
@@ -7601,7 +6788,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumber5FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number5" name="number5" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number5" name="number5" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber5_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number5");
                                             </script>
@@ -7612,7 +6799,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumber5FieldType == 2 || gSystemConfig.configRegistersNumber5FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number5" name="number5" class="ss-backend-field-currency01" value="0" maxlength="45" />
+                                            <input type="text" id="registers_number5" name="number5" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumber5_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("registers_number5")*/'' }
                                             <script>
@@ -7624,7 +6811,7 @@ module.exports = class RegistersListing
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configRegistersNumber5FieldType == 3 ? 
                                         `
-                                            <input type="text" id="registers_number5" name="number5" class="ss-backend-field-numeric02" value="0" maxlength="34" />
+                                            <input type="text" id="registers_number5" name="number5" class="ss-backend-field-numeric02" value="${ ordRecord.tblRegistersNumber5_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("registers_number5");
                                             </script>
@@ -7646,7 +6833,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumberS1FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number_small1" name="number_small1" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small1" name="number_small1" class="ss-backend-field-numeric01" value="${ ordRecord.tblRegistersNumberSmall1_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number_small1");
                                             </script>
@@ -7657,7 +6844,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumberS1FieldType == 2 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number_small1" name="number_small1" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small1" name="number_small1" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumberSmall1_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("registers_number_small1");
                                             </script>
@@ -7678,7 +6865,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumberS2FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number_small2" name="number_small2" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small2" name="number_small2" class="ss-backend-field-numeric01" value="${ ordRecord.tblRegistersNumberSmall2_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number_small2");
                                             </script>
@@ -7689,7 +6876,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumberS2FieldType == 2 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number_small2" name="number_small2" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small2" name="number_small2" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumberSmall2_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("registers_number_small2");
                                             </script>
@@ -7710,7 +6897,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumberS3FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number_small3" name="number_small3" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small3" name="number_small3" class="ss-backend-field-numeric01" value="${ ordRecord.tblRegistersNumberSmall3_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number_small3");
                                             </script>
@@ -7721,7 +6908,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumberS3FieldType == 2 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number_small3" name="number_small3" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small3" name="number_small3" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumberSmall3_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("registers_number_small3");
                                             </script>
@@ -7742,7 +6929,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumberS4FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number_small4" name="number_small4" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small4" name="number_small4" class="ss-backend-field-numeric01" value="${ ordRecord.tblRegistersNumberSmall4_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number_small4");
                                             </script>
@@ -7753,7 +6940,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumberS4FieldType == 2 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number_small4" name="number_small4" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small4" name="number_small4" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumberSmall4_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("registers_number_small4");
                                             </script>
@@ -7774,7 +6961,7 @@ module.exports = class RegistersListing
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configRegistersNumberS5FieldType == 1 ? 
                                         `
-                                            <input type="text" id="registers_number_small5" name="number_small5" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small5" name="number_small5" class="ss-backend-field-numeric01" value="${ ordRecord.tblRegistersNumberSmall5_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("registers_number_small5");
                                             </script>
@@ -7785,7 +6972,7 @@ module.exports = class RegistersListing
                                         ${ gSystemConfig.configRegistersNumberS5FieldType == 2 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="registers_number_small5" name="number_small5" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                            <input type="text" id="registers_number_small5" name="number_small5" class="ss-backend-field-currency01" value="${ ordRecord.tblRegistersNumberSmall5_print }" maxlength="9" />
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("registers_number_small5");
                                             </script>
@@ -7804,7 +6991,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersURL1") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_url1" name="url1" class="ss-backend-field-text-area-url"></textarea>
+                                        <textarea id="registers_url1" name="url1" class="ss-backend-field-text-area-url">${ ordRecord.tblRegistersURL1_edit }</textarea>
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLInstructions1") }
                                     </td>
                                 </tr>
@@ -7818,7 +7005,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersURL2") }: 
                                     </td>
                                     <td>
-                                    <textarea id="registers_url2" name="url2" class="ss-backend-field-text-area-url"></textarea>
+                                        <textarea id="registers_url2" name="url2" class="ss-backend-field-text-area-url">${ ordRecord.tblRegistersURL2_edit }</textarea>
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLInstructions1") }
                                     </td>
                                 </tr>
@@ -7832,7 +7019,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersURL3") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_url3" name="url3" class="ss-backend-field-text-area-url"></textarea>
+                                        <textarea id="registers_url3" name="url3" class="ss-backend-field-text-area-url">${ ordRecord.tblRegistersURL3_edit }</textarea>
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLInstructions1") }
                                     </td>
                                 </tr>
@@ -7846,7 +7033,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersURL4") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_url4" name="url4" class="ss-backend-field-text-area-url"></textarea>
+                                        <textarea id="registers_url4" name="url4" class="ss-backend-field-text-area-url">${ ordRecord.tblRegistersURL4_edit }</textarea>
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLInstructions1") }
                                     </td>
                                 </tr>
@@ -7860,14 +7047,13 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersURL5") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_url5" name="url5" class="ss-backend-field-text-area-url"></textarea>
+                                        <textarea id="registers_url5" name="url5" class="ss-backend-field-text-area-url">${ ordRecord.tblRegistersURL5_edit }</textarea>
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLInstructions1") }
                                     </td>
                                 </tr>
                                 ` : ``
                                 }
 
-                                ${ /*Date fields.*/'' }
                                 ${ gSystemConfig.enableRegistersDate1 == 1 ? 
                                     `
                                     <tr id="inputRowRegisters_date1" class="ss-backend-table-bg-light">
@@ -7890,7 +7076,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate1DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -7899,7 +7086,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate1DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -7908,7 +7096,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate1DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -7917,7 +7106,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate1DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -7926,7 +7116,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate1DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -7935,7 +7126,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate1DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -7947,7 +7139,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate1FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date1" name="date1" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date1" name="date1" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate1_print }" />
                                             <script>
                                                 const dpDate1 = datepicker("#registers_date1", 
                                                     ${ /*Generic date.*/'' }
@@ -8000,7 +7192,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate1DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8009,7 +7202,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate1DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8020,7 +7214,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate1Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate1DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -8050,7 +7245,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate2DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8059,7 +7255,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate2DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8068,7 +7265,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate2DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8077,7 +7275,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate2DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8086,7 +7285,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate2DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8095,7 +7295,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate2DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8107,7 +7308,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate2FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date2" name="date2" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date2" name="date2" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate2_print }" />
                                             <script>
                                                 const dpDate2 = datepicker("#registers_date2", 
                                                     ${ /*Generic date.*/'' }
@@ -8150,7 +7351,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate2DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8159,7 +7361,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate2DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8170,7 +7373,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate2Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate2DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -8200,7 +7404,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate3DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8209,7 +7414,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate3DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8218,7 +7424,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate3DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8227,7 +7434,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate3DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8236,7 +7444,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate3DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8245,7 +7454,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate3DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8257,7 +7467,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate3FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date3" name="date3" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date3" name="date3" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate3_print }" />
                                             <script>
                                                 const dpDate3 = datepicker("#registers_date3", 
                                                     ${ /*Generic date.*/'' }
@@ -8300,7 +7510,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate3DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8309,7 +7520,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate3DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8320,7 +7532,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate3Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate3DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -8350,7 +7563,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate4DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8359,7 +7573,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate4DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8368,7 +7583,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate4DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8377,7 +7593,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate4DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8386,7 +7603,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate4DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8395,7 +7613,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate4DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8407,7 +7626,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate4FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date4" name="date4" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date4" name="date4" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate4_print }" />
                                             <script>
                                                 const dpDate4 = datepicker("#registers_date4", 
                                                     ${ /*Generic date.*/'' }
@@ -8450,7 +7669,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate4DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8459,7 +7679,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate4DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8470,7 +7691,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate4Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate4DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -8500,7 +7722,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate5DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8509,7 +7732,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate5DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8518,7 +7742,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate5DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8527,7 +7752,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate5DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8536,7 +7762,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate5DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8545,7 +7772,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate5DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8557,7 +7785,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate5FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date5" name="date5" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date5" name="date5" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate5_print }" />
                                             <script>
                                                 const dpDate5 = datepicker("#registers_date5", 
                                                     ${ /*Generic date.*/'' }
@@ -8600,7 +7828,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate5DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8609,7 +7838,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate5DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8620,7 +7850,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate5Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate5DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -8650,7 +7881,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate6DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8659,7 +7891,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate6DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8668,7 +7901,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate6DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8677,7 +7911,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate6DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8686,7 +7921,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate6DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8695,7 +7931,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate6DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8707,7 +7944,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate6FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date6" name="date6" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date6" name="date6" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate6_print }" />
                                             <script>
                                                 const dpDate6 = datepicker("#registers_date6", 
                                                     ${ /*Generic date.*/'' }
@@ -8750,7 +7987,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate6DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8759,7 +7997,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate6DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8770,7 +8009,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate6Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate6DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -8800,7 +8040,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate7DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8809,7 +8050,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate7DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8818,7 +8060,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate7DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8827,7 +8070,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate7DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8836,7 +8080,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate7DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8845,7 +8090,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate7DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8857,7 +8103,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate7FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date7" name="date7" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date7" name="date7" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate7_print }" />
                                             <script>
                                                 const dpDate7 = datepicker("#registers_date7", 
                                                     ${ /*Generic date.*/'' }
@@ -8900,7 +8146,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate7DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8909,7 +8156,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate7DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -8920,7 +8168,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate7Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate7DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -8950,7 +8199,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate8DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8959,7 +8209,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate8DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8968,7 +8219,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate8DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8977,7 +8229,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate8DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8986,7 +8239,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate8DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -8995,7 +8249,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate8DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9007,7 +8262,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate8FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date8" name="date8" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date8" name="date8" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate8_print }" />
                                             <script>
                                                 const dpDate8 = datepicker("#registers_date8", 
                                                     ${ /*Generic date.*/'' }
@@ -9050,7 +8305,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate8DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -9059,7 +8315,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate8DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -9070,7 +8327,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate8Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate8DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -9100,7 +8358,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate9DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9109,7 +8368,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate9DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9118,7 +8378,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate9DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9127,7 +8388,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate9DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9136,7 +8398,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate9DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9145,7 +8408,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate9DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9157,7 +8421,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate9FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date9" name="date9" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date9" name="date9" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate9_print }" />
                                             <script>
                                                 const dpDate9 = datepicker("#registers_date9", 
                                                     ${ /*Generic date.*/'' }
@@ -9200,7 +8464,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate9DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -9209,7 +8474,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate9DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -9220,7 +8486,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate9Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate9DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -9250,7 +8517,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate10DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9259,7 +8527,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate10DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9268,7 +8537,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ''}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate10DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9277,7 +8547,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("mm", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowMonth == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowMonth == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate10DateMonth == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9286,7 +8557,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("d", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowDay == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowDay == arrayRow ? ' selected' : ``*/'' }
+                                                                    ${ ordRecord.tblRegistersDate10DateDay == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9295,7 +8567,8 @@ module.exports = class RegistersListing
                                                         ${SyncSystemNS.FunctionsGeneric.timeTableFill01("y", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                             return `
                                                                 <option value="${ arrayRow }"
-                                                                    ${ this.dateNowYear == arrayRow ? ' selected' : ``}
+                                                                    ${ /*this.dateNowYear == arrayRow ? ' selected' : ''*/'' }
+                                                                    ${ ordRecord.tblRegistersDate10DateYear == arrayRow ? ' selected' : ``}
                                                                 >${ arrayRow }</option>
                                                             `}).join(",") }
                                                     </select>
@@ -9307,7 +8580,7 @@ module.exports = class RegistersListing
                                         ${ /*js-datepicker.*/'' }
                                         ${ gSystemConfig.configRegistersDate10FieldType == 11 ? 
                                             `
-                                            <input type="text" id="registers_date10" name="date10" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                            <input type="text" id="registers_date10" name="date10" class="ss-backend-field-date01" autocomplete="off" value="${ ordRecord.tblRegistersDate10_print }" />
                                             <script>
                                                 const dpDate10 = datepicker("#registers_date10", 
                                                     ${ /*Generic date.*/'' }
@@ -9350,7 +8623,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("h", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowHour == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowHour == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate10DateHour == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -9359,7 +8633,8 @@ module.exports = class RegistersListing
                                                 ${SyncSystemNS.FunctionsGeneric.timeTableFill01("m", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                     return `
                                                         <option value="${ arrayRow }"
-                                                            ${ this.dateNowMinute == arrayRow ? ' selected' : ``}
+                                                            ${ /*this.dateNowMinute == arrayRow ? ' selected' : ``*/'' }
+                                                            ${ ordRecord.tblRegistersDate10DateMinute == arrayRow ? ' selected' : ``}
                                                         >${ arrayRow }</option>
                                                     `}).join(",") }
                                             </select>
@@ -9370,7 +8645,8 @@ module.exports = class RegistersListing
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01("s", 1, {dateType: gSystemConfig.configRegistersDate10Type}).map((arrayRow)=>{
                                                         return `
                                                             <option value="${ arrayRow }"
-                                                                ${ this.dateNowSecond == arrayRow ? ' selected' : ``}
+                                                                ${ /*this.dateNowSecond == arrayRow ? ' selected' : ``*/'' }
+                                                                ${ ordRecord.tblRegistersDate10DateSecond == arrayRow ? ' selected' : ``}
                                                             >${ arrayRow }</option>
                                                         `}).join(",") }
                                                 </select>
@@ -9381,7 +8657,7 @@ module.exports = class RegistersListing
                                         </td>
                                     </tr>
                                     ` : ``
-                                }  
+                                }
 
                                 ${ gSystemConfig.enableRegistersImageMain == 1 ? 
                                 `
@@ -9389,8 +8665,53 @@ module.exports = class RegistersListing
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImage") }: 
                                     </td>
-                                    <td>
+                                    <td style="display: flex; align-items: center;">
                                         <input type="file" id="registers_image_main" name="image_main" class="ss-backend-field-file-upload" />
+
+                                        ${ ordRecord.tblRegistersImageMain != "" ? 
+                                        `
+                                        <img id="imgRegistersImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ordRecord.tblRegistersImageMain + "?v=" + this.cacheClear }" alt="${ ordRecord.tblRegistersTitle }" class="ss-backend-images-edit" />
+                                        <div id="divRegistersImageMainDelete" style="position: relative; display: inline-block;">
+                                            <a class="ss-backend-delete01" 
+                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                            {
+                                                                                idRecord: '${ ordRecord.tblRegistersID }', 
+                                                                                strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                strField:'image_main', 
+                                                                                recordValue: '', 
+                                                                                patchType: 'fileDelete', 
+                                                                                ajaxFunction: true, 
+                                                                                apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                            }, 
+                                                                            async function(_resObjReturn){
+                                                                                //alert(JSON.stringify(_resObjReturn));
+                                                                                
+                                                                                if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                {
+                                                                                    //Delete files.
+
+
+                                                                                    //Hide elements.
+                                                                                    htmlGenericStyle01('imgRegistersImageMain', 'display', 'none');
+                                                                                    htmlGenericStyle01('divRegistersImageMainDelete', 'display', 'none');
+
+                                                                                    //Success message.
+                                                                                    elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage6") }');
+
+                                                                                }else{
+                                                                                    //Show error.
+                                                                                    elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                }
+
+                                                                                //Hide ajax progress bar.
+                                                                                htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                            });">
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageDelete") }
+                                            </a>
+                                        </div>
+                                        ` : ``
+                                        }
                                     </td>
                                 </tr>
                                 ` : ``
@@ -9402,11 +8723,11 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageCaption") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="registers_image_main_caption" name="image_main_caption" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="registers_image_main_caption" name="image_main_caption" class="ss-backend-field-text01" value="${ ordRecord.tblRegistersImageMainCaption }" />
                                     </td>
                                 </tr>
                                 ` : ``
-                                }      
+                                }                                
                                 
                                 ${ gSystemConfig.enableRegistersImageLogo == 1 ? 
                                 `
@@ -9440,8 +8761,83 @@ module.exports = class RegistersListing
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFile1") }: 
                                     </td>
-                                    <td>
+                                    <td style="display: flex; align-items: center;">
                                         <input type="file" id="registers_file1" name="file1" class="ss-backend-field-file-upload" />
+                                        ${ ordRecord.tblRegistersFile1 != "" ? 
+                                        `
+                                            ${ /*Image.*/ '' }
+                                            ${ gSystemConfig.configRegistersFile1Type == 1 ? 
+                                            `
+                                                <img id="imgRegistersFile1" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ordRecord.tblRegistersFile1 + "?v=" + this.cacheClear }" alt="${ ordRecord.tblRegistersFile1 }" class="ss-backend-images-edit" />
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (download).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile1Type == 3 ? 
+                                            `
+                                                <a id="imgRegistersFile1" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile1 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile1 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (open direct).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile1Type == 34 ? 
+                                            `
+                                                <a id="imgRegistersFile1" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile1 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile1 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            <div id="divRegistersFile1Delete" style="position: relative; display: inline-block;">
+                                                <a class="ss-backend-delete01" 
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                    ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                {
+                                                                                    idRecord: '${ ordRecord.tblRegistersID }', 
+                                                                                    strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                    strField:'file1', 
+                                                                                    recordValue: '', 
+                                                                                    patchType: 'fileDelete', 
+                                                                                    ajaxFunction: true, 
+                                                                                    apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                }, 
+                                                                                async function(_resObjReturn){
+                                                                                    //alert(JSON.stringify(_resObjReturn));
+                                                                                    
+                                                                                    if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                    {
+                                                                                        //Hide elements.
+                                                                                        htmlGenericStyle01('imgRegistersFile1', 'display', 'none');
+                                                                                        htmlGenericStyle01('divRegistersFile1Delete', 'display', 'none');
+    
+                                                                                        //Success message.
+                                                                                        elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage6") }');
+    
+                                                                                    }else{
+                                                                                        //Show error.
+                                                                                        elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                    }
+    
+                                                                                    //Hide ajax progress bar.
+                                                                                    htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                });">
+
+                                                    
+                                                    ${ gSystemConfig.configRegistersFile1Type == 1 ? 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageDelete") } ${ /*Image*/ '' }
+                                                    ` : 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemFileDelete") } ${ /*File*/ '' }
+                                                    `
+                                                    }
+                                                </a>
+                                            </div>
+
+                                        ` : ``
+                                        }
                                     </td>
                                 </tr>
                                 ` : ``
@@ -9453,8 +8849,84 @@ module.exports = class RegistersListing
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFile2") }: 
                                     </td>
-                                    <td>
+                                    <td style="display: flex; align-items: center;">
                                         <input type="file" id="registers_file2" name="file2" class="ss-backend-field-file-upload" />
+
+                                        ${ ordRecord.tblRegistersFile2 != "" ? 
+                                        `
+                                            ${ /*Image.*/ '' }
+                                            ${ gSystemConfig.configRegistersFile2Type == 1 ? 
+                                            `
+                                                <img id="imgRegistersFile2" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ordRecord.tblRegistersFile2 + "?v=" + this.cacheClear }" alt="${ ordRecord.tblRegistersFile2 }" class="ss-backend-images-edit" />
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (download).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile2Type == 3 ? 
+                                            `
+                                                <a id="imgRegistersFile2" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile2 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile2 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (open direct).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile2Type == 34 ? 
+                                            `
+                                                <a id="imgRegistersFile2" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile2 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile2 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            <div id="divRegistersFile2Delete" style="position: relative; display: inline-block;">
+                                                <a class="ss-backend-delete01" 
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                    ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                {
+                                                                                    idRecord: '${ ordRecord.tblRegistersID }', 
+                                                                                    strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                    strField:'File2', 
+                                                                                    recordValue: '', 
+                                                                                    patchType: 'fileDelete', 
+                                                                                    ajaxFunction: true, 
+                                                                                    apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                }, 
+                                                                                async function(_resObjReturn){
+                                                                                    //alert(JSON.stringify(_resObjReturn));
+                                                                                    
+                                                                                    if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                    {
+                                                                                        //Hide elements.
+                                                                                        htmlGenericStyle01('imgRegistersFile2', 'display', 'none');
+                                                                                        htmlGenericStyle01('divRegistersFile2Delete', 'display', 'none');
+    
+                                                                                        //Success message.
+                                                                                        elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage6") }');
+    
+                                                                                    }else{
+                                                                                        //Show error.
+                                                                                        elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                    }
+    
+                                                                                    //Hide ajax progress bar.
+                                                                                    htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                });">
+
+                                                    
+                                                    ${ gSystemConfig.configRegistersFile2Type == 1 ? 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageDelete") } ${ /*Image*/ '' }
+                                                    ` : 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemFileDelete") } ${ /*File*/ '' }
+                                                    `
+                                                    }
+                                                </a>
+                                            </div>
+
+                                        ` : ``
+                                        }
                                     </td>
                                 </tr>
                                 ` : ``
@@ -9466,8 +8938,84 @@ module.exports = class RegistersListing
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFile3") }: 
                                     </td>
-                                    <td>
+                                    <td style="display: flex; align-items: center;">
                                         <input type="file" id="registers_file3" name="file3" class="ss-backend-field-file-upload" />
+
+                                        ${ ordRecord.tblRegistersFile3 != "" ? 
+                                        `
+                                            ${ /*Image.*/ '' }
+                                            ${ gSystemConfig.configRegistersFile3Type == 1 ? 
+                                            `
+                                                <img id="imgRegistersFile3" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ordRecord.tblRegistersFile3 + "?v=" + this.cacheClear }" alt="${ ordRecord.tblRegistersFile3 }" class="ss-backend-images-edit" />
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (download).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile3Type == 3 ? 
+                                            `
+                                                <a id="imgRegistersFile3" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile3 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile3 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (open direct).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile3Type == 34 ? 
+                                            `
+                                                <a id="imgRegistersFile3" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile3 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile3 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            <div id="divRegistersFile3Delete" style="position: relative; display: inline-block;">
+                                                <a class="ss-backend-delete01" 
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                    ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                {
+                                                                                    idRecord: '${ ordRecord.tblRegistersID }', 
+                                                                                    strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                    strField:'File3', 
+                                                                                    recordValue: '', 
+                                                                                    patchType: 'fileDelete', 
+                                                                                    ajaxFunction: true, 
+                                                                                    apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                }, 
+                                                                                async function(_resObjReturn){
+                                                                                    //alert(JSON.stringify(_resObjReturn));
+                                                                                    
+                                                                                    if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                    {
+                                                                                        //Hide elements.
+                                                                                        htmlGenericStyle01('imgRegistersFile3', 'display', 'none');
+                                                                                        htmlGenericStyle01('divRegistersFile3Delete', 'display', 'none');
+    
+                                                                                        //Success message.
+                                                                                        elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage6") }');
+    
+                                                                                    }else{
+                                                                                        //Show error.
+                                                                                        elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                    }
+    
+                                                                                    //Hide ajax progress bar.
+                                                                                    htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                });">
+
+                                                    
+                                                    ${ gSystemConfig.configRegistersFile3Type == 1 ? 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageDelete") } ${ /*Image*/ '' }
+                                                    ` : 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemFileDelete") } ${ /*File*/ '' }
+                                                    `
+                                                    }
+                                                </a>
+                                            </div>
+
+                                        ` : ``
+                                        }
                                     </td>
                                 </tr>
                                 ` : ``
@@ -9479,8 +9027,84 @@ module.exports = class RegistersListing
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFile4") }: 
                                     </td>
-                                    <td>
+                                    <td style="display: flex; align-items: center;">
                                         <input type="file" id="registers_file4" name="file4" class="ss-backend-field-file-upload" />
+
+                                        ${ ordRecord.tblRegistersFile4 != "" ? 
+                                        `
+                                            ${ /*Image.*/ '' }
+                                            ${ gSystemConfig.configRegistersFile4Type == 1 ? 
+                                            `
+                                                <img id="imgRegistersFile4" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ordRecord.tblRegistersFile4 + "?v=" + this.cacheClear }" alt="${ ordRecord.tblRegistersFile4 }" class="ss-backend-images-edit" />
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (download).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile4Type == 3 ? 
+                                            `
+                                                <a id="imgRegistersFile4" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile4 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile4 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (open direct).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile4Type == 34 ? 
+                                            `
+                                                <a id="imgRegistersFile4" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile4 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile4 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            <div id="divRegistersFile4Delete" style="position: relative; display: inline-block;">
+                                                <a class="ss-backend-delete01" 
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                    ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                {
+                                                                                    idRecord: '${ ordRecord.tblRegistersID }', 
+                                                                                    strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                    strField:'File4', 
+                                                                                    recordValue: '', 
+                                                                                    patchType: 'fileDelete', 
+                                                                                    ajaxFunction: true, 
+                                                                                    apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                }, 
+                                                                                async function(_resObjReturn){
+                                                                                    //alert(JSON.stringify(_resObjReturn));
+                                                                                    
+                                                                                    if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                    {
+                                                                                        //Hide elements.
+                                                                                        htmlGenericStyle01('imgRegistersFile4', 'display', 'none');
+                                                                                        htmlGenericStyle01('divRegistersFile4Delete', 'display', 'none');
+    
+                                                                                        //Success message.
+                                                                                        elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage6") }');
+    
+                                                                                    }else{
+                                                                                        //Show error.
+                                                                                        elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                    }
+    
+                                                                                    //Hide ajax progress bar.
+                                                                                    htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                });">
+
+                                                    
+                                                    ${ gSystemConfig.configRegistersFile4Type == 1 ? 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageDelete") } ${ /*Image*/ '' }
+                                                    ` : 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemFileDelete") } ${ /*File*/ '' }
+                                                    `
+                                                    }
+                                                </a>
+                                            </div>
+
+                                        ` : ``
+                                        }
                                     </td>
                                 </tr>
                                 ` : ``
@@ -9492,8 +9116,84 @@ module.exports = class RegistersListing
                                     <td class="ss-backend-table-bg-medium">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersFile5") }: 
                                     </td>
-                                    <td>
+                                    <td style="display: flex; align-items: center;">
                                         <input type="file" id="registers_file5" name="file5" class="ss-backend-field-file-upload" />
+
+                                        ${ ordRecord.tblRegistersFile5 != "" ? 
+                                        `
+                                            ${ /*Image.*/ '' }
+                                            ${ gSystemConfig.configRegistersFile5Type == 1 ? 
+                                            `
+                                                <img id="imgRegistersFile5" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + ordRecord.tblRegistersFile5 + "?v=" + this.cacheClear }" alt="${ ordRecord.tblRegistersFile5 }" class="ss-backend-images-edit" />
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (download).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile5Type == 3 ? 
+                                            `
+                                                <a id="imgRegistersFile5" download href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile5 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile5 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            ${ /*File (open direct).*/ '' }
+                                            ${ gSystemConfig.configRegistersFile5Type == 34 ? 
+                                            `
+                                                <a id="imgRegistersFile5" href="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/" + ordRecord.tblRegistersFile5 }" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
+                                                    ${ ordRecord.tblRegistersFile5 }
+                                                </a>
+                                            ` : ``
+                                            }
+
+                                            <div id="divRegistersFile5Delete" style="position: relative; display: inline-block;">
+                                                <a class="ss-backend-delete01" 
+                                                    onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                    ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                {
+                                                                                    idRecord: '${ ordRecord.tblRegistersID }', 
+                                                                                    strTable: '${ gSystemConfig.configSystemDBTableRegisters }', 
+                                                                                    strField:'File5', 
+                                                                                    recordValue: '', 
+                                                                                    patchType: 'fileDelete', 
+                                                                                    ajaxFunction: true, 
+                                                                                    apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                }, 
+                                                                                async function(_resObjReturn){
+                                                                                    //alert(JSON.stringify(_resObjReturn));
+                                                                                    
+                                                                                    if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                    {
+                                                                                        //Hide elements.
+                                                                                        htmlGenericStyle01('imgRegistersFile5', 'display', 'none');
+                                                                                        htmlGenericStyle01('divRegistersFile5Delete', 'display', 'none');
+    
+                                                                                        //Success message.
+                                                                                        elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage6") }');
+    
+                                                                                    }else{
+                                                                                        //Show error.
+                                                                                        elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                    }
+    
+                                                                                    //Hide ajax progress bar.
+                                                                                    htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                });">
+
+                                                    
+                                                    ${ gSystemConfig.configRegistersFile5Type == 1 ? 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageDelete") } ${ /*Image*/ '' }
+                                                    ` : 
+                                                    `
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemFileDelete") } ${ /*File*/ '' }
+                                                    `
+                                                    }
+                                                </a>
+                                            </div>
+
+                                        ` : ``
+                                        }
                                     </td>
                                 </tr>
                                 ` : ``
@@ -9505,9 +9205,10 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_activation" name="activation" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                            <option value="0">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersActivation == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                            <option value="0"${ ordRecord.tblRegistersActivation == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                         </select>
+                                        ${ /*ordRecord.tblRegistersActivation_print*/ '' }
                                     </td>
                                 </tr>
 
@@ -9519,8 +9220,8 @@ module.exports = class RegistersListing
                                         </td>
                                         <td>
                                             <select id="registers_activation1" name="activation1" class="ss-backend-field-dropdown01">
-                                                <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                                <option value="1"${ ordRecord.tblRegistersActivation1 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ ordRecord.tblRegistersActivation1 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -9535,8 +9236,8 @@ module.exports = class RegistersListing
                                         </td>
                                         <td>
                                             <select id="registers_activation2" name="activation2" class="ss-backend-field-dropdown01">
-                                                <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                                <option value="1"${ ordRecord.tblRegistersActivation2 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ ordRecord.tblRegistersActivation2 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -9551,8 +9252,8 @@ module.exports = class RegistersListing
                                         </td>
                                         <td>
                                             <select id="registers_activation3" name="activation3" class="ss-backend-field-dropdown01">
-                                                <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                                <option value="1"${ ordRecord.tblRegistersActivation3 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ ordRecord.tblRegistersActivation3 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -9567,8 +9268,8 @@ module.exports = class RegistersListing
                                         </td>
                                         <td>
                                             <select id="registers_activation4" name="activation4" class="ss-backend-field-dropdown01">
-                                                <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                                <option value="1"${ ordRecord.tblRegistersActivation4 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ ordRecord.tblRegistersActivation4 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -9583,8 +9284,8 @@ module.exports = class RegistersListing
                                         </td>
                                         <td>
                                             <select id="registers_activation5" name="activation5" class="ss-backend-field-dropdown01">
-                                                <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                                <option value="1"${ ordRecord.tblRegistersActivation5 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ ordRecord.tblRegistersActivation5 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -9599,10 +9300,10 @@ module.exports = class RegistersListing
                                         </td>
                                         <td>
                                             <select id="registers_id_status" name="id_status" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ ordRecord.tblRegistersIdStatus == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsRegistersStatusListing.map((statusRow)=>{
                                                     return `
-                                                        <option value="${ statusRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
+                                                        <option value="${ statusRow.id }"${ ordRecord.tblRegistersIdStatus == statusRow.id ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
                                                     `;
                                                 }).join("") }
                                             </select>
@@ -9619,8 +9320,8 @@ module.exports = class RegistersListing
                                     </td>
                                     <td>
                                         <select id="registers_restricted_access" name="restricted_access" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0") }</option>
-                                            <option value="1">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1") }</option>
+                                            <option value="0"${ ordRecord.tblRegistersRestrictedAccess == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess0") }</option>
+                                            <option value="1"${ ordRecord.tblRegistersRestrictedAccess == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemRestrictedAccess1") }</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -9634,7 +9335,7 @@ module.exports = class RegistersListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemNotesInternal") }: 
                                     </td>
                                     <td>
-                                        <textarea id="registers_notes" name="notes" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="registers_notes" name="notes" class="ss-backend-field-text-area01">${ ordRecord.tblRegistersNotes_edit }</textarea>
                                     </td>
                                 </tr>
                                 ` : ``
@@ -9645,46 +9346,46 @@ module.exports = class RegistersListing
 
                             </tfoot>
                         </table>
+
                     </div>
+
                     <div style="position: relative; display: block; overflow: hidden; clear: both; margin-top: 2px;">
                         <button id="registers_include" name="registers_include" class="ss-backend-btn-base ss-backend-btn-action-execute" style="float: left;">
-                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendButtonSend") }
+                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendButtonUpdate") }
                         </button>
+
+                        <a onclick="history.go(-1);" class="ss-backend-btn-base ss-backend-btn-action-alert" style="float: right;">
+                            ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendButtonBack") }
+                        </a>
                     </div>
 
-                    <input type="hidden" id="registers_id_parent" name="id_parent" value="${ this._idParent }" />
-                    <input type="hidden" id="registers_id_activity" name="id_activity" value="0" />
+                    <input type="hidden" id="registers_id" name="id" value="${ ordRecord.tblRegistersID }" />
 
-                    <input type="hidden" id="registers_id_register1" name="id_register1" value="0" />
-                    <input type="hidden" id="registers_id_register2" name="id_register2" value="0" />
-                    <input type="hidden" id="registers_id_register3" name="id_register3" value="0" />
-                    <input type="hidden" id="registers_id_register4" name="id_register4" value="0" />
-                    <input type="hidden" id="registers_id_register5" name="id_register5" value="0" />
+                    <input type="hidden" id="registers_id_activity" name="id_activity" value="${ ordRecord.tblRegistersIdActivity }" />
 
-                    <input type="hidden" id="registers_id_street" name="id_street" value="0" />
-                    <input type="hidden" id="registers_id_neighborhood" name="id_neighborhood" value="0" />
-                    <input type="hidden" id="registers_id_district" name="id_district" value="0" />
-                    <input type="hidden" id="registers_id_county" name="id_county" value="0" />
-                    <input type="hidden" id="registers_id_city" name="id_city" value="0" />
-                    <input type="hidden" id="registers_id_state" name="id_state" value="0" />
-                    <input type="hidden" id="registers_id_country" name="id_country" value="0" />
+                    <input type="hidden" id="registers_id_register1" name="id_register1" value="${ ordRecord.tblRegistersIdRegister1 }" />
+                    <input type="hidden" id="registers_id_register2" name="id_register2" value="${ ordRecord.tblRegistersIdRegister2 }" />
+                    <input type="hidden" id="registers_id_register3" name="id_register3" value="${ ordRecord.tblRegistersIdRegister3 }" />
+                    <input type="hidden" id="registers_id_register4" name="id_register4" value="${ ordRecord.tblRegistersIdRegister4 }" />
+                    <input type="hidden" id="registers_id_register5" name="id_register5" value="${ ordRecord.tblRegistersIdRegister5 }" />
+
+                    <input type="hidden" id="registers_id_street" name="id_street" value="${ ordRecord.tblRegistersIdStreet }" />
+                    <input type="hidden" id="registers_id_neighborhood" name="id_neighborhood" value="${ ordRecord.tblRegistersIdNeighborhood }" />
+                    <input type="hidden" id="registers_id_district" name="id_district" value="${ ordRecord.tblRegistersIdDistrict }" />
+                    <input type="hidden" id="registers_id_county" name="id_county" value="${ ordRecord.tblRegistersIdCounty }" />
+                    <input type="hidden" id="registers_id_city" name="id_city" value="${ ordRecord.tblRegistersIdCity }" />
+                    <input type="hidden" id="registers_id_state" name="id_state" value="${ ordRecord.tblRegistersIdState }" />
+                    <input type="hidden" id="registers_id_country" name="id_country" value="${ ordRecord.tblRegistersIdCountry }" />
                     
-                    <input type="hidden" id="registers_idParent" name="idParent" value="${ this._idParent }" />
+                    <input type="hidden" id="registers_idParent" name="idParent" value="${ ordRecord.tblRegistersIdParent }" />
                     <input type="hidden" id="registers_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
                     <input type="hidden" id="registers_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
                 </form>
             </section>
             `; 
 
-
             this.cphBody = backendHTML;
 
-            //strReturn = JSON.stringify(oplRecords);
-            //strReturn = JSON.stringify(oplRecords.resultsContentListing);
-            
-            //return strReturn;
-
-            //return this;
         }catch(asyncError){
             if(gSystemConfig.configDebug === true)
             {
@@ -9697,4 +9398,23 @@ module.exports = class RegistersListing
     }
     //**************************************************************************************
 
+
+    //Usage.
+    //----------------------
+    /*
+    let ceBackend = new ContentEdit({
+        idTbContent: idTbContent,
+
+        masterPageSelect: masterPageSelect,
+
+        messageSuccess: messageSuccess,
+        messageError: messageError,
+        messageAlert: messageAlert
+    });
+
+
+    //Build object data.
+    await ceBackend.build();
+    */
+    //----------------------
 };

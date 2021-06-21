@@ -1932,13 +1932,13 @@ module.exports = class FunctionsGeneric
                 
                 arrTableFieldsQueryBuild.push("url_alias", "keywords_tags", "meta_description", "meta_title", "meta_info"); //27
                 
-                gSystemConfig.enableRegistersDateBirth == 1 ? arrTableFieldsQueryBuild.push("date_birth") : '';
-                gSystemConfig.enableUsersGender == 1 ? arrTableFieldsQueryBuild.push("gender") : '';
+                gSystemConfig.enableRegistersDateBirth != 0 ? arrTableFieldsQueryBuild.push("date_birth") : '';
+                gSystemConfig.enableRegistersGender == 1 ? arrTableFieldsQueryBuild.push("gender") : '';
                 gSystemConfig.enableRegistersHeight == 1 ? arrTableFieldsQueryBuild.push("height") : '';
                 gSystemConfig.enableRegistersWeight == 1 ? arrTableFieldsQueryBuild.push("weight") : '';
 
                 gSystemConfig.enableRegistersDocumentType == 1 ? arrTableFieldsQueryBuild.push("document_type") : '';
-                gSystemConfig.enableRegistersDocument == 1 ? arrTableFieldsQueryBuild.push("document_type") : '';
+                gSystemConfig.enableRegistersDocument == 1 ? arrTableFieldsQueryBuild.push("document") : '';
                 gSystemConfig.enableRegistersDocument1Type == 1 ? arrTableFieldsQueryBuild.push("document1_type") : '';
                 gSystemConfig.enableRegistersDocument1 == 1 ? arrTableFieldsQueryBuild.push("document1") : '';
                 gSystemConfig.enableRegistersDocument2Type == 1 ? arrTableFieldsQueryBuild.push("document2_type") : '';
@@ -1946,8 +1946,8 @@ module.exports = class FunctionsGeneric
 
                 gSystemConfig.enableRegistersDocumentCompanyType == 1 ? arrTableFieldsQueryBuild.push("document_company_type") : '';
                 gSystemConfig.enableRegistersDocumentCompany == 1 ? arrTableFieldsQueryBuild.push("document_company") : '';
-                gSystemConfig.enableRegistersDocumentCompany2Type == 1 ? arrTableFieldsQueryBuild.push("document_company1_type") : '';
-                gSystemConfig.enableRegistersDocumentCompany2 == 1 ? arrTableFieldsQueryBuild.push("document_company1") : '';
+                gSystemConfig.enableRegistersDocumentCompany1Type == 1 ? arrTableFieldsQueryBuild.push("document_company1_type") : '';
+                gSystemConfig.enableRegistersDocumentCompany1 == 1 ? arrTableFieldsQueryBuild.push("document_company1") : '';
                 gSystemConfig.enableRegistersDocumentCompany2Type == 1 ? arrTableFieldsQueryBuild.push("document_company2_type") : '';
                 gSystemConfig.enableRegistersDocumentCompany2 == 1 ? arrTableFieldsQueryBuild.push("document_company2") : '';
 

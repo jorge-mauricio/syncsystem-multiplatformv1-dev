@@ -880,7 +880,7 @@ module.exports = class ObjectPublicationsDetails
                 this.tblPublicationsDate2_print = FunctionsGeneric.dateRead01(this.tblPublicationsDate2, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configPublicationsDate1Type);
+                                                                            gSystemConfig.configPublicationsDate2Type);
             }
 
             this.tblPublicationsDate3 = this.resultsPublicationsDetails[0].date3;
@@ -903,7 +903,7 @@ module.exports = class ObjectPublicationsDetails
                 this.tblPublicationsDate3_print = FunctionsGeneric.dateRead01(this.tblPublicationsDate3, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configPublicationsDate1Type);
+                                                                            gSystemConfig.configPublicationsDate3Type);
             }
 
             this.tblPublicationsDate4 = this.resultsPublicationsDetails[0].date4;
@@ -926,7 +926,7 @@ module.exports = class ObjectPublicationsDetails
                 this.tblPublicationsDate4_print = FunctionsGeneric.dateRead01(this.tblPublicationsDate4, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configPublicationsDate1Type);
+                                                                            gSystemConfig.configPublicationsDate4Type);
             }
 
             this.tblPublicationsDate5 = this.resultsPublicationsDetails[0].date5;
@@ -949,7 +949,7 @@ module.exports = class ObjectPublicationsDetails
                 this.tblPublicationsDate5_print = FunctionsGeneric.dateRead01(this.tblPublicationsDate5, 
                                                                             gSystemConfig.configBackendDateFormat, 
                                                                             0, 
-                                                                            gSystemConfig.configPublicationsDate1Type);
+                                                                            gSystemConfig.configPublicationsDate5Type);
             }
             
             this.tblPublicationsImageMain = this.resultsPublicationsDetails[0].image_main;

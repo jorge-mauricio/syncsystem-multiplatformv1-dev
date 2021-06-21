@@ -755,7 +755,7 @@ module.exports = class ProductsEdit
                                         </td>
                                         <td>
                                             <select id="products_id_type" name="id_type" class="ss-backend-field-dropdown01">
-                                                <option value="0" selected>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                                <option value="0"${ opdRecord.tblProductsIdType == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsProductsTypeListing.map((statusRow)=>{
                                                     return `
                                                         <option value="${ statusRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
@@ -2829,10 +2829,10 @@ module.exports = class ProductsEdit
                                         ${ /*Radio.*/'' }
                                         ${ gSystemConfig.enableProductsFilterGeneric30 == 4 ? 
                                         `
-                                            ${resultsProductsFiltersGeneric210Listing.map((productsFiltersGenericRow)=>{
+                                            ${resultsProductsFiltersGeneric30Listing.map((productsFiltersGenericRow)=>{
                                                 return `
                                                     <label class="ss-backend-field-radio-label">
-                                                        <input type="radio" name="idsProductsFiltersGeneric210" value="${ productsFiltersGenericRow.id }"${ opdRecord.arrIdsProductsFiltersGeneric210Binding.includes(productsFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsFiltersGenericRow.title, "db") }
+                                                        <input type="radio" name="idsProductsFiltersGeneric30" value="${ productsFiltersGenericRow.id }"${ opdRecord.arrIdsProductsFiltersGeneric30Binding.includes(productsFiltersGenericRow.id.toString()) ? " checked" : "" } class="ss-backend-field-radio" /> ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(productsFiltersGenericRow.title, "db") }
                                                     </label>
                                                 `;
                                             }).join("")}
