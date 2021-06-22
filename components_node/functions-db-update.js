@@ -4151,7 +4151,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4165,7 +4165,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4177,7 +4177,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric11.includes(resultsProductsFiltersGeneric11Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4205,7 +4205,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4219,7 +4219,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4231,7 +4231,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric12.includes(resultsProductsFiltersGeneric12Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4259,7 +4259,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4273,7 +4273,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4285,7 +4285,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric13.includes(resultsProductsFiltersGeneric13Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4313,7 +4313,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4327,7 +4327,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4339,7 +4339,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric14.includes(resultsProductsFiltersGeneric14Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4367,7 +4367,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4381,7 +4381,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4393,7 +4393,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric15.includes(resultsProductsFiltersGeneric15Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4421,7 +4421,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4435,7 +4435,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4447,7 +4447,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric16.includes(resultsProductsFiltersGeneric16Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4475,7 +4475,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4489,7 +4489,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4501,7 +4501,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric17.includes(resultsProductsFiltersGeneric17Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4529,7 +4529,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4543,7 +4543,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4555,7 +4555,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric18.includes(resultsProductsFiltersGeneric18Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4583,7 +4583,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4597,7 +4597,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4609,7 +4609,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric19.includes(resultsProductsFiltersGeneric19Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4637,7 +4637,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric1Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4651,7 +4651,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric1Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4663,7 +4663,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric20.includes(resultsProductsFiltersGeneric20Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric1Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4691,7 +4691,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4705,7 +4705,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4717,7 +4717,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric21.includes(resultsProductsFiltersGeneric21Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4745,7 +4745,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4759,7 +4759,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4771,7 +4771,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric22.includes(resultsProductsFiltersGeneric22Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4799,7 +4799,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4813,7 +4813,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4825,7 +4825,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric23.includes(resultsProductsFiltersGeneric23Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4853,7 +4853,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4867,7 +4867,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4879,7 +4879,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric24.includes(resultsProductsFiltersGeneric24Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4907,7 +4907,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4921,7 +4921,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4933,7 +4933,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric25.includes(resultsProductsFiltersGeneric25Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -4961,7 +4961,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -4975,7 +4975,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -4987,7 +4987,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric26.includes(resultsProductsFiltersGeneric26Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -5015,7 +5015,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -5029,7 +5029,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -5041,7 +5041,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric27.includes(resultsProductsFiltersGeneric27Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -5069,7 +5069,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -5083,7 +5083,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -5095,7 +5095,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric28.includes(resultsProductsFiltersGeneric28Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -5123,7 +5123,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -5137,7 +5137,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -5149,7 +5149,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric29.includes(resultsProductsFiltersGeneric29Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -5177,7 +5177,7 @@ module.exports = class FunctionsDBUpdate
                         {
                             //Variables.
                             let productsFiltersGenericCheck = null;
-                            let flagProductsFiltersGeneric2Insert = true;
+                            let flagProductsFiltersGenericInsert = true;
 
                             //Check records already selected.
                             productsFiltersGenericCheck = objIdsProductsFiltersGenericBinding.filter(function(obj){
@@ -5191,7 +5191,7 @@ module.exports = class FunctionsDBUpdate
                                 {
                                     //Update record with additional information or leave as it is.
                                     //TODO: update.
-                                    flagProductsFiltersGeneric2Insert = false;
+                                    flagProductsFiltersGenericInsert = false;
                                 }else{
 
                                     //Delete record.
@@ -5203,7 +5203,7 @@ module.exports = class FunctionsDBUpdate
                             //Insert new bindings. 
                             if(arrIdsProductsFiltersGeneric30.includes(resultsProductsFiltersGeneric30Listing[countArray].id.toString()))
                             {
-                                if(flagProductsFiltersGeneric2Insert == true)
+                                if(flagProductsFiltersGenericInsert == true)
                                 {
                                     await FunctionsDBInsert.filtersGenericBindingInsert_async({
                                         _tblFiltersGenericBindingID: "",
@@ -6690,6 +6690,3917 @@ module.exports = class FunctionsDBUpdate
                     _arrIdsPublicationsFiltersGeneric8: arrIdsPublicationsFiltersGeneric8,
                     _arrIdsPublicationsFiltersGeneric9: arrIdsPublicationsFiltersGeneric9,
                     _arrIdsPublicationsFiltersGeneric10: arrIdsPublicationsFiltersGeneric10,
+                }).then((results)=>{
+                if(results === undefined)
+                {
+                    //Error.
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3"));
+                    }
+                    reject(new Error("nCounterUpdate is undefined."));
+                }else{
+
+                    //Success.
+                    //resolve(nCounterUpdate);
+                    resolve(results);
+                } //working
+            });
+        });
+        */
+        //----------------------
+    }
+    //**************************************************************************************
+
+
+    //Registers - update record.
+    //**************************************************************************************
+    /**
+     * Registers - update record.
+     * @static
+     * @async
+     * @param {object} _tblRegistersDataObject
+     * @returns {boolean} true - successfull | false - error
+     */
+    static async registersUpdate_async(_tblRegistersDataObject)
+    {
+        //Variables.
+        //----------------------
+        let strReturn = false;
+
+        let tblRegistersDataObject = {};
+
+        //Details - default values.
+        let tblRegistersID = "";
+        let tblRegistersIdParent = "";
+        let tblRegistersSortOrder = 0;
+
+        let tblRegistersDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDateTimezone = "";
+        let tblRegistersDateEdit = "";
+
+        let tblRegistersIdType = 0; 
+        let tblRegistersIdActivity = 0; 
+
+        let tblRegistersIdRegisterUser = 0;
+        let tblRegistersIdRegister1 = 0;
+        let tblRegistersIdRegister2 = 0;
+        let tblRegistersIdRegister3 = 0;
+        let tblRegistersIdRegister4 = 0;
+        let tblRegistersIdRegister5 = 0;
+
+        let tblRegistersType = 0;
+
+        let tblRegistersNameTitle = "";
+        let tblRegistersNameFull = "";
+        let tblRegistersNameFirst = "";
+        let tblRegistersNameLast = "";
+    
+        let tblRegistersCompanyNameLegal = "";
+        let tblRegistersCompanyNameAlias = "";
+    
+        let tblRegistersDescription = "";
+    
+        let tblRegistersURLAlias = "";
+        let tblRegistersKeywordsTags = "";
+        let tblRegistersMetaDescription = "";
+        let tblRegistersMetaTitle = "";
+        let tblRegistersMetaInfo = "";
+
+        let tblRegistersDateBirth = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersGender = 0; 
+        let tblRegistersHeight = 0; 
+        let tblRegistersWeight = 0; 
+
+        let tblRegistersDocumentType = 0;
+        let tblRegistersDocument = "";
+        let tblRegistersDocument1Type = 0;
+        let tblRegistersDocument1 = "";
+        let tblRegistersDocument2Type = 0;
+        let tblRegistersDocument2 = "";
+    
+        let tblRegistersDocumentCompanyType = 0;
+        let tblRegistersDocumentCompany1 = "";
+        let tblRegistersDocumentCompany1Type = 0;
+        let tblRegistersDocumentCompany2 = "";
+        let tblRegistersDocumentCompany2Type = 0;
+        let tblRegistersDocumentCompany = "";
+    
+        let tblRegistersZipCode = "";
+        let tblRegistersAddressStreet = "";
+        let tblRegistersAddressNumber = "";
+        let tblRegistersAddressComplement = "";
+        let tblRegistersNeighborhood = "";
+        let tblRegistersDistrict = "";
+        let tblRegistersCounty = "";
+        let tblRegistersCity = "";
+        let tblRegistersState = "";
+        let tblRegistersCountry = "";
+    
+        let tblRegistersIdStreet = 0;
+        let tblRegistersIdNeighborhood = 0;
+        let tblRegistersIdDistrict = 0;
+        let tblRegistersIdCounty = 0;
+        let tblRegistersIdCity = 0;
+        let tblRegistersIdState = 0;
+        let tblRegistersIdCountry = 0;   
+        
+        let tblRegistersLocationReference = "";
+        let tblRegistersLocationMap = "";
+    
+        let tblRegistersPhone1InternationalCode = "";
+        let tblRegistersPhone1AreaCode = "";
+        let tblRegistersPhone1 = "";
+    
+        let tblRegistersPhone2InternationalCode = "";
+        let tblRegistersPhone2AreaCode = "";
+        let tblRegistersPhone2 = "";
+    
+        let tblRegistersPhone3InternationalCode = "";
+        let tblRegistersPhone3AreaCode = "";
+        let tblRegistersPhone3 = "";
+    
+        let tblRegistersWebsite = "";
+    
+        let tblRegistersUsername = "";
+        let tblRegistersEmail = "";
+        let tblRegistersPassword = "";
+        let tblRegistersPasswordHint = "";
+        let tblRegistersPasswordLength = "";
+                
+        let tblRegistersInfo1 = "";
+        let tblRegistersInfo2 = "";
+        let tblRegistersInfo3 = "";
+        let tblRegistersInfo4 = "";
+        let tblRegistersInfo5 = "";
+        let tblRegistersInfo6 = "";
+        let tblRegistersInfo7 = "";
+        let tblRegistersInfo8 = "";
+        let tblRegistersInfo9 = "";
+        let tblRegistersInfo10 = "";
+        let tblRegistersInfo11 = "";
+        let tblRegistersInfo12 = "";
+        let tblRegistersInfo13 = "";
+        let tblRegistersInfo14 = "";
+        let tblRegistersInfo15 = "";
+        let tblRegistersInfo16 = "";
+        let tblRegistersInfo17 = "";
+        let tblRegistersInfo18 = "";
+        let tblRegistersInfo19 = "";
+        let tblRegistersInfo20 = "";
+    
+        let tblRegistersInfoSmall1 = "";
+        let tblRegistersInfoSmall2 = "";
+        let tblRegistersInfoSmall3 = "";
+        let tblRegistersInfoSmall4 = "";
+        let tblRegistersInfoSmall5 = "";
+        let tblRegistersInfoSmall6 = "";
+        let tblRegistersInfoSmall7 = "";
+        let tblRegistersInfoSmall8 = "";
+        let tblRegistersInfoSmall9 = "";
+        let tblRegistersInfoSmall10 = "";
+        let tblRegistersInfoSmall11 = "";
+        let tblRegistersInfoSmall12 = "";
+        let tblRegistersInfoSmall13 = "";
+        let tblRegistersInfoSmall14 = "";
+        let tblRegistersInfoSmall15 = "";
+        let tblRegistersInfoSmall16 = "";
+        let tblRegistersInfoSmall17 = "";
+        let tblRegistersInfoSmall18 = "";
+        let tblRegistersInfoSmall19 = "";
+        let tblRegistersInfoSmall20 = "";
+        let tblRegistersInfoSmall21 = "";
+        let tblRegistersInfoSmall22 = "";
+        let tblRegistersInfoSmall23 = "";
+        let tblRegistersInfoSmall24 = "";
+        let tblRegistersInfoSmall25 = "";
+        let tblRegistersInfoSmall26 = "";
+        let tblRegistersInfoSmall27 = "";
+        let tblRegistersInfoSmall28 = "";
+        let tblRegistersInfoSmall29 = "";
+        let tblRegistersInfoSmall30 = "";
+
+        let tblRegistersNumber1 = 0;
+        let tblRegistersNumber2 = 0;
+        let tblRegistersNumber3 = 0;
+        let tblRegistersNumber4 = 0;
+        let tblRegistersNumber5 = 0;
+
+        let tblRegistersNumberSmall1 = 0;
+        let tblRegistersNumberSmall2 = 0;
+        let tblRegistersNumberSmall3 = 0;
+        let tblRegistersNumberSmall4 = 0;
+        let tblRegistersNumberSmall5 = 0;
+
+        let tblRegistersURL1 = "";
+        let tblRegistersURL2 = "";
+        let tblRegistersURL3 = "";
+        let tblRegistersURL4 = "";
+        let tblRegistersURL5 = "";
+            
+        let tblRegistersDate1 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate2 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate3 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate4 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate5 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate6 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate7 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate8 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate9 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblRegistersDate10 = null; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+
+        let tblRegistersImageMain = "";
+        let tblRegistersImageMainCaption = "";
+        let tblRegistersImageLogo = "";
+        let tblRegistersImageBanner = "";
+
+        let tblRegistersFile1 = "";
+        let tblRegistersFile2 = "";
+        let tblRegistersFile3 = "";
+        let tblRegistersFile4 = "";
+        let tblRegistersFile5 = "";
+
+        let tblRegistersActivation = 1;
+        let tblRegistersActivation1 = 0;
+        let tblRegistersActivation2 = 0;
+        let tblRegistersActivation3 = 0;
+        let tblRegistersActivation4 = 0;
+        let tblRegistersActivation5 = 0;
+        
+        let tblRegistersIdStatus = 0;
+        let tblRegistersRestrictedAccess = 0;
+        let tblRegistersNotes = "";
+
+        let arrFiltersGenericSearchParameters = [];
+        let ofglRecords = "";
+        let ofglRecordsParameters = {};
+
+        let resultsRegistersFiltersGeneric1Listing;
+        let resultsRegistersFiltersGeneric2Listing;
+        let resultsRegistersFiltersGeneric3Listing;
+        let resultsRegistersFiltersGeneric4Listing;
+        let resultsRegistersFiltersGeneric5Listing;
+        let resultsRegistersFiltersGeneric6Listing;
+        let resultsRegistersFiltersGeneric7Listing;
+        let resultsRegistersFiltersGeneric8Listing;
+        let resultsRegistersFiltersGeneric9Listing;
+        let resultsRegistersFiltersGeneric10Listing;
+        let resultsRegistersFiltersGeneric11Listing;
+        let resultsRegistersFiltersGeneric12Listing;
+        let resultsRegistersFiltersGeneric13Listing;
+        let resultsRegistersFiltersGeneric14Listing;
+        let resultsRegistersFiltersGeneric15Listing;
+        let resultsRegistersFiltersGeneric16Listing;
+        let resultsRegistersFiltersGeneric17Listing;
+        let resultsRegistersFiltersGeneric18Listing;
+        let resultsRegistersFiltersGeneric19Listing;
+        let resultsRegistersFiltersGeneric20Listing;
+        let resultsRegistersFiltersGeneric21Listing;
+        let resultsRegistersFiltersGeneric22Listing;
+        let resultsRegistersFiltersGeneric23Listing;
+        let resultsRegistersFiltersGeneric24Listing;
+        let resultsRegistersFiltersGeneric25Listing;
+        let resultsRegistersFiltersGeneric26Listing;
+        let resultsRegistersFiltersGeneric27Listing;
+        let resultsRegistersFiltersGeneric28Listing;
+        let resultsRegistersFiltersGeneric29Listing;
+        let resultsRegistersFiltersGeneric30Listing;
+        let resultsRegistersFiltersGeneric31Listing;
+        let resultsRegistersFiltersGeneric32Listing;
+        let resultsRegistersFiltersGeneric33Listing;
+        let resultsRegistersFiltersGeneric34Listing;
+        let resultsRegistersFiltersGeneric35Listing;
+        let resultsRegistersFiltersGeneric36Listing;
+        let resultsRegistersFiltersGeneric37Listing;
+        let resultsRegistersFiltersGeneric38Listing;
+        let resultsRegistersFiltersGeneric39Listing;
+        let resultsRegistersFiltersGeneric40Listing;
+
+        let arrIdsRegistersFiltersGeneric1 = [];
+        let arrIdsRegistersFiltersGeneric2 = [];
+        let arrIdsRegistersFiltersGeneric3 = [];
+        let arrIdsRegistersFiltersGeneric4 = [];
+        let arrIdsRegistersFiltersGeneric5 = [];
+        let arrIdsRegistersFiltersGeneric6 = [];
+        let arrIdsRegistersFiltersGeneric7 = [];
+        let arrIdsRegistersFiltersGeneric8 = [];
+        let arrIdsRegistersFiltersGeneric9 = [];
+        let arrIdsRegistersFiltersGeneric10 = [];
+        let arrIdsRegistersFiltersGeneric11 = [];
+        let arrIdsRegistersFiltersGeneric12 = [];
+        let arrIdsRegistersFiltersGeneric13 = [];
+        let arrIdsRegistersFiltersGeneric14 = [];
+        let arrIdsRegistersFiltersGeneric15 = [];
+        let arrIdsRegistersFiltersGeneric16 = [];
+        let arrIdsRegistersFiltersGeneric17 = [];
+        let arrIdsRegistersFiltersGeneric18 = [];
+        let arrIdsRegistersFiltersGeneric19 = [];
+        let arrIdsRegistersFiltersGeneric20 = [];
+        let arrIdsRegistersFiltersGeneric21 = [];
+        let arrIdsRegistersFiltersGeneric22 = [];
+        let arrIdsRegistersFiltersGeneric23 = [];
+        let arrIdsRegistersFiltersGeneric24 = [];
+        let arrIdsRegistersFiltersGeneric25 = [];
+        let arrIdsRegistersFiltersGeneric26 = [];
+        let arrIdsRegistersFiltersGeneric27 = [];
+        let arrIdsRegistersFiltersGeneric28 = [];
+        let arrIdsRegistersFiltersGeneric29 = [];
+        let arrIdsRegistersFiltersGeneric30 = [];
+        let arrIdsRegistersFiltersGeneric31 = [];
+        let arrIdsRegistersFiltersGeneric32 = [];
+        let arrIdsRegistersFiltersGeneric33 = [];
+        let arrIdsRegistersFiltersGeneric34 = [];
+        let arrIdsRegistersFiltersGeneric35 = [];
+        let arrIdsRegistersFiltersGeneric36 = [];
+        let arrIdsRegistersFiltersGeneric37 = [];
+        let arrIdsRegistersFiltersGeneric38 = [];
+        let arrIdsRegistersFiltersGeneric39 = [];
+        let arrIdsRegistersFiltersGeneric40 = [];
+
+        let objIdsRegistersFiltersGenericBinding;
+
+        let strSQLRegistersUpdate = "";
+        let strSQLRegistersUpdateParams = {};
+        let resultsSQLRegistersUpdate = null;
+        //----------------------
+
+
+        //Variables - value/data treatment.
+        //----------------------
+        tblRegistersDataObject = _tblRegistersDataObject;
+        tblRegistersID = tblRegistersDataObject._tblRegistersID;
+
+        tblRegistersIdParent = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdParent") === true) ? tblRegistersDataObject._tblRegistersIdParent : tblRegistersIdParent;
+
+        //tblRegistersSortOrder = tblRegistersDataObject._tblRegistersSortOrder;
+        tblRegistersSortOrder = (tblRegistersDataObject.hasOwnProperty("_tblRegistersSortOrder") === true) ? tblRegistersDataObject._tblRegistersSortOrder : tblRegistersSortOrder;
+        if(!tblRegistersSortOrder)
+        {
+            tblRegistersSortOrder = 0;
+        }
+
+        /*tblRegistersDateCreation = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateCreation") === true) ? tblRegistersDataObject._tblRegistersDateCreation : tblRegistersDateCreation; //x = condition ? true : false (default value declared)
+        if(!tblRegistersDateCreation)
+        {
+            let tblRegistersDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblRegistersDateCreation = FunctionsGeneric.dateSQLWrite(tblRegistersDateCreation_dateObj);
+        }*/
+
+        tblRegistersDateTimezone = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateTimezone") === true) ? tblRegistersDataObject._tblRegistersDateTimezone : tblRegistersDateTimezone;
+        
+        tblRegistersDateEdit = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateEdit") === true) ? tblRegistersDataObject._tblRegistersDateEdit : tblRegistersDateEdit;
+        if(!tblRegistersDateEdit)
+        {
+            let tblRegistersDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblRegistersDateEdit = FunctionsGeneric.dateSQLWrite(tblRegistersDateEdit_dateObj);
+        }
+
+        tblRegistersIdType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdType") === true && (tblRegistersDataObject._tblRegistersIdType)) ? tblRegistersDataObject._tblRegistersIdType : tblRegistersIdType;
+        tblRegistersIdActivity = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdActivity") === true && (tblRegistersDataObject._tblRegistersIdActivity)) ? tblRegistersDataObject._tblRegistersIdActivity : tblRegistersIdActivity;
+
+        tblRegistersIdRegisterUser = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegisterUser") === true) ? tblRegistersDataObject._tblRegistersIdRegisterUser : tblRegistersIdRegisterUser;
+        if(!tblRegistersIdRegisterUser)
+        {
+            tblRegistersIdRegisterUser = 0;
+        }
+        tblRegistersIdRegister1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister1") === true) ? tblRegistersDataObject._tblRegistersIdRegister1 : tblRegistersIdRegister1;
+        if(!tblRegistersIdRegister1)
+        {
+            tblRegistersIdRegister1 = 0;
+        }
+        tblRegistersIdRegister2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister2") === true) ? tblRegistersDataObject._tblRegistersIdRegister2 : tblRegistersIdRegister2;
+        if(!tblRegistersIdRegister2)
+        {
+            tblRegistersIdRegister2 = 0;
+        }
+        tblRegistersIdRegister3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister3") === true) ? tblRegistersDataObject._tblRegistersIdRegister3 : tblRegistersIdRegister3;
+        if(!tblRegistersIdRegister3)
+        {
+            tblRegistersIdRegister3 = 0;
+        }
+        tblRegistersIdRegister4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister4") === true) ? tblRegistersDataObject._tblRegistersIdRegister4 : tblRegistersIdRegister4;
+        if(!tblRegistersIdRegister4)
+        {
+            tblRegistersIdRegister4 = 0;
+        }
+        tblRegistersIdRegister5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister5") === true) ? tblRegistersDataObject._tblRegistersIdRegister5 : tblRegistersIdRegister5;
+        if(!tblRegistersIdRegister5)
+        {
+            tblRegistersIdRegister5 = 0;
+        }
+
+        tblRegistersType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersType") === true && (tblRegistersDataObject._tblRegistersType)) ? tblRegistersDataObject._tblRegistersType : tblRegistersType;
+
+        tblRegistersNameTitle = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameTitle, "db_write_text") : tblRegistersNameTitle;
+        tblRegistersNameFull = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameFull") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameFull, "db_write_text") : tblRegistersNameFull;
+        tblRegistersNameFirst = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameFirst") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameFirst, "db_write_text") : tblRegistersNameFirst;
+        tblRegistersNameLast = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNameLast") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNameLast, "db_write_text") : tblRegistersNameLast;
+        
+        tblRegistersCompanyNameLegal = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCompanyNameLegal") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCompanyNameLegal, "db_write_text") : tblRegistersCompanyNameLegal;
+        tblRegistersCompanyNameAlias = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCompanyNameAlias") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCompanyNameAlias, "db_write_text") : tblRegistersCompanyNameAlias;
+        
+        tblRegistersDescription = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDescription, "db_write_text") : tblRegistersDescription;
+        
+        tblRegistersURLAlias = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURLAlias") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURLAlias, "db_write_text") : tblRegistersURLAlias;
+        tblRegistersKeywordsTags = (tblRegistersDataObject.hasOwnProperty("_tblRegistersKeywordsTags") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersKeywordsTags, "db_write_text") : tblRegistersKeywordsTags;
+        tblRegistersMetaDescription = (tblRegistersDataObject.hasOwnProperty("_tblRegistersMetaDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersMetaDescription, "db_write_text") : tblRegistersMetaDescription;
+        tblRegistersMetaTitle = (tblRegistersDataObject.hasOwnProperty("_tblRegistersMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersMetaTitle, "db_write_text") : tblRegistersMetaTitle;
+        tblRegistersMetaInfo = (tblRegistersDataObject.hasOwnProperty("_tblRegistersMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersMetaInfo, "db_write_text") : tblRegistersMetaInfo;
+        
+        tblRegistersDateBirth = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDateBirth") === true && (tblRegistersDataObject._tblRegistersDateBirth)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDateBirth, gSystemConfig.configBackendDateFormat) : tblRegistersDateBirth;
+        tblRegistersGender = (tblRegistersDataObject.hasOwnProperty("_tblRegistersGender") === true) ? tblRegistersDataObject._tblRegistersGender : tblRegistersGender;
+        if(!tblRegistersGender)
+        {
+            tblRegistersGender = 0;
+        }
+        tblRegistersHeight = (tblRegistersDataObject.hasOwnProperty("_tblRegistersHeight") === true) ? tblRegistersDataObject._tblRegistersHeight : tblRegistersHeight;
+        if(!tblRegistersHeight)
+        {
+            tblRegistersHeight = 0;
+        }
+        tblRegistersWeight = (tblRegistersDataObject.hasOwnProperty("_tblRegistersWeight") === true) ? tblRegistersDataObject._tblRegistersWeight : tblRegistersWeight;
+        if(!tblRegistersWeight)
+        {
+            tblRegistersWeight = 0;
+        }
+
+        tblRegistersDocumentType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentType") === true && (tblRegistersDataObject._tblRegistersDocumentType)) ? tblRegistersDataObject._tblRegistersDocumentType : tblRegistersDocumentType;
+        tblRegistersDocument = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocument, "db_write_text") : tblRegistersDocument;
+        tblRegistersDocument1Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument1Type") === true && (tblRegistersDataObject._tblRegistersDocument1Type)) ? tblRegistersDataObject._tblRegistersDocument1Type : tblRegistersDocument1Type;
+        tblRegistersDocument1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocument1, "db_write_text") : tblRegistersDocument1;
+        tblRegistersDocument2Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument2Type") === true && (tblRegistersDataObject._tblRegistersDocument2Type)) ? tblRegistersDataObject._tblRegistersDocument2Type : tblRegistersDocument2Type;
+        tblRegistersDocument2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocument2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocument2, "db_write_text") : tblRegistersDocument2;
+
+        tblRegistersDocumentCompanyType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompanyType") === true && (tblRegistersDataObject._tblRegistersDocumentCompanyType)) ? tblRegistersDataObject._tblRegistersDocumentCompanyType : tblRegistersDocumentCompanyType;
+        tblRegistersDocumentCompany = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocumentCompany, "db_write_text") : tblRegistersDocumentCompany;
+        tblRegistersDocumentCompany1Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany1Type") === true && (tblRegistersDataObject._tblRegistersDocumentCompany1Type)) ? tblRegistersDataObject._tblRegistersDocumentCompany1Type : tblRegistersDocumentCompany1Type;
+        tblRegistersDocumentCompany1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocumentCompany1, "db_write_text") : tblRegistersDocumentCompany1;
+        tblRegistersDocumentCompany2Type = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany2Type") === true && (tblRegistersDataObject._tblRegistersDocumentCompany2Type)) ? tblRegistersDataObject._tblRegistersDocumentCompany2Type : tblRegistersDocumentCompany2Type;
+        tblRegistersDocumentCompany2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDocumentCompany2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDocumentCompany2, "db_write_text") : tblRegistersDocumentCompany2;
+
+        tblRegistersZipCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersZipCode") === true) ? FunctionsGeneric.removeNonNumerical(tblRegistersDataObject._tblRegistersZipCode) : tblRegistersZipCode;
+        tblRegistersAddressStreet = (tblRegistersDataObject.hasOwnProperty("_tblRegistersAddressStreet") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersAddressStreet, "db_write_text") : tblRegistersAddressStreet;
+        tblRegistersAddressNumber = (tblRegistersDataObject.hasOwnProperty("_tblRegistersAddressNumber") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersAddressNumber, "db_write_text") : tblRegistersAddressNumber;
+        tblRegistersAddressComplement = (tblRegistersDataObject.hasOwnProperty("_tblRegistersAddressComplement") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersAddressComplement, "db_write_text") : tblRegistersAddressComplement;
+        tblRegistersNeighborhood = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNeighborhood") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNeighborhood, "db_write_text") : tblRegistersNeighborhood;
+        tblRegistersDistrict = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDistrict") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersDistrict, "db_write_text") : tblRegistersDistrict;
+        tblRegistersCounty = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCounty") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCounty, "db_write_text") : tblRegistersCounty;
+        tblRegistersCity = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCity") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCity, "db_write_text") : tblRegistersCity;
+        tblRegistersState = (tblRegistersDataObject.hasOwnProperty("_tblRegistersState") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersState, "db_write_text") : tblRegistersState;
+        tblRegistersCountry = (tblRegistersDataObject.hasOwnProperty("_tblRegistersCountry") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersCountry, "db_write_text") : tblRegistersCountry;
+
+        tblRegistersIdStreet = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdStreet") === true && (tblRegistersDataObject._tblRegistersIdStreet)) ? tblRegistersDataObject._tblRegistersIdStreet : tblRegistersIdStreet;
+        tblRegistersIdNeighborhood = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdNeighborhood") === true && (tblRegistersDataObject._tblRegistersIdNeighborhood)) ? tblRegistersDataObject._tblRegistersIdNeighborhood : tblRegistersIdNeighborhood;
+        tblRegistersIdDistrict = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdDistrict") === true && (tblRegistersDataObject._tblRegistersIdDistrict)) ? tblRegistersDataObject._tblRegistersIdDistrict : tblRegistersIdDistrict;
+        tblRegistersIdCounty = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdCounty") === true && (tblRegistersDataObject._tblRegistersIdCounty)) ? tblRegistersDataObject._tblRegistersIdCounty : tblRegistersIdCounty;
+        tblRegistersIdCity = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdCity") === true && (tblRegistersDataObject._tblRegistersIdCity)) ? tblRegistersDataObject._tblRegistersIdCity : tblRegistersIdCity;
+        tblRegistersIdState = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdState") === true && (tblRegistersDataObject._tblRegistersIdState)) ? tblRegistersDataObject._tblRegistersIdState : tblRegistersIdState;
+        tblRegistersIdCountry = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdCountry") === true && (tblRegistersDataObject._tblRegistersIdCountry)) ? tblRegistersDataObject._tblRegistersIdCountry : tblRegistersIdCountry;
+
+        tblRegistersLocationReference = (tblRegistersDataObject.hasOwnProperty("_tblRegistersLocationReference") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersLocationReference, "db_write_text") : tblRegistersLocationReference;
+        tblRegistersLocationMap = (tblRegistersDataObject.hasOwnProperty("_tblRegistersLocationMap") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersLocationMap, "db_write_text") : tblRegistersLocationMap;
+
+        tblRegistersPhone1InternationalCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone1InternationalCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone1InternationalCode, "db_write_text") : tblRegistersPhone1InternationalCode;
+        tblRegistersPhone1AreaCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone1AreaCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone1AreaCode, "db_write_text") : tblRegistersPhone1AreaCode;
+        tblRegistersPhone1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone1, "db_write_text") : tblRegistersPhone1;
+
+        tblRegistersPhone2InternationalCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone2InternationalCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone2InternationalCode, "db_write_text") : tblRegistersPhone2InternationalCode;
+        tblRegistersPhone2AreaCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone2AreaCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone2AreaCode, "db_write_text") : tblRegistersPhone2AreaCode;
+        tblRegistersPhone2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone2, "db_write_text") : tblRegistersPhone2;
+
+        tblRegistersPhone3InternationalCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone3InternationalCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone3InternationalCode, "db_write_text") : tblRegistersPhone3InternationalCode;
+        tblRegistersPhone3AreaCode = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone3AreaCode") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone3AreaCode, "db_write_text") : tblRegistersPhone3AreaCode;
+        tblRegistersPhone3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPhone3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPhone3, "db_write_text") : tblRegistersPhone3;
+
+        tblRegistersWebsite = (tblRegistersDataObject.hasOwnProperty("_tblRegistersWebsite") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersWebsite, "db_write_text") : tblRegistersWebsite;
+
+        tblRegistersUsername = (tblRegistersDataObject.hasOwnProperty("_tblRegistersUsername") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersUsername, "db_write_text") : tblRegistersUsername;
+        tblRegistersEmail = (tblRegistersDataObject.hasOwnProperty("_tblRegistersEmail") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersEmail, "db_write_text") : tblRegistersEmail;
+        
+        //tblRegistersPassword = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPassword") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPassword, "db_write_text") : tblRegistersPassword;
+        tblRegistersPassword = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPassword") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPassword, "db_write_text"), 2) : tblRegistersPassword;
+
+        tblRegistersPasswordHint = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPasswordHint") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPasswordHint, "db_write_text") : tblRegistersPasswordHint;
+        tblRegistersPasswordLength = (tblRegistersDataObject.hasOwnProperty("_tblRegistersPasswordLength") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersPasswordLength, "db_write_text") : tblRegistersPasswordLength;
+        
+        if(gSystemConfig.configRegistersInfo1FieldType == 1 || gSystemConfig.configRegistersInfo1FieldType == 2)
+        {
+            tblRegistersInfo1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo1, "db_write_text") : tblRegistersInfo1;
+        }
+        if(gSystemConfig.configRegistersInfo1FieldType == 11 || gSystemConfig.configRegistersInfo1FieldType == 12)
+        {
+            tblRegistersInfo1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo1, "db_write_text"), 2) : tblRegistersInfo1;
+        }
+
+        if(gSystemConfig.configRegistersInfo2FieldType == 1 || gSystemConfig.configRegistersInfo2FieldType == 2)
+        {
+            tblRegistersInfo2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo2, "db_write_text") : tblRegistersInfo2;
+        }
+        if(gSystemConfig.configRegistersInfo2FieldType == 11 || gSystemConfig.configRegistersInfo2FieldType == 12)
+        {
+            tblRegistersInfo2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo2") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo2, "db_write_text"), 2) : tblRegistersInfo2;
+        }
+
+        if(gSystemConfig.configRegistersInfo3FieldType == 1 || gSystemConfig.configRegistersInfo3FieldType == 2)
+        {
+            tblRegistersInfo3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo3, "db_write_text") : tblRegistersInfo3;
+        }
+        if(gSystemConfig.configRegistersInfo3FieldType == 11 || gSystemConfig.configRegistersInfo3FieldType == 12)
+        {
+            tblRegistersInfo3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo3") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo3, "db_write_text"), 2) : tblRegistersInfo3;
+        }
+
+        if(gSystemConfig.configRegistersInfo4FieldType == 1 || gSystemConfig.configRegistersInfo4FieldType == 2)
+        {
+            tblRegistersInfo4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo4") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo4, "db_write_text") : tblRegistersInfo4;
+        }
+        if(gSystemConfig.configRegistersInfo4FieldType == 11 || gSystemConfig.configRegistersInfo4FieldType == 12)
+        {
+            tblRegistersInfo4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo4") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo4, "db_write_text"), 2) : tblRegistersInfo1;
+        }
+
+        if(gSystemConfig.configRegistersInfo5FieldType == 1 || gSystemConfig.configRegistersInfo5FieldType == 2)
+        {
+            tblRegistersInfo5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo5") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo5, "db_write_text") : tblRegistersInfo5;
+        }
+        if(gSystemConfig.configRegistersInfo5FieldType == 11 || gSystemConfig.configRegistersInfo5FieldType == 12)
+        {
+            tblRegistersInfo5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo5, "db_write_text"), 2) : tblRegistersInfo5;
+        }
+
+        if(gSystemConfig.configRegistersInfo6FieldType == 1 || gSystemConfig.configRegistersInfo6FieldType == 2)
+        {
+            tblRegistersInfo6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo6") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo6, "db_write_text") : tblRegistersInfo6;
+        }
+        if(gSystemConfig.configRegistersInfo6FieldType == 11 || gSystemConfig.configRegistersInfo6FieldType == 12)
+        {
+            tblRegistersInfo6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo6") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo6, "db_write_text"), 2) : tblRegistersInfo6;
+        }
+
+        if(gSystemConfig.configRegistersInfo7FieldType == 1 || gSystemConfig.configRegistersInfo7FieldType == 2)
+        {
+            tblRegistersInfo7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo7") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo7, "db_write_text") : tblRegistersInfo7;
+        }
+        if(gSystemConfig.configRegistersInfo7FieldType == 11 || gSystemConfig.configRegistersInfo7FieldType == 12)
+        {
+            tblRegistersInfo7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo7") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo7, "db_write_text"), 2) : tblRegistersInfo7;
+        }
+
+        if(gSystemConfig.configRegistersInfo8FieldType == 1 || gSystemConfig.configRegistersInfo8FieldType == 2)
+        {
+            tblRegistersInfo8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo8") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo8, "db_write_text") : tblRegistersInfo8;
+        }
+        if(gSystemConfig.configRegistersInfo8FieldType == 11 || gSystemConfig.configRegistersInfo8FieldType == 12)
+        {
+            tblRegistersInfo8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo8") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo8, "db_write_text"), 2) : tblRegistersInfo8;
+        }
+
+        if(gSystemConfig.configRegistersInfo9FieldType == 1 || gSystemConfig.configRegistersInfo9FieldType == 2)
+        {
+            tblRegistersInfo9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo9") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo9, "db_write_text") : tblRegistersInfo9;
+        }
+        if(gSystemConfig.configRegistersInfo9FieldType == 11 || gSystemConfig.configRegistersInfo9FieldType == 12)
+        {
+            tblRegistersInfo9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo9") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo9, "db_write_text"), 2) : tblRegistersInfo9;
+        }
+
+        if(gSystemConfig.configRegistersInfo10FieldType == 1 || gSystemConfig.configRegistersInfo10FieldType == 2)
+        {
+            tblRegistersInfo10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo10") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo10, "db_write_text") : tblRegistersInfo10;
+        }
+        if(gSystemConfig.configRegistersInfo10FieldType == 11 || gSystemConfig.configRegistersInfo10FieldType == 12)
+        {
+            tblRegistersInfo10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo10") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo10, "db_write_text"), 2) : tblRegistersInfo10;
+        }
+
+        if(gSystemConfig.configRegistersInfo11FieldType == 1 || gSystemConfig.configRegistersInfo11FieldType == 2)
+        {
+            tblRegistersInfo11 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo11") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo11, "db_write_text") : tblRegistersInfo11;
+        }
+        if(gSystemConfig.configRegistersInfo11FieldType == 11 || gSystemConfig.configRegistersInfo11FieldType == 12)
+        {
+            tblRegistersInfo11 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo11") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo11, "db_write_text"), 2) : tblRegistersInfo11;
+        }
+
+        if(gSystemConfig.configRegistersInfo12FieldType == 1 || gSystemConfig.configRegistersInfo12FieldType == 2)
+        {
+            tblRegistersInfo12 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo12") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo12, "db_write_text") : tblRegistersInfo12;
+        }
+        if(gSystemConfig.configRegistersInfo12FieldType == 11 || gSystemConfig.configRegistersInfo12FieldType == 12)
+        {
+            tblRegistersInfo12 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo12") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo12, "db_write_text"), 2) : tblRegistersInfo12;
+        }
+
+        if(gSystemConfig.configRegistersInfo13FieldType == 1 || gSystemConfig.configRegistersInfo13FieldType == 2)
+        {
+            tblRegistersInfo13 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo13") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo13, "db_write_text") : tblRegistersInfo13;
+        }
+        if(gSystemConfig.configRegistersInfo13FieldType == 11 || gSystemConfig.configRegistersInfo13FieldType == 12)
+        {
+            tblRegistersInfo13 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo13") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo13, "db_write_text"), 2) : tblRegistersInfo13;
+        }
+
+        if(gSystemConfig.configRegistersInfo14FieldType == 1 || gSystemConfig.configRegistersInfo14FieldType == 2)
+        {
+            tblRegistersInfo14 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo14") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo14, "db_write_text") : tblRegistersInfo14;
+        }
+        if(gSystemConfig.configRegistersInfo14FieldType == 11 || gSystemConfig.configRegistersInfo14FieldType == 12)
+        {
+            tblRegistersInfo14 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo14") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo14, "db_write_text"), 2) : tblRegistersInfo11;
+        }
+
+        if(gSystemConfig.configRegistersInfo15FieldType == 1 || gSystemConfig.configRegistersInfo15FieldType == 2)
+        {
+            tblRegistersInfo15 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo15") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo15, "db_write_text") : tblRegistersInfo15;
+        }
+        if(gSystemConfig.configRegistersInfo15FieldType == 11 || gSystemConfig.configRegistersInfo15FieldType == 12)
+        {
+            tblRegistersInfo15 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo11") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo15, "db_write_text"), 2) : tblRegistersInfo15;
+        }
+
+        if(gSystemConfig.configRegistersInfo16FieldType == 1 || gSystemConfig.configRegistersInfo16FieldType == 2)
+        {
+            tblRegistersInfo16 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo16") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo16, "db_write_text") : tblRegistersInfo16;
+        }
+        if(gSystemConfig.configRegistersInfo16FieldType == 11 || gSystemConfig.configRegistersInfo16FieldType == 12)
+        {
+            tblRegistersInfo16 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo16") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo16, "db_write_text"), 2) : tblRegistersInfo16;
+        }
+
+        if(gSystemConfig.configRegistersInfo17FieldType == 1 || gSystemConfig.configRegistersInfo17FieldType == 2)
+        {
+            tblRegistersInfo17 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo17") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo17, "db_write_text") : tblRegistersInfo17;
+        }
+        if(gSystemConfig.configRegistersInfo17FieldType == 11 || gSystemConfig.configRegistersInfo17FieldType == 12)
+        {
+            tblRegistersInfo17 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo17") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo17, "db_write_text"), 2) : tblRegistersInfo17;
+        }
+
+        if(gSystemConfig.configRegistersInfo18FieldType == 1 || gSystemConfig.configRegistersInfo18FieldType == 2)
+        {
+            tblRegistersInfo18 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo18") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo18, "db_write_text") : tblRegistersInfo18;
+        }
+        if(gSystemConfig.configRegistersInfo18FieldType == 11 || gSystemConfig.configRegistersInfo18FieldType == 12)
+        {
+            tblRegistersInfo18 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo18") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo18, "db_write_text"), 2) : tblRegistersInfo18;
+        }
+
+        if(gSystemConfig.configRegistersInfo19FieldType == 1 || gSystemConfig.configRegistersInfo19FieldType == 2)
+        {
+            tblRegistersInfo19 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo19") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo19, "db_write_text") : tblRegistersInfo19;
+        }
+        if(gSystemConfig.configRegistersInfo19FieldType == 11 || gSystemConfig.configRegistersInfo19FieldType == 12)
+        {
+            tblRegistersInfo19 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo19") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo19, "db_write_text"), 2) : tblRegistersInfo19;
+        }
+
+        if(gSystemConfig.configRegistersInfo20FieldType == 1 || gSystemConfig.configRegistersInfo20FieldType == 2)
+        {
+            tblRegistersInfo20 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo20") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo20, "db_write_text") : tblRegistersInfo20;
+        }
+        if(gSystemConfig.configRegistersInfo20FieldType == 11 || gSystemConfig.configRegistersInfo20FieldType == 12)
+        {
+            tblRegistersInfo20 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfo20") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfo20, "db_write_text"), 2) : tblRegistersInfo20;
+        }
+        
+        tblRegistersInfoSmall1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall1, "db_write_text") : tblRegistersInfoSmall1;
+        tblRegistersInfoSmall2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall2, "db_write_text") : tblRegistersInfoSmall2;
+        tblRegistersInfoSmall3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall3, "db_write_text") : tblRegistersInfoSmall3;
+        tblRegistersInfoSmall4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall4") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall4, "db_write_text") : tblRegistersInfoSmall4;
+        tblRegistersInfoSmall5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall5") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall5, "db_write_text") : tblRegistersInfoSmall5;
+        tblRegistersInfoSmall6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall6") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall6, "db_write_text") : tblRegistersInfoSmall6;
+        tblRegistersInfoSmall7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall7") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall7, "db_write_text") : tblRegistersInfoSmall7;
+        tblRegistersInfoSmall8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall8") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall8, "db_write_text") : tblRegistersInfoSmall8;
+        tblRegistersInfoSmall9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall9") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall9, "db_write_text") : tblRegistersInfoSmall9;
+        tblRegistersInfoSmall10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall10") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall10, "db_write_text") : tblRegistersInfoSmall10;
+        tblRegistersInfoSmall11 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall11") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall11, "db_write_text") : tblRegistersInfoSmall11;
+        tblRegistersInfoSmall12 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall12") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall12, "db_write_text") : tblRegistersInfoSmall12;
+        tblRegistersInfoSmall13 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall13") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall13, "db_write_text") : tblRegistersInfoSmall13;
+        tblRegistersInfoSmall14 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall14") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall14, "db_write_text") : tblRegistersInfoSmall14;
+        tblRegistersInfoSmall15 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall15") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall15, "db_write_text") : tblRegistersInfoSmall15;
+        tblRegistersInfoSmall16 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall16") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall16, "db_write_text") : tblRegistersInfoSmall16;
+        tblRegistersInfoSmall17 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall17") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall17, "db_write_text") : tblRegistersInfoSmall17;
+        tblRegistersInfoSmall18 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall18") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall18, "db_write_text") : tblRegistersInfoSmall18;
+        tblRegistersInfoSmall19 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall19") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall19, "db_write_text") : tblRegistersInfoSmall19;
+        tblRegistersInfoSmall20 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall20") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall20, "db_write_text") : tblRegistersInfoSmall20;
+        tblRegistersInfoSmall21 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall21") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall21, "db_write_text") : tblRegistersInfoSmall21;
+        tblRegistersInfoSmall22 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall22") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall22, "db_write_text") : tblRegistersInfoSmall22;
+        tblRegistersInfoSmall23 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall23") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall23, "db_write_text") : tblRegistersInfoSmall23;
+        tblRegistersInfoSmall24 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall24") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall24, "db_write_text") : tblRegistersInfoSmall24;
+        tblRegistersInfoSmall25 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall25") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall25, "db_write_text") : tblRegistersInfoSmall25;
+        tblRegistersInfoSmall26 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall26") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall26, "db_write_text") : tblRegistersInfoSmall26;
+        tblRegistersInfoSmall27 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall27") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall27, "db_write_text") : tblRegistersInfoSmall27;
+        tblRegistersInfoSmall28 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall28") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall28, "db_write_text") : tblRegistersInfoSmall28;
+        tblRegistersInfoSmall29 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall29") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall29, "db_write_text") : tblRegistersInfoSmall29;
+        tblRegistersInfoSmall30 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersInfoSmall30") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersInfoSmall30, "db_write_text") : tblRegistersInfoSmall30;
+
+        tblRegistersNumber1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber1") === true && (tblRegistersDataObject._tblRegistersNumber1)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber1, gSystemConfig.configRegistersNumber1FieldType) : tblRegistersNumber1;
+        tblRegistersNumber2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber2") === true && (tblRegistersDataObject._tblRegistersNumber2)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber2, gSystemConfig.configRegistersNumber2FieldType) : tblRegistersNumber2;
+        tblRegistersNumber3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber3") === true && (tblRegistersDataObject._tblRegistersNumber3)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber3, gSystemConfig.configRegistersNumber3FieldType) : tblRegistersNumber3;
+        tblRegistersNumber4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber4") === true && (tblRegistersDataObject._tblRegistersNumber4)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber4, gSystemConfig.configRegistersNumber4FieldType) : tblRegistersNumber4;
+        tblRegistersNumber5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumber5") === true && (tblRegistersDataObject._tblRegistersNumber5)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumber5, gSystemConfig.configRegistersNumber5FieldType) : tblRegistersNumber5;
+        
+        tblRegistersNumberSmall1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall1") === true && (tblRegistersDataObject._tblRegistersNumberSmall1)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall1, gSystemConfig.configRegistersNumberS1FieldType) : tblRegistersNumberSmall1;
+        tblRegistersNumberSmall2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall2") === true && (tblRegistersDataObject._tblRegistersNumberSmall2)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall2, gSystemConfig.configRegistersNumberS2FieldType) : tblRegistersNumberSmall2;
+        tblRegistersNumberSmall3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall3") === true && (tblRegistersDataObject._tblRegistersNumberSmall3)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall3, gSystemConfig.configRegistersNumberS3FieldType) : tblRegistersNumberSmall3;
+        tblRegistersNumberSmall4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall4") === true && (tblRegistersDataObject._tblRegistersNumberSmall4)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall4, gSystemConfig.configRegistersNumberS4FieldType) : tblRegistersNumberSmall4;
+        tblRegistersNumberSmall5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNumberSmall5") === true && (tblRegistersDataObject._tblRegistersNumberSmall5)) ? FunctionsGeneric.valueMaskWrite(tblRegistersDataObject._tblRegistersNumberSmall5, gSystemConfig.configRegistersNumberS5FieldType) : tblRegistersNumberSmall5;
+        
+        tblRegistersURL1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL1") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL1, "db_write_text") : tblRegistersURL1;
+        tblRegistersURL2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL2") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL2, "db_write_text") : tblRegistersURL2;
+        tblRegistersURL3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL3") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL3, "db_write_text") : tblRegistersURL3;
+        tblRegistersURL4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL4") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL4, "db_write_text") : tblRegistersURL4;
+        tblRegistersURL5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersURL5") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersURL5, "db_write_text") : tblRegistersURL5;
+        
+        tblRegistersDate1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate1") === true && (tblRegistersDataObject._tblRegistersDate1)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate1, gSystemConfig.configBackendDateFormat) : tblRegistersDate1;
+        tblRegistersDate2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate2") === true && (tblRegistersDataObject._tblRegistersDate2)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate2, gSystemConfig.configBackendDateFormat) : tblRegistersDate2;
+        tblRegistersDate3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate3") === true && (tblRegistersDataObject._tblRegistersDate3)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate3, gSystemConfig.configBackendDateFormat) : tblRegistersDate3;
+        tblRegistersDate4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate4") === true && (tblRegistersDataObject._tblRegistersDate4)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate4, gSystemConfig.configBackendDateFormat) : tblRegistersDate4;
+        tblRegistersDate5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate5") === true && (tblRegistersDataObject._tblRegistersDate5)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate5, gSystemConfig.configBackendDateFormat) : tblRegistersDate5;
+        tblRegistersDate6 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate6") === true && (tblRegistersDataObject._tblRegistersDate6)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate6, gSystemConfig.configBackendDateFormat) : tblRegistersDate6;
+        tblRegistersDate7 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate7") === true && (tblRegistersDataObject._tblRegistersDate7)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate7, gSystemConfig.configBackendDateFormat) : tblRegistersDate7;
+        tblRegistersDate8 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate8") === true && (tblRegistersDataObject._tblRegistersDate8)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate8, gSystemConfig.configBackendDateFormat) : tblRegistersDate8;
+        tblRegistersDate9 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate9") === true && (tblRegistersDataObject._tblRegistersDate9)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate9, gSystemConfig.configBackendDateFormat) : tblRegistersDate9;
+        tblRegistersDate10 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersDate10") === true && (tblRegistersDataObject._tblRegistersDate10)) ? FunctionsGeneric.dateSQLWrite(tblRegistersDataObject._tblRegistersDate10, gSystemConfig.configBackendDateFormat) : tblRegistersDate10;
+
+        tblRegistersImageMain = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageMain") === true) ? tblRegistersDataObject._tblRegistersImageMain : tblRegistersImageMain;
+        tblRegistersImageMainCaption = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageMainCaption") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersImageMainCaption, "db_write_text") : tblRegistersImageMainCaption;
+        tblRegistersImageLogo = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageLogo") === true) ? tblRegistersDataObject._tblRegistersImageLogo : tblRegistersImageLogo;
+        tblRegistersImageBanner = (tblRegistersDataObject.hasOwnProperty("_tblRegistersImageBanner") === true) ? tblRegistersDataObject._tblRegistersImageBanner : tblRegistersImageBanner;
+        tblRegistersFile1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile1") === true) ? tblRegistersDataObject._tblRegistersFile1 : tblRegistersFile1;
+        tblRegistersFile2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile2") === true) ? tblRegistersDataObject._tblRegistersFile2 : tblRegistersFile2;
+        tblRegistersFile3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile3") === true) ? tblRegistersDataObject._tblRegistersFile3 : tblRegistersFile3;
+        tblRegistersFile4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile4") === true) ? tblRegistersDataObject._tblRegistersFile4 : tblRegistersFile4;
+        tblRegistersFile5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersFile5") === true) ? tblRegistersDataObject._tblRegistersFile5 : tblRegistersFile5;
+        
+        tblRegistersActivation = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation") === true && (tblRegistersDataObject._tblRegistersActivation)) ? tblRegistersDataObject._tblRegistersActivation : tblRegistersActivation;
+        tblRegistersActivation1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation1") === true && (tblRegistersDataObject._tblRegistersActivation1)) ? tblRegistersDataObject._tblRegistersActivation1 : tblRegistersActivation1;
+        tblRegistersActivation2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation2") === true && (tblRegistersDataObject._tblRegistersActivation2)) ? tblRegistersDataObject._tblRegistersActivation2 : tblRegistersActivation2;
+        tblRegistersActivation3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation3") === true && (tblRegistersDataObject._tblRegistersActivation3)) ? tblRegistersDataObject._tblRegistersActivation3 : tblRegistersActivation3;
+        tblRegistersActivation4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation5") === true && (tblRegistersDataObject._tblRegistersActivation4)) ? tblRegistersDataObject._tblRegistersActivation4 : tblRegistersActivation5;
+        tblRegistersActivation5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation5") === true && (tblRegistersDataObject._tblRegistersActivation5)) ? tblRegistersDataObject._tblRegistersActivation5 : tblRegistersActivation5;
+        
+        tblRegistersIdStatus = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdStatus") === true && (tblRegistersDataObject._tblRegistersIdStatus)) ? tblRegistersDataObject._tblRegistersIdStatus : tblRegistersIdStatus;
+        tblRegistersRestrictedAccess = (tblRegistersDataObject.hasOwnProperty("_tblRegistersRestrictedAccess") === true && (tblRegistersDataObject._tblRegistersRestrictedAccess)) ? tblRegistersDataObject._tblRegistersRestrictedAccess : tblRegistersRestrictedAccess;
+        tblRegistersNotes = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNotes, "db_write_text") : tblRegistersNotes;
+        
+        arrIdsRegistersFiltersGeneric1 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric1") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric1)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric1 : arrIdsRegistersFiltersGeneric1;
+        arrIdsRegistersFiltersGeneric2 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric2") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric2)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric2 : arrIdsRegistersFiltersGeneric2;
+        arrIdsRegistersFiltersGeneric3 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric3") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric3)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric3 : arrIdsRegistersFiltersGeneric3;
+        arrIdsRegistersFiltersGeneric4 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric4") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric4)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric4 : arrIdsRegistersFiltersGeneric4;
+        arrIdsRegistersFiltersGeneric5 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric5") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric5)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric5 : arrIdsRegistersFiltersGeneric5;
+        arrIdsRegistersFiltersGeneric6 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric6") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric6)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric6 : arrIdsRegistersFiltersGeneric6;
+        arrIdsRegistersFiltersGeneric5 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric5") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric5)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric5 : arrIdsRegistersFiltersGeneric5;
+        arrIdsRegistersFiltersGeneric6 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric6") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric6)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric6 : arrIdsRegistersFiltersGeneric6;
+        arrIdsRegistersFiltersGeneric7 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric7") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric7)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric7 : arrIdsRegistersFiltersGeneric7;
+        arrIdsRegistersFiltersGeneric8 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric8") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric8)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric8 : arrIdsRegistersFiltersGeneric8;
+        arrIdsRegistersFiltersGeneric9 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric9") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric9)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric9 : arrIdsRegistersFiltersGeneric9;
+        arrIdsRegistersFiltersGeneric10 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric10") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric10)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric10 : arrIdsRegistersFiltersGeneric10;
+        arrIdsRegistersFiltersGeneric11 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric11") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric11)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric11 : arrIdsRegistersFiltersGeneric11;
+        arrIdsRegistersFiltersGeneric12 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric12") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric12)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric12 : arrIdsRegistersFiltersGeneric12;
+        arrIdsRegistersFiltersGeneric13 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric13") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric13)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric13 : arrIdsRegistersFiltersGeneric13;
+        arrIdsRegistersFiltersGeneric14 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric14") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric14)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric14 : arrIdsRegistersFiltersGeneric14;
+        arrIdsRegistersFiltersGeneric15 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric15") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric15)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric15 : arrIdsRegistersFiltersGeneric15;
+        arrIdsRegistersFiltersGeneric16 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric16") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric16)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric16 : arrIdsRegistersFiltersGeneric16;
+        arrIdsRegistersFiltersGeneric15 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric15") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric15)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric15 : arrIdsRegistersFiltersGeneric15;
+        arrIdsRegistersFiltersGeneric16 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric16") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric16)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric16 : arrIdsRegistersFiltersGeneric16;
+        arrIdsRegistersFiltersGeneric17 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric17") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric17)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric17 : arrIdsRegistersFiltersGeneric17;
+        arrIdsRegistersFiltersGeneric18 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric18") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric18)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric18 : arrIdsRegistersFiltersGeneric18;
+        arrIdsRegistersFiltersGeneric19 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric19") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric19)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric19 : arrIdsRegistersFiltersGeneric19;
+        arrIdsRegistersFiltersGeneric20 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric20") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric20)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric20 : arrIdsRegistersFiltersGeneric20;
+        arrIdsRegistersFiltersGeneric21 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric21") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric21)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric21 : arrIdsRegistersFiltersGeneric21;
+        arrIdsRegistersFiltersGeneric22 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric22") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric22)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric22 : arrIdsRegistersFiltersGeneric22;
+        arrIdsRegistersFiltersGeneric23 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric23") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric23)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric23 : arrIdsRegistersFiltersGeneric23;
+        arrIdsRegistersFiltersGeneric24 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric24") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric24)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric24 : arrIdsRegistersFiltersGeneric24;
+        arrIdsRegistersFiltersGeneric25 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric25") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric25)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric25 : arrIdsRegistersFiltersGeneric25;
+        arrIdsRegistersFiltersGeneric26 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric26") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric26)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric26 : arrIdsRegistersFiltersGeneric26;
+        arrIdsRegistersFiltersGeneric25 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric25") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric25)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric25 : arrIdsRegistersFiltersGeneric25;
+        arrIdsRegistersFiltersGeneric26 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric26") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric26)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric26 : arrIdsRegistersFiltersGeneric26;
+        arrIdsRegistersFiltersGeneric27 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric27") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric27)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric27 : arrIdsRegistersFiltersGeneric27;
+        arrIdsRegistersFiltersGeneric28 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric28") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric28)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric28 : arrIdsRegistersFiltersGeneric28;
+        arrIdsRegistersFiltersGeneric29 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric29") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric29)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric29 : arrIdsRegistersFiltersGeneric29;
+        arrIdsRegistersFiltersGeneric30 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric30") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric30)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric30 : arrIdsRegistersFiltersGeneric30;
+        arrIdsRegistersFiltersGeneric31 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric31") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric31)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric31 : arrIdsRegistersFiltersGeneric31;
+        arrIdsRegistersFiltersGeneric32 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric32") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric32)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric32 : arrIdsRegistersFiltersGeneric32;
+        arrIdsRegistersFiltersGeneric33 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric33") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric33)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric33 : arrIdsRegistersFiltersGeneric33;
+        arrIdsRegistersFiltersGeneric34 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric34") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric34)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric34 : arrIdsRegistersFiltersGeneric34;
+        arrIdsRegistersFiltersGeneric35 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric35") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric35)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric35 : arrIdsRegistersFiltersGeneric35;
+        arrIdsRegistersFiltersGeneric36 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric36") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric36)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric36 : arrIdsRegistersFiltersGeneric36;
+        arrIdsRegistersFiltersGeneric35 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric35") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric35)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric35 : arrIdsRegistersFiltersGeneric35;
+        arrIdsRegistersFiltersGeneric36 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric36") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric36)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric36 : arrIdsRegistersFiltersGeneric36;
+        arrIdsRegistersFiltersGeneric37 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric37") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric37)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric37 : arrIdsRegistersFiltersGeneric37;
+        arrIdsRegistersFiltersGeneric38 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric38") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric38)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric38 : arrIdsRegistersFiltersGeneric38;
+        arrIdsRegistersFiltersGeneric39 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric39") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric39)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric39 : arrIdsRegistersFiltersGeneric39;
+        arrIdsRegistersFiltersGeneric40 = (tblRegistersDataObject.hasOwnProperty("_arrIdsRegistersFiltersGeneric40") === true && (tblRegistersDataObject._arrIdsRegistersFiltersGeneric40)) ? tblRegistersDataObject._arrIdsRegistersFiltersGeneric40 : arrIdsRegistersFiltersGeneric40;
+        //----------------------
+
+
+        //Query.
+        //----------------------
+        //strSQLCategoriesUpdate += "INSERT INTO " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + "categories";
+        strSQLRegistersUpdate += "UPDATE " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + gSystemConfig.configSystemDBTableRegisters + " ";
+        strSQLRegistersUpdate += "SET ? ";
+        strSQLRegistersUpdate += "WHERE id = ?";
+        //----------------------
+
+
+        //Parameters.
+        //----------------------
+        //strSQLRegistersUpdateParams.id = tblRegistersID;
+        strSQLRegistersUpdateParams.id_parent = tblRegistersIdParent;
+        strSQLRegistersUpdateParams.sort_order = tblRegistersSortOrder;
+
+        //strSQLRegistersUpdateParams.date_creation = tblRegistersDateCreation;
+        strSQLRegistersUpdateParams.date_timezone = tblRegistersDateTimezone;
+        strSQLRegistersUpdateParams.date_edit = tblRegistersDateEdit;
+
+        strSQLRegistersUpdateParams.id_type = tblRegistersIdType;
+        strSQLRegistersUpdateParams.id_activity = tblRegistersIdActivity;
+
+        strSQLRegistersUpdateParams.id_register_user = tblRegistersIdRegisterUser;
+        strSQLRegistersUpdateParams.id_register1 = tblRegistersIdRegister1;
+        strSQLRegistersUpdateParams.id_register2 = tblRegistersIdRegister2;
+        strSQLRegistersUpdateParams.id_register3 = tblRegistersIdRegister3;
+        strSQLRegistersUpdateParams.id_register4 = tblRegistersIdRegister4;
+        strSQLRegistersUpdateParams.id_register5 = tblRegistersIdRegister5;
+
+        strSQLRegistersUpdateParams.register_type = tblRegistersType;
+
+        strSQLRegistersUpdateParams.name_title = tblRegistersNameTitle;
+        strSQLRegistersUpdateParams.name_full = tblRegistersNameFull;
+        strSQLRegistersUpdateParams.name_first = tblRegistersNameFirst;
+        strSQLRegistersUpdateParams.name_last = tblRegistersNameLast;
+
+        strSQLRegistersUpdateParams.company_name_legal = tblRegistersCompanyNameLegal;
+        strSQLRegistersUpdateParams.company_name_alias = tblRegistersCompanyNameAlias;
+
+        strSQLRegistersUpdateParams.description = tblRegistersDescription;
+
+        strSQLRegistersUpdateParams.url_alias = tblRegistersURLAlias;
+        strSQLRegistersUpdateParams.keywords_tags = tblRegistersKeywordsTags;
+        strSQLRegistersUpdateParams.meta_description = tblRegistersMetaDescription;
+        strSQLRegistersUpdateParams.meta_title = tblRegistersMetaTitle;
+        strSQLRegistersUpdateParams.meta_info = tblRegistersMetaInfo;
+
+        strSQLRegistersUpdateParams.date_birth = tblRegistersDateBirth;
+        strSQLRegistersUpdateParams.gender = tblRegistersGender;
+        strSQLRegistersUpdateParams.height = tblRegistersHeight;
+        strSQLRegistersUpdateParams.weight = tblRegistersWeight;
+
+        strSQLRegistersUpdateParams.document_type = tblRegistersDocumentType;
+        strSQLRegistersUpdateParams.document = tblRegistersDocument;
+        strSQLRegistersUpdateParams.document1_type = tblRegistersDocument1Type;
+        strSQLRegistersUpdateParams.document1 = tblRegistersDocument1;
+        strSQLRegistersUpdateParams.document2_type = tblRegistersDocument2Type;
+        strSQLRegistersUpdateParams.document2 = tblRegistersDocument2;
+
+        strSQLRegistersUpdateParams.document_company_type = tblRegistersDocumentCompanyType;
+        strSQLRegistersUpdateParams.document_company = tblRegistersDocumentCompany;
+        strSQLRegistersUpdateParams.document_company1_type = tblRegistersDocumentCompany1Type;
+        strSQLRegistersUpdateParams.document_company1 = tblRegistersDocumentCompany1;
+        strSQLRegistersUpdateParams.document_company2_type = tblRegistersDocumentCompany2Type;
+        strSQLRegistersUpdateParams.document_company2 = tblRegistersDocumentCompany2;
+
+        strSQLRegistersUpdateParams.zip_code = tblRegistersZipCode;
+        strSQLRegistersUpdateParams.address_street = tblRegistersAddressStreet;
+        strSQLRegistersUpdateParams.address_number = tblRegistersAddressNumber;
+        strSQLRegistersUpdateParams.address_complement = tblRegistersAddressComplement;
+        strSQLRegistersUpdateParams.neighborhood = tblRegistersNeighborhood;
+        strSQLRegistersUpdateParams.district = tblRegistersDistrict;
+        strSQLRegistersUpdateParams.county = tblRegistersCounty;
+        strSQLRegistersUpdateParams.city = tblRegistersCity;
+        strSQLRegistersUpdateParams.state = tblRegistersState;
+        strSQLRegistersUpdateParams.country = tblRegistersCountry;
+        
+        strSQLRegistersUpdateParams.id_street = tblRegistersIdStreet;
+        strSQLRegistersUpdateParams.id_neighborhood = tblRegistersIdNeighborhood;
+        strSQLRegistersUpdateParams.id_district = tblRegistersIdDistrict;
+        strSQLRegistersUpdateParams.id_county = tblRegistersIdCounty;
+        strSQLRegistersUpdateParams.id_city = tblRegistersIdCity;
+        strSQLRegistersUpdateParams.id_state = tblRegistersIdState;
+        strSQLRegistersUpdateParams.id_country = tblRegistersIdCountry;
+
+        strSQLRegistersUpdateParams.location_reference = tblRegistersLocationReference;
+        strSQLRegistersUpdateParams.location_map = tblRegistersLocationMap;
+
+        strSQLRegistersUpdateParams.phone1_international_code = tblRegistersPhone1InternationalCode;
+        strSQLRegistersUpdateParams.phone1_area_code = tblRegistersPhone1AreaCode;
+        strSQLRegistersUpdateParams.phone1 = tblRegistersPhone1;
+
+        strSQLRegistersUpdateParams.phone2_international_code = tblRegistersPhone2InternationalCode;
+        strSQLRegistersUpdateParams.phone2_area_code = tblRegistersPhone2AreaCode;
+        strSQLRegistersUpdateParams.phone2 = tblRegistersPhone2;
+
+        strSQLRegistersUpdateParams.phone3_international_code = tblRegistersPhone3InternationalCode;
+        strSQLRegistersUpdateParams.phone3_area_code = tblRegistersPhone3AreaCode;
+        strSQLRegistersUpdateParams.phone3 = tblRegistersPhone3;
+
+        strSQLRegistersUpdateParams.website = tblRegistersWebsite;
+
+        strSQLRegistersUpdateParams.username = tblRegistersUsername;
+        strSQLRegistersUpdateParams.email = tblRegistersEmail;
+        strSQLRegistersUpdateParams.password = tblRegistersPassword;
+        strSQLRegistersUpdateParams.password_hint = tblRegistersPasswordHint;
+        strSQLRegistersUpdateParams.password_length = tblRegistersPasswordLength;
+
+        strSQLRegistersUpdateParams.info1 = tblRegistersInfo1;
+        strSQLRegistersUpdateParams.info2 = tblRegistersInfo2;
+        strSQLRegistersUpdateParams.info3 = tblRegistersInfo3;
+        strSQLRegistersUpdateParams.info4 = tblRegistersInfo4;
+        strSQLRegistersUpdateParams.info5 = tblRegistersInfo5;
+        strSQLRegistersUpdateParams.info6 = tblRegistersInfo6;
+        strSQLRegistersUpdateParams.info7 = tblRegistersInfo7;
+        strSQLRegistersUpdateParams.info8 = tblRegistersInfo8;
+        strSQLRegistersUpdateParams.info9 = tblRegistersInfo9;
+        strSQLRegistersUpdateParams.info10 = tblRegistersInfo10;
+        strSQLRegistersUpdateParams.info11 = tblRegistersInfo11;
+        strSQLRegistersUpdateParams.info12 = tblRegistersInfo12;
+        strSQLRegistersUpdateParams.info13 = tblRegistersInfo13;
+        strSQLRegistersUpdateParams.info14 = tblRegistersInfo14;
+        strSQLRegistersUpdateParams.info15 = tblRegistersInfo15;
+        strSQLRegistersUpdateParams.info16 = tblRegistersInfo16;
+        strSQLRegistersUpdateParams.info17 = tblRegistersInfo17;
+        strSQLRegistersUpdateParams.info18 = tblRegistersInfo18;
+        strSQLRegistersUpdateParams.info19 = tblRegistersInfo19;
+        strSQLRegistersUpdateParams.info20 = tblRegistersInfo20;
+
+        strSQLRegistersUpdateParams.info_small1 = tblRegistersInfoSmall1;
+        strSQLRegistersUpdateParams.info_small2 = tblRegistersInfoSmall2;
+        strSQLRegistersUpdateParams.info_small3 = tblRegistersInfoSmall3;
+        strSQLRegistersUpdateParams.info_small4 = tblRegistersInfoSmall4;
+        strSQLRegistersUpdateParams.info_small5 = tblRegistersInfoSmall5;
+        strSQLRegistersUpdateParams.info_small6 = tblRegistersInfoSmall6;
+        strSQLRegistersUpdateParams.info_small7 = tblRegistersInfoSmall7;
+        strSQLRegistersUpdateParams.info_small8 = tblRegistersInfoSmall8;
+        strSQLRegistersUpdateParams.info_small9 = tblRegistersInfoSmall9;
+        strSQLRegistersUpdateParams.info_small10 = tblRegistersInfoSmall10;
+        strSQLRegistersUpdateParams.info_small11 = tblRegistersInfoSmall11;
+        strSQLRegistersUpdateParams.info_small12 = tblRegistersInfoSmall12;
+        strSQLRegistersUpdateParams.info_small13 = tblRegistersInfoSmall13;
+        strSQLRegistersUpdateParams.info_small14 = tblRegistersInfoSmall14;
+        strSQLRegistersUpdateParams.info_small15 = tblRegistersInfoSmall15;
+        strSQLRegistersUpdateParams.info_small16 = tblRegistersInfoSmall16;
+        strSQLRegistersUpdateParams.info_small17 = tblRegistersInfoSmall17;
+        strSQLRegistersUpdateParams.info_small18 = tblRegistersInfoSmall18;
+        strSQLRegistersUpdateParams.info_small19 = tblRegistersInfoSmall19;
+        strSQLRegistersUpdateParams.info_small20 = tblRegistersInfoSmall20;
+        strSQLRegistersUpdateParams.info_small21 = tblRegistersInfoSmall21;
+        strSQLRegistersUpdateParams.info_small22 = tblRegistersInfoSmall22;
+        strSQLRegistersUpdateParams.info_small23 = tblRegistersInfoSmall23;
+        strSQLRegistersUpdateParams.info_small24 = tblRegistersInfoSmall24;
+        strSQLRegistersUpdateParams.info_small25 = tblRegistersInfoSmall25;
+        strSQLRegistersUpdateParams.info_small26 = tblRegistersInfoSmall26;
+        strSQLRegistersUpdateParams.info_small27 = tblRegistersInfoSmall27;
+        strSQLRegistersUpdateParams.info_small28 = tblRegistersInfoSmall28;
+        strSQLRegistersUpdateParams.info_small29 = tblRegistersInfoSmall29;
+        strSQLRegistersUpdateParams.info_small30 = tblRegistersInfoSmall30;
+
+        strSQLRegistersUpdateParams.number1 = tblRegistersNumber1;
+        strSQLRegistersUpdateParams.number2 = tblRegistersNumber2;
+        strSQLRegistersUpdateParams.number3 = tblRegistersNumber3;
+        strSQLRegistersUpdateParams.number4 = tblRegistersNumber4;
+        strSQLRegistersUpdateParams.number5 = tblRegistersNumber5;
+
+        strSQLRegistersUpdateParams.number_small1 = tblRegistersNumberSmall1;
+        strSQLRegistersUpdateParams.number_small2 = tblRegistersNumberSmall2;
+        strSQLRegistersUpdateParams.number_small3 = tblRegistersNumberSmall3;
+        strSQLRegistersUpdateParams.number_small4 = tblRegistersNumberSmall4;
+        strSQLRegistersUpdateParams.number_small5 = tblRegistersNumberSmall5;
+
+        strSQLRegistersUpdateParams.url1 = tblRegistersURL1;
+        strSQLRegistersUpdateParams.url2 = tblRegistersURL2;
+        strSQLRegistersUpdateParams.url3 = tblRegistersURL3;
+        strSQLRegistersUpdateParams.url4 = tblRegistersURL4;
+        strSQLRegistersUpdateParams.url5 = tblRegistersURL5;
+
+        strSQLRegistersUpdateParams.date1 = tblRegistersDate1;
+        strSQLRegistersUpdateParams.date2 = tblRegistersDate2;
+        strSQLRegistersUpdateParams.date3 = tblRegistersDate3;
+        strSQLRegistersUpdateParams.date4 = tblRegistersDate4;
+        strSQLRegistersUpdateParams.date5 = tblRegistersDate5;
+        strSQLRegistersUpdateParams.date6 = tblRegistersDate6;
+        strSQLRegistersUpdateParams.date7 = tblRegistersDate7;
+        strSQLRegistersUpdateParams.date8 = tblRegistersDate8;
+        strSQLRegistersUpdateParams.date9 = tblRegistersDate9;
+        strSQLRegistersUpdateParams.date10 = tblRegistersDate10;
+        
+        if(tblRegistersImageMain)
+        {
+            strSQLRegistersUpdateParams.image_main = tblRegistersImageMain;
+        }
+
+        strSQLRegistersUpdateParams.image_main_caption = tblRegistersImageMainCaption;
+
+        if(tblRegistersImageLogo)
+        {
+            strSQLRegistersUpdateParams.image_logo = tblRegistersImageLogo;
+        }
+        if(tblRegistersImageBanner)
+        {
+            strSQLRegistersUpdateParams.image_banner = tblRegistersImageBanner;
+        }
+
+        if(tblRegistersFile1)
+        {
+            strSQLRegistersUpdateParams.file1 = tblRegistersFile1;
+        }
+        if(tblRegistersFile2)
+        {
+            strSQLRegistersUpdateParams.file2 = tblRegistersFile2;
+        }
+        if(tblRegistersFile3)
+        {
+            strSQLRegistersUpdateParams.file3 = tblRegistersFile3;
+        }
+        if(tblRegistersFile4)
+        {
+            strSQLRegistersUpdateParams.file4 = tblRegistersFile4;
+        }
+        if(tblRegistersFile5)
+        {
+            strSQLRegistersUpdateParams.file5 = tblRegistersFile5;
+        }
+
+        strSQLRegistersUpdateParams.activation = tblRegistersActivation;
+        strSQLRegistersUpdateParams.activation1 = tblRegistersActivation1;
+        strSQLRegistersUpdateParams.activation2 = tblRegistersActivation2;
+        strSQLRegistersUpdateParams.activation3 = tblRegistersActivation3;
+        strSQLRegistersUpdateParams.activation4 = tblRegistersActivation4;
+        strSQLRegistersUpdateParams.activation5 = tblRegistersActivation5;
+        
+        strSQLRegistersUpdateParams.id_status = tblRegistersIdStatus;
+        strSQLRegistersUpdateParams.restricted_access = tblRegistersRestrictedAccess;
+        strSQLRegistersUpdateParams.notes = tblRegistersNotes;
+        //----------------------
+
+
+        //Execute query.
+        //----------------------
+        try
+        {
+            resultsSQLRegistersUpdate = await new Promise((resolve, reject)=>{
+                dbSystemConPool.getConnection(function(dbSystemPoolError, dbSystemConPoolGetConnection){
+                    if(dbSystemPoolError)
+                    {
+                        if(gSystemConfig.configDebug === true)
+                        {
+                            console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                        }
+                        throw dbSystemPoolError;
+                    }else{
+
+                        //dbSystemCon.query(strSQLRegistersUpdate, strSQLRegistersUpdateParams, (dbSystemError, results) => {
+                        dbSystemConPoolGetConnection.query(strSQLRegistersUpdate, [strSQLRegistersUpdateParams, tblRegistersID], (dbSystemError, results) => {
+                            dbSystemConPoolGetConnection.release();
+
+                            if(dbSystemError)
+                            {
+                                //Error.
+                                if(gSystemConfig.configDebug === true)
+                                {
+                                    console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                                }
+            
+                                throw dbSystemError;
+                            }else{
+                                //Set success flag.
+                                //strReturn = true;
+            
+                                if(results)
+                                {
+                                    //Success.
+                                    if(gSystemConfig.configDebug === true)
+                                    {
+                                        console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage7"));
+                                    }
+
+                                    //Return promise.
+                                    resolve(results);
+                                }else{
+                                    //Error.
+                                    //reject(false);
+                                    reject(new Error(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage8")));
+                                }
+                                    
+            
+                                //Debug.
+                                //resolve(resultsSQLCounterRows);
+                                //resolve(nCounter);
+                                //resolve(json(resultsSQLCounterRows));//working: returns [ RowDataPacket { id: 1, counter_global: 123, description: 'Node database test' } ]
+                            }
+                        });
+            
+                    }
+                });
+                
+            });
+        }catch(aError){
+            if(gSystemConfig.configDebug === true)
+            {
+                console.log("aError=", aError);
+            }
+        }finally{
+
+        }
+        //----------------------
+
+
+        //Return data treatment.
+        //----------------------
+        if(resultsSQLRegistersUpdate.affectedRows > 0)
+        {
+            //Variables - define values.
+            //----------------------
+            try
+            {
+                //Parameters build.
+                arrFiltersGenericSearchParameters.push("table_name;" + gSystemConfig.configSystemDBTableRegisters + ";s");
+                ofglRecordsParameters = {
+                    _arrSearchParameters: arrFiltersGenericSearchParameters,
+                    _configSortOrder: "title",
+                    _strNRecords: "",
+                    _objSpecialParameters: {returnType: 3}
+                };
+        
+                //Object build.
+                ofglRecords = new ObjectFiltersGenericListing(ofglRecordsParameters);
+                await ofglRecords.recordsListingGet(0, 3);
+
+
+                //Bindings search.
+                objIdsRegistersFiltersGenericBinding = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, 
+                                                                                        ["id_record;" + tblRegistersID + ";i"], 
+                                                                                        "", 
+                                                                                        "", 
+                                                                                        FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFiltersGenericBinding, "all", "string"), 
+                                                                                        1, 
+                                                                                        {returnType: 3});
+
+                //Filter results acording to filter_index.
+                if(gSystemConfig.enableRegistersFilterGeneric1 != 0)
+                {
+                    resultsRegistersFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 101;
+                    });
+
+                    /*objIdsRegistersFiltersGeneric1Binding = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                        return obj.id_filter_index == 101;
+                    });*/
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
+                {
+                    resultsRegistersFiltersGeneric2Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 102;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
+                {
+                    resultsRegistersFiltersGeneric2Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 102;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric3 != 0)
+                {
+                    resultsRegistersFiltersGeneric3Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 103;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric4 != 0)
+                {
+                    resultsRegistersFiltersGeneric4Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 104;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric5 != 0)
+                {
+                    resultsRegistersFiltersGeneric5Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 105;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric6 != 0)
+                {
+                    resultsRegistersFiltersGeneric6Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 106;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric7 != 0)
+                {
+                    resultsRegistersFiltersGeneric7Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 107;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric8 != 0)
+                {
+                    resultsRegistersFiltersGeneric8Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 108;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric9 != 0)
+                {
+                    resultsRegistersFiltersGeneric9Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 109;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric10 != 0)
+                {
+                    resultsRegistersFiltersGeneric10Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 110;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric11 != 0)
+                {
+                    resultsRegistersFiltersGeneric11Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 111;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric12 != 0)
+                {
+                    resultsRegistersFiltersGeneric12Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 112;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric13 != 0)
+                {
+                    resultsRegistersFiltersGeneric13Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 113;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric14 != 0)
+                {
+                    resultsRegistersFiltersGeneric14Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 114;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric15 != 0)
+                {
+                    resultsRegistersFiltersGeneric15Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 115;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric16 != 0)
+                {
+                    resultsRegistersFiltersGeneric16Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 116;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric17 != 0)
+                {
+                    resultsRegistersFiltersGeneric17Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 117;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric18 != 0)
+                {
+                    resultsRegistersFiltersGeneric18Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 118;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric19 != 0)
+                {
+                    resultsRegistersFiltersGeneric19Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 119;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric20 != 0)
+                {
+                    resultsRegistersFiltersGeneric20Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 120;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric21 != 0)
+                {
+                    resultsRegistersFiltersGeneric21Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 121;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric22 != 0)
+                {
+                    resultsRegistersFiltersGeneric22Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 122;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric23 != 0)
+                {
+                    resultsRegistersFiltersGeneric23Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 123;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric24 != 0)
+                {
+                    resultsRegistersFiltersGeneric24Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 124;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric25 != 0)
+                {
+                    resultsRegistersFiltersGeneric25Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 125;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric26 != 0)
+                {
+                    resultsRegistersFiltersGeneric26Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 126;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric27 != 0)
+                {
+                    resultsRegistersFiltersGeneric27Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 127;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric28 != 0)
+                {
+                    resultsRegistersFiltersGeneric28Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 128;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric29 != 0)
+                {
+                    resultsRegistersFiltersGeneric29Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 129;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric30 != 0)
+                {
+                    resultsRegistersFiltersGeneric30Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 130;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric31 != 0)
+                {
+                    resultsRegistersFiltersGeneric31Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 131;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
+                {
+                    resultsRegistersFiltersGeneric32Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 132;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric33 != 0)
+                {
+                    resultsRegistersFiltersGeneric33Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 133;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric34 != 0)
+                {
+                    resultsRegistersFiltersGeneric34Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 134;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric35 != 0)
+                {
+                    resultsRegistersFiltersGeneric35Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 135;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric36 != 0)
+                {
+                    resultsRegistersFiltersGeneric36Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 136;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric37 != 0)
+                {
+                    resultsRegistersFiltersGeneric37Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 137;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric38 != 0)
+                {
+                    resultsRegistersFiltersGeneric38Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 138;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric39 != 0)
+                {
+                    resultsRegistersFiltersGeneric39Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 139;
+                    });
+                }
+                if(gSystemConfig.enableRegistersFilterGeneric40 != 0)
+                {
+                    resultsRegistersFiltersGeneric40Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                        return obj.filter_index == 140;
+                    });
+                }
+
+
+                //Debug.
+                //console.log("ofglRecords=", ofglRecords);
+            }catch(aError){
+                if(gSystemConfig.configDebug === true)
+                {
+                    console.log("Error try/catch block (Registers Filters Generic)");
+                    console.log("aError=", aError);
+                }
+            }finally{
+
+            }
+            //----------------------
+
+
+
+            //(async function(){
+                //Filters generic 1 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric1 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric1)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric1Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            /*registersFiltersGenericCheck = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, 
+                                                                                            ["id_filters_generic;" + resultsRegistersFiltersGeneric1Listing[countArray].id + ";i", "id_record;" + tblRegistersID + ";i", "id_filter_index;101;i"], 
+                                                                                            "", 
+                                                                                            "", 
+                                                                                            "id, id_filters_generic",
+                                                                                            1);*/
+
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                //return obj.id_filters_generic == resultsRegistersFiltersGeneric1Listing[countArray].id.toString() ;
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric1Listing[countArray].id.toString() && obj.id_filter_index == 101;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            //if(objIdsRegistersFiltersGeneric1Binding.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric1.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                //if(arrIdsRegistersFiltersGeneric1.includes(objIdsRegistersFiltersGeneric1Binding[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                    //await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ objIdsRegistersFiltersGeneric1Binding[0].id + ";i"]);
+                                }
+
+                                //Debug.
+                                //console.log("status=full");
+                                //console.log("registersFiltersGenericCheck=", registersFiltersGenericCheck);
+                                //console.log("registersFiltersGenericCheck[0].id=", registersFiltersGenericCheck[0].id);
+                                //console.log("includes=", arrIdsRegistersFiltersGeneric1.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()));
+                            }else{
+
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric1.includes(resultsRegistersFiltersGeneric1Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric1Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 101,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+
+
+                            //Debug.
+                            //let tblFiltersGenericBindingIDAwait = await FunctionsDB.counterUniversalUpdate_async(1);
+                            
+                            //console.log("resultsRegistersFiltersGeneric1Listing[].id=", resultsRegistersFiltersGeneric1Listing[countArray].id);
+                            //console.log("tblFiltersGenericBindingIDAwait=", tblFiltersGenericBindingIDAwait);
+                            //console.log("flagRegistersFiltersGenericInsert=", flagRegistersFiltersGenericInsert);
+                            //console.log("objIdsRegistersFiltersGeneric1Binding=", objIdsRegistersFiltersGeneric1Binding);
+                            //console.log("objIdsRegistersFiltersGenericBinding=", objIdsRegistersFiltersGenericBinding);
+                            //console.log("registersFiltersGenericCheck=", registersFiltersGenericCheck);
+                            
+                        }
+
+                        //Debug.
+                        //console.log("resultsRegistersFiltersGeneric1Listing=", resultsRegistersFiltersGeneric1Listing);
+                    }
+                }
+
+
+                //Filters generic 2 - update.
+                /*
+                if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric2)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric2Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, 
+                                                                                            ["id_filters_generic;" + resultsRegistersFiltersGeneric2Listing[countArray].id + ";i", "id_record;" + tblRegistersID + ";i", "id_filter_index;102;i"], 
+                                                                                            "", 
+                                                                                            "", 
+                                                                                            "id, id_filters_generic",
+                                                                                            1);
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric2.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+
+                                //Debug.
+                                //console.log("status=full");
+                                //console.log("registersFiltersGenericCheck=", registersFiltersGenericCheck);
+                                //console.log("registersFiltersGenericCheck[0].id=", registersFiltersGenericCheck[0].id);
+                                //console.log("includes=", arrIdsRegistersFiltersGeneric1.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()));
+                            }else{
+
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric2.includes(resultsRegistersFiltersGeneric1Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric2Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 102,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+
+
+                            //Debug.
+                            //let tblFiltersGenericBindingIDAwait = await FunctionsDB.counterUniversalUpdate_async(1);
+                            
+                            //console.log("resultsRegistersFiltersGeneric1Listing[].id=", resultsRegistersFiltersGeneric1Listing[countArray].id);
+                            //console.log("tblFiltersGenericBindingIDAwait=", tblFiltersGenericBindingIDAwait);
+                            console.log("flagRegistersFiltersGenericInsert=", flagRegistersFiltersGenericInsert);
+                        }
+
+                        //Debug.
+                        //console.log("resultsRegistersFiltersGeneric1Listing=", resultsRegistersFiltersGeneric1Listing);
+                    }
+                }
+                */
+                //Filters generic 2 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric2 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric2)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric2Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric2Listing[countArray].id.toString() && obj.id_filter_index == 102;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric2.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric2.includes(resultsRegistersFiltersGeneric2Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric2Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 102,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 3 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric3 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric3)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric3Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric3Listing[countArray].id.toString() && obj.id_filter_index == 103;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric3.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric3.includes(resultsRegistersFiltersGeneric3Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric3Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 103,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 4 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric4 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric4)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric4Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric4Listing[countArray].id.toString() && obj.id_filter_index == 104;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric4.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric4.includes(resultsRegistersFiltersGeneric4Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric4Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 104,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 5 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric5 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric5)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric5Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric5Listing[countArray].id.toString() && obj.id_filter_index == 105;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric5.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric5.includes(resultsRegistersFiltersGeneric5Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric5Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 105,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 6 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric6 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric6)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric6Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric6Listing[countArray].id.toString() && obj.id_filter_index == 106;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric6.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric6.includes(resultsRegistersFiltersGeneric6Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric6Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 106,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 7 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric7 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric7)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric7Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric7Listing[countArray].id.toString() && obj.id_filter_index == 107;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric7.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric7.includes(resultsRegistersFiltersGeneric7Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric7Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 107,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 8 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric8 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric8)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric8Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric8Listing[countArray].id.toString() && obj.id_filter_index == 108;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric8.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric8.includes(resultsRegistersFiltersGeneric8Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric8Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 108,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 9 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric9 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric9)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric9Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric9Listing[countArray].id.toString() && obj.id_filter_index == 109;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric9.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric9.includes(resultsRegistersFiltersGeneric9Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric9Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 109,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 10 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric10 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric10)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric10Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric10Listing[countArray].id.toString() && obj.id_filter_index == 110;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric10.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric10.includes(resultsRegistersFiltersGeneric10Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric10Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 110,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 11 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric11 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric11)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric11Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric11Listing[countArray].id.toString() && obj.id_filter_index == 111;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric11.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric11.includes(resultsRegistersFiltersGeneric11Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric11Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 111,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 12 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric12 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric12)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric12Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric12Listing[countArray].id.toString() && obj.id_filter_index == 112;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric12.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric12.includes(resultsRegistersFiltersGeneric12Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric12Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 112,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 13 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric13 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric13)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric13Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric13Listing[countArray].id.toString() && obj.id_filter_index == 113;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric13.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric13.includes(resultsRegistersFiltersGeneric13Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric13Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 113,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 14 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric14 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric14)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric14Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric14Listing[countArray].id.toString() && obj.id_filter_index == 114;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric14.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric14.includes(resultsRegistersFiltersGeneric14Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric14Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 114,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 15 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric15 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric15)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric15Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric15Listing[countArray].id.toString() && obj.id_filter_index == 115;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric15.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric15.includes(resultsRegistersFiltersGeneric15Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric15Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 115,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 16 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric16 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric16)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric16Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric16Listing[countArray].id.toString() && obj.id_filter_index == 116;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric16.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric16.includes(resultsRegistersFiltersGeneric16Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric16Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 116,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 17 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric17 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric17)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric17Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric17Listing[countArray].id.toString() && obj.id_filter_index == 117;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric17.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric17.includes(resultsRegistersFiltersGeneric17Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric17Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 117,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 18 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric18 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric18)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric18Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric18Listing[countArray].id.toString() && obj.id_filter_index == 118;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric18.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric18.includes(resultsRegistersFiltersGeneric18Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric18Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 118,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 19 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric19 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric19)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric19Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric19Listing[countArray].id.toString() && obj.id_filter_index == 119;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric19.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric19.includes(resultsRegistersFiltersGeneric19Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric19Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 119,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 20 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric20 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric20)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric20Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric20Listing[countArray].id.toString() && obj.id_filter_index == 120;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric20.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric20.includes(resultsRegistersFiltersGeneric20Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric20Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 120,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 21 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric21 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric21)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric21Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric21Listing[countArray].id.toString() && obj.id_filter_index == 121;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric21.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric21.includes(resultsRegistersFiltersGeneric21Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric21Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 121,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 22 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric22 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric22)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric22Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric22Listing[countArray].id.toString() && obj.id_filter_index == 122;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric22.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric22.includes(resultsRegistersFiltersGeneric22Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric22Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 122,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 23 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric23 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric23)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric23Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric23Listing[countArray].id.toString() && obj.id_filter_index == 123;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric23.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric23.includes(resultsRegistersFiltersGeneric23Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric23Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 123,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 24 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric24 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric24)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric24Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric24Listing[countArray].id.toString() && obj.id_filter_index == 124;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric24.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric24.includes(resultsRegistersFiltersGeneric24Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric24Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 124,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 25 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric25 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric25)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric25Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric25Listing[countArray].id.toString() && obj.id_filter_index == 125;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric25.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric25.includes(resultsRegistersFiltersGeneric25Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric25Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 125,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 26 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric26 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric26)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric26Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric26Listing[countArray].id.toString() && obj.id_filter_index == 126;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric26.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric26.includes(resultsRegistersFiltersGeneric26Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric26Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 126,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 27 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric27 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric27)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric27Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric27Listing[countArray].id.toString() && obj.id_filter_index == 127;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric27.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric27.includes(resultsRegistersFiltersGeneric27Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric27Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 127,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 28 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric28 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric28)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric28Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric28Listing[countArray].id.toString() && obj.id_filter_index == 128;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric28.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric28.includes(resultsRegistersFiltersGeneric28Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric28Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 128,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 29 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric29 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric29)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric29Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric29Listing[countArray].id.toString() && obj.id_filter_index == 129;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric29.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric29.includes(resultsRegistersFiltersGeneric29Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric29Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 129,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 30 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric30 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric30)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric30Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric30Listing[countArray].id.toString() && obj.id_filter_index == 130;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric30.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric30.includes(resultsRegistersFiltersGeneric30Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric30Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 130,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 21 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric31 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric31)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric31Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric31Listing[countArray].id.toString() && obj.id_filter_index == 121;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric31.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric31.includes(resultsRegistersFiltersGeneric31Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric31Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 131,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 22 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric32)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric32Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric32Listing[countArray].id.toString() && obj.id_filter_index == 122;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric32.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric32.includes(resultsRegistersFiltersGeneric32Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric32Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 132,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 23 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric33 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric33)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric33Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric33Listing[countArray].id.toString() && obj.id_filter_index == 123;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric33.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric33.includes(resultsRegistersFiltersGeneric33Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric33Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 133,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 24 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric34 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric34)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric34Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric34Listing[countArray].id.toString() && obj.id_filter_index == 124;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric34.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric34.includes(resultsRegistersFiltersGeneric34Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric34Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 134,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 25 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric35 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric35)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric35Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric35Listing[countArray].id.toString() && obj.id_filter_index == 125;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric35.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric35.includes(resultsRegistersFiltersGeneric35Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric35Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 135,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 26 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric36 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric36)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric36Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric36Listing[countArray].id.toString() && obj.id_filter_index == 126;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric36.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric36.includes(resultsRegistersFiltersGeneric36Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric36Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 136,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 27 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric37 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric37)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric37Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric37Listing[countArray].id.toString() && obj.id_filter_index == 127;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric37.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric37.includes(resultsRegistersFiltersGeneric37Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric37Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 137,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 28 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric38 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric38)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric38Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric38Listing[countArray].id.toString() && obj.id_filter_index == 128;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric38.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric38.includes(resultsRegistersFiltersGeneric38Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric38Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 138,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Filters generic 29 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric39 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric39)
+                    {
+
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric39Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric39Listing[countArray].id.toString() && obj.id_filter_index == 129;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric39.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric39.includes(resultsRegistersFiltersGeneric39Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric39Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 139,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Filters generic 30 - update.
+                if(gSystemConfig.enableRegistersFilterGeneric40 != 0)
+                {
+                    if(arrIdsRegistersFiltersGeneric40)
+                    {
+                        for(let countArray = 0; countArray < resultsRegistersFiltersGeneric40Listing.length; countArray++)
+                        {
+                            //Variables.
+                            let registersFiltersGenericCheck = null;
+                            let flagRegistersFiltersGenericInsert = true;
+
+                            //Check records already selected.
+                            registersFiltersGenericCheck = objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                                return obj.id_filters_generic == resultsRegistersFiltersGeneric40Listing[countArray].id.toString() && obj.id_filter_index == 130;
+                            });
+                            
+                            //Update or delete existing bindings.
+                            if(registersFiltersGenericCheck.length) //check if array is empty
+                            {
+                                if(arrIdsRegistersFiltersGeneric40.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()) == true) //check if selected filters has registered bindings
+                                {
+                                    //Update record with additional information or leave as it is.
+                                    //TODO: update.
+                                    flagRegistersFiltersGenericInsert = false;
+                                }else{
+
+                                    //Delete record.
+                                    await FunctionsDBDelete.deleteRecordsGeneric10(gSystemConfig.configSystemDBTableFiltersGenericBinding, ["id;"+ registersFiltersGenericCheck[0].id + ";i"]);
+                                }
+                            }
+
+
+                            //Insert new bindings. 
+                            if(arrIdsRegistersFiltersGeneric40.includes(resultsRegistersFiltersGeneric40Listing[countArray].id.toString()))
+                            {
+                                if(flagRegistersFiltersGenericInsert == true)
+                                {
+                                    await FunctionsDBInsert.filtersGenericBindingInsert_async({
+                                        _tblFiltersGenericBindingID: "",
+                                        _tblFiltersGenericBindingSortOrder: "",
+                                        _tblFiltersGenericBindingDateCreation: "",
+                                        _tblFiltersGenericBindingDateEdit: "",
+                                        _tblFiltersGenericBindingIdFiltersGeneric: resultsRegistersFiltersGeneric40Listing[countArray].id,
+                                        _tblFiltersGenericBindingIdFilterIndex: 140,
+                                        _tblFiltersGenericBindingIdRecord: tblRegistersID,
+                                        _tblFiltersGenericBindingNotes: ""
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }                
+            //})();
+
+
+            strReturn = true;
+        }
+        //----------------------
+
+
+        return strReturn;
+        
+
+        //Usage
+        //----------------------
+        /*
+        let registersUpdateResult = await new Promise((resolve, reject)=>{
+                SyncSystemNS.FunctionsDBUpdate.registersUpdate_async({
+                    _tblRegistersID: tblRegistersID,
+                    _tblRegistersIdParent: tblRegistersIdParent,
+                    _tblRegistersSortOrder: tblRegistersSortOrder,
+                    _tblRegistersIdType: tblRegistersIdType,
+                    _tblRegistersIdActivity: tblRegistersIdActivity,
+                    _tblRegistersDateCreation: "",
+                    _tblRegistersDateTimezone: "",
+                    _tblRegistersDateEdit: "",
+                    _tblRegistersIdRegisterUser: tblRegistersIdRegisterUser,
+                    _tblRegistersIdRegister1: tblRegistersIdRegister1,
+                    _tblRegistersIdRegister2: tblRegistersIdRegister2,
+                    _tblRegistersIdRegister3: tblRegistersIdRegister3,
+                    _tblRegistersIdRegister4: tblRegistersIdRegister4,
+                    _tblRegistersIdRegister5: tblRegistersIdRegister5,
+                    _tblRegistersType: tblRegistersType,
+                    _tblRegistersNameTitle: tblRegistersNameTitle,
+                    _tblRegistersNameFull: tblRegistersNameFull,
+                    _tblRegistersNameFirst: tblRegistersNameFirst,
+                    _tblRegistersNameLast: tblRegistersNameLast,
+                    _tblRegistersCompanyNameLegal: tblRegistersCompanyNameLegal,
+                    _tblRegistersCompanyNameAlias: tblRegistersCompanyNameAlias,
+                    _tblRegistersDescription: tblRegistersDescription,
+                    _tblRegistersURLAlias: tblRegistersURLAlias,
+                    _tblRegistersKeywordsTags: tblRegistersKeywordsTags,
+                    _tblRegistersMetaDescription: tblRegistersMetaDescription,
+                    _tblRegistersMetaTitle: tblRegistersMetaTitle,
+                    _tblRegistersMetaInfo: tblRegistersMetaInfo,
+                    _tblRegistersDateBirth: tblRegistersDateBirth,
+                    _tblRegistersGender: tblRegistersGender,
+                    _tblRegistersHeight: tblRegistersHeight,
+                    _tblRegistersWeight: tblRegistersWeight,
+                    _tblRegistersDocumentType: tblRegistersDocumentType,
+                    _tblRegistersDocument: tblRegistersDocument,
+                    _tblRegistersDocument1Type: tblRegistersDocument1Type,
+                    _tblRegistersDocument1: tblRegistersDocument1,
+                    _tblRegistersDocument2Type: tblRegistersDocument2Type,
+                    _tblRegistersDocument2: tblRegistersDocument2,
+                    _tblRegistersDocumentCompanyType: tblRegistersDocumentCompanyType,
+                    _tblRegistersDocumentCompany: tblRegistersDocumentCompany,
+                    _tblRegistersDocumentCompany1Type: tblRegistersDocumentCompany1Type,
+                    _tblRegistersDocumentCompany1: tblRegistersDocumentCompany1,
+                    _tblRegistersDocumentCompany2Type: tblRegistersDocumentCompany2Type,
+                    _tblRegistersDocumentCompany2: tblRegistersDocumentCompany2,
+                    _tblRegistersZipCode: tblRegistersZipCode,
+                    _tblRegistersAddressStreet: tblRegistersAddressStreet,
+                    _tblRegistersAddressNumber: tblRegistersAddressNumber,
+                    _tblRegistersAddressComplement: tblRegistersAddressComplement,
+                    _tblRegistersNeighborhood: tblRegistersNeighborhood,
+                    _tblRegistersDistrict: tblRegistersDistrict,
+                    _tblRegistersCounty: tblRegistersCounty,
+                    _tblRegistersCity: tblRegistersCity,
+                    _tblRegistersState: tblRegistersState,
+                    _tblRegistersCountry: tblRegistersCountry,
+                    _tblRegistersIdStreet: tblRegistersIdStreet,
+                    _tblRegistersIdNeighborhood: tblRegistersIdNeighborhood,
+                    _tblRegistersIdDistrict: tblRegistersIdDistrict,
+                    _tblRegistersIdCounty: tblRegistersIdCounty,
+                    _tblRegistersIdCity: tblRegistersIdCity,
+                    _tblRegistersIdState: tblRegistersIdState,
+                    _tblRegistersIdCountry: tblRegistersIdCountry,
+                    _tblRegistersLocationReference: tblRegistersLocationReference,
+                    _tblRegistersLocationMap: tblRegistersLocationMap,
+                    _tblRegistersPhone1InternationalCode: tblRegistersPhone1InternationalCode,
+                    _tblRegistersPhone1AreaCode: tblRegistersPhone1AreaCode,
+                    _tblRegistersPhone1: tblRegistersPhone1,
+                    _tblRegistersPhone2InternationalCode: tblRegistersPhone2InternationalCode,
+                    _tblRegistersPhone2AreaCode: tblRegistersPhone2AreaCode,
+                    _tblRegistersPhone2: tblRegistersPhone2,
+                    _tblRegistersPhone3InternationalCode: tblRegistersPhone3InternationalCode,
+                    _tblRegistersPhone3AreaCode: tblRegistersPhone3AreaCode,
+                    _tblRegistersPhone3: tblRegistersPhone3,
+                    _tblRegistersWebsite: tblRegistersWebsite,
+                    _tblRegistersUsername: tblRegistersUsername,
+                    _tblRegistersEmail: tblRegistersEmail,
+                    _tblRegistersPassword: tblRegistersPassword,
+                    _tblRegistersPasswordHint: tblRegistersPasswordHint,
+                    _tblRegistersPasswordLength: tblRegistersPasswordLength,
+                    _tblRegistersInfo1: tblRegistersInfo1,
+                    _tblRegistersInfo2: tblRegistersInfo2,
+                    _tblRegistersInfo3: tblRegistersInfo3,
+                    _tblRegistersInfo4: tblRegistersInfo4,
+                    _tblRegistersInfo5: tblRegistersInfo5,
+                    _tblRegistersInfo6: tblRegistersInfo6,
+                    _tblRegistersInfo7: tblRegistersInfo7,
+                    _tblRegistersInfo8: tblRegistersInfo8,
+                    _tblRegistersInfo9: tblRegistersInfo9,
+                    _tblRegistersInfo10: tblRegistersInfo10,
+                    _tblRegistersInfo11: tblRegistersInfo11,
+                    _tblRegistersInfo12: tblRegistersInfo12,
+                    _tblRegistersInfo13: tblRegistersInfo13,
+                    _tblRegistersInfo14: tblRegistersInfo14,
+                    _tblRegistersInfo15: tblRegistersInfo15,
+                    _tblRegistersInfo16: tblRegistersInfo16,
+                    _tblRegistersInfo17: tblRegistersInfo17,
+                    _tblRegistersInfo18: tblRegistersInfo18,
+                    _tblRegistersInfo19: tblRegistersInfo19,
+                    _tblRegistersInfo20: tblRegistersInfo20,
+                    _tblRegistersInfoSmall1: tblRegistersInfoSmall1,
+                    _tblRegistersInfoSmall2: tblRegistersInfoSmall2,
+                    _tblRegistersInfoSmall3: tblRegistersInfoSmall3,
+                    _tblRegistersInfoSmall4: tblRegistersInfoSmall4,
+                    _tblRegistersInfoSmall5: tblRegistersInfoSmall5,
+                    _tblRegistersInfoSmall6: tblRegistersInfoSmall6,
+                    _tblRegistersInfoSmall7: tblRegistersInfoSmall7,
+                    _tblRegistersInfoSmall8: tblRegistersInfoSmall8,
+                    _tblRegistersInfoSmall9: tblRegistersInfoSmall9,
+                    _tblRegistersInfoSmall10: tblRegistersInfoSmall10,
+                    _tblRegistersInfoSmall11: tblRegistersInfoSmall11,
+                    _tblRegistersInfoSmall12: tblRegistersInfoSmall12,
+                    _tblRegistersInfoSmall13: tblRegistersInfoSmall13,
+                    _tblRegistersInfoSmall14: tblRegistersInfoSmall14,
+                    _tblRegistersInfoSmall15: tblRegistersInfoSmall15,
+                    _tblRegistersInfoSmall16: tblRegistersInfoSmall16,
+                    _tblRegistersInfoSmall17: tblRegistersInfoSmall17,
+                    _tblRegistersInfoSmall18: tblRegistersInfoSmall18,
+                    _tblRegistersInfoSmall19: tblRegistersInfoSmall19,
+                    _tblRegistersInfoSmall20: tblRegistersInfoSmall20,
+                    _tblRegistersInfoSmall21: tblRegistersInfoSmall21,
+                    _tblRegistersInfoSmall22: tblRegistersInfoSmall22,
+                    _tblRegistersInfoSmall23: tblRegistersInfoSmall23,
+                    _tblRegistersInfoSmall24: tblRegistersInfoSmall24,
+                    _tblRegistersInfoSmall25: tblRegistersInfoSmall25,
+                    _tblRegistersInfoSmall26: tblRegistersInfoSmall26,
+                    _tblRegistersInfoSmall27: tblRegistersInfoSmall27,
+                    _tblRegistersInfoSmall28: tblRegistersInfoSmall28,
+                    _tblRegistersInfoSmall29: tblRegistersInfoSmall29,
+                    _tblRegistersInfoSmall30: tblRegistersInfoSmall30,
+                    _tblRegistersNumber1: tblRegistersNumber1,
+                    _tblRegistersNumber2: tblRegistersNumber2,
+                    _tblRegistersNumber3: tblRegistersNumber3,
+                    _tblRegistersNumber4: tblRegistersNumber4,
+                    _tblRegistersNumber5: tblRegistersNumber5,
+                    _tblRegistersNumberSmall1: tblRegistersNumberSmall1,
+                    _tblRegistersNumberSmall2: tblRegistersNumberSmall2,
+                    _tblRegistersNumberSmall3: tblRegistersNumberSmall3,
+                    _tblRegistersNumberSmall4: tblRegistersNumberSmall4,
+                    _tblRegistersNumberSmall5: tblRegistersNumberSmall5,
+                    _tblRegistersURL1: tblRegistersURL1,
+                    _tblRegistersURL2: tblRegistersURL2,
+                    _tblRegistersURL3: tblRegistersURL3,
+                    _tblRegistersURL4: tblRegistersURL4,
+                    _tblRegistersURL5: tblRegistersURL5,
+                    _tblRegistersDate1: tblRegistersDate1,
+                    _tblRegistersDate2: tblRegistersDate2,
+                    _tblRegistersDate3: tblRegistersDate3,
+                    _tblRegistersDate4: tblRegistersDate4,
+                    _tblRegistersDate5: tblRegistersDate5,
+                    _tblRegistersDate6: tblRegistersDate6,
+                    _tblRegistersDate7: tblRegistersDate7,
+                    _tblRegistersDate8: tblRegistersDate8,
+                    _tblRegistersDate9: tblRegistersDate9,
+                    _tblRegistersDate10: tblRegistersDate10,
+                    _tblRegistersImageMain: tblRegistersImageMain,
+                    _tblRegistersImageMainCaption: tblRegistersImageMainCaption,
+                    _tblRegistersImageLogo: tblRegistersImageLogo,
+                    _tblRegistersImageBanner: tblRegistersImageBanner,
+                    _tblRegistersFile1: tblRegistersImageFile1,
+                    _tblRegistersFile2: tblRegistersImageFile2,
+                    _tblRegistersFile3: tblRegistersImageFile3,
+                    _tblRegistersFile4: tblRegistersImageFile4,
+                    _tblRegistersFile5: tblRegistersImageFile5,
+                    _tblRegistersActivation: tblRegistersActivation,
+                    _tblRegistersActivation1: tblRegistersActivation1,
+                    _tblRegistersActivation2: tblRegistersActivation2,
+                    _tblRegistersActivation3: tblRegistersActivation3,
+                    _tblRegistersActivation4: tblRegistersActivation4,
+                    _tblRegistersActivation5: tblRegistersActivation5,
+                    _tblRegistersIdStatus: tblRegistersIdStatus,
+                    _tblRegistersRestrictedAccess: tblRegistersRestrictedAccess,
+                    _tblRegistersNotes: tblRegistersNotes,
+                    _arrIdsRegistersFiltersGeneric1: arrIdsRegistersFiltersGeneric1,
+                    _arrIdsRegistersFiltersGeneric2: arrIdsRegistersFiltersGeneric2,
+                    _arrIdsRegistersFiltersGeneric3: arrIdsRegistersFiltersGeneric3,
+                    _arrIdsRegistersFiltersGeneric4: arrIdsRegistersFiltersGeneric4,
+                    _arrIdsRegistersFiltersGeneric5: arrIdsRegistersFiltersGeneric5,
+                    _arrIdsRegistersFiltersGeneric6: arrIdsRegistersFiltersGeneric6,
+                    _arrIdsRegistersFiltersGeneric7: arrIdsRegistersFiltersGeneric7,
+                    _arrIdsRegistersFiltersGeneric8: arrIdsRegistersFiltersGeneric8,
+                    _arrIdsRegistersFiltersGeneric9: arrIdsRegistersFiltersGeneric9,
+                    _arrIdsRegistersFiltersGeneric10: arrIdsRegistersFiltersGeneric10,
+                    _arrIdsRegistersFiltersGeneric11: arrIdsRegistersFiltersGeneric11,
+                    _arrIdsRegistersFiltersGeneric12: arrIdsRegistersFiltersGeneric12,
+                    _arrIdsRegistersFiltersGeneric13: arrIdsRegistersFiltersGeneric13,
+                    _arrIdsRegistersFiltersGeneric14: arrIdsRegistersFiltersGeneric14,
+                    _arrIdsRegistersFiltersGeneric15: arrIdsRegistersFiltersGeneric15,
+                    _arrIdsRegistersFiltersGeneric16: arrIdsRegistersFiltersGeneric16,
+                    _arrIdsRegistersFiltersGeneric17: arrIdsRegistersFiltersGeneric17,
+                    _arrIdsRegistersFiltersGeneric18: arrIdsRegistersFiltersGeneric18,
+                    _arrIdsRegistersFiltersGeneric19: arrIdsRegistersFiltersGeneric19,
+                    _arrIdsRegistersFiltersGeneric20: arrIdsRegistersFiltersGeneric20,
+                    _arrIdsRegistersFiltersGeneric21: arrIdsRegistersFiltersGeneric21,
+                    _arrIdsRegistersFiltersGeneric22: arrIdsRegistersFiltersGeneric22,
+                    _arrIdsRegistersFiltersGeneric23: arrIdsRegistersFiltersGeneric23,
+                    _arrIdsRegistersFiltersGeneric24: arrIdsRegistersFiltersGeneric24,
+                    _arrIdsRegistersFiltersGeneric25: arrIdsRegistersFiltersGeneric25,
+                    _arrIdsRegistersFiltersGeneric26: arrIdsRegistersFiltersGeneric26,
+                    _arrIdsRegistersFiltersGeneric27: arrIdsRegistersFiltersGeneric27,
+                    _arrIdsRegistersFiltersGeneric28: arrIdsRegistersFiltersGeneric28,
+                    _arrIdsRegistersFiltersGeneric29: arrIdsRegistersFiltersGeneric29,
+                    _arrIdsRegistersFiltersGeneric30: arrIdsRegistersFiltersGeneric30,
+                    _arrIdsRegistersFiltersGeneric31: arrIdsRegistersFiltersGeneric31,
+                    _arrIdsRegistersFiltersGeneric32: arrIdsRegistersFiltersGeneric32,
+                    _arrIdsRegistersFiltersGeneric33: arrIdsRegistersFiltersGeneric33,
+                    _arrIdsRegistersFiltersGeneric34: arrIdsRegistersFiltersGeneric34,
+                    _arrIdsRegistersFiltersGeneric35: arrIdsRegistersFiltersGeneric35,
+                    _arrIdsRegistersFiltersGeneric36: arrIdsRegistersFiltersGeneric36,
+                    _arrIdsRegistersFiltersGeneric37: arrIdsRegistersFiltersGeneric37,
+                    _arrIdsRegistersFiltersGeneric38: arrIdsRegistersFiltersGeneric38,
+                    _arrIdsRegistersFiltersGeneric39: arrIdsRegistersFiltersGeneric39,
+                    _arrIdsRegistersFiltersGeneric40: arrIdsRegistersFiltersGeneric40
                 }).then((results)=>{
                 if(results === undefined)
                 {

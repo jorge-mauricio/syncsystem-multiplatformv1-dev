@@ -835,9 +835,9 @@ module.exports = class RegistersEdit
                                         <td>
                                             <select id="registers_id_type" name="id_type" class="ss-backend-field-dropdown01">
                                                 <option value="0"${ ordRecord.tblRegistersIdType == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
-                                                ${resultsRegistersTypeListing.map((statusRow)=>{
+                                                ${resultsRegistersTypeListing.map((typeRow)=>{
                                                     return `
-                                                        <option value="${ statusRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
+                                                        <option value="${ typeRow.id }"${ ordRecord.tblRegistersIdType == typeRow.id ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(typeRow.title, "db") }</option>
                                                     `;
                                                 }).join("") }
                                             </select>

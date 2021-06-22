@@ -335,6 +335,7 @@ gSystemConfig.configFrontendDateFieldType = 1; //0 - simple field | 1 - JQuery D
 gSystemConfig.configSystemCurrency = "R$" //R$ | $ | € | £
 gSystemConfig.configSystemWeight = "g" //g | ounces (1 pound -> 16 ounces)
 gSystemConfig.configSystemWeight2 = "kg" //kg | Pounds (453.6 grams)
+gSystemConfig.configSystemHeight = "ft" //ft | m
 gSystemConfig.configSystemMetric = "m²" //m² | ft²
 gSystemConfig.configSystemMetricDistance = "KM" //KM | MI
 //**************************************************************************************

@@ -756,9 +756,9 @@ module.exports = class ProductsEdit
                                         <td>
                                             <select id="products_id_type" name="id_type" class="ss-backend-field-dropdown01">
                                                 <option value="0"${ opdRecord.tblProductsIdType == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
-                                                ${resultsProductsTypeListing.map((statusRow)=>{
+                                                ${resultsProductsTypeListing.map((typeRow)=>{
                                                     return `
-                                                        <option value="${ statusRow.id }">${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
+                                                        <option value="${ typeRow.id }"${ opdRecord.tblProductsIdType == typeRow.id ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(typeRow.title, "db") }</option>
                                                     `;
                                                 }).join("") }
                                             </select>

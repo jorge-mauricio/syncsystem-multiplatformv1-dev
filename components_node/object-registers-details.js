@@ -1258,6 +1258,216 @@ module.exports = class ObjectRegistersDetails
                 }
             }   
 
+            if(gSystemConfig.enableRegistersFilterGeneric31 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric31Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 131;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric31Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric31Binding = Object.keys(this.objIdsRegistersFiltersGeneric31Binding).map(key => this.objIdsRegistersFiltersGeneric31Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric31Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric31Binding = this.arrIdsRegistersFiltersGeneric31Binding;
+                        this.objRegistersFiltersGeneric31Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric31Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric32 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric32Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 132;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric32Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric32Binding = Object.keys(this.objIdsRegistersFiltersGeneric32Binding).map(key => this.objIdsRegistersFiltersGeneric32Binding[key]["id_filters_generic"]);
+
+
+                    if(this.arrIdsRegistersFiltersGeneric32Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric32Binding = this.arrIdsRegistersFiltersGeneric32Binding;
+
+                        this.objRegistersFiltersGeneric32Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric32Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }    
+
+            if(gSystemConfig.enableRegistersFilterGeneric33 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric33Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 133;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric33Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric33Binding = Object.keys(this.objIdsRegistersFiltersGeneric33Binding).map(key => this.objIdsRegistersFiltersGeneric33Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric33Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric33Binding = this.arrIdsRegistersFiltersGeneric33Binding;
+
+                        this.objRegistersFiltersGeneric33Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric33Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric34 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric34Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 134;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric34Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric34Binding = Object.keys(this.objIdsRegistersFiltersGeneric34Binding).map(key => this.objIdsRegistersFiltersGeneric34Binding[key]["id_filters_generic"]);
+
+
+                    if(this.arrIdsRegistersFiltersGeneric34Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric34Binding = this.arrIdsRegistersFiltersGeneric34Binding;
+
+                        this.objRegistersFiltersGeneric34Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric34Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric35 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric35Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 135;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric35Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric35Binding = Object.keys(this.objIdsRegistersFiltersGeneric35Binding).map(key => this.objIdsRegistersFiltersGeneric35Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric35Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric35Binding = this.arrIdsRegistersFiltersGeneric35Binding;
+
+                        this.objRegistersFiltersGeneric35Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric35Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric36 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric36Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 136;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric36Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric36Binding = Object.keys(this.objIdsRegistersFiltersGeneric36Binding).map(key => this.objIdsRegistersFiltersGeneric36Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric36Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric36Binding = this.arrIdsRegistersFiltersGeneric36Binding;
+
+                        this.objRegistersFiltersGeneric36Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric36Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric37 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric37Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 137;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric37Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric37Binding = Object.keys(this.objIdsRegistersFiltersGeneric37Binding).map(key => this.objIdsRegistersFiltersGeneric37Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric37Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric37Binding = this.arrIdsRegistersFiltersGeneric37Binding;
+
+                        this.objRegistersFiltersGeneric37Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric37Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric38 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric38Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 138;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric38Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric38Binding = Object.keys(this.objIdsRegistersFiltersGeneric38Binding).map(key => this.objIdsRegistersFiltersGeneric38Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric38Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric38Binding = this.arrIdsRegistersFiltersGeneric38Binding;
+
+                        this.objRegistersFiltersGeneric38Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric38Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric39 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric39Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 139;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric39Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric39Binding = Object.keys(this.objIdsRegistersFiltersGeneric39Binding).map(key => this.objIdsRegistersFiltersGeneric39Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric39Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric39Binding = this.arrIdsRegistersFiltersGeneric39Binding;
+
+                        this.objRegistersFiltersGeneric39Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric39Binding.includes(obj.id);
+                        });
+                    }
+                }
+            }   
+
+            if(gSystemConfig.enableRegistersFilterGeneric40 != 0)
+            {
+                this.objIdsRegistersFiltersGeneric40Binding = this.objIdsRegistersFiltersGenericBinding.filter(function(obj){
+                    return obj.id_filter_index == 140;
+                });
+
+                if(this.objIdsRegistersFiltersGeneric40Binding)
+                {
+                    this.arrIdsRegistersFiltersGeneric40Binding = Object.keys(this.objIdsRegistersFiltersGeneric40Binding).map(key => this.objIdsRegistersFiltersGeneric40Binding[key]["id_filters_generic"]);
+
+                    if(this.arrIdsRegistersFiltersGeneric40Binding)
+                    {
+                        var arrIdsRegistersFiltersGeneric40Binding = this.arrIdsRegistersFiltersGeneric40Binding;
+
+                        this.objRegistersFiltersGeneric40Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+                            return arrIdsRegistersFiltersGeneric40Binding.includes(obj.id);
+                        });
+                    }
+                }
+            } 
 
             //Debug.                                                                                            
             //console.log("this.objIdsRegistersFiltersGenericBinding=", this.objIdsRegistersFiltersGenericBinding);
@@ -1287,8 +1497,8 @@ module.exports = class ObjectRegistersDetails
             this.tblRegistersDateTimezone = this.resultsRegistersDetails[0].date_timezone;
             this.tblRegistersDateEdit = this.resultsRegistersDetails[0].date_edit;
 
-            this.tblRegistersRegistersIdType = this.resultsRegistersDetails[0].id_type;
-            this.tblRegistersRegistersIdActivity = this.resultsRegistersDetails[0].id_activity;
+            this.tblRegistersIdType = this.resultsRegistersDetails[0].id_type;
+            this.tblRegistersIdActivity = this.resultsRegistersDetails[0].id_activity;
 
             this.tblRegistersIdRegisterUser = this.resultsRegistersDetails[0].id_register_user;
             if(this.tblRegistersIdRegisterUser != 0)
