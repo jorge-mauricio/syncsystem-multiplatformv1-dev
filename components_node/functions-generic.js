@@ -2095,6 +2095,67 @@ module.exports = class FunctionsGeneric
             }
         }
         //----------------------
+
+
+        //Quizzes.
+        //----------------------
+        if(strTable == gSystemConfig.configSystemDBTableQuizzes)
+        {
+            if(buildType == "all")
+            {
+                arrTableFieldsQueryBuild = ["id", "id_parent"];
+                gSystemConfig.enableQuizzesSortOrder == 1 ? arrTableFieldsQueryBuild.push("sort_order") : '';
+                arrTableFieldsQueryBuild.push("date_creation", "date_edit", "id_type");
+                gSystemConfig.enableQuizzesBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push("id_register_user") : '';
+
+                arrTableFieldsQueryBuild.push("title");
+                gSystemConfig.enableQuizzesDescription == 1 ? arrTableFieldsQueryBuild.push("description") : '';
+                arrTableFieldsQueryBuild.push("url_alias", "keywords_tags", "meta_description", "meta_title", "meta_info");
+                
+                gSystemConfig.enableQuizzesInfo1 == 1 ? arrTableFieldsQueryBuild.push("info1") : '';
+                gSystemConfig.enableQuizzesInfo2 == 1 ? arrTableFieldsQueryBuild.push("info2") : '';
+                gSystemConfig.enableQuizzesInfo3 == 1 ? arrTableFieldsQueryBuild.push("info3") : '';
+                gSystemConfig.enableQuizzesInfo4 == 1 ? arrTableFieldsQueryBuild.push("info4") : '';
+                gSystemConfig.enableQuizzesInfo5 == 1 ? arrTableFieldsQueryBuild.push("info5") : '';
+
+                gSystemConfig.enableQuizzesNumber1 == 1 ? arrTableFieldsQueryBuild.push("number1") : '';
+                gSystemConfig.enableQuizzesNumber2 == 1 ? arrTableFieldsQueryBuild.push("number2") : '';
+                gSystemConfig.enableQuizzesNumber3 == 1 ? arrTableFieldsQueryBuild.push("number3") : '';
+                gSystemConfig.enableQuizzesNumber4 == 1 ? arrTableFieldsQueryBuild.push("number4") : '';
+                gSystemConfig.enableQuizzesNumber5 == 1 ? arrTableFieldsQueryBuild.push("number5") : '';
+                
+                gSystemConfig.enableQuizzesImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
+                gSystemConfig.enableQuizzesImageMainCaption == 1 ? arrTableFieldsQueryBuild.push("image_main_caption") : '';
+                
+                gSystemConfig.enableQuizzesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+                gSystemConfig.enableQuizzesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+                gSystemConfig.enableQuizzesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+                gSystemConfig.enableQuizzesFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+                gSystemConfig.enableQuizzesFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+                
+                arrTableFieldsQueryBuild.push("activation");
+                gSystemConfig.enableQuizzesActivation1 == 1 ? arrTableFieldsQueryBuild.push("activation1") : '';
+                gSystemConfig.enableQuizzesActivation2 == 1 ? arrTableFieldsQueryBuild.push("activation2") : '';
+                gSystemConfig.enableQuizzesActivation3 == 1 ? arrTableFieldsQueryBuild.push("activation3") : '';
+                gSystemConfig.enableQuizzesActivation4 == 1 ? arrTableFieldsQueryBuild.push("activation4") : '';
+                gSystemConfig.enableQuizzesActivation5 == 1 ? arrTableFieldsQueryBuild.push("activation5") : '';
+                gSystemConfig.enableQuizzesStatus == 1 ? arrTableFieldsQueryBuild.push("id_status") : '';
+                gSystemConfig.enableQuizzesNotes == 1 ? arrTableFieldsQueryBuild.push("notes") : '';
+            }
+
+
+            //File fields.
+            if(buildType == "files")
+            {
+                gSystemConfig.enableQuizzesImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
+                gSystemConfig.enableQuizzesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+                gSystemConfig.enableQuizzesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+                gSystemConfig.enableQuizzesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+                gSystemConfig.enableQuizzesFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+                gSystemConfig.enableQuizzesFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+            }
+        }
+        //----------------------
         
 
         //Forms.

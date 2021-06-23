@@ -243,7 +243,7 @@ exports.appLabels = {
     backendCategoriesType4Function: "Manage Photo Gallery",
     backendCategoriesType5Function: "Manage Articles",
     backendCategoriesType6Function: "Manage Publications",
-    backendCategoriesType7Function: "Polls",
+    backendCategoriesType7Function: "Manage Polls",
     backendCategoriesType9Function: "Segment", /*Manage Categories */
     backendCategoriesType12Function: "Manage Forms",
     backendCategoriesType13Function: "Manage Registers",
@@ -950,7 +950,7 @@ exports.appLabels = {
         backendQuizzesType3: "Answer",
             backendQuizzesType3A: "A",
     backendQuizzesRU: "Registered User",
-    backendQuizzesTitle: "Quizzes Title",
+    backendQuizzesTitle: "Title",
     backendQuizzesDescription: "Description",
     backendQuizzesStatus: "Status",
 

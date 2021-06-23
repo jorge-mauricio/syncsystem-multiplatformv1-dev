@@ -1896,6 +1896,24 @@ gSystemConfig.configRegistersFrontendPaginationNRecords = 10;
 //**************************************************************************************
 gSystemConfig.configQuizzesSort = "id DESC"; //options: id | sort_order | title 
 gSystemConfig.configQuizzesOptionsSort = "id DESC"; //options: id | sort_order | title
+gSystemConfig.configQuizzesInputOrder = ["inputRowPublications_id_parent", 
+                                            "inputRowPublications_sort_order", 
+                                            "inputRowPublications_id_register_user", 
+                                            "inputRowPublications_title", 
+                                            "inputRowPublications_description", 
+                                            "inputRowPublications_url_alias", 
+                                            "inputRowPublications_meta_title", 
+                                            "inputRowPublications_meta_description", 
+                                            "inputRowPublications_keywords_tags", 
+                                            "inputRowPublications_info1", 
+                                            "inputRowPublications_number1", 
+                                            "inputRowPublications_image_main", 
+                                            "inputRowPublications_file1", 
+                                            "inputRowPublications_file2", 
+                                            "inputRowPublications_activation", 
+                                            "inputRowPublications_id_status", 
+                                            "inputRowPublications_notes"
+                                          ];
 
 //Basic resources.
 gSystemConfig.enableQuizzesIdParentEdit = 1; //0 - disable | 1 - enable

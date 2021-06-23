@@ -1470,6 +1470,25 @@ module.exports = class FunctionsDB
                 }
             }
 
+            //Check quizzes table.
+            if(objReturn.returnStatus === false)
+            {
+                //"id, id_parent, title",
+                objReturn.tableData = await this.genericTableGet02(gSystemConfig.configSystemDBTableQuizzes, 
+                                                                    ["id;" + idRecord + ";i"], 
+                                                                    "", 
+                                                                    "1", 
+                                                                    FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableQuizzes, "all", "string"),
+                                                                    1, 
+                                                                    {returnType: 3});
+
+                if(objReturn.tableData.length)
+                {
+                    objReturn.tableName = gSystemConfig.configSystemDBTableQuizzes;
+                    objReturn.returnStatus = true;
+                }
+            }
+
 
             //Check forms table.
             if(objReturn.returnStatus === false)

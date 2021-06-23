@@ -358,6 +358,16 @@ app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backe
 //----------------------
 
 
+//Quizzes - import from external routes file.
+//----------------------
+//Backend.
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-quizzes.js"));
+
+//API.
+//app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-registers.js"));
+//----------------------
+
+
 //Forms, Forms Fields, Forms Fields Options - import from external routes file.
 //----------------------
 //Backend.

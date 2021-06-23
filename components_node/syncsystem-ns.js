@@ -36,6 +36,7 @@ module.exports = {
     ObjectPublicationsDetails: require("./object-publications-details.js"),
     ObjectRegistersListing: require("./object-registers-listing.js"),
     ObjectRegistersDetails: require("./object-registers-details.js"),
+    ObjectQuizzesListing: require("./object-forms-quizzes.js"),
     ObjectFormsListing: require("./object-forms-listing.js"),
     ObjectFormsDetails: require("./object-forms-details.js"),
     ObjectFormsFieldsListing: require("./object-forms-fields-listing.js"),
