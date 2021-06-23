@@ -4091,14 +4091,11 @@ module.exports = class PublicationsEdit
                                 </tr>
                                 ` : ``
                                 }
-
-
                             </tbody>
                             <tfoot class="ss-backend-table-foot ss-backend-table-listing-text01">
 
                             </tfoot>
                         </table>
-
                     </div>
 
                     <div style="position: relative; display: block; overflow: hidden; clear: both; margin-top: 2px;">
@@ -4140,8 +4137,8 @@ module.exports = class PublicationsEdit
     //Usage.
     //----------------------
     /*
-    let ceBackend = new ContentEdit({
-        idTbContent: idTbContent,
+    let peBackend = new PublicationsEdit({
+        idTbPublications: idTbPublications,
 
         masterPageSelect: masterPageSelect,
 

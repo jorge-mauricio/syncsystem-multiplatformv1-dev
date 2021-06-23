@@ -669,6 +669,11 @@ module.exports = class QuizzesListing
                                             </a--> ${ /*TODO: Change address to access frontend.*/ '' }
 
 
+                                            <a href="/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendQuizzesOptions + "/" + quizzesRow.id + "/?masterPageSelect=layout-backend-blank" }" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
+                                                ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesOptions") }
+                                            </a> 
+
+
                                             ${ /*Content.*/ '' }
                                             ${ gSystemConfig.enableQuizzesContent == 1 ? 
                                                 `
@@ -1915,71 +1920,6 @@ module.exports = class QuizzesListing
                                 </tr>
                                 ` : ``
                                 }                                
-
-                                ${ gSystemConfig.enableQuizzesFile1 == 1 ? 
-                                `
-                                <tr id="inputRowQuizzes_file1" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesFile1") }: 
-                                    </td>
-                                    <td>
-                                        <input type="file" id="quizzes_file1" name="file1" class="ss-backend-field-file-upload" />
-                                    </td>
-                                </tr>
-                                ` : ``
-                                }
-
-                                ${ gSystemConfig.enableQuizzesFile2 == 1 ? 
-                                `
-                                <tr id="inputRowQuizzes_file2" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesFile2") }: 
-                                    </td>
-                                    <td>
-                                        <input type="file" id="quizzes_file2" name="file2" class="ss-backend-field-file-upload" />
-                                    </td>
-                                </tr>
-                                ` : ``
-                                }
-
-                                ${ gSystemConfig.enableQuizzesFile3 == 1 ? 
-                                `
-                                <tr id="inputRowQuizzes_file3" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesFile3") }: 
-                                    </td>
-                                    <td>
-                                        <input type="file" id="quizzes_file3" name="file3" class="ss-backend-field-file-upload" />
-                                    </td>
-                                </tr>
-                                ` : ``
-                                }
-
-                                ${ gSystemConfig.enableQuizzesFile4 == 1 ? 
-                                `
-                                <tr id="inputRowQuizzes_file4" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesFile4") }: 
-                                    </td>
-                                    <td>
-                                        <input type="file" id="quizzes_file4" name="file4" class="ss-backend-field-file-upload" />
-                                    </td>
-                                </tr>
-                                ` : ``
-                                }
-
-                                ${ gSystemConfig.enableQuizzesFile5 == 1 ? 
-                                `
-                                <tr id="inputRowQuizzes_file5" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesFile5") }: 
-                                    </td>
-                                    <td>
-                                        <input type="file" id="quizzes_file5" name="file5" class="ss-backend-field-file-upload" />
-                                    </td>
-                                </tr>
-                                ` : ``
-                                }
 
                                 <tr id="inputRowQuizzes_activation" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">

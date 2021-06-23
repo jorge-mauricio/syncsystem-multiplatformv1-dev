@@ -10624,6 +10624,407 @@ module.exports = class FunctionsDBUpdate
     //**************************************************************************************
 
 
+    //Quizzes - update record.
+    //**************************************************************************************
+    /**
+     * Quizzes - update record.
+     * @static
+     * @async
+     * @param {object} _tblQuizzesDataObject
+     * @returns {boolean} true - successfull | false - error
+     */
+    static async quizzesUpdate_async(_tblQuizzesDataObject)
+    {
+        //Variables.
+        //----------------------
+        let strReturn = false;
+
+        let tblQuizzesDataObject = {};
+
+        //Details - default values.
+        let tblQuizzesID = "";
+        let tblQuizzesIdParent = "";
+        let tblQuizzesSortOrder = 0;
+    
+        let tblQuizzesDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        //let tblQuizzesDateTimezone = "";
+        let tblQuizzesDateEdit = "";
+
+        let tblQuizzesIdType = 0; 
+
+        let tblQuizzesIdRegisterUser = 0;
+
+        let tblQuizzesTitle = "";
+        let tblQuizzesDescription = "";
+    
+        let tblQuizzesURLAlias = "";
+        let tblQuizzesKeywordsTags = "";
+        let tblQuizzesMetaDescription = "";
+        let tblQuizzesMetaTitle = "";
+        let tblQuizzesMetaInfo = "";
+
+        let tblQuizzesInfo1 = "";
+        let tblQuizzesInfo2 = "";
+        let tblQuizzesInfo3 = "";
+        let tblQuizzesInfo4 = "";
+        let tblQuizzesInfo5 = "";
+    
+        let tblQuizzesNumber1 = 0;
+        let tblQuizzesNumber2 = 0;
+        let tblQuizzesNumber3 = 0;
+        let tblQuizzesNumber4 = 0;
+        let tblQuizzesNumber5 = 0;
+
+        let tblQuizzesImageMain = "";
+        let tblQuizzesImageMainCaption = "";
+
+        let tblQuizzesActivation = 1;
+        let tblQuizzesActivation1 = 0;
+        let tblQuizzesActivation2 = 0;
+        let tblQuizzesActivation3 = 0;
+        let tblQuizzesActivation4 = 0;
+        let tblQuizzesActivation5 = 0;
+        
+        let tblQuizzesIdStatus = 0;
+        let tblQuizzesNotes = "";
+
+        let strSQLQuizzesUpdate = "";
+        let strSQLQuizzesUpdateParams = {};
+        let resultsSQLQuizzesUpdate = null;
+        //----------------------
+
+
+        //Variables - value/data treatment.
+        //----------------------
+        tblQuizzesDataObject = _tblQuizzesDataObject;
+        tblQuizzesID = tblQuizzesDataObject._tblQuizzesID;
+
+        tblQuizzesIdParent = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesIdParent") === true) ? tblQuizzesDataObject._tblQuizzesIdParent : tblQuizzesIdParent;
+
+        //tblQuizzesSortOrder = tblQuizzesDataObject._tblQuizzesSortOrder;
+        tblQuizzesSortOrder = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesSortOrder") === true) ? tblQuizzesDataObject._tblQuizzesSortOrder : tblQuizzesSortOrder;
+        if(!tblQuizzesSortOrder)
+        {
+            tblQuizzesSortOrder = 0;
+        }
+
+
+        /*tblQuizzesDateCreation = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesDateCreation") === true) ? tblQuizzesDataObject._tblQuizzesDateCreation : tblQuizzesDateCreation; //x = condition ? true : false (default value declared)
+        if(!tblQuizzesDateCreation)
+        {
+            let tblQuizzesDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblQuizzesDateCreation = FunctionsGeneric.dateSQLWrite(tblQuizzesDateCreation_dateObj);
+        }*/
+
+        //tblQuizzesDateTimezone = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesDateTimezone") === true) ? tblQuizzesDataObject._tblQuizzesDateTimezone : tblQuizzesDateTimezone;
+        
+        tblQuizzesDateEdit = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesDateEdit") === true) ? tblQuizzesDataObject._tblQuizzesDateEdit : tblQuizzesDateEdit;
+        if(!tblQuizzesDateEdit)
+        {
+            let tblQuizzesDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblQuizzesDateEdit = FunctionsGeneric.dateSQLWrite(tblQuizzesDateEdit_dateObj);
+        }
+
+        tblQuizzesIdType = tblQuizzesDataObject._tblQuizzesIdType;
+
+        tblQuizzesIdRegisterUser = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesIdRegisterUser") === true) ? tblQuizzesDataObject._tblQuizzesIdRegisterUser : tblQuizzesIdRegisterUser;
+        if(!tblQuizzesIdRegisterUser)
+        {
+            tblQuizzesIdRegisterUser = 0;
+        }
+
+        tblQuizzesTitle = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesTitle, "db_write_text") : tblQuizzesTitle;
+        tblQuizzesDescription = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesDescription, "db_write_text") : tblQuizzesDescription;
+        
+        tblQuizzesURLAlias = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURLAlias") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURLAlias, "db_write_text") : tblQuizzesURLAlias;
+        tblQuizzesKeywordsTags = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesKeywordsTags") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesKeywordsTags, "db_write_text") : tblQuizzesKeywordsTags;
+        tblQuizzesMetaDescription = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesMetaDescription") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesMetaDescription, "db_write_text") : tblQuizzesMetaDescription;
+        tblQuizzesMetaTitle = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesMetaTitle, "db_write_text") : tblQuizzesMetaTitle;
+        tblQuizzesMetaInfo = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesMetaTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesMetaInfo, "db_write_text") : tblQuizzesMetaInfo;
+        
+        if(gSystemConfig.configQuizzesInfo1FieldType == 1 || gSystemConfig.configQuizzesInfo1FieldType == 2)
+        {
+            tblQuizzesInfo1 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo1") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo1, "db_write_text") : tblQuizzesInfo1;
+        }
+        if(gSystemConfig.configQuizzesInfo1FieldType == 11 || gSystemConfig.configQuizzesInfo1FieldType == 12)
+        {
+            tblQuizzesInfo1 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo1, "db_write_text"), 2) : tblQuizzesInfo1;
+        }
+
+        if(gSystemConfig.configQuizzesInfo2FieldType == 1 || gSystemConfig.configQuizzesInfo2FieldType == 2)
+        {
+            tblQuizzesInfo2 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo2") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo2, "db_write_text") : tblQuizzesInfo2;
+        }
+        if(gSystemConfig.configQuizzesInfo2FieldType == 11 || gSystemConfig.configQuizzesInfo2FieldType == 12)
+        {
+            tblQuizzesInfo2 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo2") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo2, "db_write_text"), 2) : tblQuizzesInfo2;
+        }
+
+        if(gSystemConfig.configQuizzesInfo3FieldType == 1 || gSystemConfig.configQuizzesInfo3FieldType == 2)
+        {
+            tblQuizzesInfo3 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo3") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo3, "db_write_text") : tblQuizzesInfo3;
+        }
+        if(gSystemConfig.configQuizzesInfo3FieldType == 11 || gSystemConfig.configQuizzesInfo3FieldType == 12)
+        {
+            tblQuizzesInfo3 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo3") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo3, "db_write_text"), 2) : tblQuizzesInfo3;
+        }
+
+        if(gSystemConfig.configQuizzesInfo4FieldType == 1 || gSystemConfig.configQuizzesInfo4FieldType == 2)
+        {
+            tblQuizzesInfo4 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo4") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo4, "db_write_text") : tblQuizzesInfo4;
+        }
+        if(gSystemConfig.configQuizzesInfo4FieldType == 11 || gSystemConfig.configQuizzesInfo4FieldType == 12)
+        {
+            tblQuizzesInfo4 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo4") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo4, "db_write_text"), 2) : tblQuizzesInfo1;
+        }
+
+        if(gSystemConfig.configQuizzesInfo5FieldType == 1 || gSystemConfig.configQuizzesInfo5FieldType == 2)
+        {
+            tblQuizzesInfo5 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo5") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo5, "db_write_text") : tblQuizzesInfo5;
+        }
+        if(gSystemConfig.configQuizzesInfo5FieldType == 11 || gSystemConfig.configQuizzesInfo5FieldType == 12)
+        {
+            tblQuizzesInfo5 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesInfo5, "db_write_text"), 2) : tblQuizzesInfo5;
+        }
+        
+        tblQuizzesNumber1 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNumber1") === true && (tblQuizzesDataObject._tblQuizzesNumber1)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesDataObject._tblQuizzesNumber1, gSystemConfig.configQuizzesNumber1FieldType) : tblQuizzesNumber1;
+        tblQuizzesNumber2 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNumber2") === true && (tblQuizzesDataObject._tblQuizzesNumber2)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesDataObject._tblQuizzesNumber2, gSystemConfig.configQuizzesNumber2FieldType) : tblQuizzesNumber2;
+        tblQuizzesNumber3 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNumber3") === true && (tblQuizzesDataObject._tblQuizzesNumber3)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesDataObject._tblQuizzesNumber3, gSystemConfig.configQuizzesNumber3FieldType) : tblQuizzesNumber3;
+        tblQuizzesNumber4 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNumber4") === true && (tblQuizzesDataObject._tblQuizzesNumber4)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesDataObject._tblQuizzesNumber4, gSystemConfig.configQuizzesNumber4FieldType) : tblQuizzesNumber4;
+        tblQuizzesNumber5 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNumber5") === true && (tblQuizzesDataObject._tblQuizzesNumber5)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesDataObject._tblQuizzesNumber5, gSystemConfig.configQuizzesNumber5FieldType) : tblQuizzesNumber5;
+        
+        tblQuizzesURL1 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL1") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL1, "db_write_text") : tblQuizzesURL1;
+        tblQuizzesURL2 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL2") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL2, "db_write_text") : tblQuizzesURL2;
+        tblQuizzesURL3 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL3") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL3, "db_write_text") : tblQuizzesURL3;
+        tblQuizzesURL4 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL4") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL4, "db_write_text") : tblQuizzesURL4;
+        tblQuizzesURL5 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL5") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL5, "db_write_text") : tblQuizzesURL5;
+        
+        tblQuizzesImageMain = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesImageMain") === true) ? tblQuizzesDataObject._tblQuizzesImageMain : tblQuizzesImageMain;
+        tblQuizzesImageMainCaption = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesImageMainCaption") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesImageMainCaption, "db_write_text") : tblQuizzesImageMainCaption;
+        
+        tblQuizzesActivation = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesActivation") === true && (tblQuizzesDataObject._tblQuizzesActivation)) ? tblQuizzesDataObject._tblQuizzesActivation : tblQuizzesActivation;
+        tblQuizzesActivation1 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesActivation1") === true && (tblQuizzesDataObject._tblQuizzesActivation1)) ? tblQuizzesDataObject._tblQuizzesActivation1 : tblQuizzesActivation1;
+        tblQuizzesActivation2 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesActivation2") === true && (tblQuizzesDataObject._tblQuizzesActivation2)) ? tblQuizzesDataObject._tblQuizzesActivation2 : tblQuizzesActivation2;
+        tblQuizzesActivation3 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesActivation3") === true && (tblQuizzesDataObject._tblQuizzesActivation3)) ? tblQuizzesDataObject._tblQuizzesActivation3 : tblQuizzesActivation3;
+        tblQuizzesActivation4 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesActivation5") === true && (tblQuizzesDataObject._tblQuizzesActivation4)) ? tblQuizzesDataObject._tblQuizzesActivation4 : tblQuizzesActivation5;
+        tblQuizzesActivation5 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesActivation5") === true && (tblQuizzesDataObject._tblQuizzesActivation5)) ? tblQuizzesDataObject._tblQuizzesActivation5 : tblQuizzesActivation5;
+        
+        tblQuizzesIdStatus = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesIdStatus") === true && (tblQuizzesDataObject._tblQuizzesIdStatus)) ? tblQuizzesDataObject._tblQuizzesIdStatus : tblQuizzesIdStatus;
+        tblQuizzesNotes = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesNotes, "db_write_text") : tblQuizzesNotes;
+        
+        //----------------------
+
+
+        //Query.
+        //----------------------
+        //strSQLCategoriesUpdate += "INSERT INTO " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + "categories";
+        strSQLQuizzesUpdate += "UPDATE " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + gSystemConfig.configSystemDBTableQuizzes + " ";
+        strSQLQuizzesUpdate += "SET ? ";
+        strSQLQuizzesUpdate += "WHERE id = ?";
+        //----------------------
+
+
+        //Parameters.
+        //----------------------
+        //strSQLQuizzesUpdateParams.id = tblQuizzesID;
+
+        //strSQLQuizzesUpdateParams.id = tblQuizzesID;
+        strSQLQuizzesUpdateParams.id_parent = tblQuizzesIdParent;
+        strSQLQuizzesUpdateParams.sort_order = tblQuizzesSortOrder;
+
+        //strSQLQuizzesUpdateParams.date_creation = tblQuizzesDateCreation;
+        //strSQLQuizzesUpdateParams.date_timezone = tblQuizzesDateTimezone;
+        strSQLQuizzesUpdateParams.date_edit = tblQuizzesDateEdit;
+
+        strSQLQuizzesUpdateParams.id_type = tblQuizzesIdType;
+
+        strSQLQuizzesUpdateParams.id_register_user = tblQuizzesIdRegisterUser;
+
+        strSQLQuizzesUpdateParams.title = tblQuizzesTitle;
+        strSQLQuizzesUpdateParams.description = tblQuizzesDescription;
+
+        strSQLQuizzesUpdateParams.url_alias = tblQuizzesURLAlias;
+        strSQLQuizzesUpdateParams.keywords_tags = tblQuizzesKeywordsTags;
+        strSQLQuizzesUpdateParams.meta_description = tblQuizzesMetaDescription;
+        strSQLQuizzesUpdateParams.meta_title = tblQuizzesMetaTitle;
+        strSQLQuizzesUpdateParams.meta_info = tblQuizzesMetaInfo;
+
+        strSQLQuizzesUpdateParams.info1 = tblQuizzesInfo1;
+        strSQLQuizzesUpdateParams.info2 = tblQuizzesInfo2;
+        strSQLQuizzesUpdateParams.info3 = tblQuizzesInfo3;
+        strSQLQuizzesUpdateParams.info4 = tblQuizzesInfo4;
+        strSQLQuizzesUpdateParams.info5 = tblQuizzesInfo5;
+
+        strSQLQuizzesUpdateParams.number1 = tblQuizzesNumber1;
+        strSQLQuizzesUpdateParams.number2 = tblQuizzesNumber2;
+        strSQLQuizzesUpdateParams.number3 = tblQuizzesNumber3;
+        strSQLQuizzesUpdateParams.number4 = tblQuizzesNumber4;
+        strSQLQuizzesUpdateParams.number5 = tblQuizzesNumber5;
+
+        if(tblQuizzesImageMain)
+        {
+            strSQLQuizzesUpdateParams.image_main = tblQuizzesImageMain;
+        }
+
+        strSQLQuizzesUpdateParams.image_main_caption = tblQuizzesImageMainCaption;
+
+        strSQLQuizzesUpdateParams.activation = tblQuizzesActivation;
+        strSQLQuizzesUpdateParams.activation1 = tblQuizzesActivation1;
+        strSQLQuizzesUpdateParams.activation2 = tblQuizzesActivation2;
+        strSQLQuizzesUpdateParams.activation3 = tblQuizzesActivation3;
+        strSQLQuizzesUpdateParams.activation4 = tblQuizzesActivation4;
+        strSQLQuizzesUpdateParams.activation5 = tblQuizzesActivation5;
+        
+        strSQLQuizzesUpdateParams.id_status = tblQuizzesIdStatus;
+        strSQLQuizzesUpdateParams.notes = tblQuizzesNotes;
+        //----------------------
+
+
+        //Execute query.
+        //----------------------
+        try
+        {
+            resultsSQLQuizzesUpdate = await new Promise((resolve, reject)=>{
+                dbSystemConPool.getConnection(function(dbSystemPoolError, dbSystemConPoolGetConnection){
+                    if(dbSystemPoolError)
+                    {
+                        if(gSystemConfig.configDebug === true)
+                        {
+                            console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                        }
+                        throw dbSystemPoolError;
+                    }else{
+
+                        //dbSystemCon.query(strSQLQuizzesUpdate, strSQLQuizzesUpdateParams, (dbSystemError, results) => {
+                        dbSystemConPoolGetConnection.query(strSQLQuizzesUpdate, [strSQLQuizzesUpdateParams, tblQuizzesID], (dbSystemError, results) => {
+                            dbSystemConPoolGetConnection.release();
+
+                            if(dbSystemError)
+                            {
+                                //Error.
+                                if(gSystemConfig.configDebug === true)
+                                {
+                                    console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                                }
+            
+                                throw dbSystemError;
+                            }else{
+                                //Set success flag.
+                                //strReturn = true;
+            
+                                if(results)
+                                {
+                                    //Success.
+                                    if(gSystemConfig.configDebug === true)
+                                    {
+                                        console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage7"));
+                                    }
+
+                                    //Return promise.
+                                    resolve(results);
+                                }else{
+                                    //Error.
+                                    //reject(false);
+                                    reject(new Error(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage8")));
+                                }
+                                    
+            
+                                //Debug.
+                                //resolve(resultsSQLCounterRows);
+                                //resolve(nCounter);
+                                //resolve(json(resultsSQLCounterRows));//working: returns [ RowDataPacket { id: 1, counter_global: 123, description: 'Node database test' } ]
+                            }
+                        });
+            
+                    }
+                });
+                
+            });
+        }catch(aError){
+            if(gSystemConfig.configDebug === true)
+            {
+                console.log("aError=", aError);
+            }
+        }finally{
+
+        }
+        //----------------------
+
+
+        //Return data treatment.
+        //----------------------
+        if(resultsSQLQuizzesUpdate.affectedRows > 0)
+        {
+            strReturn = true;
+        }
+        //----------------------
+
+
+        return strReturn;
+        
+
+        //Usage
+        //----------------------
+        /*
+        let quizzesUpdateResult = await new Promise((resolve, reject)=>{
+                SyncSystemNS.FunctionsDBUpdate.quizzesUpdate_async({
+                    _tblQuizzesID: tblQuizzesID,
+                    _tblQuizzesIdParent: tblQuizzesIdParent,
+                    _tblQuizzesSortOrder: tblQuizzesSortOrder,
+                    _tblQuizzesDateCreation: "",
+                    _tblQuizzesDateEdit: "",
+                    _tblQuizzesIdType: tblQuizzesIdType,
+                    _tblQuizzesIdRegisterUser: "0",
+                    _tblQuizzesTitle: tblQuizzesTitle,
+                    _tblQuizzesDescription: tblQuizzesDescription,
+                    _tblQuizzesURLAlias: tblQuizzesURLAlias,
+                    _tblQuizzesKeywordsTags: tblQuizzesKeywordsTags,
+                    _tblQuizzesMetaDescription: tblQuizzesMetaDescription,
+                    _tblQuizzesMetaTitle: tblQuizzesMetaTitle,
+                    _tblQuizzesMetaInfo: "",
+                    _tblQuizzesInfo1: tblQuizzesInfo1,
+                    _tblQuizzesInfo2: tblQuizzesInfo2,
+                    _tblQuizzesInfo3: tblQuizzesInfo3,
+                    _tblQuizzesInfo4: tblQuizzesInfo4,
+                    _tblQuizzesInfo5: tblQuizzesInfo5,
+                    _tblQuizzesNumber1: tblQuizzesNumber1,
+                    _tblQuizzesNumber2: tblQuizzesNumber2,
+                    _tblQuizzesNumber3: tblQuizzesNumber3,
+                    _tblQuizzesNumber4: tblQuizzesNumber4,
+                    _tblQuizzesNumber5: tblQuizzesNumber5,
+                    _tblQuizzesImageMain: tblQuizzesImageMain,
+                    _tblQuizzesImageMainCaption: tblQuizzesImageMainCaption,
+                    _tblQuizzesActivation: tblQuizzesActivation,
+                    _tblQuizzesActivation1: tblQuizzesActivation1,
+                    _tblQuizzesActivation2: tblQuizzesActivation2,
+                    _tblQuizzesActivation3: tblQuizzesActivation3,
+                    _tblQuizzesActivation4: tblQuizzesActivation4,
+                    _tblQuizzesActivation5: tblQuizzesActivation5,
+                    _tblQuizzesIdStatus: tblQuizzesIdStatus,
+                    _tblQuizzesNotes: tblQuizzesNotes
+                }).then((results)=>{
+                if(results === undefined)
+                {
+                    //Error.
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3"));
+                    }
+                    reject(new Error("nCounterUpdate is undefined."));
+                }else{
+
+                    //Success.
+                    //resolve(nCounterUpdate);
+                    resolve(results);
+                } //working
+            });
+        });
+        */
+        //----------------------
+    }
+    //**************************************************************************************
+
+
     //Forms - update record.
     //**************************************************************************************
     /**

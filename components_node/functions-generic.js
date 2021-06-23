@@ -2148,11 +2148,11 @@ module.exports = class FunctionsGeneric
             if(buildType == "files")
             {
                 gSystemConfig.enableQuizzesImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
-                gSystemConfig.enableQuizzesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
-                gSystemConfig.enableQuizzesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
-                gSystemConfig.enableQuizzesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
-                gSystemConfig.enableQuizzesFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
-                gSystemConfig.enableQuizzesFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+                //gSystemConfig.enableQuizzesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+                //gSystemConfig.enableQuizzesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+                //gSystemConfig.enableQuizzesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+                //gSystemConfig.enableQuizzesFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+                //gSystemConfig.enableQuizzesFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
             }
         }
         //----------------------
