@@ -2156,6 +2156,45 @@ module.exports = class FunctionsGeneric
             }
         }
         //----------------------
+
+
+        //Quizzes Options.
+        //----------------------
+        if(strTable == gSystemConfig.configSystemDBTableQuizzesOptions)
+        {
+            if(buildType == "all")
+            {
+                arrTableFieldsQueryBuild = ["id", "id_quizzes"];
+                gSystemConfig.enableQuizzesOptionsSortOrder == 1 ? arrTableFieldsQueryBuild.push("sort_order") : '';
+                arrTableFieldsQueryBuild.push("date_creation", "date_edit", "title");
+                //gSystemConfig.enableQuizzesOptionsDescription == 1 ? arrTableFieldsQueryBuild.push("description") : '';
+                
+                gSystemConfig.enableQuizzesOptionsInfo1 == 1 ? arrTableFieldsQueryBuild.push("info1") : '';
+                gSystemConfig.enableQuizzesOptionsInfo2 == 1 ? arrTableFieldsQueryBuild.push("info2") : '';
+                gSystemConfig.enableQuizzesOptionsInfo3 == 1 ? arrTableFieldsQueryBuild.push("info3") : '';
+                gSystemConfig.enableQuizzesOptionsInfo4 == 1 ? arrTableFieldsQueryBuild.push("info4") : '';
+                gSystemConfig.enableQuizzesOptionsInfo5 == 1 ? arrTableFieldsQueryBuild.push("info5") : '';
+
+                gSystemConfig.enableQuizzesOptionsNumber1 == 1 ? arrTableFieldsQueryBuild.push("number1") : '';
+                gSystemConfig.enableQuizzesOptionsNumber2 == 1 ? arrTableFieldsQueryBuild.push("number2") : '';
+                gSystemConfig.enableQuizzesOptionsNumber3 == 1 ? arrTableFieldsQueryBuild.push("number3") : '';
+                gSystemConfig.enableQuizzesOptionsNumber4 == 1 ? arrTableFieldsQueryBuild.push("number4") : '';
+                gSystemConfig.enableQuizzesOptionsNumber5 == 1 ? arrTableFieldsQueryBuild.push("number5") : '';
+                
+                gSystemConfig.enableQuizzesOptionsImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
+                gSystemConfig.enableQuizzesOptionsImageMainCaption == 1 ? arrTableFieldsQueryBuild.push("image_main_caption") : '';
+                
+                arrTableFieldsQueryBuild.push("activation");
+            }
+
+
+            //File fields.
+            if(buildType == "files")
+            {
+                gSystemConfig.enableQuizzesOptionsImageMain == 1 ? arrTableFieldsQueryBuild.push("image_main") : '';
+            }
+        }
+        //----------------------
         
 
         //Forms.

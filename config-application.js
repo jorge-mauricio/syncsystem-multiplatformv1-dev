@@ -2003,9 +2003,9 @@ gSystemConfig.configQuizzesFrontendPaginationNRecords = 10;
 gSystemConfig.enableQuizzesOptionsSortOrder = 1; //0 - disable | 1 - enable
 
 //gSystemConfig.enableQuizzesOptionsTitle = 1; //0 - disable | 1 - enable
-gSystemConfig.enableQuizzesOptionsDescription = 1; //0 - disable | 1 - enable
+//gSystemConfig.enableQuizzesOptionsDescription = 1; //0 - disable | 1 - enable
 gSystemConfig.enableQuizzesOptionsImageMain = 1; //0 - disable | 1 - enable
-gSystemConfig.enableQuizzesOptionsImageMainCaption = 1; //0 - disable | 1 - enable
+//gSystemConfig.enableQuizzesOptionsImageMainCaption = 1; //0 - disable | 1 - enable
 
 gSystemConfig.enableQuizzesOptionsAnswer = 1; //0 - disable | 1 - enable
 

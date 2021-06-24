@@ -38,6 +38,7 @@ module.exports = {
     ObjectRegistersDetails: require("./object-registers-details.js"),
     ObjectQuizzesListing: require("./object-quizzes-listing.js"),
     ObjectQuizzesDetails: require("./object-quizzes-details.js"),
+    ObjectQuizzesOptionsListing: require("./object-quizzes-options-listing.js"),
     ObjectFormsListing: require("./object-forms-listing.js"),
     ObjectFormsDetails: require("./object-forms-details.js"),
     ObjectFormsFieldsListing: require("./object-forms-fields-listing.js"),
