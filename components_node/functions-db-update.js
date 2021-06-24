@@ -11019,6 +11019,323 @@ module.exports = class FunctionsDBUpdate
     //**************************************************************************************
 
 
+    //Quizzes Options - update record.
+    //**************************************************************************************
+    /**
+     * Quizzes Options - update record.
+     * @static
+     * @async
+     * @param {object} _tblQuizzesOptionsDataObject
+     * @returns {boolean} true - successfull | false - error
+     */
+    static async quizzesOptionsUpdate_async(_tblQuizzesOptionsDataObject)
+    {
+        //Variables.
+        //----------------------
+        let strReturn = false;
+
+        let tblQuizzesOptionsDataObject = {};
+
+        //Details - default values.
+        let tblQuizzesOptionsID = "";
+        let tblQuizzesOptionsIdQuizzes = "";
+        let tblQuizzesOptionsSortOrder = 0;
+        
+        let tblQuizzesOptionsDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        //let tblQuizzesOptionsDateTimezone = "";
+        let tblQuizzesOptionsDateEdit = "";
+
+        let tblQuizzesOptionsTitle = "";
+
+        let tblQuizzesOptionsInfo1 = "";
+        let tblQuizzesOptionsInfo2 = "";
+        let tblQuizzesOptionsInfo3 = "";
+        let tblQuizzesOptionsInfo4 = "";
+        let tblQuizzesOptionsInfo5 = "";
+
+        let tblQuizzesOptionsNumber1 = 0;
+        let tblQuizzesOptionsNumber2 = 0;
+        let tblQuizzesOptionsNumber3 = 0;
+        let tblQuizzesOptionsNumber4 = 0;
+        let tblQuizzesOptionsNumber5 = 0;
+        
+        let tblQuizzesOptionsImageMain = "";
+    
+        let tblQuizzesOptionsActivation = 0;
+    
+        let strSQLQuizzesOptionsUpdate = "";
+        let strSQLQuizzesOptionsUpdateParams = {};
+        let resultsSQLQuizzesOptionsUpdate = null;
+        //----------------------
+
+
+        //Variables - define values.
+        //----------------------
+        try
+        {
+
+            //Debug.
+            //console.log("ofglRecords=", ofglRecords);
+        }catch(aError){
+            if(gSystemConfig.configDebug === true)
+            {
+                console.log("aError=", aError);
+            }
+        }finally{
+
+        }
+        //----------------------
+
+
+        //Variables - value/data treatment.
+        //TODO: maybe move this part into the try/catch block.
+        //----------------------
+        tblQuizzesOptionsDataObject = _tblQuizzesOptionsDataObject;
+
+        tblQuizzesOptionsID = tblQuizzesOptionsDataObject._tblQuizzesOptionsID;
+        
+        tblQuizzesOptionsIdQuizzes = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsIdQuizzes") === true) ? tblQuizzesOptionsDataObject._tblQuizzesOptionsIdQuizzes : tblQuizzesOptionsIdQuizzes;
+        tblQuizzesOptionsSortOrder = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsSortOrder") === true) ? tblQuizzesOptionsDataObject._tblQuizzesOptionsSortOrder : tblQuizzesOptionsSortOrder;
+        if(!tblQuizzesOptionsSortOrder)
+        {
+            tblQuizzesOptionsSortOrder = 0;
+        }
+
+        /*
+        tblQuizzesOptionsDateCreation = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsDateCreation") === true) ? tblQuizzesOptionsDataObject._tblQuizzesOptionsDateCreation : tblQuizzesOptionsDateCreation; //x = condition ? true : false (default value declared)
+        if(!tblQuizzesOptionsDateCreation)
+        {
+            let tblQuizzesOptionsDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblQuizzesOptionsDateCreation = FunctionsGeneric.dateSQLWrite(tblQuizzesOptionsDateCreation_dateObj);
+        }
+
+        tblQuizzesOptionsDateTimezone = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsDateTimezone") === true) ? tblQuizzesOptionsDataObject._tblQuizzesOptionsDateTimezone : tblQuizzesOptionsDateTimezone;
+        */
+
+        tblQuizzesOptionsDateEdit = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsDateEdit") === true) ? tblQuizzesOptionsDataObject._tblQuizzesOptionsDateEdit : tblQuizzesOptionsDateEdit;
+        if(!tblQuizzesOptionsDateEdit)
+        {
+            let tblQuizzesOptionsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblQuizzesOptionsDateEdit = FunctionsGeneric.dateSQLWrite(tblQuizzesOptionsDateEdit_dateObj);
+        }
+
+        tblQuizzesOptionsTitle = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsTitle") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsTitle, "db_write_text") : tblQuizzesOptionsTitle;
+
+        if(gSystemConfig.configQuizzesOptionsInfo1FieldType == 1 || gSystemConfig.configQuizzesOptionsInfo1FieldType == 2)
+        {
+            tblQuizzesOptionsInfo1 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo1") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo1, "db_write_text") : tblQuizzesOptionsInfo1;
+        }
+        if(gSystemConfig.configQuizzesOptionsInfo1FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo1FieldType == 12)
+        {
+            tblQuizzesOptionsInfo1 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo1, "db_write_text"), 2) : tblQuizzesOptionsInfo1;
+        }
+
+        if(gSystemConfig.configQuizzesOptionsInfo2FieldType == 1 || gSystemConfig.configQuizzesOptionsInfo2FieldType == 2)
+        {
+            tblQuizzesOptionsInfo2 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo2") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo2, "db_write_text") : tblQuizzesOptionsInfo2;
+        }
+        if(gSystemConfig.configQuizzesOptionsInfo2FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo2FieldType == 12)
+        {
+            tblQuizzesOptionsInfo2 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo2") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo2, "db_write_text"), 2) : tblQuizzesOptionsInfo2;
+        }
+
+        if(gSystemConfig.configQuizzesOptionsInfo3FieldType == 1 || gSystemConfig.configQuizzesOptionsInfo3FieldType == 2)
+        {
+            tblQuizzesOptionsInfo3 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo3") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo3, "db_write_text") : tblQuizzesOptionsInfo3;
+        }
+        if(gSystemConfig.configQuizzesOptionsInfo3FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo3FieldType == 12)
+        {
+            tblQuizzesOptionsInfo3 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo3") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo3, "db_write_text"), 2) : tblQuizzesOptionsInfo3;
+        }
+
+        if(gSystemConfig.configQuizzesOptionsInfo4FieldType == 1 || gSystemConfig.configQuizzesOptionsInfo4FieldType == 2)
+        {
+            tblQuizzesOptionsInfo4 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo4") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo4, "db_write_text") : tblQuizzesOptionsInfo4;
+        }
+        if(gSystemConfig.configQuizzesOptionsInfo4FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo4FieldType == 12)
+        {
+            tblQuizzesOptionsInfo4 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo4") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo4, "db_write_text"), 2) : tblQuizzesOptionsInfo1;
+        }
+
+        if(gSystemConfig.configQuizzesOptionsInfo5FieldType == 1 || gSystemConfig.configQuizzesOptionsInfo5FieldType == 2)
+        {
+            tblQuizzesOptionsInfo5 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo5") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo5, "db_write_text") : tblQuizzesOptionsInfo5;
+        }
+        if(gSystemConfig.configQuizzesOptionsInfo5FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo5FieldType == 12)
+        {
+            tblQuizzesOptionsInfo5 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsInfo1") === true) ? FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsInfo5, "db_write_text"), 2) : tblQuizzesOptionsInfo5;
+        }
+
+        tblQuizzesOptionsNumber1 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsNumber1") === true && (tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber1)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber1, gSystemConfig.configQuizzesOptionsNumber1FieldType) : tblQuizzesOptionsNumber1;
+        tblQuizzesOptionsNumber2 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsNumber2") === true && (tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber2)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber2, gSystemConfig.configQuizzesOptionsNumber2FieldType) : tblQuizzesOptionsNumber2;
+        tblQuizzesOptionsNumber3 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsNumber3") === true && (tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber3)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber3, gSystemConfig.configQuizzesOptionsNumber3FieldType) : tblQuizzesOptionsNumber3;
+        tblQuizzesOptionsNumber4 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsNumber4") === true && (tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber4)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber4, gSystemConfig.configQuizzesOptionsNumber4FieldType) : tblQuizzesOptionsNumber4;
+        tblQuizzesOptionsNumber5 = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsNumber5") === true && (tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber5)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesOptionsDataObject._tblQuizzesOptionsNumber5, gSystemConfig.configQuizzesOptionsNumber5FieldType) : tblQuizzesOptionsNumber5;
+
+        tblQuizzesOptionsImageMain = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsImageMain") === true) ? tblQuizzesOptionsDataObject._tblQuizzesOptionsImageMain : tblQuizzesOptionsImageMain;
+        
+        tblQuizzesOptionsActivation = (tblQuizzesOptionsDataObject.hasOwnProperty("_tblQuizzesOptionsActivation") === true && (tblQuizzesOptionsDataObject._tblQuizzesOptionsActivation)) ? tblQuizzesOptionsDataObject._tblQuizzesOptionsActivation : tblQuizzesOptionsActivation;
+        //----------------------
+
+
+        //Query.
+        //----------------------
+        strSQLQuizzesOptionsUpdate += "UPDATE " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + gSystemConfig.configSystemDBTableQuizzesOptions + " ";
+        strSQLQuizzesOptionsUpdate += "SET ? ";
+        strSQLQuizzesOptionsUpdate += "WHERE id = ?";
+        //----------------------
+
+
+        //Parameters.
+        //----------------------
+        //strSQLQuizzesOptionsUpdateParams.id = tblQuizzesOptionsID;
+        strSQLQuizzesOptionsUpdateParams.id_quizzes = tblQuizzesOptionsIdQuizzes;
+        strSQLQuizzesOptionsUpdateParams.sort_order = tblQuizzesOptionsSortOrder;
+
+        //strSQLQuizzesOptionsUpdateParams.date_creation = tblQuizzesOptionsDateCreation;
+        //strSQLQuizzesOptionsUpdateParams.date_timezone = tblQuizzesOptionsDateTimezone;
+        strSQLQuizzesOptionsUpdateParams.date_edit = tblQuizzesOptionsDateEdit;
+
+
+        strSQLQuizzesOptionsUpdateParams.title = tblQuizzesOptionsTitle;
+
+        strSQLQuizzesOptionsUpdateParams.info1 = tblQuizzesOptionsInfo1;
+        strSQLQuizzesOptionsUpdateParams.info2 = tblQuizzesOptionsInfo2;
+        strSQLQuizzesOptionsUpdateParams.info3 = tblQuizzesOptionsInfo3;
+        strSQLQuizzesOptionsUpdateParams.info4 = tblQuizzesOptionsInfo4;
+        strSQLQuizzesOptionsUpdateParams.info5 = tblQuizzesOptionsInfo5;
+
+        strSQLQuizzesOptionsUpdateParams.number1 = tblQuizzesOptionsNumber1;
+        strSQLQuizzesOptionsUpdateParams.number2 = tblQuizzesOptionsNumber2;
+        strSQLQuizzesOptionsUpdateParams.number3 = tblQuizzesOptionsNumber3;
+        strSQLQuizzesOptionsUpdateParams.number4 = tblQuizzesOptionsNumber4;
+        strSQLQuizzesOptionsUpdateParams.number5 = tblQuizzesOptionsNumber5;
+
+        if(tblQuizzesOptionsImageMain)
+        {
+            strSQLQuizzesOptionsUpdateParams.image_main = tblQuizzesOptionsImageMain;
+        }
+        
+        strSQLQuizzesOptionsUpdateParams.activation = tblQuizzesOptionsActivation;
+        //----------------------
+
+
+        //Execute query.
+        //----------------------
+        resultsSQLQuizzesOptionsUpdate = await new Promise((resolve, reject)=>{
+            dbSystemConPool.getConnection(function(dbSystemPoolError, dbSystemConPoolGetConnection){
+                if(dbSystemPoolError)
+                {
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                    }
+                    throw dbSystemPoolError;
+                }else{
+                    dbSystemConPoolGetConnection.query(strSQLQuizzesOptionsUpdate, [strSQLQuizzesOptionsUpdateParams, tblQuizzesOptionsID], (dbSystemError, results) => {
+                        dbSystemConPoolGetConnection.release();
+
+                        if(dbSystemError)
+                        {
+                            //Error.
+                            if(gSystemConfig.configDebug === true)
+                            {
+                                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                            }
+        
+                            throw dbSystemError;
+                        }else{
+                            //Set success flag.
+                            //strReturn = true;
+        
+                            if(results)
+                            {
+                                //Success.
+                                if(gSystemConfig.configDebug === true)
+                                {
+                                    console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage7"));
+                                    //console.log("fileUpdate_async=true");
+                                }
+
+                                //Return promise.
+                                resolve(results);
+                            }else{
+                                //Error.
+                                //reject(false);
+                                reject(new Error(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage8")));
+                            }
+                                
+        
+                            //Debug.
+                            //resolve(resultsSQLCounterRows);
+                            //resolve(nCounter);
+                            //resolve(json(resultsSQLCounterRows));//working: returns [ RowDataPacket { id: 1, counter_global: 123, description: 'Node database test' } ]
+                        }
+                    });
+        
+                }
+            });
+            
+        });
+        //----------------------
+
+
+        //Return data treatment.
+        //----------------------
+        if(resultsSQLQuizzesOptionsUpdate.affectedRows > 0)
+        {
+            strReturn = true;
+        }
+        //Debug.
+        //console.log("resultsSQLFormsUpdate=", resultsSQLFormsUpdate);
+        //console.log("tblFormsID=", tblFormsID);
+        //console.log("strSQLFormsUpdateParams=", strSQLFormsUpdateParams);
+        //----------------------
+
+
+        return strReturn;
+        
+
+        //Usage
+        //----------------------
+        /*
+        (async function(){ //async marks the block
+            try{ 
+            let quizzesOptionsUpdateResult = await new Promise((resolve, reject)=>{
+                SyncSystemNS.FunctionsDBUpdate.quizzesOptionsUpdate_async({
+                    _tblQuizzesOptionsID: tblQuizzesOptionsID,
+                    _tblQuizzesOptionsIdQuizzes: tblQuizzesOptionsIdQuizzes,
+                    _tblQuizzesOptionsSortOrder: tblQuizzesOptionsSortOrder,
+                    _tblQuizzesOptionsDateCreation: "",
+                    //_tblQuizzesOptionsDateTimezone: "",
+                    _tblQuizzesOptionsDateEdit: "",
+                    _tblQuizzesOptionsTitle: tblQuizzesOptionsTitle,
+                    _tblQuizzesOptionsInfo1: tblQuizzesOptionsInfo1,
+                    _tblQuizzesOptionsInfo2: tblQuizzesOptionsInfo2,
+                    _tblQuizzesOptionsInfo3: tblQuizzesOptionsInfo3,
+                    _tblQuizzesOptionsInfo4: tblQuizzesOptionsInfo4,
+                    _tblQuizzesOptionsInfo5: tblQuizzesOptionsInfo5,
+                    _tblQuizzesOptionsNumber1: tblQuizzesOptionsNumber1,
+                    _tblQuizzesOptionsNumber2: tblQuizzesOptionsNumber2,
+                    _tblQuizzesOptionsNumber3: tblQuizzesOptionsNumber3,
+                    _tblQuizzesOptionsNumber4: tblQuizzesOptionsNumber4,
+                    _tblQuizzesOptionsNumber5: tblQuizzesOptionsNumber5,
+                    _tblQuizzesOptionsImageMain: tblQuizzesOptionsImageMain,
+                    _tblQuizzesOptionsActivation: tblQuizzesOptionsActivation
+                });
+                
+            }catch(aError){
+                //console.error(aError);
+            }finally{
+        
+            }
+        })()
+        */
+        //----------------------
+    }
+    //**************************************************************************************
+
+
     //Forms - update record.
     //**************************************************************************************
     /**

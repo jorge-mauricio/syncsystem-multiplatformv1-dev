@@ -41,6 +41,8 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
 
     let fileType = "";
 
+    let idQuizzes = "";
+
     let idForms = "";
     let idFormsFields = "";
 
@@ -79,6 +81,10 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     if(req.body.fileType)
     {
         fileType = req.body.fileType;
+    }
+    if(req.body.idQuizzes)
+    {
+        idQuizzes = req.body.idQuizzes;
     }
     if(req.body.idForms)
     {
@@ -167,6 +173,10 @@ router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.confi
     {
         //returnURL = "/" + pageReturn + "/" + idParent;
         returnURL += "/" + idParent;
+    }
+    if(idQuizzes != "")
+    {
+        returnURL += "/" + idQuizzes;
     }
     if(idForms != "")
     {

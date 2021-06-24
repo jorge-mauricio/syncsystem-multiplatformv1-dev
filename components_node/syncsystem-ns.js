@@ -39,6 +39,7 @@ module.exports = {
     ObjectQuizzesListing: require("./object-quizzes-listing.js"),
     ObjectQuizzesDetails: require("./object-quizzes-details.js"),
     ObjectQuizzesOptionsListing: require("./object-quizzes-options-listing.js"),
+    ObjectQuizzesOptionsDetails: require("./object-quizzes-options-details.js"),
     ObjectFormsListing: require("./object-forms-listing.js"),
     ObjectFormsDetails: require("./object-forms-details.js"),
     ObjectFormsFieldsListing: require("./object-forms-fields-listing.js"),
