@@ -10793,12 +10793,6 @@ module.exports = class FunctionsDBUpdate
         tblQuizzesNumber4 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNumber4") === true && (tblQuizzesDataObject._tblQuizzesNumber4)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesDataObject._tblQuizzesNumber4, gSystemConfig.configQuizzesNumber4FieldType) : tblQuizzesNumber4;
         tblQuizzesNumber5 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesNumber5") === true && (tblQuizzesDataObject._tblQuizzesNumber5)) ? FunctionsGeneric.valueMaskWrite(tblQuizzesDataObject._tblQuizzesNumber5, gSystemConfig.configQuizzesNumber5FieldType) : tblQuizzesNumber5;
         
-        tblQuizzesURL1 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL1") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL1, "db_write_text") : tblQuizzesURL1;
-        tblQuizzesURL2 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL2") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL2, "db_write_text") : tblQuizzesURL2;
-        tblQuizzesURL3 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL3") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL3, "db_write_text") : tblQuizzesURL3;
-        tblQuizzesURL4 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL4") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL4, "db_write_text") : tblQuizzesURL4;
-        tblQuizzesURL5 = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesURL5") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesURL5, "db_write_text") : tblQuizzesURL5;
-        
         tblQuizzesImageMain = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesImageMain") === true) ? tblQuizzesDataObject._tblQuizzesImageMain : tblQuizzesImageMain;
         tblQuizzesImageMainCaption = (tblQuizzesDataObject.hasOwnProperty("_tblQuizzesImageMainCaption") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesDataObject._tblQuizzesImageMainCaption, "db_write_text") : tblQuizzesImageMainCaption;
         

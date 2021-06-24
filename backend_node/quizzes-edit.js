@@ -78,8 +78,8 @@ module.exports = class QuizzesEdit
         this.objParentTable;
 
         this.arrSearchParameters = [];
-        this.opdRecord = "";
-        this.opdRecordParameters = {};
+        this.oqdRecord = "";
+        this.oqdRecordParameters = {};
 
         this.arrFiltersGenericSearchParameters = [];
         this.ofglRecords = "";
@@ -103,7 +103,7 @@ module.exports = class QuizzesEdit
             //Parameters build.
             this.arrSearchParameters.push("id;" + this._idTbQuizzes + ";i"); 
 
-            this.opdRecordParameters = {
+            this.oqdRecordParameters = {
                 _arrSearchParameters: this.arrSearchParameters,
                 _idTbQuizzes: this._idTbQuizzes,
                 _terminal: 0,
@@ -111,9 +111,9 @@ module.exports = class QuizzesEdit
             };
 
             //Object build.
-            this.opdRecord = new SyncSystemNS.ObjectQuizzesDetails(this.opdRecordParameters);
-            await this.opdRecord.recordDetailsGet(0, 3);
-            //console.log("this.opdRecord=", this.opdRecord);
+            this.oqdRecord = new SyncSystemNS.ObjectQuizzesDetails(this.oqdRecordParameters);
+            await this.oqdRecord.recordDetailsGet(0, 3);
+            //console.log("this.oqdRecord=", this.oqdRecord);
 
 
             //Parameters build.
@@ -142,38 +142,35 @@ module.exports = class QuizzesEdit
             //Parent ID Records.
             if(gSystemConfig.enableQuizzesIdParentEdit == 1)
             {
-
-
-
                 //Check table of parent id.
-                this.objParentTableLevel1 = await SyncSystemNS.FunctionsDB.tableFindGet(this.opdRecord.tblQuizzesIdParent);
+                this.objParentTableLevel1 = await SyncSystemNS.FunctionsDB.tableFindGet(this.oqdRecord.tblQuizzesIdParent);
 
                 //Categories.
                 if(this.objParentTableLevel1.tableName == gSystemConfig.configSystemDBTableCategories)
                 {
                     //Category type / publication type.
                     let objParentTableLevel1CategoryType = 0;
-                    if(this.opdRecord.tblQuizzesIdType != "" && this.opdRecord.tblQuizzesIdType !== null && this.opdRecord.tblQuizzesIdType !== undefined)
+                    if(this.oqdRecord.tblQuizzesIdType != "" && this.oqdRecord.tblQuizzesIdType !== null && this.oqdRecord.tblQuizzesIdType !== undefined)
                     {
-                        switch(this.opdRecord.tblQuizzesIdType)
+                        switch(this.oqdRecord.tblQuizzesIdType)
                         {
-                            case 7:
-                                objParentTableLevel1CategoryType = "1";
+                            case 1:
+                                objParentTableLevel1CategoryType = "7";
                                 break;
-                            case 17:
-                                objParentTableLevel1CategoryType = "2";
+                            case 2:
+                                objParentTableLevel1CategoryType = "17";
                                 break;
                         }
 
 
                         //Debug.
-                        //console.log("objParentTableLevel1CategoryType=", objParentTableLevel1CategoryType); 
+                        console.log("objParentTableLevel1CategoryType=", objParentTableLevel1CategoryType); 
                         //console.log("this.objParentTable.tableData[0].category_type = ", this.objParentTable.tableData[0].category_type);
                     }
 
 
                     this.objParentTable = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
-                                                                                            //["category_type;3;i"], 
+                                                                                            //["category_type;" + this.oqdRecord.tblQuizzesIdType + ";i"], 
                                                                                             ["category_type;" + objParentTableLevel1CategoryType + ";i"], 
                                                                                             gSystemConfig.configCategoriesSort, 
                                                                                             "", 
@@ -184,7 +181,7 @@ module.exports = class QuizzesEdit
 
                 //Debug.
                 //console.log("this.objParentTableLevel1=", this.objParentTableLevel1);
-                //console.log("this.opdRecord.tblQuizzesIdType=", this.opdRecord.tblQuizzesIdType);
+                //console.log("this.oqdRecord.tblQuizzesIdType=", this.oqdRecord.tblQuizzesIdType);
             }
 
 
@@ -197,7 +194,7 @@ module.exports = class QuizzesEdit
 
 
             //Tittle - current.
-            this.titleCurrent = this.opdRecord.tblQuizzesTitle;
+            this.titleCurrent = this.oqdRecord.tblQuizzesTitle;
 
 
             //Meta title.
@@ -305,9 +302,9 @@ module.exports = class QuizzesEdit
                 <meta property="og:type" content="website" /> ${ /*http://ogp.me/#types | https://developers.facebook.com/docs/reference/opengraph/*/'' }
                 <meta property="og:url" content="${ this.metaURLCurrent }" />
                 <meta property="og:description" content="${ SyncSystemNS.FunctionsGeneric.removeHTML01(this.metaDescription) }" />
-                ${ this.opdRecord.tblQuizzesImageMain != "" ? 
+                ${ this.oqdRecord.tblQuizzesImageMain != "" ? 
                     `
-                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/t" + this.opdRecord.tblQuizzesImageMain + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
+                        <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/t" + this.oqdRecord.tblQuizzesImageMain + "?v=" + this.cacheClear }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
                     ` : 
                     `
                         <meta property="og:image" content="${ gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png" }" /> ${ /*The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. //120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels.*/'' }
@@ -375,7 +372,7 @@ module.exports = class QuizzesEdit
 
 
         //Redefine values.
-        let opdRecord = this.opdRecord;
+        let oqdRecord = this.oqdRecord;
         let objParentTableLevel1 = this.objParentTableLevel1;
         let objParentTable = this.objParentTable;
 
@@ -430,7 +427,7 @@ module.exports = class QuizzesEdit
                     /*Debug.*/
                     
                     /*"this.objCategoriesIdParent=" + this.objCategoriesIdParent + "<br />" +*/
-                    /*"opdRecord.arrIdsCategoriesFiltersGenericBinding=" + opdRecord.arrIdsCategoriesFiltersGenericBinding + "<br />" +*/
+                    /*"oqdRecord.arrIdsCategoriesFiltersGenericBinding=" + oqdRecord.arrIdsCategoriesFiltersGenericBinding + "<br />" +*/
                     /*"networkInterfaces=" + _(os.networkInterfaces()).values().flatten().where({ family: 'IPv4', internal: false }).pluck('address').first() + "<br />" +*/
                     /*"networkInterfaces=" + Object.values(os.networkInterfaces())
                     .reduce((r,a)=>{
@@ -491,13 +488,13 @@ module.exports = class QuizzesEdit
                                     </td>
                                     <td>
                                         ${ /*TODO: Convert to ajax.*/'' }
-                                        <select id="quizzes_id_parent" name="id_parent" class="ss-backend-field-dropdown01">
-                                            <option value="0"${ opdRecord.tblQuizzesIdParent == 0 ? ` selected` : `` }>
+                                        <select id="quizzes_id_parent" name="id_parent" class="ss-backend-field-droqdown01">
+                                            <option value="0"${ oqdRecord.tblQuizzesIdParent == 0 ? ` selected` : `` }>
                                                 ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectRoot") }
                                             </option>
                                             ${ objParentTable.map((recordRow)=>{
                                                 return `
-                                                    <option value="${ recordRow.id }"${ opdRecord.tblQuizzesIdParent == recordRow.id ? ` selected` : `` }>
+                                                    <option value="${ recordRow.id }"${ oqdRecord.tblQuizzesIdParent == recordRow.id ? ` selected` : `` }>
                                                         ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(recordRow.title, "db") }
                                                     </option>
                                                 `
@@ -506,7 +503,7 @@ module.exports = class QuizzesEdit
                                     </td>
                                 </tr>
                                 ` : `
-                                <input type="hidden" id="quizzes_id_parent" name="id_parent" value="${ opdRecord.tblQuizzesIdParent }" />
+                                <input type="hidden" id="quizzes_id_parent" name="id_parent" value="${ oqdRecord.tblQuizzesIdParent }" />
                                 `
                                 }
 
@@ -517,7 +514,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSortOrder") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="quizzes_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="${ opdRecord.tblQuizzesSortOrder_print }" />
+                                        <input type="text" id="quizzes_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="${ oqdRecord.tblQuizzesSortOrder_print }" />
                                         <script>
                                             Inputmask(inputmaskGenericBackendConfigOptions).mask("quizzes_sort_order");
                                         </script>
@@ -533,7 +530,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesRU") }: 
                                     </td>
                                     <td>
-                                        <select id="quizzes_id_register_user" name="id_register_user" class="ss-backend-field-dropdown01">
+                                        <select id="quizzes_id_register_user" name="id_register_user" class="ss-backend-field-droqdown01">
                                             <option value="0" selected="true">${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                         </select>
                                     </td>
@@ -548,7 +545,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesTitle") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="quizzes_title" name="title" class="ss-backend-field-text01" maxlength="255" value="${ opdRecord.tblQuizzesTitle }" />
+                                        <input type="text" id="quizzes_title" name="title" class="ss-backend-field-text01" maxlength="255" value="${ oqdRecord.tblQuizzesTitle }" />
                                     </td>
                                 </tr>
 
@@ -561,13 +558,13 @@ module.exports = class QuizzesEdit
                                     <td>
                                         ${ /*No formatting*/'' }
                                         ${ gSystemConfig.configBackendTextBox == 1 ? `
-                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesDescription_edit }</textarea>
+                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesDescription_edit }</textarea>
                                         ` : ``}
 
 
                                         ${ /*Quill*/'' }
                                         ${ gSystemConfig.configBackendTextBox == 13 ? `
-                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesDescription_edit }</textarea>
+                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesDescription_edit }</textarea>
                                             <div id="toolbar">
                                                 <button class="ql-bold">Bold</button>
                                                 <button class="ql-italic">Italic</button>
@@ -586,7 +583,7 @@ module.exports = class QuizzesEdit
 
                                          ${ /*FroalaEditor*/'' }
                                          ${ gSystemConfig.configBackendTextBox == 15 ? `
-                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesDescription_edit }</textarea>
+                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesDescription_edit }</textarea>
                                             <script>
                                                 new FroalaEditor("#quizzes_description");
                                             </script>
@@ -595,7 +592,7 @@ module.exports = class QuizzesEdit
 
                                          ${ /*TinyMCE*/'' }
                                          ${ gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18 ? `
-                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesDescription_edit }</textarea>
+                                            <textarea id="quizzes_description" name="description" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesDescription_edit }</textarea>
                                             <script>
                                                 /*
                                                 tinymce.init({
@@ -620,7 +617,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemURLAlias") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="quizzes_url_alias" name="url_alias" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesURLAlias }" />
+                                        <input type="text" id="quizzes_url_alias" name="url_alias" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesURLAlias }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -633,7 +630,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywords") }: 
                                     </td>
                                     <td>
-                                        <textarea id="quizzes_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesKeywordsTags }</textarea>
+                                        <textarea id="quizzes_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesKeywordsTags }</textarea>
                                         <div>
                                             (${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemKeywordsInstruction01") })
                                         </div>
@@ -649,7 +646,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMetaDescription") }: 
                                     </td>
                                     <td>
-                                        <textarea id="quizzes_meta_description" name="meta_description" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesMetaDescription_edit }</textarea>
+                                        <textarea id="quizzes_meta_description" name="meta_description" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesMetaDescription_edit }</textarea>
                                     </td>
                                 </tr>
                                 ` : ``
@@ -662,7 +659,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemMetaTitle") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="quizzes_meta_title" name="meta_title" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesMetaTitle }" />
+                                        <input type="text" id="quizzes_meta_title" name="meta_title" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesMetaTitle }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -680,7 +677,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configQuizzesInfo1FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_info1" name="info1" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo1_edit }" />
+                                            <input type="text" id="quizzes_info1" name="info1" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo1_edit }" />
                                         ` : ``
                                         }
 
@@ -690,14 +687,14 @@ module.exports = class QuizzesEdit
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="quizzes_info1" name="info1" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo1_edit }</textarea>
+                                                <textarea id="quizzes_info1" name="info1" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo1_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="quizzes_info1" name="info1" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo1_edit }</textarea>
+                                                <textarea id="quizzes_info1" name="info1" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo1_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#quizzes_info1";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -710,14 +707,14 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo1FieldType == 11 ? 
                                         `
-                                            <input type="text" id="quizzes_info1" name="info1" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo1_edit }" />
+                                            <input type="text" id="quizzes_info1" name="info1" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo1_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo1FieldType == 12 ? 
                                         `
-                                            <textarea id="quizzes_info1" name="info1" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo1_edit }</textarea>
+                                            <textarea id="quizzes_info1" name="info1" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo1_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -735,7 +732,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configQuizzesInfo2FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_info2" name="info2" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo2_edit }" />
+                                            <input type="text" id="quizzes_info2" name="info2" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo2_edit }" />
                                         ` : ``
                                         }
 
@@ -745,14 +742,14 @@ module.exports = class QuizzesEdit
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="quizzes_info2" name="info2" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo2_edit }</textarea>
+                                                <textarea id="quizzes_info2" name="info2" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo2_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="quizzes_info2" name="info2" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo2_edit }</textarea>
+                                                <textarea id="quizzes_info2" name="info2" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo2_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#quizzes_info2";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -765,14 +762,14 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo2FieldType == 11 ? 
                                         `
-                                            <input type="text" id="quizzes_info2" name="info2" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo2_edit }" />
+                                            <input type="text" id="quizzes_info2" name="info2" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo2_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo2FieldType == 12 ? 
                                         `
-                                            <textarea id="quizzes_info2" name="info2" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo2_edit }</textarea>
+                                            <textarea id="quizzes_info2" name="info2" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo2_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -790,7 +787,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configQuizzesInfo3FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_info3" name="info3" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo3_edit }" />
+                                            <input type="text" id="quizzes_info3" name="info3" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo3_edit }" />
                                         ` : ``
                                         }
 
@@ -800,14 +797,14 @@ module.exports = class QuizzesEdit
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="quizzes_info3" name="info3" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo3_edit }</textarea>
+                                                <textarea id="quizzes_info3" name="info3" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo3_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="quizzes_info3" name="info3" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo3_edit }</textarea>
+                                                <textarea id="quizzes_info3" name="info3" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo3_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#quizzes_info3";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -820,14 +817,14 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo3FieldType == 11 ? 
                                         `
-                                            <input type="text" id="quizzes_info3" name="info3" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo3_edit }" />
+                                            <input type="text" id="quizzes_info3" name="info3" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo3_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo3FieldType == 12 ? 
                                         `
-                                            <textarea id="quizzes_info3" name="info3" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo3_edit }</textarea>
+                                            <textarea id="quizzes_info3" name="info3" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo3_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -845,7 +842,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configQuizzesInfo4FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_info4" name="info4" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo4_edit }" />
+                                            <input type="text" id="quizzes_info4" name="info4" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo4_edit }" />
                                         ` : ``
                                         }
 
@@ -855,14 +852,14 @@ module.exports = class QuizzesEdit
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="quizzes_info4" name="info4" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo4_edit }</textarea>
+                                                <textarea id="quizzes_info4" name="info4" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo4_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="quizzes_info4" name="info4" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo4_edit }</textarea>
+                                                <textarea id="quizzes_info4" name="info4" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo4_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#quizzes_info4";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -875,14 +872,14 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo4FieldType == 11 ? 
                                         `
-                                            <input type="text" id="quizzes_info4" name="info4" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo4_edit }" />
+                                            <input type="text" id="quizzes_info4" name="info4" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo4_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo4FieldType == 12 ? 
                                         `
-                                            <textarea id="quizzes_info4" name="info4" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo4_edit }</textarea>
+                                            <textarea id="quizzes_info4" name="info4" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo4_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -900,7 +897,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line.*/'' }
                                         ${ gSystemConfig.configQuizzesInfo5FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_info5" name="info5" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo5_edit }" />
+                                            <input type="text" id="quizzes_info5" name="info5" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo5_edit }" />
                                         ` : ``
                                         }
 
@@ -910,14 +907,14 @@ module.exports = class QuizzesEdit
                                             ${ /*No formatting.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 1 ? 
                                             `
-                                                <textarea id="quizzes_info5" name="info5" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo5_edit }</textarea>
+                                                <textarea id="quizzes_info5" name="info5" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo5_edit }</textarea>
                                             ` : ``
                                             }
 
                                             ${ /*TinyMCE.*/'' }
                                             ${ gSystemConfig.configBackendTextBox == 17 | gSystemConfig.configBackendTextBox == 18 ? 
                                             `
-                                                <textarea id="quizzes_info5" name="info5" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo5_edit }</textarea>
+                                                <textarea id="quizzes_info5" name="info5" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo5_edit }</textarea>
                                                 <script>
                                                     tinyMCEBackendConfig.selector = "#quizzes_info5";
                                                     tinymce.init(tinyMCEBackendConfig);
@@ -930,14 +927,14 @@ module.exports = class QuizzesEdit
                                         ${ /*Single line (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo5FieldType == 11 ? 
                                         `
-                                            <input type="text" id="quizzes_info5" name="info5" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesInfo5_edit }" />
+                                            <input type="text" id="quizzes_info5" name="info5" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesInfo5_edit }" />
                                         ` : ``
                                         }
 
                                         ${ /*Multiline (encrypted).*/'' }
                                         ${ gSystemConfig.configQuizzesInfo5FieldType == 12 ? 
                                         `
-                                            <textarea id="quizzes_info5" name="info5" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesInfo5_edit }</textarea>
+                                            <textarea id="quizzes_info5" name="info5" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesInfo5_edit }</textarea>
                                         ` : ``
                                         }
                                     </td>
@@ -957,7 +954,7 @@ module.exports = class QuizzesEdit
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber1FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_number1" name="number1" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber1_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number1" name="number1" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber1_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("quizzes_number1");
                                             </script>
@@ -968,7 +965,7 @@ module.exports = class QuizzesEdit
                                         ${ gSystemConfig.configQuizzesNumber1FieldType == 2 || gSystemConfig.configQuizzesNumber1FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="quizzes_number1" name="number1" class="ss-backend-field-currency01" value="${ opdRecord.tblQuizzesNumber1_print }" maxlength="45" />
+                                            <input type="text" id="quizzes_number1" name="number1" class="ss-backend-field-currency01" value="${ oqdRecord.tblQuizzesNumber1_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("quizzes_number1")*/'' }
                                             <script>
@@ -980,7 +977,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber1FieldType == 3 ? 
                                         `
-                                            <input type="text" id="quizzes_number1" name="number1" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber1_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number1" name="number1" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber1_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("quizzes_number1");
                                             </script>
@@ -1001,7 +998,7 @@ module.exports = class QuizzesEdit
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber2FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_number2" name="number2" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber2_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number2" name="number2" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber2_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("quizzes_number2");
                                             </script>
@@ -1012,7 +1009,7 @@ module.exports = class QuizzesEdit
                                         ${ gSystemConfig.configQuizzesNumber2FieldType == 2 || gSystemConfig.configQuizzesNumber2FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="quizzes_number2" name="number2" class="ss-backend-field-currency01" value="${ opdRecord.tblQuizzesNumber2_print }" maxlength="45" />
+                                            <input type="text" id="quizzes_number2" name="number2" class="ss-backend-field-currency01" value="${ oqdRecord.tblQuizzesNumber2_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("quizzes_number2")*/'' }
                                             <script>
@@ -1024,7 +1021,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber2FieldType == 3 ? 
                                         `
-                                            <input type="text" id="quizzes_number2" name="number2" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber2_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number2" name="number2" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber2_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("quizzes_number2");
                                             </script>
@@ -1045,7 +1042,7 @@ module.exports = class QuizzesEdit
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber3FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_number3" name="number3" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber3_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number3" name="number3" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber3_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("quizzes_number3");
                                             </script>
@@ -1056,7 +1053,7 @@ module.exports = class QuizzesEdit
                                         ${ gSystemConfig.configQuizzesNumber3FieldType == 2 || gSystemConfig.configQuizzesNumber3FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="quizzes_number3" name="number3" class="ss-backend-field-currency01" value="${ opdRecord.tblQuizzesNumber3_print }" maxlength="45" />
+                                            <input type="text" id="quizzes_number3" name="number3" class="ss-backend-field-currency01" value="${ oqdRecord.tblQuizzesNumber3_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("quizzes_number3")*/'' }
                                             <script>
@@ -1068,7 +1065,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber3FieldType == 3 ? 
                                         `
-                                            <input type="text" id="quizzes_number3" name="number3" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber3_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number3" name="number3" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber3_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("quizzes_number3");
                                             </script>
@@ -1089,7 +1086,7 @@ module.exports = class QuizzesEdit
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber4FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_number4" name="number4" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber4_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number4" name="number4" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber4_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("quizzes_number4");
                                             </script>
@@ -1100,7 +1097,7 @@ module.exports = class QuizzesEdit
                                         ${ gSystemConfig.configQuizzesNumber4FieldType == 2 || gSystemConfig.configQuizzesNumber4FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="quizzes_number4" name="number4" class="ss-backend-field-currency01" value="${ opdRecord.tblQuizzesNumber4_print }" maxlength="45" />
+                                            <input type="text" id="quizzes_number4" name="number4" class="ss-backend-field-currency01" value="${ oqdRecord.tblQuizzesNumber4_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("quizzes_number4")*/'' }
                                             <script>
@@ -1112,7 +1109,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber4FieldType == 3 ? 
                                         `
-                                            <input type="text" id="quizzes_number4" name="number4" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber4_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number4" name="number4" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber4_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("quizzes_number4");
                                             </script>
@@ -1133,7 +1130,7 @@ module.exports = class QuizzesEdit
                                         ${ /*General number.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber5FieldType == 1 ? 
                                         `
-                                            <input type="text" id="quizzes_number5" name="number5" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber5_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number5" name="number5" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber5_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskGenericBackendConfigOptions).mask("quizzes_number5");
                                             </script>
@@ -1144,7 +1141,7 @@ module.exports = class QuizzesEdit
                                         ${ gSystemConfig.configQuizzesNumber5FieldType == 2 || gSystemConfig.configQuizzesNumber5FieldType == 4 ? 
                                         `
                                             ${ gSystemConfig.configSystemCurrency }
-                                            <input type="text" id="quizzes_number5" name="number5" class="ss-backend-field-currency01" value="${ opdRecord.tblQuizzesNumber5_print }" maxlength="45" />
+                                            <input type="text" id="quizzes_number5" name="number5" class="ss-backend-field-currency01" value="${ oqdRecord.tblQuizzesNumber5_print }" maxlength="45" />
                                             
                                             ${ /*Inputmask("9", { repeat: 10 }).mask("quizzes_number5")*/'' }
                                             <script>
@@ -1156,7 +1153,7 @@ module.exports = class QuizzesEdit
                                         ${ /*Decimal.*/'' }
                                         ${ gSystemConfig.configQuizzesNumber5FieldType == 3 ? 
                                         `
-                                            <input type="text" id="quizzes_number5" name="number5" class="ss-backend-field-numeric02" value="${ opdRecord.tblQuizzesNumber5_print }" maxlength="34" />
+                                            <input type="text" id="quizzes_number5" name="number5" class="ss-backend-field-numeric02" value="${ oqdRecord.tblQuizzesNumber5_print }" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("quizzes_number5");
                                             </script>
@@ -1176,15 +1173,15 @@ module.exports = class QuizzesEdit
                                     <td style="display: flex; align-items: center;">
                                         <input type="file" id="quizzes_image_main" name="image_main" class="ss-backend-field-file-upload" />
 
-                                        ${ opdRecord.tblQuizzesImageMain != "" ? 
+                                        ${ oqdRecord.tblQuizzesImageMain != "" ? 
                                         `
-                                        <img id="imgQuizzesImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + opdRecord.tblQuizzesImageMain + "?v=" + this.cacheClear }" alt="${ opdRecord.tblQuizzesTitle }" class="ss-backend-images-edit" />
+                                        <img id="imgQuizzesImageMain" src="${ gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + "/t" + oqdRecord.tblQuizzesImageMain + "?v=" + this.cacheClear }" alt="${ oqdRecord.tblQuizzesTitle }" class="ss-backend-images-edit" />
                                         <div id="divQuizzesImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                 ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
                                                                             {
-                                                                                idRecord: '${ opdRecord.tblQuizzesID }', 
+                                                                                idRecord: '${ oqdRecord.tblQuizzesID }', 
                                                                                 strTable: '${ gSystemConfig.configSystemDBTableQuizzes }', 
                                                                                 strField:'image_main', 
                                                                                 recordValue: '', 
@@ -1231,7 +1228,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemImageCaption") }: 
                                     </td>
                                     <td>
-                                        <input type="text" id="quizzes_image_main_caption" name="image_main_caption" class="ss-backend-field-text01" value="${ opdRecord.tblQuizzesImageMainCaption }" />
+                                        <input type="text" id="quizzes_image_main_caption" name="image_main_caption" class="ss-backend-field-text01" value="${ oqdRecord.tblQuizzesImageMainCaption }" />
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1243,11 +1240,11 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation") }: 
                                     </td>
                                     <td>
-                                        <select id="quizzes_activation" name="activation" class="ss-backend-field-dropdown01">
-                                            <option value="1"${ opdRecord.tblQuizzesActivation == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                            <option value="0"${ opdRecord.tblQuizzesActivation == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                        <select id="quizzes_activation" name="activation" class="ss-backend-field-droqdown01">
+                                            <option value="1"${ oqdRecord.tblQuizzesActivation == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                            <option value="0"${ oqdRecord.tblQuizzesActivation == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                         </select>
-                                        ${ /*opdRecord.tblQuizzesActivation_print*/ '' }
+                                        ${ /*oqdRecord.tblQuizzesActivation_print*/ '' }
                                     </td>
                                 </tr>
 
@@ -1258,9 +1255,9 @@ module.exports = class QuizzesEdit
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesActivation1") }: 
                                         </td>
                                         <td>
-                                            <select id="quizzes_activation1" name="activation1" class="ss-backend-field-dropdown01">
-                                                <option value="1"${ opdRecord.tblQuizzesActivation1 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0"${ opdRecord.tblQuizzesActivation1 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                            <select id="quizzes_activation1" name="activation1" class="ss-backend-field-droqdown01">
+                                                <option value="1"${ oqdRecord.tblQuizzesActivation1 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ oqdRecord.tblQuizzesActivation1 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -1274,9 +1271,9 @@ module.exports = class QuizzesEdit
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesActivation2") }: 
                                         </td>
                                         <td>
-                                            <select id="quizzes_activation2" name="activation2" class="ss-backend-field-dropdown01">
-                                                <option value="1"${ opdRecord.tblQuizzesActivation2 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0"${ opdRecord.tblQuizzesActivation2 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                            <select id="quizzes_activation2" name="activation2" class="ss-backend-field-droqdown01">
+                                                <option value="1"${ oqdRecord.tblQuizzesActivation2 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ oqdRecord.tblQuizzesActivation2 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -1290,9 +1287,9 @@ module.exports = class QuizzesEdit
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesActivation3") }: 
                                         </td>
                                         <td>
-                                            <select id="quizzes_activation3" name="activation3" class="ss-backend-field-dropdown01">
-                                                <option value="1"${ opdRecord.tblQuizzesActivation3 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0"${ opdRecord.tblQuizzesActivation3 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                            <select id="quizzes_activation3" name="activation3" class="ss-backend-field-droqdown01">
+                                                <option value="1"${ oqdRecord.tblQuizzesActivation3 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ oqdRecord.tblQuizzesActivation3 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -1306,9 +1303,9 @@ module.exports = class QuizzesEdit
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesActivation4") }: 
                                         </td>
                                         <td>
-                                            <select id="quizzes_activation4" name="activation4" class="ss-backend-field-dropdown01">
-                                                <option value="1"${ opdRecord.tblQuizzesActivation4 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0"${ opdRecord.tblQuizzesActivation4 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                            <select id="quizzes_activation4" name="activation4" class="ss-backend-field-droqdown01">
+                                                <option value="1"${ oqdRecord.tblQuizzesActivation4 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ oqdRecord.tblQuizzesActivation4 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -1322,9 +1319,9 @@ module.exports = class QuizzesEdit
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesActivation5") }: 
                                         </td>
                                         <td>
-                                            <select id="quizzes_activation5" name="activation5" class="ss-backend-field-dropdown01">
-                                                <option value="1"${ opdRecord.tblQuizzesActivation5 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
-                                                <option value="0"${ opdRecord.tblQuizzesActivation5 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
+                                            <select id="quizzes_activation5" name="activation5" class="ss-backend-field-droqdown01">
+                                                <option value="1"${ oqdRecord.tblQuizzesActivation5 == 1 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation1") }</option>
+                                                <option value="0"${ oqdRecord.tblQuizzesActivation5 == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivation0") }</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -1338,11 +1335,11 @@ module.exports = class QuizzesEdit
                                             ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesStatus") }: 
                                         </td>
                                         <td>
-                                            <select id="quizzes_id_status" name="id_status" class="ss-backend-field-dropdown01">
-                                                <option value="0"${ opdRecord.tblQuizzesIdStatus == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
+                                            <select id="quizzes_id_status" name="id_status" class="ss-backend-field-droqdown01">
+                                                <option value="0"${ oqdRecord.tblQuizzesIdStatus == 0 ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemDropDownSelectNone") }</option>
                                                 ${resultsQuizzesStatusListing.map((statusRow)=>{
                                                     return `
-                                                        <option value="${ statusRow.id }"${ opdRecord.tblQuizzesIdStatus == statusRow.id ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
+                                                        <option value="${ statusRow.id }"${ oqdRecord.tblQuizzesIdStatus == statusRow.id ? ` selected` : `` }>${ SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, "db") }</option>
                                                     `;
                                                 }).join("") }
                                             </select>
@@ -1358,7 +1355,7 @@ module.exports = class QuizzesEdit
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemNotesInternal") }: 
                                     </td>
                                     <td>
-                                        <textarea id="quizzes_notes" name="notes" class="ss-backend-field-text-area01">${ opdRecord.tblQuizzesNotes_edit }</textarea>
+                                        <textarea id="quizzes_notes" name="notes" class="ss-backend-field-text-area01">${ oqdRecord.tblQuizzesNotes_edit }</textarea>
                                     </td>
                                 </tr>
                                 ` : ``
@@ -1381,11 +1378,11 @@ module.exports = class QuizzesEdit
                         </a>
                     </div>
 
-                    <input type="hidden" id="quizzes_id" name="id" value="${ opdRecord.tblQuizzesID }" />
-                    <input type="hidden" id="quizzes_id_type" name="id_type" value="${ opdRecord.tblQuizzesIdType }" />
+                    <input type="hidden" id="quizzes_id" name="id" value="${ oqdRecord.tblQuizzesID }" />
+                    <input type="hidden" id="quizzes_id_type" name="id_type" value="${ oqdRecord.tblQuizzesIdType }" />
                     
-                    <input type="hidden" id="quizzes_idParent" name="idParent" value="${ opdRecord.tblQuizzesIdParent }" />
-                    <input type="hidden" id="quizzes_idType" name="idType" value="${ opdRecord.tblQuizzesIdType }" />
+                    <input type="hidden" id="quizzes_idParent" name="idParent" value="${ oqdRecord.tblQuizzesIdParent }" />
+                    <input type="hidden" id="quizzes_idType" name="idType" value="${ oqdRecord.tblQuizzesIdType }" />
                     <input type="hidden" id="quizzes_pageNumber" name="pageNumber" value="${ this._pageNumber }" />
                     <input type="hidden" id="quizzes_masterPageSelect" name="masterPageSelect" value="${ this._masterPageSelect }" />
                 </form>
