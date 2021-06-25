@@ -431,7 +431,7 @@ router.patch("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.config
                     //Get current value.
                     recordCurrentResult = await SyncSystemNS.FunctionsDB.genericTableGet02(strTable, 
                                                                     ["id;" + idRecord + ";i"], 
-                                                                    gSystemConfig.configCategoriesSort, 
+                                                                    "", 
                                                                     "", 
                                                                     "id, " + strField, 
                                                                     1, 

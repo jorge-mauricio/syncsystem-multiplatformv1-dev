@@ -132,6 +132,8 @@ exports.appLabels = {
     backendItemEdit: "Edit",
     backendItemDelete: "Delete",
     backendItemSelect: "Select",
+        backendItemSelect0: "Not Selected",
+        backendItemSelect1: "Selected",
 
     backendItemValueDescription01: "Format: 1000,00",
 

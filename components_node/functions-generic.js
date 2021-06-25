@@ -2140,6 +2140,7 @@ module.exports = class FunctionsGeneric
                 gSystemConfig.enableQuizzesActivation4 == 1 ? arrTableFieldsQueryBuild.push("activation4") : '';
                 gSystemConfig.enableQuizzesActivation5 == 1 ? arrTableFieldsQueryBuild.push("activation5") : '';
                 gSystemConfig.enableQuizzesStatus == 1 ? arrTableFieldsQueryBuild.push("id_status") : '';
+                arrTableFieldsQueryBuild.push("id_quizzes_options_answer");
                 gSystemConfig.enableQuizzesNotes == 1 ? arrTableFieldsQueryBuild.push("notes") : '';
             }
 

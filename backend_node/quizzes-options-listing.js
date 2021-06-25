@@ -487,6 +487,10 @@ module.exports = class QuizzesOptionsListing
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendQuizzesOptionsOptionName") }  
                                     </td>
 
+                                    <td style="width: 80px; text-align: center;">
+                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "frontendQuizzesAnswer") }  
+                                    </td>
+
                                     <td style="width: 40px; text-align: center;">
                                         ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemActivationA") }  
                                     </td>
@@ -554,6 +558,50 @@ module.exports = class QuizzesOptionsListing
 
                                         <td style="text-align: left;">
                                             ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(quizzesOptionsRow.title, "db") }
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            <a id="linkIdQuizzesOptionsAnswer${ quizzesOptionsRow.id }" class="ss-backend-links01" 
+                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                         ajaxRecordsPatch01_async('${ gSystemConfig.configSystemURLSSL + "/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendRecords }/',
+                                                                                    {
+                                                                                        idRecord: '${ quizzesOptionsRow.id_quizzes }', 
+                                                                                        strTable: '${ gSystemConfig.configSystemDBTableQuizzes }', 
+                                                                                        strField:'id_quizzes_options_answer', 
+                                                                                        recordValue: '${ quizzesOptionsRow.id }', 
+                                                                                        patchType: 'setValue', 
+                                                                                        ajaxFunction: true, 
+                                                                                        apiKey: '${ SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2) }'
+                                                                                    }, 
+                                                                                    async function(_resObjReturn){
+                                                                                        //alert(JSON.stringify(_resObjReturn));
+                                                                                        
+                                                                                        if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                        {
+                                                                                            //Change text inside link (all links).
+                                                                                            elementMessage01('multiple:id:linkIdQuizzesOptionsAnswer', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSelect0") }');
+
+                                                                                            //Change text inside link (selected link).
+                                                                                            elementMessage01('linkIdQuizzesOptionsAnswer${ quizzesOptionsRow.id }', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSelect1") }');
+
+                                                                                            //Success message.
+                                                                                            elementMessage01('divMessageSuccess', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage11") }');
+
+                                                                                        }else{
+                                                                                            //Show error.
+                                                                                            elementMessage01('divMessageError', '${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageAPI2e") }');
+                                                                                        }
+
+                                                                                        //Hide ajax progress bar.
+                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                                    });">
+                                                    ${ 
+                                                        this.objParentTable.tableData[0].id_quizzes_options_answer == quizzesOptionsRow.id ? 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSelect1")
+                                                        : 
+                                                        SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemSelect0") 
+                                                    } 
+                                            </a>
                                         </td>
 
                                         <td id="formQuizzesOptionsListing_elementActivation${ quizzesOptionsRow.id }" style="text-align: center;" class="${ quizzesOptionsRow.activation == 1 ? "" : "ss-backend-table-bg-deactive"}">

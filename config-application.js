@@ -2000,6 +2000,7 @@ gSystemConfig.configQuizzesFrontendPaginationNRecords = 10;
 
 
 //Options.
+//TODO: Create extra column id_quizzes_options_answer in quizzes_options, if want to enable multiple answers right.
 gSystemConfig.enableQuizzesOptionsSortOrder = 1; //0 - disable | 1 - enable
 
 //gSystemConfig.enableQuizzesOptionsTitle = 1; //0 - disable | 1 - enable
