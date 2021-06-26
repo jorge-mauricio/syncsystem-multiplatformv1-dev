@@ -140,15 +140,18 @@ class FrontendQuizzesListingRecord extends Component
         var quizResultsLog = this.state.quizResultsLog;
         var quizAnswerStatus = false;
         var tblQuizzesID = "";
+        var divQuizID = "";
 
 
         //Value definition.
         tblQuizzesID = eventData._tblQuizzesID;
+        divQuizID = eventData._divQuizID;
 
 
         //Logic.
         //Check answer.
-        if(eventData._objQuizDetails.correct_answer == "True")
+        //if(eventData._objQuizDetails.correct_answer == "True")
+        if(eventData._objQuizDetails.id_quizzes_options_answer == eventData._eventValue)
         {
             quizAnswerStatus = true;
             countQuizAnswersRight++;
@@ -157,6 +160,7 @@ class FrontendQuizzesListingRecord extends Component
         //Insert log in array.
         quizResultsLog.push({
             tblQuizzesID: tblQuizzesID,
+            //divQuizID: divQuizID,
             objQuizDetails: eventData._objQuizDetails,
             quizAnswerStatus: quizAnswerStatus
         });
@@ -168,10 +172,13 @@ class FrontendQuizzesListingRecord extends Component
 
 
         //Frontend change.
-        //FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + eventData._tblQuizzesID, 'display', 'none');
-        FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + tblQuizzesID, 'display', 'none');
-        FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + (tblQuizzesID + 1), 'display', 'block');
-        if(tblQuizzesID == (this.props.arrQuizzesListing.length -1))
+        ////FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + eventData._tblQuizzesID, 'display', 'none');
+        //FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + tblQuizzesID, 'display', 'none');
+        FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + divQuizID, 'display', 'none');
+        //FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + (tblQuizzesID + 1), 'display', 'block');
+        FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + (divQuizID + 1), 'display', 'block');
+        //if(tblQuizzesID == (this.props.arrQuizzesListing.length - 1))
+        if(divQuizID == (this.props.arrQuizzesListing.length - 1))
         {
             FunctionsSyncSystem.htmlGenericStyle01('divQuizResultsLog', 'display', 'block');
         }
@@ -243,8 +250,8 @@ class FrontendQuizzesListingRecord extends Component
 
 
         //Debug.
-        //console.log("configLayoutType(publications listing record)=", configLayoutType);
-        //console.log("arrQuizzesListing(Quizzes listing record)=", arrQuizzesListing);
+        //console.log("configLayoutType(quizzes listing record)=", configLayoutType);
+        console.log("arrQuizzesListing(Quizzes listing record)=", arrQuizzesListing);
         //----------------------
 
 
@@ -260,11 +267,12 @@ class FrontendQuizzesListingRecord extends Component
                         <div id={"divQuizStart"}>
                             <button 
                                 onClick={()=>{
+                                    //FunctionsSyncSystem.htmlGenericStyle01('divQuiz' + arrQuizzesListing[0].id, 'display', 'block');
                                     FunctionsSyncSystem.htmlGenericStyle01('divQuiz0', 'display', 'block');
                                     FunctionsSyncSystem.htmlGenericStyle01('divQuizStart', 'display', 'none');
                                 }}
                                 className="ss-frontend-btn-base ss-frontend-btn-action">
-                                Start / Begin
+                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonStart") }:
                             </button>
                         </div>
                         
@@ -275,27 +283,29 @@ class FrontendQuizzesListingRecord extends Component
                                             className="ss-frontend-quizzes-container ss-frontend-quizzes-listing-text01"
                                             style={{display: "none"}}>
                                         <h2 className="ss-frontend-quizzes-listing-title01">
-                                            <a href={"/" + gSystemConfig.configRouteFrontendQuizzes + "/" + gSystemConfig.configRouteFrontendDetails + "/" /*+ quizzesRow.id*/} 
+                                            <a href={"/" + gSystemConfig.configRouteFrontendQuizzes + "/" + gSystemConfig.configRouteFrontendDetails + "/" + quizzesRow.id} 
                                                 className="ss-frontend-quizzes-listing-title-link01"
-                                                title={ SyncSystemNS.FunctionsGeneric.contentMaskRead(quizzesRow.category, "db") }>
+                                                title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendItemDetails") }>
                                                 { /*quizzesRow.title*/ }
                                                 { /*SyncSystemNS.FunctionsGeneric.contentMaskRead(quizzesRow.category, "db")*/ }
-                                                { HTMLReactParser(quizzesRow.category) }
+                                                { /*HTMLReactParser(quizzesRow.category)*/ }
+                                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendItemDetails") }:
                                             </a>
                                         </h2>
                                         <p className="ss-frontend-quizzes-listing-content-row01">
                                             { /*SyncSystemNS.FunctionsGeneric.contentMaskRead(quizzesRow.question, "db")*/ }
                                             { /*JSON.parse(quizzesRow.question)*/ }
-                                            { HTMLReactParser(quizzesRow.question) }
+                                            { /*HTMLReactParser(quizzesRow.question)*/ }
+                                            { HTMLReactParser(SyncSystemNS.FunctionsGeneric.contentMaskRead(quizzesRow.title, "db")) }
                                             
                                         </p>
 
-                                        { /*Options - store in memory.*/ }
+                                        { /*Options (true/false) - store in memory.*/ }
                                         <div className="ss-frontend-quizzes-listing-content-row01">
                                             <a onClick={() => this.handleQuizResultLog(
                                                     {
                                                         _eventValue: true,
-                                                        _tblQuizzesID: quizzesRowKey,
+                                                        _tblQuizzesID: quizzesRow.id,
                                                         _objQuizDetails: quizzesRow
                                                     }
                                                 )}
@@ -307,7 +317,7 @@ class FrontendQuizzesListingRecord extends Component
                                             <a onClick={() => this.handleQuizResultLog(
                                                     {
                                                         _eventValue: false,
-                                                        _tblQuizzesID: quizzesRowKey,
+                                                        _tblQuizzesID: quizzesRow.id,
                                                         _objQuizDetails: quizzesRow
                                                     }
                                                 )}
@@ -315,6 +325,28 @@ class FrontendQuizzesListingRecord extends Component
                                                 title={ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendQuizzesAnswerNo") }>
                                                     { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendQuizzesAnswerNo") }
                                             </a>
+                                        </div>
+
+
+                                        { /*Options (multiple) - store in memory.*/ }
+                                        <div className="ss-frontend-quizzes-listing-content-row01">
+                                            { quizzesRow.quizzesOptions.map((quizzesOptionsRow, quizzesOptionsRowKey) =>{
+                                                return (
+                                                        <a onClick={() => this.handleQuizResultLog(
+                                                                {
+                                                                    _eventValue: quizzesOptionsRow.id, //substitute with option id
+                                                                    _tblQuizzesID: quizzesRow.id,
+                                                                    _divQuizID: quizzesRowKey,
+                                                                    _objQuizDetails: quizzesRow
+                                                                }
+                                                            )}
+                                                            className="ss-frontend-btn-base ss-frontend-btn-action"
+                                                            title={ HTMLReactParser(SyncSystemNS.FunctionsGeneric.contentMaskRead(quizzesOptionsRow.title, "db")) }>
+                                                                { HTMLReactParser(SyncSystemNS.FunctionsGeneric.contentMaskRead(quizzesOptionsRow.title, "db")) }
+                                                        </a>
+                                                    );
+                                                })
+                                            }
                                         </div>
                                     </article>
                                 );
@@ -324,11 +356,11 @@ class FrontendQuizzesListingRecord extends Component
                         { /*Results - quiz answers log.*/ }
                         <div id={"divQuizResultsLog"} style={{display: "none"}}>
                             <div>
-                                Answers right:
+                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendQuizzesAnswersRight") }:
                                 { this.state.quizAnswersRight } / { arrQuizzesListing.length }
                             </div>
                             <div>
-                                Answers Log:
+                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendQuizzesAnswersResults") }:
                                 { /*Debug.*/ }
                                 { /*JSON.stringify(this.state.quizResultsLog)*/ }
 
@@ -341,7 +373,7 @@ class FrontendQuizzesListingRecord extends Component
 
                                                 Question:
                                                 <div className="ss-frontend-quizzes-listing-subheading01">
-                                                    { HTMLReactParser(quizResultsLogRow.objQuizDetails.question) }
+                                                    { HTMLReactParser(quizResultsLogRow.objQuizDetails.title) }
                                                 </div>
                                                 
                                                 <br />
@@ -357,7 +389,7 @@ class FrontendQuizzesListingRecord extends Component
                                 <button 
                                     onClick={()=>{ this.handleQuizResultReset() }}
                                     className="ss-frontend-btn-base ss-frontend-btn-action">
-                                    Reset
+                                    { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonReset") }:
                                 </button>
                             </div>
                         </div>

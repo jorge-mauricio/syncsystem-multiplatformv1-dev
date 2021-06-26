@@ -556,9 +556,9 @@ class LayoutFrontendMain extends Component
 
                         {/*Credits.*/}
                         <small className="ss-frontend-copyright" style={{position: 'absolute', display: 'block', bottom: '35px', left: '25px', right: '25px', height: '40px', lineHeight: '40px', borderTop: '1px dashed #cccccc'}}>
-                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutCopyright") } © 
-                            { gSystemConfig.configCopyrightYear } 
-                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configSiteTile") }.
+                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutCopyright") } ©&nbsp;
+                            { gSystemConfig.configCopyrightYear }&nbsp;
+                            { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configSiteTile") }.&nbsp;
                             { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "layoutCopyright1") }
 
                             {/*Development.*/}

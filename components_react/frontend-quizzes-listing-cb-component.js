@@ -300,44 +300,48 @@ class FrontendQuizzesListing extends Component
         {
             //API - build URL string.
             //apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idParentQuizzes + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-            //apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idParentQuizzes + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
+            apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idParentQuizzes + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
             //apiURLQuizzesListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + this._idParentQuizzes + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-            //apiURLQuizzesListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + this._idParentQuizzes + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
-            apiURLQuizzesListing = "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean"; //G2i Test.
+            apiURLQuizzesListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + this._idParentQuizzes + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
+            //apiURLQuizzesListing = "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean"; //Test.
 
             //API - fetch data from backend.
-            //apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
-            ////this.objCategoriesCurrent = await response.json();
-            //this.objCategoriesCurrent = await apiCategoriesDetailsCurrentResponse.json();
-            ////console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
+            apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
+            //this.objCategoriesCurrent = await response.json();
+            this.objCategoriesCurrent = await apiCategoriesDetailsCurrentResponse.json();
+            //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
 
             apiQuizzesListingResponse = await fetch(apiURLQuizzesListing);
             //this.objQuizzesCurrent = await response.json();
             this.objQuizzesListingJson = await apiQuizzesListingResponse.json();
-            console.log("this.objQuizzesListingJson=", this.objQuizzesListingJson);
+
+            //apiQuizzesListingResponse = await fetch(apiURLQuizzesListing); //Test.
+            ////this.objQuizzesCurrent = await response.json(); 
+            //this.objQuizzesListingJson = await apiQuizzesListingResponse.json(); //Test.
+            //console.log("this.objQuizzesListingJson=", this.objQuizzesListingJson);
 
             //Value definition.
             //----------------------
-            //this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesTitle);
-            this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia API");
+            this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesTitle);
+            //this.titleCurrent = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia API"); //Test.
             //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
 
-            //this.objQuizzesListing = this.objQuizzesListingJson.oplRecords;
-            //this.arrQuizzesListing = this.objQuizzesListingJson.oplRecords.resultsQuizzesListing;
-            this.objQuizzesListing = this.objQuizzesListingJson;
-            if(this.objQuizzesListing.response_code == 0)
-            {
-                this.arrQuizzesListing = this.objQuizzesListingJson.results;
-            }
+            this.objQuizzesListing = this.objQuizzesListingJson.oqlRecords;
+            this.arrQuizzesListing = this.objQuizzesListingJson.oqlRecords.resultsQuizzesListing;
+            //this.objQuizzesListing = this.objQuizzesListingJson;
+            //if(this.objQuizzesListing.response_code == 0)
+            //{
+                //this.arrQuizzesListing = this.objQuizzesListingJson.results;
+            //} //Test.
 
             //idParentCategories = this.props.match.params.idParentCategories;
             this.metaTitle = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "configSiteTile");
             this.metaTitle += " - " + this.titleCurrent; //Bellow 160 characters.
 
-            //this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesMetaDescription); //Bellow 100 characters.
-            this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia Meta Description"); //Bellow 100 characters.
-            //this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); //Bellow 60 characters.
-            this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia Meta Keywords"); //Bellow 60 characters.
+            this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesMetaDescription); //Bellow 100 characters.
+            //this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia Meta Description"); //Bellow 100 characters. //Test.
+            this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); //Bellow 60 characters.
+            //this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia Meta Keywords"); //Bellow 60 characters. //Test.
             this.metaURLCurrent = gSystemConfig.configSystemURL + "/" + gSystemConfig.configRouteFrontendQuizzes + "/" + this._idParentQuizzes + "/";
             if(this._pageNumber)
             {
@@ -436,12 +440,12 @@ class FrontendQuizzesListing extends Component
         document.querySelector('meta[property="og:url"]').setAttribute("content", this.metaURLCurrent);
         document.querySelector('meta[property="og:description"]').setAttribute("content", this.metaDescription);
         
-        //if(this.objCategoriesCurrent.ocdRecord.tblCategoriesImageMain != "")
-        //{
-            //document.querySelector('meta[property="og:image"]').setAttribute("content", gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.objCategoriesCurrent.ocdRecord.tblCategoriesImageMain);
-        //}else{
+        if(this.objCategoriesCurrent.ocdRecord.tblCategoriesImageMain != "")
+        {
+            document.querySelector('meta[property="og:image"]').setAttribute("content", gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesSD + "/" + this.objCategoriesCurrent.ocdRecord.tblCategoriesImageMain);
+        }else{
             document.querySelector('meta[property="og:image"]').setAttribute("content", gSystemConfig.configSystemURL + "/" +  gSystemConfig.configDirectoryFilesLayoutSD + "/" + "icon-logo-og.png");
-        //}
+        }
         //document.querySelector('meta[property="og:image:secure_url"]').setAttribute("content", "Example with image url secure");
         document.querySelector('meta[property="og:image:alt"]').setAttribute("content", this.metaTitle);
         

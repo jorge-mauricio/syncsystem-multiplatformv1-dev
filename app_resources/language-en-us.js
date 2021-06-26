@@ -1004,6 +1004,8 @@ exports.appLabels = {
         frontendQuizzesAnswerA: "Ans.",
         frontendQuizzesAnswerYes: "Yes",
         frontendQuizzesAnswerNo: "No",
+    frontendQuizzesAnswersRight: "Answers Right",
+    frontendQuizzesAnswersResults: "Answers Results",
 
     frontendQuizzesAnswerRight: "Your answer is right.",
     frontendQuizzesAnswerWrong: "Your answer is wrong.",
