@@ -242,6 +242,8 @@ FunctionsSyncSystem.htmlGenericStyle01 = htmlGenericStyle01;
 //export default function elementMessage01(idElement, strMessage)
 const elementMessage01 = (idElement, strMessage) =>
 {
+    //idElement: id | iframe: (inside iframe) | multiple: (multiple elements)
+
     //Variables.
     //----------------------
     let elementHTML = "";
@@ -253,6 +255,44 @@ const elementMessage01 = (idElement, strMessage) =>
     if(idElement.indexOf("iframe:") >= 0)
     {
 
+    }else if(idElement.indexOf("multiple:") >= 0){
+        //Variables.
+        let arrParameters = idElement.split(":");
+        let selectorType = arrParameters[1]; //id | element | class
+        let strQuerySelector = arrParameters[2];
+        //let strQuerySelector = '[id^="linkIdQuizzesOptionsAnswer"]'; //debug
+
+        let arrElements;
+        //let arrElements = document.querySelectorAll(strQuerySelector); //debug.
+
+
+        //Logic
+        //ID.
+        if(selectorType === "id")
+        {
+            //Define values.
+            arrElements = document.querySelectorAll('[id^="' + strQuerySelector + '"]');
+
+
+            //Loop through nodes.
+            arrElements.forEach((nodeElement)=> { 
+
+                //Apply changes to each element.
+                elementMessage01(nodeElement.getAttribute("id"), strMessage);
+
+                //Debug.
+                //console.log("id=", nodeElement.getAttribute("id"))
+            });
+
+
+            //Debug.
+            //console.log("arrElements=", arrElements);
+        }
+
+
+        //Debug.
+        //console.log("arrParameters=", arrParameters);
+        //console.log("selectorType=", selectorType);
     }else{
         elementHTML = document.getElementById(idElement);
 
@@ -303,9 +343,15 @@ const elementMessage01 = (idElement, strMessage) =>
     //----------------------
 
 
+    //Debug.        
+    //console.log("idElement.indexOf=", idElement.indexOf("multiple:"));
+    //console.log("idElement=", idElement);
+
+
     //Usage.
     //----------------------
     //elementMessage01('formCategoririesListing_method', 'DELETE');
+    //elementMessage01('multiple:id:nameofinicialvalue', 'DELETE');
     //----------------------
 }
 FunctionsSyncSystem.elementMessage01 = elementMessage01; //Add function to object to export later.
@@ -541,6 +587,6 @@ export default {
 //{
     ////export default FunctionsSyncSystem;
     ////export { FunctionsSyncSystem, inputDataReorder };
-    export { FunctionsSyncSystem }; //working //enable for react webpack compile || disable for backend node
+    //export { FunctionsSyncSystem }; //working //enable for react webpack compile || disable for backend node
     ////module.exports { FunctionsSyncSystem };
 //}

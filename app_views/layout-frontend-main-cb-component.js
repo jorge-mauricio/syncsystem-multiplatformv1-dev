@@ -472,7 +472,7 @@ class LayoutFrontendMain extends Component
                                     Link - Publications
                                 </a>
                                 <a className="ss-frontend-link01"
-                                    href={"/" + gSystemConfig.configRouteFrontendQuizzes + "/1369/"} 
+                                    href={"/" + gSystemConfig.configRouteFrontendQuizzes + "/1648/"} 
                                     title={"Quizzes"}>
                                     Link - Quizzes
                                 </a>

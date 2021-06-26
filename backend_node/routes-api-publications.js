@@ -67,7 +67,7 @@ router.get("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteA
 
 
     //Debug.
-    console.log("idParentPublications=", idParentPublications);
+    //console.log("idParentPublications=", idParentPublications);
     //----------------------
 
 

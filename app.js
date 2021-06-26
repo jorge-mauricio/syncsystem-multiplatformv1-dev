@@ -365,7 +365,7 @@ app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backe
 app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-quizzes-options.js"));
 
 //API.
-//app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-registers.js"));
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-quizzes.js"));
 //----------------------
 
 
