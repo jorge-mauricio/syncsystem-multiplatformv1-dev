@@ -7435,6 +7435,223 @@ module.exports = class FunctionsDBInsert
     //**************************************************************************************
 
 
+    //Quizzes Log - insert record.
+    //**************************************************************************************
+    /**
+     * Quizzes Log - insert record.
+     * @static
+     * @async
+     * @param {object} _tblQuizzesLogDataObject
+     * @returns {boolean} true - successfull | false - error
+     */
+    static async quizzesLogInsert_async(_tblQuizzesLogDataObject)
+    {
+        //Variables.
+        //----------------------
+        let strReturn = false;
+
+        let tblQuizzesLogDataObject = {};
+
+        //Details - default values.
+        let tblQuizzesLogID = "";
+        let tblQuizzesLogIdQuizzes = 0;
+        let tblQuizzesLogIdQuizzesOptions = 0;
+        let tblQuizzesLogIdRegister = 0;
+        let tblQuizzesLogIdQuizzesOptionsAnswer = 0;
+        let tblQuizzesLogDateCreation = ""; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+        let tblQuizzesLogNotes = "";
+
+
+        let strSQLQuizzesLogInsert = "";
+        let strSQLQuizzesLogInsertParams = {};
+        let resultsSQLQuizzesLogInsert = null;
+        //----------------------
+
+
+        //Variables - value/data treatment.
+        //----------------------
+        tblQuizzesLogDataObject = _tblQuizzesLogDataObject;
+        
+        tblQuizzesLogID = tblQuizzesLogDataObject._tblQuizzesLogID;
+        //Check if id was passed. If not, create one.
+        //----------------------
+        if(tblQuizzesLogID == "" || tblQuizzesLogID === null || tblQuizzesLogID === undefined)
+        {
+            tblQuizzesLogID = await new Promise((resolve, reject)=>{
+                FunctionsDB.counterUniversalUpdate_async(1)
+                    .then((results)=>{
+                        if(results === undefined)
+                        {
+                            //Error.
+                            if(gSystemConfig.configDebug === true)
+                            {
+                                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage9"));
+                            }
+                            reject(new Error("nCounterUpdate is undefined."));
+                        }else{
+                            //Success.
+                            //resolve(nCounterUpdate);
+                            resolve(results);
+                        } //working
+        
+                    });
+            });
+        }
+        //----------------------
+        tblQuizzesLogIdQuizzes = (tblQuizzesLogDataObject.hasOwnProperty("_tblQuizzesLogIdQuizzes") === true) ? tblQuizzesLogDataObject._tblQuizzesLogIdQuizzes : tblQuizzesLogIdQuizzes;
+        tblQuizzesLogIdQuizzesOptions = (tblQuizzesLogDataObject.hasOwnProperty("_tblQuizzesLogIdQuizzesOptions") === true) ? tblQuizzesLogDataObject._tblQuizzesLogIdQuizzesOptions : tblQuizzesLogIdQuizzesOptions;
+        tblQuizzesLogIdRegister = (tblQuizzesLogDataObject.hasOwnProperty("_tblQuizzesLogIdRegister") === true) ? tblQuizzesLogDataObject._tblQuizzesLogIdRegister : tblQuizzesLogIdRegister;
+        tblQuizzesLogIdQuizzesOptionsAnswer = (tblQuizzesLogDataObject.hasOwnProperty("_tblQuizzesLogIdQuizzesOptionsAnswer") === true) ? tblQuizzesLogDataObject._tblQuizzesLogIdQuizzesOptionsAnswer : tblQuizzesLogIdQuizzesOptionsAnswer;
+
+        tblQuizzesLogDateCreation = (tblQuizzesLogDataObject.hasOwnProperty("_tblQuizzesLogDateCreation") === true) ? tblQuizzesLogDataObject._tblQuizzesLogDateCreation : tblQuizzesLogDateCreation; //x = condition ? true : false (default value declared)
+        if(!tblQuizzesLogDateCreation)
+        {
+            let tblQuizzesLogDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+            tblQuizzesLogDateCreation = FunctionsGeneric.dateSQLWrite(tblQuizzesLogDateCreation_dateObj);
+        }
+
+        tblQuizzesLogNotes = (tblQuizzesLogDataObject.hasOwnProperty("_tblQuizzesLogNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblQuizzesLogDataObject._tblQuizzesLogNotes, "db_write_text") : tblQuizzesLogNotes;
+        //----------------------
+
+
+        //Query.
+        //----------------------
+        strSQLQuizzesLogInsert += "INSERT INTO " + process.env.CONFIG_SYSTEM_DB_TABLE_PREFIX + gSystemConfig.configSystemDBTableQuizzesLog + " ";
+        strSQLQuizzesLogInsert += "SET ?";
+        //----------------------
+
+        
+        //Parameters.
+        //----------------------
+        strSQLQuizzesLogInsertParams.id = tblQuizzesLogID;
+        strSQLQuizzesLogInsertParams.id_quizzes = tblQuizzesLogIdQuizzes;
+        strSQLQuizzesLogInsertParams.id_quizzes_options = tblQuizzesLogIdQuizzesOptions;
+        strSQLQuizzesLogInsertParams.id_register = tblQuizzesLogIdRegister;
+        strSQLQuizzesLogInsertParams.id_quizzes_options_answer = tblQuizzesLogIdQuizzesOptionsAnswer;
+        strSQLQuizzesLogInsertParams.date_creation = tblQuizzesLogDateCreation;
+        strSQLQuizzesLogInsertParams.notes = tblQuizzesLogNotes;
+        //----------------------
+
+
+        //Execute query.
+        //----------------------
+        resultsSQLQuizzesLogInsert = await new Promise((resolve, reject)=>{
+
+            dbSystemConPool.getConnection(function(dbSystemPoolError, dbSystemConPoolGetConnection){
+                if(dbSystemPoolError)
+                {
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                    }
+                    throw dbSystemPoolError;
+                }else{
+
+                    //dbSystemCon.query(strSQLQuizzesLogInsert, strSQLQuizzesLogInsertParams, (dbSystemError, results) => {
+                    dbSystemConPoolGetConnection.query(strSQLQuizzesLogInsert, strSQLQuizzesLogInsertParams, (dbSystemError, results) => {
+                        dbSystemConPoolGetConnection.release();
+
+                        if(dbSystemError)
+                        {
+                            //Error.
+                            if(gSystemConfig.configDebug === true)
+                            {
+                                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessageError50"));
+                            }
+        
+                            throw dbSystemError;
+                        }else{
+                            //Set success flag.
+                            //strReturn = true;
+        
+                            if(results)
+                            {
+                                //Success.
+                                if(gSystemConfig.configDebug === true)
+                                {
+                                    console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage2"));
+                                }
+                                //Return promise.
+                                resolve(results);
+                            }else{
+                                //Error.
+                                //reject(false);
+                                reject(new Error(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3")));
+                            }
+                                
+        
+                            //Debug.
+                            //resolve(resultsSQLCounterRows);
+                            //resolve(nCounter);
+                            //resolve(json(resultsSQLCounterRows));//working: returns [ RowDataPacket { id: 1, counter_global: 123, description: 'Node database test' } ]
+                        }
+                    });
+        
+                }
+            });
+            
+        });
+        //----------------------
+
+
+        //Return data treatment.
+        //----------------------
+        //resultsSQLFormsInsert object ex: 
+        /*
+        OkPacket {
+            fieldCount: 0,
+            affectedRows: 1,
+            insertId: 0,
+            serverStatus: 2,
+            warningCount: 0,
+            message: '',
+            protocol41: true,
+            changedRows: 0 
+        }
+        */
+       if(resultsSQLQuizzesLogInsert.affectedRows > 0)
+       {
+           strReturn = true;
+       }
+       //----------------------
+
+
+        //Debug.
+        //return tblCategoriesID;
+        //return resultsSQLCategoriesInsert;
+
+
+        return strReturn;
+
+
+        //Usage.
+        //----------------------
+        /*
+        (async function(){ //async marks the block
+            try{ 
+            let quizzesLogInsertResult = await new Promise((resolve, reject)=>{
+                SyncSystemNS.FunctionsDBInsert.quizzesLogInsert_async({
+                    _tblQuizzesLogID: tblQuizzesLogID,
+                    _tblQuizzesLogIdTbQuizzes: tblQuizzesLogIdTbQuizzes,
+                    _tblQuizzesLogIdTbQuizzesOptions: tblQuizzesLogIdTbQuizzesOptions,
+                    _tblQuizzesLogIdRegister: tblQuizzesLogIdRegister,
+                    _tblQuizzesLogIdQuizzesOptionsAnswer: tblQuizzesLogIdQuizzesOptionsAnswer,
+                    _tblQuizzesDateCreation: "",
+                    _tblQuizzesLogNotes: tblQuizzesLogNotes
+                });
+                
+            }catch(aError){
+                //console.error(aError);
+            }finally{
+        
+            }
+        })()
+        */       
+        //----------------------
+    }
+    //**************************************************************************************
+
+
     //Forms - insert record.
     //**************************************************************************************
     /**

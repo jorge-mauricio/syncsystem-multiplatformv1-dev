@@ -131,6 +131,7 @@ class FrontendQuizzesListingRecord extends Component
 
     //Quiz result log handler.
     //**************************************************************************************
+    //handleQuizResultLog = async (eventData) =>
     handleQuizResultLog = (eventData) =>
     {
         //Variables.
@@ -161,6 +162,8 @@ class FrontendQuizzesListingRecord extends Component
         quizResultsLog.push({
             tblQuizzesID: tblQuizzesID,
             //divQuizID: divQuizID,
+            tblQuizzesLogIdQuizzesOptionsAnswer: eventData._eventValue,
+            tblQuizzesIdQuizzesOptionsAnswer: eventData._objQuizDetails.id_quizzes_options_answer,
             objQuizDetails: eventData._objQuizDetails,
             quizAnswerStatus: quizAnswerStatus
         });
@@ -180,15 +183,112 @@ class FrontendQuizzesListingRecord extends Component
         //if(tblQuizzesID == (this.props.arrQuizzesListing.length - 1))
         if(divQuizID == (this.props.arrQuizzesListing.length - 1))
         {
+            //Show results.
             FunctionsSyncSystem.htmlGenericStyle01('divQuizResultsLog', 'display', 'block');
+
+
+            //Record log.
+            (async function(quizResultsLog){ //async marks the block
+                //Variables.
+                let flagQuizzesLogInsert = true;
+
+
+                //Logic.
+                try{ 
+                    //for(let countArray = 0; countArray < this.state.quizResultsLog.length; countArray++)
+                    for(let countArray = 0; countArray < quizResultsLog.length; countArray++)
+                    {
+                        //Variables.
+                        let fdQuizzesLog = new FormData();
+                        let apiURLQuizzesLogOptions;
+                        let apiURLQuizzesLog;
+                        let apiQuizzesLogResponse;
+                        let objQuizzesLogJson;
+
+
+                        //Build form data.
+                        fdQuizzesLog.append("id", "");
+                        fdQuizzesLog.append("id_quizzes", tblQuizzesID);
+                        fdQuizzesLog.append("id_quizzes_options", "123");
+                        fdQuizzesLog.append("id_register", "1638");
+                        fdQuizzesLog.append("id_quizzes_options_answer", "321");
+                        fdQuizzesLog.append("date_creation", "");
+                        fdQuizzesLog.append("notes", "");
+
+
+                        //Fetch options for post method.
+                        apiURLQuizzesLogOptions = {
+                            method: "POST",
+                            /*
+                            headers: { 
+                                //"Content-Type": "application/json; charset=utf-8" 
+                                "Content-Type": "multipart/form-data"
+                            },
+                            */
+                            /*
+                            body: JSON.stringify({ 
+                                id: "",
+                                id_quizzes: tblQuizzesID,
+                                //id_quizzes_options: this.state.quizResultsLog[countArray].tblQuizzesLogIdQuizzesOptionsAnswer,
+                                id_quizzes_options: "123",
+                                id_register: "1638", //get id from cookie / authentication
+                                //id_quizzes_options_answer: this.state.quizResultsLog[countArray].tblQuizzesIdQuizzesOptionsAnswer,
+                                id_quizzes_options_answer: "321",
+                                date_creation: "",
+                                notes: "",
+                            })
+                            */
+                        body: fdQuizzesLog
+                        };
+
+                        //API - build URL string.
+                        apiURLQuizzesLog = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + gSystemConfig.configRouteAPIActionLog + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
+                        
+                        //API - fetch data from backend.
+                        apiQuizzesLogResponse = await fetch(apiURLQuizzesLog, apiURLQuizzesLogOptions);
+                        objQuizzesLogJson = await apiQuizzesLogResponse.json();
+
+
+                        //Condition.
+                        if(objQuizzesLogJson.returnStatus === false)
+                        {
+                            flagQuizzesLogInsert = false;
+                        }
+
+
+
+                        //Debug.
+                        console.log("objQuizzesLogJson=", objQuizzesLogJson);
+                    }
+
+                }catch(handleQuizResultLogError){
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log("handleQuizResultLogError=", handleQuizResultLogError);
+                    }
+                }finally{
+                    //Check flag / show proceed.
+                    if(flagQuizzesLogInsert === true)
+                    {
+                        //Show proceed button.
+
+                        //Debug.
+                        if(gSystemConfig.configDebug === true)
+                        {
+                            console.log("flagQuizzesLogInsert=", true);
+                        }
+                    }
+                }
+            })(this.state.quizResultsLog);
         }
 
 
         //Debug.
-        console.log("quizAnswersRight=", this.state.quizAnswersRight);
-        console.log("eventData._eventValue=", eventData._eventValue);
-        console.log("eventData._tblQuizzesID=", eventData._tblQuizzesID);
-        console.log("eventData._objQuizDetails=", eventData._objQuizDetails);
+        //console.log("quizAnswersRight=", this.state.quizAnswersRight);
+        console.log("this.state.quizResultsLog=", this.state.quizResultsLog);
+        //console.log("eventData._eventValue=", eventData._eventValue);
+        //console.log("eventData._tblQuizzesID=", eventData._tblQuizzesID);
+        //console.log("eventData._objQuizDetails=", eventData._objQuizDetails);
 
 
         //Usage.
@@ -226,6 +326,8 @@ class FrontendQuizzesListingRecord extends Component
     }
     //**************************************************************************************
 
+
+
     //Render.
     //**************************************************************************************
     render()
@@ -251,7 +353,7 @@ class FrontendQuizzesListingRecord extends Component
 
         //Debug.
         //console.log("configLayoutType(quizzes listing record)=", configLayoutType);
-        console.log("arrQuizzesListing(Quizzes listing record)=", arrQuizzesListing);
+        //console.log("arrQuizzesListing(Quizzes listing record)=", arrQuizzesListing);
         //----------------------
 
 

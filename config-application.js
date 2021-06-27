@@ -153,6 +153,7 @@ gSystemConfig.configDirectoryBuildReactClientSD = "public";
 gSystemConfig.configRouteAPI = "api";
 gSystemConfig.configRouteAPIActionEdit = "edit";
 gSystemConfig.configRouteAPIActionSend = "send";
+gSystemConfig.configRouteAPIActionLog = "log";
 gSystemConfig.configRouteAPIDetails = "details";
 gSystemConfig.configRouteAPIRecords = "records";
 
