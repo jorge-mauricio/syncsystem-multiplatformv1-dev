@@ -476,6 +476,11 @@ class LayoutFrontendMain extends Component
                                     title={"Quizzes"}>
                                     Link - Quizzes
                                 </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendLogin + "/"} 
+                                    title={"Login"}>
+                                    Link - Login
+                                </a>
                             </nav>
                         </div>
 

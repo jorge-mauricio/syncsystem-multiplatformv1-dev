@@ -188,6 +188,8 @@ class FrontendQuizzesListingRecord extends Component
 
 
             //Record log.
+            //TODO: Optimize to make only one data send to record the information.
+            //TODO: Option to record the answers as is responded.
             (async function(quizResultsLog){ //async marks the block
                 //Variables.
                 let flagQuizzesLogInsert = true;
@@ -208,10 +210,11 @@ class FrontendQuizzesListingRecord extends Component
 
                         //Build form data.
                         fdQuizzesLog.append("id", "");
-                        fdQuizzesLog.append("id_quizzes", tblQuizzesID);
-                        fdQuizzesLog.append("id_quizzes_options", "123");
+                        //fdQuizzesLog.append("id_quizzes", tblQuizzesID);
+                        fdQuizzesLog.append("id_quizzes", quizResultsLog[countArray].objQuizDetails.id);
+                        fdQuizzesLog.append("id_quizzes_options", quizResultsLog[countArray].tblQuizzesLogIdQuizzesOptionsAnswer);
                         fdQuizzesLog.append("id_register", "1638");
-                        fdQuizzesLog.append("id_quizzes_options_answer", "321");
+                        fdQuizzesLog.append("id_quizzes_options_answer", quizResultsLog[countArray].objQuizDetails.id_quizzes_options_answer);
                         fdQuizzesLog.append("date_creation", "");
                         fdQuizzesLog.append("notes", "");
 
@@ -256,11 +259,9 @@ class FrontendQuizzesListingRecord extends Component
                         }
 
 
-
                         //Debug.
                         console.log("objQuizzesLogJson=", objQuizzesLogJson);
                     }
-
                 }catch(handleQuizResultLogError){
                     if(gSystemConfig.configDebug === true)
                     {

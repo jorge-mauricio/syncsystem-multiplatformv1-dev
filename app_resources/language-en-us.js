@@ -166,6 +166,8 @@ exports.appLabels = {
     backendButtonStart: "Start",
     backendButtonFinish: "Finish",
     backendButtonLogin: "Login",
+    backendButtonLoginRemind: "Remind Password",
+    backendButtonLogoff: "Logoff",
     backendButtonSend: "Send",
 
     //Images.
@@ -175,8 +177,30 @@ exports.appLabels = {
 
     //Login.
     //**************************************************************************************
+    backendLoginTitleMain: "Login",
+    //backendLoginTitleEdit: "Edit Login",
+    //backendLoginTitleDetails: "Login Details",
+    //backendLoginTitleTable: "Include Login",
+    //backendLoginTitleTableInsert: "Include Login",
+    //backendLoginTitleTableEdit: "Edit Login",
+    //backendLoginTitleTableDetails: "Login Details",
+
+
     backendLoginUser: "User",
+    backendLoginEmail: "e-mail",
     backendLoginPassword: "Password",
+    backendLoginPasswordRemind: "Remind Password",
+    backendLoginStayConnected: "Connected",
+
+    //Login - users
+    backendLoginUsersTitleMain: "Login - Users",
+
+
+    //Frontend.
+    frontendLoginTitleMain: "Login",
+    frontendLoginTitleTable: "Login Information",
+    
+    frontendLoginoffTitleMain: "Logoff",
     //**************************************************************************************
 
 
@@ -195,6 +219,10 @@ exports.appLabels = {
 
     backendDashboardWelcome: "Welcome",
     backendDashboardLoginMessage01: "You are logged in as",
+
+    //Frontend.
+    backendDashboardLogoffMessage01: "Logoff completed successfully.\n\n Return soon. Thank you.",
+    backendDashboardLogoffMessage02: "In case you wish to make a new login, access the following address:",
     //**************************************************************************************
 
 
@@ -1161,20 +1189,6 @@ exports.appLabels = {
     //**************************************************************************************
 
 
-    //Login.
-    //**************************************************************************************
-    backendLoginTitleMain: "Login",
-    //backendLoginTitleEdit: "Edit Login",
-    //backendLoginTitleDetails: "Login Details",
-    //backendLoginTitleTable: "Include Login",
-    //backendLoginTitleTableInsert: "Include Login",
-    //backendLoginTitleTableEdit: "Edit Login",
-    //backendLoginTitleTableDetails: "Login Details",
-
-    backendLoginUsersTitleMain: "Login - Users",
-    //**************************************************************************************
-
-
     //Users.
     //**************************************************************************************
     backendUsersTitleMain: "Users",
@@ -1275,10 +1289,14 @@ exports.appLabels = {
     */
     //**************************************************************************************
 
+
     //Frontend - Home.
     //**************************************************************************************
     frontendHomeTitleMain: "Home",
     //**************************************************************************************
+
+
+
 
     //Messages.
     //**************************************************************************************

@@ -22,7 +22,10 @@ const LayoutFrontendMain = require("../app_views/layout-frontend-main-cb-compone
 const LayoutFrontendIframe = require("../app_views/layout-frontend-iframe-cb-component.js").default;
 
 //Home
-import FrontendHome from "./frontend-home-cb-component";
+import FrontendHome from "./frontend-home-cb-component.js";
+
+//Login.
+import FrontendLogin from "./frontend-login-cb-component.js";
 
 //Categories.
 import FrontendCategoriesListing from "./frontend-categories-listing-cb-component.js";
@@ -182,6 +185,30 @@ class App extends React.Component {
                                     :
                                         <LayoutFrontendMain
                                             cphBody={<FrontendHome {...props} />}
+                                            {...props}>
+                                        </LayoutFrontendMain>
+                                    }
+                                </React.Fragment>
+                            )} 
+                    />
+                    {/*//---------------------- */}
+
+
+                    {/*Login. */}
+                    {/*//---------------------- */}
+                    <Route exact 
+                            path={["/" + gSystemConfig.configRouteFrontendLogin + "/", "/" + gSystemConfig.configRouteFrontend + "/" + gSystemConfig.configRouteFrontendLogin + "/"]} 
+                            render={props => (
+                                <React.Fragment>
+                                    {/*Layout select. */}
+                                    { this._masterPageFrontendSelect == "layout-frontend-iframe" ?
+                                        <LayoutFrontendIframe
+                                            cphBody={<FrontendLogin {...props} />}
+                                            {...props}>
+                                        </LayoutFrontendIframe>
+                                    :
+                                        <LayoutFrontendMain
+                                            cphBody={<FrontendLogin {...props} />}
                                             {...props}>
                                         </LayoutFrontendMain>
                                     }
@@ -413,7 +440,7 @@ class App extends React.Component {
 
                     {/*Quizzes - listing. */}
                     {/*//---------------------- */}
-                    {/*Debug: http://localhost:3001/quizzes/1369/ */}
+                    {/*Debug: http://localhost:3001/quizzes/1648/ */}
                     <Route exact 
                             path={"/" + gSystemConfig.configRouteFrontendQuizzes + "/:idParentQuizzes?"} 
                             render={props => (

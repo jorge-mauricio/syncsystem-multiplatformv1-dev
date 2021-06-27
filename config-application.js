@@ -171,6 +171,7 @@ gSystemConfig.configRouteAPIFormsFieldsOptions = "forms-fields-options";
 gSystemConfig.configRouteAPIFiltersGeneric = "filters-generic";
 gSystemConfig.configRouteAPIUsers = "users";
 gSystemConfig.configRouteAPIAuthentication = "authentication";
+gSystemConfig.configRouteAPILogin = "login";
 
 gSystemConfig.configRouteBackend = "system";
 gSystemConfig.configRouteBackendLogin = "login";
@@ -213,6 +214,7 @@ gSystemConfig.configRouteFrontendProducts = "products";
 gSystemConfig.configRouteFrontendPublications = "publications";
 gSystemConfig.configRouteFrontendRegisters = "registers";
 gSystemConfig.configRouteFrontendQuizzes = "quizzes";
+gSystemConfig.configRouteFrontendLogin = "login";
 
 gSystemConfig.configRouteFrontendDashboardCategories = "dashboard-categories";
 gSystemConfig.configRouteFrontendDashboardFiles = "dashboard-files";
