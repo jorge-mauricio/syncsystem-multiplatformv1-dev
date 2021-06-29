@@ -226,8 +226,8 @@ class FrontendLoginForm extends Component
 
 
         //Debug.
-        console.log("name=", name);
-        console.log("value=", value);
+        //console.log("name=", name);
+        //console.log("value=", value);
     }
     //**************************************************************************************
 
@@ -236,6 +236,132 @@ class FrontendLoginForm extends Component
     //**************************************************************************************
     handleLoginFormSubmit = (e) => {
         e.preventDefault(); //Prevent form from submiting.
+
+
+        //Variables.
+        //----------------------
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+
+        let uesername;
+        let email;
+        let password;
+
+        let apiURLLoginOptions;
+        let apiURLLogin;
+        let apiLoginResponse;
+        let objLoginJson;
+        //----------------------
+
+
+        //Value definition.
+        //----------------------
+        email = this.state.email;
+        password = this.state.password;
+        //----------------------
+
+
+        //Clean messages.
+        //TODO: move to a separete react global function.
+        FunctionsSyncSystem.elementMessage01("divMessageSuccess", "");
+        FunctionsSyncSystem.htmlGenericStyle01('divMessageSuccess', 'display', 'none');
+        FunctionsSyncSystem.elementMessage01("divMessageError", "");
+        FunctionsSyncSystem.htmlGenericStyle01('divMessageError', 'display', 'none');
+        FunctionsSyncSystem.elementMessage01("divMessageAlert", "");
+        FunctionsSyncSystem.htmlGenericStyle01('divMessageAlert', 'display', 'none');
+
+        //Logic.
+        if((email) && (password))
+        {
+            (async function(){ //async marks the block
+                try{ 
+                    //Variables.
+                    let fdLogin = new FormData();
+
+                    //Build form data.
+                    fdLogin.append("email", email);
+                    fdLogin.append("password", password);
+                    fdLogin.append("apiKey", SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2));
+
+
+                    //Fetch options for post method.
+                    apiURLLoginOptions = {
+                        method: "POST",
+                        /*
+                        headers: { 
+                            //"Content-Type": "application/json; charset=utf-8" 
+                            "Content-Type": "multipart/form-data"
+                        },
+                        */
+                        /*
+                        body: JSON.stringify({ 
+                            id: "",
+                            id_quizzes: tblQuizzesID,
+                            //id_quizzes_options: this.state.quizResultsLog[countArray].tblQuizzesLogIdQuizzesOptionsAnswer,
+                            id_quizzes_options: "123",
+                            id_register: "1638", //get id from cookie / authentication
+                            //id_quizzes_options_answer: this.state.quizResultsLog[countArray].tblQuizzesIdQuizzesOptionsAnswer,
+                            id_quizzes_options_answer: "321",
+                            date_creation: "",
+                            notes: "",
+                        })
+                        */
+                        body: fdLogin
+                    };
+
+                    //API - build URL string.
+                    apiURLLogin = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPILogin + "/";
+                    
+                    //API - fetch data from backend.
+                    apiLoginResponse = await fetch(apiURLLogin, apiURLLoginOptions);
+                    objLoginJson = await apiLoginResponse.json();
+
+
+
+
+                    //Debug.
+                    console.log("email=", email);
+                    console.log("password=", password);
+                    console.log("objLoginJson=", objLoginJson);
+                }catch(handleLoginFormSubmitError){
+                    if(gSystemConfig.configDebug === true)
+                    {
+                        console.log("handleLoginFormSubmitError=", handleLoginFormSubmitError);
+                    }
+                }finally{
+
+                    //Condition.
+                    if(objLoginJson.returnStatus === false)
+                    {
+                        //Show connection error message (layout).
+                        FunctionsSyncSystem.htmlGenericStyle01('divMessageError', 'display', 'block');
+                        FunctionsSyncSystem.elementMessage01("divMessageError", "Connection error.");
+                    }else{
+                        if(objLoginJson.registerVerification === false)
+                        {
+                            //Show user not found error message (layout).
+                            FunctionsSyncSystem.htmlGenericStyle01('divMessageAlert', 'display', 'block');
+                            FunctionsSyncSystem.elementMessage01("divMessageAlert", "User not found.");
+                        }else{
+                            if(objLoginJson.loginVerification === false)
+                            {
+                                //Show password error message.
+                                FunctionsSyncSystem.htmlGenericStyle01('divMessageAlert', 'display', 'block');
+                                FunctionsSyncSystem.elementMessage01("divMessageAlert", "Wrong password");
+
+                            }else{
+                                //Create cookies.
+
+                                //Redirect with success message.
+                                FunctionsSyncSystem.htmlGenericStyle01('divMessageSuccess', 'display', 'block');
+                                FunctionsSyncSystem.elementMessage01("divMessageSuccess", "Login success");
+                            }
+                        }
+
+                    }
+
+                }
+            })();
+        }
 
 
         //Debug.

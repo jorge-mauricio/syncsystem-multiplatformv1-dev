@@ -551,6 +551,18 @@ class LayoutFrontendMain extends Component
                             { this.state.titleCurrent }
                             {/*this.props.cphTitle*/''}
                         </h1>
+
+
+                        { /*Messages*/ }
+                        <div id="divMessageSuccess" className="ss-frontend-success" style={{display: "none"}}>
+
+                        </div>
+                        <div id="divMessageError" className="ss-frontend-error" style={{display: "none"}}>
+
+                        </div>
+                        <div id="divMessageAlert" className="ss-frontend-alert" style={{display: "none"}}>
+
+                        </div>
                         
 
                         { /*Content place holder - body*/ }

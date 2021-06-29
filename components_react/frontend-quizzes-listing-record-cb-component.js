@@ -135,18 +135,22 @@ class FrontendQuizzesListingRecord extends Component
     handleQuizResultLog = (eventData) =>
     {
         //Variables.
+        //----------------------
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
 
-        var countQuizAnswersRight = this.state.quizAnswersRight;
-        var quizResultsLog = this.state.quizResultsLog;
-        var quizAnswerStatus = false;
-        var tblQuizzesID = "";
-        var divQuizID = "";
+        let countQuizAnswersRight = this.state.quizAnswersRight;
+        let quizResultsLog = this.state.quizResultsLog;
+        let quizAnswerStatus = false;
+        let tblQuizzesID = "";
+        let divQuizID = "";
+        //----------------------
 
 
         //Value definition.
+        //----------------------
         tblQuizzesID = eventData._tblQuizzesID;
         divQuizID = eventData._divQuizID;
+        //----------------------
 
 
         //Logic.
@@ -217,7 +221,7 @@ class FrontendQuizzesListingRecord extends Component
                         fdQuizzesLog.append("id_quizzes_options_answer", quizResultsLog[countArray].objQuizDetails.id_quizzes_options_answer);
                         fdQuizzesLog.append("date_creation", "");
                         fdQuizzesLog.append("notes", "");
-
+                        fdQuizzesLog.append("apiKey", SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2));
 
                         //Fetch options for post method.
                         apiURLQuizzesLogOptions = {
@@ -241,11 +245,12 @@ class FrontendQuizzesListingRecord extends Component
                                 notes: "",
                             })
                             */
-                        body: fdQuizzesLog
+                            body: fdQuizzesLog
                         };
 
                         //API - build URL string.
-                        apiURLQuizzesLog = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + gSystemConfig.configRouteAPIActionLog + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
+                        //apiURLQuizzesLog = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + gSystemConfig.configRouteAPIActionLog + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
+                        apiURLQuizzesLog = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + gSystemConfig.configRouteAPIActionLog + "/";
                         
                         //API - fetch data from backend.
                         apiQuizzesLogResponse = await fetch(apiURLQuizzesLog, apiURLQuizzesLogOptions);
