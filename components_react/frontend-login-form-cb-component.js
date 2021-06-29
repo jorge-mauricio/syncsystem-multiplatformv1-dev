@@ -262,12 +262,12 @@ class FrontendLoginForm extends Component
 
         //Clean messages.
         //TODO: move to a separete react global function.
-        FunctionsSyncSystem.elementMessage01("divMessageSuccess", "");
-        FunctionsSyncSystem.htmlGenericStyle01('divMessageSuccess', 'display', 'none');
-        FunctionsSyncSystem.elementMessage01("divMessageError", "");
-        FunctionsSyncSystem.htmlGenericStyle01('divMessageError', 'display', 'none');
-        FunctionsSyncSystem.elementMessage01("divMessageAlert", "");
-        FunctionsSyncSystem.htmlGenericStyle01('divMessageAlert', 'display', 'none');
+        FunctionsSyncSystem.elementMessage01("messageSuccess", "");
+        FunctionsSyncSystem.htmlGenericStyle01('messageSuccess', 'display', 'none');
+        FunctionsSyncSystem.elementMessage01("messageError", "");
+        FunctionsSyncSystem.htmlGenericStyle01('messageError', 'display', 'none');
+        FunctionsSyncSystem.elementMessage01("messageAlert", "");
+        FunctionsSyncSystem.htmlGenericStyle01('messageAlert', 'display', 'none');
 
         //Logic.
         if((email) && (password))
@@ -333,27 +333,34 @@ class FrontendLoginForm extends Component
                     if(objLoginJson.returnStatus === false)
                     {
                         //Show connection error message (layout).
-                        FunctionsSyncSystem.htmlGenericStyle01('divMessageError', 'display', 'block');
-                        FunctionsSyncSystem.elementMessage01("divMessageError", "Connection error.");
+                        FunctionsSyncSystem.htmlGenericStyle01('messageError', 'display', 'block');
+                        FunctionsSyncSystem.elementMessage01("messageError", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "statusMessageAPI1e"));
                     }else{
                         if(objLoginJson.registerVerification === false)
                         {
-                            //Show user not found error message (layout).
-                            FunctionsSyncSystem.htmlGenericStyle01('divMessageAlert', 'display', 'block');
-                            FunctionsSyncSystem.elementMessage01("divMessageAlert", "User not found.");
+                            //User not found error message (layout).
+                            FunctionsSyncSystem.htmlGenericStyle01('messageError', 'display', 'block');
+                            FunctionsSyncSystem.elementMessage01("messageError", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "statusMessageLogin5e"));
                         }else{
                             if(objLoginJson.loginVerification === false)
                             {
-                                //Show password error message.
-                                FunctionsSyncSystem.htmlGenericStyle01('divMessageAlert', 'display', 'block');
-                                FunctionsSyncSystem.elementMessage01("divMessageAlert", "Wrong password");
+                                //Password error message.
+                                FunctionsSyncSystem.htmlGenericStyle01('messageError', 'display', 'block');
+                                FunctionsSyncSystem.elementMessage01("messageError", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "statusMessageLogin1e"));
 
                             }else{
-                                //Create cookies.
+                                if(objLoginJson.loginActivation === false)
+                                {
+                                    //User not activated.
+                                    FunctionsSyncSystem.htmlGenericStyle01('messageAlert', 'display', 'block');
+                                    FunctionsSyncSystem.elementMessage01("messageAlert", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "statusMessageLogin3a"));
+                                }else{
+                                    //Create cookies.
 
-                                //Redirect with success message.
-                                FunctionsSyncSystem.htmlGenericStyle01('divMessageSuccess', 'display', 'block');
-                                FunctionsSyncSystem.elementMessage01("divMessageSuccess", "Login success");
+                                    //Redirect with success message.
+                                    FunctionsSyncSystem.htmlGenericStyle01('messageSuccess', 'display', 'block');
+                                    FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "statusMessageLogin1"));
+                                }
                             }
                         }
 

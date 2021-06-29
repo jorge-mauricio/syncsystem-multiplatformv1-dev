@@ -25,9 +25,10 @@ router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRoute
         returnStatus: false, 
         registerVerification: false, 
         loginVerification: false, 
+        loginActivation: false, 
         tblRegistersIDCrypt: "",
         loginType: []
-    }; //objReturn = {returnStatus: false, , registerVerification: false, loginVerification: false, tblRegistersIDCrypt: "", loginType: []}
+    }; //objReturn = {returnStatus: false, , registerVerification: false, loginVerification: false, loginActivation: false, tblRegistersIDCrypt: "", loginType: []}
     let configAPIKey = SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env");
 
     let username = "";
@@ -283,7 +284,7 @@ router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRoute
                 //Change status to successful return.
                 objReturn.returnStatus = true;
 
-                
+
                 //Check login.
                 if(configAPIKey == SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(apiKey, "env"), 2))
                 {
@@ -347,6 +348,12 @@ router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRoute
                             //login type.
                             //TODO: check for register types.
                             objReturn.loginType.push(gSystemConfig.configRegistersIDUser);
+                        }
+
+                        //Check activation.
+                        if(ordRecord.resultsRegistersDetails[0].activation == 1)
+                        {
+                            objReturn.loginActivation = true;
                         }
 
 

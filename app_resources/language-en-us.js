@@ -1259,17 +1259,24 @@ exports.appLabels = {
 
 
     //Authentication / Login.
+    statusMessageLogin1: "Information authentication completed successfully. From this moment on, your access is granted.",
     statusMessageLogin2: "Your log-off was completed successfully.",
     statusMessageLogin10: "Information authentication completed successfully. From this moment on, you have access to the system.",
     
-    statusMessageLogin2e: "error: 002 - Login authentication error. Check if your information is correct and try again. If the error continues, contact the site administration.",
+    statusMessageLogin2a: "Login authentication error. Your access is not yet granted for this item. Check for possible failures with your activation and try again. If the error persists, contact the administration.",
+    statusMessageLogin3a: "Login authentication error. Your access is not yet activated. Check for possible failures with your activation and try again. If the error persists, contact the administration.",
+    statusMessageLogin4a: "Login authentication error. Apparently some field was left unfilled. Check your information and fill in again.",
+    
+    statusMessageLogin1e: "Authentication error. Please check that your information is correct and try again. If the error persists, contact the administration.",
+    statusMessageLogin2e: "error: 002 - Login authentication error. Check if your information is correct and try again. If the error continues, contact the website administration.",
+    statusMessageLogin3e: "Invalid authentication. The desired content requires authentication.",
     statusMessageLogin4e: "error: 004 - Login authentication error. Please make sure you have filled in all the fields and try again.",
+    statusMessageLogin5e: "Authentication error. Register not found in our database.",
     statusMessageLogin20e: "error: 020 - Error in authentication session or unauthorized page. Apparently your browsing session has expired. Or you tried to access a page without doing the necessary authentication. Log in again to browse.",
 
-
     //API.
-    statusMessageAPI1: "API success.",
-    statusMessageAPI1e: "API error.",
+    statusMessageAPI1: "API access success.",
+    statusMessageAPI1e: "API access error.",
     statusMessageAPI2: "Access key success.",
     statusMessageAPI2e: "Error with access key.",
 

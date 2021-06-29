@@ -554,16 +554,16 @@ class LayoutFrontendMain extends Component
 
 
                         { /*Messages*/ }
-                        <div id="divMessageSuccess" className="ss-frontend-success" style={{display: "none"}}>
+                        <div id="messageSuccess" className="ss-frontend-success" style={{display: "none"}}>
 
                         </div>
-                        <div id="divMessageError" className="ss-frontend-error" style={{display: "none"}}>
+                        <div id="messageError" className="ss-frontend-error" style={{display: "none"}}>
 
                         </div>
-                        <div id="divMessageAlert" className="ss-frontend-alert" style={{display: "none"}}>
+                        <div id="messageAlert" className="ss-frontend-alert" style={{display: "none"}}>
 
                         </div>
-                        
+
 
                         { /*Content place holder - body*/ }
                         <main>
