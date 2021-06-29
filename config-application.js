@@ -1863,11 +1863,11 @@ gSystemConfig.enableRegistersActivation4 = 1; //0 - disable | 1 - enable
 gSystemConfig.enableRegistersActivation5 = 1; //0 - disable | 1 - enable
 
 //Register types.
-gSystemConfig.configRegistersIDClient = 123;
-gSystemConfig.configRegistersIDUser = 123;
+gSystemConfig.configRegistersIDClient = 1595;
+gSystemConfig.configRegistersIDUser = 1595;
 gSystemConfig.configRegistersIDUserSeller = 123;
 gSystemConfig.configRegistersIDUserHR = 123;
-gSystemConfig.configRegistersIDSubscriber = 123;
+gSystemConfig.configRegistersIDSubscriber = 1596;
 
 
 //Frontend configuration.

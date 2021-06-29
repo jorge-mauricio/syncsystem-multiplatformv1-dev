@@ -2961,13 +2961,22 @@ input, textarea, select
 	font-weight: bold;
 	color: #78c3ae;
 
-	border-bottom: 1px solid #78c3ae;
+	/*border-bottom: 1px solid #78c3ae;*/
 
 	/*margin: 0px; 
 	padding: 0px;
 
 	overflow: hidden;*/
 }
+.ss-frontend-login-subheading-title-layout {
+	position: relative;
+	display: block;
+
+	max-width: 400px;
+	border-bottom: 1px solid #78c3ae;
+	margin: 0px auto 5px auto;
+}
+
 .ss-frontend-login-text-success {
     font-family: var(--ssFrontendDefaultFont);
 	font-size: var(--ssFrontendDefaultSubheadingFontSize);
@@ -2978,6 +2987,7 @@ input, textarea, select
 	position: relative;
 	display: block;
 
+	text-align: center;
 	vertical-align: top;
 
 	margin: 0px 0px 5px 0px; 
@@ -2993,12 +3003,15 @@ input, textarea, select
 	display: block;
 }
 */
+
 .ss-frontend-login-row-label01 {
 	position: relative;
 	/*display: block;*/
 	display: inline-block; /*side by side*/
 
-	width: 200px; /*side by side*/
+	text-align: right;
+
+	width: 100px; /*side by side*/
 
 	/*vertical-align: top;*/
 
@@ -3009,9 +3022,18 @@ input, textarea, select
 	/*display: block;*/
 	display: inline-block; /*side by side*/
 
-	width: 595px; /*side by side*/
+	/*width: 400px;*/ /*side by side*/
 
 	/*vertical-align: top;*/
+}
+@media (max-width: 400px) {
+	.ss-frontend-login-row01 {
+		text-align: left;
+	}
+
+	.ss-frontend-login-row-label01 {
+		text-align: left;
+	}
 }
 
 .ss-frontend-login-field-text01 {

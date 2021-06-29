@@ -34,7 +34,13 @@ class FrontendLoginForm extends Component
         this.arrCategoriesListing = props.arrCategoriesListing;
         */
 
+        //Bind methods / functions.
+        //----------------------
+        this.handleLoginFormSubmit = this.handleLoginFormSubmit.bind(this);
+        this.handleLoginFormFieldsChange = this.handleLoginFormFieldsChange.bind(this);
+        //----------------------
 
+        
         //Variables.
         //----------------------
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
@@ -89,8 +95,12 @@ class FrontendLoginForm extends Component
         }finally{
             //State creation.
             this.state = {
-                objFormsDetails: this.objFormsDetails,
-                //arrFormsDetails: this.arrFormsDetails,
+                email: "",
+                password: "",
+                loginOrigin: "",
+                loginReturnURL: "",
+                loginIDReturnURL: "",
+
                 dataLoaded: false
             };            
         }
@@ -187,6 +197,53 @@ class FrontendLoginForm extends Component
     //**************************************************************************************
 
 
+    //Login fields change.
+    //**************************************************************************************
+    handleLoginFormFieldsChange = (e) => {
+        //Variables.
+        const {name, value, type, checked} = e.target;
+
+        
+        if(type ==="checkbox")
+        {
+            /*
+            this.setState({
+                //firstName: event.target.value //working
+                //[event.target.name]: event.target.value
+                [name]: checked
+            });
+            */
+        }else{
+            this.setState({
+                //firstName: event.target.value //working
+                //[event.target.name]: event.target.value
+                [name]: value
+            });
+        }
+
+
+        //this.setState({[event.target.name]: event.target.value});
+
+
+        //Debug.
+        console.log("name=", name);
+        console.log("value=", value);
+    }
+    //**************************************************************************************
+
+
+    //Login form submit handler.
+    //**************************************************************************************
+    handleLoginFormSubmit = (e) => {
+        e.preventDefault(); //Prevent form from submiting.
+
+
+        //Debug.
+        console.log("this.state=", this.state);
+    }
+    //**************************************************************************************
+
+
     //Render.
     //**************************************************************************************
     render()
@@ -240,11 +297,11 @@ class FrontendLoginForm extends Component
                     <form id={"login" + configLayoutType} 
                             name={"form" + configLayoutType} 
                             className={"ss-frontend-form-input01"}
-                            /*onSubmit={this.handleFormSubmit}*/
-                            method={"POST"}
-                            action={gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPILogin + "/"} 
+                            //method={"POST"}
+                            //action={gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPILogin + "/"} 
                             //encType={"application/x-www-form-urlencoded"}
-                            encType={"multipart/form-data"}
+                            //encType={"multipart/form-data"}
+                            onSubmit={this.handleLoginFormSubmit}
                             >
                             <input type="hidden"
                                 id={"form" + configLayoutType + "_loginOrigin"}
@@ -260,7 +317,7 @@ class FrontendLoginForm extends Component
                                 value={configLoginIDReturnURL} />
 
                         <fieldset className="ss-frontend-login-container">
-                            <legend className="ss-frontend-login-subheading-title">
+                            <legend className="ss-frontend-login-subheading-title ss-frontend-login-subheading-title-layout">
                                 { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendLoginTitleTable") }
                             </legend>
 
@@ -275,7 +332,9 @@ class FrontendLoginForm extends Component
                                         id={"form" + configLayoutType + "_email"} 
                                         name={"email"} 
                                         required={true} 
-                                        className="ss-frontend-login-field-user" />
+                                        className="ss-frontend-login-field-user" 
+                                        onChange={this.handleLoginFormFieldsChange} 
+                                        value={this.state.email} />
                                 </div>
                             </div>
 
@@ -289,7 +348,9 @@ class FrontendLoginForm extends Component
                                         id={"form" + configLayoutType + "_password"} 
                                         name={"password"} 
                                         required={true} 
-                                        className="ss-frontend-login-field-password" />
+                                        className="ss-frontend-login-field-password" 
+                                        onChange={this.handleLoginFormFieldsChange}  
+                                        value={this.state.password} />
                                 </div>
                             </div>
 

@@ -11,217 +11,40 @@ const SyncSystemNS = require("../" + gSystemConfig.configDirectoryComponents + "
 const formidable = require("formidable"); //Form file upload.
 const fetch = require("node-fetch");
 //const nodemailer = require("nodemailer");
+const _ = require('lodash');
 //----------------------
 
 
-//API - Quizzes - listing - GET.
+//API - Login - POST.
 //**************************************************************************************
-//Debug: http://localhost:3000/api/quizzes/1648/?apiKey=createSecretPassword
-router.get("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/:idParentQuizzes?", (req, res)=>{ //working, with the async block
-    //Variables.
-    //----------------------
-    let objReturn = {returnStatus: false};
-    let configAPIKey = SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env");
-   
-    //let ocdRecord;
-    //let ocdRecordParameters;
-
-    let oqlRecords;
-    let oqlRecordsParameters;
-    let objSpecialParameters;
-
-    let oqolRecords;
-    let oqolRecordsParameters;
-
-    //let cdBackend;
-    let idParentQuizzes = "";
-    let pageNumber = "";
-    let pagingNRecords = "";
-    let terminal = 0; //get from query
-    //let masterPageSelect = "layout-backend-main";
-
-    //let messageSuccess = "";
-    //let messageError = "";
-    //let messageAlert = "";
-    //let nRecords = "";
-
-    let apiKey = "";
-    //----------------------
-
-
-    //Value definition.
-    //----------------------
-    if(req.params.idParentQuizzes)
-    {
-        idParentQuizzes = req.params.idParentQuizzes;
-    }
-
-    if(req.query.pageNumber)
-    {
-        pageNumber = req.query.pageNumber;
-    }
-    if(req.query.pagingNRecords)
-    {
-        pageNumber = req.query.pagingNRecords;
-    }
-
-    if(req.query.apiKey)
-    {
-        apiKey = req.query.apiKey;
-    }
-
-
-    //Debug.
-    //console.log("idParentQuizzes=", idParentQuizzes);
-    //----------------------
-
-
-    //Logic.
-    //----------------------
-    (async function(){ //async marks the block
-        try
-        { 
-            if(idParentQuizzes != "")
-            {
-                //if(configAPIKey == apiKey)
-                if(configAPIKey == SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(apiKey, "env"), 2))
-                {
-                    //Check if it´s an ID (number).
-                    if(isNaN(idParentQuizzes))
-                    {
-                        //Search for friendly name.
-                        let resultURLAlias = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, 
-                                                                                                ["url_alias;" + idParentQuizzes + ";s", "activation;1;i"], 
-                                                                                                gSystemConfig.configCategoriesSort, 
-                                                                                                "", 
-                                                                                                "id, id_parent", 
-                                                                                                1, 
-                                                                                                {returnType: 3}); //debug: asdfa / 308
-    
-                        if(resultURLAlias)
-                        {
-                            idParentQuizzes = resultURLAlias[0]["id"];
-                        }else{
-                            idParentQuizzes = -1;
-                        }        
-
-
-                        //Debug.
-                        //console.log("number=false");
-                        //console.log("resultURLAlias=", resultURLAlias);
-                    }else{
-                        //Debug.
-                        //console.log("number=true");
-                    }
-
-
-                    //Parameters build.
-                    objSpecialParameters = {returnType: 3};
-                    if(pageNumber != "")
-                    {
-                        objSpecialParameters.pageNumber = pageNumber;
-                    }
-                    if(pagingNRecords != "")
-                    {
-                        objSpecialParameters.pagingNRecords = pagingNRecords;
-                    }
-
-                    //Parameters build - listing.
-                    oqlRecordsParameters = {
-                        _arrSearchParameters: ["id_parent;" + idParentQuizzes + ";i"],
-                        _configSortOrder: gSystemConfig.configQuizzesSort,
-                        _strNRecords: "",
-                        _objSpecialParameters: objSpecialParameters
-                    };
-                    //Revision {returnType: 3} = objSpecialParameters
-
-                    //Build object - listing.
-                    oqlRecords = new SyncSystemNS.ObjectQuizzesListing(oqlRecordsParameters);
-                    await oqlRecords.recordsListingGet(0, 3);
-
-
-                    //Quizzes options.
-                    //Loop through quizzes.
-                    for(let countArray = 0; countArray < oqlRecords.resultsQuizzesListing.length; countArray++)
-                    {
-                        //Parameters build - options listing.
-                        oqolRecordsParameters = {
-                            _arrSearchParameters: ["id_quizzes;" + oqlRecords.resultsQuizzesListing[countArray].id + ";i"],
-                            _configSortOrder: gSystemConfig.configQuizzesOptionsSort,
-                            _strNRecords: "",
-                            _objSpecialParameters: objSpecialParameters
-                        };
-
-                        //Build object - listing.
-                        oqolRecords = new SyncSystemNS.ObjectQuizzesOptionsListing(oqolRecordsParameters);
-                        await oqolRecords.recordsListingGet(0, 3);
-
-                        
-                        //Add options listing to output.
-                        //oqlRecords.resultsQuizzesListing[countArray].quizzesOptions = {id: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"};//debug.
-                        oqlRecords.resultsQuizzesListing[countArray].quizzesOptions = oqolRecords.resultsQuizzesOptionsListing;
-                        
-
-                        //Debug.
-                        //console.log("oqlRecords.resultsQuizzesListing[]=", oqlRecords.resultsQuizzesListing[countArray]);
-                    }
-                    //Debug.
-                    //console.log("oqlRecords.resultsQuizzesListing.length=", oqlRecords.resultsQuizzesListing.length);
-                        
-
-                    //Build return object.
-                    objReturn.returnStatus = true;
-                    //objReturn.ocdRecord = ocdRecord;
-                    objReturn.oqlRecords = oqlRecords;
-                    //console.log("objReturn=",objReturn);
-
-
-                    //Serve object.
-                    //res.json(ocdRecord);
-                    //res.json(objReturn);
-                }else{
-                    //API key not the same.
-                    objReturn.returnStatus = false;
-                    objReturn.errorMessage = "statusMessageAPI2e";
-
-                    //res.json(objReturn);
-                }
-            }
-        }catch(asyncError){
-            if(gSystemConfig.configDebug === true)
-            {
-                console.error(asyncError);
-            }
-        }finally{
-            //Serve object.
-            res.json(objReturn);
-        }
-    })();
-    //----------------------
-});
-//**************************************************************************************
-
-
-//API - Quizzes Log - POST.
-//**************************************************************************************
-//Debug: http://localhost:3000/api/quizzes/log/?apiKey=createSecretPassword
-router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIQuizzes + "/" + gSystemConfig.configRouteAPIActionLog + "/", (req, res, next)=>{ //working, with the async block
+//Debug: http://localhost:3000/api/login/?apiKey=createSecretPassword
+router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPILogin + "/", (req, res, next)=>{ //working, with the async block
     //Variables
     //----------------------
-    let objReturn = {returnStatus: false};
+    let objReturn = {
+        returnStatus: false, 
+        registerVerification: false, 
+        loginVerification: false, 
+        tblRegistersIDCrypt: "",
+        loginType: []
+    }; //objReturn = {returnStatus: false, , registerVerification: false, loginVerification: false, tblRegistersIDCrypt: "", loginType: []}
     let configAPIKey = SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env");
-    
-    let tblQuizzesLogID = "";
-    let tblQuizzesLogIdQuizzes = 0;
-    let tblQuizzesLogIdQuizzesOptions = 0;
-    let tblQuizzesLogIdRegister = 0;
-    let tblQuizzesLogIdQuizzesOptionsAnswer = 0;
-    let tblQuizzesLogNotes = "";
 
-    
-    //let masterPageSelect = "";
-    //let returnURL = "";
+    let username = "";
+    let email = "";
+    let password = "";
+    let loginVerification = false;
+    let registerVerification = false;
 
+    //let pageNumber = "";
+    //let pagingNRecords = "";
+    //let terminal = 0; //get from query
+
+    let apiKey = "";
+
+    let arrSearchParameters = [];
+    let ordRecordParameters;
+    let ordRecord;
 
     let formfileFieldsReference = {};
     let resultsFunctionsFiles;
@@ -258,28 +81,6 @@ router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRoute
     /**/
     (async function(){ //async marks the block
         try{ 
-            /*
-            tblQuizzesLogID = await new Promise((resolve, reject)=>{
-                SyncSystemNS.FunctionsDB.counterUniversalUpdate_async(1)
-                .then((results)=>{
-                    if(results === undefined)
-                    {
-                        //Error.
-                        if(gSystemConfig.configDebug === true)
-                        {
-                            console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage9"));
-                        }
-                        reject(new Error("nCounterUpdate is undefined."));
-                    }else{
-                        //Success.
-                        //resolve(nCounterUpdate);
-                        resolve(results);
-                    } //working
-    
-                });
-            });
-            */
-            
             var formParseResults = await new Promise(function(resolve, reject){
                 //Variables.
                 //----------------------
@@ -469,59 +270,108 @@ router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRoute
 
             //Define values.
             //----------------------
-            tblQuizzesLogID = formParseResults.fields.id;
-            tblQuizzesLogIdQuizzes = formParseResults.fields.id_quizzes;
-            tblQuizzesLogIdQuizzesOptions = formParseResults.fields.id_quizzes_options;
-            tblQuizzesLogIdRegister = formParseResults.fields.id_register;
-            tblQuizzesLogIdQuizzesOptionsAnswer = formParseResults.fields.id_quizzes_options_answer;
-            tblQuizzesLogNotes = formParseResults.fields.notes;
-        
-
-            //Debug.
-            //console.log("formParseResults.fieldsMultipleValues=", formParseResults.fieldsMultipleValues);
-            //formParseResults.fields
-            //formParseResults.files
-            //----------------------
+            username = formParseResults.fields.username;
+            email = formParseResults.fields.email;
+            password = formParseResults.fields.password;
+            apiKey = formParseResults.fields.apiKey;
 
 
-            //Insert record.
-            //----------------------
-            let quizzesLogInsertResult = await new Promise((resolve, reject)=>{
-                SyncSystemNS.FunctionsDBInsert.quizzesLogInsert_async({
-                    _tblQuizzesLogID: tblQuizzesLogID,
-                    _tblQuizzesLogIdQuizzes: tblQuizzesLogIdQuizzes,
-                    _tblQuizzesLogIdQuizzesOptions: tblQuizzesLogIdQuizzesOptions,
-                    _tblQuizzesLogIdRegister: tblQuizzesLogIdRegister,
-                    _tblQuizzesLogIdQuizzesOptionsAnswer: tblQuizzesLogIdQuizzesOptionsAnswer,
-                    _tblQuizzesDateCreation: "",
-                    _tblQuizzesLogNotes: tblQuizzesLogNotes
-                }).then((results)=>{
-                    if(results === undefined)
-                    {
-                        //Error.
-                        if(gSystemConfig.configDebug === true)
-                        {
-                            console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3"));
-                        }
-                        reject(new Error("nCounterUpdate is undefined."));
-                    }else{
-
-                        //Success.
-                        //resolve(nCounterUpdate);
-                        resolve(results);
-                    } //working
-                });
-            });            
-            //----------------------
-
-
-            //Success.
-            //----------------------
-            if(quizzesLogInsertResult == true)
+            //if(_.isEmpty(email) === false && _.isEmpty(password) === false)
+            //if(email != "" && password != "")
+            if((email) && (password))
             {
+                //Change status to successful return.
                 objReturn.returnStatus = true;
+
+                
+                //Check login.
+                if(configAPIKey == SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(apiKey, "env"), 2))
+                {
+                    //Search for e-mail.
+                    let resultRegisters = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableRegisters, 
+                                                                                            ["email;" + email + ";s"], 
+                                                                                            gSystemConfig.configRegistersSort, 
+                                                                                            "", 
+                                                                                            "id, id_parent", 
+                                                                                            1, 
+                                                                                            {returnType: 3}); //debug: asdfa / 308
+
+
+                    if(resultRegisters.length !== 0)
+                    {
+                        //Change status to register found.
+                        objReturn.registerVerification = true;
+
+                        
+                        //Variables.
+                        let tblRegistersID = "";
+                        let tblRegistersIDCrypt = "";
+
+                        let tblRegistersUsername = "";
+                        let tblRegistersEmail = "";
+                        let tblRegistersPassword = "";
+                        let tblRegistersPasswordDecrypt = "";
+                        let tblRegistersPasswordHint = "";
+                        let tblRegistersPasswordLength = "";
+
+
+                        //Parameters build.
+                        arrSearchParameters.push("id;" + resultRegisters[0]["id"] + ";i"); 
+                        //TODO: check why need both searches.
+                        ordRecordParameters = {
+                            _arrSearchParameters: arrSearchParameters,
+                            _idTbRegisters: resultRegisters[0]["id"],
+                            _terminal: 0,
+                            _objSpecialParameters: {returnType: 3}
+                        };
+                    
+                        //Object build.
+                        ordRecord = new SyncSystemNS.ObjectRegistersDetails(ordRecordParameters);
+                        await ordRecord.recordDetailsGet(0, 3);
+
+
+                        //Define values.
+                        tblRegistersID = ordRecord.resultsRegistersDetails[0].id;
+                        tblRegistersPassword = ordRecord.resultsRegistersDetails[0].password;
+                        tblRegistersPasswordDecrypt = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(tblRegistersPassword, "db"), 2);
+
+
+                        //Check password.
+                        if(tblRegistersPasswordDecrypt == password && tblRegistersPassword != "")
+                        {
+                            objReturn.loginVerification = true;
+                            tblRegistersIDCrypt = SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(tblRegistersID, "db_write_text"), 2);
+
+                            objReturn.tblRegistersIDCrypt = tblRegistersIDCrypt;
+
+                            //login type.
+                            //TODO: check for register types.
+                            objReturn.loginType.push(gSystemConfig.configRegistersIDUser);
+                        }
+
+
+                        //Debug.
+                        console.log("tblRegistersID=", tblRegistersID);
+                        console.log("tblRegistersPassword=", tblRegistersPassword);
+                    }
+
+
+                    //Debug.
+                    console.log("username=", username);
+                    console.log("email=", email);
+                    console.log("password=", password);
+                    console.log("apiKey=", apiKey);
+
+                    console.log("objReturn=", objReturn);
+                    console.log("resultRegisters=", resultRegisters);
+                    //console.log("ordRecord=", ordRecord);
+                    //console.log("formParseResults.fieldsMultipleValues=", formParseResults.fieldsMultipleValues);
+                    //formParseResults.fields
+                    //formParseResults.files
+                    //----------------------
+                }
             }
-            //----------------------
+    
         }catch(aError){
             if(gSystemConfig.configDebug === true)
             {
@@ -546,11 +396,6 @@ router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRoute
     })();
     //----------------------
 
-
-    //Debug.
-    //console.log(req.body);//object with the query post
-    //console.log("fields = ");
-    //console.log(fields);//object with the query post    
 });
 //**************************************************************************************
 

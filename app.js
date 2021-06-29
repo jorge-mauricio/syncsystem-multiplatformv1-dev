@@ -292,6 +292,7 @@ app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backe
 
 //API.
 app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-authentication.js"));
+app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-login.js"));
 //----------------------
 
 
