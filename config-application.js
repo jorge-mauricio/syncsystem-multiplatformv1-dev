@@ -216,6 +216,7 @@ gSystemConfig.configRouteFrontendRegisters = "registers";
 gSystemConfig.configRouteFrontendQuizzes = "quizzes";
 gSystemConfig.configRouteFrontendLogin = "login";
 
+gSystemConfig.configRouteFrontendDashboard = "dashboard";
 gSystemConfig.configRouteFrontendDashboardCategories = "dashboard-categories";
 gSystemConfig.configRouteFrontendDashboardFiles = "dashboard-files";
 gSystemConfig.configRouteFrontendDashboardContent = "dashboard-content";
@@ -231,7 +232,7 @@ gSystemConfig.configRouteFrontendDashboardQuizzes = "dashboard-quizzes";
 gSystemConfig.configCookieSetType = 1; //0 - disable (without path - directory) | 1 - enable (set with path - directory)
 gSystemConfig.configCookieDirectory = "/"; // / - full site
 
-gSystemConfig.configCookiePrefix = "ss"; // / - full site
+gSystemConfig.configCookiePrefix = "ss";
 gSystemConfig.configCookiePrefixUserRoot = "user_root";
 gSystemConfig.configCookiePrefixUser = "user";
 

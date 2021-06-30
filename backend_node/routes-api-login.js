@@ -358,19 +358,19 @@ router.post("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRoute
 
 
                         //Debug.
-                        console.log("tblRegistersID=", tblRegistersID);
-                        console.log("tblRegistersPassword=", tblRegistersPassword);
+                        //console.log("tblRegistersID=", tblRegistersID);
+                        //console.log("tblRegistersPassword=", tblRegistersPassword);
                     }
 
 
                     //Debug.
-                    console.log("username=", username);
-                    console.log("email=", email);
-                    console.log("password=", password);
-                    console.log("apiKey=", apiKey);
+                    //console.log("username=", username);
+                    //console.log("email=", email);
+                    //console.log("password=", password);
+                    //console.log("apiKey=", apiKey);
 
-                    console.log("objReturn=", objReturn);
-                    console.log("resultRegisters=", resultRegisters);
+                    //console.log("objReturn=", objReturn);
+                    //console.log("resultRegisters=", resultRegisters);
                     //console.log("ordRecord=", ordRecord);
                     //console.log("formParseResults.fieldsMultipleValues=", formParseResults.fieldsMultipleValues);
                     //formParseResults.fields

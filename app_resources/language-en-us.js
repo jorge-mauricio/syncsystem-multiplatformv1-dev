@@ -220,9 +220,18 @@ exports.appLabels = {
     backendDashboardWelcome: "Welcome",
     backendDashboardLoginMessage01: "You are logged in as",
 
-    //Frontend.
     backendDashboardLogoffMessage01: "Logoff completed successfully.\n\n Return soon. Thank you.",
     backendDashboardLogoffMessage02: "In case you wish to make a new login, access the following address:",
+
+
+    //Frontend.
+    frontendDashboardTitleMain: "Dashboard",
+    frontendDashboardTitleEdit: "Edit Dashboard",
+    frontendDashboardTitleDetails: "Dashboard Details",
+    frontendDashboardTitleTable: "Include Dashboard",
+    frontendDashboardTitleTableInsert: "Include Dashboard",
+    frontendDashboardTitleTableEdit: "Edit Dashboard",
+    frontendDashboardTitleTableDetails: "Dashboard Details",
     //**************************************************************************************
 
 

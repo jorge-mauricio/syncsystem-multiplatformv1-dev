@@ -432,9 +432,7 @@ FunctionsSyncSystem.elementCSSAdd = elementCSSAdd; //Add function to object to e
 //Function to build ajax mecanisms to apply changes to a record.
 //**************************************************************************************
 //async function ajaxRecordsPatch01_async(_urlReference, _objBody, _callBackFunction = null)
-const ajaxRecordsPatch01_async = async (_urlReference, _objBody, _callBackFunction = null) =>
-//function ajaxRecordsActivation01()
-{
+const ajaxRecordsPatch01_async = async (_urlReference, _objBody, _callBackFunction = null) => {
     //_objBody.apiKey = process.env.CONFIG_API_KEY_SYSTEM;
 
     //await fetch('http://example.com/movies.json',{
@@ -514,6 +512,269 @@ const ajaxRecordsPatch01_async = async (_urlReference, _objBody, _callBackFuncti
 FunctionsSyncSystem.ajaxRecordsPatch01_async = ajaxRecordsPatch01_async; //Add function to object to export later.
 //**************************************************************************************
 
+
+//Function to create / set cookie.
+//**************************************************************************************
+/**
+ * Function to create / set cookie.
+ * @static
+ * @param {string} cookieName 
+ * @param {string} cookieValue 
+ * @param {object} cookieOptions 
+ * @returns {boolean}
+ * @example 
+ * cookieCreate('key5', 'exemple 5', {cookiePeriod: 1});
+ */
+//static cookieCreate(cookieName, _cookieValue, _cookiePeriod = "", objRoute = null)
+//cookieCreate = (cookieName, _cookieValue, _cookiePeriod = "") => {
+const cookieCreate = (cookieName, cookieValue, cookieOptions = {}) => {
+    /*_cookieOptions: {
+        cookiePeriod: 1, //1 - stay connected
+        maxAge: 123, 
+        expires: 
+    }
+    */
+        //cookiePeriod: 1 - stay connected
+
+    //Variables.
+    //----------------------
+    let strReturn = false;
+    let cookiePeriod = ""; //1 - stay connected
+    //let cookieOptions = cookieOptions;
+    let cookieString = "";
+
+    let path = "/";
+    let domain = "";
+    let expires = ""; //date-in-GMTString-format (Fri, 31 Dec 9999 23:59:59 GMT)
+    let maxAge = ""; //seconds | 86400 = 1 day | 60*60*24*365 = 1 year
+    let secure = false; //true | false
+    //----------------------
+
+
+    //Define values.
+    //----------------------
+    if(cookieOptions.hasOwnProperty("cookiePeriod") === true)
+    {
+        cookiePeriod = cookieOptions.cookiePeriod;
+    }
+
+    if(cookieOptions.hasOwnProperty("path") === true)
+    {
+        path = cookieOptions.path;
+    }
+
+    if(cookieOptions.hasOwnProperty("domain") === true)
+    {
+        domain = cookieOptions.domain;
+    }
+
+    if(cookieOptions.hasOwnProperty("expires") === true)
+    {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (cookieOptions.expires*24*60*60*1000));
+    } //TODO: test.
+
+    if(cookieOptions.hasOwnProperty("maxAge") === true)
+    {
+        maxAge = cookieOptions.maxAge;
+    }
+
+    if(cookieOptions.hasOwnProperty("secure") === true)
+    {
+        secure = cookieOptions.secure;
+    }
+
+    //Stay conected option.
+    if(cookiePeriod == "1")
+    {
+        maxAge = 60*60*24*365;
+        //cookiePeriod = new Date(Date.now() + (86400 * 30 * 365));
+    }
+    //----------------------
+
+
+    //Logic.
+    if(cookieValue)
+    {
+        strReturn = true;
+
+        //Build string.
+        cookieString += cookieName + "=" + cookieValue;
+        cookieString += "; SameSite=strict";
+        cookieString += "; path=" + path;
+
+        if(domain != "")
+        {
+            cookieString += "; domain=" + domain;
+        }
+
+        if(expires != "")
+        {
+            cookieString += "; expires=" + expires;
+        }
+
+        if(maxAge != "")
+        {
+            cookieString += "; max-age=" + maxAge;
+        }
+
+        if(secure === true)
+        {
+            cookieString += "; Secure";
+        }
+
+        //Format
+        // SameSite=None: cross-origin. (lax, strict or none) Note: check if makes diference small caps.
+        // Secure: SSL
+        // It is more common not to set the `SameSite` attribute, which results in the default,
+        // and more secure, value of `SameSite=Lax;`
+        //document.cookie = "key_name=key name example; path=/; domain=example.com; SameSite=None; Secure";
+        
+
+
+        //Cookie set.
+        //document.cookie = cookieName + "=" + +";max-age=604800";
+        document.cookie = cookieString;
+    }
+
+
+    //Debug.
+    //console.log("document.cookie=", document.cookie);
+    //console.log("cookiePeriod=", cookiePeriod);
+    //console.log("cookieName=", cookieName);
+    //console.log("cookieValue=", cookieValue);
+    //console.log("cookieString=", cookieString);
+
+    return strReturn;
+}
+FunctionsSyncSystem.cookieCreate = cookieCreate; //Add function to object to export later.
+//**************************************************************************************
+
+
+//Function read cookie value.
+//**************************************************************************************
+/**
+ * Function read cookie value.
+ * @static
+ * @param {string} cookieName "login" - returns login cookie | "temp" - returns temporary cookie (temporary id) | "" returns all cookies
+ * @returns {string}
+ * @example
+ * SyncSystemNS.FunctionsGeneric.cookieRead()
+ */
+//static cookieRead(cookieName = "")
+//cookieRead = async(cookieName = "") => {
+const cookieRead = (cookieName = "") => {
+    //Variables.
+    //----------------------
+    let strReturn = "";
+    let cookies = document.cookie;
+    let arrCookies = [];
+    //----------------------
+
+
+    //Logic.
+    if(cookieName)
+    {
+        arrCookies = cookies.trim().split(";");
+
+        //Loop through pairs:
+        arrCookies.forEach(cookiePair => {
+            let arrCookiePair = cookiePair.split("=");
+            if(cookieName == arrCookiePair[0].trim())
+            {
+                strReturn = arrCookiePair[1].trim();
+            }
+            //Debug.
+            //console.log("arrCookiePair 0=", arrCookiePair[0]);
+            //console.log("arrCookiePair 1=", arrCookiePair[1]);
+        });
+
+
+        //Debug.
+        //console.log("document.cookie=", document.cookie);
+        //console.log("arrCookies=", arrCookies);
+        //console.log("cookieName=", cookieName);
+    }else{
+        strReturn = document.cookie;
+    }
+
+
+    return strReturn;
+}
+FunctionsSyncSystem.cookieRead = cookieRead; //Add function to object to export later.
+//**************************************************************************************
+
+
+//Function read cookie value.
+//**************************************************************************************
+/**
+ * Function read cookie value.
+ * @static
+ * @param {string} cookieName 
+ * @returns {string}
+ * @example
+ * SyncSystemNS.FunctionsGeneric.cookieRead()
+ */
+//static cookieRead(cookieName = "")
+//cookieRead = async(cookieName = "") => {
+const cookieDelete = (cookieName = "", cookieOptions = {}) => {
+    //Variables.
+    //----------------------
+    let strReturn = false;
+    let cookieString = "";
+
+    let path = "/";
+    let domain = "";
+    let secure = false; //true | false
+    //----------------------
+
+
+    //Define values.
+    //----------------------
+    if(cookieOptions.hasOwnProperty("path") === true)
+    {
+        path = cookieOptions.path;
+    }
+
+    if(cookieOptions.hasOwnProperty("domain") === true)
+    {
+        domain = cookieOptions.domain;
+    }
+
+    if(cookieOptions.hasOwnProperty("secure") === true)
+    {
+        secure = cookieOptions.secure;
+    }
+    //----------------------
+
+    
+    //Logic.
+    if(cookieName)
+    {
+        //Build string.
+        cookieString = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        cookieString += "; path=" + path;
+
+        if(domain != "")
+        {
+            cookieString += "; domain=" + path;
+        }
+
+        if(secure === true)
+        {
+            cookieString += "; Secure";
+        }
+
+        //Delete cookie.
+        document.cookie = cookieString;
+        strReturn = true;
+    }
+
+
+    return strReturn;
+}
+//**************************************************************************************
+FunctionsSyncSystem.cookieDelete = cookieDelete; //Add function to object to export later.
 
 
 //Function do download files.

@@ -38,6 +38,7 @@ class FrontendLoginForm extends Component
         //----------------------
         this.handleLoginFormSubmit = this.handleLoginFormSubmit.bind(this);
         this.handleLoginFormFieldsChange = this.handleLoginFormFieldsChange.bind(this);
+        //this.props = this.props.bind(this); //error
         //----------------------
 
         
@@ -272,7 +273,7 @@ class FrontendLoginForm extends Component
         //Logic.
         if((email) && (password))
         {
-            (async function(){ //async marks the block
+            (async function(props){ //async marks the block
                 try{ 
                     //Variables.
                     let fdLogin = new FormData();
@@ -322,6 +323,7 @@ class FrontendLoginForm extends Component
                     console.log("email=", email);
                     console.log("password=", password);
                     console.log("objLoginJson=", objLoginJson);
+                    console.log("props=", props);
                 }catch(handleLoginFormSubmitError){
                     if(gSystemConfig.configDebug === true)
                     {
@@ -356,23 +358,41 @@ class FrontendLoginForm extends Component
                                     FunctionsSyncSystem.elementMessage01("messageAlert", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "statusMessageLogin3a"));
                                 }else{
                                     //Create cookies.
+                                    //TODO: based on the loginType
+                                    /*cookieCreate(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser", objLoginJson.tblRegistersIDCrypt, {
+                                        cookiePeriod: 1
+                                    });*/
+                                    FunctionsSyncSystem.cookieCreate(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser", objLoginJson.tblRegistersIDCrypt,  gSystemConfig.configCookieDefaultOptions);
+
+                                    let idRegisterDebug = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(FunctionsSyncSystem.cookieRead(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser"), "db"), 2);
+                                   
+
+                                    //Debug.
+                                    //document.cookie = `referral_key=hello;max-age=604800;domain=localhost`;
+                                    //document.cookie = `referral_key=hello;max-age=604800`;
+                                    console.log("document.cookie=", document.cookie);
+                                    console.log("idRegisterDebug=", idRegisterDebug);
 
                                     //Redirect with success message.
+                                    //this.props.history.push('/');
+                                    //props.history.push("/");//Home
+                                    //props.history.push("/quizzes/123/");
+                                    props.history.push("/" + gSystemConfig.configRouteFrontendDashboard +"/?messageSuccess=statusMessageLogin1");
+                                    
                                     FunctionsSyncSystem.htmlGenericStyle01('messageSuccess', 'display', 'block');
                                     FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "statusMessageLogin1"));
                                 }
                             }
                         }
-
                     }
-
                 }
-            })();
+            })(this.props);
         }
 
 
         //Debug.
         console.log("this.state=", this.state);
+        console.log("document.cookie=", document.cookie);
     }
     //**************************************************************************************
 

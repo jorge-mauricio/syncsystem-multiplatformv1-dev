@@ -17,11 +17,11 @@ import ReactDOM from "react-dom";
 
 
 //Components.
-import FrontendLoginForm from "./frontend-login-form-cb-component.js";
+//import FrontendLoginForm from "./frontend-login-form-cb-component.js";
 //----------------------
 
 
-class FrontendLogin extends Component
+class FrontendDashboard extends Component
 {
     //Context.
     static contextType = SyncSystemNSContext;
@@ -32,7 +32,7 @@ class FrontendLogin extends Component
     constructor(props, context)
     {
         //Component options.
-        //configLayoutType: 1 - div layout (custom) | 3 - horizontal | 4 - API | 11 - div layout (bootstrap) | 111 - responsive
+        //configLayoutType: 1 - div layout (custom) | 11 - div layout (bootstrap) | 111 - responsive
 
 
         super(props, context);
@@ -232,6 +232,24 @@ class FrontendLogin extends Component
         //----------------------
         try
         {
+            //Messages.
+            if(this._messageSuccess != "")
+            {
+                FunctionsSyncSystem.htmlGenericStyle01('messageSuccess', 'display', 'block');
+                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageSuccess));
+            }
+            if(this._messageError != "")
+            {
+                FunctionsSyncSystem.htmlGenericStyle01('messageError', 'display', 'block');
+                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageError));
+            }
+            if(this._messageAlert != "")
+            {
+                FunctionsSyncSystem.htmlGenericStyle01('messageAlert', 'display', 'block');
+                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageAlert));
+            }
+
+
             //Value definition.
             this.titleCurrent = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendLoginTitleMain");
             //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
@@ -361,19 +379,11 @@ class FrontendLogin extends Component
         //Output.
         return(
             <section className="ss-frontend-layout-section-content01">
-                { /*Login form component.*/
-                <FrontendLoginForm 
-                    configLayoutType={ this.configLayoutType } 
-                    configLoginOrigin={ "1" } 
-                    configLoginReturnURL={ "" }
-                    configLoginIDReturnURL={ "" } 
-                    history={this.props.history} //Child components don´t have props.history by default, so you need to pass as a prop.
-                    >
-                </FrontendLoginForm> }
+                dashboard
             </section>
         );
     }
     //**************************************************************************************
 }
 
-export default FrontendLogin;
+export default FrontendDashboard;
