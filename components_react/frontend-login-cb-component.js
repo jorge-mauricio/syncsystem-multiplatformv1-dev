@@ -232,6 +232,24 @@ class FrontendLogin extends Component
         //----------------------
         try
         {
+            //Messages.
+            if(this._messageSuccess != "")
+            {
+                FunctionsSyncSystem.htmlGenericStyle01('messageSuccess', 'display', 'block');
+                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageSuccess));
+            }
+            if(this._messageError != "")
+            {
+                FunctionsSyncSystem.htmlGenericStyle01('messageError', 'display', 'block');
+                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageError));
+            }
+            if(this._messageAlert != "")
+            {
+                FunctionsSyncSystem.htmlGenericStyle01('messageAlert', 'display', 'block');
+                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageAlert));
+            }
+
+            
             //Value definition.
             this.titleCurrent = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendLoginTitleMain");
             //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);

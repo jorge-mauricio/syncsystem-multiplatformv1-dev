@@ -203,7 +203,7 @@ exports.appLabels = {
     frontendLogoffTitleMain: "Logoff",
 
     frontendLogoffMessage01: "Logoff completed successfully.\n\nFeel free to return soon. Thank you.",
-    frontendLogoffMessage01: "In case you need to login again, access the following link:",
+    frontendLogoffMessage02: "In case you need to login again, access the following link:",
     //**************************************************************************************
 
 
@@ -235,6 +235,9 @@ exports.appLabels = {
     frontendDashboardTitleTableInsert: "Include Dashboard",
     frontendDashboardTitleTableEdit: "Edit Dashboard",
     frontendDashboardTitleTableDetails: "Dashboard Details",
+
+    frontendDashboardWelcome: "Welcome to your dashboard.",
+    frontendDashboardLoginMessage01: "You are logged in as",
     //**************************************************************************************
 
 

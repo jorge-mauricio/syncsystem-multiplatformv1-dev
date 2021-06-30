@@ -14,6 +14,7 @@ import { SyncSystemNSContext } from "./syncsystem-ns-cb-context.js";
 //import React from "react";
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
+import  { Redirect } from 'react-router-dom'
 
 
 //Components.
@@ -46,7 +47,8 @@ class FrontendDashboard extends Component
         this.objParametersQueryString = qs.parse(this.props.location.search);
         this.configLayoutType = 1;
 
-        this.idRegisterLogged = "";
+        this.idTbRegistersLoggedCrypt = "";
+        this.idTbRegistersLogged = "";
 
         this._masterPageFrontendSelect = "";
 
@@ -55,6 +57,9 @@ class FrontendDashboard extends Component
         this._messageAlert = "";
 
         this.queryDefault = "";
+
+        this.objRegistersDetailsJson;
+        this.objRegistersDetails = {};
 
         this.titleCurrent = "";
 
@@ -140,8 +145,7 @@ class FrontendDashboard extends Component
             }finally{
                 //State creation.
                 this.state = {
-                    //objCategoriesListing: this.objCategoriesListing,
-                    //arrCategoriesListing: this.arrCategoriesListing,
+                    objRegistersDetails: this.objRegistersDetails,
                     dataLoaded: false
                 };
             }
@@ -228,7 +232,14 @@ class FrontendDashboard extends Component
     async build()
     {
         //Variables.
+        //----------------------
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, qs } = this.context; //Deconstruct variables (each variable is allocated to it´s correspondent name).
+        
+        let apiURLRegistersDetailsOptions;
+        let fdRegistersDetails = new FormData();
+        let apiURLRegistersDetails = "";
+        let apiRegistersDetailsResponse;
+        //----------------------
 
 
         //Logic.
@@ -237,11 +248,13 @@ class FrontendDashboard extends Component
         {
             //Check login.
             //TODO: replace with function.
-            this.idRegisterLogged = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(FunctionsSyncSystem.cookieRead(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser"), "db"), 2);
-            if(this.idRegisterLogged == "")
+            this.idTbRegistersLoggedCrypt = FunctionsSyncSystem.cookieRead(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser");
+            this.idTbRegistersLogged = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(this.idTbRegistersLoggedCrypt, "db"), 2);
+            if(this.idTbRegistersLogged == "")
             {
                 //Redirect.
-                this.props.history.push("/" + gSystemConfig.configRouteFrontendLogin +"/?messageAlert=statusMessageLogin1a");
+                this.props.history.push("/" + gSystemConfig.configRouteFrontendLogin +"/?messageAlert=statusMessageLogin1a"); //it may be getting from history cache
+                //return (<Redirect to={"/" + gSystemConfig.configRouteFrontendLogin +"/?messageAlert=statusMessageLogin1a"}  />);
             }
 
                 
@@ -263,8 +276,53 @@ class FrontendDashboard extends Component
             }
 
 
+            //Build form data.
+            fdRegistersDetails.append("apiKey", SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2));
+
+            //Fetch options for post method.
+            apiURLRegistersDetailsOptions = {
+                method: "POST",
+                /*
+                headers: { 
+                    //"Content-Type": "application/json; charset=utf-8" 
+                    "Content-Type": "multipart/form-data"
+                },
+                */
+                /*
+                body: JSON.stringify({ 
+                    id: "",
+                    id_quizzes: tblQuizzesID,
+                    //id_quizzes_options: this.state.quizResultsLog[countArray].tblQuizzesLogIdQuizzesOptionsAnswer,
+                    id_quizzes_options: "123",
+                    id_register: "1638", //get id from cookie / authentication
+                    //id_quizzes_options_answer: this.state.quizResultsLog[countArray].tblQuizzesIdQuizzesOptionsAnswer,
+                    id_quizzes_options_answer: "321",
+                    date_creation: "",
+                    notes: "",
+                })
+                */
+                body: fdRegistersDetails
+            };
+            
+
+            //API - build URL string.
+            //apiURLProductsDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIProducts + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idTbProducts + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+            apiURLRegistersDetails = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPILogin + "/" + gSystemConfig.configRouteAPIDetails + "/" + this.idTbRegistersLoggedCrypt + "/";
+        
+            //?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2)
+
+
+            //API - fetch data from backend.
+            //apiRegistersDetailsResponse = await fetch(apiURLRegistersDetails);
+            apiRegistersDetailsResponse = await fetch(apiURLRegistersDetails, apiURLRegistersDetailsOptions);
+            
+            this.objRegistersDetailsJson = await apiRegistersDetailsResponse.json();
+            this.objRegistersDetails = this.objRegistersDetailsJson.ordRecord;
+            //console.log("apiURLProductsDetails=", apiURLProductsDetails);
+
+
             //Value definition.
-            this.titleCurrent = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendLoginTitleMain");
+            this.titleCurrent = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendDashboardTitleMain");
             //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
 
             //this.metaTitle = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendHomeTitleMain") + " - " + this.titleCurrent; //Bellow 160 characters.
@@ -282,6 +340,7 @@ class FrontendDashboard extends Component
 
             //Debug.
             console.log("document.cookie=", document.cookie);
+            console.log("this.objRegistersDetails=", this.objRegistersDetails);
         }catch(asyncError){
             if(gSystemConfig.configDebug === true)
             {
@@ -373,7 +432,11 @@ class FrontendDashboard extends Component
     render()
     {
         //Variables.
+        //----------------------
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, qs } = this.context;
+
+        let objRegistersDetails = this.objRegistersDetails;
+        //----------------------
 
 
         //Check if data is loaded.
@@ -395,8 +458,12 @@ class FrontendDashboard extends Component
 
         //Output.
         return(
-            <section className="ss-frontend-layout-section-content01">
-                dashboard
+            <section className="ss-frontend-layout-section-content01 ss-frontend-dashboard-text01">
+                <strong>
+                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendDashboardWelcome") }
+                </strong>
+                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendDashboardLoginMessage01") }: 
+                { objRegistersDetails.tblRegistersNameFull }
             </section>
         );
     }

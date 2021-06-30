@@ -51,8 +51,8 @@ class FrontendProductsDetails extends Component
 
         this.objProductsDetailsJson;
         this.objProductsDetails = {};
-        this.objProductsListing = {};
-        this.arrProductsListing = [];
+        this.objProductsListing = {}; //delete
+        this.arrProductsListing = []; //delete
 
         this.titleCurrent = "";
 
@@ -164,8 +164,8 @@ class FrontendProductsDetails extends Component
         //----------------------
         const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
     
-        var apiURLProductsDetails = "";
-        var apiProductsDetailsResponse;
+        let apiURLProductsDetails = "";
+        let apiProductsDetailsResponse;
         //----------------------
 
 
