@@ -175,10 +175,10 @@ gSystemConfig.configRouteAPILogin = "login";
 
 gSystemConfig.configRouteBackend = "system";
 gSystemConfig.configRouteBackendLogin = "login";
-gSystemConfig.configRouteBackendLogOff = "logoff";
+gSystemConfig.configRouteBackendLogOff = "logoff"; //TODO: change to logoff. 
 gSystemConfig.configRouteBackendLoginUsers = "login-users";
 //gSystemConfig.configRouteBackendLogOffUsers = "logoff-users";
-gSystemConfig.configRouteBackendLogOffUsersRoot = "logoff-users-root";
+gSystemConfig.configRouteBackendLogOffUsersRoot = "logoff-users-root"; //TODO: change to logoff. 
 gSystemConfig.configRouteBackendDashboard = "dashboard"; //main
 
 gSystemConfig.configRouteBackendActionEdit = "edit";
@@ -215,6 +215,7 @@ gSystemConfig.configRouteFrontendPublications = "publications";
 gSystemConfig.configRouteFrontendRegisters = "registers";
 gSystemConfig.configRouteFrontendQuizzes = "quizzes";
 gSystemConfig.configRouteFrontendLogin = "login";
+gSystemConfig.configRouteFrontendLogoff = "logoff";
 
 gSystemConfig.configRouteFrontendDashboard = "dashboard";
 gSystemConfig.configRouteFrontendDashboardCategories = "dashboard-categories";

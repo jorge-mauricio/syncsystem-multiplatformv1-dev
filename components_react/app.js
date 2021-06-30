@@ -26,6 +26,7 @@ import FrontendHome from "./frontend-home-cb-component.js";
 
 //Login.
 import FrontendLogin from "./frontend-login-cb-component.js";
+import FrontendLogoff from "./frontend-logoff-cb-component.js";
 
 //Categories.
 import FrontendCategoriesListing from "./frontend-categories-listing-cb-component.js";
@@ -48,6 +49,9 @@ import FrontendPublicationsDetails from "./frontend-publications-details-cb-comp
 //Quizzes.
 import FrontendQuizzesListing from "./frontend-quizzes-listing-cb-component.js";
 //import FrontendQuizzesDetails from "./frontend-quizzes-details-cb-component.js";
+
+//Dashboard.
+import FrontendDashboard from "./frontend-dashboard-cb-component.js";
 //----------------------
 
 
@@ -209,6 +213,30 @@ class App extends React.Component {
                                     :
                                         <LayoutFrontendMain
                                             cphBody={<FrontendLogin {...props} />}
+                                            {...props}>
+                                        </LayoutFrontendMain>
+                                    }
+                                </React.Fragment>
+                            )} 
+                    />
+                    {/*//---------------------- */}
+
+
+                    {/*Logoff. */}
+                    {/*//---------------------- */}
+                    <Route exact 
+                            path={["/" + gSystemConfig.configRouteFrontendLogoff + "/", "/" + gSystemConfig.configRouteFrontend + "/" + gSystemConfig.configRouteFrontendLogoff + "/"]} 
+                            render={props => (
+                                <React.Fragment>
+                                    {/*Layout select. */}
+                                    { this._masterPageFrontendSelect == "layout-frontend-iframe" ?
+                                        <LayoutFrontendIframe
+                                            cphBody={<FrontendLogoff {...props} />}
+                                            {...props}>
+                                        </LayoutFrontendIframe>
+                                    :
+                                        <LayoutFrontendMain
+                                            cphBody={<FrontendLogoff {...props} />}
                                             {...props}>
                                         </LayoutFrontendMain>
                                     }
@@ -458,6 +486,30 @@ class App extends React.Component {
                                             cphBody={<FrontendQuizzesListing {...props} />}
                                             {...props}>
                                                 {/*setTitleCurrent={this.setTitleCurrent} */ /*passing function as prop - not in use */}
+                                        </LayoutFrontendMain>
+                                    }
+                                </React.Fragment>
+                            )} 
+                    />
+                    {/*//---------------------- */}
+
+
+                    {/*Dashboard. */}
+                    {/*//---------------------- */}
+                    <Route exact 
+                            path={["/" + gSystemConfig.configRouteFrontendDashboard + "/", "/" + gSystemConfig.configRouteFrontend + "/" + gSystemConfig.configRouteFrontendDashboard + "/"]} 
+                            render={props => (
+                                <React.Fragment>
+                                    {/*Layout select. */}
+                                    { this._masterPageFrontendSelect == "layout-frontend-iframe" ?
+                                        <LayoutFrontendIframe
+                                            cphBody={<FrontendDashboard {...props} />}
+                                            {...props}>
+                                        </LayoutFrontendIframe>
+                                    :
+                                        <LayoutFrontendMain
+                                            cphBody={<FrontendDashboard {...props} />}
+                                            {...props}>
                                         </LayoutFrontendMain>
                                     }
                                 </React.Fragment>

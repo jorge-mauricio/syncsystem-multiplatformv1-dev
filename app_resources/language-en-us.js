@@ -200,7 +200,10 @@ exports.appLabels = {
     frontendLoginTitleMain: "Login",
     frontendLoginTitleTable: "Login Information",
     
-    frontendLoginoffTitleMain: "Logoff",
+    frontendLogoffTitleMain: "Logoff",
+
+    frontendLogoffMessage01: "Logoff completed successfully.\n\nFeel free to return soon. Thank you.",
+    frontendLogoffMessage01: "In case you need to login again, access the following link:",
     //**************************************************************************************
 
 
@@ -1272,6 +1275,7 @@ exports.appLabels = {
     statusMessageLogin2: "Your log-off was completed successfully.",
     statusMessageLogin10: "Information authentication completed successfully. From this moment on, you have access to the system.",
     
+    statusMessageLogin1a: "Login authentication error. You need to login, in order to access this content.",
     statusMessageLogin2a: "Login authentication error. Your access is not yet granted for this item. Check for possible failures with your activation and try again. If the error persists, contact the administration.",
     statusMessageLogin3a: "Login authentication error. Your access is not yet activated. Check for possible failures with your activation and try again. If the error persists, contact the administration.",
     statusMessageLogin4a: "Login authentication error. Apparently some field was left unfilled. Check your information and fill in again.",

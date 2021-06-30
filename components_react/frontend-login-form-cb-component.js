@@ -317,13 +317,11 @@ class FrontendLoginForm extends Component
                     objLoginJson = await apiLoginResponse.json();
 
 
-
-
                     //Debug.
-                    console.log("email=", email);
-                    console.log("password=", password);
-                    console.log("objLoginJson=", objLoginJson);
-                    console.log("props=", props);
+                    //console.log("email=", email);
+                    //console.log("password=", password);
+                    //console.log("objLoginJson=", objLoginJson);
+                    //console.log("props=", props);
                 }catch(handleLoginFormSubmitError){
                     if(gSystemConfig.configDebug === true)
                     {
@@ -364,14 +362,14 @@ class FrontendLoginForm extends Component
                                     });*/
                                     FunctionsSyncSystem.cookieCreate(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser", objLoginJson.tblRegistersIDCrypt,  gSystemConfig.configCookieDefaultOptions);
 
-                                    let idRegisterDebug = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(FunctionsSyncSystem.cookieRead(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser"), "db"), 2);
+                                    //let idRegisterDebug = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(FunctionsSyncSystem.cookieRead(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser"), "db"), 2);
                                    
 
                                     //Debug.
                                     //document.cookie = `referral_key=hello;max-age=604800;domain=localhost`;
                                     //document.cookie = `referral_key=hello;max-age=604800`;
-                                    console.log("document.cookie=", document.cookie);
-                                    console.log("idRegisterDebug=", idRegisterDebug);
+                                    //console.log("document.cookie=", document.cookie);
+                                    //console.log("idRegisterDebug=", idRegisterDebug);
 
                                     //Redirect with success message.
                                     //this.props.history.push('/');
@@ -391,8 +389,8 @@ class FrontendLoginForm extends Component
 
 
         //Debug.
-        console.log("this.state=", this.state);
-        console.log("document.cookie=", document.cookie);
+        //console.log("this.state=", this.state);
+        //console.log("document.cookie=", document.cookie);
     }
     //**************************************************************************************
 

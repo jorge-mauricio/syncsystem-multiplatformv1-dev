@@ -481,6 +481,17 @@ class LayoutFrontendMain extends Component
                                     title={"Login"}>
                                     Link - Login
                                 </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendLogoff + "/"} 
+                                    title={"Logoff"}>
+                                    Link - Logoff
+                                </a>
+                                <a className="ss-frontend-link01"
+                                    href={"/" + gSystemConfig.configRouteFrontendDashboard + "/"} 
+                                    title={"Dashboard"}>
+                                    Link - Dashboard
+                                </a>
+                                
                             </nav>
                         </div>
 

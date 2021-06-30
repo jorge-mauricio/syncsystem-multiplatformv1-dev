@@ -21,7 +21,7 @@ import ReactDOM from "react-dom";
 //----------------------
 
 
-class FrontendDashboard extends Component
+class FrontendLogoff extends Component
 {
     //Context.
     static contextType = SyncSystemNSContext;
@@ -32,7 +32,7 @@ class FrontendDashboard extends Component
     constructor(props, context)
     {
         //Component options.
-        //configLayoutType: 1 - div layout (custom) | 11 - div layout (bootstrap) | 111 - responsive
+        //configLayoutType: 1 - div layout (custom) | 3 - horizontal | 4 - API | 11 - div layout (bootstrap) | 111 - responsive
 
 
         super(props, context);
@@ -45,8 +45,6 @@ class FrontendDashboard extends Component
         //----------------------
         this.objParametersQueryString = qs.parse(this.props.location.search);
         this.configLayoutType = 1;
-
-        this.idRegisterLogged = "";
 
         this._masterPageFrontendSelect = "";
 
@@ -132,6 +130,7 @@ class FrontendDashboard extends Component
             try{
                 //await this.build();
                 //this.build();
+
             }catch(asyncError){
                 if(gSystemConfig.configDebug === true)
                 {
@@ -150,6 +149,7 @@ class FrontendDashboard extends Component
 
         //Debug.
         //console.log("document.cookie=", document.cookie);
+        
         //console.log("props=", props);
         //console.log("this.objParametersQueryString(categories listing)=", this.objParametersQueryString);
         //console.log("this.queryDefault=", this.queryDefault);
@@ -235,36 +235,13 @@ class FrontendDashboard extends Component
         //----------------------
         try
         {
-            //Check login.
-            //TODO: replace with function.
-            this.idRegisterLogged = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(FunctionsSyncSystem.cookieRead(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser"), "db"), 2);
-            if(this.idRegisterLogged == "")
-            {
-                //Redirect.
-                this.props.history.push("/" + gSystemConfig.configRouteFrontendLogin +"/?messageAlert=statusMessageLogin1a");
-            }
-
-                
-            //Messages.
-            if(this._messageSuccess != "")
-            {
-                FunctionsSyncSystem.htmlGenericStyle01('messageSuccess', 'display', 'block');
-                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageSuccess));
-            }
-            if(this._messageError != "")
-            {
-                FunctionsSyncSystem.htmlGenericStyle01('messageError', 'display', 'block');
-                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageError));
-            }
-            if(this._messageAlert != "")
-            {
-                FunctionsSyncSystem.htmlGenericStyle01('messageAlert', 'display', 'block');
-                FunctionsSyncSystem.elementMessage01("messageSuccess", SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, this._messageAlert));
-            }
+            //Delete cookies.
+            //TODO: include other cookies / special function.
+            FunctionsSyncSystem.cookieDelete(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser", gSystemConfig.configCookieDefaultOptions);
 
 
             //Value definition.
-            this.titleCurrent = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendLoginTitleMain");
+            this.titleCurrent = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendLogoffTitleMain");
             //console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
 
             //this.metaTitle = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendHomeTitleMain") + " - " + this.titleCurrent; //Bellow 160 characters.
@@ -396,11 +373,13 @@ class FrontendDashboard extends Component
         //Output.
         return(
             <section className="ss-frontend-layout-section-content01">
-                dashboard
+                <div className="ss-frontend-login-text-success" style={{textAlign: "center"}}>
+                    {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendLogoffMessage01")}
+                </div>
             </section>
         );
     }
     //**************************************************************************************
 }
 
-export default FrontendDashboard;
+export default FrontendLogoff;
