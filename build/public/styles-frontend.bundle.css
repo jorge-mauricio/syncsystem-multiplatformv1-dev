@@ -138,6 +138,13 @@ input, textarea, select
 	background-color: #ccc; 
 	height: 200px;
 }
+.ss-frontend-layout-header01 > a {
+	position: absolute; 
+	display: block; 
+	left: 50%; 
+	top: 50%; 
+	transform: translate(-50%, -50%); 
+}
 .ss-frontend-layout-footer01 {
 	position: relative; 
 	display: block; 
@@ -434,7 +441,32 @@ input, textarea, select
     color: #f7941d;
     text-align: center;
 }
+.ss-frontend-correct {
+	position: relative;
+	display: block;
+	
+    font-family: var(--ssFrontendDefaultFont);
+    font-size: var(--ssFrontendDefaultCaptionFontSize);
+    /* font-weight: bold; */
+	color: #000000;
+	background-color: #83cd29;
+	text-align: left;
+	margin-bottom: 1px;
+	padding: 3px;
+}
+.ss-frontend-uncorrect {
+	position: relative;
+	display: block;
 
+    font-family: var(--ssFrontendDefaultFont);
+    font-size: var(--ssFrontendDefaultCaptionFontSize);
+    /* font-weight: bold; */
+	color: #ffffff;
+	background-color: #ff2a2a;
+	text-align: left;
+	margin-bottom: 1px;
+	padding: 3px;
+}
 
 /*Buttons - action.*/
 .ss-frontend-btn-base {
@@ -3217,12 +3249,6 @@ input, textarea, select
 	overflow: hidden;*/
 }
 
-.ss-frontend-dashboard-text-success {
-    font-family: var(--ssFrontendDefaultFont);
-	font-size: var(--ssFrontendDefaultSubheadingFontSize);
-	color: #009933;
-}
-
 .ss-frontend-dashboard-row01 {
 	position: relative;
 	display: block;
@@ -3353,7 +3379,19 @@ input, textarea, select
 
 .ss-frontend-dashboard-field-deactivated {
     background: #cccccc;
-}/* ************************************************************************************** */
+}
+
+.ss-frontend-dashboard-details-image01-container {
+	position: relative; 
+	display: block; 
+
+	width: 100%;
+
+	text-align: center; 
+
+	overflow: hidden;
+}
+/* ************************************************************************************** */
 
 
 /*Bootstrap.*/

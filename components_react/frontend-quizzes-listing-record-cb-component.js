@@ -52,6 +52,8 @@ class FrontendQuizzesListingRecord extends Component
 
 
         //Properties.
+        this.idTbRegistersLoggedCrypt = "";
+        this.idTbRegistersLogged = "";
 
 
         //State creation.
@@ -72,11 +74,55 @@ class FrontendQuizzesListingRecord extends Component
     //**************************************************************************************
     componentDidMount()
     {
+        //Variables.
+        //----------------------
+        const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+        //----------------------
+
+
+        //Logic.
+        //----------------------
+        try
+        {
+            //Check login.
+            //TODO: replace with function.
+            this.idTbRegistersLoggedCrypt = FunctionsSyncSystem.cookieRead(gSystemConfig.configCookiePrefix + "_" + "idRegisterUser");
+            this.idTbRegistersLogged = SyncSystemNS.FunctionsCrypto.decryptValue(SyncSystemNS.FunctionsGeneric.contentMaskRead(this.idTbRegistersLoggedCrypt, "db"), 2);
+            if(this.idTbRegistersLogged == "")
+            {
+                //Redirect.
+                //this.props.history.push("/" + gSystemConfig.configRouteFrontendLogin +"/?messageAlert=statusMessageLogin1a"); //it may be getting from history cache
+                //return (<Redirect to={"/" + gSystemConfig.configRouteFrontendLogin +"/?messageAlert=statusMessageLogin1a"}  />);
+            }
+
+
+
+            //Main build.
+            //await this.build();
+
+            //Head content.
+            //await this.headBuild();
+
+            //Title content.
+            //await this.titleCurrentBuild();
+        }catch(asyncError){
+            if(gSystemConfig.configDebug === true)
+            {
+                console.error(asyncError);
+            }
+        }finally{
+
+        }
+        //----------------------
+
+
         //Debug.
         //this.setState({ arrCategoriesListing: this.props.arrCategoriesListing });
         //console.log("this.props=", this.props);
+        //console.log("this.idTbRegistersLogged=", this.idTbRegistersLogged);
     }
     //**************************************************************************************
+
 
 
     //Quiz answer handler.
@@ -118,7 +164,7 @@ class FrontendQuizzesListingRecord extends Component
 
 
         //Debug.
-        console.log("quizAnswersRight", this.state.quizAnswersRight);
+        //console.log("quizAnswersRight", this.state.quizAnswersRight);
 
 
         //Usage.
@@ -194,7 +240,7 @@ class FrontendQuizzesListingRecord extends Component
             //Record log.
             //TODO: Optimize to make only one data send to record the information.
             //TODO: Option to record the answers as is responded.
-            (async function(quizResultsLog){ //async marks the block
+            (async function(quizResultsLog, idTbRegistersLogged){ //async marks the block
                 //Variables.
                 let flagQuizzesLogInsert = true;
 
@@ -210,6 +256,12 @@ class FrontendQuizzesListingRecord extends Component
                         let apiURLQuizzesLog;
                         let apiQuizzesLogResponse;
                         let objQuizzesLogJson;
+                        let idTbRegisters = "0";
+
+                        if(idTbRegistersLogged != "")
+                        {
+                            idTbRegisters = idTbRegistersLogged;
+                        }
 
 
                         //Build form data.
@@ -217,7 +269,8 @@ class FrontendQuizzesListingRecord extends Component
                         //fdQuizzesLog.append("id_quizzes", tblQuizzesID);
                         fdQuizzesLog.append("id_quizzes", quizResultsLog[countArray].objQuizDetails.id);
                         fdQuizzesLog.append("id_quizzes_options", quizResultsLog[countArray].tblQuizzesLogIdQuizzesOptionsAnswer);
-                        fdQuizzesLog.append("id_register", "1638");
+                        //fdQuizzesLog.append("id_register", "1638");
+                        fdQuizzesLog.append("id_register", idTbRegisters);
                         fdQuizzesLog.append("id_quizzes_options_answer", quizResultsLog[countArray].objQuizDetails.id_quizzes_options_answer);
                         fdQuizzesLog.append("date_creation", "");
                         fdQuizzesLog.append("notes", "");
@@ -265,7 +318,7 @@ class FrontendQuizzesListingRecord extends Component
 
 
                         //Debug.
-                        console.log("objQuizzesLogJson=", objQuizzesLogJson);
+                        //console.log("objQuizzesLogJson=", objQuizzesLogJson);
                     }
                 }catch(handleQuizResultLogError){
                     if(gSystemConfig.configDebug === true)
@@ -285,13 +338,13 @@ class FrontendQuizzesListingRecord extends Component
                         }
                     }
                 }
-            })(this.state.quizResultsLog);
+            })(this.state.quizResultsLog, this.idTbRegistersLogged);
         }
 
 
         //Debug.
         //console.log("quizAnswersRight=", this.state.quizAnswersRight);
-        console.log("this.state.quizResultsLog=", this.state.quizResultsLog);
+        //console.log("this.state.quizResultsLog=", this.state.quizResultsLog);
         //console.log("eventData._eventValue=", eventData._eventValue);
         //console.log("eventData._tblQuizzesID=", eventData._tblQuizzesID);
         //console.log("eventData._objQuizDetails=", eventData._objQuizDetails);
@@ -380,7 +433,7 @@ class FrontendQuizzesListingRecord extends Component
                                     FunctionsSyncSystem.htmlGenericStyle01('divQuizStart', 'display', 'none');
                                 }}
                                 className="ss-frontend-btn-base ss-frontend-btn-action">
-                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonStart") }:
+                                { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "backendButtonStart") }
                             </button>
                         </div>
                         
@@ -436,7 +489,7 @@ class FrontendQuizzesListingRecord extends Component
                                         </div>
 
 
-                                        { /*Options (multiple) - store in memory.*/ }
+                                        { /*Options (multiple) - store in DB.*/ }
                                         <div className="ss-frontend-quizzes-listing-content-row01">
                                             { quizzesRow.quizzesOptions.map((quizzesOptionsRow, quizzesOptionsRowKey) =>{
                                                 return (
@@ -469,10 +522,28 @@ class FrontendQuizzesListingRecord extends Component
                             </div>
                             <div>
                                 { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendQuizzesAnswersResults") }:
+                                {
+                                    this.state.quizResultsLog.map((quizResultsLogRow, quizResultsLogKey) =>{
+                                        return (
+                                            <div key={quizResultsLogKey} 
+                                                className={
+                                                    //quizResultsLogRow.quizAnswerStatus.toString() == quizResultsLogRow.objQuizDetails.id ?
+                                                    quizResultsLogRow.quizAnswerStatus === true ?
+                                                    `ss-frontend-correct`
+                                                    :
+                                                    `ss-frontend-incorrect`
+                                                }>
+                                                    { /*HTMLReactParser(quizResultsLogRow.objQuizDetails.question)*/ }
+                                                    { HTMLReactParser(quizResultsLogRow.objQuizDetails.title) }
+                                            </div>
+                                        );
+                                    })
+                                }
+                                
                                 { /*Debug.*/ }
                                 { /*JSON.stringify(this.state.quizResultsLog)*/ }
-
                                 {
+                                    //Debug.
                                     this.state.quizResultsLog.map((quizResultsLogRow, quizResultsLogKey) =>{
                                         return (
                                             <div key={quizResultsLogKey}>

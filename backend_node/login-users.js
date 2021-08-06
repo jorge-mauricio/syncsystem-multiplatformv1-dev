@@ -247,7 +247,7 @@ module.exports = class LoginUsers
                     ${ /*Logo.*/'' }
                     <img src="/${ gSystemConfig.configDirectoryFilesLayoutSD }/backend-layout-logo-client.png" 
                     alt="Logo - ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") }" 
-                    style="height: 230px;
+                    style="max-height: 230px;
                     position: absolute;  
                     top: 0px;  
                     bottom: 0px;  

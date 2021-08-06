@@ -8,6 +8,7 @@ $dbSystemPassword = "juNh#1803";
 
 
 //PDO - Connection for various types of data bases.
+//PHP 7.1 - tested.
 try
 {
     $dbSystemConPDO = new PDO("mysql:host=" . $dbSystemHost . ";dbname=" . $dbSystemDataBase . "", $dbSystemUser, $dbSystemPassword);

@@ -100,9 +100,9 @@ const inputDataReorder = (_arrInputOrder) =>
     }, false);
     */
     //----------------------
-}
-FunctionsSyncSystem.inputDataReorder = inputDataReorder;
+};
 //**************************************************************************************
+FunctionsSyncSystem.inputDataReorder = inputDataReorder;
 
 
 //Function to changing some form properties and submitting.
@@ -165,9 +165,9 @@ const formSubmit = (idForm, formTarget, formMethod, formAction) =>
 
     //Usage.
     //formSubmit('formCategoririesListing', '', '', '/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories }/?_method=DELETE');
-}
-FunctionsSyncSystem.formSubmit = formSubmit;
+};
 //**************************************************************************************
+FunctionsSyncSystem.formSubmit = formSubmit;
 
 
 //Function to apply a style to HTML element.
@@ -222,9 +222,9 @@ const htmlGenericStyle01 = (idHTML, styleName, parameterValue) =>
 		}
 	}
 
-}
-FunctionsSyncSystem.htmlGenericStyle01 = htmlGenericStyle01;
+};
 //**************************************************************************************
+FunctionsSyncSystem.htmlGenericStyle01 = htmlGenericStyle01;
 
 
 //Function to set a value to an HTML element.
@@ -353,10 +353,10 @@ const elementMessage01 = (idElement, strMessage) =>
     //elementMessage01('formCategoririesListing_method', 'DELETE');
     //elementMessage01('multiple:id:nameofinicialvalue', 'DELETE');
     //----------------------
-}
+};
+//**************************************************************************************
 FunctionsSyncSystem.elementMessage01 = elementMessage01; //Add function to object to export later.
 //window.elementMessage01 = elementMessage01;
-//**************************************************************************************
 
 
 //Copy HTML from one element to another.
@@ -388,10 +388,9 @@ const dataHTMLCopy = (idElementOrigin, idElementTarget) =>
     });
     */
     
-}
-FunctionsSyncSystem.dataHTMLCopy = dataHTMLCopy; //Add function to object to export later.
+};
 //**************************************************************************************
-
+FunctionsSyncSystem.dataHTMLCopy = dataHTMLCopy; //Add function to object to export later.
 
 
 //Functions to add / remove css classes.
@@ -423,10 +422,9 @@ function elementCSSRemove(idElement, classNameCSS)
         elementHTML.classList.remove(classNameCSS);
     }
 
-}
-FunctionsSyncSystem.elementCSSAdd = elementCSSAdd; //Add function to object to export later.
+};
 //**************************************************************************************
-
+FunctionsSyncSystem.elementCSSAdd = elementCSSAdd; //Add function to object to export later.
 
 
 //Function to build ajax mecanisms to apply changes to a record.
@@ -508,9 +506,9 @@ const ajaxRecordsPatch01_async = async (_urlReference, _objBody, _callBackFuncti
         console.log(data);
     });
     */
-}
-FunctionsSyncSystem.ajaxRecordsPatch01_async = ajaxRecordsPatch01_async; //Add function to object to export later.
+};
 //**************************************************************************************
+FunctionsSyncSystem.ajaxRecordsPatch01_async = ajaxRecordsPatch01_async; //Add function to object to export later.
 
 
 //Function to create / set cookie.
@@ -646,9 +644,9 @@ const cookieCreate = (cookieName, cookieValue, cookieOptions = {}) => {
     //console.log("cookieString=", cookieString);
 
     return strReturn;
-}
-FunctionsSyncSystem.cookieCreate = cookieCreate; //Add function to object to export later.
+};
 //**************************************************************************************
+FunctionsSyncSystem.cookieCreate = cookieCreate; //Add function to object to export later.
 
 
 //Function read cookie value.
@@ -700,9 +698,9 @@ const cookieRead = (cookieName = "") => {
 
 
     return strReturn;
-}
-FunctionsSyncSystem.cookieRead = cookieRead; //Add function to object to export later.
+};
 //**************************************************************************************
+FunctionsSyncSystem.cookieRead = cookieRead; //Add function to object to export later.
 
 
 //Function read cookie value.
@@ -772,9 +770,322 @@ const cookieDelete = (cookieName = "", cookieOptions = {}) => {
 
 
     return strReturn;
-}
+};
 //**************************************************************************************
 FunctionsSyncSystem.cookieDelete = cookieDelete; //Add function to object to export later.
+
+
+//Function to populate HTML elements with the response of google places, based on coordinates.
+//**************************************************************************************
+/**
+ * Function to populate HTML elements with the response of google places, based on coordinates.
+ * @async
+ * @param {object} objParameters 
+ * @returns {void}
+ */
+//ref: https://stackoverflow.com/questions/3490622/get-latitude-and-longitude-based-on-location-name-with-google-autocomplete-api
+const googlePlacesList = async (objParameters) => {
+    /*
+    objParameters = {
+        lat: 0,	
+        lng: 0,	
+        arrTypes: [""],
+        nMax: 0, //0 - unlimited
+        placesTitle: "",
+        htmlElementTitle: "",
+        htmlElementContent: ""
+    }*/
+
+    //Variables.
+    //----------------------
+    let boolReturn = true;
+
+    let placesRequest = {
+        //location: new google.maps.LatLng(51.5287352, -0.3817841),
+        //location: new google.maps.LatLng(-23.5353927,-46.6889475), //SP
+        location: new google.maps.LatLng(objParameters.lat, objParameters.lng),
+        radius: 5000,
+        //type: ['restaurant']
+        type: objParameters.arrTypes
+        /*type: ['amusement_park', 
+            'aquarium',
+            'art_gallery',
+            'bakery',
+            'bar',
+            'book_store',
+            'bus_station',
+            'cafe',
+            'church',
+            'convenience_store',
+            'drugstore',
+            'gym',
+            'hair_care',
+            'hospital',
+            'laundry',
+            'meal_delivery',
+            'meal_takeaway',
+            'mosque',
+            'movie_theater',
+            'museum',
+            'night_club',
+            'park',
+            'pharmacy',
+            'police',
+            'post_office',
+            'primary_school',
+            'restaurant',
+            'school',
+            'secondary_school',
+            'shopping_mall',
+            'stadium',
+            'subway_station',
+            'supermarket',
+            'tourist_attraction',
+            'train_station',
+            'university',
+            'zoo'
+        ]
+        Gastronomia
+        Conveniência
+        Lazer
+        Beleza
+        Saúde
+        Educação
+        Segurança
+        Transporte Público
+        Outros
+        */
+    };
+    let placesResults = [];
+
+    let htmlElementTitle;
+    let htmlElementContent = document.getElementById(objParameters.htmlElementContent);
+    
+    //console.log("htmlElementContent.innerHTML=", htmlElementContent.innerHTML);
+
+    //Debug.
+    //let placesService = new google.maps.places.PlacesService(htmlElementContent);
+    let placesService = new google.maps.places.PlacesService(document.getElementById("placesServiceBuffer"));
+    //----------------------
+    
+
+    //Value definition.
+    //----------------------
+    if(objParameters.htmlElementTitle !== "")
+    {
+        htmlElementTitle = document.getElementById(objParameters.htmlElementTitle);
+    }
+
+    //htmlElementContent.innerHTML = htmlElementContent.innerHTML;
+
+
+    //Debug.
+    //console.log("htmlElementContent.innerHTML=", htmlElementContent.innerHTML);
+    //----------------------
+
+
+    //(async function(placesResults){
+        //let callback = [];
+        //callback[objParameters.htmlElementContent] = async (response, status, pagination) => {
+        const callback = async (response, status, pagination) => {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                placesResults.push(...response);
+            } 
+
+            //if (pagination.hasNextPage) {
+            //	setTimeout(() => pagination.nextPage(), 2000);
+            //} else {
+                await displayResults();
+                //await displayResults(placesResults);
+                //await displayResults[objParameters.htmlElementContent](placesResults);
+            //}
+
+
+        }
+    //})(placesResults);
+
+    //let displayResults = [];
+    //let displayResults = async (placesResults) => {
+    //displayResults[objParameters.htmlElementContent] = async (placesResults) => {
+    const displayResults = async () => {
+        //Title.
+        if((htmlElementContent) && objParameters.placesTitle !== "" && placesResults.length > 0)
+        {
+            htmlElementTitle.innerHTML += `${ objParameters.placesTitle }`;
+        }
+
+
+        //Content.
+        let countPlaces = 0;
+        placesResults.filter(result => result.rating)
+                //.sort((a, b) => a.rating > b.rating ? -1 : 1) //rating
+                .forEach(result => {
+                    if (objParameters.nMax === 0) {
+                        //htmlElementContent.innerHTML += `<li>${result.name} - ${result.rating}</li>`;
+                        htmlElementContent.innerHTML += `<li>${result.name}</li>`;
+                        //htmlElementContent.insertAdjacentHTML('beforeend', `<li>${result.name}</li>`);
+                    } else if (objParameters.nMax > countPlaces) {
+                        //htmlElementContent.innerHTML += `<li>${result.name} - ${result.rating}</li>`;
+                        htmlElementContent.innerHTML += `<li>${result.name}</li>`;
+                        //htmlElementContent.insertAdjacentHTML('beforeend', `<li>${result.name}</li>`);
+                    }
+
+                    //Stop unecessary loop
+                    if (objParameters.nMax === countPlaces) {
+                        return false;
+                    }
+
+                    countPlaces++;
+                    //console.log("countPlaces=", countPlaces);
+                });
+
+        //Debug.
+        //console.log("placesResults=", placesResults);
+        //console.log("placesRequest=", placesRequest);
+    }
+
+    placesService.nearbySearch(placesRequest, callback);
+    //placesService.nearbySearch(placesRequest, callback[objParameters.htmlElementContent]);
+    
+
+    return boolReturn;
+
+
+    //Usage:
+    //----------------------
+    /*
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB35Ou9Uq4rnS5gsx3pSuoxFZicSXMmM8&amp;libraries=places&amp;region=BR&amp;language=pt-BR"></script>
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+        //Variables.
+        //----------------------
+        let addressLat = 0;
+        let addressLng = 0;
+
+        let resultAaddressToCoordinates = await getCoordinates("googleMapsGeocoding", "object", {addressInput: "address+city+state"});
+        //----------------------
+
+
+    //Debug.
+    //console.log("resultAaddressToCoordinates=", resultAaddressToCoordinates);
+
+        //Value definition.
+        if(resultAaddressToCoordinates.returnStatus === true) {
+            addressLat = resultAaddressToCoordinates.lat;
+            addressLng = resultAaddressToCoordinates.lng;
+
+            //Restaurants.
+            //Note: not working with multiples types. Need to search one type at a time or request all and separete in the function.
+            //let resultGastronomia = await googlePlacesList({
+            await googlePlacesList({
+                                    lat: addressLat,	
+                                    lng: addressLng,	
+                                    //arrTypes: ["bar", "restaurant", "bakery", "cafe", "meal_delivery", "meal_takeaway"],
+                                    //arrTypes: ["convenience_store", "laundry", "park", "post_office", "shopping_mall", "supermarket"],
+                                    //arrTypes: ["aquarium", "art_gallery", "movie_theater", "museum", "night_club", "park", "tourist_attraction", "stadium"],
+                                    //arrTypes: ["drugstore", "hospital", "pharmacy"],
+                                    //arrTypes: ["university", "book_store", "primary_school", "secondary_school", "school"],
+                                    //arrTypes: ["train_station", "subway_station", "bus_station"],
+                                    //arrTypes: ["police", "church", "mosque"],
+                                    arrTypes: ["bar"],
+                                    nMax: 5, //0 - unlimited
+                                    placesTitle: "Restaurants",
+                                    htmlElementTitle: "hRestaurants",
+                                    htmlElementContent: "ulRestaurants"
+                                });
+        }
+
+    });
+    */
+    //----------------------
+
+};
+//**************************************************************************************
+
+
+//Function to return coordinates (lat / lng) based on various situations.
+//**************************************************************************************
+/**
+    * Function to return coordinates (lat / lng) based on various situations.
+    * @async
+    * @param {string} apiType googleMapsGeocoding
+    * @param {string} returnType object |  string
+    * @param {object} objSpecialParameters 
+    * @returns {object | string}
+    */
+const getCoordinates = async (apiType, returnType, objSpecialParameters = {}) => {
+    //apiType: googleMapsGeocoding
+    //returnType: object | string
+    //objSpecialParameters = {addressInput: ""}
+
+
+    //Variables.
+    //----------------------
+    let objReturn = {returnStatus: false};
+
+    //let addressQuerySearch = "Rua+capitao+jose+de+souza+118+Campinas+SP"; //Debug.
+    let addressQuerySearch = objSpecialParameters.addressInput;
+    //let addressLat = 0;
+    //let addressLng = 0;
+    //----------------------
+
+
+    //Data treatment.
+    //----------------------
+    addressQuerySearch = addressQuerySearch.split(' ').join('+');
+    addressQuerySearch = encodeURI(addressQuerySearch);
+    //----------------------
+
+
+    //googleMapsGeocoding.
+    //----------------------
+    if (apiType === "googleMapsGeocoding")
+    {
+        const gmGeocoder = new google.maps.Geocoder();
+
+
+        //Logic.
+        try {
+            await gmGeocoder.geocode( { 'address': addressQuerySearch}, async function(gmGeocoderResults, gmGeocoderReturnStatus) {
+
+                if (gmGeocoderReturnStatus == google.maps.GeocoderStatus.OK) {
+                    //Value definition.
+                    objReturn.returnStatus = true;
+                    objReturn.lat = +gmGeocoderResults[0].geometry.location.lat();
+                    objReturn.lng = +gmGeocoderResults[0].geometry.location.lng();
+
+                    //objReturn.lat = addressLat;
+                    //objReturn.lat = addressLng;
+
+
+                    //Debug.
+                    //alert("Latitude: "+gmGeocoderResults[0].geometry.location.lat());
+                    //alert("Longitude: "+gmGeocoderResults[0].geometry.location.lng());
+
+                    //console.log("gmGeocoderResults[0].geometry.location=", gmGeocoderResults[0].geometry.location);
+                    //console.log("gmGeocoderResults[0].geometry.location=", +gmGeocoderResults[0].geometry.location.lng());
+                    //console.log("addressLat=", addressLat);
+                    //console.log("addressLng=", addressLng);
+                } else {
+                    //Error.
+                    //alert("Geocode was not successful for the following reason: " + gmGeocoderReturnStatus);
+                    objReturn.returnError = gmGeocoderReturnStatus;
+                }
+
+            });
+
+        } catch (gmGeocoderError) {
+            throw new Error("gmGeocoder=", gmGeocoder);
+        }
+
+    }
+    //----------------------
+
+
+    return objReturn;
+};
+//**************************************************************************************
+
 
 
 //Function do download files.

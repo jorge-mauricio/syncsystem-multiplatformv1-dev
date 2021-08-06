@@ -95,20 +95,6 @@ class LayoutFrontendMain extends Component
     //**************************************************************************************
 
 
-    /**/
-    //changeState(stateProperty, strMessage)
-    //changeState(e)
-    changeState()
-    {
-        this.setState({
-            //[stateProperty]: strMessage
-            //titleCurrent: strMessage
-            titleCurrent: "new current title"
-        });
-        //this.state[stateProperty] = strMessage;
-    }
-
-
     setTitleCurrent(sProperty, strMessage)
     {
         this.setState({
@@ -139,6 +125,12 @@ class LayoutFrontendMain extends Component
 
     }
     */
+
+    //Teardown or cleanup your code before your component disappears.
+    componentWillUnmount()
+    {
+
+    }
 
 
     componentDidMount()
@@ -214,44 +206,7 @@ class LayoutFrontendMain extends Component
     }
     */
 
-    //Teardown or cleanup your code before your component disappears.
-    componentWillUnmount()
-    {
 
-    }
-
-
-
-    //Personal method - change state.
-    handleChange(id)
-    {
-        //Find the id and change the value of completed.
-        /*
-        this.setState(myPrevState =>{
-            //Create new object based on the old state with the changed value.
-            const updatedTodos = myPrevState.map(sTodosData =>{
-                if(sTodosData.id === id)
-                {
-                    sTodosData.completed = !sTodosData.completed;
-                }
-
-                return sTodosData;
-            });
-
-            //Set the old state to the updated state that was created above.
-            return{
-                sTodosData: updatedTodos
-            }
-        });
-        */
-
-        //Debug.
-        //console.log("worked - id=" + id);
-    }
-
-    setData = () => {
-        
-    };
 
 
     //Render.

@@ -7057,6 +7057,10 @@ module.exports = class FunctionsDBUpdate
 
         tblRegistersIdType = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdType") === true && (tblRegistersDataObject._tblRegistersIdType)) ? tblRegistersDataObject._tblRegistersIdType : tblRegistersIdType;
         tblRegistersIdActivity = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdActivity") === true && (tblRegistersDataObject._tblRegistersIdActivity)) ? tblRegistersDataObject._tblRegistersIdActivity : tblRegistersIdActivity;
+        if(tblRegistersIdActivity === undefined || tblRegistersIdActivity == "undefined" || tblRegistersIdActivity == "")
+        {
+            tblRegistersIdActivity = 0;
+        }
 
         tblRegistersIdRegisterUser = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegisterUser") === true) ? tblRegistersDataObject._tblRegistersIdRegisterUser : tblRegistersIdRegisterUser;
         if(!tblRegistersIdRegisterUser)
@@ -7064,27 +7068,32 @@ module.exports = class FunctionsDBUpdate
             tblRegistersIdRegisterUser = 0;
         }
         tblRegistersIdRegister1 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister1") === true) ? tblRegistersDataObject._tblRegistersIdRegister1 : tblRegistersIdRegister1;
-        if(!tblRegistersIdRegister1)
+        //if(!tblRegistersIdRegister1)
+        if(tblRegistersIdRegister1 === undefined || tblRegistersIdRegister1 == "undefined" || tblRegistersIdRegister1 == "")
         {
             tblRegistersIdRegister1 = 0;
         }
         tblRegistersIdRegister2 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister2") === true) ? tblRegistersDataObject._tblRegistersIdRegister2 : tblRegistersIdRegister2;
-        if(!tblRegistersIdRegister2)
+        //if(!tblRegistersIdRegister2)
+        if(tblRegistersIdRegister2 === undefined || tblRegistersIdRegister2 == "undefined" || tblRegistersIdRegister2 == "")
         {
             tblRegistersIdRegister2 = 0;
         }
         tblRegistersIdRegister3 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister3") === true) ? tblRegistersDataObject._tblRegistersIdRegister3 : tblRegistersIdRegister3;
-        if(!tblRegistersIdRegister3)
+        //if(!tblRegistersIdRegister3)
+        if(tblRegistersIdRegister2 === undefined || tblRegistersIdRegister2 == "undefined" || tblRegistersIdRegister2 == "")
         {
             tblRegistersIdRegister3 = 0;
         }
         tblRegistersIdRegister4 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister4") === true) ? tblRegistersDataObject._tblRegistersIdRegister4 : tblRegistersIdRegister4;
-        if(!tblRegistersIdRegister4)
+        //if(!tblRegistersIdRegister4)
+        if(tblRegistersIdRegister4 === undefined || tblRegistersIdRegister4 == "undefined" || tblRegistersIdRegister4 == "")
         {
             tblRegistersIdRegister4 = 0;
         }
         tblRegistersIdRegister5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdRegister5") === true) ? tblRegistersDataObject._tblRegistersIdRegister5 : tblRegistersIdRegister5;
-        if(!tblRegistersIdRegister5)
+        //if(!tblRegistersIdRegister5)
+        if(tblRegistersIdRegister5 === undefined || tblRegistersIdRegister5 == "undefined" || tblRegistersIdRegister5 == "")
         {
             tblRegistersIdRegister5 = 0;
         }
@@ -7441,6 +7450,10 @@ module.exports = class FunctionsDBUpdate
         tblRegistersActivation5 = (tblRegistersDataObject.hasOwnProperty("_tblRegistersActivation5") === true && (tblRegistersDataObject._tblRegistersActivation5)) ? tblRegistersDataObject._tblRegistersActivation5 : tblRegistersActivation5;
         
         tblRegistersIdStatus = (tblRegistersDataObject.hasOwnProperty("_tblRegistersIdStatus") === true && (tblRegistersDataObject._tblRegistersIdStatus)) ? tblRegistersDataObject._tblRegistersIdStatus : tblRegistersIdStatus;
+        if(tblRegistersIdStatus === undefined || tblRegistersIdStatus == "undefined" || tblRegistersIdStatus == "")
+        {
+            tblRegistersIdStatus = 0;
+        }
         tblRegistersRestrictedAccess = (tblRegistersDataObject.hasOwnProperty("_tblRegistersRestrictedAccess") === true && (tblRegistersDataObject._tblRegistersRestrictedAccess)) ? tblRegistersDataObject._tblRegistersRestrictedAccess : tblRegistersRestrictedAccess;
         tblRegistersNotes = (tblRegistersDataObject.hasOwnProperty("_tblRegistersNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblRegistersDataObject._tblRegistersNotes, "db_write_text") : tblRegistersNotes;
         
@@ -12778,6 +12791,12 @@ module.exports = class FunctionsDBUpdate
         tblUsersActivation5 = (tblUsersDataObject.hasOwnProperty("_tblUsersActivation5") === true && (tblUsersDataObject._tblUsersActivation5)) ? tblUsersDataObject._tblUsersActivation5 : tblUsersActivation5;
         
         tblUsersIdStatus = (tblUsersDataObject.hasOwnProperty("_tblUsersIdStatus") === true && (tblUsersDataObject._tblUsersIdStatus)) ? tblUsersDataObject._tblUsersIdStatus : tblUsersIdStatus;
+        //console.log("tblUsersIdStatus=",tblUsersIdStatus)
+        //if(!tblUsersIdStatus)
+        if(tblUsersIdStatus === undefined || tblUsersIdStatus == "undefined" || tblUsersIdStatus == "")
+        {
+            tblUsersIdStatus = 0;
+        }
         tblUsersNotes = (tblUsersDataObject.hasOwnProperty("_tblUsersNotes") === true) ? FunctionsGeneric.contentMaskWrite(tblUsersDataObject._tblUsersNotes, "db_write_text") : tblUsersNotes;
         //----------------------
 

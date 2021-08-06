@@ -912,7 +912,7 @@ module.exports = class RegistersListing
                                                 `
                                                 <div>
                                                     <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFull") }
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFull") }:
                                                     </strong>
                                                     ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_full, "db") } 
                                                 </div>
@@ -923,7 +923,7 @@ module.exports = class RegistersListing
                                                 `
                                                 <div>
                                                     <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFirst") }
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameFirst") }:
                                                     </strong>
                                                     ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_first, "db") } 
                                                 </div>
@@ -934,7 +934,7 @@ module.exports = class RegistersListing
                                                 `
                                                 <div>
                                                     <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameLast") }
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersNameLast") }:
                                                     </strong>
                                                     ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.name_last, "db") } 
                                                 </div>
@@ -945,7 +945,7 @@ module.exports = class RegistersListing
                                                 `
                                                 <div>
                                                     <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameLegal") }
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameLegal") }:
                                                     </strong>
                                                     ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.company_name_legal, "db") } 
                                                 </div>
@@ -956,9 +956,20 @@ module.exports = class RegistersListing
                                                 `
                                                 <div>
                                                     <strong>
-                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameAlias") }
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendRegistersCompanyNameAlias") }:
                                                     </strong>
                                                     ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.company_name_alias, "db") } 
+                                                </div>
+                                                ` : ``
+                                            }
+                                            
+                                            ${ gSystemConfig.enableRegistersEmail == 1 ? 
+                                                `
+                                                <div>
+                                                    <strong>
+                                                        ${ SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendItemEmail") }:
+                                                    </strong>
+                                                    ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(registersRow.email, "db") } 
                                                 </div>
                                                 ` : ``
                                             }

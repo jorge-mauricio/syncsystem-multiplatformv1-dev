@@ -31,7 +31,7 @@ gSystemConfig.configSystemClientName = "Planejamento Visual"; //(Note: moved to 
 
 gSystemConfig.configSiteTitle = "SyncSystem - Multiplatform (debug: çáéã)"; //site name (Note: moved to language file)
 gSystemConfig.configSystemName = "Sistema de Gerenciamento de Conteúdo"; //Sistema de Controle | Sistema Administrativo | CRM | Content Management System
-gSystemConfig.configDevName = "Planejamento Visual - Arte e Tecnologia"; //Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Criação e Treinamento Web | Web Inventor - Imagine, realize. (Note: moved to language file)
+gSystemConfig.configDevName = "Planejamento Visual - Arte e Tecnologia"; //Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer | Web Inventor - Imagine, realize. (Note: moved to language file)
 gSystemConfig.configDevSite = "http://www.planejamentovisual.com.br"; //http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br
 gSystemConfig.configCopyrightYear = "2008";
 

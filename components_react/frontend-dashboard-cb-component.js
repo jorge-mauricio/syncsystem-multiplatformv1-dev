@@ -353,7 +353,10 @@ class FrontendDashboard extends Component
             //this.setState({ arrCategoriesListing: this.arrCategoriesListing });
 
             //Note: Place on the last part of the logic.
-            this.setState({ dataLoaded: true });
+            this.setState({ 
+                objRegistersDetails: this.objRegistersDetails,
+                dataLoaded: true 
+            });
         }
         //----------------------
     }

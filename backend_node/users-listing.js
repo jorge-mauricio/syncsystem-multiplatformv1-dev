@@ -597,9 +597,13 @@ module.exports = class UsersListing
                                             </div>
                                         </td>
 
+                                        ${ gSystemConfig.enableUsersNameFirst == 1 ? 
+                                        `
                                         <td style="text-align: left;">
                                             ${ SyncSystemNS.FunctionsGeneric.contentMaskRead(usersRow.name_first, "db") } 
                                         </td>
+                                        ` : ``
+                                        }
 
                                         <td style="text-align: center;">
 

@@ -883,10 +883,10 @@ module.exports = class FunctionsDB
     //**************************************************************************************
 
 
-    //Function do return results from any field in table.
+    //Function to return results from any field in table.
     //**************************************************************************************
     /**
-     * Function do return results from any field in table.
+     * Function to return results from any field in table.
      * @static
      * @async
      * @param {integer} idRecord 
@@ -1035,7 +1035,7 @@ module.exports = class FunctionsDB
     //**************************************************************************************
 
 
-    //Function do return results from any field in table.
+    //Function to return results from any field in table.
     //**************************************************************************************
     static async genericFieldGet11(strTable, 
     fieldNameReturn, 
@@ -1064,10 +1064,10 @@ module.exports = class FunctionsDB
     //**************************************************************************************
 
 
-    //Function do return results from any table.
+    //Function to return results from any table.
     //**************************************************************************************
     /**
-     * Function do return results from any table.
+     * Function to return results from any table.
      * @static
      * @async
      * @param {string} strTable categories
@@ -1388,10 +1388,10 @@ module.exports = class FunctionsDB
     //**************************************************************************************
     
     
-    //Function do return the table name of an id number.
+    //Function to return the table name of an id number.
     //**************************************************************************************
     /**
-     * Function do return the table name of an id number.
+     * Function to return the table name of an id number.
      * @static
      * @async
      * @param {integer} idRecord 

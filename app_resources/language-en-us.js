@@ -15,7 +15,7 @@ exports.appLabels = {
     configFrontendLanguage: "en_US", // en_US | pt_BR
 
     layoutSystemName: "Content Management System", //Sistema de Gerenciamento de Conteúdo
-    layoutDevName: "Planejamento Visual - Arte e Tecnologia", //Planejamento Visual - Arte e Tecnologia
+    layoutDevName: "Planejamento Visual - Arte e Tecnologia", //Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer
     //**************************************************************************************
 
 
