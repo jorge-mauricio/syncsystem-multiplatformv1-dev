@@ -269,14 +269,14 @@ class LayoutFrontendMain extends Component
             <meta property="og:description" content="" />
             
             ${ /* 
-            Dimensões:
+            Dimensions:
             ref: https://iamturns.com/open-graph-image-size/
             Horizontal: 
                 - home (1.9:1): 1200 x 630 pixels
-                - produtos, artigos, etc (2:1): 1200 x 600 | 300 x 157 (mínimo) | 4096 x 4096 (máximo)
-            Quadrado:
+                - products, articles, etc (2:1): 1200 x 600 | 300 x 157 (min) | 4096 x 4096 (max)
+            Square:
                 - home (1:1): 1200 x 1200 pixels
-                - produtos, artigos, etc (1:1): 600 x 600 | 144 x 144 (mínimo) | 4096 x 4096 (máximo)
+                - products, articles, etc (1:1): 600 x 600 | 144 x 144 (min) | 4096 x 4096 (max)
             */
             ''}
             <meta property="og:image" content="" />${ /* The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. 120x120px, up to 1MB | JPG ou PNG, below 300k - minimum resolution: 300x200 pixels. */ '' }

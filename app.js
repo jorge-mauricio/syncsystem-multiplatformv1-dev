@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //Import Node Modules.
 //----------------------
@@ -203,7 +203,7 @@ app.get("/", (req, res)=>
     request.get('http://localhost:3001', function(rError, response, body) {
         if(rError)
         {
-            res.send(JSON.stringify(err));
+            res.send(JSON.stringify(rError));
         }else{
             res.send(body);
         }
