@@ -1,7 +1,5 @@
 'use strict';
 
-import { integer } from "aws-sdk/clients/cloudfront";
-
 //  Import Node Modules.
 // ----------------------
 // require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
@@ -728,7 +726,7 @@ const cookieRead = (cookieName = ''): string => {
   return strReturn;
 };
 // **************************************************************************************
-FunctionsSyncSystem.cookieRead = cookieRead; //Add function to object to export later.
+FunctionsSyncSystem.cookieRead = cookieRead;
 
 // Function to delete cookie.
 // **************************************************************************************
