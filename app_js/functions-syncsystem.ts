@@ -124,12 +124,13 @@ FunctionsSyncSystem.inputDataReorder = inputDataReorder;
  * @param {string} formMethod POST | GET
  * @param {string} formAction
  * @example
- * formSubmit('formCategoririesListing', '', '', '/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories }/?_method=DELETE');
+ * formSubmit('formCategoririesListing', '', '', '/${ gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendCategories }/?_method=DELETE');
  */
-const formSubmit = (idForm: string, 
-  formTarget: string, 
-  formMethod: string, 
-  formAction: string): void => {
+// prettier-ignore
+const formSubmit = (idForm: string,
+  formTarget: string,
+  formMethod: string,
+  formAction: string): void => { 
   // idForm: iframe:iframe_id, id_form_inside_iframe
 
   // Variables.
