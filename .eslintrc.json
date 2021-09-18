@@ -83,7 +83,7 @@
         "destructuring": "any",
         "ignoreReadBeforeAssign": false
       }
-    ],
+    ], // error
     "no-undef": "warn",
     "no-const-assign": "error",
     "no-plusplus": ["warn", { "allowForLoopAfterthoughts": true }],
@@ -91,7 +91,8 @@
     "spaced-comment": "warn",
     "space-infix-ops": "error",
     "eol-last": "warn",
-    "newline-per-chained-call": "warn",
+    // "newline-per-chained-call": "warn",
+    "newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 3 }],
     "no-whitespace-before-property": "warn",
     "space-in-parens": "error",
     "array-bracket-spacing": "error",
@@ -101,7 +102,7 @@
     "func-call-spacing": "warn",
     "key-spacing": "warn",
     "no-multiple-empty-lines": "warn",
-    "no-underscore-dangle": "warn",
+    "no-underscore-dangle": "off", //warn
     "no-throw-literal": "error"
   }
 }
