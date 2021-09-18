@@ -1,5 +1,7 @@
 'use strict';
 
+import { integer } from "aws-sdk/clients/cloudfront";
+
 //  Import Node Modules.
 // ----------------------
 // require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
@@ -124,8 +126,7 @@ FunctionsSyncSystem.inputDataReorder = inputDataReorder;
  * @example
  * formSubmit('formCategoririesListing', '', '', '/${ gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories }/?_method=DELETE');
  */
-const formSubmit = (
-  idForm: string, 
+const formSubmit = (idForm: string, 
   formTarget: string, 
   formMethod: string, 
   formAction: string): void => {
@@ -424,6 +425,39 @@ const elementCSSRemove = (idElement: string, classNameCSS: string): void => {
 FunctionsSyncSystem.elementCSSAdd = elementCSSAdd;
 FunctionsSyncSystem.elementCSSRemove = elementCSSRemove;
 
+// Function to scroll page to target element.
+// **************************************************************************************
+/*
+function scrollToTarget(elementTarget) {
+    document.querySelector('#' + elementTarget).scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+*/
+/**
+ * Function to scroll page to target element.
+ * @param {string} _elementTarget
+ * @example
+ */
+const scrollToTarget = (_elementTarget: string | null): void => {
+  // if (elementTarget && document) {
+  // if (elementTarget !== null) {
+  // if (elementTarget && elementTarget !== '') {
+  if (_elementTarget) {
+    // const elementTarget: HTMLElement | null = document.querySelector('#' + _elementTarget);
+    const elementTarget = document.querySelector('#' + _elementTarget);
+    // document.addEventListener('DOMContentLoaded', () => {
+    if (elementTarget) {
+      elementTarget.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+    // });
+  }
+};
+// **************************************************************************************
+FunctionsSyncSystem.scrollToTarget = scrollToTarget;
+
 // Function to build ajax mecanisms to apply changes to a record.
 // **************************************************************************************
 /**
@@ -523,10 +557,10 @@ FunctionsSyncSystem.ajaxRecordsPatch01_async = ajaxRecordsPatch01_async;
  */
 // static cookieCreate(cookieName, _cookieValue, _cookiePeriod = "", objRoute = null)
 // cookieCreate = (cookieName, _cookieValue, _cookiePeriod = "") => {
-const cookieCreate = (cookieName: string, cookieValue: string, cookieOptions = {}): boolean => {
+const cookieCreate = (cookieName: string, cookieValue: string, cookieOptions: any = {}): boolean => {
   /* 
   _cookieOptions: {
-    cookiePeriod: 1, //1 - stay connected
+    cookiePeriod: 1, // 1 - stay connected
     maxAge: 123, 
     expires: 
   }
@@ -535,120 +569,120 @@ const cookieCreate = (cookieName: string, cookieValue: string, cookieOptions = {
   // Variables.
   // ----------------------
   let strReturn = false;
-  let cookiePeriod = ""; //1 - stay connected
-  //let cookieOptions = cookieOptions;
-  let cookieString = "";
 
-  let path = "/";
-  let domain = "";
-  let expires = ""; //date-in-GMTString-format (Fri, 31 Dec 9999 23:59:59 GMT)
-  let maxAge = ""; //seconds | 86400 = 1 day | 60*60*24*365 = 1 year
-  let secure = false; //true | false
-  //----------------------
+  // let cookiePeriod = ''; // 1 - stay connected
+  let cookiePeriod: string; // 1 - stay connected
+  // let cookieOptions = cookieOptions;
+  let cookieString = '';
 
+  // let path = '/';
+  let path: string;
+  // let domain = '';
+  let domain: string;
+  // let expires = ''; // date-in-GMTString-format (Fri, 31 Dec 9999 23:59:59 GMT)
+  let expires: any; // date-in-GMTString-format (Fri, 31 Dec 9999 23:59:59 GMT)
+  // let maxAge = ''; // seconds | 86400 = 1 day | 60*60*24*365 = 1 year
+  let maxAge: string | number; // seconds | 86400 = 1 day | 60*60*24*365 = 1 year
+  let secure = false; // true | false
+  // ----------------------
 
-  //Define values.
-  //----------------------
-  if(cookieOptions.hasOwnProperty("cookiePeriod") === true)
-  {
-      cookiePeriod = cookieOptions.cookiePeriod;
+  // Define values.
+  // ----------------------
+  cookiePeriod = '';
+  if (cookieOptions.hasOwnProperty('cookiePeriod') === true) {
+    // cookiePeriod = cookieOptions.cookiePeriod;
+    ({ cookiePeriod } = cookieOptions);
   }
 
-  if(cookieOptions.hasOwnProperty("path") === true)
-  {
-      path = cookieOptions.path;
+  path = '/';
+  if (cookieOptions.hasOwnProperty('path') === true) {
+    // path = cookieOptions.path;
+    ({ path } = cookieOptions);
   }
 
-  if(cookieOptions.hasOwnProperty("domain") === true)
-  {
-      domain = cookieOptions.domain;
+  domain = '';
+  if (cookieOptions.hasOwnProperty('domain') === true) {
+    // domain = cookieOptions.domain;
+    ({ domain } = cookieOptions);
   }
 
-  if(cookieOptions.hasOwnProperty("expires") === true)
-  {
-      const expires = new Date();
-      expires.setTime(expires.getTime() + (cookieOptions.expires*24*60*60*1000));
-  } //TODO: test.
+  expires = '';
+  if (cookieOptions.hasOwnProperty('expires') === true) {
+    // const expires = new Date();
+    expires = new Date();
+    // expires.setTime(expires.getTime() + (cookieOptions.expires * 24 * 60 * 60 * 1000));
+    expires.setTime(expires.getTime() + cookieOptions.expires * 24 * 60 * 60 * 1000);
+  } // TODO: test.
 
-  if(cookieOptions.hasOwnProperty("maxAge") === true)
-  {
-      maxAge = cookieOptions.maxAge;
+  maxAge = '';
+  if (cookieOptions.hasOwnProperty('maxAge') === true) {
+    // maxAge = cookieOptions.maxAge;
+    ({ maxAge } = cookieOptions);
   }
 
-  if(cookieOptions.hasOwnProperty("secure") === true)
-  {
-      secure = cookieOptions.secure;
+  if (cookieOptions.hasOwnProperty('secure') === true) {
+    // secure = cookieOptions.secure;
+    ({ secure } = cookieOptions);
   }
 
-  //Stay conected option.
-  if(cookiePeriod == "1")
-  {
-      maxAge = 60*60*24*365;
-      //cookiePeriod = new Date(Date.now() + (86400 * 30 * 365));
+  // Stay conected option.
+  if (cookiePeriod === '1') {
+    maxAge = 60 * 60 * 24 * 365;
+    // cookiePeriod = new Date(Date.now() + (86400 * 30 * 365));
   }
-  //----------------------
+  // ----------------------
 
+  // Logic.
+  if (cookieValue) {
+    strReturn = true;
 
-  //Logic.
-  if(cookieValue)
-  {
-      strReturn = true;
+    // Build string.
+    cookieString += cookieName + '=' + cookieValue;
+    cookieString += '; SameSite=strict';
+    cookieString += '; path=' + path;
 
-      //Build string.
-      cookieString += cookieName + "=" + cookieValue;
-      cookieString += "; SameSite=strict";
-      cookieString += "; path=" + path;
+    if (domain !== '') {
+      cookieString += '; domain=' + domain;
+    }
 
-      if(domain != "")
-      {
-          cookieString += "; domain=" + domain;
-      }
+    if (expires !== '') {
+      cookieString += '; expires=' + expires;
+    }
 
-      if(expires != "")
-      {
-          cookieString += "; expires=" + expires;
-      }
+    if (maxAge !== '') {
+      cookieString += '; max-age=' + maxAge;
+    }
 
-      if(maxAge != "")
-      {
-          cookieString += "; max-age=" + maxAge;
-      }
+    if (secure === true) {
+      cookieString += '; Secure';
+    }
 
-      if(secure === true)
-      {
-          cookieString += "; Secure";
-      }
+    // Format
+    // SameSite=None: cross-origin. (lax, strict or none) Note: check if makes diference small caps.
+    // Secure: SSL
+    // It is more common not to set the `SameSite` attribute, which results in the default,
+    // and more secure, value of `SameSite=Lax;`
+    // document.cookie = "key_name=key name example; path=/; domain=example.com; SameSite=None; Secure";
 
-      //Format
-      // SameSite=None: cross-origin. (lax, strict or none) Note: check if makes diference small caps.
-      // Secure: SSL
-      // It is more common not to set the `SameSite` attribute, which results in the default,
-      // and more secure, value of `SameSite=Lax;`
-      //document.cookie = "key_name=key name example; path=/; domain=example.com; SameSite=None; Secure";
-      
-
-
-      //Cookie set.
-      //document.cookie = cookieName + "=" + +";max-age=604800";
-      document.cookie = cookieString;
+    // Cookie set.
+    // document.cookie = cookieName + "=" + +";max-age=604800";
+    document.cookie = cookieString;
   }
 
-
-  //Debug.
-  //console.log("document.cookie=", document.cookie);
-  //console.log("cookiePeriod=", cookiePeriod);
-  //console.log("cookieName=", cookieName);
-  //console.log("cookieValue=", cookieValue);
-  //console.log("cookieString=", cookieString);
+  // Debug.
+  // console.log("document.cookie=", document.cookie);
+  // console.log("cookiePeriod=", cookiePeriod);
+  // console.log("cookieName=", cookieName);
+  // console.log("cookieValue=", cookieValue);
+  // console.log("cookieString=", cookieString);
 
   return strReturn;
 };
-//**************************************************************************************
-FunctionsSyncSystem.cookieCreate = cookieCreate; //Add function to object to export later.
+// **************************************************************************************
+FunctionsSyncSystem.cookieCreate = cookieCreate;
 
-
-//Function read cookie value.
-//**************************************************************************************
+// Function read cookie value.
+// **************************************************************************************
 /**
  * Function read cookie value.
  * @static
@@ -657,129 +691,116 @@ FunctionsSyncSystem.cookieCreate = cookieCreate; //Add function to object to exp
  * @example
  * SyncSystemNS.FunctionsGeneric.cookieRead()
  */
-//static cookieRead(cookieName = "")
-//cookieRead = async(cookieName = "") => {
-const cookieRead = (cookieName = "") => {
-    //Variables.
-    //----------------------
-    let strReturn = "";
-    let cookies = document.cookie;
-    let arrCookies = [];
-    //----------------------
+// static cookieRead(cookieName = "")
+// cookieRead = async(cookieName = "") => {
+const cookieRead = (cookieName = ''): string => {
+  // Variables.
+  // ----------------------
+  let strReturn = '';
+  const cookies = document.cookie;
+  let arrCookies = [];
+  // ----------------------
 
+  // Logic.
+  if (cookieName) {
+    arrCookies = cookies.trim().split(';');
 
-    //Logic.
-    if(cookieName)
-    {
-        arrCookies = cookies.trim().split(";");
+    // Loop through pairs.
+    arrCookies.forEach((cookiePair) => {
+      const arrCookiePair = cookiePair.split('=');
+      if (cookieName === arrCookiePair[0].trim()) {
+        strReturn = arrCookiePair[1].trim();
+      }
+      // Debug.
+      // console.log("arrCookiePair 0=", arrCookiePair[0]);
+      // console.log("arrCookiePair 1=", arrCookiePair[1]);
+    });
 
-        //Loop through pairs:
-        arrCookies.forEach(cookiePair => {
-            let arrCookiePair = cookiePair.split("=");
-            if(cookieName == arrCookiePair[0].trim())
-            {
-                strReturn = arrCookiePair[1].trim();
-            }
-            //Debug.
-            //console.log("arrCookiePair 0=", arrCookiePair[0]);
-            //console.log("arrCookiePair 1=", arrCookiePair[1]);
-        });
+    // Debug.
+    // console.log("document.cookie=", document.cookie);
+    // console.log("arrCookies=", arrCookies);
+    // console.log("cookieName=", cookieName);
+  } else {
+    strReturn = document.cookie;
+  }
 
-
-        //Debug.
-        //console.log("document.cookie=", document.cookie);
-        //console.log("arrCookies=", arrCookies);
-        //console.log("cookieName=", cookieName);
-    }else{
-        strReturn = document.cookie;
-    }
-
-
-    return strReturn;
+  return strReturn;
 };
-//**************************************************************************************
+// **************************************************************************************
 FunctionsSyncSystem.cookieRead = cookieRead; //Add function to object to export later.
 
-
-//Function read cookie value.
-//**************************************************************************************
+// Function to delete cookie.
+// **************************************************************************************
 /**
- * Function read cookie value.
+ * Function to delete cookie.
  * @static
- * @param {string} cookieName 
+ * @param {string} cookieName
  * @returns {string}
  * @example
  * SyncSystemNS.FunctionsGeneric.cookieRead()
  */
-//static cookieRead(cookieName = "")
-//cookieRead = async(cookieName = "") => {
-const cookieDelete = (cookieName = "", cookieOptions = {}) => {
-    //Variables.
-    //----------------------
-    let strReturn = false;
-    let cookieString = "";
+// static cookieRead(cookieName = "")
+// cookieRead = async(cookieName = "") => {
+const cookieDelete = (cookieName = '', cookieOptions: any = {}) => {
+  // Variables.
+  // ----------------------
+  let strReturn = false;
+  let cookieString = '';
 
-    let path = "/";
-    let domain = "";
-    let secure = false; //true | false
-    //----------------------
+  let path = '/';
+  let domain = '';
+  let secure = false; // true | false
+  // ----------------------
 
+  // Define values.
+  // ----------------------
+  if (cookieOptions.hasOwnProperty('path') === true) {
+    // path = cookieOptions.path;
+    ({ path } = cookieOptions);
+  }
 
-    //Define values.
-    //----------------------
-    if(cookieOptions.hasOwnProperty("path") === true)
-    {
-        path = cookieOptions.path;
+  if (cookieOptions.hasOwnProperty('domain') === true) {
+    // domain = cookieOptions.domain;
+    ({ domain } = cookieOptions);
+  }
+
+  if (cookieOptions.hasOwnProperty('secure') === true) {
+    // secure = cookieOptions.secure;
+    ({ secure } = cookieOptions);
+  }
+  // ----------------------
+
+  // Logic.
+  if (cookieName) {
+    // Build string.
+    cookieString = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    cookieString += '; path=' + path;
+
+    if (domain !== '') {
+      cookieString += '; domain=' + path;
     }
 
-    if(cookieOptions.hasOwnProperty("domain") === true)
-    {
-        domain = cookieOptions.domain;
+    if (secure === true) {
+      cookieString += '; Secure';
     }
 
-    if(cookieOptions.hasOwnProperty("secure") === true)
-    {
-        secure = cookieOptions.secure;
-    }
-    //----------------------
+    // Delete cookie.
+    document.cookie = cookieString;
+    strReturn = true;
+  }
 
-    
-    //Logic.
-    if(cookieName)
-    {
-        //Build string.
-        cookieString = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-        cookieString += "; path=" + path;
-
-        if(domain != "")
-        {
-            cookieString += "; domain=" + path;
-        }
-
-        if(secure === true)
-        {
-            cookieString += "; Secure";
-        }
-
-        //Delete cookie.
-        document.cookie = cookieString;
-        strReturn = true;
-    }
-
-
-    return strReturn;
+  return strReturn;
 };
-//**************************************************************************************
-FunctionsSyncSystem.cookieDelete = cookieDelete; //Add function to object to export later.
-
+// **************************************************************************************
+FunctionsSyncSystem.cookieDelete = cookieDelete;
 
 // Export object with all functions.
 // Note: Causing problem on node. Disable export for production (node). Enable to bundle for webpack (react) and disable again.
 // TODO dev: Change import method on node (babel). Ref: https:// stackoverflow.com/questions/38296667/getting-unexpected-token-export
 // if(importOrigin != "html")
 // {
-  // // export default FunctionsSyncSystem;
-  // // export { FunctionsSyncSystem, inputDataReorder };
-  //export { FunctionsSyncSystem }; // working // enable for react webpack compile || disable for backend node
-  // // module.exports { FunctionsSyncSystem };
+// // export default FunctionsSyncSystem;
+// // export { FunctionsSyncSystem, inputDataReorder };
+// export { FunctionsSyncSystem }; // working // enable for react webpack compile || disable for backend node
+// // module.exports { FunctionsSyncSystem };
 // }

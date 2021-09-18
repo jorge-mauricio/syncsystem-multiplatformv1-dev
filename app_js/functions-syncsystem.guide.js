@@ -479,7 +479,7 @@ const scrollToTarget = (elementTarget) => {
     document.querySelector('#' + elementTarget).scrollIntoView({
         behavior: 'smooth'
     });
-}
+};
 //**************************************************************************************
 FunctionsSyncSystem.scrollToTarget = scrollToTarget; //Add function to object to export later.
 

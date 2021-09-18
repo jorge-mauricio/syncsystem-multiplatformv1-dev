@@ -29,6 +29,8 @@
       {
         "endOfLine": "auto",
         "printWidth": 2000
+        //"arrowParens": "always",
+        //"tabWidth": 2
       }
     ],
     "strict": ["error", "global"],
@@ -41,7 +43,7 @@
     //"node/no-unsupported-features/es-syntax": "off",
     "object-shorthand": "off",
     "quote-props": ["error", "as-needed"],
-    "no-prototype-builtins": "error",
+    "no-prototype-builtins": "off",
     "no-console": "off",
     "prefer-destructuring": "warn",
     "no-eval": "warn",

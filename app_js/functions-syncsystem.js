@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const configDebug = true;
 const FunctionsSyncSystem = {};
 const inputDataReorder = (_arrInputOrder) => {
@@ -127,121 +128,139 @@ const elementMessage01 = (idElement, strMessage) => {
 };
 FunctionsSyncSystem.elementMessage01 = elementMessage01;
 const dataHTMLCopy = (idElementOrigin, idElementTarget) => {
-    let elementOrigin = document.getElementById(idElementOrigin);
-    let elementTarget = document.getElementById(idElementTarget);
+    const elementOrigin = document.getElementById(idElementOrigin);
+    const elementTarget = document.getElementById(idElementTarget);
     if (elementOrigin) {
         if (elementTarget) {
-            elementTarget.innerHTML = "";
+            elementTarget.innerHTML = '';
             elementTarget.innerHTML = elementOrigin.innerHTML;
         }
     }
 };
 FunctionsSyncSystem.dataHTMLCopy = dataHTMLCopy;
 const elementCSSAdd = (idElement, classNameCSS) => {
-    let elementHTML = document.getElementById(idElement);
+    const elementHTML = document.getElementById(idElement);
     if (elementHTML) {
         elementHTML.classList.add(classNameCSS);
     }
 };
-function elementCSSRemove(idElement, classNameCSS) {
-    let elementHTML = document.getElementById(idElement);
+const elementCSSRemove = (idElement, classNameCSS) => {
+    const elementHTML = document.getElementById(idElement);
     if (elementHTML) {
         elementHTML.classList.remove(classNameCSS);
     }
-}
-;
+};
 FunctionsSyncSystem.elementCSSAdd = elementCSSAdd;
+FunctionsSyncSystem.elementCSSRemove = elementCSSRemove;
+const scrollToTarget = (_elementTarget) => {
+    if (_elementTarget) {
+        const elementTarget = document.querySelector('#' + _elementTarget);
+        if (elementTarget) {
+            elementTarget.scrollIntoView({
+                behavior: 'smooth',
+            });
+        }
+    }
+};
+FunctionsSyncSystem.scrollToTarget = scrollToTarget;
 const ajaxRecordsPatch01_async = (_urlReference, _objBody, _callBackFunction = null) => __awaiter(void 0, void 0, void 0, function* () {
     yield fetch(_urlReference, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(_objBody)
+        body: JSON.stringify(_objBody),
     })
-        .then(res => {
+        .then((res) => {
         if (res.ok) {
-            if (configDebug == true) {
-                console.log("res.ok (success)=", res.ok);
+            if (configDebug === true) {
+                console.log('res.ok (success)=', res.ok);
             }
         }
         else {
-            if (configDebug == true) {
-                console.log("res.ok (error / not success)=", res.ok);
+            if (configDebug === true) {
+                console.log('res.ok (error / not success)=', res.ok);
             }
         }
         return res.json();
     })
-        .then(resObjReturn => {
-        _callBackFunction(resObjReturn);
-        if (configDebug == true) {
-            console.log("resObjReturn=", resObjReturn);
+        .then((resObjReturn) => {
+        if (_callBackFunction) {
+            _callBackFunction(resObjReturn);
+        }
+        if (configDebug === true) {
+            console.log('resObjReturn=', resObjReturn);
         }
     });
 });
 FunctionsSyncSystem.ajaxRecordsPatch01_async = ajaxRecordsPatch01_async;
 const cookieCreate = (cookieName, cookieValue, cookieOptions = {}) => {
     let strReturn = false;
-    let cookiePeriod = "";
-    let cookieString = "";
-    let path = "/";
-    let domain = "";
-    let expires = "";
-    let maxAge = "";
+    let cookiePeriod;
+    let cookieString = '';
+    let path;
+    let domain;
+    let expires;
+    let maxAge;
     let secure = false;
-    if (cookieOptions.hasOwnProperty("cookiePeriod") === true) {
-        cookiePeriod = cookieOptions.cookiePeriod;
+    cookiePeriod = '';
+    if (cookieOptions.hasOwnProperty('cookiePeriod') === true) {
+        ({ cookiePeriod } = cookieOptions);
     }
-    if (cookieOptions.hasOwnProperty("path") === true) {
-        path = cookieOptions.path;
+    path = '/';
+    if (cookieOptions.hasOwnProperty('path') === true) {
+        ({ path } = cookieOptions);
     }
-    if (cookieOptions.hasOwnProperty("domain") === true) {
-        domain = cookieOptions.domain;
+    domain = '';
+    if (cookieOptions.hasOwnProperty('domain') === true) {
+        ({ domain } = cookieOptions);
     }
-    if (cookieOptions.hasOwnProperty("expires") === true) {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (cookieOptions.expires * 24 * 60 * 60 * 1000));
+    expires = '';
+    if (cookieOptions.hasOwnProperty('expires') === true) {
+        expires = new Date();
+        expires.setTime(expires.getTime() + cookieOptions.expires * 24 * 60 * 60 * 1000);
     }
-    if (cookieOptions.hasOwnProperty("maxAge") === true) {
-        maxAge = cookieOptions.maxAge;
+    maxAge = '';
+    if (cookieOptions.hasOwnProperty('maxAge') === true) {
+        ({ maxAge } = cookieOptions);
     }
-    if (cookieOptions.hasOwnProperty("secure") === true) {
-        secure = cookieOptions.secure;
+    if (cookieOptions.hasOwnProperty('secure') === true) {
+        ({ secure } = cookieOptions);
     }
-    if (cookiePeriod == "1") {
+    if (cookiePeriod === '1') {
         maxAge = 60 * 60 * 24 * 365;
     }
     if (cookieValue) {
         strReturn = true;
-        cookieString += cookieName + "=" + cookieValue;
-        cookieString += "; SameSite=strict";
-        cookieString += "; path=" + path;
-        if (domain != "") {
-            cookieString += "; domain=" + domain;
+        cookieString += cookieName + '=' + cookieValue;
+        cookieString += '; SameSite=strict';
+        cookieString += '; path=' + path;
+        if (domain !== '') {
+            cookieString += '; domain=' + domain;
         }
-        if (expires != "") {
-            cookieString += "; expires=" + expires;
+        if (expires !== '') {
+            cookieString += '; expires=' + expires;
         }
-        if (maxAge != "") {
-            cookieString += "; max-age=" + maxAge;
+        if (maxAge !== '') {
+            cookieString += '; max-age=' + maxAge;
         }
         if (secure === true) {
-            cookieString += "; Secure";
+            cookieString += '; Secure';
         }
         document.cookie = cookieString;
     }
     return strReturn;
 };
 FunctionsSyncSystem.cookieCreate = cookieCreate;
-const cookieRead = (cookieName = "") => {
-    let strReturn = "";
-    let cookies = document.cookie;
+const cookieRead = (cookieName = '') => {
+    let strReturn = '';
+    const cookies = document.cookie;
     let arrCookies = [];
     if (cookieName) {
-        arrCookies = cookies.trim().split(";");
-        arrCookies.forEach(cookiePair => {
-            let arrCookiePair = cookiePair.split("=");
-            if (cookieName == arrCookiePair[0].trim()) {
+        arrCookies = cookies.trim().split(';');
+        arrCookies.forEach((cookiePair) => {
+            const arrCookiePair = cookiePair.split('=');
+            if (cookieName === arrCookiePair[0].trim()) {
                 strReturn = arrCookiePair[1].trim();
             }
         });
@@ -252,29 +271,29 @@ const cookieRead = (cookieName = "") => {
     return strReturn;
 };
 FunctionsSyncSystem.cookieRead = cookieRead;
-const cookieDelete = (cookieName = "", cookieOptions = {}) => {
+const cookieDelete = (cookieName = '', cookieOptions = {}) => {
     let strReturn = false;
-    let cookieString = "";
-    let path = "/";
-    let domain = "";
+    let cookieString = '';
+    let path = '/';
+    let domain = '';
     let secure = false;
-    if (cookieOptions.hasOwnProperty("path") === true) {
-        path = cookieOptions.path;
+    if (cookieOptions.hasOwnProperty('path') === true) {
+        ({ path } = cookieOptions);
     }
-    if (cookieOptions.hasOwnProperty("domain") === true) {
-        domain = cookieOptions.domain;
+    if (cookieOptions.hasOwnProperty('domain') === true) {
+        ({ domain } = cookieOptions);
     }
-    if (cookieOptions.hasOwnProperty("secure") === true) {
-        secure = cookieOptions.secure;
+    if (cookieOptions.hasOwnProperty('secure') === true) {
+        ({ secure } = cookieOptions);
     }
     if (cookieName) {
-        cookieString = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-        cookieString += "; path=" + path;
-        if (domain != "") {
-            cookieString += "; domain=" + path;
+        cookieString = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+        cookieString += '; path=' + path;
+        if (domain !== '') {
+            cookieString += '; domain=' + path;
         }
         if (secure === true) {
-            cookieString += "; Secure";
+            cookieString += '; Secure';
         }
         document.cookie = cookieString;
         strReturn = true;
