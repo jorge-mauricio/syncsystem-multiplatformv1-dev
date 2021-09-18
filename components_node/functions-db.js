@@ -991,8 +991,8 @@ module.exports = class FunctionsDB {
 
     let resultsSQLGenericTable = '';
 
-    let pageNumber = (objSpecialParameters.hasOwnProperty('_pageNumber')) ? objSpecialParameters._pageNumber : '';
-    let pagingNRecords = (objSpecialParameters.hasOwnProperty('_pagingNRecords')) ? objSpecialParameters._pagingNRecords : '';
+    const pageNumber = (objSpecialParameters.hasOwnProperty('_pageNumber')) ? objSpecialParameters._pageNumber : '';
+    const pagingNRecords = (objSpecialParameters.hasOwnProperty('_pagingNRecords')) ? objSpecialParameters._pagingNRecords : '';
 
     let strOperator = '';
     // ----------------------
