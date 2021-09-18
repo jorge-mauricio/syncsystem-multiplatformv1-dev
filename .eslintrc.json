@@ -59,6 +59,7 @@
     // "function-paren-newline": ["error", "never"],
     "function-paren-newline": ["error", "consistent"],
     "function-call-argument-newline": ["error", "consistent"], // always
+    "no-async-promise-executor": "off",
     "security/detect-object-injection": "off",
     "no-param-reassign": "warn",
     "prefer-arrow-callback": "warn", 
