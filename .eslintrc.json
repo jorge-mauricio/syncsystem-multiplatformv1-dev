@@ -52,6 +52,10 @@
     "default-param-last": "error",
     "space-before-function-paren": "warn", 
     "space-before-blocks": "warn",
+    //"function-paren-newline": ["error", { "minItems": 3 }], // REVIEW - not working
+    //"function-paren-newline": ["error", "multiline"],
+    "function-paren-newline": ["error", "never"],
+    //"function-paren-newline": ["error", "consistent"],
     "security/detect-object-injection": "off",
     "no-param-reassign": "warn",
     "prefer-arrow-callback": "warn", 

@@ -19,8 +19,16 @@ const inputDataReorder = (_arrInputOrder) => {
             if (countInputDataIDs > 0) {
                 tableRowMove = document.getElementById(arrInputOrder[countInputDataIDs]);
                 tableRowReference = document.getElementById(arrInputOrder[countInputDataIDs - 1]);
-                if (!tableRowMove && !tableRowReference) {
+                if (tableRowMove && tableRowReference) {
                     tableRowReference.parentNode.insertBefore(tableRowMove, tableRowReference.nextSibling);
+                    if (configDebug === true) {
+                        console.log('tableRowMove=true');
+                    }
+                }
+                if (configDebug === true) {
+                    console.log('countInputDataIDs > 0=true');
+                    console.log('tableRowMove=', tableRowMove);
+                    console.log('tableRowReference=', tableRowReference);
                 }
             }
             if (configDebug === true) {
@@ -34,80 +42,86 @@ const inputDataReorder = (_arrInputOrder) => {
 };
 FunctionsSyncSystem.inputDataReorder = inputDataReorder;
 const formSubmit = (idForm, formTarget, formMethod, formAction) => {
-    let formElement = "";
-    if (idForm.indexOf("iframe:") >= 0) {
+    let formElement;
+    if (idForm.indexOf('iframe:') >= 0) {
+        formElement = document.getElementById(idForm);
     }
     else {
         formElement = document.getElementById(idForm);
     }
-    if (formTarget != "") {
-        formElement.target = formTarget;
+    if (formElement) {
+        if (formTarget !== '') {
+            formElement.target = formTarget;
+        }
+        if (formMethod !== '') {
+            formElement.method = formMethod;
+        }
+        if (formAction !== '') {
+            formElement.action = formAction;
+        }
+        formElement.submit();
     }
-    if (formMethod != "") {
-        formElement.method = formMethod;
-    }
-    if (formAction != "") {
-        formElement.action = formAction;
-    }
-    formElement.submit();
 };
 FunctionsSyncSystem.formSubmit = formSubmit;
 const htmlGenericStyle01 = (idHTML, styleName, parameterValue) => {
-    let elementHTML = document.getElementById(idHTML);
+    const elementHTML = document.getElementById(idHTML);
     if (elementHTML) {
-        if (styleName == "display") {
-            elementHTML.style.display = parameterValue;
+        if (styleName === 'display') {
+            elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
         }
-        if (styleName == "height") {
-            elementHTML.style.height = parameterValue;
+        if (styleName === 'height') {
+            elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
         }
-        if (styleName == "min-height") {
-            elementHTML.style.minHeight = parameterValue;
+        if (styleName === 'min-height') {
+            elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
         }
-        if (styleName == "margin-bottom") {
-            elementHTML.style.marginBottom = parameterValue;
+        if (styleName === 'margin-bottom') {
+            elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
         }
     }
 };
 FunctionsSyncSystem.htmlGenericStyle01 = htmlGenericStyle01;
 const elementMessage01 = (idElement, strMessage) => {
-    let elementHTML = "";
-    if (idElement.indexOf("iframe:") >= 0) {
+    let elementHTML;
+    if (idElement.indexOf('iframe:') >= 0) {
     }
-    else if (idElement.indexOf("multiple:") >= 0) {
-        let arrParameters = idElement.split(":");
-        let selectorType = arrParameters[1];
-        let strQuerySelector = arrParameters[2];
+    else if (idElement.indexOf('multiple:') >= 0) {
+        const arrParameters = idElement.split(':');
+        const [selectorType, strQuerySelector] = arrParameters;
         let arrElements;
-        if (selectorType === "id") {
+        if (selectorType === 'id') {
             arrElements = document.querySelectorAll('[id^="' + strQuerySelector + '"]');
             arrElements.forEach((nodeElement) => {
-                elementMessage01(nodeElement.getAttribute("id"), strMessage);
+                if (nodeElement) {
+                    elementMessage01(nodeElement.getAttribute('id'), strMessage);
+                }
             });
         }
     }
     else {
         elementHTML = document.getElementById(idElement);
-        if (elementHTML.getAttribute("type") == "hidden") {
-            elementHTML.value = strMessage;
-        }
-        if (elementHTML.getAttribute("type") == "text") {
-            elementHTML.value = strMessage;
-        }
-        if (elementHTML.getAttribute("type") == "checkbox") {
-            elementHTML.value = strMessage;
-        }
-        if (elementHTML.tagName.toLowerCase() == "a") {
-            elementHTML.innerHTML = strMessage;
-        }
-        if (elementHTML.tagName.toLowerCase() == "div") {
-            elementHTML.innerHTML = strMessage;
-        }
-        if (elementHTML.tagName.toLowerCase() == "span") {
-            elementHTML.innerHTML = strMessage;
-        }
-        if (elementHTML.tagName.toLowerCase() == "h1") {
-            elementHTML.innerHTML = strMessage;
+        if (elementHTML) {
+            if (elementHTML.getAttribute('type') === 'hidden') {
+                elementHTML.value = strMessage;
+            }
+            if (elementHTML.getAttribute('type') === 'text') {
+                elementHTML.value = strMessage;
+            }
+            if (elementHTML.getAttribute('type') === 'checkbox') {
+                elementHTML.value = strMessage;
+            }
+            if (elementHTML.tagName.toLowerCase() === 'a') {
+                elementHTML.innerHTML = strMessage;
+            }
+            if (elementHTML.tagName.toLowerCase() === 'div') {
+                elementHTML.innerHTML = strMessage;
+            }
+            if (elementHTML.tagName.toLowerCase() === 'span') {
+                elementHTML.innerHTML = strMessage;
+            }
+            if (elementHTML.tagName.toLowerCase() === 'h1') {
+                elementHTML.innerHTML = strMessage;
+            }
         }
     }
 };
