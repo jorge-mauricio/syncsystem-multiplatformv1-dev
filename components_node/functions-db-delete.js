@@ -13,7 +13,7 @@ const { dbSystemConPool } = require('../config-application-db.js'); // DB System
 // const SyncSystemNS = require('./syncsystem-ns.js'); // Cause error.
 
 const FunctionsGeneric = require('./functions-generic.js');
-const { isConstructorTypeNode } = require('typescript');
+// const { isConstructorTypeNode } = require('typescript');
 // const FunctionsDB = require("./functions-db.js");
 // const FunctionsCrypto = require("./functions-crypto.js");
 // ----------------------
@@ -23,12 +23,13 @@ module.exports = class FunctionsDBDelete {
   // **************************************************************************************
   static async deleteRecordsGeneric10(strTable, arrSearchParameters) {
     // arrSearchParameters: ["fieldNameSearch1;fieldValueSearch1;fieldTypeSearch1", "fieldNameSearch2;fieldValueSearch2;fieldTypeSearch2", "fieldNameSearch3;fieldValueSearch3;fieldTypeSearch3"]
-      // typeFieldSearch1: s (string) | i (integer) | d (date) | dif (initial date and final date) | ids (id IN)
+    // eslint-disable-next-line
+      // typeFieldSearch1: s (string) | i (integer) | d (date) | dif (initial date and final date) | ids (id IN) 
 
     // Variables.
     // ----------------------
     // let strReturn = false;
-    let objReturn = { returnStatus: false, nRecords: 0 };
+    let objReturn = { returnStatus: false, nRecords: 0 }; // eslint-disable-line
 
     let strSQLRecordsGenericDelete = '';
     const strSQLRecordsGenericDeleteParams = [];

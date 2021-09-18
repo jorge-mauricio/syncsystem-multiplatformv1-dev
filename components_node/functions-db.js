@@ -21,7 +21,7 @@ module.exports = class FunctionsDB {
   static counterUniversalSelect(idTbCounter = 1) {
     // Variables.
     // ----------------------
-    let strReturn = '';
+    let strReturn = ''; // eslint-disable-line
     let nCounter = 0;
 
     let strSQLCounterSelect = '';
@@ -946,7 +946,7 @@ module.exports = class FunctionsDB {
 
     // Variables.
     // ----------------------
-    let strReturn = '';
+    let strReturn = ''; // eslint-disable-line
     // ----------------------
   }
   // **************************************************************************************
@@ -984,7 +984,7 @@ module.exports = class FunctionsDB {
 
     // Variables.
     // ----------------------
-    let strReturn = '';
+    let strReturn = ''; // eslint-disable-line
 
     let strSQLGenericTableSelect = '';
     const strSQLGenericTableSelectParams = [];
@@ -1014,16 +1014,16 @@ module.exports = class FunctionsDB {
 
     // Parameters.
     // ----------------------
-    // if (idTbCounter != null && idTbCounter != "" && (typeof idTbCounter !== 'undefined'))
+    // if (idTbCounter != null && idTbCounter != '' && (typeof idTbCounter !== 'undefined'))
     // {
-      // strSQLCounterSelect += " AND " + mysql.escape("id") + " = ?";// not workig, because it wraps in single quotes.
-      // strSQLGenericTableSelect += " AND id_parent = ?";
-      // strSQLGenericTableSelectParams.push("0");
+      // strSQLCounterSelect += ' AND ' + mysql.escape('id') + ' = ?';// not workig, because it wraps in single quotes.
+      // strSQLGenericTableSelect += ' AND id_parent = ?';
+      // strSQLGenericTableSelectParams.push('0');
     // }
 
-    for(let countArray = 0; countArray < arrSearchParameters.length; countArray++) {
+    for (let countArray = 0; countArray < arrSearchParameters.length; countArray++) {
       // Variables.
-      const arrSearchParametersInfo = arrSearchParameters[countArray].split(";");
+      const arrSearchParametersInfo = arrSearchParameters[countArray].split(';');
       const searchParametersFieldName = arrSearchParametersInfo[0];
       const searchParametersFieldValue = arrSearchParametersInfo[1];
       const searchParametersFieldType = arrSearchParametersInfo[2];
@@ -1051,7 +1051,7 @@ module.exports = class FunctionsDB {
         {
           strOperator = 'OR';
         }
-        strSQLGenericTableSelect += " " + strOperator + " " + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' <> ?';
+        strSQLGenericTableSelect += ' ' + strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' <> ?';
         strSQLGenericTableSelectParams.push(searchParametersFieldValue);
       }
 
@@ -1169,7 +1169,7 @@ module.exports = class FunctionsDB {
                 }
 
                 reject(new Error(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage9')));
-                // reject(new Error("nCounter is undefined."));
+                // reject(new Error('nCounter is undefined.'));
               } else {
                 // All results.
                 if (searchType == 1) {
@@ -1247,7 +1247,8 @@ module.exports = class FunctionsDB {
 
     // Variables.
     // ----------------------
-    let objReturn = { tableName: '', tableData: null, returnStatus: false }; // {tableName: 'string', tableData: null, returnStatus: false}
+    // eslint-disable-next-line
+    let objReturn = { tableName: '', tableData: null, returnStatus: false }; // {tableName: 'string', tableData: null, returnStatus: false} 
     // ----------------------
 
     // Logic.
