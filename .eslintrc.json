@@ -41,6 +41,7 @@
     "no-new-object": "error",
     //"no-unexpected-multiline": "off",
     //"node/no-unsupported-features/es-syntax": "off",
+    "node/no-deprecated-api": "off",
     "object-shorthand": "off",
     "quote-props": ["error", "as-needed"],
     "no-prototype-builtins": "off",
@@ -59,7 +60,7 @@
     // "function-paren-newline": ["error", "never"],
     "function-paren-newline": ["error", "consistent"],
     "function-call-argument-newline": ["error", "consistent"], // always
-    "no-async-promise-executor": "off",
+    "no-async-promise-executor": "off", // inserted for refactor (Promise(async)
     "security/detect-object-injection": "off",
     "no-param-reassign": "warn",
     "prefer-arrow-callback": "warn", 
