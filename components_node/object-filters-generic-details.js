@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectFiltersGenericDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
-    //Debug.
-    //console.log("objParameters=", objParameters);
+    // Debug.
+    // console.log("objParameters=", objParameters);
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbFiltersGeneric = objParameters.hasOwnProperty('_idTbFiltersGeneric') ? objParameters._idTbFiltersGeneric : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -44,8 +44,8 @@ module.exports = class ObjectFiltersGenericDetails {
     this.tblFiltersGenericSortOrder = 0;
     this.tblFiltersGenericSortOrder_print = '';
 
-    this.tbliltersGenericDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-    //this.tbliltersGenericDateTimezone = "";
+    this.tbliltersGenericDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    // this.tbliltersGenericDateTimezone = "";
     this.tbliltersGenericDateEdit = '';
 
     this.tblFiltersGenericFilterIndex = 0;
@@ -60,7 +60,7 @@ module.exports = class ObjectFiltersGenericDetails {
     this.tblFiltersGenericMetaDescription = '';
     this.tblFiltersGenericMetaDescription_edit = '';
     this.tblFiltersGenericMetaTitle = '';
-    //this.tblFiltersGenericMetaMetaInfo = "";
+    // this.tblFiltersGenericMetaMetaInfo = "";
 
     this.tblFiltersGenericInfoSmall1 = '';
     this.tblFiltersGenericInfoSmall1_edit = '';
@@ -103,20 +103,20 @@ module.exports = class ObjectFiltersGenericDetails {
 
     this.tblFiltersGenericNotes = '';
     this.tblFiltersGenericNotes_edit = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectFiltersGenericDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get filters generic details according to search parameters.
-  //**************************************************************************************
+  // Get filters generic details according to search parameters.
+  // **************************************************************************************
   /**
    * Get filters generic details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -124,8 +124,8 @@ module.exports = class ObjectFiltersGenericDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
@@ -139,13 +139,13 @@ module.exports = class ObjectFiltersGenericDetails {
         this.objSpecialParameters
       );
 
-      //Define values.
+      // Define values.
       this.tblFiltersGenericID = this.resultsFiltersGenericDetails[0].id;
       this.tblFiltersGenericSortOrder = this.resultsFiltersGenericDetails[0].sort_order;
       this.tblFiltersGenericSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblFiltersGenericSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tbliltersGenericDateCreation = this.resultsFiltersGenericDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-      //this.tbliltersGenericDateTimezone = this.resultsFiltersGenericDetails[0].id;
+      this.tbliltersGenericDateCreation = this.resultsFiltersGenericDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      // this.tbliltersGenericDateTimezone = this.resultsFiltersGenericDetails[0].id;
       this.tbliltersGenericDateEdit = this.resultsFiltersGenericDetails[0].date_edit;
 
       this.tblFiltersGenericFilterIndex = this.resultsFiltersGenericDetails[0].filter_index;
@@ -249,18 +249,18 @@ module.exports = class ObjectFiltersGenericDetails {
       this.tblFiltersGenericNotes = FunctionsGeneric.contentMaskRead(this.resultsFiltersGenericDetails[0].notes, 'db');
       this.tblFiltersGenericNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsFiltersGenericDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.resultsFormsFieldsOptionsDetails[0]=", this.resultsFormsFieldsOptionsDetails[0]);
-      //console.log("this.tblFormsFieldsOptionsInfoSmall1=", this.tblFormsFieldsOptionsInfoSmall1);
-      //console.log("this.tblFormsFieldsOptionsInfoSmall1_edit=", this.tblFormsFieldsOptionsInfoSmall1_edit);
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters);
+      // Debug.
+      // console.log("this.resultsFormsFieldsOptionsDetails[0]=", this.resultsFormsFieldsOptionsDetails[0]);
+      // console.log("this.tblFormsFieldsOptionsInfoSmall1=", this.tblFormsFieldsOptionsInfoSmall1);
+      // console.log("this.tblFormsFieldsOptionsInfoSmall1_edit=", this.tblFormsFieldsOptionsInfoSmall1_edit);
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters);
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 };

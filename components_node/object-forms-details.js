@@ -1,34 +1,34 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectFormsDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbForms = objParameters.hasOwnProperty('_idTbForms') ? objParameters._idTbForms : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -43,7 +43,7 @@ module.exports = class ObjectFormsDetails {
     this.tblFormsSortOrder = 0;
     this.tblFormsSortOrder_print = 0;
 
-    this.tblFormsDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblFormsDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblFormsDateTimezone = '';
     this.tblFormsDateEdit = '';
 
@@ -78,20 +78,20 @@ module.exports = class ObjectFormsDetails {
 
     this.tblFormsNotes = '';
     this.tblFormsNotes_edit = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectFormsDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get form details according to search parameters.
-  //**************************************************************************************
+  // Get form details according to search parameters.
+  // **************************************************************************************
   /**
    * Get form details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -99,8 +99,8 @@ module.exports = class ObjectFormsDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
@@ -114,18 +114,18 @@ module.exports = class ObjectFormsDetails {
         this.objSpecialParameters
       );
 
-      //Define values.
-      //if(this.resultsCategoryDetails[0])
-      //{
-      //DEV: Create logic to chech if record exist.
-      //}
+      // Define values.
+      // if(this.resultsCategoryDetails[0])
+      // {
+      // DEV: Create logic to chech if record exist.
+      // }
       this.tblFormsID = this.resultsFormsDetails[0].id;
       this.tblFormsIdParent = this.resultsFormsDetails[0].id_parent;
 
       this.tblFormsSortOrder = this.resultsFormsDetails[0].sort_order;
       this.tblFormsSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblFormsSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblFormsDateCreation = this.resultsFormsDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      this.tblFormsDateCreation = this.resultsFormsDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
       this.tblFormsDateTimezone = this.resultsFormsDetails[0].date_timezone;
       this.tblFormsDateEdit = this.resultsFormsDetails[0].date_edit;
 
@@ -152,7 +152,7 @@ module.exports = class ObjectFormsDetails {
       }
 
       this.tblFormsMessageSuccess = FunctionsGeneric.contentMaskRead(this.resultsFormsDetails[0].message_success, 'db');
-      this.tblFormsMessageSuccess_edit = FunctionsGeneric.contentMaskRead(this.resultsFormsDetails[0].message_success, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblFormsMessageSuccess_edit = FunctionsGeneric.contentMaskRead(this.resultsFormsDetails[0].message_success, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
 
       this.tblFormsActivation = this.resultsFormsDetails[0].activation;
       if (this.tblFormsActivation == 0) {
@@ -163,20 +163,20 @@ module.exports = class ObjectFormsDetails {
       }
       this.tblFormsNotes = FunctionsGeneric.contentMaskRead(this.resultsFormsDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.ofdRecord = "";
@@ -190,5 +190,5 @@ module.exports = class ObjectFormsDetails {
     this.ofdRecord = new SyncSystemNS.ObjectFormsDetails(this.ofdRecordParameters);
     await this.ofdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

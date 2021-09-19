@@ -1,39 +1,39 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
 
 const ObjectFiltersGenericListing = require('./object-filters-generic-listing.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectCategoriesDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbCategories = objParameters.hasOwnProperty('_idTbCategories') ? objParameters._idTbCategories : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
-    //this.configSortOrder = (objParameters.hasOwnProperty("_configSortOrder")) ? objParameters._configSortOrder : gSystemConfig.configCategoriesSort;
-    //this.strNRecords = (objParameters.hasOwnProperty("_strNRecords")) ? objParameters._strNRecords : "";
-    //this.strReturnFields = (objParameters.hasOwnProperty("_strReturnFields")) ? objParameters._strReturnFields : "*";
+    // this.configSortOrder = (objParameters.hasOwnProperty("_configSortOrder")) ? objParameters._configSortOrder : gSystemConfig.configCategoriesSort;
+    // this.strNRecords = (objParameters.hasOwnProperty("_strNRecords")) ? objParameters._strNRecords : "";
+    // this.strReturnFields = (objParameters.hasOwnProperty("_strReturnFields")) ? objParameters._strReturnFields : "*";
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -47,9 +47,9 @@ module.exports = class ObjectCategoriesDetails {
     this.tblCategoriesIdParent = 0;
     this.tblCategoriesSortOrder = 0;
     this.tblCategoriesSortOrder_print = 0;
-    this.tblCategoriesCategoryType = 0; //Review: check categories insert to see if 0 is default value
+    this.tblCategoriesCategoryType = 0; // Review: check categories insert to see if 0 is default value
 
-    this.tblCategoriesDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblCategoriesDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblCategoriesDateTimezone = '';
     this.tblCategoriesDateEdit = '';
 
@@ -244,37 +244,37 @@ module.exports = class ObjectCategoriesDetails {
     this.arrIdsCategoriesFiltersGeneric8Binding = [];
     this.arrIdsCategoriesFiltersGeneric9Binding = [];
     this.arrIdsCategoriesFiltersGeneric10Binding = [];
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectCategoriesDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get category details according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get category details according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get categories details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
    * @param {*} returnType 1 - array | 3 - Json Object | 10 - html
    * @returns {json}
    */
-  async recordDetailsGet(terminal = 0, returnType = 1) //static async categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
-  //function categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
+  async recordDetailsGet(terminal = 0, returnType = 1) // static async categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
+  // function categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
   {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
-      //id, id_parent, sort_order, category_type, date_creation, title, image_main, activation //debug
-      //this.resultsCategoriesListing = await FunctionsDB.genericTableGet02("categories",
+      // id, id_parent, sort_order, category_type, date_creation, title, image_main, activation // debug
+      // this.resultsCategoriesListing = await FunctionsDB.genericTableGet02("categories",
       this.resultsCategoryDetails = await FunctionsDB.genericTableGet02(
         gSystemConfig.configSystemDBTableCategories, 
         this.arrSearchParameters, 
@@ -285,7 +285,7 @@ module.exports = class ObjectCategoriesDetails {
         this.objSpecialParameters
       );
 
-      //Filters generic.
+      // Filters generic.
       this.ofglRecords = new ObjectFiltersGenericListing({
         _arrSearchParameters: [],
         _configSortOrder: 'title',
@@ -294,7 +294,7 @@ module.exports = class ObjectCategoriesDetails {
       });
       await this.ofglRecords.recordsListingGet(0, 3);
 
-      //Filters generic bindings.
+      // Filters generic bindings.
       this.objIdsCategoriesFiltersGenericBinding = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, 
         ['id_record;' + this.idTbCategories + ';i'], 
         '', 
@@ -304,7 +304,7 @@ module.exports = class ObjectCategoriesDetails {
         { returnType: 3 }
       );
 
-      //Filters generic - separation.
+      // Filters generic - separation.
       if (gSystemConfig.enableCategoriesFilterGeneric1 != 0) {
         this.objIdsCategoriesFiltersGeneric1Binding = this.objIdsCategoriesFiltersGenericBinding.filter(function (obj) {
           return obj.id_filter_index == 101;
@@ -312,20 +312,20 @@ module.exports = class ObjectCategoriesDetails {
 
         if (this.objIdsCategoriesFiltersGeneric1Binding) {
           this.arrIdsCategoriesFiltersGeneric1Binding = Object.keys(this.objIdsCategoriesFiltersGeneric1Binding).map((key) => this.objIdsCategoriesFiltersGeneric1Binding[key]['id_filters_generic']);
-          //this.arrIdsCategoriesFiltersGeneric1Binding = Object.keys(this.objIdsCategoriesFiltersGeneric1Binding).map(key => this.objIdsCategoriesFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
+          // this.arrIdsCategoriesFiltersGeneric1Binding = Object.keys(this.objIdsCategoriesFiltersGeneric1Binding).map(key => this.objIdsCategoriesFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
 
           if (this.arrIdsCategoriesFiltersGeneric1Binding) {
             var arrIdsCategoriesFiltersGeneric1Binding = this.arrIdsCategoriesFiltersGeneric1Binding;
             this.objCategoriesFiltersGeneric1Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
-              //return obj.filter_index == 101;
+              // return obj.filter_index == 101;
 
-              //for(let countArray = 0; countArray < this.arrIdsCategoriesFiltersGeneric1Binding.length; countArray++)
+              // for(let countArray = 0; countArray < this.arrIdsCategoriesFiltersGeneric1Binding.length; countArray++)
               /*for(let countArray = 0; countArray < arrIdsCategoriesFiltersGeneric1Binding.length; countArray++)
                             {
                                 return obj.id == arrIdsCategoriesFiltersGeneric1Binding[countArray];
                             }*/
-              //return obj.id.includes(arrIdsCategoriesFiltersGeneric1Binding);
-              //return this.arrIdsCategoriesFiltersGeneric1Binding.includes(obj.id);
+              // return obj.id.includes(arrIdsCategoriesFiltersGeneric1Binding);
+              // return this.arrIdsCategoriesFiltersGeneric1Binding.includes(obj.id);
               return arrIdsCategoriesFiltersGeneric1Binding.includes(obj.id);
             });
           }
@@ -494,23 +494,23 @@ module.exports = class ObjectCategoriesDetails {
         }
       }
 
-      //Debug.
-      //console.log("this.objIdsCategoriesFiltersGenericBinding=", this.objIdsCategoriesFiltersGenericBinding);
-      //console.log("this.objIdsCategoriesFiltersGeneric1Binding=", this.objIdsCategoriesFiltersGeneric1Binding);
-      //console.log("this.arrIdsCategoriesFiltersGeneric1Binding=", this.arrIdsCategoriesFiltersGeneric1Binding);
-      //console.log("this.arrIdsCategoriesFiltersGeneric2Binding=", this.arrIdsCategoriesFiltersGeneric2Binding);
-      //console.log("this.arrIdsCategoriesFiltersGeneric3Binding=", this.arrIdsCategoriesFiltersGeneric3Binding);
-      //console.log("this.arrIdsCategoriesFiltersGenericBinding=", this.arrIdsCategoriesFiltersGenericBinding);
-      //console.log("this.arrIdsCategoriesFiltersGenericBinding=", this.arrIdsCategoriesFiltersGenericBinding.includes("125"));
-      //console.log("JSON.parse(this.arrIdsCategoriesFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsCategoriesFiltersGenericBinding[0])));
-      //console.log("this.arrIdsCategoriesFiltersGenericBinding.find=",  this.arrIdsCategoriesFiltersGenericBinding.find(objCategoriesFiltersGenericBinding => objCategoriesFiltersGenericBinding.id_filters_generic == '126'));
-      //console.log("this.arrIdsCategoriesFiltersGenericBinding=", Object.keys(this.arrIdsCategoriesFiltersGenericBinding).map(key => this.arrIdsCategoriesFiltersGenericBinding[key].id_filters_generic));
+      // Debug.
+      // console.log("this.objIdsCategoriesFiltersGenericBinding=", this.objIdsCategoriesFiltersGenericBinding);
+      // console.log("this.objIdsCategoriesFiltersGeneric1Binding=", this.objIdsCategoriesFiltersGeneric1Binding);
+      // console.log("this.arrIdsCategoriesFiltersGeneric1Binding=", this.arrIdsCategoriesFiltersGeneric1Binding);
+      // console.log("this.arrIdsCategoriesFiltersGeneric2Binding=", this.arrIdsCategoriesFiltersGeneric2Binding);
+      // console.log("this.arrIdsCategoriesFiltersGeneric3Binding=", this.arrIdsCategoriesFiltersGeneric3Binding);
+      // console.log("this.arrIdsCategoriesFiltersGenericBinding=", this.arrIdsCategoriesFiltersGenericBinding);
+      // console.log("this.arrIdsCategoriesFiltersGenericBinding=", this.arrIdsCategoriesFiltersGenericBinding.includes("125"));
+      // console.log("JSON.parse(this.arrIdsCategoriesFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsCategoriesFiltersGenericBinding[0])));
+      // console.log("this.arrIdsCategoriesFiltersGenericBinding.find=",  this.arrIdsCategoriesFiltersGenericBinding.find(objCategoriesFiltersGenericBinding => objCategoriesFiltersGenericBinding.id_filters_generic == '126'));
+      // console.log("this.arrIdsCategoriesFiltersGenericBinding=", Object.keys(this.arrIdsCategoriesFiltersGenericBinding).map(key => this.arrIdsCategoriesFiltersGenericBinding[key].id_filters_generic));
 
-      //Define values.
-      //if(this.resultsCategoryDetails[0])
-      //{
-      //DEV: Create logic to check if record exist.
-      //}
+      // Define values.
+      // if(this.resultsCategoryDetails[0])
+      // {
+      // DEV: Create logic to check if record exist.
+      // }
       this.tblCategoriesID = this.resultsCategoryDetails[0].id;
       this.tblCategoriesIdParent = this.resultsCategoryDetails[0].id_parent;
 
@@ -519,7 +519,7 @@ module.exports = class ObjectCategoriesDetails {
 
       this.tblCategoriesCategoryType = this.resultsCategoryDetails[0].category_type;
 
-      this.tblCategoriesDateCreation = this.resultsCategoryDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      this.tblCategoriesDateCreation = this.resultsCategoryDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
       this.tblCategoriesDateTimezone = this.resultsCategoryDetails[0].date_timezone;
       this.tblCategoriesDateEdit = this.resultsCategoryDetails[0].date_edit;
 
@@ -550,12 +550,12 @@ module.exports = class ObjectCategoriesDetails {
 
       this.tblCategoriesTitle = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].title, 'db');
       this.tblCategoriesDescription = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].description, 'db');
-      this.tblCategoriesDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblCategoriesDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
       this.tblCategoriesURLAlias = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].url_alias, 'db');
-      //this.tblCategoriesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].keywords_tags, "db");
+      // this.tblCategoriesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].keywords_tags, "db");
       this.tblCategoriesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].keywords_tags, 'editTextBox=1');
-      this.tblCategoriesMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].meta_description, 'db'); //TODO: include strip html
-      this.tblCategoriesMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].meta_description, 'db'); //TODO: include strip html
+      this.tblCategoriesMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].meta_description, 'db'); // TODO: include strip html
+      this.tblCategoriesMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].meta_description, 'db'); // TODO: include strip html
       this.tblCategoriesMetaTitle = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].meta_title, 'db');
       this.tblCategoriesMetaInfo = this.resultsCategoryDetails[0].meta_info;
 
@@ -565,7 +565,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo1FieldType == 11 || gSystemConfig.configCategoriesInfo1FieldType == 12) {
           this.tblCategoriesInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info1, 'db'), 2);
           this.tblCategoriesInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info1, 'db'), 2);
@@ -577,7 +577,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo2FieldType == 11 || gSystemConfig.configCategoriesInfo2FieldType == 12) {
           this.tblCategoriesInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info2, 'db'), 2);
           this.tblCategoriesInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info2, 'db'), 2);
@@ -589,7 +589,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo3FieldType == 11 || gSystemConfig.configCategoriesInfo3FieldType == 12) {
           this.tblCategoriesInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info3, 'db'), 2);
           this.tblCategoriesInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info3, 'db'), 2);
@@ -601,7 +601,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo4FieldType == 11 || gSystemConfig.configCategoriesInfo4FieldType == 12) {
           this.tblCategoriesInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info4, 'db'), 2);
           this.tblCategoriesInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info4, 'db'), 2);
@@ -613,7 +613,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo5FieldType == 11 || gSystemConfig.configCategoriesInfo5FieldType == 12) {
           this.tblCategoriesInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info5, 'db'), 2);
           this.tblCategoriesInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info5, 'db'), 2);
@@ -625,7 +625,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo6_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info6, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo6FieldType == 11 || gSystemConfig.configCategoriesInfo6FieldType == 12) {
           this.tblCategoriesInfo6 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info6, 'db'), 2);
           this.tblCategoriesInfo6_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info6, 'db'), 2);
@@ -637,7 +637,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo7_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info7, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo7FieldType == 11 || gSystemConfig.configCategoriesInfo7FieldType == 12) {
           this.tblCategoriesInfo7 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info7, 'db'), 2);
           this.tblCategoriesInfo7_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info7, 'db'), 2);
@@ -649,7 +649,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo8_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info8, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo8FieldType == 11 || gSystemConfig.configCategoriesInfo8FieldType == 12) {
           this.tblCategoriesInfo8 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info8, 'db'), 2);
           this.tblCategoriesInfo8_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info8, 'db'), 2);
@@ -661,7 +661,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo9_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info9, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo9FieldType == 11 || gSystemConfig.configCategoriesInfo9FieldType == 12) {
           this.tblCategoriesInfo9 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info9, 'db'), 2);
           this.tblCategoriesInfo9_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info9, 'db'), 2);
@@ -673,7 +673,7 @@ module.exports = class ObjectCategoriesDetails {
           this.tblCategoriesInfo10_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info10, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configCategoriesInfo10FieldType == 11 || gSystemConfig.configCategoriesInfo10FieldType == 12) {
           this.tblCategoriesInfo10 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info10, 'db'), 2);
           this.tblCategoriesInfo10_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].info10, 'db'), 2);
@@ -729,7 +729,7 @@ module.exports = class ObjectCategoriesDetails {
         this.tblCategoriesDate1DateSecond = this.tblCategoriesDate1DateObj.getSeconds();
         this.tblCategoriesDate1DateSecond_print = ('0' + this.tblCategoriesDate1DateObj.getSeconds()).slice(-2);
 
-        //this.tblCategoriesDate1_print = this.tblCategoriesDate1;
+        // this.tblCategoriesDate1_print = this.tblCategoriesDate1;
         this.tblCategoriesDate1_print = FunctionsGeneric.dateRead01(this.tblCategoriesDate1, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configCategoriesDate1Type);
       }
 
@@ -883,25 +883,25 @@ module.exports = class ObjectCategoriesDetails {
       this.tblCategoriesNotes = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].notes, 'db');
       this.tblCategoriesNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsCategoryDetails[0].notes, 'db');
 
-      //this.arrIdsCategoriesFiltersGeneric1 = [];
-      //this.arrIdsCategoriesFiltersGeneric2 = [];
-      //this.arrIdsCategoriesFiltersGeneric3 = [];
-      //this.arrIdsCategoriesFiltersGeneric4 = [];
-      //this.arrIdsCategoriesFiltersGeneric5 = [];
-      //this.arrIdsCategoriesFiltersGeneric6 = [];
-      //this.arrIdsCategoriesFiltersGeneric7 = [];
-      //this.arrIdsCategoriesFiltersGeneric8 = [];
-      //this.arrIdsCategoriesFiltersGeneric9 = [];
-      //this.arrIdsCategoriesFiltersGeneric10 = [];
+      // this.arrIdsCategoriesFiltersGeneric1 = [];
+      // this.arrIdsCategoriesFiltersGeneric2 = [];
+      // this.arrIdsCategoriesFiltersGeneric3 = [];
+      // this.arrIdsCategoriesFiltersGeneric4 = [];
+      // this.arrIdsCategoriesFiltersGeneric5 = [];
+      // this.arrIdsCategoriesFiltersGeneric6 = [];
+      // this.arrIdsCategoriesFiltersGeneric7 = [];
+      // this.arrIdsCategoriesFiltersGeneric8 = [];
+      // this.arrIdsCategoriesFiltersGeneric9 = [];
+      // this.arrIdsCategoriesFiltersGeneric10 = [];
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
 
     /*
@@ -916,14 +916,14 @@ module.exports = class ObjectCategoriesDetails {
                                             });
 
         */
-    //return new ObjectCategoriesListing();
+    // return new ObjectCategoriesListing();
 
-    //return "teste2"
+    // return "teste2"
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.ocdRecord = "";
@@ -937,5 +937,5 @@ module.exports = class ObjectCategoriesDetails {
     this.ocdRecord = new SyncSystemNS.ObjectFormsFieldsDetails(this.ocdRecordParameters);
     await this.ocdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

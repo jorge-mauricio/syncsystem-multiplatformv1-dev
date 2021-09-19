@@ -1,34 +1,34 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectFormsFieldsDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbFormsFields = objParameters.hasOwnProperty('_idTbFormsFields') ? objParameters._idTbFormsFields : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -43,7 +43,7 @@ module.exports = class ObjectFormsFieldsDetails {
     this.tblFormsFieldsSortOrder = 0;
     this.tblFormsFieldsSortOrder_print = 0;
 
-    this.tblFormsFieldsDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblFormsFieldsDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblFormsFieldsDateTimezone = '';
     this.tblFormsFieldsDateEdit = '';
 
@@ -76,20 +76,20 @@ module.exports = class ObjectFormsFieldsDetails {
     this.tblFormsFieldsActivation_print = '';
     this.tblFormsFieldsRequired = 0;
     this.tblFormsFieldsRequired_print = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectFormsFieldsDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get form field details according to search parameters.
-  //**************************************************************************************
+  // Get form field details according to search parameters.
+  // **************************************************************************************
   /**
    * Get form field details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -97,8 +97,8 @@ module.exports = class ObjectFormsFieldsDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
@@ -112,13 +112,13 @@ module.exports = class ObjectFormsFieldsDetails {
         this.objSpecialParameters
       );
 
-      //Define values.
+      // Define values.
       this.tblFormsFieldsID = this.resultsFormsFieldsDetails[0].id;
       this.tblFormsFieldsIdForms = this.resultsFormsFieldsDetails[0].id_forms;
       this.tblFormsFieldsSortOrder = this.resultsFormsFieldsDetails[0].sort_order;
       this.tblFormsFieldsSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblFormsFieldsSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblFormsFieldsDateCreation = this.resultsFormsFieldsDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      this.tblFormsFieldsDateCreation = this.resultsFormsFieldsDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
       this.tblFormsFieldsDateTimezone = this.resultsFormsFieldsDetails[0].date_timezone;
       this.tblFormsFieldsDateEdit = this.resultsFormsFieldsDetails[0].date_edit;
 
@@ -158,10 +158,10 @@ module.exports = class ObjectFormsFieldsDetails {
       }
 
       this.tblFormsFieldsFieldName = FunctionsGeneric.contentMaskRead(this.resultsFormsFieldsDetails[0].field_name, 'db');
-      //this.tblFormsFieldsFieldName_edit = "";
+      // this.tblFormsFieldsFieldName_edit = "";
       this.tblFormsFieldsFieldNameFormatted = this.resultsFormsFieldsDetails[0].field_name_formatted;
       this.tblFormsFieldsFieldInstructions = FunctionsGeneric.contentMaskRead(this.resultsFormsFieldsDetails[0].field_instructions, 'db');
-      //this.tblFormsFieldsFieldInstructions_edit = "";
+      // this.tblFormsFieldsFieldInstructions_edit = "";
 
       this.tblFormsFieldsFieldSize = this.resultsFormsFieldsDetails[0].field_size;
       this.tblFormsFieldsFieldHeight = this.resultsFormsFieldsDetails[0].field_height;
@@ -195,20 +195,20 @@ module.exports = class ObjectFormsFieldsDetails {
         this.tblFormsFieldsRequired_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'FormsFieldsRequired1');
       }
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.offdRecord = "";
@@ -222,5 +222,5 @@ module.exports = class ObjectFormsFieldsDetails {
     this.offdRecord = new SyncSystemNS.ObjectFormsFieldsDetails(this.offdRecordParameters);
     await this.offdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

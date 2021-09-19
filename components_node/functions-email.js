@@ -1,23 +1,23 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require('dotenv').config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require('mysql');//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require('dotenv').config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require('mysql');// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const dbSystemCon = require('../config-application-db.js').dbSystemCon; //DB System - simple connection.
-//const dbSystemConPool = require('../config-application-db.js').dbSystemConPool; //DB System - pool connection.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const dbSystemCon = require('../config-application-db.js').dbSystemCon; // DB System - simple connection.
+// const dbSystemConPool = require('../config-application-db.js').dbSystemConPool; // DB System - pool connection.
 const FunctionsGeneric = require('./functions-generic.js');
 const ObjectFormsDetails = require('./object-forms-details.js');
 const ObjectFormsFieldsListing = require('./object-forms-fields-listing.js');
 
 const nodemailer = require('nodemailer');
-//----------------------
+// ----------------------
 
 module.exports = class FunctionsEmail {
-  //Function to send e-mail message.
-  //**************************************************************************************
+  // Function to send e-mail message.
+  // **************************************************************************************
   /**
    * Function to send e-mail message.
    * @static
@@ -57,25 +57,25 @@ module.exports = class FunctionsEmail {
               _emailSubject: "",
               _emailBodyMessageText: "",
               _emailBodyMessageHTML: "",
-              _emailSendType: "", //11 - nodemailer
-              _emailFormat: "" //0 - text | 1 - HTML
+              _emailSendType: "", // 11 - nodemailer
+              _emailFormat: "" // 0 - text | 1 - HTML
           }
           */
 
-    //Variables.
-    //----------------------
+    // Variables.
+    // ----------------------
     let objReturn = { returnStatus: false };
     let emailSendResult;
-    //----------------------
+    // ----------------------
 
-    //Logic.
-    //----------------------
-    //(async function(){ //async marks the block
+    // Logic.
+    // ----------------------
+    // (async function(){ // async marks the block
     try {
-      //Nodemailer.
+      // Nodemailer.
       let nodemailerTransporterParameters;
 
-      //Build parameters.
+      // Build parameters.
       nodemailerTransporterParameters = {
         pool: true,
         host: process.env.CONFIG_EMAIL_DEFAULT_HOST,
@@ -87,13 +87,13 @@ module.exports = class FunctionsEmail {
         secure: false,
         tls: {
           rejectUnauthorized: false,
-        }, //Also keep in mind this leaves you vulnerable to MITM attacks on SSL. ref: https://stackoverflow.com/questions/14262986/node-js-hostname-ip-doesnt-match-certificates-altnames/16311147#16311147
+        }, // Also keep in mind this leaves you vulnerable to MITM attacks on SSL. ref: https:// stackoverflow.com/questions/14262986/node-js-hostname-ip-doesnt-match-certificates-altnames/16311147#16311147
       };
 
-      //Create transport.
+      // Create transport.
       const transporter = nodemailer.createTransport(nodemailerTransporterParameters);
 
-      //Send mail.
+      // Send mail.
       /*
                   emailSendResult = await transporter.sendMail({
                       from: gSystemConfig.enableEmailSenderNameDefault + "<" + gSystemConfig.enableEmailSenderDefault + ">",
@@ -101,11 +101,11 @@ module.exports = class FunctionsEmail {
                       replyTo: gSystemConfig.enableEmailSenderDefault,
                       subject: "testing e-mail sending",
                       text: _objEmailSendParameters._emailBodyMessageText,
-                      html: _objEmailSendParameters._emailBodyMessageHTML, //research amp:
-                      encoding: "utf-8", //hex | base64
-                      priority: "normal" //high | normal | low
-                      //dkim: //https://nodemailer.com/dkim/
-                  });*/ //working
+                      html: _objEmailSendParameters._emailBodyMessageHTML, // research amp:
+                      encoding: "utf-8", // hex | base64
+                      priority: "normal" // high | normal | low
+                      // dkim: // https:// nodemailer.com/dkim/
+                  });*/ // working
 
       emailSendResult = await transporter.sendMail({
         from: _objEmailSendParameters._emailSenderName + '<' + _objEmailSendParameters._emailSender + '>',
@@ -126,15 +126,15 @@ module.exports = class FunctionsEmail {
                       */
         subject: _objEmailSendParameters._emailSubject,
         text: _objEmailSendParameters._emailBodyMessageText,
-        html: _objEmailSendParameters._emailBodyMessageHTML, //research amp:
-        encoding: 'utf-8', //hex | base64
-        priority: 'normal', //high | normal | low
-        //dkim: //https://nodemailer.com/dkim/
+        html: _objEmailSendParameters._emailBodyMessageHTML, // research amp:
+        encoding: 'utf-8', // hex | base64
+        priority: 'normal', // high | normal | low
+        // dkim: // https:// nodemailer.com/dkim/
       });
 
       transporter.close();
 
-      //Success.
+      // Success.
       /*
                   emailSendResult= {
                       accepted: [ 'xx@xxx.com' ],
@@ -153,8 +153,8 @@ module.exports = class FunctionsEmail {
         objReturn.returnStatus = true;
       }
 
-      //Debug.
-      //console.log("emailSendResult=", emailSendResult);
+      // Debug.
+      // console.log("emailSendResult=", emailSendResult);
     } catch (emailSendError) {
       if (gSystemConfig.configDebug === true) {
         console.log('emailSendError=', emailSendError);
@@ -163,14 +163,14 @@ module.exports = class FunctionsEmail {
     } finally {
       return objReturn;
     }
-    //})()
-    //----------------------
+    // })()
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
 
-  //Function build content based on system form.
-  //**************************************************************************************
+  // Function build content based on system form.
+  // **************************************************************************************
   /**
    * Function build content based on system form.
    * @static
@@ -183,17 +183,17 @@ module.exports = class FunctionsEmail {
    */
   static async formsContent(_idTbForms, _objPostData, _emailFormat = 0) {
     /*
-          _emailFormat: 1 //0 - text | 1 - HTML
+          _emailFormat: 1 // 0 - text | 1 - HTML
           _objPostData: {
               _fields: {},
-              _fieldsMultipleValues: {}, //For checkbox and listbox
+              _fieldsMultipleValues: {}, // For checkbox and listbox
               _files: {}
           }
           */
 
-    //Variables.
-    //----------------------
-    let objReturn = { returnStatus: false }; //objReturn: {returnStatus: false, formsContentText: "", formsContentHTML: ""}
+    // Variables.
+    // ----------------------
+    let objReturn = { returnStatus: false }; // objReturn: {returnStatus: false, formsContentText: "", formsContentHTML: ""}
     let formsContentText = '';
     let formsContentHTML = '';
 
@@ -201,25 +201,25 @@ module.exports = class FunctionsEmail {
     let objPostData;
     let emailFormat;
 
-    //let ofdRecordParameters;
-    //let ofdRecord;
+    // let ofdRecordParameters;
+    // let ofdRecord;
 
     let offlRecordsParameters;
     let offlRecords;
-    //----------------------
+    // ----------------------
 
-    //Define values.
-    //----------------------
+    // Define values.
+    // ----------------------
     idTbForms = _idTbForms;
     objPostData = _objPostData;
     emailFormat = _emailFormat;
-    //----------------------
+    // ----------------------
 
-    //Logic.
-    //----------------------
-    //(async function(){ //async marks the block
+    // Logic.
+    // ----------------------
+    // (async function(){ // async marks the block
     try {
-      //Forms detail.
+      // Forms detail.
       /*
                   ofdRecordParameters = {
                       _arrSearchParameters: ["id;" + idTbForms + ";i"],
@@ -232,7 +232,7 @@ module.exports = class FunctionsEmail {
                   await ofdRecord.recordDetailsGet(0, 3);
                   */
 
-      //Forms fields.
+      // Forms fields.
       offlRecordsParameters = {
         _arrSearchParameters: ['id_forms;' + idTbForms + ';i'],
         _configSortOrder: gSystemConfig.configFormsFieldsSort,
@@ -243,20 +243,20 @@ module.exports = class FunctionsEmail {
       offlRecords = new ObjectFormsFieldsListing(offlRecordsParameters);
       await offlRecords.recordsListingGet(0, 3);
 
-      //Loop through forms fields records.
+      // Loop through forms fields records.
       offlRecords.resultsFormsFieldsListing.forEach((formsFieldsRow) => {
-        //formidable
+        // formidable
         if (gSystemConfig.configUploadComponent == 1) {
-          //Text Field | Text Area | Radio Box | Dropdown Menu
+          // Text Field | Text Area | Radio Box | Dropdown Menu
           if (formsFieldsRow.field_type == 1 || formsFieldsRow.field_type == 2 || formsFieldsRow.field_type == 4 || formsFieldsRow.field_type == 5) {
-            //Build content - text.
+            // Build content - text.
             formsContentText += FunctionsGeneric.contentMaskRead(formsFieldsRow.field_name, 'db') + ' ';
             if (objPostData._fields[formsFieldsRow.field_name_formatted]) {
               formsContentText += objPostData._fields[formsFieldsRow.field_name_formatted];
             }
             formsContentText += '\n';
 
-            //Build content - HTML.
+            // Build content - HTML.
             formsContentHTML += FunctionsGeneric.contentMaskRead(formsFieldsRow.field_name, 'db') + ' ';
             if (objPostData._fields[formsFieldsRow.field_name_formatted]) {
               formsContentHTML += objPostData._fields[formsFieldsRow.field_name_formatted];
@@ -264,53 +264,53 @@ module.exports = class FunctionsEmail {
             formsContentHTML += '<br />';
           }
 
-          //Check Box
+          // Check Box
           if (formsFieldsRow.field_type == 3) {
             if (objPostData._fieldsMultipleValues.hasOwnProperty(formsFieldsRow.field_name_formatted + '[]') === true) {
-              //Build content - text.
+              // Build content - text.
               formsContentText += FunctionsGeneric.contentMaskRead(formsFieldsRow.field_name, 'db') + ' ';
               formsContentText += objPostData._fieldsMultipleValues[formsFieldsRow.field_name_formatted + '[]'].join(', ');
               formsContentText += '\n';
 
-              //Build content - HTML.
+              // Build content - HTML.
               formsContentHTML += FunctionsGeneric.contentMaskRead(formsFieldsRow.field_name, 'db') + ' ';
               formsContentHTML += objPostData._fieldsMultipleValues[formsFieldsRow.field_name_formatted + '[]'].join(', ');
               formsContentHTML += '<br />';
 
-              //Debug.
-              //console.log("objPostData._fieldsMultipleValues[formsFieldsRow.field_name_formatted (inside function - checkbox)=", formsFieldsRow.field_name_formatted + "[]");
+              // Debug.
+              // console.log("objPostData._fieldsMultipleValues[formsFieldsRow.field_name_formatted (inside function - checkbox)=", formsFieldsRow.field_name_formatted + "[]");
             }
           }
 
-          //Text Description | Subheader
+          // Text Description | Subheader
           if (formsFieldsRow.field_type == 7 || formsFieldsRow.field_type == 8) {
-            //Build content - HTML.
+            // Build content - HTML.
             formsContentText += FunctionsGeneric.contentMaskRead(formsFieldsRow.field_name, 'db');
             formsContentText += '\n';
 
-            //Build content - HTML.
+            // Build content - HTML.
             formsContentHTML += FunctionsGeneric.contentMaskRead(formsFieldsRow.field_name, 'db');
-            //formsContentHTML += objPostData._fields[formsFieldsRow.field_name_formatted];
+            // formsContentHTML += objPostData._fields[formsFieldsRow.field_name_formatted];
             formsContentHTML += '<br />';
           }
 
-          //Debug.
-          //console.log("formsFieldsRow.field_name_formatted (inside function)=", formsFieldsRow.field_name_formatted);
-          //console.log("formsFieldsRow.field_name_formatted (inside function)=", formsFieldsRow.field_name_formatted);
+          // Debug.
+          // console.log("formsFieldsRow.field_name_formatted (inside function)=", formsFieldsRow.field_name_formatted);
+          // console.log("formsFieldsRow.field_name_formatted (inside function)=", formsFieldsRow.field_name_formatted);
         }
       });
 
-      //Build object return.
+      // Build object return.
       objReturn.returnStatus = true;
       objReturn.formsContentHTML = formsContentHTML;
       objReturn.formsContentText = formsContentText;
 
-      //Debug.
-      //console.log("idTbForms (inside function)=", idTbForms);
-      //console.log("objPostData (inside function)=", objPostData);
-      //console.log("emailFormat (inside function)=", emailFormat);
-      //console.log("ofdRecord (inside function)=", ofdRecord);
-      //console.log("offlRecords (inside function)=", offlRecords);
+      // Debug.
+      // console.log("idTbForms (inside function)=", idTbForms);
+      // console.log("objPostData (inside function)=", objPostData);
+      // console.log("emailFormat (inside function)=", emailFormat);
+      // console.log("ofdRecord (inside function)=", ofdRecord);
+      // console.log("offlRecords (inside function)=", offlRecords);
     } catch (formsContentError) {
       if (gSystemConfig.configDebug === true) {
         console.log('formsContentError=', formsContentError);
@@ -319,8 +319,8 @@ module.exports = class FunctionsEmail {
     } finally {
       return objReturn;
     }
-    //})()
-    //----------------------
+    // })()
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 };

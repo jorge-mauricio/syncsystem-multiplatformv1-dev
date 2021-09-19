@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
 
 const ObjectFiltersGenericListing = require('./object-filters-generic-listing.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectUsersDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbUsers = objParameters.hasOwnProperty('_idTbUsers') ? objParameters._idTbUsers : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -45,7 +45,7 @@ module.exports = class ObjectUsersDetails {
     this.tblUsersSortOrder = 0;
     this.tblUsersSortOrder_print = '';
 
-    this.tblUsersDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblUsersDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblUsersDateTimezone = '';
     this.tblUsersDateEdit = '';
 
@@ -145,21 +145,21 @@ module.exports = class ObjectUsersDetails {
 
     this.objIdsUsersFiltersGenericBinding;
 
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectUsersDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get users details according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get users details according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get users details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -167,8 +167,8 @@ module.exports = class ObjectUsersDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     try {
       this.resultsUsersDetails = await FunctionsDB.genericTableGet02(
@@ -181,7 +181,7 @@ module.exports = class ObjectUsersDetails {
         this.objSpecialParameters
       );
 
-      //Filters generic.
+      // Filters generic.
       this.ofglRecords = new ObjectFiltersGenericListing({
         _arrSearchParameters: [],
         _configSortOrder: 'title',
@@ -190,7 +190,7 @@ module.exports = class ObjectUsersDetails {
       });
       await this.ofglRecords.recordsListingGet(0, 3);
 
-      //Filters generic bindings.
+      // Filters generic bindings.
       this.objIdsUsersFiltersGenericBinding = await FunctionsDB.genericTableGet02(
         gSystemConfig.configSystemDBTableFiltersGenericBinding, 
         ['id_record;' + this.idTbUsers + ';i'], 
@@ -201,29 +201,29 @@ module.exports = class ObjectUsersDetails {
         { returnType: 3 }
       );
 
-      //Debug.
-      //console.log("this.objIdsUsersFiltersGenericBinding=", this.objIdsUsersFiltersGenericBinding);
+      // Debug.
+      // console.log("this.objIdsUsersFiltersGenericBinding=", this.objIdsUsersFiltersGenericBinding);
 
-      //Define values.
-      //if(this.resultsUsersDetails[0])
-      //{
-      //DEV: Create logic to check if record exist.
-      //}
+      // Define values.
+      // if(this.resultsUsersDetails[0])
+      // {
+      // DEV: Create logic to check if record exist.
+      // }
       this.tblUsersID = this.resultsUsersDetails[0].id;
       this.tblUsersIdParent = this.resultsUsersDetails[0].id_parent;
 
       this.tblUsersSortOrder = this.resultsUsersDetails[0].sort_order;
       this.tblUsersSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblUsersSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblUsersDateCreation = this.resultsUsersDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-      //this.tblUsersDateTimezone = this.resultsUsersDetails[0].date_timezone;
+      this.tblUsersDateCreation = this.resultsUsersDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      // this.tblUsersDateTimezone = this.resultsUsersDetails[0].date_timezone;
       this.tblUsersDateEdit = this.resultsUsersDetails[0].date_edit;
 
       this.tblUsersUsersIdType = this.resultsUsersDetails[0].id_type;
       this.tblUsersNameTitle = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].name_title, 'db');
       this.tblUsersNameFull = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].name_full, 'db');
       this.tblUsersNameFirst = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].name_first, 'db');
-      this.tblUsersNameLast = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].name_last, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblUsersNameLast = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].name_last, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
 
       this.tblUsersDateBirth = this.resultsUsersDetails[0].date_birth;
       if (this.tblUsersDateBirth) {
@@ -241,7 +241,7 @@ module.exports = class ObjectUsersDetails {
         this.tblUsersDateBirthDateSecond = this.tblUsersDateBirthDateObj.getSeconds();
         this.tblUsersDateBirthDateSecond_print = ('0' + this.tblUsersDateBirthDateObj.getSeconds()).slice(-2);
 
-        //this.tblUsersDateBirth_print = this.tblUsersDateBirth;
+        // this.tblUsersDateBirth_print = this.tblUsersDateBirth;
         this.tblUsersDateBirth_print = FunctionsGeneric.dateRead01(this.tblUsersDateBirth, gSystemConfig.configBackendDateFormat, 0, 4);
       }
 
@@ -261,8 +261,8 @@ module.exports = class ObjectUsersDetails {
       this.tblUsersDocument = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].document, 'db');
 
       this.tblUsersAddressStreet = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].address_street, 'editTextBox=1');
-      this.tblUsersAddressNumber = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].address_number, 'db'); //TODO: include strip html
-      this.tblUsersAddressComplement = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].address_complement, 'db'); //TODO: include strip html
+      this.tblUsersAddressNumber = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].address_number, 'db'); // TODO: include strip html
+      this.tblUsersAddressComplement = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].address_complement, 'db'); // TODO: include strip html
       this.tblUsersNeighborhood = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].neighborhood, 'db');
       this.tblUsersDistrict = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].district, 'db');
       this.tblUsersCounty = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].county, 'db');
@@ -300,7 +300,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo1FieldType == 11 || gSystemConfig.configUsersInfo1FieldType == 12) {
           this.tblUsersInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info1, 'db'), 2);
           this.tblUsersInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info1, 'db'), 2);
@@ -312,7 +312,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo2FieldType == 11 || gSystemConfig.configUsersInfo2FieldType == 12) {
           this.tblUsersInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info2, 'db'), 2);
           this.tblUsersInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info2, 'db'), 2);
@@ -324,7 +324,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo3FieldType == 11 || gSystemConfig.configUsersInfo3FieldType == 12) {
           this.tblUsersInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info3, 'db'), 2);
           this.tblUsersInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info3, 'db'), 2);
@@ -336,7 +336,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo4FieldType == 11 || gSystemConfig.configUsersInfo4FieldType == 12) {
           this.tblUsersInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info4, 'db'), 2);
           this.tblUsersInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info4, 'db'), 2);
@@ -348,7 +348,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo5FieldType == 11 || gSystemConfig.configUsersInfo5FieldType == 12) {
           this.tblUsersInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info5, 'db'), 2);
           this.tblUsersInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info5, 'db'), 2);
@@ -360,7 +360,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo6_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info6, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo6FieldType == 11 || gSystemConfig.configUsersInfo6FieldType == 12) {
           this.tblUsersInfo6 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info6, 'db'), 2);
           this.tblUsersInfo6_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info6, 'db'), 2);
@@ -372,7 +372,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo7_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info7, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo7FieldType == 11 || gSystemConfig.configUsersInfo7FieldType == 12) {
           this.tblUsersInfo7 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info7, 'db'), 2);
           this.tblUsersInfo7_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info7, 'db'), 2);
@@ -384,7 +384,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo8_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info8, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo8FieldType == 11 || gSystemConfig.configUsersInfo8FieldType == 12) {
           this.tblUsersInfo8 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info8, 'db'), 2);
           this.tblUsersInfo8_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info8, 'db'), 2);
@@ -396,7 +396,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo9_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info9, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo9FieldType == 11 || gSystemConfig.configUsersInfo9FieldType == 12) {
           this.tblUsersInfo9 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info9, 'db'), 2);
           this.tblUsersInfo9_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info9, 'db'), 2);
@@ -408,7 +408,7 @@ module.exports = class ObjectUsersDetails {
           this.tblUsersInfo10_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info10, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configUsersInfo10FieldType == 11 || gSystemConfig.configUsersInfo10FieldType == 12) {
           this.tblUsersInfo10 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info10, 'db'), 2);
           this.tblUsersInfo10_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].info10, 'db'), 2);
@@ -470,15 +470,15 @@ module.exports = class ObjectUsersDetails {
       this.tblUsersNotes = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].notes, 'db');
       this.tblUsersNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsUsersDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 };

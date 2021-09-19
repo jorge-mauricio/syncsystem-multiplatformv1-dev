@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectFormsFieldsOptionsDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
-    //Debug.
-    //console.log("objParameters=", objParameters);
+    // Debug.
+    // console.log("objParameters=", objParameters);
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbFormsFieldsOptions = objParameters.hasOwnProperty('_idTbFormsFieldsOptions') ? objParameters._idTbFormsFieldsOptions : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -45,14 +45,14 @@ module.exports = class ObjectFormsFieldsOptionsDetails {
     this.tblFormsFieldsOptionsSortOrder = 0;
     this.tblFormsFieldsOptionsSortOrder_print = 0;
 
-    this.tblFormsFieldsOptionsDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblFormsFieldsOptionsDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblFormsFieldsOptionsDateTimezone = '';
     this.tblFormsFieldsOptionsDateEdit = '';
 
     this.tblFormsFieldsOptionsOptionName = '';
     this.tblFormsFieldsOptionsOptionNameFormatted = '';
 
-    this.tblFormsFieldsOptionsConfigSelection = 0; //0 - not selected | 1 - selected
+    this.tblFormsFieldsOptionsConfigSelection = 0; // 0 - not selected | 1 - selected
     this.tblFormsFieldsOptionsConfigSelection_print = '';
 
     this.tblFormsFieldsOptionsInfoSmall1 = '';
@@ -70,20 +70,20 @@ module.exports = class ObjectFormsFieldsOptionsDetails {
 
     this.tblFormsFieldsOptionsActivation = 0;
     this.tblFormsFieldsOptionsActivation_print = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectFormsFieldsOptionsDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get form field options details according to search parameters.
-  //**************************************************************************************
+  // Get form field options details according to search parameters.
+  // **************************************************************************************
   /**
    * Get form field options details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -91,8 +91,8 @@ module.exports = class ObjectFormsFieldsOptionsDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
@@ -106,13 +106,13 @@ module.exports = class ObjectFormsFieldsOptionsDetails {
         this.objSpecialParameters
       );
 
-      //Define values.
+      // Define values.
       this.tblFormsFieldsOptionsID = this.resultsFormsFieldsOptionsDetails[0].id;
       this.tblFormsFieldsOptionsIdFormsFields = this.resultsFormsFieldsOptionsDetails[0].id_forms_fields;
       this.tblFormsFieldsOptionsSortOrder = this.resultsFormsFieldsOptionsDetails[0].sort_order;
       this.tblFormsFieldsOptionsSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblFormsFieldsOptionsSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblFormsFieldsOptionsDateCreation = this.resultsFormsFieldsOptionsDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      this.tblFormsFieldsOptionsDateCreation = this.resultsFormsFieldsOptionsDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
       this.tblFormsFieldsOptionsDateTimezone = this.resultsFormsFieldsOptionsDetails[0].date_timezone;
       this.tblFormsFieldsOptionsDateEdit = this.resultsFormsFieldsOptionsDetails[0].date_edit;
 
@@ -151,18 +151,18 @@ module.exports = class ObjectFormsFieldsOptionsDetails {
         this.tblFormsFieldsOptionsActivation_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemActivation1');
       }
 
-      //Debug.
-      //console.log("this.resultsFormsFieldsOptionsDetails[0]=", this.resultsFormsFieldsOptionsDetails[0]);
-      //console.log("this.tblFormsFieldsOptionsInfoSmall1=", this.tblFormsFieldsOptionsInfoSmall1);
-      //console.log("this.tblFormsFieldsOptionsInfoSmall1_edit=", this.tblFormsFieldsOptionsInfoSmall1_edit);
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters);
+      // Debug.
+      // console.log("this.resultsFormsFieldsOptionsDetails[0]=", this.resultsFormsFieldsOptionsDetails[0]);
+      // console.log("this.tblFormsFieldsOptionsInfoSmall1=", this.tblFormsFieldsOptionsInfoSmall1);
+      // console.log("this.tblFormsFieldsOptionsInfoSmall1_edit=", this.tblFormsFieldsOptionsInfoSmall1_edit);
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters);
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 };

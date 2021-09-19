@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
 
 const ObjectFiltersGenericListing = require('./object-filters-generic-listing.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectQuizzesDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbQuizzes = objParameters.hasOwnProperty('_idTbQuizzes') ? objParameters._idTbQuizzes : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -45,8 +45,8 @@ module.exports = class ObjectQuizzesDetails {
     this.tblQuizzesSortOrder = 0;
     this.tblQuizzesSortOrder_print = '';
 
-    this.tblQuizzesDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-    //this.tblQuizzesDateTimezone = "";
+    this.tblQuizzesDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    // this.tblQuizzesDateTimezone = "";
     this.tblQuizzesDateEdit = '';
 
     this.tblQuizzesIdType = 0;
@@ -108,21 +108,21 @@ module.exports = class ObjectQuizzesDetails {
 
     this.tblQuizzesNotes = '';
     this.tblQuizzesNotes_edit = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectQuizzesDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get product details according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get product details according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get product details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -130,8 +130,8 @@ module.exports = class ObjectQuizzesDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     try {
       this.resultsQuizzesDetails = await FunctionsDB.genericTableGet02(
@@ -144,31 +144,31 @@ module.exports = class ObjectQuizzesDetails {
         this.objSpecialParameters
       );
 
-      //Debug.
-      //console.log("this.objIdsQuizzesFiltersGenericBinding=", this.objIdsQuizzesFiltersGenericBinding);
-      //console.log("this.objIdsQuizzesFiltersGeneric1Binding=", this.objIdsQuizzesFiltersGeneric1Binding);
-      //console.log("this.arrIdsQuizzesFiltersGeneric1Binding=", this.arrIdsQuizzesFiltersGeneric1Binding);
-      //console.log("this.arrIdsQuizzesFiltersGeneric2Binding=", this.arrIdsQuizzesFiltersGeneric2Binding);
-      //console.log("this.arrIdsQuizzesFiltersGeneric3Binding=", this.arrIdsQuizzesFiltersGeneric3Binding);
-      //console.log("this.arrIdsQuizzesFiltersGenericBinding=", this.arrIdsQuizzesFiltersGenericBinding);
-      //console.log("this.arrIdsQuizzesFiltersGenericBinding=", this.arrIdsQuizzesFiltersGenericBinding.includes("125"));
-      //console.log("JSON.parse(this.arrIdsQuizzesFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsQuizzesFiltersGenericBinding[0])));
-      //console.log("this.arrIdsQuizzesFiltersGenericBinding.find=",  this.arrIdsQuizzesFiltersGenericBinding.find(objQuizzesFiltersGenericBinding => objQuizzesFiltersGenericBinding.id_filters_generic == '126'));
-      //console.log("this.arrIdsQuizzesFiltersGenericBinding=", Object.keys(this.arrIdsQuizzesFiltersGenericBinding).map(key => this.arrIdsQuizzesFiltersGenericBinding[key].id_filters_generic));
+      // Debug.
+      // console.log("this.objIdsQuizzesFiltersGenericBinding=", this.objIdsQuizzesFiltersGenericBinding);
+      // console.log("this.objIdsQuizzesFiltersGeneric1Binding=", this.objIdsQuizzesFiltersGeneric1Binding);
+      // console.log("this.arrIdsQuizzesFiltersGeneric1Binding=", this.arrIdsQuizzesFiltersGeneric1Binding);
+      // console.log("this.arrIdsQuizzesFiltersGeneric2Binding=", this.arrIdsQuizzesFiltersGeneric2Binding);
+      // console.log("this.arrIdsQuizzesFiltersGeneric3Binding=", this.arrIdsQuizzesFiltersGeneric3Binding);
+      // console.log("this.arrIdsQuizzesFiltersGenericBinding=", this.arrIdsQuizzesFiltersGenericBinding);
+      // console.log("this.arrIdsQuizzesFiltersGenericBinding=", this.arrIdsQuizzesFiltersGenericBinding.includes("125"));
+      // console.log("JSON.parse(this.arrIdsQuizzesFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsQuizzesFiltersGenericBinding[0])));
+      // console.log("this.arrIdsQuizzesFiltersGenericBinding.find=",  this.arrIdsQuizzesFiltersGenericBinding.find(objQuizzesFiltersGenericBinding => objQuizzesFiltersGenericBinding.id_filters_generic == '126'));
+      // console.log("this.arrIdsQuizzesFiltersGenericBinding=", Object.keys(this.arrIdsQuizzesFiltersGenericBinding).map(key => this.arrIdsQuizzesFiltersGenericBinding[key].id_filters_generic));
 
-      //Define values.
-      //if(this.resultsQuizzesDetails[0])
-      //{
-      //DEV: Create logic to check if record exist.
-      //}
+      // Define values.
+      // if(this.resultsQuizzesDetails[0])
+      // {
+      // DEV: Create logic to check if record exist.
+      // }
       this.tblQuizzesID = this.resultsQuizzesDetails[0].id;
       this.tblQuizzesIdParent = this.resultsQuizzesDetails[0].id_parent;
 
       this.tblQuizzesSortOrder = this.resultsQuizzesDetails[0].sort_order;
       this.tblQuizzesSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblQuizzesSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblQuizzesDateCreation = this.resultsQuizzesDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-      //this.tblQuizzesDateTimezone = this.resultsQuizzesDetails[0].date_timezone;
+      this.tblQuizzesDateCreation = this.resultsQuizzesDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      // this.tblQuizzesDateTimezone = this.resultsQuizzesDetails[0].date_timezone;
       this.tblQuizzesDateEdit = this.resultsQuizzesDetails[0].date_edit;
 
       this.tblQuizzesIdType = this.resultsQuizzesDetails[0].id_type;
@@ -191,13 +191,13 @@ module.exports = class ObjectQuizzesDetails {
 
       this.tblQuizzesTitle = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].title, 'db');
       this.tblQuizzesDescription = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].description, 'db');
-      this.tblQuizzesDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblQuizzesDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
 
       this.tblQuizzesURLAlias = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].url_alias, 'db');
-      //this.tblQuizzesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].keywords_tags, "db");
+      // this.tblQuizzesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].keywords_tags, "db");
       this.tblQuizzesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].keywords_tags, 'editTextBox=1');
-      this.tblQuizzesMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].meta_description, 'db'); //TODO: include strip html
-      this.tblQuizzesMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].meta_description, 'db'); //TODO: include strip html
+      this.tblQuizzesMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].meta_description, 'db'); // TODO: include strip html
+      this.tblQuizzesMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].meta_description, 'db'); // TODO: include strip html
       this.tblQuizzesMetaTitle = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].meta_title, 'db');
       this.tblQuizzesMetaInfo = this.resultsQuizzesDetails[0].meta_info;
 
@@ -207,7 +207,7 @@ module.exports = class ObjectQuizzesDetails {
           this.tblQuizzesInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesInfo1FieldType == 11 || gSystemConfig.configQuizzesInfo1FieldType == 12) {
           this.tblQuizzesInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info1, 'db'), 2);
           this.tblQuizzesInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info1, 'db'), 2);
@@ -219,7 +219,7 @@ module.exports = class ObjectQuizzesDetails {
           this.tblQuizzesInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesInfo2FieldType == 11 || gSystemConfig.configQuizzesInfo2FieldType == 12) {
           this.tblQuizzesInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info2, 'db'), 2);
           this.tblQuizzesInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info2, 'db'), 2);
@@ -231,7 +231,7 @@ module.exports = class ObjectQuizzesDetails {
           this.tblQuizzesInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesInfo3FieldType == 11 || gSystemConfig.configQuizzesInfo3FieldType == 12) {
           this.tblQuizzesInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info3, 'db'), 2);
           this.tblQuizzesInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info3, 'db'), 2);
@@ -243,7 +243,7 @@ module.exports = class ObjectQuizzesDetails {
           this.tblQuizzesInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesInfo4FieldType == 11 || gSystemConfig.configQuizzesInfo4FieldType == 12) {
           this.tblQuizzesInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info4, 'db'), 2);
           this.tblQuizzesInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info4, 'db'), 2);
@@ -255,7 +255,7 @@ module.exports = class ObjectQuizzesDetails {
           this.tblQuizzesInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesInfo5FieldType == 11 || gSystemConfig.configQuizzesInfo5FieldType == 12) {
           this.tblQuizzesInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info5, 'db'), 2);
           this.tblQuizzesInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].info5, 'db'), 2);
@@ -333,20 +333,20 @@ module.exports = class ObjectQuizzesDetails {
       this.tblQuizzesNotes = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].notes, 'db');
       this.tblQuizzesNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.opdRecord = "";
@@ -360,5 +360,5 @@ module.exports = class ObjectQuizzesDetails {
     this.opdRecord = new SyncSystemNS.ObjectFormsFieldsDetails(this.opdRecordParameters);
     await this.opdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

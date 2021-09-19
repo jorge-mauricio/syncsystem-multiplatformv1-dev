@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 //Import.
 //----------------------
-import "babel-polyfill"; //with babel, we can use the import syntax.
+import 'babel-polyfill'; //with babel, we can use the import syntax.
 
 //import window from 'global';
 //import root from 'window-or-global';
@@ -42,45 +42,41 @@ global.jquery = require('jquery');
     global.window = {};
 }*/
 
-
-const gSystemConfig = require("./config-application.js"); //System configuration.
-const SyncSystemNS = require("./" + gSystemConfig.configDirectoryComponents + "/syncsystem-ns.js");
+const gSystemConfig = require('./config-application.js'); //System configuration.
+const SyncSystemNS = require('./' + gSystemConfig.configDirectoryComponents + '/syncsystem-ns.js');
 
 //Provider.
 //import SyncSystemNSContextProvider from "./components_react/syncsystem-ns-cb-context.js";
 
 //Node modules.
-const express = require("express"); //Express Framework.
-const favicon = require("express-favicon"); //Express Favicon.
-const path = require("path"); //Necessary to serve static files.
-const bodyParser = require("body-parser"); //Body parser module.
+const express = require('express'); //Express Framework.
+const favicon = require('express-favicon'); //Express Favicon.
+const path = require('path'); //Necessary to serve static files.
+const bodyParser = require('body-parser'); //Body parser module.
 const methodOverride = require('method-override'); //Necessary for using in the hidden fields in the form to use the additinal methods.
 const _ = require('lodash'); //Loadash
 
-
 //React modules.
 //const React = require("react");
-import React from "react";
+import React from 'react';
 //const ReactDOM = require("react-dom");
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 
 //const ReactDOMServer = require("react-dom/server");
-import ReactDOMServer from "react-dom/server";
+import ReactDOMServer from 'react-dom/server';
 //const StaticRouter = require("react-router/StaticRouter");
-import { StaticRouter } from "react-router";
+import { StaticRouter } from 'react-router';
 //const LayoutTest01 = require("./components_react/LayoutTest01.js");
 //import LayoutTest01 from "./components_react/LayoutTest01";
 //var AppReact = require("./components_react/app.js");
-import AppReactSSR from "./components_react/app.js";
+import AppReactSSR from './components_react/app.js';
 //import { renderToString } from "react-dom/server";
 
-import HTMLReactParser from "html-react-parser"; //error / webpack
-
+import HTMLReactParser from 'html-react-parser'; //error / webpack
 
 //Layout
 //import LayoutFrontendMain from "./app_views/layout-frontend-main-cb-component.js";
 //----------------------
-
 
 //Objects instances.
 //----------------------
@@ -88,18 +84,16 @@ const app = express(); //init express
 //const appBackend = express();
 //----------------------
 
-
 //Configuration and setup.
 //**************************************************************************************
 //Static directories (public alias).
 //----------------------
 //app.use("/", express.static("build"));
-app.use("/", express.static("build/public"));
+app.use('/', express.static('build/public'));
 
 //app.use("/tracking-code.txt", express.static(path.join(__dirname, "tracking-code.txt")));
 
-app.use("/" + gSystemConfig.configDirectoryFilesLayoutSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryFilesLayout))); //set static folder
-
+app.use('/' + gSystemConfig.configDirectoryFilesLayoutSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryFilesLayout))); //set static folder
 
 //Favicons - static
 /*
@@ -116,9 +110,8 @@ app.use("/safari-pinned-tab.svg", express.static(path.join(__dirname, "safari-pi
 */
 //----------------------
 
-
 //Favicon.
-//ref: 
+//ref:
 //https://expressjs.com/en/resources/middleware/serve-favicon.html
 //https://www.npmjs.com/package/express-favicon
 //https://stackoverflow.com/questions/15463199/how-to-set-custom-favicon-in-express
@@ -141,14 +134,12 @@ app.use(favicon(path.join(__dirname, "safari-pinned-tab.svg")));
 */
 //----------------------
 
-
 //Additional configuration / setup.
 //----------------------
 app.use(express.json()); //handle raw json
-app.use(bodyParser.urlencoded({extended: false})); //Parse URL encoded forms.
+app.use(bodyParser.urlencoded({ extended: false })); //Parse URL encoded forms.
 app.use(methodOverride('_method')); //Necessary for using in the hidden fields in the form to use the additinal methods.
 //----------------------
-
 
 //Set local variables.
 //----------------------
@@ -157,44 +148,42 @@ app.locals.SyncSystemNS = SyncSystemNS;
 //----------------------
 //**************************************************************************************
 
-
 //Frontend - Home.
 //**************************************************************************************
 //app.get("/", (req,res)=>
-app.get("/*", (req,res)=>
-{
-    //const jsx = ( <Layout /> );
-    //const jsx = ( <LayoutTest01 /> );
-    //const reactDom = ReactDOM.renderToString( jsx );
+app.get('/*', (req, res) => {
+  //const jsx = ( <Layout /> );
+  //const jsx = ( <LayoutTest01 /> );
+  //const reactDom = ReactDOM.renderToString( jsx );
 
-    //res.writeHead( 200, { "Content-Type": "text/html" } );
-    //res.end( htmlTemplate( reactDom ) );
+  //res.writeHead( 200, { "Content-Type": "text/html" } );
+  //res.end( htmlTemplate( reactDom ) );
 
-    const context = {};
-    /*
+  const context = {};
+  /*
     const content = ReactDOMServer.renderToString(
         <StaticRouter location={req.url} context={context}>
             <AppReact />
         </StaticRouter>
     );
     */
-   
-   
-    const frontendHTML = "<!DOCTYPE html>" + ReactDOMServer.renderToString(
-        <StaticRouter location={req.url} context={context}>
-            <AppReactSSR />
-        </StaticRouter>
+
+  const frontendHTML =
+    '<!DOCTYPE html>' +
+    ReactDOMServer.renderToString(
+      <StaticRouter location={req.url} context={context}>
+        <AppReactSSR />
+      </StaticRouter>
     );
-     /*
+  /*
     const frontendHTML = HTMLReactParser("<!DOCTYPE html>" + ReactDOMServer.renderToString(
         <StaticRouter location={req.url} context={context}>
             <AppReactSSR />
         </StaticRouter>
     ));
     */
-    
-    
-    /*error
+
+  /*error
     const content = "<!DOCTYPE html>" + ReactDOMServer.renderToString(
         <StaticRouter location={req.url} context={context}
             render={(props) => (
@@ -204,7 +193,7 @@ app.get("/*", (req,res)=>
     );
     */
 
-    /*
+  /*
     const content = ReactDOMServer.renderToString(
         <StaticRouter location={req.url} context={context}>
             <LayoutFrontendMain cphBody={<AppReact />}>
@@ -214,12 +203,12 @@ app.get("/*", (req,res)=>
     );
     */
 
-    /*
+  /*
     const _cphTitle = ()=>{
         return <AppReact />;
     } 
     */
-    /*
+  /*
     const _cphTitle = (props) => {
         return (
           <AppReact {...props} />
@@ -227,7 +216,7 @@ app.get("/*", (req,res)=>
     }
     */
 
-    /*
+  /*
     const html = `
         <!DOCTYPE html>
         <html>
@@ -245,26 +234,23 @@ app.get("/*", (req,res)=>
     `;
     */
 
-    const html = ReactDOMServer.renderToString(
-        /*<LayoutFrontendMain cphTitle={<AppReact />}>
+  const html = ReactDOMServer
+    .renderToString
+    /*<LayoutFrontendMain cphTitle={<AppReact />}>
 
         </LayoutFrontendMain>*/
-    );
+    ();
 
-
-    //res.send(html);
-    //res.send(content);
-    res.send(frontendHTML);
-
-});//Call method get.
+  //res.send(html);
+  //res.send(content);
+  res.send(frontendHTML);
+}); //Call method get.
 //**************************************************************************************
-
 
 //Listen setup.
 //app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT, ()=>{
-app.listen(3001, ()=>{
-    if(gSystemConfig.configDebug === true)
-    {
-        console.log(`app-react running on port: ${ process.env.PORT || process.env.CONFIG_SYSTEM_PORT }`);
-    }
+app.listen(3001, () => {
+  if (gSystemConfig.configDebug === true) {
+    console.log(`app-react running on port: ${process.env.PORT || process.env.CONFIG_SYSTEM_PORT}`);
+  }
 }); //process.env.PORT - Heroku Dynamic Port (Note: Server variable must be first)

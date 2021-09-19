@@ -5,35 +5,34 @@
 //import "babel-polyfill"; //with babel, we can use the import syntax.
 //require("babel-polyfill"); //with babel, we can use the import syntax.
 
-require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
+require('dotenv').config(); //Load the dotenv dependency and call the config method on the imported object.
 
-const gSystemConfig = require("./config-application.js"); //System configuration.
-const dbSystemCon = require("./config-application-db.js").dbSystemCon; //DB System - simple connection.
-const dbSystemConPool = require("./config-application-db.js").dbSystemConPool; //DB System - pool connection.
+const gSystemConfig = require('./config-application.js'); //System configuration.
+// const dbSystemCon = require('./config-application-db.js').dbSystemCon; //DB System - simple connection.
+// const dbSystemConPool = require('./config-application-db.js').dbSystemConPool; //DB System - pool connection.
 //const dbSystem = require("./config-application-db.js").mysql_pool; //DB. (ref: https://stackoverflow.com/questions/34788750/module-export-for-mysql-connection)
 //require("./config-application.js");
 //const SyncSystemNS = require("./components_node/syncsystem-ns.js"); //working
-const SyncSystemNS = require("./" + gSystemConfig.configDirectoryComponents + "/syncsystem-ns.js");
-
+const SyncSystemNS = require('./' + gSystemConfig.configDirectoryComponents + '/syncsystem-ns.js');
 
 //const http = require("http"); //HTTP Module
-const request = require("request");
+const request = require('request');
 //const fetch = require('node-fetch');
 //const url = require('url');
 //const querystring = require('querystring');
-const fs = require("fs"); //File System.
-const fsExtra = require("fs-extra"); //File System with extra functions.
-const express = require("express"); //Express Framework.
+const fs = require('fs'); //File System.
+const fsExtra = require('fs-extra'); //File System with extra functions.
+const express = require('express'); //Express Framework.
 const cookieParser = require('cookie-parser'); //Cookie parser.
 const session = require('express-session');
-const cors = require("cors"); //Allow api access from any location.
-const favicon = require("express-favicon"); //Express Favicon.
+const cors = require('cors'); //Allow api access from any location.
+const favicon = require('express-favicon'); //Express Favicon.
 //const favicon = require("serve-favicon"); //Serve Favicon (uninstalled).
-const path = require("path"); //Necessary to serve static files.
-const bodyParser = require("body-parser"); //Body parser module.
+const path = require('path'); //Necessary to serve static files.
+const bodyParser = require('body-parser'); //Body parser module.
 const methodOverride = require('method-override'); //Necessary for using in the hidden fields in the form to use the additinal methods.
-const urlencodedParser = bodyParser.urlencoded({ extended: false});
-const formidable = require("formidable"); //Form file upload.
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const formidable = require('formidable'); //Form file upload.
 //const sharp = require('sharp'); //Resize image.
 
 //const mysql = require("mysql");//MySQL package.
@@ -54,13 +53,11 @@ const _ = require('lodash'); //Loadash
 //import { renderToString } from "react-dom/server";
 //----------------------
 
-
 //Objects instances.
 //----------------------
 const app = express(); //init express
 //const appBackend = express();
 //----------------------
-
 
 //Configuration and setup.
 //**************************************************************************************
@@ -68,18 +65,18 @@ const app = express(); //init express
 //----------------------
 //Middleware - create an alias for the static folder in order for visitors not know the name of the folder.
 //app.use("/images", express.static(path.join(__dirname, "images_files")));
-app.use("/" + gSystemConfig.configDirectoryStylesSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryStyles))); //set static folder
-app.use("/" + gSystemConfig.configDirectoryDistSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryDist))); //set static folder (webpack distribution folder)
-app.use("/" + gSystemConfig.configDirectoryJSSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryJS))); //set static folder
-app.use("/" + gSystemConfig.configDirectoryFilesSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryFiles))); //set static folder
-app.use("/" + gSystemConfig.configDirectoryFilesLayoutSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryFilesLayout))); //set static folder
+app.use('/' + gSystemConfig.configDirectoryStylesSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryStyles))); //set static folder
+app.use('/' + gSystemConfig.configDirectoryDistSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryDist))); //set static folder (webpack distribution folder)
+app.use('/' + gSystemConfig.configDirectoryJSSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryJS))); //set static folder
+app.use('/' + gSystemConfig.configDirectoryFilesSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryFiles))); //set static folder
+app.use('/' + gSystemConfig.configDirectoryFilesLayoutSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryFilesLayout))); //set static folder
 //app.use("/frontend", express.static(path.join(__dirname, gSystemConfig.configFrontendDefaultView))); //set static folder
-app.use("/" + gSystemConfig.configFrontendDefaultViewSD, express.static(path.join(__dirname, gSystemConfig.configFrontendDefaultView))); //set static folder
+app.use('/' + gSystemConfig.configFrontendDefaultViewSD, express.static(path.join(__dirname, gSystemConfig.configFrontendDefaultView))); //set static folder
 
 //app.use("/", express.static(path.join(__dirname, gSystemConfig.configFrontendDefaultView))); //set static folder (test-static01.html can be accessed through: http://localhost:3000/test-static01.html) //working
 //app.use("/backend", express.static(path.join(__dirname, "backend_node")));
 //app.use("/backend", express.static(path.join(__dirname, gSystemConfig.configDirectorySystem))); //set static folder
-app.use("/" + gSystemConfig.configDirectorySystemSD, express.static(path.join(__dirname, gSystemConfig.configDirectorySystem))); //set static folder
+app.use('/' + gSystemConfig.configDirectorySystemSD, express.static(path.join(__dirname, gSystemConfig.configDirectorySystem))); //set static folder
 
 //Favicons - static
 /*
@@ -102,13 +99,12 @@ app.use(cookieParser()); //not bundled anymore with express
 //React - static.
 //app.use("/", express.static("build")); //set static folder
 //app.use("/", express.static("build/public")); //client script
-app.use("/", express.static(gSystemConfig.configDirectoryBuildReactSD + "/" + gSystemConfig.configDirectoryBuildReactClientSD)); //client script
+app.use('/', express.static(gSystemConfig.configDirectoryBuildReactSD + '/' + gSystemConfig.configDirectoryBuildReactClientSD)); //client script
 //app.use("/build/public", express.static("build/public")); //client script
 //----------------------
 
-
 //Favicon.
-//ref: 
+//ref:
 //https://expressjs.com/en/resources/middleware/serve-favicon.html
 //https://www.npmjs.com/package/express-favicon
 //https://stackoverflow.com/questions/15463199/how-to-set-custom-favicon-in-express
@@ -116,20 +112,19 @@ app.use("/", express.static(gSystemConfig.configDirectoryBuildReactSD + "/" + gS
 //----------------------
 /**/
 //app.use(favicon(path.join(__dirname, "public", "android-chrome-192x192.png")));
-app.use(favicon(path.join(__dirname, "android-chrome-192x192.png")));
-app.use(favicon(path.join(__dirname, "android-chrome-512x512.png")));
-app.use(favicon(path.join(__dirname, "apple-touch-icon.png")));
-app.use(favicon(path.join(__dirname, "favicon.ico")));
-app.use(favicon(path.join(__dirname, "favicon-16x16.png")));
-app.use(favicon(path.join(__dirname, "favicon-32x32.png")));
-app.use(favicon(path.join(__dirname, "favicon-export.png")));
-app.use(favicon(path.join(__dirname, "mstile-150x150.png")));
+app.use(favicon(path.join(__dirname, 'android-chrome-192x192.png')));
+app.use(favicon(path.join(__dirname, 'android-chrome-512x512.png')));
+app.use(favicon(path.join(__dirname, 'apple-touch-icon.png')));
+app.use(favicon(path.join(__dirname, 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'favicon-16x16.png')));
+app.use(favicon(path.join(__dirname, 'favicon-32x32.png')));
+app.use(favicon(path.join(__dirname, 'favicon-export.png')));
+app.use(favicon(path.join(__dirname, 'mstile-150x150.png')));
 
-app.use(favicon(path.join(__dirname, "browserconfig.xml")));
+app.use(favicon(path.join(__dirname, 'browserconfig.xml')));
 //app.use(favicon(path.join(__dirname, "site.webmanifest")));
-app.use(favicon(path.join(__dirname, "safari-pinned-tab.svg")));
+app.use(favicon(path.join(__dirname, 'safari-pinned-tab.svg')));
 //----------------------
-
 
 //Additional configuration / setup.
 //----------------------
@@ -137,13 +132,12 @@ app.use(cors());
 
 app.use(express.json()); //handle raw json
 //app.use(express.json({ type: 'application/*+json' })); //handle raw json
-app.use(bodyParser.urlencoded({extended: false})); //Parse URL encoded forms.
+app.use(bodyParser.urlencoded({ extended: false })); //Parse URL encoded forms.
 
 app.use(methodOverride('_method')); //Necessary for using in the hidden fields in the form to use the additinal methods.
 //app.use(methodOverride('X-HTTP-Method')); //Microsoft
 //app.use(methodOverride('X-HTTP-Method-Override')); //Google/GData
 //app.use(methodOverride('X-Method-Override')); //IBM
-
 
 //Save local variables (share comon variables in the template).
 //ref: https://stackoverflow.com/questions/12794860/how-to-use-node-modules-like-momentjs-in-ejs-views
@@ -153,64 +147,55 @@ app.locals.SyncSystemNS = SyncSystemNS;
 //app.locals._ = _;
 //----------------------
 
-
 //appBackend.use("/backend", express.static(path.join(__dirname, "backend_node")));// Middleware - create an alias for the static folder in order for visitors not know the name of the folder.
 //appBackend.use(bodyParser.urlencoded({extended: false})); //Parse URL encoded forms.
 //**************************************************************************************
-
 
 //Middlewares.
 //**************************************************************************************
 //Personolized.
 //Note: Any function on this middleware will be executed when any address is hit.
 //----------------------
-const midApp = (req, res, next) =>{
-    //Cookies - global.
-    //var globalCookies;
-    //const globalCookies = req.cookies;
+const midApp = (req, res, next) => {
+  //Cookies - global.
+  //var globalCookies;
+  //const globalCookies = req.cookies;
 
-    //globalCookies = req.cookies;
-    //Debug.
-    //console.log("globalCookies (inside middleware)=", globalCookies);
+  //globalCookies = req.cookies;
+  //Debug.
+  //console.log("globalCookies (inside middleware)=", globalCookies);
 
-
-    //console.log("test middleware")
-    next();
-}
+  //console.log("test middleware")
+  next();
+};
 app.use(midApp); //assign to app
 //----------------------
 //**************************************************************************************
 
-
 //Template engine.
 //**************************************************************************************
 //app.set("views", path.join(__dirname, "app_views"));
-app.set("views", path.join(__dirname, gSystemConfig.configDirectoryViews));
+app.set('views', path.join(__dirname, gSystemConfig.configDirectoryViews));
 
 //ejs.
-if(gSystemConfig.configBackendTemplateEngine === 1)
-{
-    app.set("view engine", "ejs");
+if (gSystemConfig.configBackendTemplateEngine === 1) {
+  app.set('view engine', 'ejs');
 }
 //**************************************************************************************
 
-
 //Frontend - Home - React.
 //**************************************************************************************
-app.get("/", (req, res)=>
-{
-    /**/
-    request.get('http://localhost:3001', function(rError, response, body) {
-        if(rError)
-        {
-            res.send(JSON.stringify(rError));
-        }else{
-            res.send(body);
-        }
-    });
-    
+app.get('/', (req, res) => {
+  /**/
+  request.get('http://localhost:3001', function (rError, response, body) {
+    if (rError) {
+      res.send(JSON.stringify(rError));
+    } else {
+      res.send(body);
+    }
+  });
 
-    /*
+  /*
     var url = 'http://localhost:3001';
      
     fetch(url)
@@ -222,7 +207,7 @@ app.get("/", (req, res)=>
             res.send(err);
     });
     */
-    /*
+  /*
     //ref: https://stackoverflow.com/questions/7772605/get-url-contents-in-node-js-with-express
     http.get({
         host: "localhost",
@@ -235,11 +220,10 @@ app.get("/", (req, res)=>
     });
     */
 
-    //res.redirect('http://localhost:3001');
-    //res.send("Hello World");
-});/**///Call method get.
+  //res.redirect('http://localhost:3001');
+  //res.send("Hello World");
+}); /**/ //Call method get.
 //**************************************************************************************
-
 
 //Frontend - Home.
 //**************************************************************************************
@@ -256,9 +240,8 @@ app.get("/", (req, res)=>
 
 
 
-});*///Call method get.
+});*/ //Call method get.
 //**************************************************************************************
-
 
 //Backend - Home - Login.
 //**************************************************************************************
@@ -275,138 +258,114 @@ app.get("/" + gSystemConfig.configRouteBackend, (req, res)=>
 */
 //**************************************************************************************
 
-
 //REST based API (CRUD).
 //**************************************************************************************
 //Backend (general) - import from external routes file.
 //----------------------
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-records.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-records.js'));
 //----------------------
-
 
 //Login - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend.js"));
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-login-users.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend.js'));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-login-users.js'));
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-authentication.js"));
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-login.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-authentication.js'));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-login.js'));
 //----------------------
-
 
 //Categories - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-categories.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-categories.js'));
 
 //Frontend.
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-categories.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-categories.js'));
 //app.use("/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories, require("./" + gSystemConfig.configDirectorySystem + "/routes-api-categories.js"));
 //----------------------
-
 
 //Files - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-files.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-files.js'));
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-files.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-files.js'));
 //----------------------
-
 
 //Content - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-content.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-content.js'));
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-content.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-content.js'));
 //----------------------
-
 
 //Products - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-products.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-products.js'));
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-products.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-products.js'));
 //----------------------
-
 
 //Publications - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-publications.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-publications.js'));
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-publications.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-publications.js'));
 //----------------------
-
 
 //Registers - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-registers.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-registers.js'));
 
 //API.
 //app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-registers.js"));
 //----------------------
 
-
 //Quizzes - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-quizzes.js"));
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-quizzes-options.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-quizzes.js'));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-quizzes-options.js'));
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-quizzes.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-quizzes.js'));
 //----------------------
-
 
 //Forms, Forms Fields, Forms Fields Options - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-forms.js"));
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-forms-fields.js"));
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-forms-fields-options.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-forms.js'));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-forms-fields.js'));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-forms-fields-options.js'));
 
 //API.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-api-forms.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-api-forms.js'));
 //----------------------
-
 
 //Filters Generic - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-filters-generic.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-filters-generic.js'));
 //----------------------
-
 
 //Users - import from external routes file.
 //----------------------
 //Backend.
-app.use("/", require("./" + gSystemConfig.configDirectorySystem + "/routes-backend-users.js"));
+app.use('/', require('./' + gSystemConfig.configDirectorySystem + '/routes-backend-users.js'));
 //----------------------
 //**************************************************************************************
-
-
-//Working.
-/*
-http.createServer((req,res)=>{
-    const readStream = fs.createReadStream("./backend_node/categories-listing.html");
-    res.writeHead(200,{"content-type": "text/html"});
-    readStream.pipe(res);
-    
-}).listen(3000);
-*/
-
 
 //Debug.
 //----------------------
@@ -425,94 +384,14 @@ http.createServer((req,res)=>{
 //console.log("SyncSystemNS.FunctionsGeneric.fileExtensionGet = " + SyncSystemNS.FunctionsGeneric.fileExtensionGet("return test - extension"));
 //console.log("SyncSystemNS.FunctionsGeneric.contentMaskWrite = " + SyncSystemNS.FunctionsGeneric.contentMaskWrite("return test - data"));
 
-
 //console.log(SyncSystemNS.FunctionsDB.counterUniversalCreate());
 //var strReturnCallback = "";
 //SyncSystemNS.FunctionsDB.counterUniversalCreate(1, function(result){
-    //strReturnCallback = result;
+//strReturnCallback = result;
 //});
 //console.log("SyncSystemNS.FunctionsDB.counterUniversalSelect = ");
 //console.log(strReturnCallback);
 //console.log(SyncSystemNS.FunctionsDB.counterUniversalCreate());
-
-//Promise method.
-/*
-SyncSystemNS.FunctionsDB.counterUniversalSelect()
-    .then(function(results){
-        //render(results)
-        console.log("SyncSystemNS.FunctionsDB.counterUniversalSelect", results);
-        //console.log(results);
-    }); //working
-*/
-
-/*
-console.log("SyncSystemNS.FunctionsDB.counterUniversalUpdate = ");
-SyncSystemNS.FunctionsDB.counterUniversalUpdate()
-    .then(function(results){
-        //render(results)
-        console.log(results);
-    }); //working
-*/
-
-/*
-console.log("SyncSystemNS.FunctionsDBInsert.insertCounter = ");
-SyncSystemNS.FunctionsDBInsert.counterInsert(99, 
-    1000,
-    "Insert testing")
-    .then(function(pResults){
-        //render(results)
-        console.log(pResults);
-    })
-    .catch(function(pError){
-        console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3"), pError);
-    }); //working
-*/   
-
-
-
-//console.log("SyncSystemNS.FunctionsGeneric.categoriesInsert=", SyncSystemNS.FunctionsDBInsert.categoriesInsert("123", {}));
-/*
-SyncSystemNS.FunctionsDBInsert.categoriesInsert("", {})
-    .then(function(pResultsCategoriesInsert){
-        //render(results)
-        console.log("SyncSystemNS.FunctionsDBInsert.categoriesInsert()=", pResultsCategoriesInsert);
-        //console.log(pResultsCategoriesInsert);
-    })
-    .catch(function(pErrorCategoriesInsert){
-        console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3"), pErrorCategoriesInsert);
-    });
-*/
-/*
-SyncSystemNS.FunctionsDBInsert.categoriesInsert("123", {})
-    .then(function(pResultsCategoriesInsert){
-        //render(results)
-        console.log("SyncSystemNS.FunctionsDBInsert.categoriesInsert('123')=", pResultsCategoriesInsert);
-        //console.log(pResultsCategoriesInsert);
-    })
-    .catch(function(pErrorCategoriesInsert){
-        console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage3"), pErrorCategoriesInsert);
-    });//----------------------
-*/
-
-//async
-//console.log("SyncSystemNS.FunctionsDB.counterUniversalSelect_async=", SyncSystemNS.FunctionsDB.counterUniversalSelect_async("return test - async")); //working
-/*
-(async function(){  //async marks the block
-    try{ 
-      console.log(1);
-      //let counterUniversalSelect_async_result = await SyncSystemNS.FunctionsDB.counterUniversalSelect_async("return test - async");
-      let counterUniversalSelect_async_result = await SyncSystemNS.FunctionsDB.counterUniversalSelect_async(1);
-      console.log(3);
-      console.log("counterUniversalSelect_async_result=", counterUniversalSelect_async_result);
-    }catch(aError){
-      console.error(aError);
-    }finally{
-
-    }
-})()
-*/
-
-
 
 //Clean up.
 //----------------------
@@ -522,11 +401,10 @@ dbSystemCon.end((DBSystemError)=>{
 });*/
 
 //dbSystemConPool.end(function (DBSystemError) {
-    // all connections in the pool have ended
+// all connections in the pool have ended
 //});
 //TODO: Implement to end after all processes end.
 //----------------------
-
 
 //Listen setup.
 //port to listen to (after runing the node file on the terminal, you can check the browser on http://localhost:3000/) Note: ctrl + c to stop the server.
@@ -535,9 +413,8 @@ dbSystemCon.end((DBSystemError)=>{
 //app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT); //process.env.PORT - Heroku Dynamic Port (Note: Server variable must be first)
 //app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT, process.env.CONFIG_SYSTEM_URL || "0.0.0.0"); //process.env.PORT - Heroku Dynamic Port (Note: Server variable must be first)
 //app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT, "0.0.0.0"); //process.env.PORT - Heroku Dynamic Port (Note: Server variable must be first)
-/**/app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT, ()=>{
-    if(gSystemConfig.configDebug === true)
-    {
-        console.log(`app running on port: ${ process.env.PORT || process.env.CONFIG_SYSTEM_PORT }`);
-    }
+/**/ app.listen(process.env.PORT || process.env.CONFIG_SYSTEM_PORT, () => {
+  if (gSystemConfig.configDebug === true) {
+    console.log(`app running on port: ${process.env.PORT || process.env.CONFIG_SYSTEM_PORT}`);
+  }
 }); //process.env.PORT - Heroku Dynamic Port (Note: Server variable must be first)

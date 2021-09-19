@@ -1,35 +1,35 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const dbSystemCon = require("../config-application-db.js"); //DB.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const dbSystemCon = require("../config-application-db.js"); // DB.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectCategoriesListing {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     /* 
         {
             _arrSearchParameters: [],
             _configSortOrder: "",
             _strNRecords: "",
-            //_strReturnFields: "",
+            // _strReturnFields: "",
             _objSpecialParameters: {}
         };
         */
@@ -37,11 +37,11 @@ module.exports = class ObjectCategoriesListing {
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
     this.configSortOrder = objParameters.hasOwnProperty('_configSortOrder') ? objParameters._configSortOrder : gSystemConfig.configCategoriesSort;
     this.strNRecords = objParameters.hasOwnProperty('_strNRecords') ? objParameters._strNRecords : '';
-    //this.strReturnFields = (objParameters.hasOwnProperty("_strReturnFields")) ? objParameters._strReturnFields : "*";
+    // this.strReturnFields = (objParameters.hasOwnProperty("_strReturnFields")) ? objParameters._strReturnFields : "*";
     this.objSpecialParameters = objParameters.hasOwnProperty('_objSpecialParameters') ? objParameters._objSpecialParameters : {};
 
     this.resultsCategoriesListing = '';
-    //----------------------
+    // ----------------------
 
     /*
         return (async ()=> {
@@ -50,18 +50,18 @@ module.exports = class ObjectCategoriesListing {
         })();
         */
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   /*
     async static init()
     {
         return (async function () {
             let oclResults = new ObjectCategoriesListing()
-            // Do async stuff
+            //  Do async stuff
             await oclResults.categoriesListingGet();
-            // Return instance
+            //  Return instance
             return oclResults
         }());
     }
@@ -70,7 +70,7 @@ module.exports = class ObjectCategoriesListing {
   /*
     init(callback)
     {
-        (async function(){ //async marks the block
+        (async function(){ // async marks the block
             try{ 
                 resultsCategoriesListing = await FunctionsDB.genericTableGet02("categories", 
                                                                                 ["id_parent;0;i", "activation;1;i"], 
@@ -90,32 +90,32 @@ module.exports = class ObjectCategoriesListing {
     */
 
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectCategoriesListing();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get categories listing according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get categories listing according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get categories listing according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
    * @param {*} returnType 1 - array | 3 - Json Object | 10 - html
    * @returns {json}
    */
-  async recordsListingGet(terminal = 0, returnType = 1) //static async categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
-  //function categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
+  async recordsListingGet(terminal = 0, returnType = 1) // static async categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
+  // function categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
   {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
-      //Debug.
-      //console.log("objSpecialParameters", this.objSpecialParameters);
-      //const note = await apnProvider.send(note, deviceToken)
-      //console.log(note)
+      // Debug.
+      // console.log("objSpecialParameters", this.objSpecialParameters);
+      // const note = await apnProvider.send(note, deviceToken)
+      // console.log(note)
 
       /*
             this.resultsCategoriesListing = await FunctionsDB.genericTableGet02("categories", 
@@ -124,17 +124,17 @@ module.exports = class ObjectCategoriesListing {
                                                                             "5", 
                                                                             "id, id_parent, sort_order, category_type, date_creation, title, activation", 
                                                                             1, 
-                                                                            {}); //working
+                                                                            {}); // working
             */
 
-      //id, id_parent, sort_order, category_type, date_creation, title, image_main, activation //debug
-      //this.resultsCategoriesListing = await FunctionsDB.genericTableGet02("categories",
+      // id, id_parent, sort_order, category_type, date_creation, title, image_main, activation // debug
+      // this.resultsCategoriesListing = await FunctionsDB.genericTableGet02("categories",
       this.resultsCategoriesListing = await FunctionsDB.genericTableGet02(
         gSystemConfig.configSystemDBTableCategories,
         this.arrSearchParameters,
         this.configSortOrder,
         this.strNRecords,
-        //FunctionsGeneric.tableFieldsQueryBuild01("categories", "all", "string"),
+        // FunctionsGeneric.tableFieldsQueryBuild01("categories", "all", "string"),
         FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableCategories, 'all', 'string'),
         1,
         this.objSpecialParameters
@@ -144,7 +144,7 @@ module.exports = class ObjectCategoriesListing {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
 
     /*
@@ -159,14 +159,14 @@ module.exports = class ObjectCategoriesListing {
                                             });
 
         */
-    //return new ObjectCategoriesListing();
+    // return new ObjectCategoriesListing();
 
-    //return "teste2"
+    // return "teste2"
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     let oclRecords = "";
     let oclRecordsParameters = {
@@ -179,5 +179,5 @@ module.exports = class ObjectCategoriesListing {
     oclRecords = new SyncSystemNS.ObjectCategoriesListing(oclRecordsParameters);
     await oclRecords.recordsListingGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

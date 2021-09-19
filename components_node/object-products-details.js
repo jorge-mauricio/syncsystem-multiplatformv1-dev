@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
 
 const ObjectFiltersGenericListing = require('./object-filters-generic-listing.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectProductsDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbProducts = objParameters.hasOwnProperty('_idTbProducts') ? objParameters._idTbProducts : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -47,8 +47,8 @@ module.exports = class ObjectProductsDetails {
     this.tblProductsIdType = 0;
     this.tblProductsIdType_print = '';
 
-    this.tblProductsDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-    //this.tblProductsDateTimezone = "";
+    this.tblProductsDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    // this.tblProductsDateTimezone = "";
     this.tblProductsDateEdit = '';
 
     this.tblProductsIdRegisterUser = 0;
@@ -410,21 +410,21 @@ module.exports = class ObjectProductsDetails {
     this.arrIdsProductsFiltersGeneric28Binding = [];
     this.arrIdsProductsFiltersGeneric29Binding = [];
     this.arrIdsProductsFiltersGeneric30Binding = [];
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectProductsDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get product details according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get product details according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get product details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -432,8 +432,8 @@ module.exports = class ObjectProductsDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     try {
       this.resultsProductsDetails = await FunctionsDB.genericTableGet02(
@@ -446,7 +446,7 @@ module.exports = class ObjectProductsDetails {
         this.objSpecialParameters
       );
 
-      //Filters generic.
+      // Filters generic.
       this.ofglRecords = new ObjectFiltersGenericListing({
         _arrSearchParameters: [],
         _configSortOrder: 'title',
@@ -455,7 +455,7 @@ module.exports = class ObjectProductsDetails {
       });
       await this.ofglRecords.recordsListingGet(0, 3);
 
-      //Filters generic bindings.
+      // Filters generic bindings.
       this.objIdsProductsFiltersGenericBinding = await FunctionsDB.genericTableGet02(
         gSystemConfig.configSystemDBTableFiltersGenericBinding, 
         ['id_record;' + this.idTbProducts + ';i'], 
@@ -466,7 +466,7 @@ module.exports = class ObjectProductsDetails {
         { returnType: 3 }
       );
 
-      //Filters generic - separation.
+      // Filters generic - separation.
       if (gSystemConfig.enableProductsFilterGeneric1 != 0) {
         this.objIdsProductsFiltersGeneric1Binding = this.objIdsProductsFiltersGenericBinding.filter(function (obj) {
           return obj.id_filter_index == 101;
@@ -474,20 +474,20 @@ module.exports = class ObjectProductsDetails {
 
         if (this.objIdsProductsFiltersGeneric1Binding) {
           this.arrIdsProductsFiltersGeneric1Binding = Object.keys(this.objIdsProductsFiltersGeneric1Binding).map((key) => this.objIdsProductsFiltersGeneric1Binding[key]['id_filters_generic']);
-          //this.arrIdsProductsFiltersGeneric1Binding = Object.keys(this.objIdsProductsFiltersGeneric1Binding).map(key => this.objIdsProductsFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
+          // this.arrIdsProductsFiltersGeneric1Binding = Object.keys(this.objIdsProductsFiltersGeneric1Binding).map(key => this.objIdsProductsFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
 
           if (this.arrIdsProductsFiltersGeneric1Binding) {
             var arrIdsProductsFiltersGeneric1Binding = this.arrIdsProductsFiltersGeneric1Binding;
             this.objProductsFiltersGeneric1Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
-              //return obj.filter_index == 101;
+              // return obj.filter_index == 101;
 
-              //for(let countArray = 0; countArray < this.arrIdsProductsFiltersGeneric1Binding.length; countArray++)
+              // for(let countArray = 0; countArray < this.arrIdsProductsFiltersGeneric1Binding.length; countArray++)
               /*for(let countArray = 0; countArray < arrIdsProductsFiltersGeneric1Binding.length; countArray++)
                             {
                                 return obj.id == arrIdsProductsFiltersGeneric1Binding[countArray];
                             }*/
-              //return obj.id.includes(arrIdsProductsFiltersGeneric1Binding);
-              //return this.arrIdsProductsFiltersGeneric1Binding.includes(obj.id);
+              // return obj.id.includes(arrIdsProductsFiltersGeneric1Binding);
+              // return this.arrIdsProductsFiltersGeneric1Binding.includes(obj.id);
               return arrIdsProductsFiltersGeneric1Binding.includes(obj.id);
             });
           }
@@ -1014,23 +1014,23 @@ module.exports = class ObjectProductsDetails {
         }
       }
 
-      //Debug.
-      //console.log("this.objIdsProductsFiltersGenericBinding=", this.objIdsProductsFiltersGenericBinding);
-      //console.log("this.objIdsProductsFiltersGeneric1Binding=", this.objIdsProductsFiltersGeneric1Binding);
-      //console.log("this.arrIdsProductsFiltersGeneric1Binding=", this.arrIdsProductsFiltersGeneric1Binding);
-      //console.log("this.arrIdsProductsFiltersGeneric2Binding=", this.arrIdsProductsFiltersGeneric2Binding);
-      //console.log("this.arrIdsProductsFiltersGeneric3Binding=", this.arrIdsProductsFiltersGeneric3Binding);
-      //console.log("this.arrIdsProductsFiltersGenericBinding=", this.arrIdsProductsFiltersGenericBinding);
-      //console.log("this.arrIdsProductsFiltersGenericBinding=", this.arrIdsProductsFiltersGenericBinding.includes("125"));
-      //console.log("JSON.parse(this.arrIdsProductsFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsProductsFiltersGenericBinding[0])));
-      //console.log("this.arrIdsProductsFiltersGenericBinding.find=",  this.arrIdsProductsFiltersGenericBinding.find(objProductsFiltersGenericBinding => objProductsFiltersGenericBinding.id_filters_generic == '126'));
-      //console.log("this.arrIdsProductsFiltersGenericBinding=", Object.keys(this.arrIdsProductsFiltersGenericBinding).map(key => this.arrIdsProductsFiltersGenericBinding[key].id_filters_generic));
+      // Debug.
+      // console.log("this.objIdsProductsFiltersGenericBinding=", this.objIdsProductsFiltersGenericBinding);
+      // console.log("this.objIdsProductsFiltersGeneric1Binding=", this.objIdsProductsFiltersGeneric1Binding);
+      // console.log("this.arrIdsProductsFiltersGeneric1Binding=", this.arrIdsProductsFiltersGeneric1Binding);
+      // console.log("this.arrIdsProductsFiltersGeneric2Binding=", this.arrIdsProductsFiltersGeneric2Binding);
+      // console.log("this.arrIdsProductsFiltersGeneric3Binding=", this.arrIdsProductsFiltersGeneric3Binding);
+      // console.log("this.arrIdsProductsFiltersGenericBinding=", this.arrIdsProductsFiltersGenericBinding);
+      // console.log("this.arrIdsProductsFiltersGenericBinding=", this.arrIdsProductsFiltersGenericBinding.includes("125"));
+      // console.log("JSON.parse(this.arrIdsProductsFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsProductsFiltersGenericBinding[0])));
+      // console.log("this.arrIdsProductsFiltersGenericBinding.find=",  this.arrIdsProductsFiltersGenericBinding.find(objProductsFiltersGenericBinding => objProductsFiltersGenericBinding.id_filters_generic == '126'));
+      // console.log("this.arrIdsProductsFiltersGenericBinding=", Object.keys(this.arrIdsProductsFiltersGenericBinding).map(key => this.arrIdsProductsFiltersGenericBinding[key].id_filters_generic));
 
-      //Define values.
-      //if(this.resultsProductsDetails[0])
-      //{
-      //DEV: Create logic to check if record exist.
-      //}
+      // Define values.
+      // if(this.resultsProductsDetails[0])
+      // {
+      // DEV: Create logic to check if record exist.
+      // }
       this.tblProductsID = this.resultsProductsDetails[0].id;
       this.tblProductsIdParent = this.resultsProductsDetails[0].id_parent;
 
@@ -1039,8 +1039,8 @@ module.exports = class ObjectProductsDetails {
 
       this.tblProductsProductsIdType = this.resultsProductsDetails[0].id_type;
 
-      this.tblProductsDateCreation = this.resultsProductsDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-      //this.tblProductsDateTimezone = this.resultsProductsDetails[0].date_timezone;
+      this.tblProductsDateCreation = this.resultsProductsDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      // this.tblProductsDateTimezone = this.resultsProductsDetails[0].date_timezone;
       this.tblProductsDateEdit = this.resultsProductsDetails[0].date_edit;
 
       this.tblProductsIdRegisterUser = this.resultsProductsDetails[0].id_register_user;
@@ -1071,13 +1071,13 @@ module.exports = class ObjectProductsDetails {
       this.tblProductsCode = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].code, 'db');
       this.tblProductsTitle = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].title, 'db');
       this.tblProductsDescription = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].description, 'db');
-      this.tblProductsDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblProductsDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
 
       this.tblProductsURLAlias = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].url_alias, 'db');
-      //this.tblProductsKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].keywords_tags, "db");
+      // this.tblProductsKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].keywords_tags, "db");
       this.tblProductsKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].keywords_tags, 'editTextBox=1');
-      this.tblProductsMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].meta_description, 'db'); //TODO: include strip html
-      this.tblProductsMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].meta_description, 'db'); //TODO: include strip html
+      this.tblProductsMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].meta_description, 'db'); // TODO: include strip html
+      this.tblProductsMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].meta_description, 'db'); // TODO: include strip html
       this.tblProductsMetaTitle = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].meta_title, 'db');
       this.tblProductsMetaInfo = this.resultsProductsDetails[0].meta_info;
 
@@ -1087,7 +1087,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo1FieldType == 11 || gSystemConfig.configProductsInfo1FieldType == 12) {
           this.tblProductsInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info1, 'db'), 2);
           this.tblProductsInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info1, 'db'), 2);
@@ -1099,7 +1099,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo2FieldType == 11 || gSystemConfig.configProductsInfo2FieldType == 12) {
           this.tblProductsInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info2, 'db'), 2);
           this.tblProductsInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info2, 'db'), 2);
@@ -1111,7 +1111,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo3FieldType == 11 || gSystemConfig.configProductsInfo3FieldType == 12) {
           this.tblProductsInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info3, 'db'), 2);
           this.tblProductsInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info3, 'db'), 2);
@@ -1123,7 +1123,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo4FieldType == 11 || gSystemConfig.configProductsInfo4FieldType == 12) {
           this.tblProductsInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info4, 'db'), 2);
           this.tblProductsInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info4, 'db'), 2);
@@ -1135,7 +1135,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo5FieldType == 11 || gSystemConfig.configProductsInfo5FieldType == 12) {
           this.tblProductsInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info5, 'db'), 2);
           this.tblProductsInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info5, 'db'), 2);
@@ -1147,7 +1147,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo6_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info6, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo6FieldType == 11 || gSystemConfig.configProductsInfo6FieldType == 12) {
           this.tblProductsInfo6 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info6, 'db'), 2);
           this.tblProductsInfo6_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info6, 'db'), 2);
@@ -1159,7 +1159,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo7_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info7, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo7FieldType == 11 || gSystemConfig.configProductsInfo7FieldType == 12) {
           this.tblProductsInfo7 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info7, 'db'), 2);
           this.tblProductsInfo7_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info7, 'db'), 2);
@@ -1171,7 +1171,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo8_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info8, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo8FieldType == 11 || gSystemConfig.configProductsInfo8FieldType == 12) {
           this.tblProductsInfo8 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info8, 'db'), 2);
           this.tblProductsInfo8_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info8, 'db'), 2);
@@ -1183,7 +1183,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo9_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info9, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo9FieldType == 11 || gSystemConfig.configProductsInfo9FieldType == 12) {
           this.tblProductsInfo9 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info9, 'db'), 2);
           this.tblProductsInfo9_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info9, 'db'), 2);
@@ -1195,7 +1195,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo10_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info10, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo10FieldType == 11 || gSystemConfig.configProductsInfo10FieldType == 12) {
           this.tblProductsInfo10 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info10, 'db'), 2);
           this.tblProductsInfo10_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info10, 'db'), 2);
@@ -1207,7 +1207,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo11_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info11, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo11FieldType == 11 || gSystemConfig.configProductsInfo11FieldType == 12) {
           this.tblProductsInfo11 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info11, 'db'), 2);
           this.tblProductsInfo11_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info11, 'db'), 2);
@@ -1219,7 +1219,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo12_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info12, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo12FieldType == 11 || gSystemConfig.configProductsInfo12FieldType == 12) {
           this.tblProductsInfo12 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info12, 'db'), 2);
           this.tblProductsInfo12_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info12, 'db'), 2);
@@ -1231,7 +1231,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo13_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info13, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo13FieldType == 11 || gSystemConfig.configProductsInfo13FieldType == 12) {
           this.tblProductsInfo13 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info13, 'db'), 2);
           this.tblProductsInfo13_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info13, 'db'), 2);
@@ -1243,7 +1243,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo14_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info14, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo14FieldType == 11 || gSystemConfig.configProductsInfo14FieldType == 12) {
           this.tblProductsInfo14 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info14, 'db'), 2);
           this.tblProductsInfo14_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info14, 'db'), 2);
@@ -1255,7 +1255,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo15_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info15, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo15FieldType == 11 || gSystemConfig.configProductsInfo15FieldType == 12) {
           this.tblProductsInfo15 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info15, 'db'), 2);
           this.tblProductsInfo15_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info15, 'db'), 2);
@@ -1267,7 +1267,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo16_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info16, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo16FieldType == 11 || gSystemConfig.configProductsInfo16FieldType == 12) {
           this.tblProductsInfo16 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info16, 'db'), 2);
           this.tblProductsInfo16_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info16, 'db'), 2);
@@ -1279,7 +1279,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo17_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info17, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo17FieldType == 11 || gSystemConfig.configProductsInfo17FieldType == 12) {
           this.tblProductsInfo17 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info17, 'db'), 2);
           this.tblProductsInfo17_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info17, 'db'), 2);
@@ -1291,7 +1291,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo18_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info18, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo18FieldType == 11 || gSystemConfig.configProductsInfo18FieldType == 12) {
           this.tblProductsInfo18 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info18, 'db'), 2);
           this.tblProductsInfo18_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info18, 'db'), 2);
@@ -1303,7 +1303,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo19_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info19, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo19FieldType == 11 || gSystemConfig.configProductsInfo19FieldType == 12) {
           this.tblProductsInfo19 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info19, 'db'), 2);
           this.tblProductsInfo19_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info19, 'db'), 2);
@@ -1315,7 +1315,7 @@ module.exports = class ObjectProductsDetails {
           this.tblProductsInfo20_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info20, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configProductsInfo20FieldType == 11 || gSystemConfig.configProductsInfo20FieldType == 12) {
           this.tblProductsInfo20 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info20, 'db'), 2);
           this.tblProductsInfo20_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].info20, 'db'), 2);
@@ -1443,7 +1443,7 @@ module.exports = class ObjectProductsDetails {
         this.tblProductsDate1DateSecond = this.tblProductsDate1DateObj.getSeconds();
         this.tblProductsDate1DateSecond_print = ('0' + this.tblProductsDate1DateObj.getSeconds()).slice(-2);
 
-        //this.tblProductsDate1_print = this.tblProductsDate1;
+        // this.tblProductsDate1_print = this.tblProductsDate1;
         this.tblProductsDate1_print = FunctionsGeneric.dateRead01(this.tblProductsDate1, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configProductsDate1Type);
       }
 
@@ -1598,20 +1598,20 @@ module.exports = class ObjectProductsDetails {
       this.tblProductsNotes = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].notes, 'db');
       this.tblProductsNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsProductsDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.opdRecord = "";
@@ -1625,5 +1625,5 @@ module.exports = class ObjectProductsDetails {
     this.opdRecord = new SyncSystemNS.ObjectFormsFieldsDetails(this.opdRecordParameters);
     await this.opdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

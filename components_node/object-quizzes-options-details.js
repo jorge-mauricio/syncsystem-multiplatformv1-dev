@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectQuizzesOptionsDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
-    //Debug.
-    //console.log("objParameters=", objParameters);
+    // Debug.
+    // console.log("objParameters=", objParameters);
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbQuizzesOptions = objParameters.hasOwnProperty('_idTbQuizzesOptions') ? objParameters._idTbQuizzesOptions : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -45,8 +45,8 @@ module.exports = class ObjectQuizzesOptionsDetails {
     this.tblQuizzesOptionsSortOrder = 0;
     this.tblQuizzesOptionsSortOrder_print = 0;
 
-    this.tblQuizzesOptionsDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-    //this.tblQuizzesOptionsDateTimezone = "";
+    this.tblQuizzesOptionsDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    // this.tblQuizzesOptionsDateTimezone = "";
     this.tblQuizzesOptionsDateEdit = '';
 
     this.tblQuizzesOptionsTitle = '';
@@ -77,20 +77,20 @@ module.exports = class ObjectQuizzesOptionsDetails {
 
     this.tblQuizzesOptionsActivation = 0;
     this.tblQuizzesOptionsActivation_print = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectQuizzesOptionsDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get form field options details according to search parameters.
-  //**************************************************************************************
+  // Get form field options details according to search parameters.
+  // **************************************************************************************
   /**
    * Get form field options details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -98,8 +98,8 @@ module.exports = class ObjectQuizzesOptionsDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
@@ -113,14 +113,14 @@ module.exports = class ObjectQuizzesOptionsDetails {
         this.objSpecialParameters
       );
 
-      //Define values.
+      // Define values.
       this.tblQuizzesOptionsID = this.resultsQuizzesOptionsDetails[0].id;
       this.tblQuizzesOptionsIdQuizzes = this.resultsQuizzesOptionsDetails[0].id_quizzes;
       this.tblQuizzesOptionsSortOrder = this.resultsQuizzesOptionsDetails[0].sort_order;
       this.tblQuizzesOptionsSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblQuizzesOptionsSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblQuizzesOptionsDateCreation = this.resultsQuizzesOptionsDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-      //this.tblQuizzesOptionsDateTimezone = this.resultsQuizzesOptionsDetails[0].date_timezone;
+      this.tblQuizzesOptionsDateCreation = this.resultsQuizzesOptionsDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      // this.tblQuizzesOptionsDateTimezone = this.resultsQuizzesOptionsDetails[0].date_timezone;
       this.tblQuizzesOptionsDateEdit = this.resultsQuizzesOptionsDetails[0].date_edit;
 
       this.tblQuizzesOptionsTitle = FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].title, 'db');
@@ -131,7 +131,7 @@ module.exports = class ObjectQuizzesOptionsDetails {
           this.tblQuizzesOptionsInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesOptionsInfo1FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo1FieldType == 12) {
           this.tblQuizzesOptionsInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info1, 'db'), 2);
           this.tblQuizzesOptionsInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info1, 'db'), 2);
@@ -143,7 +143,7 @@ module.exports = class ObjectQuizzesOptionsDetails {
           this.tblQuizzesOptionsInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesOptionsInfo2FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo2FieldType == 12) {
           this.tblQuizzesOptionsInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info2, 'db'), 2);
           this.tblQuizzesOptionsInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info2, 'db'), 2);
@@ -155,7 +155,7 @@ module.exports = class ObjectQuizzesOptionsDetails {
           this.tblQuizzesOptionsInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesOptionsInfo3FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo3FieldType == 12) {
           this.tblQuizzesOptionsInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info3, 'db'), 2);
           this.tblQuizzesOptionsInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info3, 'db'), 2);
@@ -167,7 +167,7 @@ module.exports = class ObjectQuizzesOptionsDetails {
           this.tblQuizzesOptionsInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesOptionsInfo4FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo4FieldType == 12) {
           this.tblQuizzesOptionsInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info4, 'db'), 2);
           this.tblQuizzesOptionsInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info4, 'db'), 2);
@@ -179,7 +179,7 @@ module.exports = class ObjectQuizzesOptionsDetails {
           this.tblQuizzesOptionsInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configQuizzesOptionsInfo5FieldType == 11 || gSystemConfig.configQuizzesOptionsInfo5FieldType == 12) {
           this.tblQuizzesOptionsInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info5, 'db'), 2);
           this.tblQuizzesOptionsInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsQuizzesOptionsDetails[0].info5, 'db'), 2);
@@ -207,18 +207,18 @@ module.exports = class ObjectQuizzesOptionsDetails {
         this.tblQuizzesOptionsActivation_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemActivation1');
       }
 
-      //Debug.
-      //console.log("this.resultsQuizzesOptionsDetails[0]=", this.resultsQuizzesOptionsDetails[0]);
-      //console.log("this.tblQuizzesOptionsInfoSmall1=", this.tblQuizzesOptionsInfoSmall1);
-      //console.log("this.tblQuizzesOptionsInfoSmall1_edit=", this.tblQuizzesOptionsInfoSmall1_edit);
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters);
+      // Debug.
+      // console.log("this.resultsQuizzesOptionsDetails[0]=", this.resultsQuizzesOptionsDetails[0]);
+      // console.log("this.tblQuizzesOptionsInfoSmall1=", this.tblQuizzesOptionsInfoSmall1);
+      // console.log("this.tblQuizzesOptionsInfoSmall1_edit=", this.tblQuizzesOptionsInfoSmall1_edit);
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters);
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 };

@@ -5,11 +5,11 @@
  */
 'use strict';
 
-//Export modules.
+// Export modules.
 /**/
 module.exports = {
-  //gSystemConfig: require("../config-application.js"),
-  //dbSystemCon: require("../config-application-db.js"),
+  // gSystemConfig: require("../config-application.js"),
+  // dbSystemCon: require("../config-application-db.js"),
   FunctionsGeneric: require('./functions-generic.js'),
   FunctionsDB: require('./functions-db.js'),
   FunctionsDBInsert: require('./functions-db-insert.js'),
@@ -20,7 +20,7 @@ module.exports = {
   FunctionsCrypto: require('./functions-crypto.js'),
   FunctionsCookies: require('./functions-cookies.js'),
   FunctionsAuthentication: require('./functions-authentication.js'),
-  //FunctionsContent: require("./functions-content.js"),
+  // FunctionsContent: require("./functions-content.js"),
   FunctionsEmail: require('./functions-email.js'),
 
   ObjectCategoriesListing: require('./object-categories-listing.js'),

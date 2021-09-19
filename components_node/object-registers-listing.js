@@ -1,35 +1,35 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const dbSystemCon = require("../config-application-db.js"); //DB.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const dbSystemCon = require("../config-application-db.js"); // DB.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectRegistersListing {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     /* 
         {
             _arrSearchParameters: [],
             _configSortOrder: "",
             _strNRecords: "",
-            //_strReturnFields: "",
+            // _strReturnFields: "",
             _objSpecialParameters: {}
         };
         */
@@ -37,11 +37,11 @@ module.exports = class ObjectRegistersListing {
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
     this.configSortOrder = objParameters.hasOwnProperty('_configSortOrder') ? objParameters._configSortOrder : gSystemConfig.configRegistersSort;
     this.strNRecords = objParameters.hasOwnProperty('_strNRecords') ? objParameters._strNRecords : '';
-    //this.strReturnFields = (objParameters.hasOwnProperty("_strReturnFields")) ? objParameters._strReturnFields : "*";
+    // this.strReturnFields = (objParameters.hasOwnProperty("_strReturnFields")) ? objParameters._strReturnFields : "*";
     this.objSpecialParameters = objParameters.hasOwnProperty('_objSpecialParameters') ? objParameters._objSpecialParameters : {};
 
     this.resultsRegistersListing = '';
-    //----------------------
+    // ----------------------
 
     /*
         return (async ()=> {
@@ -50,19 +50,19 @@ module.exports = class ObjectRegistersListing {
         })();
         */
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectRegistersListing();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get registers listing according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get registers listing according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get registers listing according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -70,14 +70,14 @@ module.exports = class ObjectRegistersListing {
    * @returns {json}
    */
   async recordsListingGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     try {
-      //Debug.
-      //console.log("objSpecialParameters", this.objSpecialParameters);
-      //const note = await apnProvider.send(note, deviceToken)
-      //console.log(note)
+      // Debug.
+      // console.log("objSpecialParameters", this.objSpecialParameters);
+      // const note = await apnProvider.send(note, deviceToken)
+      // console.log(note)
 
       this.resultsRegistersListing = await FunctionsDB.genericTableGet02(
         gSystemConfig.configSystemDBTableRegisters, 
@@ -93,8 +93,8 @@ module.exports = class ObjectRegistersListing {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 };

@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
 
 const ObjectFiltersGenericListing = require('./object-filters-generic-listing.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectPublicationsDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbPublications = objParameters.hasOwnProperty('_idTbPublications') ? objParameters._idTbPublications : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -47,8 +47,8 @@ module.exports = class ObjectPublicationsDetails {
     this.tblPublicationsIdType = 0;
     this.tblPublicationsIdType_print = '';
 
-    this.tblPublicationsDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-    //this.tblPublicationsDateTimezone = "";
+    this.tblPublicationsDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    // this.tblPublicationsDateTimezone = "";
     this.tblPublicationsDateEdit = '';
 
     this.tblPublicationsIdRegisterUser = 0;
@@ -236,21 +236,21 @@ module.exports = class ObjectPublicationsDetails {
     this.arrIdsPublicationsFiltersGeneric8Binding = [];
     this.arrIdsPublicationsFiltersGeneric9Binding = [];
     this.arrIdsPublicationsFiltersGeneric10Binding = [];
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectPublicationsDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get product details according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get product details according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get product details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -258,8 +258,8 @@ module.exports = class ObjectPublicationsDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     try {
       this.resultsPublicationsDetails = await FunctionsDB.genericTableGet02(
@@ -272,7 +272,7 @@ module.exports = class ObjectPublicationsDetails {
         this.objSpecialParameters
       );
 
-      //Filters generic.
+      // Filters generic.
       this.ofglRecords = new ObjectFiltersGenericListing({
         _arrSearchParameters: [],
         _configSortOrder: 'title',
@@ -281,7 +281,7 @@ module.exports = class ObjectPublicationsDetails {
       });
       await this.ofglRecords.recordsListingGet(0, 3);
 
-      //Filters generic bindings.
+      // Filters generic bindings.
       this.objIdsPublicationsFiltersGenericBinding = await FunctionsDB.genericTableGet02(
         gSystemConfig.configSystemDBTableFiltersGenericBinding, 
         ['id_record;' + this.idTbPublications + ';i'], 
@@ -292,7 +292,7 @@ module.exports = class ObjectPublicationsDetails {
         { returnType: 3 }
       );
 
-      //Filters generic - separation.
+      // Filters generic - separation.
       if (gSystemConfig.enablePublicationsFilterGeneric1 != 0) {
         this.objIdsPublicationsFiltersGeneric1Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
           return obj.id_filter_index == 101;
@@ -300,20 +300,20 @@ module.exports = class ObjectPublicationsDetails {
 
         if (this.objIdsPublicationsFiltersGeneric1Binding) {
           this.arrIdsPublicationsFiltersGeneric1Binding = Object.keys(this.objIdsPublicationsFiltersGeneric1Binding).map((key) => this.objIdsPublicationsFiltersGeneric1Binding[key]['id_filters_generic']);
-          //this.arrIdsPublicationsFiltersGeneric1Binding = Object.keys(this.objIdsPublicationsFiltersGeneric1Binding).map(key => this.objIdsPublicationsFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
+          // this.arrIdsPublicationsFiltersGeneric1Binding = Object.keys(this.objIdsPublicationsFiltersGeneric1Binding).map(key => this.objIdsPublicationsFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
 
           if (this.arrIdsPublicationsFiltersGeneric1Binding) {
             var arrIdsPublicationsFiltersGeneric1Binding = this.arrIdsPublicationsFiltersGeneric1Binding;
             this.objPublicationsFiltersGeneric1Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
-              //return obj.filter_index == 101;
+              // return obj.filter_index == 101;
 
-              //for(let countArray = 0; countArray < this.arrIdsPublicationsFiltersGeneric1Binding.length; countArray++)
+              // for(let countArray = 0; countArray < this.arrIdsPublicationsFiltersGeneric1Binding.length; countArray++)
               /*for(let countArray = 0; countArray < arrIdsPublicationsFiltersGeneric1Binding.length; countArray++)
                             {
                                 return obj.id == arrIdsPublicationsFiltersGeneric1Binding[countArray];
                             }*/
-              //return obj.id.includes(arrIdsPublicationsFiltersGeneric1Binding);
-              //return this.arrIdsPublicationsFiltersGeneric1Binding.includes(obj.id);
+              // return obj.id.includes(arrIdsPublicationsFiltersGeneric1Binding);
+              // return this.arrIdsPublicationsFiltersGeneric1Binding.includes(obj.id);
               return arrIdsPublicationsFiltersGeneric1Binding.includes(obj.id);
             });
           }
@@ -482,23 +482,23 @@ module.exports = class ObjectPublicationsDetails {
         }
       }
 
-      //Debug.
-      //console.log("this.objIdsPublicationsFiltersGenericBinding=", this.objIdsPublicationsFiltersGenericBinding);
-      //console.log("this.objIdsPublicationsFiltersGeneric1Binding=", this.objIdsPublicationsFiltersGeneric1Binding);
-      //console.log("this.arrIdsPublicationsFiltersGeneric1Binding=", this.arrIdsPublicationsFiltersGeneric1Binding);
-      //console.log("this.arrIdsPublicationsFiltersGeneric2Binding=", this.arrIdsPublicationsFiltersGeneric2Binding);
-      //console.log("this.arrIdsPublicationsFiltersGeneric3Binding=", this.arrIdsPublicationsFiltersGeneric3Binding);
-      //console.log("this.arrIdsPublicationsFiltersGenericBinding=", this.arrIdsPublicationsFiltersGenericBinding);
-      //console.log("this.arrIdsPublicationsFiltersGenericBinding=", this.arrIdsPublicationsFiltersGenericBinding.includes("125"));
-      //console.log("JSON.parse(this.arrIdsPublicationsFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsPublicationsFiltersGenericBinding[0])));
-      //console.log("this.arrIdsPublicationsFiltersGenericBinding.find=",  this.arrIdsPublicationsFiltersGenericBinding.find(objPublicationsFiltersGenericBinding => objPublicationsFiltersGenericBinding.id_filters_generic == '126'));
-      //console.log("this.arrIdsPublicationsFiltersGenericBinding=", Object.keys(this.arrIdsPublicationsFiltersGenericBinding).map(key => this.arrIdsPublicationsFiltersGenericBinding[key].id_filters_generic));
+      // Debug.
+      // console.log("this.objIdsPublicationsFiltersGenericBinding=", this.objIdsPublicationsFiltersGenericBinding);
+      // console.log("this.objIdsPublicationsFiltersGeneric1Binding=", this.objIdsPublicationsFiltersGeneric1Binding);
+      // console.log("this.arrIdsPublicationsFiltersGeneric1Binding=", this.arrIdsPublicationsFiltersGeneric1Binding);
+      // console.log("this.arrIdsPublicationsFiltersGeneric2Binding=", this.arrIdsPublicationsFiltersGeneric2Binding);
+      // console.log("this.arrIdsPublicationsFiltersGeneric3Binding=", this.arrIdsPublicationsFiltersGeneric3Binding);
+      // console.log("this.arrIdsPublicationsFiltersGenericBinding=", this.arrIdsPublicationsFiltersGenericBinding);
+      // console.log("this.arrIdsPublicationsFiltersGenericBinding=", this.arrIdsPublicationsFiltersGenericBinding.includes("125"));
+      // console.log("JSON.parse(this.arrIdsPublicationsFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsPublicationsFiltersGenericBinding[0])));
+      // console.log("this.arrIdsPublicationsFiltersGenericBinding.find=",  this.arrIdsPublicationsFiltersGenericBinding.find(objPublicationsFiltersGenericBinding => objPublicationsFiltersGenericBinding.id_filters_generic == '126'));
+      // console.log("this.arrIdsPublicationsFiltersGenericBinding=", Object.keys(this.arrIdsPublicationsFiltersGenericBinding).map(key => this.arrIdsPublicationsFiltersGenericBinding[key].id_filters_generic));
 
-      //Define values.
-      //if(this.resultsPublicationsDetails[0])
-      //{
-      //DEV: Create logic to check if record exist.
-      //}
+      // Define values.
+      // if(this.resultsPublicationsDetails[0])
+      // {
+      // DEV: Create logic to check if record exist.
+      // }
       this.tblPublicationsID = this.resultsPublicationsDetails[0].id;
       this.tblPublicationsIdParent = this.resultsPublicationsDetails[0].id_parent;
 
@@ -521,8 +521,8 @@ module.exports = class ObjectPublicationsDetails {
           break;
       }
 
-      this.tblPublicationsDateCreation = this.resultsPublicationsDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-      //this.tblPublicationsDateTimezone = this.resultsPublicationsDetails[0].date_timezone;
+      this.tblPublicationsDateCreation = this.resultsPublicationsDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      // this.tblPublicationsDateTimezone = this.resultsPublicationsDetails[0].date_timezone;
       this.tblPublicationsDateEdit = this.resultsPublicationsDetails[0].date_edit;
 
       this.tblPublicationsIdRegisterUser = this.resultsPublicationsDetails[0].id_register_user;
@@ -566,7 +566,7 @@ module.exports = class ObjectPublicationsDetails {
         this.tblPublicationsDateStartDateSecond = this.tblPublicationsDateStartDateObj.getSeconds();
         this.tblPublicationsDateStartDateSecond_print = ('0' + this.tblPublicationsDateStartDateObj.getSeconds()).slice(-2);
 
-        //this.tblPublicationsDateStart_print = this.tblPublicationsDateStart;
+        // this.tblPublicationsDateStart_print = this.tblPublicationsDateStart;
         this.tblPublicationsDateStart_print = FunctionsGeneric.dateRead01(this.tblPublicationsDateStart, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configPublicationsDateStartType);
       }
 
@@ -586,19 +586,19 @@ module.exports = class ObjectPublicationsDetails {
         this.tblPublicationsDateEndDateSecond = this.tblPublicationsDateEndDateObj.getSeconds();
         this.tblPublicationsDateEndDateSecond_print = ('0' + this.tblPublicationsDateEndDateObj.getSeconds()).slice(-2);
 
-        //this.tblPublicationsDateEnd_print = this.tblPublicationsDateEnd;
+        // this.tblPublicationsDateEnd_print = this.tblPublicationsDateEnd;
         this.tblPublicationsDateEnd_print = FunctionsGeneric.dateRead01(this.tblPublicationsDateEnd, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configPublicationsDateEndType);
       }
 
       this.tblPublicationsTitle = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].title, 'db');
       this.tblPublicationsDescription = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].description, 'db');
-      this.tblPublicationsDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblPublicationsDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
 
       this.tblPublicationsURLAlias = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].url_alias, 'db');
-      //this.tblPublicationsKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].keywords_tags, "db");
+      // this.tblPublicationsKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].keywords_tags, "db");
       this.tblPublicationsKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].keywords_tags, 'editTextBox=1');
-      this.tblPublicationsMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].meta_description, 'db'); //TODO: include strip html
-      this.tblPublicationsMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].meta_description, 'db'); //TODO: include strip html
+      this.tblPublicationsMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].meta_description, 'db'); // TODO: include strip html
+      this.tblPublicationsMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].meta_description, 'db'); // TODO: include strip html
       this.tblPublicationsMetaTitle = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].meta_title, 'db');
       this.tblPublicationsMetaInfo = this.resultsPublicationsDetails[0].meta_info;
 
@@ -608,7 +608,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo1FieldType == 11 || gSystemConfig.configPublicationsInfo1FieldType == 12) {
           this.tblPublicationsInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info1, 'db'), 2);
           this.tblPublicationsInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info1, 'db'), 2);
@@ -620,7 +620,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo2FieldType == 11 || gSystemConfig.configPublicationsInfo2FieldType == 12) {
           this.tblPublicationsInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info2, 'db'), 2);
           this.tblPublicationsInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info2, 'db'), 2);
@@ -632,7 +632,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo3FieldType == 11 || gSystemConfig.configPublicationsInfo3FieldType == 12) {
           this.tblPublicationsInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info3, 'db'), 2);
           this.tblPublicationsInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info3, 'db'), 2);
@@ -644,7 +644,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo4FieldType == 11 || gSystemConfig.configPublicationsInfo4FieldType == 12) {
           this.tblPublicationsInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info4, 'db'), 2);
           this.tblPublicationsInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info4, 'db'), 2);
@@ -656,7 +656,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo5FieldType == 11 || gSystemConfig.configPublicationsInfo5FieldType == 12) {
           this.tblPublicationsInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info5, 'db'), 2);
           this.tblPublicationsInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info5, 'db'), 2);
@@ -668,7 +668,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo6_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info6, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo6FieldType == 11 || gSystemConfig.configPublicationsInfo6FieldType == 12) {
           this.tblPublicationsInfo6 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info6, 'db'), 2);
           this.tblPublicationsInfo6_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info6, 'db'), 2);
@@ -680,7 +680,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo7_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info7, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo7FieldType == 11 || gSystemConfig.configPublicationsInfo7FieldType == 12) {
           this.tblPublicationsInfo7 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info7, 'db'), 2);
           this.tblPublicationsInfo7_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info7, 'db'), 2);
@@ -692,7 +692,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo8_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info8, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo8FieldType == 11 || gSystemConfig.configPublicationsInfo8FieldType == 12) {
           this.tblPublicationsInfo8 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info8, 'db'), 2);
           this.tblPublicationsInfo8_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info8, 'db'), 2);
@@ -704,7 +704,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo9_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info9, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo9FieldType == 11 || gSystemConfig.configPublicationsInfo9FieldType == 12) {
           this.tblPublicationsInfo9 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info9, 'db'), 2);
           this.tblPublicationsInfo9_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info9, 'db'), 2);
@@ -716,7 +716,7 @@ module.exports = class ObjectPublicationsDetails {
           this.tblPublicationsInfo10_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info10, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configPublicationsInfo10FieldType == 11 || gSystemConfig.configPublicationsInfo10FieldType == 12) {
           this.tblPublicationsInfo10 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info10, 'db'), 2);
           this.tblPublicationsInfo10_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].info10, 'db'), 2);
@@ -765,7 +765,7 @@ module.exports = class ObjectPublicationsDetails {
         this.tblPublicationsDate1DateSecond = this.tblPublicationsDate1DateObj.getSeconds();
         this.tblPublicationsDate1DateSecond_print = ('0' + this.tblPublicationsDate1DateObj.getSeconds()).slice(-2);
 
-        //this.tblPublicationsDate1_print = this.tblPublicationsDate1;
+        // this.tblPublicationsDate1_print = this.tblPublicationsDate1;
         this.tblPublicationsDate1_print = FunctionsGeneric.dateRead01(this.tblPublicationsDate1, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configPublicationsDate1Type);
       }
 
@@ -914,20 +914,20 @@ module.exports = class ObjectPublicationsDetails {
       this.tblPublicationsNotes = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].notes, 'db');
       this.tblPublicationsNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsPublicationsDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.opdRecord = "";
@@ -941,5 +941,5 @@ module.exports = class ObjectPublicationsDetails {
     this.opdRecord = new SyncSystemNS.ObjectFormsFieldsDetails(this.opdRecordParameters);
     await this.opdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

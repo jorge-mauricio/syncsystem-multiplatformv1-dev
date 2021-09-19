@@ -1,34 +1,34 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectFilesDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbFiles = objParameters.hasOwnProperty('_idTbFiles') ? objParameters._idTbFiles : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -47,7 +47,7 @@ module.exports = class ObjectFilesDetails {
     this.tblFilesFileConfig = 0;
     this.tblFilesFileConfig_print = '';
 
-    this.tblFilesDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblFilesDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblFilesDateTimezone = '';
     this.tblFilesDateEdit = '';
 
@@ -169,20 +169,20 @@ module.exports = class ObjectFilesDetails {
 
     this.tblFilesNotes = '';
     this.tblFilesNotes_edit = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectFilesDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get file details according to search parameters.
-  //**************************************************************************************
+  // Get file details according to search parameters.
+  // **************************************************************************************
   /**
    * Get file listing according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -190,8 +190,8 @@ module.exports = class ObjectFilesDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
@@ -205,11 +205,11 @@ module.exports = class ObjectFilesDetails {
         this.objSpecialParameters
       );
 
-      //Define values.
-      //if(this.resultsCategoryDetails[0])
-      //{
-      //DEV: Create logic to chech if record exist.
-      //}
+      // Define values.
+      // if(this.resultsCategoryDetails[0])
+      // {
+      // DEV: Create logic to chech if record exist.
+      // }
       this.tblFilesID = this.resultsFileDetails[0].id;
       this.tblFilesIdParent = this.resultsFileDetails[0].id_parent;
 
@@ -232,22 +232,22 @@ module.exports = class ObjectFilesDetails {
           this.tblFilesFileConfig_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemDisplay4');
       }
 
-      this.tblFilesDateCreation = this.resultsFileDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      this.tblFilesDateCreation = this.resultsFileDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
       this.tblFilesDateTimezone = this.resultsFileDetails[0].date_timezone;
       this.tblFilesDateEdit = this.resultsFileDetails[0].date_edit;
 
       this.tblFilesTitle = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].title, 'db');
       this.tblFilesCaption = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].caption, 'db');
       this.tblFilesDescription = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].description, 'db');
-      this.tblFilesDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblFilesDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
       this.tblFilesHTMLCode = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].html_code, 'db');
       this.tblFilesHTMLCode_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].html_code, 'db');
 
       this.tblFilesURLAlias = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].url_alias, 'db');
-      //this.tblFilesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].keywords_tags, "db");
+      // this.tblFilesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].keywords_tags, "db");
       this.tblFilesKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].keywords_tags, 'editTextBox=1');
-      this.tblFilesMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].meta_description, 'db'); //TODO: include strip html
-      this.tblFilesMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].meta_description, 'db'); //TODO: include strip html
+      this.tblFilesMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].meta_description, 'db'); // TODO: include strip html
+      this.tblFilesMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].meta_description, 'db'); // TODO: include strip html
       this.tblFilesMetaTitle = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].meta_title, 'db');
       this.tblFilesMetaInfo = this.resultsFileDetails[0].meta_info;
 
@@ -257,7 +257,7 @@ module.exports = class ObjectFilesDetails {
           this.tblFilesInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configFilesInfo1FieldType == 11 || gSystemConfig.configFilesInfo1FieldType == 12) {
           this.tblFilesInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info1, 'db'), 2);
           this.tblFilesInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info1, 'db'), 2);
@@ -269,7 +269,7 @@ module.exports = class ObjectFilesDetails {
           this.tblFilesInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configFilesInfo2FieldType == 11 || gSystemConfig.configFilesInfo2FieldType == 12) {
           this.tblFilesInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info2, 'db'), 2);
           this.tblFilesInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info2, 'db'), 2);
@@ -281,7 +281,7 @@ module.exports = class ObjectFilesDetails {
           this.tblFilesInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configFilesInfo3FieldType == 11 || gSystemConfig.configFilesInfo3FieldType == 12) {
           this.tblFilesInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info3, 'db'), 2);
           this.tblFilesInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info3, 'db'), 2);
@@ -293,7 +293,7 @@ module.exports = class ObjectFilesDetails {
           this.tblFilesInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configFilesInfo4FieldType == 11 || gSystemConfig.configFilesInfo4FieldType == 12) {
           this.tblFilesInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info4, 'db'), 2);
           this.tblFilesInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info4, 'db'), 2);
@@ -305,7 +305,7 @@ module.exports = class ObjectFilesDetails {
           this.tblFilesInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configFilesInfo5FieldType == 11 || gSystemConfig.configFilesInfo5FieldType == 12) {
           this.tblFilesInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info5, 'db'), 2);
           this.tblFilesInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].info5, 'db'), 2);
@@ -361,7 +361,7 @@ module.exports = class ObjectFilesDetails {
         this.tblFilesDate1DateSecond = this.tblFilesDate1DateObj.getSeconds();
         this.tblFilesDate1DateSecond_print = ('0' + this.tblFilesDate1DateObj.getSeconds()).slice(-2);
 
-        //this.tblFilesDate1_print = this.tblFilesDate1;
+        // this.tblFilesDate1_print = this.tblFilesDate1;
         this.tblFilesDate1_print = FunctionsGeneric.dateRead01(this.tblFilesDate1, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configFilesDate1Type);
       }
 
@@ -515,20 +515,20 @@ module.exports = class ObjectFilesDetails {
       this.tblFilesNotes = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].notes, 'db');
       this.tblFilesNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsFileDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.ofdRecord = "";
@@ -540,12 +540,12 @@ module.exports = class ObjectFilesDetails {
     };
 
 
-    //Parameters build.
+    // Parameters build.
     this.arrSearchParameters.push("id;" + this._idTbFiles + ";i"); 
 
 
     this.ofdRecord = new SyncSystemNS.ObjectFilesDetails(this.ofdRecordParameters);
     await this.ofdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

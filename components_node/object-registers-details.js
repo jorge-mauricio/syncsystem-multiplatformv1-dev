@@ -1,36 +1,36 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
 
 const ObjectFiltersGenericListing = require('./object-filters-generic-listing.js');
-//----------------------
+// ----------------------
 
 module.exports = class ObjectRegistersDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbRegisters = objParameters.hasOwnProperty('_idTbRegisters') ? objParameters._idTbRegisters : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -45,7 +45,7 @@ module.exports = class ObjectRegistersDetails {
     this.tblRegistersSortOrder = 0;
     this.tblRegistersSortOrder_print = '';
 
-    this.tblRegistersDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblRegistersDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblRegistersDateTimezone = '';
     this.tblRegistersDateEdit = '';
 
@@ -549,21 +549,21 @@ module.exports = class ObjectRegistersDetails {
     this.arrIdsRegistersFiltersGeneric38Binding = [];
     this.arrIdsRegistersFiltersGeneric39Binding = [];
     this.arrIdsRegistersFiltersGeneric40Binding = [];
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectRegistersDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get register details according to search parameters.
-  //**************************************************************************************
-  //async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
+  // Get register details according to search parameters.
+  // **************************************************************************************
+  // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
   /**
    * Get register details according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -571,8 +571,8 @@ module.exports = class ObjectRegistersDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     try {
       this.resultsRegistersDetails = await FunctionsDB.genericTableGet02(
@@ -585,7 +585,7 @@ module.exports = class ObjectRegistersDetails {
         this.objSpecialParameters
       );
 
-      //Filters generic.
+      // Filters generic.
       this.ofglRecords = new ObjectFiltersGenericListing({
         _arrSearchParameters: [],
         _configSortOrder: 'title',
@@ -594,7 +594,7 @@ module.exports = class ObjectRegistersDetails {
       });
       await this.ofglRecords.recordsListingGet(0, 3);
 
-      //Filters generic bindings.
+      // Filters generic bindings.
       this.objIdsRegistersFiltersGenericBinding = await FunctionsDB.genericTableGet02(
         gSystemConfig.configSystemDBTableFiltersGenericBinding, 
         ['id_record;' + this.idTbRegisters + ';i'], 
@@ -605,7 +605,7 @@ module.exports = class ObjectRegistersDetails {
         { returnType: 3 }
       );
 
-      //Filters generic - separation.
+      // Filters generic - separation.
       if (gSystemConfig.enableRegistersFilterGeneric1 != 0) {
         this.objIdsRegistersFiltersGeneric1Binding = this.objIdsRegistersFiltersGenericBinding.filter(function (obj) {
           return obj.id_filter_index == 101;
@@ -613,20 +613,20 @@ module.exports = class ObjectRegistersDetails {
 
         if (this.objIdsRegistersFiltersGeneric1Binding) {
           this.arrIdsRegistersFiltersGeneric1Binding = Object.keys(this.objIdsRegistersFiltersGeneric1Binding).map((key) => this.objIdsRegistersFiltersGeneric1Binding[key]['id_filters_generic']);
-          //this.arrIdsRegistersFiltersGeneric1Binding = Object.keys(this.objIdsRegistersFiltersGeneric1Binding).map(key => this.objIdsRegistersFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
+          // this.arrIdsRegistersFiltersGeneric1Binding = Object.keys(this.objIdsRegistersFiltersGeneric1Binding).map(key => this.objIdsRegistersFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
 
           if (this.arrIdsRegistersFiltersGeneric1Binding) {
             var arrIdsRegistersFiltersGeneric1Binding = this.arrIdsRegistersFiltersGeneric1Binding;
             this.objRegistersFiltersGeneric1Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
-              //return obj.filter_index == 101;
+              // return obj.filter_index == 101;
 
-              //for(let countArray = 0; countArray < this.arrIdsRegistersFiltersGeneric1Binding.length; countArray++)
+              // for(let countArray = 0; countArray < this.arrIdsRegistersFiltersGeneric1Binding.length; countArray++)
               /*for(let countArray = 0; countArray < arrIdsRegistersFiltersGeneric1Binding.length; countArray++)
                             {
                                 return obj.id == arrIdsRegistersFiltersGeneric1Binding[countArray];
                             }*/
-              //return obj.id.includes(arrIdsRegistersFiltersGeneric1Binding);
-              //return this.arrIdsRegistersFiltersGeneric1Binding.includes(obj.id);
+              // return obj.id.includes(arrIdsRegistersFiltersGeneric1Binding);
+              // return this.arrIdsRegistersFiltersGeneric1Binding.includes(obj.id);
               return arrIdsRegistersFiltersGeneric1Binding.includes(obj.id);
             });
           }
@@ -1332,30 +1332,30 @@ module.exports = class ObjectRegistersDetails {
         }
       }
 
-      //Debug.
-      //console.log("this.objIdsRegistersFiltersGenericBinding=", this.objIdsRegistersFiltersGenericBinding);
-      //console.log("this.objIdsRegistersFiltersGeneric1Binding=", this.objIdsRegistersFiltersGeneric1Binding);
-      //console.log("this.arrIdsRegistersFiltersGeneric1Binding=", this.arrIdsRegistersFiltersGeneric1Binding);
-      //console.log("this.arrIdsRegistersFiltersGeneric2Binding=", this.arrIdsRegistersFiltersGeneric2Binding);
-      //console.log("this.arrIdsRegistersFiltersGeneric3Binding=", this.arrIdsRegistersFiltersGeneric3Binding);
-      //console.log("this.arrIdsRegistersFiltersGenericBinding=", this.arrIdsRegistersFiltersGenericBinding);
-      //console.log("this.arrIdsRegistersFiltersGenericBinding=", this.arrIdsRegistersFiltersGenericBinding.includes("125"));
-      //console.log("JSON.parse(this.arrIdsRegistersFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsRegistersFiltersGenericBinding[0])));
-      //console.log("this.arrIdsRegistersFiltersGenericBinding.find=",  this.arrIdsRegistersFiltersGenericBinding.find(objRegistersFiltersGenericBinding => objRegistersFiltersGenericBinding.id_filters_generic == '126'));
-      //console.log("this.arrIdsRegistersFiltersGenericBinding=", Object.keys(this.arrIdsRegistersFiltersGenericBinding).map(key => this.arrIdsRegistersFiltersGenericBinding[key].id_filters_generic));
+      // Debug.
+      // console.log("this.objIdsRegistersFiltersGenericBinding=", this.objIdsRegistersFiltersGenericBinding);
+      // console.log("this.objIdsRegistersFiltersGeneric1Binding=", this.objIdsRegistersFiltersGeneric1Binding);
+      // console.log("this.arrIdsRegistersFiltersGeneric1Binding=", this.arrIdsRegistersFiltersGeneric1Binding);
+      // console.log("this.arrIdsRegistersFiltersGeneric2Binding=", this.arrIdsRegistersFiltersGeneric2Binding);
+      // console.log("this.arrIdsRegistersFiltersGeneric3Binding=", this.arrIdsRegistersFiltersGeneric3Binding);
+      // console.log("this.arrIdsRegistersFiltersGenericBinding=", this.arrIdsRegistersFiltersGenericBinding);
+      // console.log("this.arrIdsRegistersFiltersGenericBinding=", this.arrIdsRegistersFiltersGenericBinding.includes("125"));
+      // console.log("JSON.parse(this.arrIdsRegistersFiltersGenericBinding)=", JSON.parse(JSON.stringify(this.arrIdsRegistersFiltersGenericBinding[0])));
+      // console.log("this.arrIdsRegistersFiltersGenericBinding.find=",  this.arrIdsRegistersFiltersGenericBinding.find(objRegistersFiltersGenericBinding => objRegistersFiltersGenericBinding.id_filters_generic == '126'));
+      // console.log("this.arrIdsRegistersFiltersGenericBinding=", Object.keys(this.arrIdsRegistersFiltersGenericBinding).map(key => this.arrIdsRegistersFiltersGenericBinding[key].id_filters_generic));
 
-      //Define values.
-      //if(this.resultsRegistersDetails[0])
-      //{
-      //DEV: Create logic to check if record exist.
-      //}
+      // Define values.
+      // if(this.resultsRegistersDetails[0])
+      // {
+      // DEV: Create logic to check if record exist.
+      // }
       this.tblRegistersID = this.resultsRegistersDetails[0].id;
       this.tblRegistersIdParent = this.resultsRegistersDetails[0].id_parent;
 
       this.tblRegistersSortOrder = this.resultsRegistersDetails[0].sort_order;
       this.tblRegistersSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblRegistersSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblRegistersDateCreation = this.resultsRegistersDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      this.tblRegistersDateCreation = this.resultsRegistersDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
       this.tblRegistersDateTimezone = this.resultsRegistersDetails[0].date_timezone;
       this.tblRegistersDateEdit = this.resultsRegistersDetails[0].date_edit;
 
@@ -1406,13 +1406,13 @@ module.exports = class ObjectRegistersDetails {
       this.tblRegistersCompanyNameAlias = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].company_name_alias, 'db');
 
       this.tblRegistersDescription = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].description, 'db');
-      this.tblRegistersDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblRegistersDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].description, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
 
       this.tblRegistersURLAlias = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].url_alias, 'db');
-      //this.tblRegistersKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].keywords_tags, "db");
+      // this.tblRegistersKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].keywords_tags, "db");
       this.tblRegistersKeywordsTags = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].keywords_tags, 'editTextBox=1');
-      this.tblRegistersMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].meta_description, 'db'); //TODO: include strip html
-      this.tblRegistersMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].meta_description, 'db'); //TODO: include strip html
+      this.tblRegistersMetaDescription = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].meta_description, 'db'); // TODO: include strip html
+      this.tblRegistersMetaDescription_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].meta_description, 'db'); // TODO: include strip html
       this.tblRegistersMetaTitle = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].meta_title, 'db');
       this.tblRegistersMetaInfo = this.resultsRegistersDetails[0].meta_info;
 
@@ -1432,7 +1432,7 @@ module.exports = class ObjectRegistersDetails {
         this.tblRegistersDateBirthDateSecond = this.tblRegistersDateBirthDateObj.getSeconds();
         this.tblRegistersDateBirthDateSecond_print = ('0' + this.tblRegistersDateBirthDateObj.getSeconds()).slice(-2);
 
-        //this.tblRegistersDateBirth_print = this.tblRegistersDateBirth;
+        // this.tblRegistersDateBirth_print = this.tblRegistersDateBirth;
         this.tblRegistersDateBirth_print = FunctionsGeneric.dateRead01(this.tblRegistersDateBirth, gSystemConfig.configBackendDateFormat, 0, 4);
       }
 
@@ -1473,8 +1473,8 @@ module.exports = class ObjectRegistersDetails {
       this.tblRegistersZipCode = this.resultsRegistersDetails[0].zip_code;
       this.tblRegistersZipCode_print = this.tblRegistersZipCode;
       this.tblRegistersAddressStreet = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].address_street, 'editTextBox=1');
-      this.tblRegistersAddressNumber = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].address_number, 'db'); //TODO: include strip html
-      this.tblRegistersAddressComplement = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].address_complement, 'db'); //TODO: include strip html
+      this.tblRegistersAddressNumber = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].address_number, 'db'); // TODO: include strip html
+      this.tblRegistersAddressComplement = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].address_complement, 'db'); // TODO: include strip html
       this.tblRegistersNeighborhood = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].neighborhood, 'db');
       this.tblRegistersDistrict = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].district, 'db');
       this.tblRegistersCounty = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].county, 'db');
@@ -1491,7 +1491,7 @@ module.exports = class ObjectRegistersDetails {
       this.tblRegistersIdCountry = this.resultsRegistersDetails[0].id_country;
 
       this.tblRegistersLocationReference = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].location_reference, 'db');
-      this.tblRegistersLocationReference_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].location_reference, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblRegistersLocationReference_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].location_reference, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
 
       this.tblRegistersLocationMap = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].location_map, 'db');
 
@@ -1525,7 +1525,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo1_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info1, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo1FieldType == 11 || gSystemConfig.configRegistersInfo1FieldType == 12) {
           this.tblRegistersInfo1 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info1, 'db'), 2);
           this.tblRegistersInfo1_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info1, 'db'), 2);
@@ -1537,7 +1537,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo2_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info2, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo2FieldType == 11 || gSystemConfig.configRegistersInfo2FieldType == 12) {
           this.tblRegistersInfo2 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info2, 'db'), 2);
           this.tblRegistersInfo2_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info2, 'db'), 2);
@@ -1549,7 +1549,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo3_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info3, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo3FieldType == 11 || gSystemConfig.configRegistersInfo3FieldType == 12) {
           this.tblRegistersInfo3 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info3, 'db'), 2);
           this.tblRegistersInfo3_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info3, 'db'), 2);
@@ -1561,7 +1561,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo4_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info4, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo4FieldType == 11 || gSystemConfig.configRegistersInfo4FieldType == 12) {
           this.tblRegistersInfo4 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info4, 'db'), 2);
           this.tblRegistersInfo4_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info4, 'db'), 2);
@@ -1573,7 +1573,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo5_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info5, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo5FieldType == 11 || gSystemConfig.configRegistersInfo5FieldType == 12) {
           this.tblRegistersInfo5 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info5, 'db'), 2);
           this.tblRegistersInfo5_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info5, 'db'), 2);
@@ -1585,7 +1585,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo6_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info6, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo6FieldType == 11 || gSystemConfig.configRegistersInfo6FieldType == 12) {
           this.tblRegistersInfo6 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info6, 'db'), 2);
           this.tblRegistersInfo6_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info6, 'db'), 2);
@@ -1597,7 +1597,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo7_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info7, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo7FieldType == 11 || gSystemConfig.configRegistersInfo7FieldType == 12) {
           this.tblRegistersInfo7 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info7, 'db'), 2);
           this.tblRegistersInfo7_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info7, 'db'), 2);
@@ -1609,7 +1609,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo8_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info8, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo8FieldType == 11 || gSystemConfig.configRegistersInfo8FieldType == 12) {
           this.tblRegistersInfo8 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info8, 'db'), 2);
           this.tblRegistersInfo8_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info8, 'db'), 2);
@@ -1621,7 +1621,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo9_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info9, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo9FieldType == 11 || gSystemConfig.configRegistersInfo9FieldType == 12) {
           this.tblRegistersInfo9 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info9, 'db'), 2);
           this.tblRegistersInfo9_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info9, 'db'), 2);
@@ -1633,7 +1633,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo10_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info10, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo10FieldType == 11 || gSystemConfig.configRegistersInfo10FieldType == 12) {
           this.tblRegistersInfo10 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info10, 'db'), 2);
           this.tblRegistersInfo10_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info10, 'db'), 2);
@@ -1645,7 +1645,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo11_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info11, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo11FieldType == 11 || gSystemConfig.configRegistersInfo11FieldType == 12) {
           this.tblRegistersInfo11 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info11, 'db'), 2);
           this.tblRegistersInfo11_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info11, 'db'), 2);
@@ -1657,7 +1657,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo12_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info12, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo12FieldType == 11 || gSystemConfig.configRegistersInfo12FieldType == 12) {
           this.tblRegistersInfo12 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info12, 'db'), 2);
           this.tblRegistersInfo12_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info12, 'db'), 2);
@@ -1669,7 +1669,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo13_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info13, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo13FieldType == 11 || gSystemConfig.configRegistersInfo13FieldType == 12) {
           this.tblRegistersInfo13 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info13, 'db'), 2);
           this.tblRegistersInfo13_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info13, 'db'), 2);
@@ -1681,7 +1681,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo14_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info14, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo14FieldType == 11 || gSystemConfig.configRegistersInfo14FieldType == 12) {
           this.tblRegistersInfo14 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info14, 'db'), 2);
           this.tblRegistersInfo14_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info14, 'db'), 2);
@@ -1693,7 +1693,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo15_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info15, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo15FieldType == 11 || gSystemConfig.configRegistersInfo15FieldType == 12) {
           this.tblRegistersInfo15 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info15, 'db'), 2);
           this.tblRegistersInfo15_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info15, 'db'), 2);
@@ -1705,7 +1705,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo16_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info16, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo16FieldType == 11 || gSystemConfig.configRegistersInfo16FieldType == 12) {
           this.tblRegistersInfo16 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info16, 'db'), 2);
           this.tblRegistersInfo16_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info16, 'db'), 2);
@@ -1717,7 +1717,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo17_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info17, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo17FieldType == 11 || gSystemConfig.configRegistersInfo17FieldType == 12) {
           this.tblRegistersInfo17 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info17, 'db'), 2);
           this.tblRegistersInfo17_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info17, 'db'), 2);
@@ -1729,7 +1729,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo18_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info18, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo18FieldType == 11 || gSystemConfig.configRegistersInfo18FieldType == 12) {
           this.tblRegistersInfo18 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info18, 'db'), 2);
           this.tblRegistersInfo18_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info18, 'db'), 2);
@@ -1741,7 +1741,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo19_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info19, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo19FieldType == 11 || gSystemConfig.configRegistersInfo19FieldType == 12) {
           this.tblRegistersInfo19 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info19, 'db'), 2);
           this.tblRegistersInfo19_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info19, 'db'), 2);
@@ -1753,7 +1753,7 @@ module.exports = class ObjectRegistersDetails {
           this.tblRegistersInfo20_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info20, 'db');
         }
 
-        //Encrypted.
+        // Encrypted.
         if (gSystemConfig.configRegistersInfo20FieldType == 11 || gSystemConfig.configRegistersInfo20FieldType == 12) {
           this.tblRegistersInfo20 = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info20, 'db'), 2);
           this.tblRegistersInfo20_edit = FunctionsCrypto.decryptValue(FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].info20, 'db'), 2);
@@ -1870,7 +1870,7 @@ module.exports = class ObjectRegistersDetails {
         this.tblRegistersDate1DateSecond = this.tblRegistersDate1DateObj.getSeconds();
         this.tblRegistersDate1DateSecond_print = ('0' + this.tblRegistersDate1DateObj.getSeconds()).slice(-2);
 
-        //this.tblRegistersDate1_print = this.tblRegistersDate1;
+        // this.tblRegistersDate1_print = this.tblRegistersDate1;
         this.tblRegistersDate1_print = FunctionsGeneric.dateRead01(this.tblRegistersDate1, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configRegistersDate1Type);
       }
 
@@ -2117,20 +2117,20 @@ module.exports = class ObjectRegistersDetails {
       this.tblRegistersNotes = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].notes, 'db');
       this.tblRegistersNotes_edit = FunctionsGeneric.contentMaskRead(this.resultsRegistersDetails[0].notes, 'db');
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.ordRecord = "";
@@ -2144,5 +2144,5 @@ module.exports = class ObjectRegistersDetails {
     this.ordRecord = new SyncSystemNS.ObjectFormsFieldsDetails(this.ordRecordParameters);
     await this.ordRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };

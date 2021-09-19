@@ -1,37 +1,37 @@
 'use strict';
 
-//Import Node Modules.
-//----------------------
-//require("dotenv").config(); //Load the dotenv dependency and call the config method on the imported object.
-//const mysql = require("mysql");//MySQL package.
+// Import Node Modules.
+// ----------------------
+// require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
+// const mysql = require("mysql");// MySQL package.
 
-const gSystemConfig = require('../config-application.js'); //System configuration.
-//const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supported by jest.
+const gSystemConfig = require('../config-application.js'); // System configuration.
+// const SyncSystemNS = require("./syncsystem-ns.js"); // Node JS import method supported by jest.
 
 const FunctionsGeneric = require('./functions-generic.js');
 const FunctionsDB = require('./functions-db.js');
 const FunctionsCrypto = require('./functions-crypto.js');
-//----------------------
+// ----------------------
 
-//TODO:
-//- method to get full information about the user;
-//- method to get full content based on id_parent;
+// TODO:
+// - method to get full information about the user;
+// - method to get full content based on id_parent;
 module.exports = class ObjectContentDetails {
-  //Construct.
-  //**************************************************************************************
+  // Construct.
+  // **************************************************************************************
   constructor(objParameters = {}) {
-    //Error handling.
+    // Error handling.
     if (objParameters == undefined) {
       throw new Error('Error creating object: parameters missing.');
     }
 
-    //Properties.
-    //----------------------
+    // Properties.
+    // ----------------------
     this.idTbContent = objParameters.hasOwnProperty('_idTbContent') ? objParameters._idTbContent : 0;
     this.arrSearchParameters = objParameters.hasOwnProperty('_arrSearchParameters') ? objParameters._arrSearchParameters : [];
 
     this.terminal = objParameters.hasOwnProperty('_terminal') ? objParameters._terminal : 0;
-    //terminal: 0 - backend | 1 - frontend
+    // terminal: 0 - backend | 1 - frontend
     this.labelPrefix = 'backend';
     if (this.terminal == 1) {
       this.labelPrefix = 'frontend';
@@ -46,7 +46,7 @@ module.exports = class ObjectContentDetails {
     this.tblContentSortOrder = 0;
     this.tblContentSortOrder_print = 0;
 
-    this.tblContentDateCreation = ''; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+    this.tblContentDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     this.tblContentDateTimezone = '';
     this.tblContentDateEdit = '';
 
@@ -78,20 +78,20 @@ module.exports = class ObjectContentDetails {
 
     this.tblContentActivation = 1;
     this.tblContentActivation_print = '';
-    //----------------------
+    // ----------------------
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Initiate class mathod.
-  //**************************************************************************************
+  // Initiate class mathod.
+  // **************************************************************************************
   async build() {
-    //objectCategoriesListingDebug.recordsListingGet(0, 3); //attention on this line - it wasn´t commented before
+    // objectCategoriesListingDebug.recordsListingGet(0, 3); // attention on this line - it wasn´t commented before
     return new ObjectContentDetails();
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Get content details according to search parameters.
-  //**************************************************************************************
+  // Get content details according to search parameters.
+  // **************************************************************************************
   /**
    * Get content listing according to search parameters.
    * @param {*} terminal 0 - backend | 1 - frontend
@@ -99,8 +99,8 @@ module.exports = class ObjectContentDetails {
    * @returns {json}
    */
   async recordDetailsGet(terminal = 0, returnType = 1) {
-    //terminal: 0 - backend | 1 - frontend
-    //returnType: 1 - array | 3 - Json Object | 10 - html
+    // terminal: 0 - backend | 1 - frontend
+    // returnType: 1 - array | 3 - Json Object | 10 - html
 
     /**/
     try {
@@ -114,18 +114,18 @@ module.exports = class ObjectContentDetails {
         this.objSpecialParameters
       );
 
-      //Define values.
-      //if(this.resultsCategoryDetails[0])
-      //{
-      //DEV: Create logic to chech if record exist.
-      //}
+      // Define values.
+      // if(this.resultsCategoryDetails[0])
+      // {
+      // DEV: Create logic to chech if record exist.
+      // }
       this.tblContentID = this.resultsContentDetails[0].id;
       this.tblContentIdParent = this.resultsContentDetails[0].id_parent;
 
       this.tblContentSortOrder = this.resultsContentDetails[0].sort_order;
       this.tblContentSortOrder_print = FunctionsGeneric.valueMaskRead(this.tblContentSortOrder, gSystemConfig.configSystemCurrency, 3);
 
-      this.tblContentDateCreation = this.resultsContentDetails[0].date_creation; //format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+      this.tblContentDateCreation = this.resultsContentDetails[0].date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
       this.tblContentDateTimezone = this.resultsContentDetails[0].date_timezone;
       this.tblContentDateEdit = this.resultsContentDetails[0].date_edit;
 
@@ -138,7 +138,7 @@ module.exports = class ObjectContentDetails {
       this.tblContentAlignImage = this.resultsContentDetails[0].align_image;
 
       this.tblContentContentText = FunctionsGeneric.contentMaskRead(this.resultsContentDetails[0].content_text, 'db');
-      this.tblContentContentText_edit = FunctionsGeneric.contentMaskRead(this.resultsContentDetails[0].content_text, 'editTextBox=' + gSystemConfig.configBackendTextBox); //TODO: condition detect terminal
+      this.tblContentContentText_edit = FunctionsGeneric.contentMaskRead(this.resultsContentDetails[0].content_text, 'editTextBox=' + gSystemConfig.configBackendTextBox); // TODO: condition detect terminal
       this.tblContentContentURL = FunctionsGeneric.contentMaskRead(this.resultsContentDetails[0].content_url, 'db');
       this.tblContentCaption = FunctionsGeneric.contentMaskRead(this.resultsContentDetails[0].caption, 'db');
 
@@ -173,20 +173,20 @@ module.exports = class ObjectContentDetails {
         this.tblContentActivation_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemActivation1');
       }
 
-      //Debug.
-      //console.log("this.arrSearchParameters=", this.arrSearchParameters)
+      // Debug.
+      // console.log("this.arrSearchParameters=", this.arrSearchParameters)
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.log(asyncError);
       }
     } finally {
-      //TODO:
+      // TODO:
     }
   }
-  //**************************************************************************************
+  // **************************************************************************************
 
-  //Usage.
-  //----------------------
+  // Usage.
+  // ----------------------
   /*
     this.arrSearchParameters = [];
     this.ocdRecord = "";
@@ -200,5 +200,5 @@ module.exports = class ObjectContentDetails {
     this.ocdRecord = new SyncSystemNS.ObjectContentDetails(this.ocdRecordParameters);
     await this.ocdRecord.recordDetailsGet(0, 3);
     */
-  //----------------------
+  // ----------------------
 };
