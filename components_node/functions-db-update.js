@@ -201,23 +201,23 @@ module.exports = class FunctionsDBUpdate {
     let tblCategoriesDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     let tblCategoriesDateTimezone = '';
     let tblCategoriesDateEdit = '';
-    
+
     let tblCategoriesIdRegisterUser = 0;
     let tblCategoriesIdRegister1 = 0;
     let tblCategoriesIdRegister2 = 0;
     let tblCategoriesIdRegister3 = 0;
     let tblCategoriesIdRegister4 = 0;
     let tblCategoriesIdRegister5 = 0;
-    
+
     let tblCategoriesTitle = '';
     let tblCategoriesDescription = '';
-    
+
     let tblCategoriesURLAlias = '';
     let tblCategoriesKeywordsTags = '';
     let tblCategoriesMetaDescription = '';
     let tblCategoriesMetaTitle = '';
     let tblCategoriesMetaInfo = '';
-    
+
     let tblCategoriesInfo1 = '';
     let tblCategoriesInfo2 = '';
     let tblCategoriesInfo3 = '';
@@ -228,19 +228,19 @@ module.exports = class FunctionsDBUpdate {
     let tblCategoriesInfo8 = '';
     let tblCategoriesInfo9 = '';
     let tblCategoriesInfo10 = '';
-    
+
     let tblCategoriesInfoSmall1 = '';
     let tblCategoriesInfoSmall2 = '';
     let tblCategoriesInfoSmall3 = '';
     let tblCategoriesInfoSmall4 = '';
     let tblCategoriesInfoSmall5 = '';
-    
+
     let tblCategoriesNumber1 = 0;
     let tblCategoriesNumber2 = 0;
     let tblCategoriesNumber3 = 0;
     let tblCategoriesNumber4 = 0;
     let tblCategoriesNumber5 = 0;
-    
+
     let tblCategoriesNumberSmall1 = 0;
     let tblCategoriesNumberSmall2 = 0;
     let tblCategoriesNumberSmall3 = 0;
@@ -254,7 +254,7 @@ module.exports = class FunctionsDBUpdate {
     let tblCategoriesDate3 = null; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     let tblCategoriesDate4 = null; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     let tblCategoriesDate5 = null; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
-    
+
     let tblCategoriesIdItem1 = 0;
     let tblCategoriesIdItem2 = 0;
     let tblCategoriesIdItem3 = 0;
@@ -1326,7 +1326,6 @@ module.exports = class FunctionsDBUpdate {
             });
             */
     // ----------------------
-
   }
   // **************************************************************************************
 
@@ -1430,14 +1429,14 @@ module.exports = class FunctionsDBUpdate {
     try {
       // Debug.
       // console.log("ofglRecords=", ofglRecords);
-      
-      //TODO: logic inside.
+
+      // TODO: logic inside.
     } catch (aError) {
       if (gSystemConfig.configDebug === true) {
         console.log('aError=', aError);
       }
     } finally {
-      //TODO: put return inside.
+      // TODO: put return inside.
     }
     // ----------------------
 
@@ -1848,7 +1847,7 @@ module.exports = class FunctionsDBUpdate {
     // ----------------------
   }
   // **************************************************************************************
-    
+
   // Content - update record.
   // **************************************************************************************
   /**
@@ -1905,14 +1904,14 @@ module.exports = class FunctionsDBUpdate {
     try {
       // Debug.
       // console.log("ofglRecords=", ofglRecords);
-      
-      //TODO: put logic inside.
+
+      // TODO: put logic inside.
     } catch (aError) {
       if (gSystemConfig.configDebug === true) {
         console.log('aError=', aError);
       }
     } finally {
-      //TODO: put return inside.
+      // TODO: put return inside.
     }
     // ----------------------
 
@@ -2079,12 +2078,9 @@ module.exports = class FunctionsDBUpdate {
 
     // Usage
     // ----------------------
-    /*
-    */
     // ----------------------
   }
   // **************************************************************************************
-
 
   // Products - update record.
   // **************************************************************************************
@@ -2095,8 +2091,7 @@ module.exports = class FunctionsDBUpdate {
    * @param {object} _tblProductsDataObject
    * @returns {boolean} true - successfull | false - error
    */
-  static async productsUpdate_async(_tblProductsDataObject)
-  {
+  static async productsUpdate_async(_tblProductsDataObject) {
     // Variables.
     // ----------------------
     let strReturn = false;
@@ -4722,7 +4717,6 @@ module.exports = class FunctionsDBUpdate {
             });
             */
     // ----------------------
-    
   }
   // **************************************************************************************
 
@@ -6895,7 +6889,7 @@ module.exports = class FunctionsDBUpdate {
         console.log('aError=', aError);
       }
     } finally {
-        // TODO: put return inside.
+      // TODO: put return inside.
     }
     // ----------------------
 
@@ -7188,6 +7182,7 @@ module.exports = class FunctionsDBUpdate {
               // console.log("registersFiltersGenericCheck[0].id=", registersFiltersGenericCheck[0].id);
               // console.log("includes=", arrIdsRegistersFiltersGeneric1.includes(registersFiltersGenericCheck[0].id_filters_generic.toString()));
             } else {
+              // TODO: else.
             }
 
             // Insert new bindings.
@@ -9334,7 +9329,6 @@ module.exports = class FunctionsDBUpdate {
             });
             */
     // ----------------------
-    
   }
   // **************************************************************************************
 
@@ -9695,7 +9689,6 @@ module.exports = class FunctionsDBUpdate {
   }
   // **************************************************************************************
 
-
   // Quizzes Options - update record.
   // **************************************************************************************
   /**
@@ -9749,7 +9742,7 @@ module.exports = class FunctionsDBUpdate {
     try {
       // Debug.
       // console.log("ofglRecords=", ofglRecords);
-      
+
       // TODO: put logic inside.
     } catch (aError) {
       if (gSystemConfig.configDebug === true) {
@@ -9975,10 +9968,8 @@ module.exports = class FunctionsDBUpdate {
             })()
             */
     // ----------------------
-    
   }
   // **************************************************************************************
-
 
   // Forms - update record.
   // **************************************************************************************
@@ -10033,7 +10024,6 @@ module.exports = class FunctionsDBUpdate {
     try {
       // Debug.
       // console.log("ofglRecords=", ofglRecords);
-      
       // TODO: put logic inside.
     } catch (aError) {
       if (gSystemConfig.configDebug === true) {
@@ -10494,7 +10484,6 @@ module.exports = class FunctionsDBUpdate {
   }
   // **************************************************************************************
 
-
   // Forms Fields Options - update record.
   // **************************************************************************************
   /**
@@ -10733,7 +10722,6 @@ module.exports = class FunctionsDBUpdate {
     // ----------------------
   }
   // **************************************************************************************
-
 
   // Filters Generic - update record.
   // **************************************************************************************
@@ -11051,7 +11039,6 @@ module.exports = class FunctionsDBUpdate {
   }
   // **************************************************************************************
 
-
   // Users - update record.
   // **************************************************************************************
   /**
@@ -11170,7 +11157,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblUsersDateEdit = tblUsersDataObject.hasOwnProperty('_tblUsersDateEdit') === true ? tblUsersDataObject._tblUsersDateEdit : tblUsersDateEdit;
     if (!tblUsersDateEdit) {
-      let tblUsersDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblUsersDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblUsersDateEdit = FunctionsGeneric.dateSQLWrite(tblUsersDateEdit_dateObj);
     }
 
