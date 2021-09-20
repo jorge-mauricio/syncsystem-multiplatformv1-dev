@@ -316,8 +316,8 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
           // let fieldsCheckbox;
           // let fieldsCheckbox = {debug: 123};
           // let fieldsCheckbox = {};
-          // form.on('field', function (name, value) {
-          form.on('field', (name, value) => {
+          form.on('field', function (name, value) {
+          // form.on('field', (name, value) => {
             // form.on('field', (name, value, fieldsCheckbox)=>{
             // console.log("fieldsMultipleValuesPost=", fieldsMultipleValuesPost); // debug.
             if (name.toString().includes('[]') === true) {
@@ -377,8 +377,8 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
 
           // Progress bar.
           // ----------------------
-          // form.on('progress', function (bytesReceived, bytesExpected) {
-          form.on('progress', (bytesReceived, bytesExpected) => {
+          form.on('progress', function (bytesReceived, bytesExpected) {
+          // form.on('progress', (bytesReceived, bytesExpected) => {
             const progressPercentComplete = (bytesReceived / bytesExpected) * 100;
 
             // TODO: Progress bar on alert div.
@@ -394,8 +394,8 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
           // Renaming.
           // ----------------------
           // form.on("end", function(fields, files){
-          // form.on('end', async function (fields, files) {
-          form.on('end', async (fields, files) => {
+          form.on('end', async function (fields, files) {
+          // form.on('end', async (fields, files) => {
             // Note - this function structure must remain as it is or the "this" parameter looses it´s context.
 
             // Check fields with files.

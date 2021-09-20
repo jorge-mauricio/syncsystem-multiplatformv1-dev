@@ -1468,7 +1468,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblFilesDateEdit = tblFilesDataObject.hasOwnProperty('_tblFilesDateEdit') === true ? tblFilesDataObject._tblFilesDateEdit : tblFilesDateEdit;
     if (!tblFilesDateEdit) {
-      let tblFilesDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblFilesDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblFilesDateEdit = FunctionsGeneric.dateSQLWrite(tblFilesDateEdit_dateObj);
     }
 
@@ -2322,12 +2322,14 @@ module.exports = class FunctionsDBUpdate {
     // tblProductsIdType = tblProductsDataObject._tblProductsIdType;
     tblProductsIdType = tblProductsDataObject.hasOwnProperty('_tblProductsIdType') === true && tblProductsDataObject._tblProductsIdType ? tblProductsDataObject._tblProductsIdType : tblProductsIdType;
 
-    /*tblProductsDateCreation = (tblProductsDataObject.hasOwnProperty("_tblProductsDateCreation") === true) ? tblProductsDataObject._tblProductsDateCreation : tblProductsDateCreation; // x = condition ? true : false (default value declared)
-            if(!tblProductsDateCreation)
-            {
-                let tblProductsDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
-                tblProductsDateCreation = FunctionsGeneric.dateSQLWrite(tblProductsDateCreation_dateObj);
-            }*/
+    /*
+    tblProductsDateCreation = (tblProductsDataObject.hasOwnProperty("_tblProductsDateCreation") === true) ? tblProductsDataObject._tblProductsDateCreation : tblProductsDateCreation; // x = condition ? true : false (default value declared)
+    if(!tblProductsDateCreation)
+    {
+        let tblProductsDateCreation_dateObj = new Date(FunctionsGeneric.timeZoneConverter())
+        tblProductsDateCreation = FunctionsGeneric.dateSQLWrite(tblProductsDateCreation_dateObj);
+    }
+    */
 
     // tblProductsDateTimezone = (tblProductsDataObject.hasOwnProperty("_tblProductsDateTimezone") === true) ? tblProductsDataObject._tblProductsDateTimezone : tblProductsDateTimezone;
 
@@ -4876,7 +4878,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblPublicationsDateEdit = tblPublicationsDataObject.hasOwnProperty('_tblPublicationsDateEdit') === true ? tblPublicationsDataObject._tblPublicationsDateEdit : tblPublicationsDateEdit;
     if (!tblPublicationsDateEdit) {
-      let tblPublicationsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblPublicationsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblPublicationsDateEdit = FunctionsGeneric.dateSQLWrite(tblPublicationsDateEdit_dateObj);
     }
 
@@ -6201,7 +6203,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblRegistersDateEdit = tblRegistersDataObject.hasOwnProperty('_tblRegistersDateEdit') === true ? tblRegistersDataObject._tblRegistersDateEdit : tblRegistersDateEdit;
     if (!tblRegistersDateEdit) {
-      let tblRegistersDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblRegistersDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblRegistersDateEdit = FunctionsGeneric.dateSQLWrite(tblRegistersDateEdit_dateObj);
     }
 
@@ -9424,7 +9426,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblQuizzesDateEdit = tblQuizzesDataObject.hasOwnProperty('_tblQuizzesDateEdit') === true ? tblQuizzesDataObject._tblQuizzesDateEdit : tblQuizzesDateEdit;
     if (!tblQuizzesDateEdit) {
-      let tblQuizzesDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblQuizzesDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblQuizzesDateEdit = FunctionsGeneric.dateSQLWrite(tblQuizzesDateEdit_dateObj);
     }
 
@@ -9779,7 +9781,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblQuizzesOptionsDateEdit = tblQuizzesOptionsDataObject.hasOwnProperty('_tblQuizzesOptionsDateEdit') === true ? tblQuizzesOptionsDataObject._tblQuizzesOptionsDateEdit : tblQuizzesOptionsDateEdit;
     if (!tblQuizzesOptionsDateEdit) {
-      let tblQuizzesOptionsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblQuizzesOptionsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblQuizzesOptionsDateEdit = FunctionsGeneric.dateSQLWrite(tblQuizzesOptionsDateEdit_dateObj);
     }
 
@@ -10317,7 +10319,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblFormsFieldsDateEdit = tblFormsFieldsDataObject.hasOwnProperty('_tblFormsFieldsDateEdit') === true ? tblFormsFieldsDataObject._tblFormsFieldsDateEdit : tblFormsFieldsDateEdit;
     if (!tblFormsFieldsDateEdit) {
-      let tblFormsFieldsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblFormsFieldsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblFormsFieldsDateEdit = FunctionsGeneric.dateSQLWrite(tblFormsFieldsDateEdit_dateObj);
     }
 
@@ -10569,7 +10571,7 @@ module.exports = class FunctionsDBUpdate {
 
     tblFormsFieldsOptionsDateEdit = tblFormsFieldsOptionsDataObject.hasOwnProperty('_tblFormsFieldsOptionsDateEdit') === true ? tblFormsFieldsOptionsDataObject._tblFormsFieldsOptionsDateEdit : tblFormsFieldsOptionsDateEdit;
     if (!tblFormsFieldsOptionsDateEdit) {
-      let tblFormsFieldsOptionsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
+      const tblFormsFieldsOptionsDateEdit_dateObj = new Date(FunctionsGeneric.timeZoneConverter());
       tblFormsFieldsOptionsDateEdit = FunctionsGeneric.dateSQLWrite(tblFormsFieldsOptionsDateEdit_dateObj);
     }
 

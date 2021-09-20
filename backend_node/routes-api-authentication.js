@@ -145,8 +145,8 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
 
           // Field parsing.
           // ----------------------
-          // form.on('field', function (name, value) {
-          form.on('field', (name, value) => {
+          form.on('field', function (name, value) {
+          // form.on('field', (name, value) => {
             /*
             if (fieldsPost[name]) {
             if (!Array.isArray(fieldsPost[name])) {
@@ -176,8 +176,8 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
 
           // Progress bar.
           // ----------------------
-          // form.on('progress', function (bytesReceived, bytesExpected) {
-          form.on('progress', (bytesReceived, bytesExpected) => {
+          form.on('progress', function (bytesReceived, bytesExpected) {
+          // form.on('progress', (bytesReceived, bytesExpected) => {
             const progressPercentComplete = (bytesReceived / bytesExpected) * 100;
 
             // TODO: Progress bar on alert div.
@@ -193,8 +193,8 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
           // Renaming.
           // ----------------------
           // form.on("end", function(fields, files){
-          // form.on('end', async function (fields, files) {
-          form.on('end', async (fields, files) => {
+          form.on('end', async function (fields, files) {
+          // form.on('end', async (fields, files) => {
             // Note - this function structure must remain as it is or the "this" parameter looses it´s context.
 
             // Check fields with files.
