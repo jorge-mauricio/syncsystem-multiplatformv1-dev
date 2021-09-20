@@ -2,7 +2,6 @@
 
 // Author information.
 // **************************************************************************************
-
 // **************************************************************************************
 
 // "use strict";
@@ -12,7 +11,7 @@
 // ----------------------
 
 // Create a namespace to help export all variables / properties.
-var gSystemConfig = {};
+let gSystemConfig = {}; // eslint-disable-line
 
 // NodeJS configuration.
 // **************************************************************************************
@@ -43,13 +42,13 @@ gSystemConfig.configURLFrontendReact = process.env.CONFIG_URL_FRONTEND_REACT;
 
 /*
 window.location.hash: "#2"
-​window.location.host: "localhost:4200"
-​window.location.hostname: "localhost"
-​window.location.href: "http:// localhost:4200/landing?query=1#2"
-​window.location.origin: "http:// localhost:4200"
-​window.location.pathname: "/landing"
-​window.location.port: "4200"
-​window.location.protocol: "http:"
+window.location.host: "localhost:4200"
+window.location.hostname: "localhost"
+window.location.href: "http:// localhost:4200/landing?query=1#2"
+window.location.origin: "http:// localhost:4200"
+window.location.pathname: "/landing"
+window.location.port: "4200"
+window.location.protocol: "http:"
 window.location.search: "?query=1"
 */
 
@@ -65,7 +64,8 @@ gSystemConfig.configFrontendMobileDefaultView = 'frontend_node_mobile';
 
 // DB especial configuration.
 // ----------------------
-/*Moved to .env file.
+/*
+Moved to .env file.
 const configSystemDBTablePrefix = "prefix_ssmv1_";
 const configSystemDBType = 2; // 2 - MySQL | 3 - SQL Server
 const enableSystemDBSizeOptimize = 0; // 0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
@@ -276,17 +276,17 @@ gSystemConfig.enableDefaultImageSize = 1; // 0 - disable (image sizes diferent f
 
 // prefix;w;h
 gSystemConfig.configArrDefaultImageSize = ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrCategoriesImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrFilesImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrContentImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrProductsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrPublicationsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrRegistersImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrQuizzesImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrQuizzesOptionsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrFormsFieldsOptionsImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrFiltersGenericImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
-gSystemConfig.configArrUsersImageSize = gSystemConfig.enableDefaultImageSize == 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrCategoriesImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrFilesImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrContentImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrProductsImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrPublicationsImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrRegistersImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrQuizzesImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrQuizzesOptionsImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrFormsFieldsOptionsImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrFiltersGenericImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+gSystemConfig.configArrUsersImageSize = gSystemConfig.enableDefaultImageSize === 1 ? gSystemConfig.configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
 // ----------------------
 
 // e-mail configuration.
@@ -724,7 +724,8 @@ gSystemConfig.configFilesFrontendPaginationNRecords = 10;
 // **************************************************************************************
 gSystemConfig.configContentSort = 'id ASC'; // options: id | sort_order | date_creation esc | date_creation desc
 gSystemConfig.enableContentSortCustom = 1; // 0 - disable | 1 - enable
-/*gSystemConfig.configContentInputOrder = ["inputRowContent_id_parent", 
+/*
+gSystemConfig.configContentInputOrder = ["inputRowContent_id_parent", 
                                             "inputRowContent_sort_order", 
                                             "inputRowContent_date1", 
                                             "inputRowContent_id_register_user", 
@@ -737,7 +738,7 @@ gSystemConfig.enableContentSortCustom = 1; // 0 - disable | 1 - enable
                                             "inputRowContent_caption", 
                                             "inputRowContent_file", 
                                             "inputRowContent_activation"
-                                          ];*/ /*not in use */
+                                          ];*/ /* not in use */
 
 // Basic resources.
 gSystemConfig.enableContentSortOrder = 1; // 0 - disable | 1 - enable
