@@ -94,7 +94,7 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
   (async () => {
     // async marks the block
     try {
-      //let formParseResults = await new Promise(function (resolve, reject) {
+      // let formParseResults = await new Promise(function (resolve, reject) {
       // eslint-disable-next-line
       let formParseResults = await new Promise((resolve, reject) => {
         // Variables.
@@ -146,7 +146,7 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
           // Field parsing.
           // ----------------------
           form.on('field', function (name, value) {
-          // form.on('field', (name, value) => {
+            // form.on('field', (name, value) => {
             /*
             if (fieldsPost[name]) {
             if (!Array.isArray(fieldsPost[name])) {
