@@ -2415,7 +2415,8 @@ module.exports = class CategoriesListing {
 
                         // Reorder table rows.
                         // TODO: Create variable in config to enable it.
-                        document.addEventListener('DOMContentLoaded', function() {
+                        // document.addEventListener('DOMContentLoaded', function() {
+                        document.addEventListener('DOMContentLoaded', () => {
                             // inputDataReorder();
                             // inputDataReorder(["inputRowCategories_field_name1", "inputRowCategories_field_name2", "inputRowCategories_field_name3", "inputRowCategories_field_name4", "inputRowCategories_field_name5", "inputRowCategories_field_name6"]);
                             // inputDataReorder(["inputRowCategories_image_main", "inputRowCategories_id_parent", "inputRowCategories_sort_order", "inputRowCategories_title", "inputRowCategories_meta_title", "inputRowCategories_url_alias"]);
@@ -2442,11 +2443,11 @@ module.exports = class CategoriesListing {
                                 "inputRowCategories_notes"
                             ]);*/
                             
-                            inputDataReorder([${gSystemConfig.configCategoriesInputOrder
-                              .map((arrayRow) => {
-                                return `"${arrayRow}"`;
-                              })
-                              .join(',')}]); // necessary to map the array in order to display as an array inside template literals
+                          inputDataReorder([${gSystemConfig.configCategoriesInputOrder
+                            .map((arrayRow) => {
+                              return `"${arrayRow}"`;
+                            })
+                            .join(',')}]); // necessary to map the array in order to display as an array inside template literals
 
                         }, false);
                     </script>

@@ -527,12 +527,13 @@ module.exports = class CategoriesDetails {
 
                   // Reorder table rows.
                   // TODO: Create variable in config to able it.
-                  document.addEventListener('DOMContentLoaded', function() {
-                      inputDataReorder([${gSystemConfig.configCategoriesInputOrder
-                        .map((arrayRow) => {
-                          return `"${arrayRow}"`;
-                        })
-                        .join(',')}]); // necessary to map the array in order to display as an array inside template literals
+                  // document.addEventListener('DOMContentLoaded', function() {
+                  document.addEventListener('DOMContentLoaded', () => {
+                    inputDataReorder([${gSystemConfig.configCategoriesInputOrder
+                      .map((arrayRow) => {
+                        return `"${arrayRow}"`;
+                      })
+                      .join(',')}]); // necessary to map the array in order to display as an array inside template literals
 
                   }, false);
               </script>
