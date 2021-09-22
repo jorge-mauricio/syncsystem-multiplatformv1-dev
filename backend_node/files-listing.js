@@ -3152,7 +3152,7 @@ module.exports = class FilesListing {
                                                                     gLightboxBackendConfigOptions.selector = "glightbox_files_file${filesRow.id}";
                                                                     // Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                                     // data-glightbox="title: Title example.; description: Description example."
-                                                                    var glightboxFilesImageMain = GLightbox(gLightboxBackendConfigOptions);
+                                                                    let glightboxFilesImageMain = GLightbox(gLightboxBackendConfigOptions);
                                                                 </script>
                                                             `
                                                                 : ``

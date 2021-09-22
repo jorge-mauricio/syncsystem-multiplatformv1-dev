@@ -597,7 +597,7 @@ module.exports = class ContentListing {
                                                                             gLightboxBackendConfigOptions.selector = "glightbox_content_file${contentRow.id}";
                                                                             // Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                                             // data-glightbox="title: Title example.; description: Description example."
-                                                                            var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
+                                                                            let glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
                                                                         </script>
                                                                     `
                                                                         : ``
@@ -684,7 +684,7 @@ module.exports = class ContentListing {
                                                                             gLightboxBackendConfigOptions.selector = "glightbox_content_file${contentRow.id}";
                                                                             // Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                                             // data-glightbox="title: Title example.; description: Description example."
-                                                                            var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
+                                                                            let glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
                                                                         // });
                                                                     </script>
                                                                 `
@@ -771,7 +771,7 @@ module.exports = class ContentListing {
                                                                             gLightboxBackendConfigOptions.selector = "glightbox_content_file${contentRow.id}";
                                                                             // Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                                             // data-glightbox="title: Title example.; description: Description example."
-                                                                            var glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
+                                                                            let glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
                                                                         </script>
                                                                     `
                                                                         : ``
