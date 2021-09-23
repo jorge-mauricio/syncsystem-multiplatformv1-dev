@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; // eslint-disable-line
 // TODO: test to check if '' is required in the comments.
 
 // Import Node Modules.
@@ -9,8 +9,8 @@
 import { SyncSystemNSContext } from '../components_react/syncsystem-ns-cb-context.js'; // eslint-disable-line
 
 // import React from "react";
-import React, { Component } from 'react'; // eslint-disable-line
-import ReactDOM from 'react-dom'; // eslint-disable-line
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 // import ReactDOMServer from 'react-dom/server';
 // import {Helmet} from "react-helmet";
 // import Safe from "react-safe";
@@ -23,11 +23,11 @@ import ReactDOM from 'react-dom'; // eslint-disable-line
 // import HtmlToReactParser from 'html-to-react'.Parser;
 
 // const TrackingCode = require("../tracking-code");
-import TrackingCode from '../tracking-code.js'; // eslint-disable-line
+import TrackingCode from '../tracking-code.js';
 
 // CSS.
 // import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import StylesFrontend from '../app_styles/styles-frontend.css'; // eslint-disable-line
+import StylesFrontend from '../app_styles/styles-frontend.css';
 // import StylesFrontend from ("../" + gSystemConfig.configDirectoryStyles + "/styles-frontend.css");
 
 // import StylesFrontend from '/app_styles/styles-frontend.css';
@@ -498,5 +498,5 @@ class LayoutFrontendMain extends Component {
   // **************************************************************************************
 }
 
-export default LayoutFrontendMain; // eslint-disable-line
+export default LayoutFrontendMain;
 // export default withStyles(StylesFrontend)(LayoutFrontendMain);

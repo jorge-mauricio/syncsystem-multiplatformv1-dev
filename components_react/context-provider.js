@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import App from './app';
 
 class ContextProvider extends React.Component {
-    static childContextTypes = {
-      insertCss: PropTypes.func,
-    }
+  static childContextTypes = {
+    insertCss: PropTypes.func,
+  };
 
-    getChildContext() {
-      return { ...this.props.context }
-    }
-
-    render () {
-      return <App { ...this.props } />
-    }
+  getChildContext() {
+    return { ...this.props.context };
   }
 
-  export default ContextProvider;
+  render() {
+    return <App {...this.props} />;
+  }
+}
+
+export default ContextProvider;

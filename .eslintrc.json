@@ -19,7 +19,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:node/recommended",
+    // "plugin:node/recommended", // when enabled, reports import / export
     "plugin:security/recommended"
   ],
   "rules": {
@@ -33,7 +33,7 @@
         //"tabWidth": 2
       }
     ],
-    "strict": ["error", "global"],
+    "strict": ["warn", "global"],
     //"max-len": ["error", {"code": 100, "ignoreUrls": true}],
     "semi": "error",
     "no-unused-vars": "warn",
