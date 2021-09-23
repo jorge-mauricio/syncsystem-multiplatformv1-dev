@@ -1,8 +1,8 @@
-<% if(gSystemConfig.configDebug === true){ %>
+<% if (gSystemConfig.configDebug === true) { %>
     <%# JavaScript - custom functions. %>
     <script src="/<%- gSystemConfig.configDirectoryJSSD %>/functions-syncsystem.js" type="text/javascript"></script><!--Dev--><!--type="module" | type="text/javascript" | importOrigin="html" -->
 <% } %>
-<% if(gSystemConfig.configDebug === false){ %>
+<% if (gSystemConfig.configDebug === false) { %>
     <%# JavaScript - custom functions. %>
     <script src="/<%- gSystemConfig.configDirectoryDistSD %>/backend.bundle.js" type="text/javascript"></script><!--Production - not working-->
     <!--script src="/<%- gSystemConfig.configDirectoryDistSD %>/functions-syncsystem.bundle.js" type="text/javascript"></script--><!--Production-->
@@ -29,7 +29,7 @@
 
 <%# GLightbox. %>
 <%# ************************************************************************************** %>
-<% if(gSystemConfig.configImagePopup == 4){ %>
+<% if (gSystemConfig.configImagePopup == 4) { %>
     <%/*
         ref: https://biati-digital.github.io/glightbox/
         ref: https://github.com/biati-digital/glightbox/blob/master/README.md
@@ -43,11 +43,11 @@
 
         //Backend options
         gLightboxBackendConfigOptions.autoplayVideos = true;
-        gLightboxBackendConfigOptions.openEffect = "fade"; //zoom, fade, none
-        gLightboxBackendConfigOptions.slideEffect = "slide"; //slide, fade, zoom, none
-        gLightboxBackendConfigOptions.moreText = "+"; //more text for descriptions on mobile devices
+        gLightboxBackendConfigOptions.openEffect = 'fade'; //zoom, fade, none
+        gLightboxBackendConfigOptions.slideEffect = 'slide'; //slide, fade, zoom, none
+        gLightboxBackendConfigOptions.moreText = '+'; //more text for descriptions on mobile devices
         gLightboxBackendConfigOptions.touchNavigation = true;
-        gLightboxBackendConfigOptions.descPosition = "bottom"; //global position for slides description, you can define a specific position on each slide (bottom, top, left, right)
+        gLightboxBackendConfigOptions.descPosition = 'bottom'; //global position for slides description, you can define a specific position on each slide (bottom, top, left, right)
     </script>
 <% } %>
 <%# ************************************************************************************** %>
@@ -62,7 +62,7 @@
     Research: make it work with webpack (importing in the node code).
 */%>
 <!--link rel="stylesheet" type="text/css" href="/node_modules/js-datepicker/dist/datepicker.min.css" media="screen" title="Default" /-->
-<% if(gSystemConfig.configDebug === true){ %>
+<% if (gSystemConfig.configDebug === true) { %>
     <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryJSSD %>/js-datepicker/datepicker.min.css" media="screen" title="Default" /><!--moved to webpack (dist)-->
 
     <!--script src="/node_modules/js-datepicker/dist/datepicker.min.js" type="text/javascript"></script-->
@@ -81,22 +81,22 @@
     //Base options (en-US).
     jsDatepickerBaseBackendConfigOptions = {
         formatter: (input, date, instance) => {
-            const value = date.toLocaleDateString("en-US"); //ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
+            const value = date.toLocaleDateString('en-US'); //ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
             input.value = value; // => '1/15/2099';
         },
-        customDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        customMonths: ["January", "Fabruary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        overlayButton: "Done",
-        overlayPlaceholder: "4-digit year",
-        position: "bl", //'tr', 'tl', 'br', 'bl', 'c'
+        customDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        customMonths: ['January', 'Fabruary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        overlayButton: 'Done',
+        overlayPlaceholder: '4-digit year',
+        position: 'bl', //'tr', 'tl', 'br', 'bl', 'c'
         respectDisabledReadOnly: true
     };
 
     //Base options (pt-BR).
-    <% if(gSystemConfig.configBackendDateFormat == 1){ %>
+    <% if (gSystemConfig.configBackendDateFormat == 1) { %>
         jsDatepickerBaseBackendConfigOptions = {
             formatter: (input, date, instance) => {
-                const value = date.toLocaleDateString("pt-BR");
+                const value = date.toLocaleDateString('pt-BR');
                 input.value = value; // => '15/1/2099';
             },
             //dateSelected: new Date(2099, 0, 5),
@@ -104,11 +104,11 @@
             //minDate: new Date(2018, 0, 1),
             //startDate: new Date(2099, 0, 1), //The date you provide will determine the month that the calendar starts off at.
             //noWeekends: true,
-            customDays: ["Dom", "Seg", "Ter", "Qua", "qui", "Sex", "Sáb"],
-            customMonths: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-            overlayButton: "Pronto",
-            overlayPlaceholder: "ano 4-dígito",
-            position: "bl", //'tr', 'tl', 'br', 'bl', 'c'
+            customDays: ['Dom', 'Seg', 'Ter', 'Qua', 'qui', 'Sex', 'Sáb'],
+            customMonths: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            overlayButton: 'Pronto',
+            overlayPlaceholder: 'ano 4-dígito', 
+            position: 'bl', //'tr', 'tl', 'br', 'bl', 'c'
             respectDisabledReadOnly: true
             };
     <% } %>
@@ -152,7 +152,7 @@
     ref: https://github.com/nosir/cleave.js/blob/master/doc/options.md
     ref: https://www.jqueryscript.net/form/Easy-jQuery-Input-Mask-Plugin-inputmask.html
 */%>
-<% if(gSystemConfig.configDebug === true){ %>
+<% if (gSystemConfig.configDebug === true) { %>
     <script src="/<%- gSystemConfig.configDirectoryJSSD %>/inputmask5/inputmask.min.js" type="text/javascript"></script>
     <!--script src="/<%- gSystemConfig.configDirectoryJSSD %>/inputmask5/inputmask.dependencyLib.js" type="text/javascript"></script-->
     <!--script src="/<%- gSystemConfig.configDirectoryJSSD %>/inputmask5/inputmask.extensions.js" type="text/javascript"></script-->
@@ -168,7 +168,7 @@
     //Generic options.
     //----------------------
     inputmaskGenericBackendConfigOptions.greedy = false;
-    inputmaskGenericBackendConfigOptions.alias = "numeric"; //numeric | currency | decimal
+    inputmaskGenericBackendConfigOptions.alias = 'numeric'; //numeric | currency | decimal
     inputmaskGenericBackendConfigOptions.digits = 0;
     inputmaskGenericBackendConfigOptions.autoGroup = false;
     inputmaskGenericBackendConfigOptions.digitsOptional = false;
@@ -179,21 +179,21 @@
     //Currency options.
     //----------------------
     inputmaskCurrencyBackendConfigOptions.greedy = false;
-    inputmaskCurrencyBackendConfigOptions.alias = "numeric"; //numeric | currency | decimal
+    inputmaskCurrencyBackendConfigOptions.alias = 'numeric'; //numeric | currency | decimal
     inputmaskCurrencyBackendConfigOptions.digits = 2;
     inputmaskCurrencyBackendConfigOptions.autoGroup = true;
     inputmaskCurrencyBackendConfigOptions.digitsOptional = false;
     inputmaskCurrencyBackendConfigOptions.allowMinus = false;
 
     //R$
-    <% if(gSystemConfig.configSystemCurrency == "R$"){ %>
-        inputmaskCurrencyBackendConfigOptions.groupSeparator = ".";
-        inputmaskCurrencyBackendConfigOptions.radixPoint = ",";
+    <% if (gSystemConfig.configSystemCurrency == 'R$') { %>
+        inputmaskCurrencyBackendConfigOptions.groupSeparator = '.';
+        inputmaskCurrencyBackendConfigOptions.radixPoint = ',';
     <% } %>
     //$
-    <% if(gSystemConfig.configSystemCurrency == "$"){ %>
-        inputmaskCurrencyBackendConfigOptions.groupSeparator = ",";
-        inputmaskCurrencyBackendConfigOptions.radixPoint = ".";
+    <% if (gSystemConfig.configSystemCurrency == '$'){ %>
+        inputmaskCurrencyBackendConfigOptions.groupSeparator = ',';
+        inputmaskCurrencyBackendConfigOptions.radixPoint = '.';
     <% } %>
     /*
     {
@@ -226,13 +226,13 @@
     //Decimal options.
     //----------------------
     inputmaskDecimalBackendConfigOptions.greedy = false;
-    inputmaskDecimalBackendConfigOptions.alias = "numeric"; //numeric | currency | decimal
+    inputmaskDecimalBackendConfigOptions.alias = 'numeric'; //numeric | currency | decimal
     //inputmaskDecimalBackendConfigOptions.digits = 0;
     inputmaskDecimalBackendConfigOptions.autoGroup = false;
     inputmaskDecimalBackendConfigOptions.digitsOptional = true;
     inputmaskDecimalBackendConfigOptions.allowMinus = true;
-    inputmaskDecimalBackendConfigOptions.groupSeparator = ",";
-    inputmaskDecimalBackendConfigOptions.radixPoint = ".";
+    inputmaskDecimalBackendConfigOptions.groupSeparator = ',';
+    inputmaskDecimalBackendConfigOptions.radixPoint = '.';
     //----------------------
 </script>
 <%# ************************************************************************************** %>
@@ -240,7 +240,7 @@
 
 <%# Quill. %>
 <%# ************************************************************************************** %>
-<% if(gSystemConfig.configBackendTextBox == 13 || gSystemConfig.configBackendTextBox == 13){ %>
+<% if (gSystemConfig.configBackendTextBox == 13 || gSystemConfig.configBackendTextBox == 13) { %>
     <%/*
         ref: https://quilljs.com/docs/download/
         TODO: Condition (config-application) to import library.
@@ -258,7 +258,7 @@
 
 <%# FroalaEditor. %>
 <%# ************************************************************************************** %>
-<% if(gSystemConfig.configBackendTextBox == 15 || gSystemConfig.configBackendTextBox == 16){ %>
+<% if (gSystemConfig.configBackendTextBox == 15 || gSystemConfig.configBackendTextBox == 16) { %>
     <%/*
         ref: https://www.froala.com/wysiwyg-editor/download
         TODO: Condition (config-application) to import library.
@@ -272,7 +272,7 @@
 
 <%# TinyMCE. %>
 <%# ************************************************************************************** %>
-<% if(gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18){ %>
+<% if (gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18) { %>
     <%/*
         ref: https://www.tiny.cloud/docs/quick-start/
         TODO: Translate controls.
@@ -286,8 +286,8 @@
             min_height: 300,
             resize: false,
             statusbar: true,
-            skin: "small",
-            icons: "small",
+            skin: 'small',
+            icons: 'small',
             branding: false,
 
             //Filters.
@@ -305,26 +305,26 @@
                 /<\?php.*?\?>/g  // Protect php code
             ],*/ /*error - maybe because of the special rendering in literal templates*/
             
-            element_format : "xhtml", //html (<br>) | xhtml (<br />)
-            schema: "html5",
-            forced_root_block : "",
+            element_format : 'xhtml', //html (<br>) | xhtml (<br />)
+            schema: 'html5',
+            forced_root_block : '',
 
             /*formats: {
                 // A custom format that wraps blocks into a div with the specified wrapper class
-                "custom-wrapper": { block: "div", classes: "wrapper", wrapper: true }
+                'custom-wrapper': { block: 'div', classes: 'wrapper', wrapper: true }
             },*/
             
 
             //Basic.
-            <% if(gSystemConfig.configBackendTextBox == 17){ %>
-                toolbar: "bold italic underline nonbreaking | bullist numlist | link unlink | copy cut paste pastetext | visualaid code",
+            <% if (gSystemConfig.configBackendTextBox == 17) { %>
+                toolbar: 'bold italic underline nonbreaking | bullist numlist | link unlink | copy cut paste pastetext | visualaid code',
                 menubar: false,
             <% } %>
 
             //Advanced.
-            <% if(gSystemConfig.configBackendTextBox == 18){ %>
-                toolbar: "bold italic underline nonbreaking | bullist numlist | undo redo | formatselect removeformat styleselect | link unlink | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect | strikethrough subscript superscript | copy cut paste selectall pastetext | backcolor forecolor | outdent indent | blockquote | emoticons hr image media | table tabledelete | visualaid code",
-                menubar: "file edit insert view format table tools help",
+            <% if (gSystemConfig.configBackendTextBox == 18) { %>
+                toolbar: 'bold italic underline nonbreaking | bullist numlist | undo redo | formatselect removeformat styleselect | link unlink | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect | strikethrough subscript superscript | copy cut paste selectall pastetext | backcolor forecolor | outdent indent | blockquote | emoticons hr image media | table tabledelete | visualaid code',
+                menubar: 'file edit insert view format table tools help',
                 menu: {
                     //file: { title: 'File', items: 'newdocument restoredraft | preview | print' },
                     file: { title: 'File', items: 'print' },
@@ -336,11 +336,11 @@
                     table: { title: 'Table', items: 'inserttable | cell row column | tableprops deletetable' }
                     //help: { title: 'Help', items: 'help' }
                 },
-                font_formats: "Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n",
+                font_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n',
             <% } %>
 
             //Research name changing.  
-            plugins: "advlist paste link image media lists table code emoticons nonbreaking"
+            plugins: 'advlist paste link image media lists table code emoticons nonbreaking'
         }
     </script>
 <% } %>

@@ -1,16 +1,16 @@
 <%# 
-ref: https://ejs.co/#docs 
+ref: https:// ejs.co/#docs 
 %>
 <!DOCTYPE html>
 <html lang="en">
 <%# <html lang="pt-br"> %>
     <head>
-        <%//Tracking codes. %>
+        <%// Tracking codes. %>
         <%- include('layout-include-tracking-codes.ejs'); %>
 
 
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge"><%//Bootstrap required. %>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"><%// Bootstrap required. %>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <title><%- SyncSystemNS.FunctionsGeneric.contentMaskRead(templateData.cphTitle, "config-application") %></title>
@@ -18,10 +18,10 @@ ref: https://ejs.co/#docs
         <%# Style Sheets - JS dependencies. %>
 
         <%# Style Sheets - personalized. http://localhost:3000 | ../../ %>
-        <% if(gSystemConfig.configDebug === true){ %>
+        <% if (gSystemConfig.configDebug === true) { %>
             <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryStylesSD %>/styles-backend.css" media="screen" title="Default" /><!--Dev-->
-		<% } %>
-        <% if(gSystemConfig.configDebug === false){ %>
+        <% } %>
+        <% if (gSystemConfig.configDebug === false) { %>
             <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend.bundle.css" media="screen" title="Default" /><!--Production (custom styles)-->
             <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend-vendor.bundle.css" media="screen" title="Default" /><!--Production (vendor styles)-->
         <% } %>
@@ -30,7 +30,7 @@ ref: https://ejs.co/#docs
 		<%/*
 		Favicon - 16x16 | 32x32 | 64x64 (pixels).
 		Export settings: PNG: 558 x 558 pixels.
-		https://realfavicongenerator.net/
+		https:// realfavicongenerator.net/
 		*/%>
 
 		<%
@@ -49,7 +49,7 @@ ref: https://ejs.co/#docs
 		<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 		<%#<!--link rel="manifest" href="../site.webmanifest" /-->%>
-		<%#<!--link rel="manifest" href="../../site.json" /--> <!--IIS compatible: (ref: https://devanswers.co/site-webmanifest-error-404-401/).-->%>
+		<%#<!--link rel="manifest" href="../../site.json" /--> <!--IIS compatible: (ref: https:// devanswers.co/site-webmanifest-error-404-401/).-->%>
 		<link rel="manifest" href="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/site.webmanifest" />
 		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
 		<meta name="msapplication-TileColor" content="#009154" />
@@ -84,7 +84,7 @@ ref: https://ejs.co/#docs
 		<meta name="author" content="<%- SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") %>" />
 		<meta name="designer" content="<%- SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configDevName, "config-application") %>" />
 		<meta name="copyright" content="<%- gSystemConfig.configCopyrightYear %>, <%- SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") %>" />
-		<meta name="rating" content="general" /><!--//general | mature | restricted | 14 years -->
+		<meta name="rating" content="general" /><!--// general | mature | restricted | 14 years -->
 
 
         <%# JS includes. %>

@@ -5,12 +5,12 @@ ref: https://ejs.co/#docs
 <html lang="en">
 <%# <html lang="pt-br"> %>
     <head>
-        <%//Tracking codes. %>
+        <% // Tracking codes. %>
         <%- include('layout-include-tracking-codes.ejs'); %>
 
 
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge"><%//Bootstrap required. %>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"><% // Bootstrap required. %>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <title><%- SyncSystemNS.FunctionsGeneric.contentMaskRead(templateData.cphTitle, "config-application") %></title>
@@ -18,10 +18,10 @@ ref: https://ejs.co/#docs
         <%# Style Sheets - JS dependencies. %>
 
         <%# Style Sheets - personalized. http://localhost:3000 | ../../ %>
-        <% if(gSystemConfig.configDebug === true){ %>
+        <% if (gSystemConfig.configDebug === true) { %>
             <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryStylesSD %>/styles-backend.css" media="screen" title="Default" /><!--Dev-->
-		<% } %>
-        <% if(gSystemConfig.configDebug === false){ %>
+        <% } %>
+        <% if (gSystemConfig.configDebug === false) { %>
             <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend.bundle.css" media="screen" title="Default" /><!--Production (custom styles)-->
             <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend-vendor.bundle.css" media="screen" title="Default" /><!--Production (vendor styles)-->
         <% } %>
@@ -101,7 +101,7 @@ ref: https://ejs.co/#docs
     <body>
         <div id="containerMain" style="position: relative; display: flex; flex-direction: column; min-height: 100vh;">
             <h1 class="ss-backend-title01" style="position: relative; display: block; /*border-top: 4px double #b6bcc0; */border-bottom: 4px double #b6bcc0; font-size: 18px; margin-bottom: 0px; margin-top: 5px; margin-left: 5px; margin-right: 5px;">
-                <%//Title content. %>
+                <% // Title content. %>
                 <%# String.raw({ raw: templateData.cphCurrentTitle }) %>
                 <%# `${templateData.cphCurrentTitle}`;  %>
                 <%- templateData.cphTitleCurrent %>
@@ -109,7 +109,7 @@ ref: https://ejs.co/#docs
 
 
             <main style="position: relative; display: block; margin: 0px 5px 0px 5px;">
-                <%//Body content. %>
+                <% // Body content. %>
                 <%-templateData.cphBody %>
             </main>
         </div>
