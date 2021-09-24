@@ -11,6 +11,9 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const path = require('path'); // Necessary to serve static files.
+
+const Login = require('../' + gSystemConfig.configDirectoryAdmin + '/login.js');
+const Dashboard = require('../' + gSystemConfig.configDirectoryAdmin + '/dashboard.js');
 // ----------------------
 
 // Backend - Home - Login.
@@ -19,7 +22,7 @@ router.get('/' + gSystemConfig.configRouteBackend, (req, res, next) => {
   // working, with the async block
   // Import objects.
   // ----------------------
-  const Login = require('../' + gSystemConfig.configDirectorySystem + '/login.js');
+  // const Login = require('../' + gSystemConfig.configDirectorySystem + '/login.js');
   // ----------------------
 
   // Variables.
@@ -410,7 +413,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const Dashboard = require('../' + gSystemConfig.configDirectorySystem + '/dashboard.js');
+  // const Dashboard = require('../' + gSystemConfig.configDirectorySystem + '/dashboard.js');
   // ----------------------
 
   // Variables.

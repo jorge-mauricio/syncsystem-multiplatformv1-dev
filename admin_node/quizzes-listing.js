@@ -78,6 +78,9 @@ module.exports = class QuizzesListing {
 
     this.objParentTableLevel1;
     this.objParentTable;
+
+    // this.resultsQuizzesTypeListing;
+    this.resultsQuizzesStatusListing;
     // ----------------------
   }
   // **************************************************************************************
@@ -346,10 +349,13 @@ module.exports = class QuizzesListing {
 
       // Filters - Status.
       if (gSystemConfig.enableQuizzesStatus !== 0) {
-        let resultsQuizzesStatusListing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
+        this.resultsQuizzesStatusListing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
           return obj.filter_index == 2;
         });
       }
+
+      // let resultsQuizzesTypeListing = this.resultsQuizzesTypeListing;
+      let resultsQuizzesStatusListing = this.resultsQuizzesStatusListing; // eslint-disable-line
 
       // Build HTML.
       backendHTML = `

@@ -11,6 +11,10 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const _ = require('lodash');
+
+// Node objects / classes.
+const FiltersGenericListing = require('../' + gSystemConfig.configDirectoryAdmin + '/filters-generic-listing.js');
+const FiltersGenericEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/filters-generic-edit.js');
 // ----------------------
 
 // Backend - Filters Generic - listing - GET.
@@ -20,7 +24,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const FiltersGenericListing = require('../' + gSystemConfig.configDirectorySystem + '/filters-generic-listing.js');
+  // const FiltersGenericListing = require('../' + gSystemConfig.configDirectorySystem + '/filters-generic-listing.js');
   // ----------------------
 
   // Variables.
@@ -538,7 +542,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const FiltersGenericEdit = require('../' + gSystemConfig.configDirectorySystem + '/filters-generic-edit.js');
+  // const FiltersGenericEdit = require('../' + gSystemConfig.configDirectorySystem + '/filters-generic-edit.js');
   // ----------------------
 
   // Variables.

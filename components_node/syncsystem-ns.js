@@ -1,4 +1,4 @@
-/*!
+/*
  * syncsystem-ns
  * Copyright(c) 2009-2021 Jorge Mauricio
  * SyncSystem Licensed

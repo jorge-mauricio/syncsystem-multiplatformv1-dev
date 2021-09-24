@@ -11,6 +11,10 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const _ = require('lodash');
+
+// Node objects / classes.
+const RegistersListing = require('../' + gSystemConfig.configDirectoryAdmin + '/registers-listing.js');
+const RegistersEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/registers-edit.js');
 // ----------------------
 
 // Backend - Registers - listing - GET.
@@ -20,7 +24,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const RegistersListing = require('../' + gSystemConfig.configDirectorySystem + '/registers-listing.js');
+  // const RegistersListing = require('../' + gSystemConfig.configDirectorySystem + '/registers-listing.js');
   // ----------------------
 
   // Variables.
@@ -1653,7 +1657,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 
   // Import objects.
   // ----------------------
-  const RegistersEdit = require('../' + gSystemConfig.configDirectorySystem + '/registers-edit.js');
+  // const RegistersEdit = require('../' + gSystemConfig.configDirectorySystem + '/registers-edit.js');
   // ----------------------
 
   // Variables.

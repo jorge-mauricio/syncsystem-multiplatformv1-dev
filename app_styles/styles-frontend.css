@@ -193,8 +193,8 @@ input, textarea, select
     width: 415px; 
     height: 127px; 
 
-    background-image: url(../app_files_layout/frontend-desktop-logo.png); 
-    background-repeat: no-repeat;
+    /* background-image: url(../app_files_layout/frontend-desktop-logo.png); 
+    background-repeat: no-repeat; */
 }
 
 .ss-frontend-layout-shortcuts-layout {
@@ -338,13 +338,13 @@ input, textarea, select
     height: 90px; 
     line-height: 36px; 
 
-    background-image: url(../app_files_layout/frontend-desktop-icon-contact.png); 
+    /* background-image: url(../app_files_layout/frontend-desktop-icon-contact.png); 
     background-repeat: no-repeat; 
-    background-position: right top; 
+    background-position: right top; */ 
     padding-right: 95px;
 }
 .ss-frontend-link-contact-layout:hover {
-    background-image: url(../app_files_layout/frontend-desktop-icon-contact-a.png); 
+    /* background-image: url(../app_files_layout/frontend-desktop-icon-contact-a.png);  */
 }
 
 .ss-frontend-social-media {
@@ -3771,9 +3771,9 @@ flex-wrap: wrap;
     width: 100%;
     height: 475px; 
 
-    background-image: url(../app_files_layout/frontend-desktop-banner-bg1.png); 
+    /* background-image: url(../app_files_layout/frontend-desktop-banner-bg1.png); 
     background-repeat: no-repeat; 
-    background-position: top center;
+    background-position: top center; */
 
     pointer-events: none;
 }

@@ -11,6 +11,10 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const _ = require('lodash');
+
+// Node objects / classes.
+const ContentListing = require('../' + gSystemConfig.configDirectoryAdmin + '/content-listing.js');
+const ContentEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/content-edit.js');
 // ----------------------
 
 // Backend - Content - listing - GET.
@@ -21,7 +25,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // app.get("/system/categories", async (req, res)=>{ // working
   // Import objects.
   // ----------------------
-  const ContentListing = require('../' + gSystemConfig.configDirectorySystem + '/content-listing.js');
+  // const ContentListing = require('../' + gSystemConfig.configDirectorySystem + '/content-listing.js');
   // ----------------------
 
   // Variables.
@@ -567,7 +571,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 
   // Import objects.
   // ----------------------
-  const ContentEdit = require('../' + gSystemConfig.configDirectorySystem + '/content-edit.js');
+  // const ContentEdit = require('../' + gSystemConfig.configDirectorySystem + '/content-edit.js');
   // ----------------------
 
   // Variables.

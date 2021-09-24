@@ -10,6 +10,11 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
+
+// Node objects / classes.
+const FilesListing = require('../' + gSystemConfig.configDirectoryAdmin + '/files-listing.js');
+const FilesDetails = require('../' + gSystemConfig.configDirectoryAdmin + '/files-details.js');
+const FilesEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/files-edit.js');
 // ----------------------
 
 // Backend - Files - listing - GET.
@@ -20,7 +25,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // app.get("/system/categories", async (req, res)=>{ // working
   // Import objects.
   // ----------------------
-  const FilesListing = require('../' + gSystemConfig.configDirectorySystem + '/files-listing.js');
+  // const FilesListing = require('../' + gSystemConfig.configDirectorySystem + '/files-listing.js');
   // ----------------------
 
   // Query strings.
@@ -143,7 +148,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // Import objects.
   // ----------------------
   // const CategoriesListing = require("./" + gSystemConfig.configDirectorySystem + "/categories-listing.js");
-  const FilesDetails = require('../' + gSystemConfig.configDirectorySystem + '/files-details.js');
+  // const FilesDetails = require('../' + gSystemConfig.configDirectorySystem + '/files-details.js');
   // ----------------------
 
   // Variables.
@@ -416,8 +421,8 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
         if (gSystemConfig.configUploadComponent === 1) {
           // Request post data.
           // ----------------------
-          // form.parse(req, function (formParseError, fields, files) {
-          form.parse(req, (formParseError, fields, files) => {
+          form.parse(req, function (formParseError, fields, files) {
+          // form.parse(req, (formParseError, fields, files) => {
             if (formParseError) {
               // Error.
               if (gSystemConfig.configDebug === true) {
@@ -1008,7 +1013,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 
   // Import objects.
   // ----------------------
-  const FilesEdit = require('../' + gSystemConfig.configDirectorySystem + '/files-edit.js');
+  // const FilesEdit = require('../' + gSystemConfig.configDirectorySystem + '/files-edit.js');
   // ----------------------
 
   // Variables.
@@ -1271,8 +1276,8 @@ router.put('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
         if (gSystemConfig.configUploadComponent === 1) {
           // Request post data.
           // ----------------------
-          // form.parse(req, function (formParseError, fields, files) {
-          form.parse(req, (formParseError, fields, files) => {
+          form.parse(req, function (formParseError, fields, files) {
+          // form.parse(req, (formParseError, fields, files) => {
             if (formParseError) {
               // Error.
               if (gSystemConfig.configDebug === true) {

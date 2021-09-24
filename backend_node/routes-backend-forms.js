@@ -11,6 +11,9 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const _ = require('lodash');
+
+const FormsListing = require('../' + gSystemConfig.configDirectoryAdmin + '/forms-listing.js');
+const FormsEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/forms-edit.js');
 // ----------------------
 
 // Backend - Forms - listing - GET.
@@ -21,7 +24,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // app.get("/system/categories", async (req, res)=>{ // working
   // Import objects.
   // ----------------------
-  const FormsListing = require('../' + gSystemConfig.configDirectorySystem + '/forms-listing.js');
+  // const FormsListing = require('../' + gSystemConfig.configDirectorySystem + '/forms-listing.js');
   // ----------------------
 
   // Variables.
@@ -456,7 +459,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const FormsEdit = require('../' + gSystemConfig.configDirectorySystem + '/forms-edit.js');
+  // const FormsEdit = require('../' + gSystemConfig.configDirectorySystem + '/forms-edit.js');
   // ----------------------
 
   // Variables.

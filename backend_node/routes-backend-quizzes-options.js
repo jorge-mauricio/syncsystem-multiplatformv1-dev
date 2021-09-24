@@ -11,6 +11,10 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const _ = require('lodash');
+
+// Node objects / classes.
+const QuizzesOptionsListing = require('../' + gSystemConfig.configDirectoryAdmin + '/quizzes-options-listing.js');
+const QuizzesOptionsEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/quizzes-options-edit.js');
 // ----------------------
 
 // Backend - Quizzes Options - listing - GET.
@@ -20,7 +24,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const QuizzesOptionsListing = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-options-listing.js');
+  // const QuizzesOptionsListing = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-options-listing.js');
   // ----------------------
 
   // Variables.
@@ -249,7 +253,7 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
           // Progress bar.
           // ----------------------
           form.on('progress', function (bytesReceived, bytesExpected) {
-            let progressPercentComplete = (bytesReceived / bytesExpected) * 100;
+            const progressPercentComplete = (bytesReceived / bytesExpected) * 100;
 
             // TODO: Progress bar on alert div.
 
@@ -293,7 +297,8 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
             /**/
             // let resultsFunctionsFiles = await new Promise((resolve, reject)=>{
             resultsFunctionsFiles = await new Promise((resolve, reject) => {
-              /*SyncSystemNS.FunctionsFiles.filesUpload(tblCategoriesID, 
+              /*
+              SyncSystemNS.FunctionsFiles.filesUpload(tblCategoriesID, 
                                                                     this.openedFiles, 
                                                                     gSystemConfig.configDirectoryFilesUpload, 
                                                                     "")*/
@@ -399,7 +404,8 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
       // ----------------------
       returnURL = '/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendQuizzesOptions + '/' + idQuizzes;
       returnURL += '?masterPageSelect=' + masterPageSelect;
-      /*if(pageNumber)
+      /*
+      if(pageNumber)
             {
                 returnURL += "&pageNumber=" + pageNumber;
             }*/
@@ -486,7 +492,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const QuizzesOptionsEdit = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-options-edit.js');
+  // const QuizzesOptionsEdit = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-options-edit.js');
   // ----------------------
 
   // Variables.
@@ -742,7 +748,8 @@ router.put('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
             /**/
             // let resultsFunctionsFiles = await new Promise((resolve, reject)=>{
             resultsFunctionsFiles = await new Promise((resolve, reject) => {
-              /*SyncSystemNS.FunctionsFiles.filesUpload(tblCategoriesID, 
+              /*
+              SyncSystemNS.FunctionsFiles.filesUpload(tblCategoriesID, 
                                                                     this.openedFiles, 
                                                                     gSystemConfig.configDirectoryFilesUpload, 
                                                                     "")*/

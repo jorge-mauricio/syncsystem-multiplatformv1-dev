@@ -11,6 +11,11 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 
+// Node objects / classes.
+const CategoriesListing = require('../' + gSystemConfig.configDirectoryAdmin + '/categories-listing.js');
+const CategoriesEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/categories-edit.js');
+const CategoriesDetails = require('../' + gSystemConfig.configDirectoryAdmin + '/categories-details.js');
+
 /*
 const AWS = require("aws-sdk");
 let s3 = new AWS.S3({
@@ -32,7 +37,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // Import objects.
   // ----------------------
   // const CategoriesListing = require("./" + gSystemConfig.configDirectorySystem + "/categories-listing.js");
-  const CategoriesListing = require('../' + gSystemConfig.configDirectorySystem + '/categories-listing.js');
+  // const CategoriesListing = require('../' + gSystemConfig.configDirectorySystem + '/categories-listing.js');
   // ----------------------
 
   // Query strings.
@@ -191,7 +196,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // Import objects.
   // ----------------------
   // const CategoriesListing = require("./" + gSystemConfig.configDirectorySystem + "/categories-listing.js");
-  const CategoriesEdit = require('../' + gSystemConfig.configDirectorySystem + '/categories-edit.js');
+  // const CategoriesEdit = require('../' + gSystemConfig.configDirectorySystem + '/categories-edit.js');
   // ----------------------
 
   // Variables.
@@ -301,7 +306,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // Import objects.
   // ----------------------
   // const CategoriesListing = require("./" + gSystemConfig.configDirectorySystem + "/categories-listing.js");
-  const CategoriesDetails = require('../' + gSystemConfig.configDirectorySystem + '/categories-details.js');
+  // const CategoriesDetails = require('../' + gSystemConfig.configDirectorySystem + '/categories-details.js');
   // ----------------------
 
   // Variables.
@@ -867,7 +872,7 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
           // Renaming.
           // ----------------------
           // form.on("end", function(fields, files){
-           form.on('end', async function (fields, files) {
+          form.on('end', async function (fields, files) {
           // form.on('end', async (fields, files) => {
             // Note - this function structure must remain as it is or the "this" parameter looses it´s context.
             /*
@@ -1597,12 +1602,14 @@ router.put('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
     tblCategoriesDate1Day = '',
     tblCategoriesDate1Month = '',
     tblCategoriesDate1Year = '';
-  /*let tblCategoriesDate1Hour = "";
+  /*
+  let tblCategoriesDate1Hour = "";
     let tblCategoriesDate1Minute = "";
     let tblCategoriesDate1Seconds = "";
     let tblCategoriesDate1Day = "";
     let tblCategoriesDate1Month = "";
-    let tblCategoriesDate1Year = "";*/
+    let tblCategoriesDate1Year = "";
+  */
   let tblCategoriesDate2 = '',
     tblCategoriesDate2Hour = '',
     tblCategoriesDate2Minute = '',

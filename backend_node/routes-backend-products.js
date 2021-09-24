@@ -11,6 +11,9 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const _ = require('lodash');
+
+const ProductsListing = require('../' + gSystemConfig.configDirectoryAdmin + '/products-listing.js');
+const ProductsEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/products-edit.js');
 // ----------------------
 
 // Backend - Products - listing - GET.
@@ -20,7 +23,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const ProductsListing = require('../' + gSystemConfig.configDirectorySystem + '/products-listing.js');
+  // const ProductsListing = require('../' + gSystemConfig.configDirectorySystem + '/products-listing.js');
   // ----------------------
 
   // Variables.
@@ -1219,7 +1222,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 
   // Import objects.
   // ----------------------
-  const ProductsEdit = require('../' + gSystemConfig.configDirectorySystem + '/products-edit.js');
+  // const ProductsEdit = require('../' + gSystemConfig.configDirectorySystem + '/products-edit.js');
   // ----------------------
 
   // Variables.

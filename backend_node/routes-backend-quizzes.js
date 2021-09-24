@@ -11,6 +11,10 @@ const SyncSystemNS = require('../' + gSystemConfig.configDirectoryComponents + '
 const formidable = require('formidable'); // Form file upload.
 const util = require('util');
 const _ = require('lodash');
+
+// Node objects / classes.
+const QuizzesListing = require('../' + gSystemConfig.configDirectoryAdmin + '/quizzes-listing.js');
+const QuizzesEdit = require('../' + gSystemConfig.configDirectoryAdmin + '/quizzes-edit.js');
 // ----------------------
 
 // Backend - Quizzes - listing - GET.
@@ -19,7 +23,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const QuizzesListing = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-listing.js');
+  // const QuizzesListing = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-listing.js');
   // ----------------------
 
   // Variables.
@@ -272,7 +276,8 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
           // Field parsing.
           // ----------------------
           form.on('field', function (name, value) {
-            /*if (fieldsPost[name]) {
+            /*
+            if (fieldsPost[name]) {
                         if (!Array.isArray(fieldsPost[name])) {
                             fieldsPost[name] = [fieldsPost[name]];
                         }
@@ -548,7 +553,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 
   // Import objects.
   // ----------------------
-  const QuizzesEdit = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-edit.js');
+  // const QuizzesEdit = require('../' + gSystemConfig.configDirectorySystem + '/quizzes-edit.js');
   // ----------------------
 
   // Variables.
@@ -770,7 +775,8 @@ router.put('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
           // Field parsing.
           // ----------------------
           form.on('field', function (name, value) {
-            /*if (fieldsPost[name]) {
+            /*
+            if (fieldsPost[name]) {
                         if (!Array.isArray(fieldsPost[name])) {
                             fieldsPost[name] = [fieldsPost[name]];
                         }
@@ -842,6 +848,7 @@ router.put('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
             // let resultsFunctionsFiles = await new Promise((resolve, reject)=>{
             resultsFunctionsFiles = await new Promise((resolve, reject) => {
               // SyncSystemNS.FunctionsFiles.filesUploadMultiple(tblQuizzesID, this.openedFiles, gSystemConfig.configDirectoryFilesUpload, '', formfileFieldsReference).then(function (results) {
+              // eslint-disable-next-line
               SyncSystemNS.FunctionsFiles.filesUploadMultiple(tblQuizzesID, 
                 this.openedFiles, 
                 gSystemConfig.configDirectoryFilesUpload, 

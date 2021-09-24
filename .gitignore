@@ -15,11 +15,11 @@ setup
 
 #Backup directories.
 root_node_backup
+admin_node/backup
 components_node/backup
 backend_node/backup
 components_react/backup
 app_views/backup
-
 
 #Image upload test files.
 app_files_public/*

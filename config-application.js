@@ -104,7 +104,9 @@ gSystemConfig.configPhysicalPathRoot = __dirname;
 
 // gSystemConfig.configDirectoryRootPhysical = __dirname;
 /**/
-gSystemConfig.configDirectorySystem = 'backend_node';
+gSystemConfig.configDirectoryAdmin = 'admin_node';
+gSystemConfig.configDirectorySystem = 'backend_node'; // trash
+gSystemConfig.configDirectoryBackend = 'backend_node';
 // gSystemConfig.configDirectorySystemRoute = "system"; // trash
 gSystemConfig.configDirectoryComponents = 'components_node';
 
