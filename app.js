@@ -260,14 +260,14 @@ app.get("/" + gSystemConfig.configRouteBackend, (req, res)=>
 // **************************************************************************************
 // Backend (general) - import from external routes file.
 // ----------------------
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-records.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-records.js'));
 // ----------------------
 
 // Login - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend.js'));
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-login-users.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-login-users.js'));
 
 // API.
 app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-authentication.js'));
@@ -277,7 +277,7 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Categories - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-categories.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-categories.js'));
 
 // Frontend.
 
@@ -289,7 +289,7 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Files - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-files.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-files.js'));
 
 // API.
 app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-files.js'));
@@ -298,7 +298,7 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Content - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-content.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-content.js'));
 
 // API.
 app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-content.js'));
@@ -307,7 +307,7 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Products - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-products.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-products.js'));
 
 // API.
 app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-products.js'));
@@ -316,7 +316,7 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Publications - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-publications.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-publications.js'));
 
 // API.
 app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-publications.js'));
@@ -325,7 +325,7 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Registers - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-registers.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-registers.js'));
 
 // API.
 // app.use("/", require("./" + gSystemConfig.configDirectoryBackend + "/routes-api-registers.js"));
@@ -334,8 +334,8 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-back
 // Quizzes - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-quizzes.js'));
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-quizzes-options.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-quizzes.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-quizzes-options.js'));
 
 // API.
 app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-quizzes.js'));
@@ -344,9 +344,9 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Forms, Forms Fields, Forms Fields Options - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-forms.js'));
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-forms-fields.js'));
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-forms-fields-options.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-forms.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-forms-fields.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-forms-fields-options.js'));
 
 // API.
 app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-forms.js'));
@@ -355,13 +355,13 @@ app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-api-
 // Filters Generic - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-filters-generic.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-filters-generic.js'));
 // ----------------------
 
 // Users - import from external routes file.
 // ----------------------
 // Backend.
-app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-backend-users.js'));
+app.use('/', require('./' + gSystemConfig.configDirectoryBackend + '/routes-admin-users.js'));
 // ----------------------
 // **************************************************************************************
 
