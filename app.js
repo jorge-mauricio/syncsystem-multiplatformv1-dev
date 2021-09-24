@@ -76,7 +76,8 @@ app.use('/' + gSystemConfig.configFrontendDefaultViewSD, express.static(path.joi
 // app.use("/", express.static(path.join(__dirname, gSystemConfig.configFrontendDefaultView))); // set static folder (test-static01.html can be accessed through: http:// localhost:3000/test-static01.html) // working
 // app.use("/backend", express.static(path.join(__dirname, "backend_node")));
 // app.use("/backend", express.static(path.join(__dirname, gSystemConfig.configDirectorySystem))); // set static folder
-app.use('/' + gSystemConfig.configDirectorySystemSD, express.static(path.join(__dirname, gSystemConfig.configDirectorySystem))); // set static folder
+// app.use('/' + gSystemConfig.configDirectorySystemSD, express.static(path.join(__dirname, gSystemConfig.configDirectorySystem))); // set static folder // was enabled before architectural reestructure
+// app.use('/' + gSystemConfig.configDirectoryAdminSD, express.static(path.join(__dirname, gSystemConfig.configDirectoryAdmin))); // set static folder
 
 // Favicons - static
 /*

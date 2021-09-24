@@ -105,7 +105,7 @@ gSystemConfig.configPhysicalPathRoot = __dirname;
 // gSystemConfig.configDirectoryRootPhysical = __dirname;
 /**/
 gSystemConfig.configDirectoryAdmin = 'admin_node';
-gSystemConfig.configDirectorySystem = 'backend_node'; // trash
+// gSystemConfig.configDirectorySystem = 'backend_node'; // trash
 gSystemConfig.configDirectoryBackend = 'backend_node';
 // gSystemConfig.configDirectorySystemRoute = "system"; // trash
 gSystemConfig.configDirectoryComponents = 'components_node';
@@ -130,6 +130,7 @@ gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot 
 // ----------------------
 gSystemConfig.configFrontendDefaultViewSD = 'frontend';
 gSystemConfig.configDirectorySystemSD = 'backend';
+gSystemConfig.configDirectoryAdminSD = 'admin';
 
 // gSystemConfig.configDirectoryFilesSD = ""; // "" - when using remote file storage
 gSystemConfig.configDirectoryFilesSD = 'files'; // "" - when using remote
