@@ -13,7 +13,7 @@ const FunctionsGeneric = require('./functions-generic.js');
 
 // require("dotenv").config(); // Load the dotenv dependency and call the config method on the imported object.
 // const mysql = require("mysql"); // MySQL package.
-// const lodash = require("lodash"); // Utils.
+const _ = require('lodash');
 const fs = require('fs'); // File System
 const fsExtra = require('fs-extra'); // File System
 const path = require('path'); // Necessary to serve static files.
@@ -22,7 +22,7 @@ const http = require('http');
 
 const AWS = require('aws-sdk');
 /**/
-var s3 = new AWS.S3({
+let s3 = new AWS.S3({
   accessKeyId: process.env.CONFIG_API_AWS_S3_ID,
   secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY,
   // apiVersion: '2006-03-01'
@@ -48,17 +48,18 @@ module.exports = class FunctionsFiles {
                                                     "");
      * 
      */
-  static async filesUpload(idRecord, postedFile, directoryUpload, fileNameFinal = '') // static filesUpload(idRecord, postedFile, directoryUpload, fileNameFinal)
-  {
+  // static filesUpload(idRecord, postedFile, directoryUpload, fileNameFinal)
+  static async filesUpload(idRecord, postedFile, directoryUpload, fileNameFinal = '') {
     // Variables.
     // ----------------------
     // let strReturn = false;
+    // eslint-disable-next-line
     let strReturn = { returnStatus: false, returnFileName: '' }; // {returnStatus: false, returnFileName: ""}
 
-    let fileTempPath = postedFile[0].path; // temporary file + path of our uploaded file
-    let fileNameOriginal = postedFile[0].name; // the file name of the uploaded file
+    const fileTempPath = postedFile[0].path; // temporary file + path of our uploaded file
+    const fileNameOriginal = postedFile[0].name; // the file name of the uploaded file
 
-    let arrFileExtension = '';
+    // let arrFileExtension = '';
     // let fileExtension = path.extname(formParseResults.files.image_main.path).toLowerCase();
     let fileExtension = '';
     let fileName = '';
@@ -66,7 +67,7 @@ module.exports = class FunctionsFiles {
     /* Location where we want to copy the uploaded file */
     // let new_location = 'c:/localhost/nodejs/';
     // let new_location = gSystemConfig.configPhysicalPathRoot + "/" + gSystemConfig.configDirectoryFilesVisualization + "/";
-    let directoryFilesUpload = directoryUpload + '\\';
+    const directoryFilesUpload = directoryUpload + '\\';
     // ----------------------
 
     if (fileNameOriginal !== '') {
@@ -108,7 +109,8 @@ module.exports = class FunctionsFiles {
             }
             resolve(true);
 
-            /*fs.unlink(fileTempPath, (fileDeleError)=>{
+            /*
+            fs.unlink(fileTempPath, (fileDeleError)=>{
                         // fs.unlinkSync(fileTempPath, (fileDeleError)=>{
                             if(fileDeleError)
                             {
@@ -235,8 +237,8 @@ module.exports = class FunctionsFiles {
      * 
      */
   // static async filesUploadMultiple(idRecord, postedFile, directoryUpload, formFilePost, fileNameFinal = "")
-  static async filesUploadMultiple(idRecord, postedFile, directoryUpload, fileNameFinal = '', formfileFieldsReference = {}) // static filesUpload(idRecord, postedFile, directoryUpload, fileNameFinal)
-  {
+  // static filesUpload(idRecord, postedFile, directoryUpload, fileNameFinal)
+  static async filesUploadMultiple(idRecord, postedFile, directoryUpload, fileNameFinal = '', formfileFieldsReference = {}) {
     // formFilePost: (form parse object)
     // formfileFieldsReference: {fileFieldName: {originalFileName: "", fileSize: 0, temporaryFilePath: "", fileNamePrefix: "", fileNameSufix: "", fileDirectoryUpload: ""}}
 
@@ -246,263 +248,272 @@ module.exports = class FunctionsFiles {
     let strReturn = { returnStatus: false }; // {returnStatus: false, returnFileName: ""}
     // ----------------------
 
-    // Loop through postedFile.
-    // console.log("Loop through postedFile (inside filesUploadMultiple).");
-    for (let countArrayPostedFiles = 0; countArrayPostedFiles < postedFile.length; countArrayPostedFiles++) {
-      // Variables.
-      // ----------------------
-      let fileTempPath = postedFile[countArrayPostedFiles].path; // temporary file + path of our uploaded file
-      let fileNameOriginal = postedFile[countArrayPostedFiles].name; // the file name of the uploaded file
+    if (!_.isEmpty(formfileFieldsReference)) {
+      // Debug.
+      // console.log('formfileFieldsReference=', formfileFieldsReference);
+      // console.log('_.isEmpty(formfileFieldsReference)=', _.isEmpty(formfileFieldsReference));
 
-      let arrFileExtension = '';
-      // let fileExtension = path.extname(formParseResults.files.image_main.path).toLowerCase();
-      let fileExtension = '';
-      let fileName = '';
-
-      let directoryFilesUpload = directoryUpload + '\\';
-      // ----------------------
-
-      // if(fileNameOriginal != "")
-      if (fileNameOriginal !== '') {
-        // if(fileNameOriginal)
-        // Debug.
-        // console.log("fileNameOriginal!=''=true");
-        // console.log("fileNameOriginal=", fileNameOriginal);
-
-        // Define values.
-        fileExtension = path.extname(fileNameOriginal).toLowerCase();
-        fileName = idRecord + fileExtension;
-
-        // Loop through form file field references.
-        for (let iObject in formfileFieldsReference) {
-          // if(formfileFieldsReference.hasOwnProperty(formfileFieldsReferenceProperty))
-          // {
-          if (formfileFieldsReference[iObject].temporaryFilePath == postedFile[countArrayPostedFiles].path) {
-            // Prefix.
-            fileName = formfileFieldsReference[iObject].fileNamePrefix + fileName;
-
-            // Sufix.
-            // Break filename on extension, add sufix and concatinate back.
-
-            // Add file name to return object.
-            // strReturn[iObject] = "id" + countArrayPostedFiles; // debug / test
-            strReturn[iObject] = fileName;
-
-            // Debug.
-            // console.log("iObject.temporaryFilePath=", formfileFieldsReferenceObject[iObject]);
-            // console.log("iObject=", iObject);
-            // console.log("formfileFieldsReference[iObject].temporaryFilePath=", formfileFieldsReference[iObject].temporaryFilePath);
-          }
-          // }
-        }
-
-        // Check if it´s an image (for resizing and copying an original file size).
-        // if(gSystemConfig.configImageQuality.indexOf(fileExtension) !== -1)
-        if (gSystemConfig.configImageFormats.includes(fileExtension) == true) {
-          // Include prefix for recording the original size image.
-          fileName = 'o' + fileName;
-        }
-
-        // Copy file.
+      // Loop through postedFile.
+      // console.log("Loop through postedFile (inside filesUploadMultiple).");
+      for (let countArrayPostedFiles = 0; countArrayPostedFiles < postedFile.length; countArrayPostedFiles++) {
+        // Variables.
         // ----------------------
-        // fsExtra.copy(temp_path, new_location + file_name, function(err){
-        // fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, function(fileCopyError){
-        // return await new Promise((resolve, reject)=>{
-        let resultsFSExtraCopy = await new Promise((resolve, reject) => {
-          // let resultsFSExtraCopy = new Promise((resolve, reject)=>{
-          fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, (fileCopyError) => {
-            if (fileCopyError) {
-              // Error.
-              if (gSystemConfig.configDebug === true) {
-                // console.error("File copy error: " + fileCopyError);
-                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage17e'));
-                console.error(fileCopyError);
-              }
-              reject(false);
-            } else {
-              if (gSystemConfig.configDebug === true) {
-                // console.log("File copy success.");
-                console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage17'));
-              }
-              resolve(true);
+        const fileTempPath = postedFile[countArrayPostedFiles].path; // temporary file + path of our uploaded file
+        const fileNameOriginal = postedFile[countArrayPostedFiles].name; // the file name of the uploaded file
 
-              /*fs.unlink(fileTempPath, (fileDeleError)=>{
-                            // fs.unlinkSync(fileTempPath, (fileDeleError)=>{
-                                if(fileDeleError)
-                                {
-                                    // Error.
-                                    if(gSystemConfig.configDebug === true)
-                                    {
-                                        console.log("File deleting error: ", fileDeleError);
-                                    }
-                                    // throw fileDeleError;
-                                    // reject(new Error(fileDeleError));
-                                    reject(false);
-                                }else{
-                                    if(gSystemConfig.configDebug === true)
-                                    {
-                                        console.log("File deleting sucess.");
-                                    }
-                                    // resolve(results);
-                                    resolve(true);
+        // let arrFileExtension = '';
+        // let fileExtension = path.extname(formParseResults.files.image_main.path).toLowerCase();
+        let fileExtension = '';
+        let fileName = '';
 
-                                    // Define file name.
-                                    // tblCategoriesImageMain = fileName;
-                                }
-                            });*/
-            }
-          });
-        });
+        const directoryFilesUpload = directoryUpload + '\\';
         // ----------------------
 
-        // AWS S3.
-        // ----------------------
-        if (resultsFSExtraCopy === true) {
-          if (gSystemConfig.configUploadType == 2) {
-            // if(fileNameOriginal != "")
+        // if(fileNameOriginal != "")
+        if (fileNameOriginal !== '') {
+          // if(fileNameOriginal)
+          // Debug.
+          // console.log("fileNameOriginal!=''=true");
+          // console.log("fileNameOriginal=", fileNameOriginal);
+
+          // Define values.
+          fileExtension = path.extname(fileNameOriginal).toLowerCase();
+          fileName = idRecord + fileExtension;
+
+          // Loop through form file field references.
+          for (const iObject in formfileFieldsReference) {
+            // if(formfileFieldsReference.hasOwnProperty(formfileFieldsReferenceProperty))
             // {
-            const fileContent = fs.readFileSync(directoryFilesUpload + fileName);
+            if (formfileFieldsReference[iObject].temporaryFilePath == postedFile[countArrayPostedFiles].path) {
+              // Prefix.
+              fileName = formfileFieldsReference[iObject].fileNamePrefix + fileName;
 
-            /*
-                        const s3 = new AWS.S3({
-                            accesssKeyId: process.env.CONFIG_API_AWS_S3_ID,
-                            secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY
-                        })
-                        */
+              // Sufix.
+              // Break filename on extension, add sufix and concatinate back.
 
-            const uploadParameters = {
-              Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
-              Key: fileName,
-              // Key: fileNameOriginal,
-              // Body: postedFile[countArrayPostedFiles] // didn´t work
-              // Body: postedFile
-              Body: fileContent,
-            };
-
-            // Include content type if it´s an image.
-            // Note: So it won´t donwloa the file with link to it.
-            if (gSystemConfig.configImageFormats.includes(fileExtension) == true) {
-              uploadParameters.ContentType = 'image/jpeg';
-            }
-
-            s3.upload(uploadParameters, (s3UploadError, s3DataReturn) => {
-              if (s3UploadError) {
-                if (gSystemConfig.configDebug === true) {
-                  console.log('s3UploadError=', s3UploadError);
-                }
-              }
+              // Add file name to return object.
+              // strReturn[iObject] = "id" + countArrayPostedFiles; // debug / test
+              strReturn[iObject] = fileName;
 
               // Debug.
-              // console.log("s3DataReturn=", s3DataReturn)
-            });
-
-            /*
-                        var start = new Date().getTime();
-                        var upload = s3Stream.upload({
-                            "Bucket": process.env.CONFIG_API_AWS_S3_BUCKET,
-                            "Key": fileNameOriginal
-                        });
-
-                        upload.concurrentParts(5);
-
-                        //  Handle errors.
-                        upload.on('error', function (error) {
-                            console.log('errr(inside filesUpload)=',error);
-                        });
-                        
-                        postedFile[countArrayPostedFiles].pipe(upload);
-                        */
-
-            // Debug.
-            // console.log("postedFile[countArrayPostedFiles](inside filesUpload)=", postedFile[countArrayPostedFiles]);
-            // console.log("postedFile (inside filesUpload)=", postedFile);
-            // console.log("fileContent (inside filesUpload)=", fileContent);
+              // console.log("iObject.temporaryFilePath=", formfileFieldsReferenceObject[iObject]);
+              // console.log("iObject=", iObject);
+              // console.log("formfileFieldsReference[iObject].temporaryFilePath=", formfileFieldsReference[iObject].temporaryFilePath);
+            }
             // }
           }
-        }
-        // ----------------------
 
-        // Define value.
-        // strReturn = resultsFSExtraCopy;
-        strReturn.returnStatus = resultsFSExtraCopy;
-        // strReturn.returnFileName = fileName;
-      } else {
-        strReturn.returnStatus = true;
+          // Check if it´s an image (for resizing and copying an original file size).
+          // if(gSystemConfig.configImageQuality.indexOf(fileExtension) !== -1)
+          if (gSystemConfig.configImageFormats.includes(fileExtension) === true) {
+            // Include prefix for recording the original size image.
+            fileName = 'o' + fileName;
+          }
+
+          // Copy file.
+          // ----------------------
+          // fsExtra.copy(temp_path, new_location + file_name, function(err){
+          // fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, function(fileCopyError){
+          // return await new Promise((resolve, reject)=>{
+          const resultsFSExtraCopy = await new Promise((resolve, reject) => {
+            // let resultsFSExtraCopy = new Promise((resolve, reject)=>{
+            fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, (fileCopyError) => {
+              if (fileCopyError) {
+                // Error.
+                if (gSystemConfig.configDebug === true) {
+                  // console.error("File copy error: " + fileCopyError);
+                  console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage17e'));
+                  console.error(fileCopyError);
+                }
+                reject(false);
+              } else {
+                if (gSystemConfig.configDebug === true) {
+                  // console.log("File copy success.");
+                  console.log(FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage17'));
+                }
+                resolve(true);
+
+                /*
+                fs.unlink(fileTempPath, (fileDeleError)=>{
+                              // fs.unlinkSync(fileTempPath, (fileDeleError)=>{
+                                  if(fileDeleError)
+                                  {
+                                      // Error.
+                                      if(gSystemConfig.configDebug === true)
+                                      {
+                                          console.log("File deleting error: ", fileDeleError);
+                                      }
+                                      // throw fileDeleError;
+                                      // reject(new Error(fileDeleError));
+                                      reject(false);
+                                  }else{
+                                      if(gSystemConfig.configDebug === true)
+                                      {
+                                          console.log("File deleting sucess.");
+                                      }
+                                      // resolve(results);
+                                      resolve(true);
+
+                                      // Define file name.
+                                      // tblCategoriesImageMain = fileName;
+                                  }
+                              });*/
+              }
+            });
+          });
+          // ----------------------
+
+          // AWS S3.
+          // ----------------------
+          if (resultsFSExtraCopy === true) {
+            if (gSystemConfig.configUploadType === 2) {
+              // if(fileNameOriginal != "")
+              // {
+              const fileContent = fs.readFileSync(directoryFilesUpload + fileName);
+
+              /*
+                          const s3 = new AWS.S3({
+                              accesssKeyId: process.env.CONFIG_API_AWS_S3_ID,
+                              secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY
+                          })
+                          */
+
+              const uploadParameters = {
+                Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
+                Key: fileName,
+                // Key: fileNameOriginal,
+                // Body: postedFile[countArrayPostedFiles] // didn´t work
+                // Body: postedFile
+                Body: fileContent,
+              };
+
+              // Include content type if it´s an image.
+              // Note: So it won´t donwloa the file with link to it.
+              if (gSystemConfig.configImageFormats.includes(fileExtension) == true) {
+                uploadParameters.ContentType = 'image/jpeg';
+              }
+
+              s3.upload(uploadParameters, (s3UploadError, s3DataReturn) => {
+                if (s3UploadError) {
+                  if (gSystemConfig.configDebug === true) {
+                    console.log('s3UploadError=', s3UploadError);
+                  }
+                }
+
+                // Debug.
+                // console.log("s3DataReturn=", s3DataReturn)
+              });
+
+              /*
+                          var start = new Date().getTime();
+                          var upload = s3Stream.upload({
+                              "Bucket": process.env.CONFIG_API_AWS_S3_BUCKET,
+                              "Key": fileNameOriginal
+                          });
+
+                          upload.concurrentParts(5);
+
+                          //  Handle errors.
+                          upload.on('error', function (error) {
+                              console.log('errr(inside filesUpload)=',error);
+                          });
+                          
+                          postedFile[countArrayPostedFiles].pipe(upload);
+                          */
+
+              // Debug.
+              // console.log("postedFile[countArrayPostedFiles](inside filesUpload)=", postedFile[countArrayPostedFiles]);
+              // console.log("postedFile (inside filesUpload)=", postedFile);
+              // console.log("fileContent (inside filesUpload)=", fileContent);
+              // }
+            }
+          }
+          // ----------------------
+
+          // Define value.
+          // strReturn = resultsFSExtraCopy;
+          strReturn.returnStatus = resultsFSExtraCopy;
+          // strReturn.returnFileName = fileName;
+        } else {
+          strReturn.returnStatus = true;
+        }
+
+        // Delete temporary file.
+        // if(fileNameOriginal !== "") // check if file was posted.
+        // if(fileNameOriginal) // check if file was posted.
+        // {
+        // if(strReturn.returnStatus == true)
+        // {
+        fs.unlink(fileTempPath, (fileDeleError) => {
+          // fs.unlinkSync(fileTempPath, (fileDeleError)=>{
+          if (fileDeleError) {
+            // Error.
+            if (gSystemConfig.configDebug === true) {
+              console.log('File deleting error: ', fileDeleError);
+            }
+            // throw fileDeleError;
+            // reject(new Error(fileDeleError));
+            // reject(false);
+          } else {
+            if (gSystemConfig.configDebug === true) {
+              console.log('File deleting sucess.');
+            }
+            // resolve(results);
+            // resolve(true);
+
+            // Define file name.
+            // tblCategoriesImageMain = fileName;
+          }
+        });
+        // }
+        // }
+
+        // Debug.
+        // console.log("fileTempPath=", postedFile[countArrayPostedFiles].path);
+        // console.log("fileNameOriginal=", postedFile[countArrayPostedFiles].name);
+        // console.log("fileNameOriginal=", fileNameOriginal);
       }
 
-      // Delete temporary file.
-      // if(fileNameOriginal !== "") // check if file was posted.
-      // if(fileNameOriginal) // check if file was posted.
-      // {
-      // if(strReturn.returnStatus == true)
-      // {
-      fs.unlink(fileTempPath, (fileDeleError) => {
-        // fs.unlinkSync(fileTempPath, (fileDeleError)=>{
-        if (fileDeleError) {
-          // Error.
-          if (gSystemConfig.configDebug === true) {
-            console.log('File deleting error: ', fileDeleError);
-          }
-          // throw fileDeleError;
-          // reject(new Error(fileDeleError));
-          // reject(false);
-        } else {
-          if (gSystemConfig.configDebug === true) {
-            console.log('File deleting sucess.');
-          }
-          // resolve(results);
-          // resolve(true);
-
-          // Define file name.
-          // tblCategoriesImageMain = fileName;
-        }
-      });
-      // }
-      // }
-
       // Debug.
-      // console.log("fileTempPath=", postedFile[countArrayPostedFiles].path);
-      // console.log("fileNameOriginal=", postedFile[countArrayPostedFiles].name);
-      // console.log("fileNameOriginal=", fileNameOriginal);
+      // console.log("filesPost=", filesPost);
+      // console.log("formfileFieldsReference=", formfileFieldsReference);
+      // console.log("strReturn=", strReturn);
+    } else {
+      strReturn = { returnStatus: true };
     }
-
-    // Debug.
-    // console.log("filesPost=", filesPost);
-    // console.log("formfileFieldsReference=", formfileFieldsReference);
-    // console.log("strReturn=", strReturn);
 
     return strReturn;
 
     // Usage.
     /*
-        var resultsFunctionsFiles = await new Promise((resolve, reject)=>{
-            // resultsFunctionsFiles = await new Promise((resolve, reject)=>{
-            SyncSystemNS.FunctionsFiles.filesUploadMultiple(tblCategoriesID, 
-                                                            this.openedFiles, 
-                                                            gSystemConfig.configDirectoryFilesUpload, 
-                                                            "", 
-                                                            formfileFieldsReference)
-            .then(function(results){
-                if(results === undefined)
+    let resultsFunctionsFiles = await new Promise((resolve, reject)=>{
+        // resultsFunctionsFiles = await new Promise((resolve, reject)=>{
+        SyncSystemNS.FunctionsFiles.filesUploadMultiple(tblCategoriesID, 
+                                                        this.openedFiles, 
+                                                        gSystemConfig.configDirectoryFilesUpload, 
+                                                        "", 
+                                                        formfileFieldsReference)
+        .then(function(results){
+            if(results === undefined)
+            {
+                // Error.
+                if(gSystemConfig.configDebug === true)
                 {
-                    // Error.
-                    if(gSystemConfig.configDebug === true)
-                    {
-                        console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage17e"));
-                    }
-                    // reject(new Error("nCounterUpdate is undefined."));
-                    reject(false);
-                }else{
-                    // Success.
-                    if(gSystemConfig.configDebug === true)
-                    {
-                        console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage17"));
-                    }
-                    resolve(results);
-                } // working
-            });
+                    console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage17e"));
+                }
+                // reject(new Error("nCounterUpdate is undefined."));
+                reject(false);
+            }else{
+                // Success.
+                if(gSystemConfig.configDebug === true)
+                {
+                    console.log(SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "statusMessage17"));
+                }
+                resolve(results);
+            } // working
         });
-        */
+    });
+    */
   }
   // **************************************************************************************
 
@@ -521,7 +532,7 @@ module.exports = class FunctionsFiles {
 
     // Variables.
     // ----------------------
-    let objReturn = { returnStatus: true, nRecords: 0 };
+    let objReturn = { returnStatus: true, nRecords: 0 }; // eslint-disable-line
     let strDirectoryName = directoryName;
     // ----------------------
 
@@ -537,7 +548,7 @@ module.exports = class FunctionsFiles {
         // if(arrImageSize !== null)
         if (arrImageSize) {
           // Delete original file.
-          let fileOriginalDeletePath = strDirectoryName + '\\' + 'o' + fileName;
+          const fileOriginalDeletePath = strDirectoryName + '\\' + 'o' + fileName;
 
           fs.access(fileOriginalDeletePath, (fileAccessError) => {
             // ref: https:// stackoverflow.com/questions/4482686/check-synchronously-if-file-directory-exists-in-node-js
@@ -568,13 +579,14 @@ module.exports = class FunctionsFiles {
             }
 
             // AWS S3.
-            if (gSystemConfig.configUploadType == 2) {
+            if (gSystemConfig.configUploadType === 2) {
               const deleteParameters = {
                 Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
                 Key: 'o' + fileName,
               };
 
-              s3.deleteObject(deleteParameters, function (s3DeleteError, s3DataReturn) {
+              // s3.deleteObject(deleteParameters, function (s3DeleteError, s3DataReturn) {
+              s3.deleteObject(deleteParameters, (s3DeleteError, s3DataReturn) => {
                 if (s3DeleteError) {
                   if (gSystemConfig.configDebug === true) {
                     console.log(s3DeleteError, s3DeleteError.stack);
@@ -590,12 +602,12 @@ module.exports = class FunctionsFiles {
           // Delete - multiple files.
           // Loop through array.
           for (let arrCountImageSize = 0; arrCountImageSize < arrImageSize.length; arrCountImageSize++) {
-            let arrImageSizeParameters = arrImageSize[arrCountImageSize].split(';');
+            const arrImageSizeParameters = arrImageSize[arrCountImageSize].split(';');
             let imagePrefix = arrImageSizeParameters[0];
             if (imagePrefix == 'NULL') {
               imagePrefix = '';
             }
-            let fileDeletePath = strDirectoryName + '\\' + imagePrefix + fileName;
+            const fileDeletePath = strDirectoryName + '\\' + imagePrefix + fileName;
             // let imageW = arrImageSizeParameters[1];
             // let imageH = arrImageSizeParameters[2];
 
@@ -630,13 +642,14 @@ module.exports = class FunctionsFiles {
                   }
 
                   // AWS S3.
-                  if (gSystemConfig.configUploadType == 2) {
+                  if (gSystemConfig.configUploadType === 2) {
                     const deleteParameters = {
                       Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
                       Key: imagePrefix + fileName,
                     };
 
-                    s3.deleteObject(deleteParameters, function (s3DeleteError, s3DataReturn) {
+                    // s3.deleteObject(deleteParameters, function (s3DeleteError, s3DataReturn) {
+                    s3.deleteObject(deleteParameters, (s3DeleteError, s3DataReturn) => {
                       if (s3DeleteError) {
                         if (gSystemConfig.configDebug === true) {
                           console.log(s3DeleteError, s3DeleteError.stack);
@@ -665,7 +678,7 @@ module.exports = class FunctionsFiles {
           }
         } else {
           // Delete - single file.
-          let fileDeletePath = strDirectoryName + '\\' + fileName;
+          const fileDeletePath = strDirectoryName + '\\' + fileName;
 
           fs.access(fileDeletePath, (fileAccessError) => {
             if (!fileAccessError) {
@@ -692,13 +705,14 @@ module.exports = class FunctionsFiles {
                 // objReturn.nRecords = 1;
 
                 // AWS S3.
-                if (gSystemConfig.configUploadType == 2) {
+                if (gSystemConfig.configUploadType === 2) {
                   const deleteParameters = {
                     Bucket: process.env.CONFIG_API_AWS_S3_BUCKET,
                     Key: fileName,
                   };
 
-                  s3.deleteObject(deleteParameters, function (s3DeleteError, s3DataReturn) {
+                  // s3.deleteObject(deleteParameters, function (s3DeleteError, s3DataReturn) {
+                  s3.deleteObject(deleteParameters, (s3DeleteError, s3DataReturn) => {
                     if (s3DeleteError) {
                       if (gSystemConfig.configDebug === true) {
                         console.log(s3DeleteError, s3DeleteError.stack);
@@ -726,15 +740,16 @@ module.exports = class FunctionsFiles {
         }
       }
     } catch (error) {
+      // TODO:
     } finally {
       // Debug.
       if (gSystemConfig.configDebug === true) {
         console.log('strDirectoryName = ' + strDirectoryName);
         console.log('objReturn=', objReturn);
       }
-
-      return objReturn;
     }
+
+    return objReturn;
     // ----------------------
   }
   // **************************************************************************************
@@ -756,8 +771,9 @@ module.exports = class FunctionsFiles {
      * 
      */
   static async fileDownload(fileName, directoryDownload = gSystemConfig.configDirectoryFilesUpload) {
-    var fileDownload = fs.createWriteStream(fileName);
-    var request = http.get(directoryDownload + '/' + fileName, function (response) {
+    const fileDownload = fs.createWriteStream(fileName);
+    // let request = http.get(directoryDownload + '/' + fileName, function (response) {
+    const request = http.get(directoryDownload + '/' + fileName, (response) => {
       response.pipe(fileDownload);
     });
   }
