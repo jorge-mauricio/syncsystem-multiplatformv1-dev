@@ -3,7 +3,7 @@
  * Copyright(c) 2009-2021 Jorge Mauricio
  * SyncSystem Licensed
  */
-'use strict';
+'use strict'; // eslint-disable-line
 
 // Export modules.
 /**/

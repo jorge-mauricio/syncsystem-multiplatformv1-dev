@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; // eslint-disable-line
 
 /*
 Notes:
@@ -279,7 +279,7 @@ exports.appLabels = {
   backendCategoriesType5Function: 'Manage Articles',
   backendCategoriesType6Function: 'Manage Publications',
   backendCategoriesType7Function: 'Manage Polls',
-  backendCategoriesType9Function: 'Segment' /*Manage Categories */,
+  backendCategoriesType9Function: 'Segment' /* Manage Categories */,
   backendCategoriesType12Function: 'Manage Forms',
   backendCategoriesType13Function: 'Manage Registers',
   backendCategoriesType17Function: 'Manage Quizzes',
@@ -1280,7 +1280,8 @@ exports.appLabels = {
 
   // Items - frontend.
   // **************************************************************************************
-  /*frontendItemDisplay: "Display",
+  /*
+  frontendItemDisplay: "Display",
     frontendItemFunctions: "Functions",
     frontendItemDetails: "Details",
     frontendItemDetailsView: "View Details",

@@ -22,7 +22,7 @@ const http = require('http');
 
 const AWS = require('aws-sdk');
 /**/
-let s3 = new AWS.S3({
+let s3 = new AWS.S3({ // eslint-disable-line
   accessKeyId: process.env.CONFIG_API_AWS_S3_ID,
   secretAccessKey: process.env.CONFIG_API_AWS_S3_KEY,
   // apiVersion: '2006-03-01'
@@ -91,7 +91,7 @@ module.exports = class FunctionsFiles {
       // fsExtra.copy(temp_path, new_location + file_name, function(err){
       // fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, function(fileCopyError){
       // return await new Promise((resolve, reject)=>{
-      let resultsFSExtraCopy = await new Promise((resolve, reject) => {
+      let resultsFSExtraCopy = await new Promise((resolve, reject) => { // eslint-disable-line
         // let resultsFSExtraCopy = new Promise((resolve, reject)=>{
         fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, (fileCopyError) => {
           if (fileCopyError) {

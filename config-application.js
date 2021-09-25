@@ -2171,9 +2171,11 @@ module.exports =  {
 // Export all elements in namespace.
 // ref: https:// vancelucas.com/blog/module-exports-all-the-things/
 // ref: https:// hackernoon.com/5-techniques-to-iterate-over-javascript-object-entries-and-their-performance-6602dcb708a8
+/**/
 for (const prop in gSystemConfig) {
   if (gSystemConfig.hasOwnProperty(prop)) {
     module.exports[prop] = gSystemConfig[prop];
   }
 }
+// exports.gSystemConfig;
 // **************************************************************************************
