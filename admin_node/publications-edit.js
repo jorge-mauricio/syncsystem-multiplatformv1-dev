@@ -134,7 +134,7 @@ module.exports = class PublicationsEdit {
 
       // Filters - Type.
       /*
-            if(gSystemConfig.enablePublicationsType != 0)
+            if(gSystemConfig.enablePublicationsType !== 0)
             {
                 this.resultsPublicationsTypeListing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
                     return obj.filter_index == 1;
@@ -202,48 +202,54 @@ module.exports = class PublicationsEdit {
       }
 
       // Parent ID Records.
-      if (gSystemConfig.enablePublicationsIdParentEdit == 1) {
+      if (gSystemConfig.enablePublicationsIdParentEdit === 1) {
         // Check table of parent id.
         this.objParentTableLevel1 = await SyncSystemNS.FunctionsDB.tableFindGet(this.opdRecord.tblPublicationsIdParent);
 
         // Categories.
-        if (this.objParentTableLevel1.tableName == gSystemConfig.configSystemDBTableCategories) {
+        if (this.objParentTableLevel1.tableName === gSystemConfig.configSystemDBTableCategories) {
           // Category type / publication type.
           let objParentTableLevel1CategoryType = 0;
           if (this.opdRecord.tblPublicationsIdType != '' && this.opdRecord.tblPublicationsIdType !== null && this.opdRecord.tblPublicationsIdType !== undefined) {
             switch (this.opdRecord.tblPublicationsIdType) {
-              case 1:
+              case '1':
                 objParentTableLevel1CategoryType = '3';
                 break;
-              case 2:
+              case '2':
                 objParentTableLevel1CategoryType = '4';
                 break;
-              case 3:
+              case '3':
                 objParentTableLevel1CategoryType = '5';
                 break;
-              case 4:
+              case '4':
                 objParentTableLevel1CategoryType = '6';
             }
 
             // Debug.
-            // console.log("objParentTableLevel1CategoryType=", objParentTableLevel1CategoryType);
-            // console.log("this.objParentTable.tableData[0].category_type = ", this.objParentTable.tableData[0].category_type);
+            // console.log('objParentTableLevel1CategoryType=', objParentTableLevel1CategoryType);
+            // console.log('this.opdRecord=', this.opdRecord);
+            // console.log('this.objParentTable.tableData[0].category_type = ', this.objParentTable.tableData[0].category_type);
           }
 
           this.objParentTable = await SyncSystemNS.FunctionsDB.genericTableGet02(
             gSystemConfig.configSystemDBTableCategories,
-            // ["category_type;3;i"],
+            // ["category_type;3,4,5,6;ids"],
             ['category_type;' + objParentTableLevel1CategoryType + ';i'],
             gSystemConfig.configCategoriesSort,
             '',
             'id, title',
             1
           );
+
+          // Debug.
+          // console.log('objParentTableLevel1CategoryType=', objParentTableLevel1CategoryType);
         }
 
         // Debug.
-        // console.log("this.objParentTableLevel1=", this.objParentTableLevel1);
-        // console.log("this.opdRecord.tblPublicationsIdType=", this.opdRecord.tblPublicationsIdType);
+        // console.log('this.objParentTable=true');
+        // console.log('this.objParentTable =', this.objParentTable);
+        // console.log('this.objParentTableLevel1=', this.objParentTableLevel1);
+        // console.log('this.opdRecord.tblPublicationsIdType=', this.opdRecord.tblPublicationsIdType);
       }
 
       // Default query.
@@ -501,11 +507,11 @@ module.exports = class PublicationsEdit {
                         // Reorder table rows.
                         // TODO: Create variable in config to enable it.
                         document.addEventListener('DOMContentLoaded', function() {
-                            inputDataReorder([${gSystemConfig.configPublicationsInputOrder
-                              .map((arrayRow) => {
-                                return `"${arrayRow}"`;
-                              })
-                              .join(',')}]); // necessary to map the array in order to display as an array inside template literals
+                          inputDataReorder([${gSystemConfig.configPublicationsInputOrder
+                            .map((arrayRow) => {
+                              return `"${arrayRow}"`;
+                            })
+                            .join(',')}]); // necessary to map the array in order to display as an array inside template literals
 
                         }, false);
                     </script>
@@ -519,7 +525,7 @@ module.exports = class PublicationsEdit {
                         </thead>
                         <tbody class="ss-backend-table-listing-text01">
                             ${
-                              gSystemConfig.enablePublicationsIdParentEdit == 1
+                              gSystemConfig.enablePublicationsIdParentEdit === 1
                                 ? `
                             <tr id="inputRowPublications_id_parent" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -548,7 +554,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsSortOrder == 1
+                              gSystemConfig.enablePublicationsSortOrder === 1
                                 ? `
                             <tr id="inputRowPublications_sort_order" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -566,7 +572,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsBindRegisterUser == 1
+                              gSystemConfig.enablePublicationsBindRegisterUser === 1
                                 ? `
                             <tr id="inputRowPublications_id_register_user" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -585,7 +591,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsDateStart != 1
+                              gSystemConfig.enablePublicationsDateStart !== 0
                                 ? `
                             <tr id="inputRowPublications_date_start" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -594,10 +600,10 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Dropdown menu. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsDateStart == 2
+                                      gSystemConfig.enablePublicationsDateStart === 2
                                         ? `
                                         ${
-                                          gSystemConfig.configBackendDateFormat == 1
+                                          gSystemConfig.configBackendDateFormat === 1
                                             ? `
                                                 ${
                                                   /*Debug.*/
@@ -691,14 +697,14 @@ module.exports = class PublicationsEdit {
 
                                     ${/* js-datepicker. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsDateStart == 11
+                                      gSystemConfig.enablePublicationsDateStart === 11
                                         ? `
                                         <input type="text" id="publications_date1" name="date1" class="ss-backend-field-date01" autocomplete="off" value="${opdRecord.tblPublicationsDateStart_print}" />
                                         <script>
                                             const dpDateStart = datepicker("#publications_date1", 
                                                 ${/* Generic date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateStartType == 1 || (gSystemConfig.configPublicationsDateStartType == 2) | (gSystemConfig.configPublicationsDateStartType == 3)
+                                                  gSystemConfig.configPublicationsDateStartType === 1 || (gSystemConfig.configPublicationsDateStartType === 2) | (gSystemConfig.configPublicationsDateStartType === 3)
                                                     ? `
                                                     jsDatepickerGenericBackendConfigOptions
                                                     `
@@ -707,7 +713,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Birth date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateStartType == 4
+                                                  gSystemConfig.configPublicationsDateStartType === 4
                                                     ? `
                                                     jsDatepickerBirthBackendConfigOptions
                                                     `
@@ -716,7 +722,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Task date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateStartType == 5 || gSystemConfig.configPublicationsDateStartType == 55
+                                                  gSystemConfig.configPublicationsDateStartType === 5 || gSystemConfig.configPublicationsDateStartType === 55
                                                     ? `
                                                     jsDatepickerTaskBackendConfigOptions
                                                     `
@@ -725,7 +731,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* History date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateStartType == 6 || gSystemConfig.configPublicationsDateStartType == 66
+                                                  gSystemConfig.configPublicationsDateStartType === 6 || gSystemConfig.configPublicationsDateStartType === 66
                                                     ? `
                                                     jsDatepickerHistoryBackendConfigOptions
                                                     `
@@ -749,7 +755,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Complete and Semi-complete date. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDateStartType == 2 || gSystemConfig.configPublicationsDateStartType == 3 || gSystemConfig.configPublicationsDateStartType == 55 || gSystemConfig.configPublicationsDateStartType == 66
+                                      gSystemConfig.configPublicationsDateStartType === 2 || gSystemConfig.configPublicationsDateStartType === 3 || gSystemConfig.configPublicationsDateStartType === 55 || gSystemConfig.configPublicationsDateStartType === 66
                                         ? `
                                           - 
                                         <select id="publications_date1_hour" name="date1_hour" class="ss-backend-field-dropdown01">
@@ -778,7 +784,7 @@ module.exports = class PublicationsEdit {
                                               .join(',')}
                                         </select>
                                         ${
-                                          gSystemConfig.configPublicationsDateStartType == 2
+                                          gSystemConfig.configPublicationsDateStartType === 2
                                             ? `
                                             :
                                             <select id="publications_date1_seconds" name="date1_seconds" class="ss-backend-field-dropdown01">
@@ -806,7 +812,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsDateEnd != 1
+                              gSystemConfig.enablePublicationsDateEnd !== 0
                                 ? `
                             <tr id="inputRowPublications_code" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -815,10 +821,10 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Dropdown menu. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsDateEnd == 2
+                                      gSystemConfig.enablePublicationsDateEnd === 2
                                         ? `
                                         ${
-                                          gSystemConfig.configBackendDateFormat == 1
+                                          gSystemConfig.configBackendDateFormat === 1
                                             ? `
                                                 ${
                                                   /*Debug.*/
@@ -912,14 +918,14 @@ module.exports = class PublicationsEdit {
 
                                     ${/* js-datepicker. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsDateEnd == 11
+                                      gSystemConfig.enablePublicationsDateEnd === 11
                                         ? `
                                         <input type="text" id="publications_date1" name="date1" class="ss-backend-field-date01" autocomplete="off" value="${opdRecord.tblPublicationsDateEnd_print}" />
                                         <script>
                                             const dpDateEnd = datepicker("#publications_date1", 
                                                 ${/* Generic date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateEndType == 1 || (gSystemConfig.configPublicationsDateEndType == 2) | (gSystemConfig.configPublicationsDateEndType == 3)
+                                                  gSystemConfig.configPublicationsDateEndType === 1 || (gSystemConfig.configPublicationsDateEndType === 2) | (gSystemConfig.configPublicationsDateEndType === 3)
                                                     ? `
                                                     jsDatepickerGenericBackendConfigOptions
                                                     `
@@ -928,7 +934,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Birth date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateEndType == 4
+                                                  gSystemConfig.configPublicationsDateEndType === 4
                                                     ? `
                                                     jsDatepickerBirthBackendConfigOptions
                                                     `
@@ -937,7 +943,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Task date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateEndType == 5 || gSystemConfig.configPublicationsDateEndType == 55
+                                                  gSystemConfig.configPublicationsDateEndType === 5 || gSystemConfig.configPublicationsDateEndType === 55
                                                     ? `
                                                     jsDatepickerTaskBackendConfigOptions
                                                     `
@@ -946,7 +952,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* History date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDateEndType == 6 || gSystemConfig.configPublicationsDateEndType == 66
+                                                  gSystemConfig.configPublicationsDateEndType === 6 || gSystemConfig.configPublicationsDateEndType === 66
                                                     ? `
                                                     jsDatepickerHistoryBackendConfigOptions
                                                     `
@@ -970,7 +976,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Complete and Semi-complete date. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDateEndType == 2 || gSystemConfig.configPublicationsDateEndType == 3 || gSystemConfig.configPublicationsDateEndType == 55 || gSystemConfig.configPublicationsDateEndType == 66
+                                      gSystemConfig.configPublicationsDateEndType === 2 || gSystemConfig.configPublicationsDateEndType === 3 || gSystemConfig.configPublicationsDateEndType === 55 || gSystemConfig.configPublicationsDateEndType === 66
                                         ? `
                                           - 
                                         <select id="publications_date1_hour" name="date1_hour" class="ss-backend-field-dropdown01">
@@ -999,7 +1005,7 @@ module.exports = class PublicationsEdit {
                                               .join(',')}
                                         </select>
                                         ${
-                                          gSystemConfig.configPublicationsDateEndType == 2
+                                          gSystemConfig.configPublicationsDateEndType === 2
                                             ? `
                                             :
                                             <select id="publications_date1_seconds" name="date1_seconds" class="ss-backend-field-dropdown01">
@@ -1036,7 +1042,7 @@ module.exports = class PublicationsEdit {
                             </tr>
 
                             ${
-                              gSystemConfig.enablePublicationsDescription == 1
+                              gSystemConfig.enablePublicationsDescription === 1
                                 ? `
                             <tr id="inputRowPublications_description" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1045,7 +1051,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* No formatting */ ''}
                                     ${
-                                      gSystemConfig.configBackendTextBox == 1
+                                      gSystemConfig.configBackendTextBox === 1
                                         ? `
                                         <textarea id="publications_description" name="description" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsDescription_edit}</textarea>
                                     `
@@ -1055,7 +1061,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Quill */ ''}
                                     ${
-                                      gSystemConfig.configBackendTextBox == 13
+                                      gSystemConfig.configBackendTextBox === 13
                                         ? `
                                         <textarea id="publications_description" name="description" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsDescription_edit}</textarea>
                                         <div id="toolbar">
@@ -1078,7 +1084,7 @@ module.exports = class PublicationsEdit {
 
                                       ${/* FroalaEditor */ ''}
                                       ${
-                                        gSystemConfig.configBackendTextBox == 15
+                                        gSystemConfig.configBackendTextBox === 15
                                           ? `
                                         <textarea id="publications_description" name="description" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsDescription_edit}</textarea>
                                         <script>
@@ -1091,7 +1097,7 @@ module.exports = class PublicationsEdit {
 
                                       ${/* TinyMCE */ ''}
                                       ${
-                                        gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18
+                                        gSystemConfig.configBackendTextBox === 17 || gSystemConfig.configBackendTextBox === 18
                                           ? `
                                         <textarea id="publications_description" name="description" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsDescription_edit}</textarea>
                                         <script>
@@ -1115,7 +1121,7 @@ module.exports = class PublicationsEdit {
 
 
                             ${
-                              gSystemConfig.configPublicationsURLAlias == 1
+                              gSystemConfig.configPublicationsURLAlias === 1
                                 ? `
                             <tr id="inputRowPublications_url_alias" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1130,7 +1136,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsKeywordsTags == 1
+                              gSystemConfig.enablePublicationsKeywordsTags === 1
                                 ? `
                             <tr id="inputRowPublications_keywords_tags" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1148,7 +1154,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsMetaDescription == 1
+                              gSystemConfig.enablePublicationsMetaDescription === 1
                                 ? `
                             <tr id="inputRowPublications_meta_description" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1163,7 +1169,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsMetaTitle == 1
+                              gSystemConfig.enablePublicationsMetaTitle === 1
                                 ? `
                             <tr id="inputRowPublications_meta_title" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1179,7 +1185,7 @@ module.exports = class PublicationsEdit {
 
                             ${/* Generic filters. */ ''}
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric1 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric1 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter1" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1188,7 +1194,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric1 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric1 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric1Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1205,7 +1211,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric1 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric1 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric1" name="idsPublicationsFiltersGeneric1" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric1Listing
@@ -1222,7 +1228,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric1 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric1 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric1" name="idsPublicationsFiltersGeneric1" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric1Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1240,7 +1246,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric1 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric1 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric1Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1261,7 +1267,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric2 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric2 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter2" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1270,7 +1276,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric2 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric2 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric2Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1287,7 +1293,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric2 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric2 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric2" name="idsPublicationsFiltersGeneric2" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric2Listing
@@ -1304,7 +1310,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric2 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric2 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric2" name="idsPublicationsFiltersGeneric2" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric2Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1322,7 +1328,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric2 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric2 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric2Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1343,7 +1349,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric3 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric3 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter3" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1352,7 +1358,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric3 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric3 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric3Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1369,7 +1375,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric3 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric3 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric3" name="idsPublicationsFiltersGeneric3" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric3Listing
@@ -1386,7 +1392,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric3 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric3 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric3" name="idsPublicationsFiltersGeneric3" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric3Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1404,7 +1410,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric3 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric3 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric3Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1425,7 +1431,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric4 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric4 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter4" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1434,7 +1440,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric4 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric4 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric4Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1451,7 +1457,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric4 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric4 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric4" name="idsPublicationsFiltersGeneric4" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric4Listing
@@ -1468,7 +1474,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric4 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric4 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric4" name="idsPublicationsFiltersGeneric4" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric4Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1486,7 +1492,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric4 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric4 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric4Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1507,7 +1513,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric5 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric5 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter5" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1516,7 +1522,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric5 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric5 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric5Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1533,7 +1539,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric5 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric5 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric5" name="idsPublicationsFiltersGeneric5" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric5Listing
@@ -1550,7 +1556,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric5 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric5 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric5" name="idsPublicationsFiltersGeneric5" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric5Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1568,7 +1574,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric5 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric5 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric5Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1589,7 +1595,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric6 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric6 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter6" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1598,7 +1604,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric6 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric6 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric6Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1615,7 +1621,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric6 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric6 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric6" name="idsPublicationsFiltersGeneric6" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric6Listing
@@ -1632,7 +1638,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric6 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric6 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric6" name="idsPublicationsFiltersGeneric6" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric6Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1650,7 +1656,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric6 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric6 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric6Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1671,7 +1677,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric7 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric7 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter7" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1680,7 +1686,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric7 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric7 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric7Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1697,7 +1703,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric7 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric7 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric7" name="idsPublicationsFiltersGeneric7" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric7Listing
@@ -1714,7 +1720,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric7 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric7 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric7" name="idsPublicationsFiltersGeneric7" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric7Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1732,7 +1738,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric7 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric7 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric7Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1753,7 +1759,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric8 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric8 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter8" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1762,7 +1768,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric8 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric8 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric8Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1779,7 +1785,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric8 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric8 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric8" name="idsPublicationsFiltersGeneric8" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric8Listing
@@ -1796,7 +1802,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric8 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric8 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric8" name="idsPublicationsFiltersGeneric8" class="ss-backend-field-dropdown01">
                                             <option value="0" selected>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1814,7 +1820,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric8 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric8 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric8Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1835,7 +1841,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric9 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric9 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter9" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1844,7 +1850,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric9 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric9 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric9Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1861,7 +1867,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric9 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric9 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric9" name="idsPublicationsFiltersGeneric9" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric9Listing
@@ -1878,7 +1884,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric9 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric9 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric9" name="idsPublicationsFiltersGeneric9" class="ss-backend-field-dropdown01">
                                             <option value="0"${opdRecord.arrIdsPublicationsFiltersGeneric9Binding.includes('0') ? ` selected` : ``}>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1896,7 +1902,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric9 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric9 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric9Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1917,7 +1923,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFilterGeneric10 != 0
+                              gSystemConfig.enablePublicationsFilterGeneric10 !== 0
                                 ? `
                             <tr id="inputRowPublications_generic_filter10" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1926,7 +1932,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Checkbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric10 == 1
+                                      gSystemConfig.enablePublicationsFilterGeneric10 === 1
                                         ? `
                                         ${resultsPublicationsFiltersGeneric10Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -1943,7 +1949,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Listbox. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric10 == 2
+                                      gSystemConfig.enablePublicationsFilterGeneric10 === 2
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric10" name="idsPublicationsFiltersGeneric10" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             ${resultsPublicationsFiltersGeneric10Listing
@@ -1960,7 +1966,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric10 == 3
+                                      gSystemConfig.enablePublicationsFilterGeneric10 === 3
                                         ? `
                                         <select id="idsPublicationsFiltersGeneric10" name="idsPublicationsFiltersGeneric10" class="ss-backend-field-dropdown01">
                                             <option value="0" selected>${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDropDownSelectNone')}</option>
@@ -1978,7 +1984,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Radio. */ ''}
                                     ${
-                                      gSystemConfig.enablePublicationsFilterGeneric10 == 4
+                                      gSystemConfig.enablePublicationsFilterGeneric10 === 4
                                         ? `
                                         ${resultsPublicationsFiltersGeneric10Listing
                                           .map((publicationsFiltersGenericRow) => {
@@ -2000,7 +2006,7 @@ module.exports = class PublicationsEdit {
                             
                             ${/* Information fields. */ ''}
                             ${
-                              gSystemConfig.enablePublicationsInfo1 == 1
+                              gSystemConfig.enablePublicationsInfo1 === 1
                                 ? `
                             <tr id="inputRowPublications_info1" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2009,7 +2015,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo1FieldType == 1
+                                      gSystemConfig.configPublicationsInfo1FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info1" name="info1" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo1_edit}" />
                                     `
@@ -2018,11 +2024,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo1FieldType == 2
+                                      gSystemConfig.configPublicationsInfo1FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info1" name="info1" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo1_edit}</textarea>
                                         `
@@ -2031,7 +2037,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info1" name="info1" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo1_edit}</textarea>
                                             <script>
@@ -2047,7 +2053,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo1FieldType == 11
+                                      gSystemConfig.configPublicationsInfo1FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info1" name="info1" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo1_edit}" />
                                     `
@@ -2056,7 +2062,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo1FieldType == 12
+                                      gSystemConfig.configPublicationsInfo1FieldType === 12
                                         ? `
                                         <textarea id="publications_info1" name="info1" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo1_edit}</textarea>
                                     `
@@ -2069,7 +2075,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo2 == 1
+                              gSystemConfig.enablePublicationsInfo2 === 1
                                 ? `
                             <tr id="inputRowPublications_info2" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2078,7 +2084,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo2FieldType == 1
+                                      gSystemConfig.configPublicationsInfo2FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info2" name="info2" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo2_edit}" />
                                     `
@@ -2087,11 +2093,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo2FieldType == 2
+                                      gSystemConfig.configPublicationsInfo2FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info2" name="info2" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo2_edit}</textarea>
                                         `
@@ -2100,7 +2106,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info2" name="info2" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo2_edit}</textarea>
                                             <script>
@@ -2116,7 +2122,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo2FieldType == 11
+                                      gSystemConfig.configPublicationsInfo2FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info2" name="info2" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo2_edit}" />
                                     `
@@ -2125,7 +2131,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo2FieldType == 12
+                                      gSystemConfig.configPublicationsInfo2FieldType === 12
                                         ? `
                                         <textarea id="publications_info2" name="info2" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo2_edit}</textarea>
                                     `
@@ -2138,7 +2144,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo3 == 1
+                              gSystemConfig.enablePublicationsInfo3 === 1
                                 ? `
                             <tr id="inputRowPublications_info3" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2147,7 +2153,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo3FieldType == 1
+                                      gSystemConfig.configPublicationsInfo3FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info3" name="info3" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo3_edit}" />
                                     `
@@ -2156,11 +2162,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo3FieldType == 2
+                                      gSystemConfig.configPublicationsInfo3FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info3" name="info3" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo3_edit}</textarea>
                                         `
@@ -2169,7 +2175,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info3" name="info3" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo3_edit}</textarea>
                                             <script>
@@ -2185,7 +2191,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo3FieldType == 11
+                                      gSystemConfig.configPublicationsInfo3FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info3" name="info3" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo3_edit}" />
                                     `
@@ -2194,7 +2200,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo3FieldType == 12
+                                      gSystemConfig.configPublicationsInfo3FieldType === 12
                                         ? `
                                         <textarea id="publications_info3" name="info3" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo3_edit}</textarea>
                                     `
@@ -2207,7 +2213,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo4 == 1
+                              gSystemConfig.enablePublicationsInfo4 === 1
                                 ? `
                             <tr id="inputRowPublications_info4" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2216,7 +2222,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo4FieldType == 1
+                                      gSystemConfig.configPublicationsInfo4FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info4" name="info4" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo4_edit}" />
                                     `
@@ -2225,11 +2231,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo4FieldType == 2
+                                      gSystemConfig.configPublicationsInfo4FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info4" name="info4" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo4_edit}</textarea>
                                         `
@@ -2238,7 +2244,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info4" name="info4" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo4_edit}</textarea>
                                             <script>
@@ -2254,7 +2260,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo4FieldType == 11
+                                      gSystemConfig.configPublicationsInfo4FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info4" name="info4" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo4_edit}" />
                                     `
@@ -2263,7 +2269,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo4FieldType == 12
+                                      gSystemConfig.configPublicationsInfo4FieldType === 12
                                         ? `
                                         <textarea id="publications_info4" name="info4" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo4_edit}</textarea>
                                     `
@@ -2276,7 +2282,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo5 == 1
+                              gSystemConfig.enablePublicationsInfo5 === 1
                                 ? `
                             <tr id="inputRowPublications_info5" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2285,7 +2291,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo5FieldType == 1
+                                      gSystemConfig.configPublicationsInfo5FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info5" name="info5" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo5_edit}" />
                                     `
@@ -2294,11 +2300,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo5FieldType == 2
+                                      gSystemConfig.configPublicationsInfo5FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info5" name="info5" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo5_edit}</textarea>
                                         `
@@ -2307,7 +2313,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info5" name="info5" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo5_edit}</textarea>
                                             <script>
@@ -2323,7 +2329,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo5FieldType == 11
+                                      gSystemConfig.configPublicationsInfo5FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info5" name="info5" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo5_edit}" />
                                     `
@@ -2332,7 +2338,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo5FieldType == 12
+                                      gSystemConfig.configPublicationsInfo5FieldType === 12
                                         ? `
                                         <textarea id="publications_info5" name="info5" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo5_edit}</textarea>
                                     `
@@ -2345,7 +2351,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo6 == 1
+                              gSystemConfig.enablePublicationsInfo6 === 1
                                 ? `
                             <tr id="inputRowPublications_info6" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2354,7 +2360,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo6FieldType == 1
+                                      gSystemConfig.configPublicationsInfo6FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info6" name="info6" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo6_edit}" />
                                     `
@@ -2363,11 +2369,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo6FieldType == 2
+                                      gSystemConfig.configPublicationsInfo6FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info6" name="info6" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo6_edit}</textarea>
                                         `
@@ -2376,7 +2382,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info6" name="info6" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo6_edit}</textarea>
                                             <script>
@@ -2392,7 +2398,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo6FieldType == 11
+                                      gSystemConfig.configPublicationsInfo6FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info6" name="info6" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo6_edit}" />
                                     `
@@ -2401,7 +2407,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo6FieldType == 12
+                                      gSystemConfig.configPublicationsInfo6FieldType === 12
                                         ? `
                                         <textarea id="publications_info6" name="info6" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo6_edit}</textarea>
                                     `
@@ -2414,7 +2420,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo7 == 1
+                              gSystemConfig.enablePublicationsInfo7 === 1
                                 ? `
                             <tr id="inputRowPublications_info7" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2423,7 +2429,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo7FieldType == 1
+                                      gSystemConfig.configPublicationsInfo7FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info7" name="info7" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo7_edit}" />
                                     `
@@ -2432,11 +2438,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo7FieldType == 2
+                                      gSystemConfig.configPublicationsInfo7FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info7" name="info7" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo7_edit}</textarea>
                                         `
@@ -2445,7 +2451,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info7" name="info7" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo7_edit}</textarea>
                                             <script>
@@ -2461,7 +2467,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo7FieldType == 11
+                                      gSystemConfig.configPublicationsInfo7FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info7" name="info7" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo7_edit}" />
                                     `
@@ -2470,7 +2476,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo7FieldType == 12
+                                      gSystemConfig.configPublicationsInfo7FieldType === 12
                                         ? `
                                         <textarea id="publications_info7" name="info7" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo7_edit}</textarea>
                                     `
@@ -2483,7 +2489,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo8 == 1
+                              gSystemConfig.enablePublicationsInfo8 === 1
                                 ? `
                             <tr id="inputRowPublications_info8" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2492,7 +2498,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo8FieldType == 1
+                                      gSystemConfig.configPublicationsInfo8FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info8" name="info8" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo8_edit}" />
                                     `
@@ -2501,11 +2507,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo8FieldType == 2
+                                      gSystemConfig.configPublicationsInfo8FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info8" name="info8" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo8_edit}</textarea>
                                         `
@@ -2514,7 +2520,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info8" name="info8" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo8_edit}</textarea>
                                             <script>
@@ -2530,7 +2536,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo8FieldType == 11
+                                      gSystemConfig.configPublicationsInfo8FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info8" name="info8" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo8_edit}" />
                                     `
@@ -2539,7 +2545,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo8FieldType == 12
+                                      gSystemConfig.configPublicationsInfo8FieldType === 12
                                         ? `
                                         <textarea id="publications_info8" name="info8" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo8_edit}</textarea>
                                     `
@@ -2552,7 +2558,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo9 == 1
+                              gSystemConfig.enablePublicationsInfo9 === 1
                                 ? `
                             <tr id="inputRowPublications_info9" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2561,7 +2567,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo9FieldType == 1
+                                      gSystemConfig.configPublicationsInfo9FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info9" name="info9" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo9_edit}" />
                                     `
@@ -2570,11 +2576,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo9FieldType == 2
+                                      gSystemConfig.configPublicationsInfo9FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info9" name="info9" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo9_edit}</textarea>
                                         `
@@ -2583,7 +2589,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info9" name="info9" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo9_edit}</textarea>
                                             <script>
@@ -2599,7 +2605,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo9FieldType == 11
+                                      gSystemConfig.configPublicationsInfo9FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info9" name="info9" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo9_edit}" />
                                     `
@@ -2608,7 +2614,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo9FieldType == 12
+                                      gSystemConfig.configPublicationsInfo9FieldType === 12
                                         ? `
                                         <textarea id="publications_info9" name="info9" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo9_edit}</textarea>
                                     `
@@ -2621,7 +2627,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsInfo10 == 1
+                              gSystemConfig.enablePublicationsInfo10 === 1
                                 ? `
                             <tr id="inputRowPublications_info10" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2630,7 +2636,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo10FieldType == 1
+                                      gSystemConfig.configPublicationsInfo10FieldType === 1
                                         ? `
                                         <input type="text" id="publications_info10" name="info10" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo10_edit}" />
                                     `
@@ -2639,11 +2645,11 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo10FieldType == 2
+                                      gSystemConfig.configPublicationsInfo10FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="publications_info10" name="info10" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo10_edit}</textarea>
                                         `
@@ -2652,7 +2658,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="publications_info10" name="info10" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo10_edit}</textarea>
                                             <script>
@@ -2668,7 +2674,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Single line (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo10FieldType == 11
+                                      gSystemConfig.configPublicationsInfo10FieldType === 11
                                         ? `
                                         <input type="text" id="publications_info10" name="info10" class="ss-backend-field-text01" value="${opdRecord.tblPublicationsInfo10_edit}" />
                                     `
@@ -2677,7 +2683,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Multiline (encrypted). */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsInfo10FieldType == 12
+                                      gSystemConfig.configPublicationsInfo10FieldType === 12
                                         ? `
                                         <textarea id="publications_info10" name="info10" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsInfo10_edit}</textarea>
                                     `
@@ -2690,7 +2696,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsSource == 1
+                              gSystemConfig.enablePublicationsSource === 1
                                 ? `
                             <tr id="inputRowPublications_source" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2705,7 +2711,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsSourceURL == 1
+                              gSystemConfig.enablePublicationsSourceURL === 1
                                 ? `
                             <tr id="inputRowPublications_source_url" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2723,7 +2729,7 @@ module.exports = class PublicationsEdit {
                             
                             ${/* Number fields. */ ''}
                             ${
-                              gSystemConfig.enablePublicationsNumber1 == 1
+                              gSystemConfig.enablePublicationsNumber1 === 1
                                 ? `
                             <tr id="inputRowPublications_number1" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2732,7 +2738,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* General number. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber1FieldType == 1
+                                      gSystemConfig.configPublicationsNumber1FieldType === 1
                                         ? `
                                         <input type="text" id="publications_number1" name="number1" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber1_print}" maxlength="34" />
                                         <script>
@@ -2744,7 +2750,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* System currency. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber1FieldType == 2 || gSystemConfig.configPublicationsNumber1FieldType == 4
+                                      gSystemConfig.configPublicationsNumber1FieldType === 2 || gSystemConfig.configPublicationsNumber1FieldType == 4
                                         ? `
                                         ${gSystemConfig.configSystemCurrency}
                                         <input type="text" id="publications_number1" name="number1" class="ss-backend-field-currency01" value="${opdRecord.tblPublicationsNumber1_print}" maxlength="45" />
@@ -2759,7 +2765,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Decimal. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber1FieldType == 3
+                                      gSystemConfig.configPublicationsNumber1FieldType === 3
                                         ? `
                                         <input type="text" id="publications_number1" name="number1" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber1_print}" maxlength="34" />
                                         <script>
@@ -2775,7 +2781,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsNumber2 == 1
+                              gSystemConfig.enablePublicationsNumber2 === 1
                                 ? `
                             <tr id="inputRowPublications_number2" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2784,7 +2790,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* General number. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber2FieldType == 1
+                                      gSystemConfig.configPublicationsNumber2FieldType === 1
                                         ? `
                                         <input type="text" id="publications_number2" name="number2" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber2_print}" maxlength="34" />
                                         <script>
@@ -2796,7 +2802,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* System currency. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber2FieldType == 2 || gSystemConfig.configPublicationsNumber2FieldType == 4
+                                      gSystemConfig.configPublicationsNumber2FieldType === 2 || gSystemConfig.configPublicationsNumber2FieldType == 4
                                         ? `
                                         ${gSystemConfig.configSystemCurrency}
                                         <input type="text" id="publications_number2" name="number2" class="ss-backend-field-currency01" value="${opdRecord.tblPublicationsNumber2_print}" maxlength="45" />
@@ -2811,7 +2817,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Decimal. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber2FieldType == 3
+                                      gSystemConfig.configPublicationsNumber2FieldType === 3
                                         ? `
                                         <input type="text" id="publications_number2" name="number2" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber2_print}" maxlength="34" />
                                         <script>
@@ -2827,7 +2833,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsNumber3 == 1
+                              gSystemConfig.enablePublicationsNumber3 === 1
                                 ? `
                             <tr id="inputRowPublications_number3" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2836,7 +2842,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* General number. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber3FieldType == 1
+                                      gSystemConfig.configPublicationsNumber3FieldType === 1
                                         ? `
                                         <input type="text" id="publications_number3" name="number3" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber3_print}" maxlength="34" />
                                         <script>
@@ -2848,7 +2854,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* System currency. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber3FieldType == 2 || gSystemConfig.configPublicationsNumber3FieldType == 4
+                                      gSystemConfig.configPublicationsNumber3FieldType === 2 || gSystemConfig.configPublicationsNumber3FieldType == 4
                                         ? `
                                         ${gSystemConfig.configSystemCurrency}
                                         <input type="text" id="publications_number3" name="number3" class="ss-backend-field-currency01" value="${opdRecord.tblPublicationsNumber3_print}" maxlength="45" />
@@ -2863,7 +2869,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Decimal. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber3FieldType == 3
+                                      gSystemConfig.configPublicationsNumber3FieldType === 3
                                         ? `
                                         <input type="text" id="publications_number3" name="number3" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber3_print}" maxlength="34" />
                                         <script>
@@ -2879,7 +2885,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsNumber4 == 1
+                              gSystemConfig.enablePublicationsNumber4 === 1
                                 ? `
                             <tr id="inputRowPublications_number4" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2888,7 +2894,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* General number. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber4FieldType == 1
+                                      gSystemConfig.configPublicationsNumber4FieldType === 1
                                         ? `
                                         <input type="text" id="publications_number4" name="number4" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber4_print}" maxlength="34" />
                                         <script>
@@ -2900,7 +2906,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* System currency. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber4FieldType == 2 || gSystemConfig.configPublicationsNumber4FieldType == 4
+                                      gSystemConfig.configPublicationsNumber4FieldType === 2 || gSystemConfig.configPublicationsNumber4FieldType == 4
                                         ? `
                                         ${gSystemConfig.configSystemCurrency}
                                         <input type="text" id="publications_number4" name="number4" class="ss-backend-field-currency01" value="${opdRecord.tblPublicationsNumber4_print}" maxlength="45" />
@@ -2915,7 +2921,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Decimal. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber4FieldType == 3
+                                      gSystemConfig.configPublicationsNumber4FieldType === 3
                                         ? `
                                         <input type="text" id="publications_number4" name="number4" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber4_print}" maxlength="34" />
                                         <script>
@@ -2931,7 +2937,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsNumber5 == 1
+                              gSystemConfig.enablePublicationsNumber5 === 1
                                 ? `
                             <tr id="inputRowPublications_number5" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -2940,7 +2946,7 @@ module.exports = class PublicationsEdit {
                                 <td>
                                     ${/* General number. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber5FieldType == 1
+                                      gSystemConfig.configPublicationsNumber5FieldType === 1
                                         ? `
                                         <input type="text" id="publications_number5" name="number5" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber5_print}" maxlength="34" />
                                         <script>
@@ -2952,7 +2958,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* System currency. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber5FieldType == 2 || gSystemConfig.configPublicationsNumber5FieldType == 4
+                                      gSystemConfig.configPublicationsNumber5FieldType === 2 || gSystemConfig.configPublicationsNumber5FieldType == 4
                                         ? `
                                         ${gSystemConfig.configSystemCurrency}
                                         <input type="text" id="publications_number5" name="number5" class="ss-backend-field-currency01" value="${opdRecord.tblPublicationsNumber5_print}" maxlength="45" />
@@ -2967,7 +2973,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Decimal. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsNumber5FieldType == 3
+                                      gSystemConfig.configPublicationsNumber5FieldType === 3
                                         ? `
                                         <input type="text" id="publications_number5" name="number5" class="ss-backend-field-numeric02" value="${opdRecord.tblPublicationsNumber5_print}" maxlength="34" />
                                         <script>
@@ -2984,7 +2990,7 @@ module.exports = class PublicationsEdit {
 
                             ${/* URL fields. */ ''}
                             ${
-                              gSystemConfig.enablePublicationsURL1 != 1
+                              gSystemConfig.enablePublicationsURL1 !== 0
                                 ? `
                             <tr id="inputRowPublications_url1" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -3000,7 +3006,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsURL2 != 1
+                              gSystemConfig.enablePublicationsURL2 !== 0
                                 ? `
                             <tr id="inputRowPublications_url2" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -3016,7 +3022,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsURL3 != 1
+                              gSystemConfig.enablePublicationsURL3 !== 0
                                 ? `
                             <tr id="inputRowPublications_url3" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -3032,7 +3038,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsURL4 != 1
+                              gSystemConfig.enablePublicationsURL4 !== 0
                                 ? `
                             <tr id="inputRowPublications_url4" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -3048,7 +3054,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsURL5 != 1
+                              gSystemConfig.enablePublicationsURL5 !== 0
                                 ? `
                             <tr id="inputRowPublications_url5" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -3064,7 +3070,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsDate1 == 1
+                              gSystemConfig.enablePublicationsDate1 === 1
                                 ? `
                                 <tr id="inputRowPublications_date1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -3074,10 +3080,10 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown menu. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate1FieldType == 2
+                                      gSystemConfig.configPublicationsDate1FieldType === 2
                                         ? `
                                         ${
-                                          gSystemConfig.configBackendDateFormat == 1
+                                          gSystemConfig.configBackendDateFormat === 1
                                             ? `
                                                 ${
                                                   /*Debug.*/
@@ -3171,14 +3177,14 @@ module.exports = class PublicationsEdit {
 
                                     ${/* js-datepicker. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate1FieldType == 11
+                                      gSystemConfig.configPublicationsDate1FieldType === 11
                                         ? `
                                         <input type="text" id="publications_date1" name="date1" class="ss-backend-field-date01" autocomplete="off" value="${opdRecord.tblPublicationsDate1_print}" />
                                         <script>
                                             const dpDate1 = datepicker("#publications_date1", 
                                                 ${/* Generic date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate1Type == 1 || (gSystemConfig.configPublicationsDate1Type == 2) | (gSystemConfig.configPublicationsDate1Type == 3)
+                                                  gSystemConfig.configPublicationsDate1Type === 1 || (gSystemConfig.configPublicationsDate1Type === 2) | (gSystemConfig.configPublicationsDate1Type === 3)
                                                     ? `
                                                     jsDatepickerGenericBackendConfigOptions
                                                     `
@@ -3187,7 +3193,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Birth date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate1Type == 4
+                                                  gSystemConfig.configPublicationsDate1Type === 4
                                                     ? `
                                                     jsDatepickerBirthBackendConfigOptions
                                                     `
@@ -3196,7 +3202,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Task date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate1Type == 5 || gSystemConfig.configPublicationsDate1Type == 55
+                                                  gSystemConfig.configPublicationsDate1Type === 5 || gSystemConfig.configPublicationsDate1Type === 55
                                                     ? `
                                                     jsDatepickerTaskBackendConfigOptions
                                                     `
@@ -3205,7 +3211,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* History date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate1Type == 6 || gSystemConfig.configPublicationsDate1Type == 66
+                                                  gSystemConfig.configPublicationsDate1Type === 6 || gSystemConfig.configPublicationsDate1Type === 66
                                                     ? `
                                                     jsDatepickerHistoryBackendConfigOptions
                                                     `
@@ -3229,7 +3235,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Complete and Semi-complete date. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate1Type == 2 || gSystemConfig.configPublicationsDate1Type == 3 || gSystemConfig.configPublicationsDate1Type == 55 || gSystemConfig.configPublicationsDate1Type == 66
+                                      gSystemConfig.configPublicationsDate1Type === 2 || gSystemConfig.configPublicationsDate1Type === 3 || gSystemConfig.configPublicationsDate1Type === 55 || gSystemConfig.configPublicationsDate1Type === 66
                                         ? `
                                           - 
                                         <select id="publications_date1_hour" name="date1_hour" class="ss-backend-field-dropdown01">
@@ -3258,7 +3264,7 @@ module.exports = class PublicationsEdit {
                                               .join(',')}
                                         </select>
                                         ${
-                                          gSystemConfig.configPublicationsDate1Type == 2
+                                          gSystemConfig.configPublicationsDate1Type === 2
                                             ? `
                                             :
                                             <select id="publications_date1_seconds" name="date1_seconds" class="ss-backend-field-dropdown01">
@@ -3286,7 +3292,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsDate2 == 1
+                              gSystemConfig.enablePublicationsDate2 === 1
                                 ? `
                                 <tr id="inputRowPublications_date2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -3296,10 +3302,10 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown menu. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate2FieldType == 2
+                                      gSystemConfig.configPublicationsDate2FieldType === 2
                                         ? `
                                         ${
-                                          gSystemConfig.configBackendDateFormat == 1
+                                          gSystemConfig.configBackendDateFormat === 1
                                             ? `
                                                 <select id="publications_date2_day" name="date2_day" class="ss-backend-field-dropdown01">
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01('d', 1, { dateType: gSystemConfig.configPublicationsDate2Type })
@@ -3387,14 +3393,14 @@ module.exports = class PublicationsEdit {
 
                                     ${/* js-datepicker. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate2FieldType == 11
+                                      gSystemConfig.configPublicationsDate2FieldType === 11
                                         ? `
                                         <input type="text" id="publications_date2" name="date2" class="ss-backend-field-date01" autocomplete="off" value="${opdRecord.tblPublicationsDate2_print}" />
                                         <script>
                                             const dpDate2 = datepicker("#publications_date2", 
                                                 ${/* Generic date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate2Type == 1 || (gSystemConfig.configPublicationsDate2Type == 2) | (gSystemConfig.configPublicationsDate2Type == 3)
+                                                  gSystemConfig.configPublicationsDate2Type === 1 || (gSystemConfig.configPublicationsDate2Type === 2) | (gSystemConfig.configPublicationsDate2Type === 3)
                                                     ? `
                                                     jsDatepickerGenericBackendConfigOptions
                                                     `
@@ -3403,7 +3409,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Birth date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate2Type == 4
+                                                  gSystemConfig.configPublicationsDate2Type === 4
                                                     ? `
                                                     jsDatepickerBirthBackendConfigOptions
                                                     `
@@ -3412,7 +3418,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Task date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate2Type == 5 || gSystemConfig.configPublicationsDate2Type == 55
+                                                  gSystemConfig.configPublicationsDate2Type === 5 || gSystemConfig.configPublicationsDate2Type === 55
                                                     ? `
                                                     jsDatepickerTaskBackendConfigOptions
                                                     `
@@ -3421,7 +3427,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* History date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate2Type == 6 || gSystemConfig.configPublicationsDate2Type == 66
+                                                  gSystemConfig.configPublicationsDate2Type === 6 || gSystemConfig.configPublicationsDate2Type === 66
                                                     ? `
                                                     jsDatepickerHistoryBackendConfigOptions
                                                     `
@@ -3435,7 +3441,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Complete and Semi-complete date. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate2Type == 2 || gSystemConfig.configPublicationsDate2Type == 3 || gSystemConfig.configPublicationsDate2Type == 55 || gSystemConfig.configPublicationsDate2Type == 66
+                                      gSystemConfig.configPublicationsDate2Type === 2 || gSystemConfig.configPublicationsDate2Type === 3 || gSystemConfig.configPublicationsDate2Type === 55 || gSystemConfig.configPublicationsDate2Type === 66
                                         ? `
                                           - 
                                         <select id="publications_date2_hour" name="date2_hour" class="ss-backend-field-dropdown01">
@@ -3492,7 +3498,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsDate3 == 1
+                              gSystemConfig.enablePublicationsDate3 === 1
                                 ? `
                                 <tr id="inputRowPublications_date3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -3502,10 +3508,10 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown menu. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate3FieldType == 2
+                                      gSystemConfig.configPublicationsDate3FieldType === 2
                                         ? `
                                         ${
-                                          gSystemConfig.configBackendDateFormat == 1
+                                          gSystemConfig.configBackendDateFormat === 1
                                             ? `
                                                 <select id="publications_date3_day" name="date3_day" class="ss-backend-field-dropdown01">
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01('d', 1, { dateType: gSystemConfig.configPublicationsDate3Type })
@@ -3593,14 +3599,14 @@ module.exports = class PublicationsEdit {
 
                                     ${/* js-datepicker. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate3FieldType == 11
+                                      gSystemConfig.configPublicationsDate3FieldType === 11
                                         ? `
                                         <input type="text" id="publications_date3" name="date3" class="ss-backend-field-date01" autocomplete="off" value="${opdRecord.tblPublicationsDate3_print}" />
                                         <script>
                                             const dpDate3 = datepicker("#publications_date3", 
                                                 ${/* Generic date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate3Type == 1 || (gSystemConfig.configPublicationsDate3Type == 2) | (gSystemConfig.configPublicationsDate3Type == 3)
+                                                  gSystemConfig.configPublicationsDate3Type === 1 || (gSystemConfig.configPublicationsDate3Type === 2) | (gSystemConfig.configPublicationsDate3Type === 3)
                                                     ? `
                                                     jsDatepickerGenericBackendConfigOptions
                                                     `
@@ -3618,7 +3624,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Task date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate3Type == 5 || gSystemConfig.configPublicationsDate3Type == 55
+                                                  gSystemConfig.configPublicationsDate3Type === 5 || gSystemConfig.configPublicationsDate3Type === 55
                                                     ? `
                                                     jsDatepickerTaskBackendConfigOptions
                                                     `
@@ -3627,7 +3633,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* History date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate3Type == 6 || gSystemConfig.configPublicationsDate3Type == 66
+                                                  gSystemConfig.configPublicationsDate3Type === 6 || gSystemConfig.configPublicationsDate3Type === 66
                                                     ? `
                                                     jsDatepickerHistoryBackendConfigOptions
                                                     `
@@ -3641,7 +3647,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Complete and Semi-complete date. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate3Type == 2 || gSystemConfig.configPublicationsDate3Type == 3 || gSystemConfig.configPublicationsDate3Type == 55 || gSystemConfig.configPublicationsDate3Type == 66
+                                      gSystemConfig.configPublicationsDate3Type === 2 || gSystemConfig.configPublicationsDate3Type === 3 || gSystemConfig.configPublicationsDate3Type === 55 || gSystemConfig.configPublicationsDate3Type === 66
                                         ? `
                                           - 
                                         <select id="publications_date3_hour" name="date3_hour" class="ss-backend-field-dropdown01">
@@ -3670,7 +3676,7 @@ module.exports = class PublicationsEdit {
                                               .join(',')}
                                         </select>
                                         ${
-                                          gSystemConfig.configPublicationsDate3Type == 2
+                                          gSystemConfig.configPublicationsDate3Type === 2
                                             ? `
                                             :
                                             <select id="publications_date3_seconds" name="date3_seconds" class="ss-backend-field-dropdown01">
@@ -3698,7 +3704,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsDate4 == 1
+                              gSystemConfig.enablePublicationsDate4 === 1
                                 ? `
                                 <tr id="inputRowPublications_date4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -3708,10 +3714,10 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown menu. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate4FieldType == 2
+                                      gSystemConfig.configPublicationsDate4FieldType === 2
                                         ? `
                                         ${
-                                          gSystemConfig.configBackendDateFormat == 1
+                                          gSystemConfig.configBackendDateFormat === 1
                                             ? `
                                                 <select id="publications_date4_day" name="date4_day" class="ss-backend-field-dropdown01">
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01('d', 1, { dateType: gSystemConfig.configPublicationsDate4Type })
@@ -3799,14 +3805,14 @@ module.exports = class PublicationsEdit {
 
                                     ${/* js-datepicker. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate4FieldType == 11
+                                      gSystemConfig.configPublicationsDate4FieldType === 11
                                         ? `
                                         <input type="text" id="publications_date4" name="date4" class="ss-backend-field-date01" autocomplete="off" value="${opdRecord.tblPublicationsDate4_print}" />
                                         <script>
                                             const dpDate4 = datepicker("#publications_date4", 
                                                 ${/* Generic date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate4Type == 1 || (gSystemConfig.configPublicationsDate4Type == 2) | (gSystemConfig.configPublicationsDate4Type == 3)
+                                                  gSystemConfig.configPublicationsDate4Type === 1 || (gSystemConfig.configPublicationsDate4Type === 2) | (gSystemConfig.configPublicationsDate4Type === 3)
                                                     ? `
                                                     jsDatepickerGenericBackendConfigOptions
                                                     `
@@ -3824,7 +3830,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Task date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate4Type == 5 || gSystemConfig.configPublicationsDate4Type == 55
+                                                  gSystemConfig.configPublicationsDate4Type === 5 || gSystemConfig.configPublicationsDate4Type === 55
                                                     ? `
                                                     jsDatepickerTaskBackendConfigOptions
                                                     `
@@ -3833,7 +3839,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* History date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate4Type == 6 || gSystemConfig.configPublicationsDate4Type == 66
+                                                  gSystemConfig.configPublicationsDate4Type === 6 || gSystemConfig.configPublicationsDate4Type === 66
                                                     ? `
                                                     jsDatepickerHistoryBackendConfigOptions
                                                     `
@@ -3847,7 +3853,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Complete and Semi-complete date. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate4Type == 2 || gSystemConfig.configPublicationsDate4Type == 3 || gSystemConfig.configPublicationsDate4Type == 55 || gSystemConfig.configPublicationsDate4Type == 66
+                                      gSystemConfig.configPublicationsDate4Type === 2 || gSystemConfig.configPublicationsDate4Type === 3 || gSystemConfig.configPublicationsDate4Type === 55 || gSystemConfig.configPublicationsDate4Type === 66
                                         ? `
                                           - 
                                         <select id="publications_date4_hour" name="date4_hour" class="ss-backend-field-dropdown01">
@@ -3904,7 +3910,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsDate5 == 1
+                              gSystemConfig.enablePublicationsDate5 === 1
                                 ? `
                                 <tr id="inputRowPublications_date5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -3914,10 +3920,10 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Dropdown menu. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate5FieldType == 2
+                                      gSystemConfig.configPublicationsDate5FieldType === 2
                                         ? `
                                         ${
-                                          gSystemConfig.configBackendDateFormat == 1
+                                          gSystemConfig.configBackendDateFormat === 1
                                             ? `
                                                 <select id="publications_date5_day" name="date5_day" class="ss-backend-field-dropdown01">
                                                     ${SyncSystemNS.FunctionsGeneric.timeTableFill01('d', 1, { dateType: gSystemConfig.configPublicationsDate5Type })
@@ -4005,14 +4011,14 @@ module.exports = class PublicationsEdit {
 
                                     ${/* js-datepicker. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate5FieldType == 11
+                                      gSystemConfig.configPublicationsDate5FieldType === 11
                                         ? `
                                         <input type="text" id="publications_date5" name="date5" class="ss-backend-field-date01" autocomplete="off" value="${opdRecord.tblPublicationsDate5_print}" />
                                         <script>
                                             const dpDate5 = datepicker("#publications_date5", 
                                                 ${/* Generic date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate5Type == 1 || (gSystemConfig.configPublicationsDate5Type == 2) | (gSystemConfig.configPublicationsDate5Type == 3)
+                                                  gSystemConfig.configPublicationsDate5Type === 1 || (gSystemConfig.configPublicationsDate5Type === 2) | (gSystemConfig.configPublicationsDate5Type === 3)
                                                     ? `
                                                     jsDatepickerGenericBackendConfigOptions
                                                     `
@@ -4021,7 +4027,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Birth date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate5Type == 4
+                                                  gSystemConfig.configPublicationsDate5Type === 4
                                                     ? `
                                                     jsDatepickerBirthBackendConfigOptions
                                                     `
@@ -4030,7 +4036,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* Task date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate5Type == 5 || gSystemConfig.configPublicationsDate5Type == 55
+                                                  gSystemConfig.configPublicationsDate5Type === 5 || gSystemConfig.configPublicationsDate5Type === 55
                                                     ? `
                                                     jsDatepickerTaskBackendConfigOptions
                                                     `
@@ -4039,7 +4045,7 @@ module.exports = class PublicationsEdit {
 
                                                 ${/* History date. */ ''}
                                                 ${
-                                                  gSystemConfig.configPublicationsDate5Type == 6 || gSystemConfig.configPublicationsDate5Type == 66
+                                                  gSystemConfig.configPublicationsDate5Type === 6 || gSystemConfig.configPublicationsDate5Type === 66
                                                     ? `
                                                     jsDatepickerHistoryBackendConfigOptions
                                                     `
@@ -4053,7 +4059,7 @@ module.exports = class PublicationsEdit {
 
                                     ${/* Complete and Semi-complete date. */ ''}
                                     ${
-                                      gSystemConfig.configPublicationsDate5Type == 2 || gSystemConfig.configPublicationsDate5Type == 3 || gSystemConfig.configPublicationsDate5Type == 55 || gSystemConfig.configPublicationsDate5Type == 66
+                                      gSystemConfig.configPublicationsDate5Type === 2 || gSystemConfig.configPublicationsDate5Type === 3 || gSystemConfig.configPublicationsDate5Type === 55 || gSystemConfig.configPublicationsDate5Type === 66
                                         ? `
                                           - 
                                         <select id="publications_date5_hour" name="date5_hour" class="ss-backend-field-dropdown01">
@@ -4171,7 +4177,7 @@ module.exports = class PublicationsEdit {
                                 : ``
                             }
                             ${
-                              gSystemConfig.enablePublicationsImageMainCaption == 1
+                              gSystemConfig.enablePublicationsImageMainCaption === 1
                                 ? `
                             <tr id="inputRowPublications_image_main_caption" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -4199,7 +4205,7 @@ module.exports = class PublicationsEdit {
                                         ? `
                                         ${/* Image. */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile1Type == 1
+                                          gSystemConfig.configPublicationsFile1Type === 1
                                             ? `
                                             <img id="imgPublicationsFile1" src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + opdRecord.tblPublicationsFile1}" alt="${opdRecord.tblPublicationsFile1}" class="ss-backend-images-edit" />
                                         `
@@ -4208,7 +4214,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (download). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile1Type == 3
+                                          gSystemConfig.configPublicationsFile1Type === 3
                                             ? `
                                             <a id="imgPublicationsFile1" download href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile1}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile1}
@@ -4219,7 +4225,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (open direct). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile1Type == 34
+                                          gSystemConfig.configPublicationsFile1Type === 34
                                             ? `
                                             <a id="imgPublicationsFile1" href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile1}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile1}
@@ -4264,7 +4270,7 @@ module.exports = class PublicationsEdit {
 
                                                 
                                                 ${
-                                                  gSystemConfig.configPublicationsFile1Type == 1
+                                                  gSystemConfig.configPublicationsFile1Type === 1
                                                     ? `
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemImageDelete')} ${/* Image */ ''}
                                                 `
@@ -4285,7 +4291,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFile2 == 1
+                              gSystemConfig.enablePublicationsFile2 === 1
                                 ? `
                             <tr id="inputRowPublications_file2" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -4299,7 +4305,7 @@ module.exports = class PublicationsEdit {
                                         ? `
                                         ${/* Image. */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile2Type == 1
+                                          gSystemConfig.configPublicationsFile2Type === 1
                                             ? `
                                             <img id="imgPublicationsFile2" src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + opdRecord.tblPublicationsFile2}" alt="${opdRecord.tblPublicationsFile2}" class="ss-backend-images-edit" />
                                         `
@@ -4308,7 +4314,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (download). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile2Type == 3
+                                          gSystemConfig.configPublicationsFile2Type === 3
                                             ? `
                                             <a id="imgPublicationsFile2" download href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile2}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile2}
@@ -4319,7 +4325,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (open direct). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile2Type == 34
+                                          gSystemConfig.configPublicationsFile2Type === 34
                                             ? `
                                             <a id="imgPublicationsFile2" href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile2}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile2}
@@ -4364,7 +4370,7 @@ module.exports = class PublicationsEdit {
 
                                                 
                                                 ${
-                                                  gSystemConfig.configPublicationsFile2Type == 1
+                                                  gSystemConfig.configPublicationsFile2Type === 1
                                                     ? `
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemImageDelete')} ${/* Image */ ''}
                                                 `
@@ -4385,7 +4391,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFile3 == 1
+                              gSystemConfig.enablePublicationsFile3 === 1
                                 ? `
                             <tr id="inputRowPublications_file3" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -4399,7 +4405,7 @@ module.exports = class PublicationsEdit {
                                         ? `
                                         ${/* Image. */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile3Type == 1
+                                          gSystemConfig.configPublicationsFile3Type === 1
                                             ? `
                                             <img id="imgPublicationsFile3" src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + opdRecord.tblPublicationsFile3}" alt="${opdRecord.tblPublicationsFile3}" class="ss-backend-images-edit" />
                                         `
@@ -4408,7 +4414,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (download). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile3Type == 3
+                                          gSystemConfig.configPublicationsFile3Type === 3
                                             ? `
                                             <a id="imgPublicationsFile3" download href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile3}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile3}
@@ -4419,7 +4425,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (open direct). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile3Type == 34
+                                          gSystemConfig.configPublicationsFile3Type === 34
                                             ? `
                                             <a id="imgPublicationsFile3" href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile3}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile3}
@@ -4464,7 +4470,7 @@ module.exports = class PublicationsEdit {
 
                                                 
                                                 ${
-                                                  gSystemConfig.configPublicationsFile3Type == 1
+                                                  gSystemConfig.configPublicationsFile3Type === 1
                                                     ? `
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemImageDelete')} ${/* Image */ ''}
                                                 `
@@ -4485,7 +4491,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFile4 == 1
+                              gSystemConfig.enablePublicationsFile4 === 1
                                 ? `
                             <tr id="inputRowPublications_file4" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -4499,7 +4505,7 @@ module.exports = class PublicationsEdit {
                                         ? `
                                         ${/* Image. */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile4Type == 1
+                                          gSystemConfig.configPublicationsFile4Type === 1
                                             ? `
                                             <img id="imgPublicationsFile4" src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + opdRecord.tblPublicationsFile4}" alt="${opdRecord.tblPublicationsFile4}" class="ss-backend-images-edit" />
                                         `
@@ -4508,7 +4514,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (download). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile4Type == 3
+                                          gSystemConfig.configPublicationsFile4Type === 3
                                             ? `
                                             <a id="imgPublicationsFile4" download href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile4}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile4}
@@ -4519,7 +4525,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (open direct). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile4Type == 34
+                                          gSystemConfig.configPublicationsFile4Type === 34
                                             ? `
                                             <a id="imgPublicationsFile4" href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile4}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile4}
@@ -4585,7 +4591,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsFile5 == 1
+                              gSystemConfig.enablePublicationsFile5 === 1
                                 ? `
                             <tr id="inputRowPublications_file5" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -4599,7 +4605,7 @@ module.exports = class PublicationsEdit {
                                         ? `
                                         ${/* Image. */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile5Type == 1
+                                          gSystemConfig.configPublicationsFile5Type === 1
                                             ? `
                                             <img id="imgPublicationsFile5" src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + opdRecord.tblPublicationsFile5}" alt="${opdRecord.tblPublicationsFile5}" class="ss-backend-images-edit" />
                                         `
@@ -4608,7 +4614,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (download). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile5Type == 3
+                                          gSystemConfig.configPublicationsFile5Type === 3
                                             ? `
                                             <a id="imgPublicationsFile5" download href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile5}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile5}
@@ -4619,7 +4625,7 @@ module.exports = class PublicationsEdit {
 
                                         ${/* File (open direct). */ ''}
                                         ${
-                                          gSystemConfig.configPublicationsFile5Type == 34
+                                          gSystemConfig.configPublicationsFile5Type === 34
                                             ? `
                                             <a id="imgPublicationsFile5" href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/' + opdRecord.tblPublicationsFile5}" target="_blank" class="ss-backend-links01 ss-backend-images-edit">
                                                 ${opdRecord.tblPublicationsFile5}
@@ -4664,7 +4670,7 @@ module.exports = class PublicationsEdit {
 
                                                 
                                                 ${
-                                                  gSystemConfig.configPublicationsFile5Type == 1
+                                                  gSystemConfig.configPublicationsFile5Type === 1
                                                     ? `
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemImageDelete')} ${/* Image */ ''}
                                                 `
@@ -4698,7 +4704,7 @@ module.exports = class PublicationsEdit {
                             </tr>
 
                             ${
-                              gSystemConfig.enablePublicationsActivation1 == 1
+                              gSystemConfig.enablePublicationsActivation1 === 1
                                 ? `
                                 <tr id="inputRowPublications_activation1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -4716,7 +4722,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsActivation2 == 1
+                              gSystemConfig.enablePublicationsActivation2 === 1
                                 ? `
                                 <tr id="inputRowPublications_activation2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -4734,7 +4740,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsActivation3 == 1
+                              gSystemConfig.enablePublicationsActivation3 === 1
                                 ? `
                                 <tr id="inputRowPublications_activation3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -4752,7 +4758,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsActivation4 == 1
+                              gSystemConfig.enablePublicationsActivation4 === 1
                                 ? `
                                 <tr id="inputRowPublications_activation4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -4770,7 +4776,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsActivation5 == 1
+                              gSystemConfig.enablePublicationsActivation5 === 1
                                 ? `
                                 <tr id="inputRowPublications_activation5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -4788,7 +4794,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsStatus == 1
+                              gSystemConfig.enablePublicationsStatus === 1
                                 ? `
                                 <tr id="inputRowPublications_id_status" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -4812,7 +4818,7 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsRestrictedAccess == 1
+                              gSystemConfig.enablePublicationsRestrictedAccess === 1
                                 ? `
                             <tr id="inputRowPublications_id_restricted_access" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -4830,17 +4836,17 @@ module.exports = class PublicationsEdit {
                             }
 
                             ${
-                              gSystemConfig.enablePublicationsNotes == 1
+                              gSystemConfig.enablePublicationsNotes === 1
                                 ? `
-                            <tr id="inputRowPublications_notes" class="ss-backend-table-bg-light">
-                                <td class="ss-backend-table-bg-medium">
-                                    ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemNotesInternal')}: 
-                                </td>
-                                <td>
-                                    <textarea id="publications_notes" name="notes" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsNotes_edit}</textarea>
-                                </td>
-                            </tr>
-                            `
+                              <tr id="inputRowPublications_notes" class="ss-backend-table-bg-light">
+                                  <td class="ss-backend-table-bg-medium">
+                                      ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemNotesInternal')}: 
+                                  </td>
+                                  <td>
+                                      <textarea id="publications_notes" name="notes" class="ss-backend-field-text-area01">${opdRecord.tblPublicationsNotes_edit}</textarea>
+                                  </td>
+                              </tr>
+                              `
                                 : ``
                             }
                         </tbody>

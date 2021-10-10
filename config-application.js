@@ -22,12 +22,30 @@ gSystemConfig.configDebug = true; // true (debug mode) | false (production mode)
 // **************************************************************************************
 // Basic information.
 // ----------------------
-gSystemConfig.configSystemClientName = 'Planejamento Visual'; // (Note: moved to language file)
+gSystemConfig.configSystemClientName = 'Planejamento Visual';
+gSystemConfig.configSystemClientDocument = ''; // SSN | CPF
+gSystemConfig.configSystemClientCompanyNameLegal = '';
+gSystemConfig.configSystemClientCompanyDocument = ''; // CPNJ
+gSystemConfig.configSystemClientCompanyDocument1 = ''; // I.M.
+gSystemConfig.configSystemClientCompanyDocument2 = ''; // I.E.
+gSystemConfig.configSystemClientAddress = '';
+gSystemConfig.configSystemClientAddressNumber = '';
+gSystemConfig.configSystemClientAddressComplement = '';
+gSystemConfig.configSystemClientNeighborhood = '';
+gSystemConfig.configSystemClientDistrict = '';
+gSystemConfig.configSystemClientCounty = '';
+gSystemConfig.configSystemClientCity = '';
+gSystemConfig.configSystemClientState = '';
+gSystemConfig.configSystemClientCountry = '';
+gSystemConfig.configSystemClientZipCode = '';
+gSystemConfig.configSystemClientPhone = '';
+gSystemConfig.configSystemClientCel = '+1 999-222-3333';
+gSystemConfig.configSystemClientEmail = 'contact@domain.com';
 
 gSystemConfig.configSiteTitle = 'SyncSystem - Multiplatform (debug: çáéã)'; // site name (Note: moved to language file)
-gSystemConfig.configSystemName = 'Sistema de Gerenciamento de Conteúdo'; // Sistema de Controle | Sistema Administrativo | CRM | Content Management System
-gSystemConfig.configDevName = 'Planejamento Visual - Arte e Tecnologia'; // Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer | Web Inventor - Imagine, realize. (Note: moved to language file)
-gSystemConfig.configDevSite = 'http:// www.planejamentovisual.com.br'; // http:// www.programadorvisual.com.br | http:// www.planejamentovisual.com.br | http:// www.jorgemauricio.com | http:// www.webinventor.com.br
+gSystemConfig.configSystemName = 'Sistema de Gerenciamento de Conteúdo'; // Sistema de Controle | Sistema Administrativo | CRM | Content Management System (Note: moved to language file)
+gSystemConfig.configDevName = 'Planejamento Visual - Arte e Tecnologia'; // Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer | Web Inventor - Imagine, realize. | Full Stack Web Designer - JM - Jorge Mauricio (Note: moved to language file) (Note: moved to language file)
+gSystemConfig.configDevSite = 'http://www.planejamentovisual.com.br'; // http:// www.programadorvisual.com.br | http:// www.planejamentovisual.com.br | http:// www.jorgemauricio.com | http:// www.webinventor.com.br | http://www.fullstackwebdesigner.com
 gSystemConfig.configCopyrightYear = '2008';
 
 // gSystemConfig.configSystemURL = "http:// localhost:3000"; // http:// multiplatformv1.syncsystem.com.br
@@ -54,7 +72,7 @@ window.location.search: "?query=1"
 
 gSystemConfig.configSystemURLImages = '/'; // ".." = relative path | "/" = root | http:// www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
 // gSystemConfig.configSystemURLImages = "https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com";
-gSystemConfig.configSystemURLImagesRemote = 'https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com'; // maybe it´s not needed
+gSystemConfig.configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com'; // maybe it´s not needed
 gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + '/';
 // gSystemConfig.configFrontendReactURLImages = "https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com";
 
@@ -113,6 +131,7 @@ gSystemConfig.configDirectoryComponents = 'components_node';
 gSystemConfig.configDirectoryFilesVisualization = 'app_files_public';
 gSystemConfig.configDirectoryFiles = 'app_files_public';
 gSystemConfig.configDirectoryFilesLayout = 'app_files_layout';
+gSystemConfig.configDirectoryFonts = 'app_fonts';
 gSystemConfig.configDirectoryResources = 'app_resources';
 gSystemConfig.configDirectoryStyles = 'app_styles';
 gSystemConfig.configDirectoryViews = 'app_views';
@@ -135,6 +154,7 @@ gSystemConfig.configDirectoryAdminSD = 'admin';
 // gSystemConfig.configDirectoryFilesSD = ""; // "" - when using remote file storage
 gSystemConfig.configDirectoryFilesSD = 'files'; // "" - when using remote
 gSystemConfig.configDirectoryFilesLayoutSD = 'files-layout';
+gSystemConfig.configDirectoryFontsSD = 'fonts';
 gSystemConfig.configDirectoryStylesSD = 'css';
 gSystemConfig.configDirectoryJSSD = 'js';
 gSystemConfig.configDirectoryDistSD = 'dist';
@@ -275,7 +295,7 @@ gSystemConfig.configImageQuality = 100; // image quality percentage on resizing
 gSystemConfig.configImageFormats = '.bmp, .gif, .jpg, .jpeg, .png'; // formats allowed for image resizing
 
 // Image size configuration.
-gSystemConfig.enableDefaultImageSize = 1; // 0 - disable (image sizes diferent for each table) | 1 - enable (default image sizes)
+gSystemConfig.enableDefaultImageSize = 1; // 0 - disable (image sizes different for each table) | 1 - enable (default image sizes)
 
 // prefix;w;h
 gSystemConfig.configArrDefaultImageSize = ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
@@ -598,6 +618,7 @@ gSystemConfig.configFilesURLAlias = 1; // 0 - disable | 1 - automatic | 2 - cust
 gSystemConfig.enableFilesKeywordsTags = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableFilesMetaDescription = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableFilesMetaTitle = 1; // 0 - disable | 1 - enable
+
 gSystemConfig.enableFilesNotes = 1; // 0 - disable | 1 - enable
 
 // Pagination.
@@ -1105,6 +1126,8 @@ gSystemConfig.enableProductsActivation5 = 1; // 0 - disable | 1 - enable
 
 // Frontend configuration.
 gSystemConfig.configProductsImagePlaceholder = 1; // 0 - disable | 1 - enable
+gSystemConfig.configProductsTitleLimitChar = 0; // 0 - disable | 123
+gSystemConfig.configProductsDescriptionLimitChar = 150; // 0 - disable | 123
 
 gSystemConfig.enableProductsFrontendPagination = 1; // 0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
 gSystemConfig.enableProductsFrontendPaginationNumbering = 1; // 0 - disable | 1 - enable

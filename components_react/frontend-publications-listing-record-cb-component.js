@@ -390,15 +390,15 @@ class FrontendPublicationsListingRecord extends Component {
                   {/* Number - block content. */}
                   <div style={{ position: 'relative', display: 'block', overflow: 'hidden' }}>
                     {/* Number 1. */}
-                    {gSystemConfig.enablePublicationsNumber1 == 1 ? (
+                    {gSystemConfig.enablePublicationsNumber1 === 1 ? (
                       <div className="ss-frontend-publications-listing-content-block01">
                         <div className="ss-frontend-publications-listing-content-block-label01 ss-frontend-publications-listing-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumber1')}:</div>
                         <div className="ss-frontend-publications-listing-content-block-data01">
-                          {gSystemConfig.configPublicationsNumber1FieldType == 2 || gSystemConfig.configPublicationsNumber1FieldType == 4 ? <React.Fragment>{gSystemConfig.configSystemCurrency + ' '}</React.Fragment> : ``}
+                          {gSystemConfig.configPublicationsNumber1FieldType === 2 || gSystemConfig.configPublicationsNumber1FieldType === 4 ? <React.Fragment>{gSystemConfig.configSystemCurrency + ' '}</React.Fragment> : ``}
 
                           {/* NOTE dev: think of alternative funcion. Maybe, BigNumber is causing error. ref: https:// github.com/ethereum/web3.js/issues/1356 */}
-                          {/* SyncSystemNS.FunctionsGeneric.valueMaskRead(publicationsRow.number1, gSystemConfig.configSystemCurrency, gSystemConfig.configPublicationsNumber1FieldType)*/}
-                          {publicationsRow.number1}
+                          {SyncSystemNS.FunctionsGeneric.valueMaskRead(publicationsRow.number1, gSystemConfig.configSystemCurrency, gSystemConfig.configPublicationsNumber1FieldType)}
+                          {/* publicationsRow.number1 */}
                         </div>
                       </div>
                     ) : (

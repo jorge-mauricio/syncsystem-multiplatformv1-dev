@@ -23,7 +23,7 @@ class FrontendProductsListingRecord extends Component {
   // **************************************************************************************
   constructor(props, context) {
     // Component options.
-    // configLayoutType: 1 - table listing (custom) | 2 - div layout (custom) | 3 - div row (custom) | 11 - table listing (bootstrap) | 22 - div layout (bootstrap) | 33 - div row (bootstrap) | 111 - table listing (dashboard - custom)
+    // configLayoutType: 1 - table listing (custom) | 2 - div layout (custom) | 3 - div row (custom) | 11 - table listing (bootstrap) | 22 - div layout (bootstrap) | 33 - div row (bootstrap) | 45 - JQuery Feature Carousel | 49 - 3D Carousel (CSS / HTML) | 111 - table listing (dashboard - custom)
 
     super(props, context);
     /*
@@ -343,15 +343,16 @@ class FrontendProductsListingRecord extends Component {
                   {/* Number - block content. */}
                   <div style={{ position: 'relative', display: 'block', overflow: 'hidden' }}>
                     {/* Number 1. */}
-                    {gSystemConfig.enableProductsNumber1 == 1 ? (
+                    {gSystemConfig.enableProductsNumber1 === 1 ? (
                       <div className="ss-frontend-products-listing-content-block01">
                         <div className="ss-frontend-products-listing-content-block-label01 ss-frontend-products-listing-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendProductsNumber1')}:</div>
                         <div className="ss-frontend-products-listing-content-block-data01">
-                          {gSystemConfig.configProductsNumber1FieldType === 2 || gSystemConfig.configProductsNumber1FieldType == 4 ? <React.Fragment>{gSystemConfig.configSystemCurrency + ' '}</React.Fragment> : ``}
+                          {gSystemConfig.configProductsNumber1FieldType === 2 || gSystemConfig.configProductsNumber1FieldType === 4 ? <React.Fragment>{gSystemConfig.configSystemCurrency + ' '}</React.Fragment> : ``}
 
                           {/* NOTE dev: think of alternative funcion. Maybe, BigNumber is causing error. ref: https:// github.com/ethereum/web3.js/issues/1356 */}
-                          {/* SyncSystemNS.FunctionsGeneric.valueMaskRead(productsRow.number1, gSystemConfig.configSystemCurrency, gSystemConfig.configProductsNumber1FieldType)*/}
-                          {productsRow.number1}
+                          {/* NOTE dev: tested and didn´t return any more erros. */}
+                          {SyncSystemNS.FunctionsGeneric.valueMaskRead(productsRow.number1, gSystemConfig.configSystemCurrency, gSystemConfig.configProductsNumber1FieldType)}
+                          {/* productsRow.number1 */}
                         </div>
                       </div>
                     ) : (
@@ -444,7 +445,7 @@ class FrontendProductsListingRecord extends Component {
                 return (
                   // Record
                   <article className="col-md-4 product-grid">
-                    {gSystemConfig.enableProductsImageMain == 1 ? (
+                    {gSystemConfig.enableProductsImageMain === 1 ? (
                       <React.Fragment>
                         {productsRow.image_main != '' ? (
                           <figure className="image text-center">
@@ -458,7 +459,7 @@ class FrontendProductsListingRecord extends Component {
                         ) : (
                           <React.Fragment>
                             {/*  Placeholder. */}
-                            {gSystemConfig.configProductsImagePlaceholder == 1 ? (
+                            {gSystemConfig.configProductsImagePlaceholder === 1 ? (
                               <figure className="image text-center">
                                 <a href={'/' + gSystemConfig.configRouteFrontendProducts + '/' + gSystemConfig.configRouteFrontendDetails + '/' + productsRow.id} title={SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, 'db')}>
                                   {/*  
@@ -583,6 +584,129 @@ class FrontendProductsListingRecord extends Component {
               </button>
             </div>
           </div>
+        );
+      }
+    }
+    // ----------------------
+
+    // 3D carousel.
+    // ----------------------
+    if (configLayoutType === 49) {
+      if (arrProductsListing.length > 0) {
+        // NOTE: The html document needs to have a <style> tag.
+        // Build the CSS that will be injected in the <stale> tag.
+        /*
+        let products3DCarouselCSSInject = `
+          .ss-frontend-products-3d-carousel-checkbox:nth-of-type(1):checked {
+            --products3DCarouselPosition: 1;
+          }
+          .ss-frontend-products-3d-carousel-checkbox:nth-of-type(2):checked ~ .ss-frontend-products-3d-carousel {
+            --products3DCarouselPosition: 2;
+          }
+          .ss-frontend-products-3d-carousel-checkbox:nth-of-type(3):checked ~ .ss-frontend-products-3d-carousel {
+            --products3DCarouselPosition: 3;
+          }
+          .ss-frontend-products-3d-carousel-checkbox:nth-of-type(4):checked ~ .ss-frontend-products-3d-carousel {
+            --products3DCarouselPosition: 4;
+          }
+          .ss-frontend-products-3d-carousel-checkbox:nth-of-type(5):checked ~ .ss-frontend-products-3d-carousel {
+            --products3DCarouselPosition: 5;
+          }
+          .ss-frontend-products-3d-carousel-checkbox:nth-of-type(6):checked ~ .ss-frontend-products-3d-carousel {
+            --products3DCarouselPosition: 6;
+          }
+        `;
+        */
+        let products3DCarouselCSSInject = ``;
+
+        arrProductsListing.map((productsRow, productsRowKey) => {
+          if (productsRowKey === 0) {
+            products3DCarouselCSSInject += `
+              .ss-frontend-products-3d-carousel-checkbox:nth-of-type(${productsRowKey + 1}):checked {
+                --products3DCarouselPosition: ${productsRowKey + 1};
+              }
+            `;
+          } else {
+            products3DCarouselCSSInject += `
+              .ss-frontend-products-3d-carousel-checkbox:nth-of-type(${productsRowKey + 1}):checked ~ .ss-frontend-products-3d-carousel {
+                --products3DCarouselPosition: ${productsRowKey + 1};
+              }
+            `;
+          }
+        });
+
+        FunctionsSyncSystem.cssStyleInject(products3DCarouselCSSInject);
+
+        // Output.
+        return (
+          <React.Fragment>
+            <div className="ss-frontend-products-listing-container">
+              {/* Radio buttons. */}
+              {/* NOTE: radio buttons must be right before ss-frontend-products-3d-carousel. */}
+              {arrProductsListing.map((productsRow, productsRowKey) => {
+                return (
+                  <React.Fragment>
+                    {productsRowKey === 0 ? (
+                      <React.Fragment>
+                        <input type="radio" name="rbPproducts3DCarousel" defaultChecked className="ss-frontend-products-3d-carousel-checkbox" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--configProducts3DCarouselItemPositionChecked': productsRowKey + 1 }} />
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment>
+                        <input type="radio" name="rbPproducts3DCarousel" className="ss-frontend-products-3d-carousel-checkbox" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--configProducts3DCarouselItemPositionChecked': productsRowKey + 1 }} />
+                      </React.Fragment>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+
+              {/* Images. */}
+              <div id="products3DCarousel" className="ss-frontend-products-3d-carousel" style={{ '--configProducts3DCarouselItemsTotal': arrProductsListing.length }}>
+                {arrProductsListing.map((productsRow, productsRowKey) => {
+                  return (
+                    <div className="ss-frontend-products-3d-carousel-item" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--products3DCarouselOffset': productsRowKey + 1, backgroundColor: '#78c3ae' }}>
+                      teste 0 {productsRowKey + 1} - {productsRow.id}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Content. */}
+              <div>
+                {arrProductsListing.map((productsRow, productsRowKey) => {
+                  return (
+                    <div id={'products3DCarouselItemContent' + productsRowKey} style={productsRowKey === 0 ? { display: 'block' } : { display: 'none' }}>
+                      Content {productsRowKey}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Controls. */}
+              <div>
+                <a
+                  onClick={() => {
+                    FunctionsSyncSystem.radiobuttonCheck01('ss-frontend-products-3d-carousel-checkbox', 'prev', 'products3DCarouselItemContent');
+                  }}
+                >
+                  Previous
+                </a>
+                <a
+                  onClick={() => {
+                    FunctionsSyncSystem.radiobuttonCheck01('ss-frontend-products-3d-carousel-checkbox', 'next', 'products3DCarouselItemContent');
+                  }}
+                >
+                  Next
+                </a>
+              </div>
+            </div>
+          </React.Fragment>
+        );
+      } else {
+        // Empty.
+        return (
+          <React.Fragment>
+            <div className="ss-frontend-alert">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'frontendMessageProductsEmpty')}</div>
+          </React.Fragment>
         );
       }
     }

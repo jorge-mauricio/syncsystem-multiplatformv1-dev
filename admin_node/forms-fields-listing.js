@@ -83,24 +83,24 @@ module.exports = class FormsFieldsListing {
       this.objParentTable = await SyncSystemNS.FunctionsDB.tableFindGet(this._idForms);
 
       // Categories.
-      if (this.objParentTable.tableName == gSystemConfig.configSystemDBTableCategories) {
+      if (this.objParentTable.tableName === gSystemConfig.configSystemDBTableCategories) {
         this.titleCurrent = SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].title, 'db');
 
         // Meta description.
-        if (gSystemConfig.enableCategoriesMetaDescription == 1) {
+        if (gSystemConfig.enableCategoriesMetaDescription === 1) {
           this.metaDescription += SyncSystemNS.FunctionsGeneric.removeHTML01(SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].description, 'db'));
         } else {
           this.metaDescription += this.titleCurrent;
         }
 
         // Meta keywords.
-        if (gSystemConfig.enableCategoriesKeywordsTags == 1) {
+        if (gSystemConfig.enableCategoriesKeywordsTags === 1) {
           this.metaKeywords += SyncSystemNS.FunctionsGeneric.removeHTML01(SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].keywords_tags, 'db'));
         }
       }
 
       // Forms.
-      if (this.objParentTable.tableName == gSystemConfig.configSystemDBTableForms) {
+      if (this.objParentTable.tableName === gSystemConfig.configSystemDBTableForms) {
         this.titleCurrent = SyncSystemNS.FunctionsGeneric.contentMaskRead(this.objParentTable.tableData[0].form_title, 'db');
 
         // Meta description.
@@ -336,65 +336,65 @@ module.exports = class FormsFieldsListing {
 
       backendHTML = `
         <div id="divMessageSuccess" class="ss-backend-success">
-            ${
-              this._nRecords
-                ? `
-                    ${this._nRecords + ' '}
-                `
-                : ``
-            } 
-        
-            ${
-              this._messageSuccess
-                ? `
-                    ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageSuccess)}
-                `
-                : ``
-            } 
+          ${
+            this._nRecords
+              ? `
+                  ${this._nRecords + ' '}
+              `
+              : ``
+          } 
+      
+          ${
+            this._messageSuccess
+              ? `
+                  ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageSuccess)}
+              `
+              : ``
+          } 
         </div>
         <div id="divMessageError" class="ss-backend-error">
-            ${
-              this._messageError
-                ? `
-                    ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageError)}
-                `
-                : ``
-            } 
+          ${
+            this._messageError
+              ? `
+                  ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageError)}
+              `
+              : ``
+          } 
         </div>
         <div id="divMessageAlert" class="ss-backend-alert">
-            ${
-              this._messageAlert
-                ? `
-                    ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageAlert)}
-                `
-                : ``
-            } 
-        
-            ${
-              /*Debug.*/
-              /*"FunctionsCrypto.encryptValue=" + SyncSystemNS.FunctionsCrypto.encryptValue("testing encryption", 2) + "<br />" +*/
-              /*"FunctionsCrypto.decryptValue 23=" + SyncSystemNS.FunctionsCrypto.decryptValue("7d9690aa7af8350618fba2d1060fdefd233480f4a2de8227e605a9522b44f0e4", 2) + "<br />" +*/ /* 23 */
-              /*"FunctionsCrypto.decryptValue 26=" + SyncSystemNS.FunctionsCrypto.decryptValue("1c7839affd95d5bc4c638d4c57fa903a326d6a5bb326f6eaa4b8c08269a400bd", 2) + "<br />" +*/ /* 26 */
-              /*"_idParent=" + this._idParent + "<br />" +*/ /*working*/
-              /*"_idParent=" + this._idParent + "<br />" +*/ /*working*/
-              /*"_pageNumber=" + this._pageNumber + "<br />" +*/ /*working*/
-              /*"_masterPageSelect=" + this._masterPageSelect + "<br />"*/ /*working*/
-              /*"FunctionsGeneric=" + SyncSystemNS.FunctionsGeneric.categoryConfigSelect(2, 5)*/ /*working*/
-              /*"hostname=" + os.hostname() + "<br />" +*/
-              /*"networkInterfaces=" + JSON.stringify(os.networkInterfaces()) + "<br />" +*/
-              /*"networkInterfaces=" + _(os.networkInterfaces()).values().flatten().where({ family: 'IPv4', internal: false }).pluck('address').first() + "<br />" +*/
-              /*"networkInterfaces=" + Object.values(os.networkInterfaces())
-                .reduce((r,a)=>{
-                    r = r.concat(a)
-                    return r;
-                }, [])
-                .filter(({family, address}) => {
-                    return family.toLowerCase().indexOf('v4') >= 0 && address !== '127.0.0.1'
-                })
-                .map(({address}) => address).join(', ') + "<br />" +*/
-              /*"global=" + global.URL() + "<br />" +*/ /*working - result: 192.168.201.1, 192.168.26.1, 192.168.0.11, 127.0.0.1*/
-              ''
-            }
+          ${
+            this._messageAlert
+              ? `
+                  ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageAlert)}
+              `
+              : ``
+          } 
+      
+          ${
+            /*Debug.*/
+            /*"FunctionsCrypto.encryptValue=" + SyncSystemNS.FunctionsCrypto.encryptValue("testing encryption", 2) + "<br />" +*/
+            /*"FunctionsCrypto.decryptValue 23=" + SyncSystemNS.FunctionsCrypto.decryptValue("7d9690aa7af8350618fba2d1060fdefd233480f4a2de8227e605a9522b44f0e4", 2) + "<br />" +*/ /* 23 */
+            /*"FunctionsCrypto.decryptValue 26=" + SyncSystemNS.FunctionsCrypto.decryptValue("1c7839affd95d5bc4c638d4c57fa903a326d6a5bb326f6eaa4b8c08269a400bd", 2) + "<br />" +*/ /* 26 */
+            /*"_idParent=" + this._idParent + "<br />" +*/ /*working*/
+            /*"_idParent=" + this._idParent + "<br />" +*/ /*working*/
+            /*"_pageNumber=" + this._pageNumber + "<br />" +*/ /*working*/
+            /*"_masterPageSelect=" + this._masterPageSelect + "<br />"*/ /*working*/
+            /*"FunctionsGeneric=" + SyncSystemNS.FunctionsGeneric.categoryConfigSelect(2, 5)*/ /*working*/
+            /*"hostname=" + os.hostname() + "<br />" +*/
+            /*"networkInterfaces=" + JSON.stringify(os.networkInterfaces()) + "<br />" +*/
+            /*"networkInterfaces=" + _(os.networkInterfaces()).values().flatten().where({ family: 'IPv4', internal: false }).pluck('address').first() + "<br />" +*/
+            /*"networkInterfaces=" + Object.values(os.networkInterfaces())
+              .reduce((r,a)=>{
+                  r = r.concat(a)
+                  return r;
+              }, [])
+              .filter(({family, address}) => {
+                  return family.toLowerCase().indexOf('v4') >= 0 && address !== '127.0.0.1'
+              })
+              .map(({address}) => address).join(', ') + "<br />" +*/
+            /*"global=" + global.URL() + "<br />" +*/ /*working - result: 192.168.201.1, 192.168.26.1, 192.168.0.11, 127.0.0.1*/
+            ''
+          }
         </div>
         <script>
             // Debug.
@@ -447,7 +447,7 @@ module.exports = class FormsFieldsListing {
                                 </td>
 
                                 ${
-                                  gSystemConfig.enableFormsFieldsSortOrder == 1
+                                  gSystemConfig.enableFormsFieldsSortOrder === 1
                                     ? `
                                     <td style="width: 40px; text-align: center;">
                                         ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemSortOrderA')}  
@@ -469,7 +469,7 @@ module.exports = class FormsFieldsListing {
                                 </td>
 
                                 ${
-                                  gSystemConfig.enableFormsFieldsRequired == 1
+                                  gSystemConfig.enableFormsFieldsRequired === 1
                                     ? `
                                     <td style="width: 100px; text-align: center;">
                                         ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendFormsFieldsRequiredA')}  
@@ -520,7 +520,7 @@ module.exports = class FormsFieldsListing {
                                     </td>
 
                                     ${
-                                      gSystemConfig.enableFormsFieldsSortOrder == 1
+                                      gSystemConfig.enableFormsFieldsSortOrder === 1
                                         ? `
                                         <td style="text-align: center;">
                                             ${SyncSystemNS.FunctionsGeneric.valueMaskRead(formsFieldsRow.sort_order, '', 3, null)} 
@@ -544,7 +544,7 @@ module.exports = class FormsFieldsListing {
 
                                         ${/* Instructions */ ''}
                                         ${
-                                          formsFieldsRow.field_instructions != ''
+                                          formsFieldsRow.field_instructions != '' && gSystemConfig.enableFormsFieldsInstructions === 1
                                             ? `
                                             <div class="ss-backend-content-text">
                                                 ${SyncSystemNS.FunctionsGeneric.contentMaskRead(formsFieldsRow.field_instructions, 'db')}
@@ -692,7 +692,7 @@ module.exports = class FormsFieldsListing {
                                             </select>
 
                                             ${
-                                              arrFormsFieldsOptionsListing.length == 0
+                                              arrFormsFieldsOptionsListing.length === 0
                                                 ? `
                                                 <div class="ss-backend-content-text">
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendFormsFieldsOptionsEmptyAlert')}  
@@ -742,7 +742,7 @@ module.exports = class FormsFieldsListing {
                                     </td>
 
                                     ${
-                                      gSystemConfig.enableFormsFieldsRequired == 1
+                                      gSystemConfig.enableFormsFieldsRequired === 1
                                         ? `
                                         <td id="formFormsFieldsListing_elementRequired${formsFieldsRow.id}" style="text-align: center;" class="${formsFieldsRow.required == 1 ? 'ss-backend-table-bg-deactive' : ''}">
                                             <a id="linkRequired${formsFieldsRow.id}" class="ss-backend-links01" 
@@ -914,7 +914,7 @@ module.exports = class FormsFieldsListing {
                         </thead>
                         <tbody class="ss-backend-table-listing-text01">
                             ${
-                              gSystemConfig.enableFormsFieldsSortOrder == 1
+                              gSystemConfig.enableFormsFieldsSortOrder === 1
                                 ? `
                             <tr id="inputRowFormsFields_sort_order" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -941,7 +941,7 @@ module.exports = class FormsFieldsListing {
                             </tr>
 
                             ${
-                              gSystemConfig.enableFormsFieldsInstructions == 1
+                              gSystemConfig.enableFormsFieldsInstructions === 1
                                 ? `
                             <tr id="inputRowFormsFields_field_instructions" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1054,7 +1054,7 @@ module.exports = class FormsFieldsListing {
 
                                             ${/* Extra options. */ ''}
                                             ${
-                                              gSystemConfig.enableFormsFieldTypeExtraOptions == 1
+                                              gSystemConfig.enableFormsFieldTypeExtraOptions === 1
                                                 ? `
                                             <tr>
                                                 <td style="text-align: center;">
@@ -1119,7 +1119,7 @@ module.exports = class FormsFieldsListing {
                             </tr>
 
                             ${
-                              gSystemConfig.enableFormsFieldsFieldFilter == 1
+                              gSystemConfig.enableFormsFieldsFieldFilter === 1
                                 ? `
                             <tr id="inputRowFormsFields_field_filter" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1138,7 +1138,7 @@ module.exports = class FormsFieldsListing {
                             }
 
                             ${
-                              gSystemConfig.enableFormsFieldsInfoS1 == 1
+                              gSystemConfig.enableFormsFieldsInfoS1 === 1
                                 ? `
                             <tr id="inputRowFormsFields_info_small1" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1147,7 +1147,7 @@ module.exports = class FormsFieldsListing {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS1FieldType == 1
+                                      gSystemConfig.configFormsFieldsInfoS1FieldType === 1
                                         ? `
                                         <input type="text" id="forms_fields_info_small1" name="info_small1" class="ss-backend-field-text01" value="" />
                                     `
@@ -1156,11 +1156,11 @@ module.exports = class FormsFieldsListing {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS1FieldType == 2
+                                      gSystemConfig.configFormsFieldsInfoS1FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="forms_fields_info_small1" name="info_small1" class="ss-backend-field-text-area01"></textarea>
                                         `
@@ -1169,7 +1169,7 @@ module.exports = class FormsFieldsListing {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="forms_fields_info_small1" name="info_small1" class="ss-backend-field-text-area01"></textarea>
                                             <script>
@@ -1198,7 +1198,7 @@ module.exports = class FormsFieldsListing {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS2FieldType == 1
+                                      gSystemConfig.configFormsFieldsInfoS2FieldType === 1
                                         ? `
                                         <input type="text" id="forms_fields_info_small2" name="info_small2" class="ss-backend-field-text01" value="" />
                                     `
@@ -1207,11 +1207,11 @@ module.exports = class FormsFieldsListing {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS2FieldType == 2
+                                      gSystemConfig.configFormsFieldsInfoS2FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="forms_fields_info_small2" name="info_small2" class="ss-backend-field-text-area01"></textarea>
                                         `
@@ -1220,7 +1220,7 @@ module.exports = class FormsFieldsListing {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="forms_fields_info_small2" name="info_small2" class="ss-backend-field-text-area01"></textarea>
                                             <script>
@@ -1240,7 +1240,7 @@ module.exports = class FormsFieldsListing {
                             }
 
                             ${
-                              gSystemConfig.enableFormsFieldsInfoS3 == 1
+                              gSystemConfig.enableFormsFieldsInfoS3 === 1
                                 ? `
                             <tr id="inputRowFormsFields_info_small3" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1249,7 +1249,7 @@ module.exports = class FormsFieldsListing {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS3FieldType == 1
+                                      gSystemConfig.configFormsFieldsInfoS3FieldType === 1
                                         ? `
                                         <input type="text" id="forms_fields_info_small3" name="info_small3" class="ss-backend-field-text01" value="" />
                                     `
@@ -1258,11 +1258,11 @@ module.exports = class FormsFieldsListing {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS3FieldType == 2
+                                      gSystemConfig.configFormsFieldsInfoS3FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="forms_fields_info_small3" name="info_small3" class="ss-backend-field-text-area01"></textarea>
                                         `
@@ -1271,7 +1271,7 @@ module.exports = class FormsFieldsListing {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="forms_fields_info_small3" name="info_small3" class="ss-backend-field-text-area01"></textarea>
                                             <script>
@@ -1291,7 +1291,7 @@ module.exports = class FormsFieldsListing {
                             }
 
                             ${
-                              gSystemConfig.enableFormsFieldsInfoS4 == 1
+                              gSystemConfig.enableFormsFieldsInfoS4 === 1
                                 ? `
                             <tr id="inputRowFormsFields_info_small4" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1300,7 +1300,7 @@ module.exports = class FormsFieldsListing {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS4FieldType == 1
+                                      gSystemConfig.configFormsFieldsInfoS4FieldType === 1
                                         ? `
                                         <input type="text" id="forms_fields_info_small4" name="info_small4" class="ss-backend-field-text01" value="" />
                                     `
@@ -1309,11 +1309,11 @@ module.exports = class FormsFieldsListing {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS4FieldType == 2
+                                      gSystemConfig.configFormsFieldsInfoS4FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="forms_fields_info_small4" name="info_small4" class="ss-backend-field-text-area01"></textarea>
                                         `
@@ -1322,7 +1322,7 @@ module.exports = class FormsFieldsListing {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="forms_fields_info_small4" name="info_small4" class="ss-backend-field-text-area01"></textarea>
                                             <script>
@@ -1342,7 +1342,7 @@ module.exports = class FormsFieldsListing {
                             }
 
                             ${
-                              gSystemConfig.enableFormsFieldsInfoS5 == 1
+                              gSystemConfig.enableFormsFieldsInfoS5 === 1
                                 ? `
                             <tr id="inputRowFormsFields_info_small5" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
@@ -1351,7 +1351,7 @@ module.exports = class FormsFieldsListing {
                                 <td>
                                     ${/* Single line. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS5FieldType == 1
+                                      gSystemConfig.configFormsFieldsInfoS5FieldType === 1
                                         ? `
                                         <input type="text" id="forms_fields_info_small5" name="info_small5" class="ss-backend-field-text01" value="" />
                                     `
@@ -1360,11 +1360,11 @@ module.exports = class FormsFieldsListing {
 
                                     ${/* Multiline. */ ''}
                                     ${
-                                      gSystemConfig.configFormsFieldsInfoS5FieldType == 2
+                                      gSystemConfig.configFormsFieldsInfoS5FieldType === 2
                                         ? `
                                         ${/* No formatting. */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="forms_fields_info_small5" name="info_small5" class="ss-backend-field-text-area01"></textarea>
                                         `
@@ -1373,7 +1373,7 @@ module.exports = class FormsFieldsListing {
 
                                         ${/* TinyMCE. */ ''}
                                         ${
-                                          (gSystemConfig.configBackendTextBox == 17) | (gSystemConfig.configBackendTextBox == 18)
+                                          (gSystemConfig.configBackendTextBox === 17) | (gSystemConfig.configBackendTextBox === 18)
                                             ? `
                                             <textarea id="forms_fields_info_small5" name="info_small5" class="ss-backend-field-text-area01"></textarea>
                                             <script>
@@ -1405,7 +1405,7 @@ module.exports = class FormsFieldsListing {
                             </tr>
 
                             ${
-                              gSystemConfig.enableFormsFieldsRequired == 1
+                              gSystemConfig.enableFormsFieldsRequired === 1
                                 ? `
                             <tr id="inputRowFormsFields_required" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">

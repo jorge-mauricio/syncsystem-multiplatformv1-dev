@@ -196,20 +196,28 @@ class LayoutFrontendMain extends Component {
     const tagsMetaDefault1 = `
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="format-detection" content="telephone=no" />
     `;
     // const tlScriptBundleReactClient = `<script src="/bundle.react.client.js"></script>`;
 
     const tagsStyleCSS = `
-      ${/*  Bootstrap 4 CSS. */ ''}
-      <link rel="stylesheet" href="https:// maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      ${/* Bootstrap 4 CSS. */ ''}
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <!--link rel="stylesheet" type="text/css" href="../app_js/bootstrap/bootstrap-3.3.6-dist/css/bootstrap.min.css" media="screen" title="Default" /-->
-
-      <link rel="stylesheet" type="text/css" href="/styles-frontend.bundle.css" media="screen" title="Default" />
+      
+      ${/* Custom CSS. */ ''}
+      <link rel="stylesheet" type="text/css" href="/styles-frontend.bundle.css" media="screen" title="Default" />${/* Single css file. */ ''}
+      ${/* Multiple css files (according to resolution). */ ''}
+      <!--link rel="stylesheet" type="text/css" href="/styles-frontend.bundle.css" media="screen and (min-width: 991px)" title="Default" />
+      <link rel="stylesheet" type="text/css" href="/styles-frontend-mobile.bundle.css" media="screen and (max-width: 991px)" title="Default" /-->
+      
+      ${/* Font Awesome. */ ''}
+      <link rel="stylesheet" href="/${gSystemConfig.configDirectoryFontsSD}/fontawesome-free-5.15.4-web/css/all.css" />
     `;
 
     // Favicon - 16x16 | 32x32 | 64x64 (pixels).
     // Exportação PNG: 558 x 558 pixels.
-    // https:// realfavicongenerator.net/
+    // https://realfavicongenerator.net/
     const tagsFavicons = `
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -233,20 +241,20 @@ class LayoutFrontendMain extends Component {
     `;
 
     const tagsMetaDynamic1 = `
-      <meta name="title" content="" />${/*  Below 60 characters. */ ''}
-      <meta name="description" content="" />${/*  Below 160 characters. */ ''}
-      <meta name="keywords" content="" />${/*  Below 100 characters. */ ''}
+      <meta name="title" content="" />${/* Below 60 characters. */ ''}
+      <meta name="description" content="" />${/* Below 160 characters. */ ''}
+      <meta name="keywords" content="" />${/* Below 100 characters. */ ''}
 
-      ${/*  Open Graph tags. */ ''}
+      ${/* Open Graph tags. */ ''}
       <meta property="og:title" content="" />
-      <meta property="og:type" content="website" />${/*  ref: http:// ogp.me/#types | https:// developers.facebook.com/docs/reference/opengraph/ */ ''}
+      <meta property="og:type" content="website" />${/* ref: http:// ogp.me/#types | https://developers.facebook.com/docs/reference/opengraph/ */ ''}
       <meta property="og:url" content="" />
       <meta property="og:description" content="" />
       
       ${
         /* 
         Dimensions:
-        ref: https:// iamturns.com/open-graph-image-size/
+        ref: https://iamturns.com/open-graph-image-size/
         Horizontal: 
             - home (1.9:1): 1200 x 630 pixels
             - products, articles, etc (2:1): 1200 x 600 | 300 x 157 (min) | 4096 x 4096 (max)
@@ -255,7 +263,7 @@ class LayoutFrontendMain extends Component {
             - products, articles, etc (1:1): 600 x 600 | 144 x 144 (min) | 4096 x 4096 (max)
         */ ''
       }
-      <meta property="og:image" content="" />${/*  The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. 120x120px, up to 1MB | JPG ou PNG, below 300k - minimum resolution: 300x200 pixels. */ ''}
+      <meta property="og:image" content="" />${/* The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. 120x120px, up to 1MB | JPG ou PNG, below 300k - minimum resolution: 300x200 pixels. */ ''}
           <!--meta property="og:image:secure_url" content="" /-->
       <meta property="og:image:alt" content="" />
       
@@ -263,8 +271,8 @@ class LayoutFrontendMain extends Component {
     `;
 
     const javaScriptHead = `
-      ${/*  jQuery. */ ''}
-      <script src="https:// code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      ${/* jQuery. */ ''}
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
       <!--script type="text/javascript" src="functions-syncsystem.js"></script-->
       <!--script type="text/javascript" src="../js/jquery/jquery-3.4.1.min.js"></script-->
@@ -274,15 +282,15 @@ class LayoutFrontendMain extends Component {
       </script-->
 
 
-      ${/*  Babel. */ ''}
-      <!--script type="text/babel" src="https:// cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script-->${/*  No errors. */ ''}
-      <!--script type="text/babel" src="https:// cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script-->${/*  No errors. */ ''}
+      ${/* Babel. */ ''}
+      <!--script type="text/babel" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script-->${/* No errors. */ ''}
+      <!--script type="text/babel" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script-->${/* No errors. */ ''}
 
 
-      ${/*  GLightbox. */ ''}
-      ${/*  type="text/javascript"*/ ''}
+      ${/* GLightbox. */ ''}
+      ${/* type="text/javascript"*/ ''}
       <script type="text/babel" src="/${gSystemConfig.configDirectoryJSSD}/glightbox/dist/js/glightbox.min.js"></script>
-      ${/*  type="text/css"*/ ''}
+      ${/* type="text/css"*/ ''}
       <link rel="stylesheet" type="text/html" href="/${gSystemConfig.configDirectoryJSSD}/glightbox/dist/css/glightbox.min.css" media="screen" title="Default" />
       <script type="text/babel">
           // JGLightbox configuration.
@@ -300,15 +308,15 @@ class LayoutFrontendMain extends Component {
     `;
 
     const javaScriptFoot = `
-      ${/*  Popper. */ ''}
-      <script src="https:// cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      ${/* Popper. */ ''}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
-      ${/*  Bootstrap 4. */ ''}
-      <script src="https:// maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      ${/* Bootstrap 4. */ ''}
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     `;
 
     // TodoData Map Component.
-    // Note: Passing methods only works whith arrow functions because of the "this" reference - ref: https:// stackoverflow.com/questions/56374615/uncaught-typeerror-cannot-read-property-class-function-of-undefined-in-reactj
+    // Note: Passing methods only works whith arrow functions because of the "this" reference - ref: https://stackoverflow.com/questions/56374615/uncaught-typeerror-cannot-read-property-class-function-of-undefined-in-reactj
     /** 
         const mcTestTodoItem = this.state.sTodosData.map(function(itemLine){
             return(
@@ -364,8 +372,43 @@ class LayoutFrontendMain extends Component {
         </head>
 
         <body className={/* StylesFrontend["ss-frontend-body01"]*/ 'ss-frontend-body01'}>
+          <noscript>Please Enable JavaScript</noscript>
           <div id="root">
-            <noscript>Please Enable JavaScript</noscript>
+            <header className="ss-frontend-layout-header01">
+              <div>
+                <a href="/" title="Home" className="ss-frontend-layout-header-logo">
+                </a>
+                <a href={'tel:' + gSystemConfig.configSystemClientCel.replace(' ', '-')} title="Phone" className="ss-frontend-link-contact01 ss-frontend-link-contact-layout">
+                  {gSystemConfig.configSystemClientCel}
+                </a>
+
+                {/* Social Media */}
+                <address className="ss-frontend-social-media-layout">
+                  <a href="https://www.linkedin.com/in/xxx/" target="_blank" title="LinkedIn" className="ss-frontend-social-media">
+                    <i className="fab fa-linkedin-in" />
+                  </a>
+                  <a href="https://youtu.be/xxx" target="_blank" title="YouTube" className="ss-frontend-social-media">
+                    <i className="fab fa-youtube" />
+                  </a>
+                  <a href={'mailto:' + gSystemConfig.configSystemClientEmail} target="_blank" title="e-mail" className="ss-frontend-social-media">
+                    <i className="fas fa-envelope" />
+                  </a>
+                </address>
+
+                {/* Shortcuts */}
+                <a
+                  onClick={() => {
+                    FunctionsSyncSystem.scrollToTarget('anchorFAQ');
+                  }}
+                  title="Frequently Asked Questions"
+                  className="ss-frontend-btn-generic-bg-color01"
+                  style={{ '--btnGenericBGColor': '#000000', '--btnGenericBGColorHover': '#ffffff', '--btnGenericColor': '#78c3ae', '--btnGenericColorHover': '#0000ff' }}
+                >
+                  <span>FAQ</span>
+                </a>
+              </div>
+            </header>
+
             {/* Desktop. */}
             <div className="d-none d-lg-block d-xl-block">
               <nav>
@@ -405,18 +448,42 @@ class LayoutFrontendMain extends Component {
             {/* Mobile. */}
             <div className="d-lg-none">
               {/* Menu mobile. */}
-              <nav id="divMenuMobile01" style={{ position: 'fixed', display: 'none', width: '200px', height: '100%', right: '0px', top: '0px', backgroundColor: '#0082c6', overflow: 'hidden', zIndex: 9999, boxShadow: '3px 3px 10px #000000' }}>
+              <a
+                onclick="elementShowHideToggle('navMenu');"
+                onClick={() => {
+                  FunctionsSyncSystem.elementShowHideToggle('navMenu');
+                }}
+                title="Mobile Menu"
+                className="ss-frontend-mobile-layout-header-nav-menu d-lg-none"
+              >
+                <i className="fa fa-bars" />
+              </a>
+              {/*
+              <a
+                onClick={() => {
+                  FunctionsSyncSystem.htmlGenericStyle01('divMenuMobile01', 'display', 'block');
+                }}
+                style={{ position: 'relative', display: 'block', padding: '5px', cursor: 'pointer' }}
+                title="Menu"
+              >
+                <img src="/files-layout/frontend-mobile-menu01.png" alt="Menu" />
+              </a>
+              */}
+
+              <nav id="navMenu" className="ss-frontend-layout-header-nav d-none d-lg-block d-xl-block">
                 <a
+                  id="navLinkClose"
                   onClick={() => {
-                    FunctionsSyncSystem.htmlGenericStyle01('divMenuMobile01', 'display', 'none');
+                    // FunctionsSyncSystem.htmlGenericStyle01('divMenuMobile01', 'display', 'none');
+                    FunctionsSyncSystem.elementShowHideToggle('navMenu');
                   }}
                   className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01"
                   style={{ cursor: 'pointer' }}
-                  title="Close"
+                  title="Close Menu"
                 >
                   X Close
                 </a>
-                <a href="/" className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Home">
+                <a id="navLinkHome" href="/" className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="Home">
                   Home
                 </a>
                 <a href={'/' + gSystemConfig.configRouteFrontendContent + '/107/'} className="ss-frontend-mobile-links-layout01 ss-frontend-mobile-links01" title="About Us">
@@ -438,16 +505,6 @@ class LayoutFrontendMain extends Component {
                   Privacy and Cookie Policy
                 </a>
               </nav>
-
-              <a
-                onClick={() => {
-                  FunctionsSyncSystem.htmlGenericStyle01('divMenuMobile01', 'display', 'block');
-                }}
-                style={{ position: 'relative', display: 'block', padding: '5px', cursor: 'pointer' }}
-                title="Menu"
-              >
-                <img src="/files-layout/frontend-mobile-menu01.png" alt="Menu" />
-              </a>
             </div>
 
             {this.props.location.pathname == '/' ? <FrontendBanners idParentBanners={''} idTbCategories={''} configLayoutType={22} configDisplay={'horizontal'} configContentNRecords={''} configContentSort={''}></FrontendBanners> : ``}
@@ -472,18 +529,68 @@ class LayoutFrontendMain extends Component {
             {/* Content place holder - body */}
             <main>{this.props.cphBody}</main>
 
-            {/* Credits. */}
-            <small className="ss-frontend-copyright" style={{ position: 'absolute', display: 'block', bottom: '35px', left: '25px', right: '25px', height: '40px', lineHeight: '40px', borderTop: '1px dashed #cccccc' }}>
-              {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutCopyright')} ©&nbsp;
-              {gSystemConfig.configCopyrightYear}&nbsp;
-              {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'configSiteTile')}.&nbsp;
-              {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutCopyright1')}
-              {/* Development. */}
-              <a href={gSystemConfig.configDevSite} target="_blank" className="ss-frontend-credit" style={{ float: 'right' }}>
-                {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutDevelopment')}:&nbsp;
-                {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutDevName')}
+            <footer className="ss-frontend-layout-footer01">
+              <a
+                onClick={() => {
+                  FunctionsSyncSystem.scrollToTarget('anchorTop');
+                }}
+                title={SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendButtonBackTop')}
+                className="ss-frontend-btn-top"
+              >
               </a>
-            </small>
+
+              <nav>
+                <ul className="ss-frontend-links-ul02 d-none d-lg-block d-xl-block" style={{ position: 'absolute', left: '0px', top: '0px' }}>
+                  <li className="ss-frontend-links-li02">
+                    <a href={'/'} title="Home" className="ss-frontend-footer-links01">
+                      Home
+                    </a>
+                    <a href={'/'} title="Home" className="ss-frontend-footer-links01">
+                      Home
+                    </a>
+                    <a href={'/'} title="Home" className="ss-frontend-footer-links01">
+                      Home
+                    </a>
+                  </li>
+                </ul>
+
+                <a href={'tel:' + gSystemConfig.configSystemClientCel} title="Phone" className="ss-frontend-footer-links01 ss-frontend-footer-contact-layout">
+                  {gSystemConfig.configSystemClientCel}
+                </a>
+                <a href={'mailto:' + gSystemConfig.configSystemClientEmail} title="e-mail" className="ss-frontend-footer-links01 ss-frontend-footer-email-layout d-none d-lg-block d-xl-block">
+                  {gSystemConfig.configSystemClientEmail}
+                </a>
+              </nav>
+
+              {/* Social Media */}
+              <address className="ss-frontend-social-media-layout-footer">
+                <a href="https://www.linkedin.com/in/xxx/" target="_blank" title="LinkedIn" className="ss-frontend-social-media-footer">
+                  <i className="fab fa-linkedin-in" />
+                </a>
+                <a href="https://youtu.be/xxx" target="_blank" title="YouTube" className="ss-frontend-social-media-footer">
+                  <i className="fab fa-youtube" />
+                </a>
+                <a href="https://t.me/username?text=" target="_blank" title="Telegram" className="ss-frontend-social-media-footer">
+                  <i className="fab fa-telegram-plane" />
+                </a>
+                <a href={'mailto:' + gSystemConfig.configSystemClientEmail} target="_blank" title="e-mail" className="ss-frontend-social-media-footer d-lg-none">
+                  <i className="fas fa-envelope" />
+                </a>
+              </address>
+
+              {/* Credits. */}
+              <small className="ss-frontend-copyright ss-frontend-credit-layout">
+                {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutCopyright')} ©&nbsp;
+                {gSystemConfig.configCopyrightYear}&nbsp;
+                {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'configSiteTile')}.&nbsp;
+                {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutCopyright1')}
+                {/* Development. */}
+                <a href={gSystemConfig.configDevSite} target="_blank" className="ss-frontend-credit" style={{ float: 'right' }}>
+                  {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutDevelopment')}:&nbsp;
+                  {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'layoutDevName')}
+                </a>
+              </small>
+            </footer>
           </div>
 
           {/* React bundle script - SSR. */}

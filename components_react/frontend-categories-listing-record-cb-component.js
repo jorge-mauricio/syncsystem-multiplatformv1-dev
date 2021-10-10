@@ -90,8 +90,8 @@ class FrontendCategoriesListingRecord extends Component {
                 <tr>
                   <th style={{ width: '40px' }}>{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendItemID')}</th>
                   <th>{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendCategoriesCategory')}</th>
-                  <th style={{ width: '100px' }}>{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendItemFunctions')}</th>
-                  <th style={{ width: '80px' }}>{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendItemActivation')}</th>
+                  <th style={{ width: '100px', textAlign: 'center' }}>{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendItemFunctions')}</th>
+                  <th style={{ width: '80px', textAlign: 'center' }}>{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendItemActivation')}</th>
                 </tr>
               </thead>
               <tbody>

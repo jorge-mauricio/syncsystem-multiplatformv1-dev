@@ -444,7 +444,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // working, with the async block
   // Import objects.
   // ----------------------
-  const FormsFieldsEdit = require('../' + gSystemConfig.configDirectorySystem + '/forms-fields-edit.js');
+  // const FormsFieldsEdit = require('../' + gSystemConfig.configDirectorySystem + '/forms-fields-edit.js');
   // ----------------------
 
   // Variables.
@@ -670,7 +670,7 @@ router.put('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
           // Progress bar.
           // ----------------------
           form.on('progress', function (bytesReceived, bytesExpected) {
-            let progressPercentComplete = (bytesReceived / bytesExpected) * 100;
+            const progressPercentComplete = (bytesReceived / bytesExpected) * 100;
 
             // TODO: Progress bar on alert div.
 

@@ -293,8 +293,8 @@ module.exports = class ObjectPublicationsDetails {
       );
 
       // Filters generic - separation.
-      if (gSystemConfig.enablePublicationsFilterGeneric1 != 0) {
-        this.objIdsPublicationsFiltersGeneric1Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric1 !== 0) {
+        this.objIdsPublicationsFiltersGeneric1Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 101;
         });
 
@@ -303,15 +303,16 @@ module.exports = class ObjectPublicationsDetails {
           // this.arrIdsPublicationsFiltersGeneric1Binding = Object.keys(this.objIdsPublicationsFiltersGeneric1Binding).map(key => this.objIdsPublicationsFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
 
           if (this.arrIdsPublicationsFiltersGeneric1Binding) {
-            var arrIdsPublicationsFiltersGeneric1Binding = this.arrIdsPublicationsFiltersGeneric1Binding;
-            this.objPublicationsFiltersGeneric1Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            let arrIdsPublicationsFiltersGeneric1Binding = this.arrIdsPublicationsFiltersGeneric1Binding;
+            this.objPublicationsFiltersGeneric1Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               // return obj.filter_index == 101;
 
               // for(let countArray = 0; countArray < this.arrIdsPublicationsFiltersGeneric1Binding.length; countArray++)
-              /*for(let countArray = 0; countArray < arrIdsPublicationsFiltersGeneric1Binding.length; countArray++)
-                            {
-                                return obj.id == arrIdsPublicationsFiltersGeneric1Binding[countArray];
-                            }*/
+              /*
+              for(let countArray = 0; countArray < arrIdsPublicationsFiltersGeneric1Binding.length; countArray++) {
+                  return obj.id == arrIdsPublicationsFiltersGeneric1Binding[countArray];
+              }
+              */
               // return obj.id.includes(arrIdsPublicationsFiltersGeneric1Binding);
               // return this.arrIdsPublicationsFiltersGeneric1Binding.includes(obj.id);
               return arrIdsPublicationsFiltersGeneric1Binding.includes(obj.id);
@@ -320,8 +321,8 @@ module.exports = class ObjectPublicationsDetails {
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric2 != 0) {
-        this.objIdsPublicationsFiltersGeneric2Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric2 !== 0) {
+        this.objIdsPublicationsFiltersGeneric2Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 102;
         });
 
@@ -329,17 +330,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric2Binding = Object.keys(this.objIdsPublicationsFiltersGeneric2Binding).map((key) => this.objIdsPublicationsFiltersGeneric2Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric2Binding) {
-            var arrIdsPublicationsFiltersGeneric2Binding = this.arrIdsPublicationsFiltersGeneric2Binding;
+            let arrIdsPublicationsFiltersGeneric2Binding = this.arrIdsPublicationsFiltersGeneric2Binding;
 
-            this.objPublicationsFiltersGeneric2Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric2Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric2Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric3 != 0) {
-        this.objIdsPublicationsFiltersGeneric3Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric3 !== 0) {
+        this.objIdsPublicationsFiltersGeneric3Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 103;
         });
 
@@ -347,17 +348,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric3Binding = Object.keys(this.objIdsPublicationsFiltersGeneric3Binding).map((key) => this.objIdsPublicationsFiltersGeneric3Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric3Binding) {
-            var arrIdsPublicationsFiltersGeneric3Binding = this.arrIdsPublicationsFiltersGeneric3Binding;
+            let arrIdsPublicationsFiltersGeneric3Binding = this.arrIdsPublicationsFiltersGeneric3Binding;
 
-            this.objPublicationsFiltersGeneric3Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric3Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric3Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric4 != 0) {
-        this.objIdsPublicationsFiltersGeneric4Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric4 !== 0) {
+        this.objIdsPublicationsFiltersGeneric4Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 104;
         });
 
@@ -365,17 +366,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric4Binding = Object.keys(this.objIdsPublicationsFiltersGeneric4Binding).map((key) => this.objIdsPublicationsFiltersGeneric4Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric4Binding) {
-            var arrIdsPublicationsFiltersGeneric4Binding = this.arrIdsPublicationsFiltersGeneric4Binding;
+            let arrIdsPublicationsFiltersGeneric4Binding = this.arrIdsPublicationsFiltersGeneric4Binding;
 
-            this.objPublicationsFiltersGeneric4Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric4Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric4Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric5 != 0) {
-        this.objIdsPublicationsFiltersGeneric5Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric5 !== 0) {
+        this.objIdsPublicationsFiltersGeneric5Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 105;
         });
 
@@ -383,17 +384,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric5Binding = Object.keys(this.objIdsPublicationsFiltersGeneric5Binding).map((key) => this.objIdsPublicationsFiltersGeneric5Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric5Binding) {
-            var arrIdsPublicationsFiltersGeneric5Binding = this.arrIdsPublicationsFiltersGeneric5Binding;
+            let arrIdsPublicationsFiltersGeneric5Binding = this.arrIdsPublicationsFiltersGeneric5Binding;
 
-            this.objPublicationsFiltersGeneric5Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric5Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric5Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric6 != 0) {
-        this.objIdsPublicationsFiltersGeneric6Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric6 !== 0) {
+        this.objIdsPublicationsFiltersGeneric6Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 106;
         });
 
@@ -401,17 +402,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric6Binding = Object.keys(this.objIdsPublicationsFiltersGeneric6Binding).map((key) => this.objIdsPublicationsFiltersGeneric6Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric6Binding) {
-            var arrIdsPublicationsFiltersGeneric6Binding = this.arrIdsPublicationsFiltersGeneric6Binding;
+            let arrIdsPublicationsFiltersGeneric6Binding = this.arrIdsPublicationsFiltersGeneric6Binding;
 
-            this.objPublicationsFiltersGeneric6Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric6Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric6Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric7 != 0) {
-        this.objIdsPublicationsFiltersGeneric7Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric7 !== 0) {
+        this.objIdsPublicationsFiltersGeneric7Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 107;
         });
 
@@ -419,17 +420,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric7Binding = Object.keys(this.objIdsPublicationsFiltersGeneric7Binding).map((key) => this.objIdsPublicationsFiltersGeneric7Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric7Binding) {
-            var arrIdsPublicationsFiltersGeneric7Binding = this.arrIdsPublicationsFiltersGeneric7Binding;
+            let arrIdsPublicationsFiltersGeneric7Binding = this.arrIdsPublicationsFiltersGeneric7Binding;
 
-            this.objPublicationsFiltersGeneric7Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric7Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric7Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric8 != 0) {
-        this.objIdsPublicationsFiltersGeneric8Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric8 !== 0) {
+        this.objIdsPublicationsFiltersGeneric8Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 108;
         });
 
@@ -437,17 +438,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric8Binding = Object.keys(this.objIdsPublicationsFiltersGeneric8Binding).map((key) => this.objIdsPublicationsFiltersGeneric8Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric8Binding) {
-            var arrIdsPublicationsFiltersGeneric8Binding = this.arrIdsPublicationsFiltersGeneric8Binding;
+            let arrIdsPublicationsFiltersGeneric8Binding = this.arrIdsPublicationsFiltersGeneric8Binding;
 
-            this.objPublicationsFiltersGeneric8Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric8Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric8Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric9 != 0) {
-        this.objIdsPublicationsFiltersGeneric9Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric9 !== 0) {
+        this.objIdsPublicationsFiltersGeneric9Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 109;
         });
 
@@ -455,17 +456,17 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric9Binding = Object.keys(this.objIdsPublicationsFiltersGeneric9Binding).map((key) => this.objIdsPublicationsFiltersGeneric9Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric9Binding) {
-            var arrIdsPublicationsFiltersGeneric9Binding = this.arrIdsPublicationsFiltersGeneric9Binding;
+            let arrIdsPublicationsFiltersGeneric9Binding = this.arrIdsPublicationsFiltersGeneric9Binding;
 
-            this.objPublicationsFiltersGeneric9Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric9Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric9Binding.includes(obj.id);
             });
           }
         }
       }
 
-      if (gSystemConfig.enablePublicationsFilterGeneric10 != 0) {
-        this.objIdsPublicationsFiltersGeneric10Binding = this.objIdsPublicationsFiltersGenericBinding.filter(function (obj) {
+      if (gSystemConfig.enablePublicationsFilterGeneric10 !== 0) {
+        this.objIdsPublicationsFiltersGeneric10Binding = this.objIdsPublicationsFiltersGenericBinding.filter((obj) => {
           return obj.id_filter_index == 110;
         });
 
@@ -473,9 +474,9 @@ module.exports = class ObjectPublicationsDetails {
           this.arrIdsPublicationsFiltersGeneric10Binding = Object.keys(this.objIdsPublicationsFiltersGeneric10Binding).map((key) => this.objIdsPublicationsFiltersGeneric10Binding[key]['id_filters_generic']);
 
           if (this.arrIdsPublicationsFiltersGeneric10Binding) {
-            var arrIdsPublicationsFiltersGeneric10Binding = this.arrIdsPublicationsFiltersGeneric10Binding;
+            let arrIdsPublicationsFiltersGeneric10Binding = this.arrIdsPublicationsFiltersGeneric10Binding;
 
-            this.objPublicationsFiltersGeneric10Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
+            this.objPublicationsFiltersGeneric10Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
               return arrIdsPublicationsFiltersGeneric10Binding.includes(obj.id);
             });
           }

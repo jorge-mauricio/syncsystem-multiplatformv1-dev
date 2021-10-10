@@ -227,7 +227,7 @@ class FrontendCategoriesListing extends Component {
       // Check if this._idParentCategories is number. If not, search for the id based on the friendly name.
 
       // API - fetch data from backend.
-      // var response = await fetch("http:// localhost:3000/api/categories/details/813");
+      // let response = await fetch("http:// localhost:3000/api/categories/details/813");
       // this.objCategoriesCurrent = await response.json();
       // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
     } catch (asyncError) {
@@ -273,10 +273,10 @@ class FrontendCategoriesListing extends Component {
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
 
     // const tagsMeta = document.getElementsByTagName('meta');
-    // var idParentCategories = ""
-    // var titleCurrent = ""
-    var apiURLCategoriesDetailsCurrent = '';
-    var apiCategoriesDetailsCurrentResponse;
+    // let idParentCategories = ""
+    // let titleCurrent = ""
+    let apiURLCategoriesDetailsCurrent = '';
+    let apiCategoriesDetailsCurrentResponse;
     // ----------------------
 
     // Logic.
@@ -299,7 +299,7 @@ class FrontendCategoriesListing extends Component {
       // console.log("apiURLCategoriesDetailsCurrent=", apiURLCategoriesDetailsCurrent);
 
       // API - fetch data from backend.
-      // var response = await fetch(apiURLCategoriesDetailsCurrent);
+      // let response = await fetch(apiURLCategoriesDetailsCurrent);
       apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
       // this.objCategoriesCurrent = await response.json();
       this.objCategoriesCurrent = await apiCategoriesDetailsCurrentResponse.json();
@@ -399,7 +399,7 @@ class FrontendCategoriesListing extends Component {
             });
             */
 
-      // var response = await fetch("http:// localhost:3000/api/categories/details/813");
+      // let response = await fetch("http:// localhost:3000/api/categories/details/813");
       // this.objCategoriesCurrent = await response.json();
       // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
     } catch (asyncError) {

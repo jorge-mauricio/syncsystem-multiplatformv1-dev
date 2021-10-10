@@ -94,7 +94,7 @@ module.exports = class ContentEdit {
         let objParentTableRecord;
 
         // Categories.
-        if (this.objParentTableLevel1.tableName == gSystemConfig.configSystemDBTableCategories) {
+        if (this.objParentTableLevel1.tableName === gSystemConfig.configSystemDBTableCategories) {
           this.objParentTable = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableCategories, ['category_type;1;i'], gSystemConfig.configCategoriesSort, '', 'id, title', 1);
 
           objParentTableRecord = this.objParentTable.filter((objRecordRow) => {
@@ -107,7 +107,7 @@ module.exports = class ContentEdit {
 
         // Publications.
         // ["category_type;3;oi", "category_type;4;oi", "category_type;5;oi", "category_type;6;oi"]
-        if (this.objParentTableLevel1.tableName == gSystemConfig.configSystemDBTablePublications) {
+        if (this.objParentTableLevel1.tableName === gSystemConfig.configSystemDBTablePublications) {
           this.objParentTable = await SyncSystemNS.FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTablePublications, [], gSystemConfig.configPublicationsSort, '', 'id, title', 1);
 
           objParentTableRecord = this.objParentTable.filter((objRecordRow) => {
@@ -288,10 +288,12 @@ module.exports = class ContentEdit {
     let objParentTable = this.objParentTable; // eslint-disable-line
 
     // Debug.
-    // console.log("this._idTbCategories=", this._idTbCategories);
-    // console.log("oclRecordsParameters=", oclRecordsParameters);
-    // console.log("_pagingTotalRecords=", this._pagingTotalRecords);
-    // console.log("_pagingTotal=", this._pagingTotal);
+    // console.log('ocdRecord=', ocdRecord);
+    // console.log('ocdRecord.tblContentContentType=', ocdRecord.tblContentContentType);
+    // console.log('this._idTbCategories=', this._idTbCategories);
+    // console.log('oclRecordsParameters=', oclRecordsParameters);
+    // console.log('_pagingTotalRecords=', this._pagingTotalRecords);
+    // console.log('_pagingTotal=', this._pagingTotal);
     // ----------------------
 
     // Logic.
@@ -299,50 +301,50 @@ module.exports = class ContentEdit {
     try {
       backendHTML = `
         <div id="divMessageSuccess" class="ss-backend-success">
-            ${
-              this._messageSuccess
-                ? `
-                    ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageSuccess)}
-                `
-                : ``
-            } 
+          ${
+            this._messageSuccess
+              ? `
+                  ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageSuccess)}
+              `
+              : ``
+          } 
         </div>
         <div id="divMessageError" class="ss-backend-error">
-            ${
-              this._messageError
-                ? `
-                    ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageError)}
-                `
-                : ``
-            } 
+          ${
+            this._messageError
+              ? `
+                  ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageError)}
+              `
+              : ``
+          } 
         </div>
         <div id="divMessageAlert" class="ss-backend-alert">
-            ${
-              this._messageAlert
-                ? `
-                    ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageAlert)}
-                `
-                : ``
-            } 
-        
-            ${
-              /*Debug.*/
+          ${
+            this._messageAlert
+              ? `
+                  ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this._messageAlert)}
+              `
+              : ``
+          } 
+      
+          ${
+            /*Debug.*/
 
-              /*"this.objCategoriesIdParent=" + this.objCategoriesIdParent + "<br />" +*/
-              /*"ocdRecord.arrIdsCategoriesFiltersGenericBinding=" + ocdRecord.arrIdsCategoriesFiltersGenericBinding + "<br />" +*/
-              /*"networkInterfaces=" + _(os.networkInterfaces()).values().flatten().where({ family: 'IPv4', internal: false }).pluck('address').first() + "<br />" +*/
-              /*"networkInterfaces=" + Object.values(os.networkInterfaces())
-                .reduce((r,a)=>{
-                    r = r.concat(a)
-                    return r;
-                }, [])
-                .filter(({family, address}) => {
-                    return family.toLowerCase().indexOf('v4') >= 0 && address !== '127.0.0.1'
-                })
-                .map(({address}) => address).join(', ') + "<br />" +*/
-              /*"global=" + global.URL() + "<br />" +*/ /*working - result: 192.168.201.1, 192.168.26.1, 192.168.0.11, 127.0.0.1*/
-              ''
-            }
+            /*"this.objCategoriesIdParent=" + this.objCategoriesIdParent + "<br />" +*/
+            /*"ocdRecord.arrIdsCategoriesFiltersGenericBinding=" + ocdRecord.arrIdsCategoriesFiltersGenericBinding + "<br />" +*/
+            /*"networkInterfaces=" + _(os.networkInterfaces()).values().flatten().where({ family: 'IPv4', internal: false }).pluck('address').first() + "<br />" +*/
+            /*"networkInterfaces=" + Object.values(os.networkInterfaces())
+              .reduce((r,a)=>{
+                  r = r.concat(a)
+                  return r;
+              }, [])
+              .filter(({family, address}) => {
+                  return family.toLowerCase().indexOf('v4') >= 0 && address !== '127.0.0.1'
+              })
+              .map(({address}) => address).join(', ') + "<br />" +*/
+            /*"global=" + global.URL() + "<br />" +*/ /*working - result: 192.168.201.1, 192.168.26.1, 192.168.0.11, 127.0.0.1*/
+            ''
+          }
         </div>
         <script>
             // Debug.
@@ -378,7 +380,7 @@ module.exports = class ContentEdit {
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
                                 ${
-                                  gSystemConfig.enableContentIdParentEdit == 1
+                                  gSystemConfig.enableContentIdParentEdit === 1
                                     ? `
                                 <tr id="inputRowContent_id_parent" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -414,7 +416,7 @@ module.exports = class ContentEdit {
                                 }
 
                                 ${
-                                  gSystemConfig.enableContentSortOrder == 1
+                                  gSystemConfig.enableContentSortOrder === 1
                                     ? `
                                 <tr id="inputRowContent_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -432,7 +434,7 @@ module.exports = class ContentEdit {
                                 }
 
                                 ${
-                                  gSystemConfig.enableContentBindRegisterUser == 1
+                                  gSystemConfig.enableContentBindRegisterUser === 1
                                     ? `
                                 <tr id="inputRowContent_id_register_user" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -464,7 +466,7 @@ module.exports = class ContentEdit {
                                             ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendContentType2')}
                                         </label>
                                         <label class="ss-backend-field-radio-label-horizontal">
-                                            <input type="radio" name="content_type" value="3"${ocdRecord.tblContentContentType == 3 ? ` checked` : ``} checked class="ss-backend-field-radio" />
+                                            <input type="radio" name="content_type" value="3"${ocdRecord.tblContentContentType == 3 ? ` checked` : ``} class="ss-backend-field-radio" />
                                             ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendContentType3')}
                                         </label>
                                         <label class="ss-backend-field-radio-label-horizontal">
@@ -473,7 +475,7 @@ module.exports = class ContentEdit {
                                         </label>
 
                                         ${
-                                          gSystemConfig.enableContentHTML == 1
+                                          gSystemConfig.enableContentHTML === 1
                                             ? `
                                             <label class="ss-backend-field-radio-label-horizontal">
                                                 <input type="radio" name="content_type" value="7"${ocdRecord.tblContentContentType == 7 ? ` checked` : ``} class="ss-backend-field-radio" />
@@ -516,7 +518,7 @@ module.exports = class ContentEdit {
                                     <td>
                                         ${/* No formatting */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="content_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                         `
@@ -526,7 +528,7 @@ module.exports = class ContentEdit {
 
                                         ${/* Quill */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 13
+                                          gSystemConfig.configBackendTextBox === 13
                                             ? `
                                             <textarea id="content_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <div id="toolbar">
@@ -549,7 +551,7 @@ module.exports = class ContentEdit {
 
                                         ${/* FroalaEditor */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 15
+                                          gSystemConfig.configBackendTextBox === 15
                                             ? `
                                             <textarea id="content_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -562,7 +564,7 @@ module.exports = class ContentEdit {
 
                                         ${/* TinyMCE */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18
+                                          gSystemConfig.configBackendTextBox === 17 || gSystemConfig.configBackendTextBox === 18
                                             ? `
                                             <textarea id="content_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -645,7 +647,7 @@ module.exports = class ContentEdit {
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
                                 ${
-                                  gSystemConfig.enableContentIdParentEdit == 1
+                                  gSystemConfig.enableContentIdParentEdit === 1
                                     ? `
                                 <tr id="inputRowContentImage_id_parent" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -680,7 +682,7 @@ module.exports = class ContentEdit {
                                 }
 
                                 ${
-                                  gSystemConfig.enableContentSortOrder == 1
+                                  gSystemConfig.enableContentSortOrder === 1
                                     ? `
                                 <tr id="inputRowContentImage_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -698,7 +700,7 @@ module.exports = class ContentEdit {
                                 }
 
                                 ${
-                                  gSystemConfig.enableContentBindRegisterUser == 1
+                                  gSystemConfig.enableContentBindRegisterUser === 1
                                     ? `
                                 <tr id="inputRowContentImage_id_register_user" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -765,7 +767,7 @@ module.exports = class ContentEdit {
                                 </tr>
 
                                 ${
-                                  gSystemConfig.enableContentImageNoResize == 1
+                                  gSystemConfig.enableContentImageNoResize === 1
                                     ? `
                                 <tr id="inputRowContentImage_content_type" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -795,7 +797,7 @@ module.exports = class ContentEdit {
                                     <td>
                                         ${/* No formatting */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="content_image_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                         `
@@ -805,7 +807,7 @@ module.exports = class ContentEdit {
 
                                         ${/* Quill */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 13
+                                          gSystemConfig.configBackendTextBox === 13
                                             ? `
                                             <textarea id="content_image_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                         `
@@ -815,7 +817,7 @@ module.exports = class ContentEdit {
 
                                         ${/* FroalaEditor */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 15
+                                          gSystemConfig.configBackendTextBox === 15
                                             ? `
                                             <textarea id="content_image_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -828,7 +830,7 @@ module.exports = class ContentEdit {
 
                                         ${/* TinyMCE */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18
+                                          gSystemConfig.configBackendTextBox === 17 || gSystemConfig.configBackendTextBox === 18
                                             ? `
                                             <textarea id="content_image_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -848,7 +850,7 @@ module.exports = class ContentEdit {
                                 </tr>
 
                                 ${
-                                  gSystemConfig.enableContentURL == 1
+                                  gSystemConfig.enableContentURL === 1
                                     ? `
                                 <tr id="inputRowContentImage_content_url" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -942,7 +944,7 @@ module.exports = class ContentEdit {
                             </thead>
                             <tbody class="ss-backend-table-listing-text01">
                                 ${
-                                  gSystemConfig.enableContentIdParentEdit == 1
+                                  gSystemConfig.enableContentIdParentEdit === 1
                                     ? `
                                 <tr id="inputRowContentVideo_id_parent" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -977,7 +979,7 @@ module.exports = class ContentEdit {
                                 }
                             
                                 ${
-                                  gSystemConfig.enableContentSortOrder == 1
+                                  gSystemConfig.enableContentSortOrder === 1
                                     ? `
                                 <tr id="inputRowContentVideo_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -995,7 +997,7 @@ module.exports = class ContentEdit {
                                 }
 
                                 ${
-                                  gSystemConfig.enableContentBindRegisterUser == 1
+                                  gSystemConfig.enableContentBindRegisterUser === 1
                                     ? `
                                 <tr id="inputRowContent_id_register_user" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -1068,7 +1070,7 @@ module.exports = class ContentEdit {
                                     <td>
                                         ${/* No formatting */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="content_video_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                         `
@@ -1078,7 +1080,7 @@ module.exports = class ContentEdit {
 
                                         ${/* Quill */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 13
+                                          gSystemConfig.configBackendTextBox === 13
                                             ? `
                                             <textarea id="content_video_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                         `
@@ -1088,7 +1090,7 @@ module.exports = class ContentEdit {
 
                                         ${/* FroalaEditor */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 15
+                                          gSystemConfig.configBackendTextBox === 15
                                             ? `
                                             <textarea id="content_video_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -1101,7 +1103,7 @@ module.exports = class ContentEdit {
 
                                         ${/* TinyMCE */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18
+                                          gSystemConfig.configBackendTextBox === 17 || gSystemConfig.configBackendTextBox === 18
                                             ? `
                                             <textarea id="content_video_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -1155,7 +1157,7 @@ module.exports = class ContentEdit {
                                 </tr>
 
                                 ${
-                                  gSystemConfig.enableContentFileThumbnail == 1
+                                  gSystemConfig.enableContentFileThumbnail === 1
                                     ? `
                                 <tr id="inputRowContentVideo_file_thumbnail" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -1328,7 +1330,7 @@ module.exports = class ContentEdit {
                                 </tr>
 
                                 ${
-                                  gSystemConfig.enableContentFileThumbnail == 1
+                                  gSystemConfig.enableContentFileThumbnail === 1
                                     ? `
                                 <tr id="inputRowContentFile_align_image" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -1366,7 +1368,7 @@ module.exports = class ContentEdit {
                                     <td>
                                         ${/* No formatting */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 1
+                                          gSystemConfig.configBackendTextBox === 1
                                             ? `
                                             <textarea id="content_file_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                         `
@@ -1376,7 +1378,7 @@ module.exports = class ContentEdit {
 
                                         ${/* Quill */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 13
+                                          gSystemConfig.configBackendTextBox === 13
                                             ? `
                                             <textarea id="content_file_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                         `
@@ -1386,7 +1388,7 @@ module.exports = class ContentEdit {
 
                                         ${/* FroalaEditor */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 15
+                                          gSystemConfig.configBackendTextBox === 15
                                             ? `
                                             <textarea id="content_file_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -1399,7 +1401,7 @@ module.exports = class ContentEdit {
 
                                         ${/* TinyMCE */ ''}
                                         ${
-                                          gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18
+                                          gSystemConfig.configBackendTextBox === 17 || gSystemConfig.configBackendTextBox === 18
                                             ? `
                                             <textarea id="content_file_content_text" name="content_text" class="ss-backend-field-text-area01">${ocdRecord.tblContentContentText_edit}</textarea>
                                             <script>
@@ -1444,7 +1446,7 @@ module.exports = class ContentEdit {
                                 </tr>
 
                                 ${
-                                  gSystemConfig.enableContentFileThumbnail == 1
+                                  gSystemConfig.enableContentFileThumbnail === 1
                                     ? `
                                 <tr id="inputRowContentFile_file_thumbnail" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">

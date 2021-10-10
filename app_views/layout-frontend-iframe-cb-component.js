@@ -219,7 +219,9 @@ class LayoutFrontendMain extends Component {
     // console.log("worked - id=" + id);
   }
 
-  setData = () => {};
+  setData = () => {
+    // TODO:
+  };
 
   // Render.
   // **************************************************************************************
@@ -232,15 +234,23 @@ class LayoutFrontendMain extends Component {
     const tagsMetaDefault1 = `
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="format-detection" content="telephone=no" />
     `;
     // const tlScriptBundleReactClient = `<script src="/bundle.react.client.js"></script>`;
 
     const tagsStyleCSS = `
-      ${/*   Bootstrap 4 CSS. */ ''}
-      <link rel="stylesheet" href="https:// maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      ${/* Bootstrap 4 CSS. */ ''}
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <!--link rel="stylesheet" type="text/css" href="../app_js/bootstrap/bootstrap-3.3.6-dist/css/bootstrap.min.css" media="screen" title="Default" /-->
 
-      <link rel="stylesheet" type="text/css" href="/styles-frontend.bundle.css" media="screen" title="Default" />
+      ${/* Custom CSS. */ ''}
+      <link rel="stylesheet" type="text/css" href="/styles-frontend.bundle.css" media="screen" title="Default" />${/* Single css file. */ ''}
+      ${/* Multiple css files (according to resolution). */ ''}
+      <!--link rel="stylesheet" type="text/css" href="/styles-frontend.bundle.css" media="screen and (min-width: 991px)" title="Default" />
+      <link rel="stylesheet" type="text/css" href="/styles-frontend-mobile.bundle.css" media="screen and (max-width: 991px)" title="Default" /-->
+      
+      ${/* Font Awesome. */ ''}
+      <link rel="stylesheet" href="/${gSystemConfig.configDirectoryFontsSD}/fontawesome-free-5.15.4-web/css/all.css" />
     `;
 
     const tagsFavicons = `
@@ -258,27 +268,27 @@ class LayoutFrontendMain extends Component {
       <meta name="robots" content="index,follow" />
       <meta name="language" content="english" />
 
-      <meta name="author" content="${/*  SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") */ ''} ${gSystemConfig.configSystemClientName}" />
-      <meta name="designer" content="${/*  SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configDevName, "config-application") */ ''} ${gSystemConfig.configDevName}" />
-      <meta name="copyright" content="${gSystemConfig.configCopyrightYear}, ${/*  SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") */ ''} ${gSystemConfig.configSystemClientName}" />
+      <meta name="author" content="${/* SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") */ ''} ${gSystemConfig.configSystemClientName}" />
+      <meta name="designer" content="${/* SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configDevName, "config-application") */ ''} ${gSystemConfig.configDevName}" />
+      <meta name="copyright" content="${gSystemConfig.configCopyrightYear}, ${/* SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, "config-application") */ ''} ${gSystemConfig.configSystemClientName}" />
       <meta name="rating" content="general" /><?php // general | mature | restricted | 14 years?>
     `;
 
     const tagsMetaDynamic1 = `
-      <meta name="title" content="" />${/*   Below 60 characters. */ ''}
-      <meta name="description" content="" />${/*   Below 160 characters. */ ''}
-      <meta name="keywords" content="" />${/*   Below 100 characters. */ ''}
+      <meta name="title" content="" />${/* Below 60 characters. */ ''}
+      <meta name="description" content="" />${/* Below 160 characters. */ ''}
+      <meta name="keywords" content="" />${/* Below 100 characters. */ ''}
 
-      ${/*   Open Graph tags. */ ''}
+      ${/* Open Graph tags. */ ''}
       <meta property="og:title" content="" />
-      <meta property="og:type" content="website" />${/*   ref: http:// ogp.me/#types | https:// developers.facebook.com/docs/reference/opengraph/ */ ''}
+      <meta property="og:type" content="website" />${/* ref: http:// ogp.me/#types | https://developers.facebook.com/docs/reference/opengraph/ */ ''}
       <meta property="og:url" content="" />
       <meta property="og:description" content="" />
       
       ${
         /* 
         Dimensões:
-        ref: https:// iamturns.com/open-graph-image-size/
+        ref: https://iamturns.com/open-graph-image-size/
         Horizontal: 
             - home (1.9:1): 1200 x 630 pixels
             - produtos, artigos, etc (2:1): 1200 x 600 | 300 x 157 (mínimo) | 4096 x 4096 (máximo)
@@ -287,7 +297,7 @@ class LayoutFrontendMain extends Component {
             - produtos, artigos, etc (1:1): 600 x 600 | 144 x 144 (mínimo) | 4096 x 4096 (máximo)
         */ ''
       }
-      <meta property="og:image" content="" />${/*   The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. 120x120px, up to 1MB | JPG ou PNG, below 300k - minimum resolution: 300x200 pixels. */ ''}
+      <meta property="og:image" content="" />${/* The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. 120x120px, up to 1MB | JPG ou PNG, below 300k - minimum resolution: 300x200 pixels. */ ''}
           <!--meta property="og:image:secure_url" content="" /-->
       <meta property="og:image:alt" content="" />
       
@@ -304,18 +314,18 @@ class LayoutFrontendMain extends Component {
     `;
 
     const javaScriptFoot = `
-      ${/*  jQuery. */ ''}
-      <script src="https:// code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      ${/* jQuery. */ ''}
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       
-      ${/*  Popper. */ ''}
-      <script src="https:// cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      ${/* Popper. */ ''}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       
-      ${/*  Bootstrap 4. */ ''}
-      <script src="https:// maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      ${/* Bootstrap 4. */ ''}
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     `;
 
     // TodoData Map Component.
-    // Note: Passing methods only works whith arrow functions because of the "this" reference - ref: https:// stackoverflow.com/questions/56374615/uncaught-typeerror-cannot-read-property-class-function-of-undefined-in-reactj
+    // Note: Passing methods only works whith arrow functions because of the "this" reference - ref: https://stackoverflow.com/questions/56374615/uncaught-typeerror-cannot-read-property-class-function-of-undefined-in-reactj
     /** 
         const mcTestTodoItem = this.state.sTodosData.map(function(itemLine){
             return(

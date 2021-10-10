@@ -14,8 +14,8 @@ exports.appLabels = {
 
   configFrontendLanguage: 'en_US', //  en_US | pt_BR
 
-  layoutSystemName: 'Content Management System', // Sistema de Gerenciamento de Conteúdo
-  layoutDevName: 'Planejamento Visual - Arte e Tecnologia', // Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer
+  layoutSystemName: 'Content Management System', // Sistema de Gerenciamento de Conteúdo | Content Management System
+  layoutDevName: 'Planejamento Visual - Arte e Tecnologia', // Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer | Full Stack Web Designer - JM - Jorge Mauricio
   // **************************************************************************************
 
   // Layout.
@@ -154,6 +154,7 @@ exports.appLabels = {
 
   // Buttons.
   backendButtonBack: 'Back',
+  backendButtonBackTop: 'Back to Top',
   backendButtonDelete: 'Delete',
   backendButtonInclude: 'Include',
   backendButtonUpdate: 'Update',

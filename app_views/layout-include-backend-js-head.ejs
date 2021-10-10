@@ -29,7 +29,7 @@
 
 <%# GLightbox. %>
 <%# ************************************************************************************** %>
-<% if (gSystemConfig.configImagePopup == 4) { %>
+<% if (gSystemConfig.configImagePopup === 4) { %>
     <%/*
         ref: https://biati-digital.github.io/glightbox/
         ref: https://github.com/biati-digital/glightbox/blob/master/README.md
@@ -39,7 +39,7 @@
     <script>
         //JGLightbox configuration.
         //var lightbox = GLightbox();
-        var gLightboxBackendConfigOptions = {};
+        let gLightboxBackendConfigOptions = {};
 
         //Backend options
         gLightboxBackendConfigOptions.autoplayVideos = true;
@@ -71,11 +71,11 @@
 
 <script>
     //JS Datepicker configuration.
-    var jsDatepickerBaseBackendConfigOptions = {};
-    var jsDatepickerGenericBackendConfigOptions = {};
-    var jsDatepickerBirthBackendConfigOptions = {};
-    var jsDatepickerTaskBackendConfigOptions = {};
-    var jsDatepickerHistoryBackendConfigOptions = {};
+    let jsDatepickerBaseBackendConfigOptions = {};
+    let jsDatepickerGenericBackendConfigOptions = {};
+    let jsDatepickerBirthBackendConfigOptions = {};
+    let jsDatepickerTaskBackendConfigOptions = {};
+    let jsDatepickerHistoryBackendConfigOptions = {};
 
 
     //Base options (en-US).
@@ -93,7 +93,7 @@
     };
 
     //Base options (pt-BR).
-    <% if (gSystemConfig.configBackendDateFormat == 1) { %>
+    <% if (gSystemConfig.configBackendDateFormat === 1) { %>
         jsDatepickerBaseBackendConfigOptions = {
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString('pt-BR');
@@ -160,9 +160,9 @@
 <% } %>
 <script>
     //Inputmask configuration.
-    var inputmaskCurrencyBackendConfigOptions = {};
-    var inputmaskGenericBackendConfigOptions = {};
-    var inputmaskDecimalBackendConfigOptions = {};
+    let inputmaskCurrencyBackendConfigOptions = {};
+    let inputmaskGenericBackendConfigOptions = {};
+    let inputmaskDecimalBackendConfigOptions = {};
     
 
     //Generic options.
@@ -240,7 +240,7 @@
 
 <%# Quill. %>
 <%# ************************************************************************************** %>
-<% if (gSystemConfig.configBackendTextBox == 13 || gSystemConfig.configBackendTextBox == 13) { %>
+<% if (gSystemConfig.configBackendTextBox === 13 || gSystemConfig.configBackendTextBox === 13) { %>
     <%/*
         ref: https://quilljs.com/docs/download/
         TODO: Condition (config-application) to import library.
@@ -258,7 +258,7 @@
 
 <%# FroalaEditor. %>
 <%# ************************************************************************************** %>
-<% if (gSystemConfig.configBackendTextBox == 15 || gSystemConfig.configBackendTextBox == 16) { %>
+<% if (gSystemConfig.configBackendTextBox === 15 || gSystemConfig.configBackendTextBox === 16) { %>
     <%/*
         ref: https://www.froala.com/wysiwyg-editor/download
         TODO: Condition (config-application) to import library.
@@ -272,7 +272,7 @@
 
 <%# TinyMCE. %>
 <%# ************************************************************************************** %>
-<% if (gSystemConfig.configBackendTextBox == 17 || gSystemConfig.configBackendTextBox == 18) { %>
+<% if (gSystemConfig.configBackendTextBox === 17 || gSystemConfig.configBackendTextBox === 18) { %>
     <%/*
         ref: https://www.tiny.cloud/docs/quick-start/
         TODO: Translate controls.
@@ -282,7 +282,7 @@
 
     <script>
         //TinyMCE configuration.
-        var tinyMCEBackendConfig = {
+        let tinyMCEBackendConfig = {
             min_height: 300,
             resize: false,
             statusbar: true,
@@ -316,13 +316,13 @@
             
 
             //Basic.
-            <% if (gSystemConfig.configBackendTextBox == 17) { %>
+            <% if (gSystemConfig.configBackendTextBox === 17) { %>
                 toolbar: 'bold italic underline nonbreaking | bullist numlist | link unlink | copy cut paste pastetext | visualaid code',
                 menubar: false,
             <% } %>
 
             //Advanced.
-            <% if (gSystemConfig.configBackendTextBox == 18) { %>
+            <% if (gSystemConfig.configBackendTextBox === 18) { %>
                 toolbar: 'bold italic underline nonbreaking | bullist numlist | undo redo | formatselect removeformat styleselect | link unlink | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect | strikethrough subscript superscript | copy cut paste selectall pastetext | backcolor forecolor | outdent indent | blockquote | emoticons hr image media | table tabledelete | visualaid code',
                 menubar: 'file edit insert view format table tools help',
                 menu: {

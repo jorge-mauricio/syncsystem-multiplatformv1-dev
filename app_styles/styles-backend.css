@@ -65,12 +65,20 @@ button {
     padding: 0px 10px 0px 10px;
 }
 */ /* causing problems with other css (bootstrap, tinyMCE) */
-input, textarea, select
-{
+input, textarea, select {
     /* Ajustar tamanho, caso utilize width: 100%;. */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+/* Apply styles for all alements */
+* {
+    /*
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    */
 }
 /* ************************************************************************************** */
 

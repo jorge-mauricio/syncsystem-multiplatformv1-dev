@@ -1036,18 +1036,18 @@ module.exports = class FunctionsDB {
       }
 
       // Integer.
-      if (searchParametersFieldType == 'i') {
+      if (searchParametersFieldType === 'i') {
         strSQLGenericTableSelect += ' ' + strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' = ?';
         strSQLGenericTableSelectParams.push(searchParametersFieldValue);
       }
       // Integer - not equal.
-      if (searchParametersFieldType == '!i') {
+      if (searchParametersFieldType === '!i') {
         strSQLGenericTableSelect += ' ' + strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' <> ?';
         strSQLGenericTableSelectParams.push(searchParametersFieldValue);
       }
       // Integer - or.
-      if (searchParametersFieldType == 'oi') {
-        if (strOperator != 'WHERE')
+      if (searchParametersFieldType === 'oi') {
+        if (strOperator !== 'WHERE')
         {
           strOperator = 'OR';
         }
@@ -1056,18 +1056,18 @@ module.exports = class FunctionsDB {
       }
 
       // String.
-      if (searchParametersFieldType == 's') {
+      if (searchParametersFieldType === 's') {
         strSQLGenericTableSelect += ' ' + strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' = ?';
         strSQLGenericTableSelectParams.push(searchParametersFieldValue);
       }
       // String - not equal.
-      if (searchParametersFieldType == '!s') {
+      if (searchParametersFieldType === '!s') {
         strSQLGenericTableSelect += ' ' + strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' <> ?';
         strSQLGenericTableSelectParams.push(searchParametersFieldValue);
       }
       // String - or.
-      if (searchParametersFieldType == 'os') {
-        if (strOperator != 'WHERE')
+      if (searchParametersFieldType === 'os') {
+        if (strOperator !== 'WHERE')
         {
           strOperator = 'OR';
         }
@@ -1076,7 +1076,7 @@ module.exports = class FunctionsDB {
       }
 
       // ids.
-      if (searchParametersFieldType == 'ids') {
+      if (searchParametersFieldType === 'ids') {
         const arrIds = searchParametersFieldValue.split(',');
 
         strSQLGenericTableSelect += ' ' + strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' IN (' + '?'.repeat(arrIds.length).split('').join(',') + ')';
@@ -1153,12 +1153,12 @@ module.exports = class FunctionsDB {
               // Select the counter number.
 
               // All results.
-              if (searchType == 1) {
+              if (searchType === 1) {
                 resultsSQLGenericTable = resultsSQLGenericTableRows;
               }
 
               // Count.
-              if (searchType == 3) {
+              if (searchType === 3) {
                 resultsSQLGenericTable = resultsSQLGenericTableRows;
               }
               
@@ -1172,15 +1172,15 @@ module.exports = class FunctionsDB {
                 // reject(new Error('nCounter is undefined.'));
               } else {
                 // All results.
-                if (searchType == 1) {
+                if (searchType === 1) {
                   // JSon Object.
-                  if (objSpecialParameters.returnType == 3) {
+                  if (objSpecialParameters.returnType === 3) {
                     // Success.
                     resolve(resultsSQLGenericTable);
                   }
 
                   // Array.
-                  if (objSpecialParameters.returnType == 5) {
+                  if (objSpecialParameters.returnType === 5) {
                     // Success.
                     // Convert single column of object into array.
                     resolve(Object.keys(resultsSQLGenericTable).map((key) => resultsSQLGenericTable[key][strReturnFields]));
@@ -1188,7 +1188,7 @@ module.exports = class FunctionsDB {
                 }
 
                 // Count records.
-                if (searchType == 3) {
+                if (searchType === 3) {
                   // Success.
                   resolve(resultsSQLGenericTable.length);
                   // resolve(resultsSQLGenericTable);

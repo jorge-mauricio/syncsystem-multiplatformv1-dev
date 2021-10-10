@@ -783,7 +783,7 @@ module.exports = class ProductsListing {
                             return `
                                 <tr class="ss-backend-table-bg-light">
                                     ${
-                                      gSystemConfig.enableProductsSortOrder == 1
+                                      gSystemConfig.enableProductsSortOrder === 1
                                         ? `
                                     <td style="text-align: center;">
                                         ${SyncSystemNS.FunctionsGeneric.valueMaskRead(productsRow.sort_order, '', 3, null)} 
@@ -793,7 +793,7 @@ module.exports = class ProductsListing {
                                     }
 
                                     ${
-                                      gSystemConfig.enableProductsImageMain == 1
+                                      gSystemConfig.enableProductsImageMain === 1
                                         ? `
                                     <td style="text-align: center;">
                                         ${
@@ -801,7 +801,7 @@ module.exports = class ProductsListing {
                                             ? `
                                             ${/* No pop-up. */ ''}
                                             ${
-                                              gSystemConfig.configImagePopup == 0
+                                              gSystemConfig.configImagePopup === 0
                                                 ? `
                                                 <img src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + productsRow.image_main + '?v=' + this.cacheClear}" alt="${SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, 'db')}" class="ss-backend-images-listing" />
                                             `
@@ -810,7 +810,7 @@ module.exports = class ProductsListing {
 
                                             ${/* GLightbox. */ ''}
                                             ${
-                                              gSystemConfig.configImagePopup == 4
+                                              gSystemConfig.configImagePopup === 4
                                                 ? `
                                                 <a href="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/g' + productsRow.image_main + '?v=' + this.cacheClear}"
                                                     title="${SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, 'db')}"
@@ -840,7 +840,7 @@ module.exports = class ProductsListing {
                                         ${SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, 'db')} 
                                         <div>
                                             ${
-                                              gSystemConfig.enableProductsValue == 1
+                                              gSystemConfig.enableProductsValue === 1
                                                 ? `
                                                 <strong>
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendProductsValue')}:
@@ -852,7 +852,7 @@ module.exports = class ProductsListing {
                                             }
 
                                             ${
-                                              gSystemConfig.enableProductsValue1 == 1
+                                              gSystemConfig.enableProductsValue1 === 1
                                                 ? `
                                                 <strong>
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendProductsValue1')}:
@@ -864,7 +864,7 @@ module.exports = class ProductsListing {
                                             }
 
                                             ${
-                                              gSystemConfig.enableProductsValue2 == 1
+                                              gSystemConfig.enableProductsValue2 === 1
                                                 ? `
                                                 <strong>
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendProductsValue2')}:
@@ -876,7 +876,7 @@ module.exports = class ProductsListing {
                                             }
 
                                             ${
-                                              gSystemConfig.enableProductsWeight == 1
+                                              gSystemConfig.enableProductsWeight === 1
                                                 ? `
                                                 <strong>
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendProductsWeight')}:
@@ -902,7 +902,7 @@ module.exports = class ProductsListing {
 
                                         ${/* Images. */ ''}
                                         ${
-                                          gSystemConfig.enableProductsImages == 1
+                                          gSystemConfig.enableProductsImages === 1
                                             ? `
                                                 <a href="/${gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendFiles + '/' + productsRow.id + '/?fileType=1&masterPageSelect=layout-backend-blank'}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemInsertImages')}
@@ -913,7 +913,7 @@ module.exports = class ProductsListing {
 
                                         ${/* Videos. */ ''}
                                         ${
-                                          gSystemConfig.enableProductsVideos == 1
+                                          gSystemConfig.enableProductsVideos === 1
                                             ? `
                                                 <a href="/${gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendFiles + '/' + productsRow.id + '/?fileType=2&masterPageSelect=layout-backend-blank'}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemInsertVideos')}
@@ -924,7 +924,7 @@ module.exports = class ProductsListing {
                                         
                                         ${/* Files. */ ''}
                                         ${
-                                          gSystemConfig.enableProductsFiles == 1
+                                          gSystemConfig.enableProductsFiles === 1
                                             ? `
                                                 <a href="/${gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendFiles + '/' + productsRow.id + '/?fileType=3&masterPageSelect=layout-backend-blank'}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemInsertFiles')}
@@ -935,7 +935,7 @@ module.exports = class ProductsListing {
 
                                         ${/* Zip files. */ ''}
                                         ${
-                                          gSystemConfig.enableProductsZip == 1
+                                          gSystemConfig.enableProductsZip === 1
                                             ? `
                                                 <a href="/${gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendFiles + '/' + productsRow.id + '/?fileType=4&masterPageSelect=layout-backend-blank'}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                     ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemInsertFilesZip')}
@@ -946,7 +946,7 @@ module.exports = class ProductsListing {
                                     </td>
 
                                     ${
-                                      gSystemConfig.enableProductsStatus == 1
+                                      gSystemConfig.enableProductsStatus === 1
                                         ? `
                                         <td style="text-align: center;">
                                             ${

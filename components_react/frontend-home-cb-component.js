@@ -38,7 +38,9 @@ if (typeof window !== 'undefined') {
 // import FrontendCategoriesListingRecord from "./frontend-categories-listing-record-cb-component.jsx";
 // import FrontendCategoriesListingRecord from "./frontend-categories-listing-record-cb-component.js";
 // import FrontendBanners from "./frontend-banners-cb-component.js";
+import FrontendCategories from './frontend-categories-cb-component.js';
 import FrontendProducts from './frontend-products-cb-component.js';
+import FrontendPublications from './frontend-publications-cb-component.js';
 import FrontendContent from './frontend-content-cb-component.js';
 // ----------------------
 
@@ -80,8 +82,15 @@ class FrontendHome extends Component {
     // this.objCategoriesCurrent = {};
     this.titleCurrent = '';
 
-    // this.objCategoriesListing = {};
-    // this.arrCategoriesListing = [];
+    // this._idParentCategoriesHome = '104'; // working
+    // this.objCategoriesHomeJson = {}; // working
+    // this.objCategoriesHomeListing = {}; // working
+    // this.arrCategoriesHomeListing = []; // working
+
+    // this._idParentPublicationsHome = '129'; // working
+    // this.objPublicationsListingHomeJson; // working
+    // this.objPublicationsHomeListing = {}; // working
+    // this.arrPublicationsHomeListing = []; // working
 
     this.metaTitle = '';
     this.metaDescription = '';
@@ -137,14 +146,6 @@ class FrontendHome extends Component {
       this.queryDefault += '&masterPageFrontendSelect=' + this._masterPageFrontendSelect;
     }
 
-    /**/
-    // State creation.
-    this.state = {
-      // objCategoriesListing: this.objCategoriesListing,
-      // arrCategoriesListing: this.arrCategoriesListing,
-      dataLoaded: false,
-    };
-
     // Bind objects, methods and functions.
     // this.objCategoriesListing = this.objCategoriesListing.bind(this);
     this.build = this.build.bind(this);
@@ -162,7 +163,16 @@ class FrontendHome extends Component {
           console.error(asyncError);
         }
       } finally {
-        // TODO:
+        // State creation.
+        this.state = {
+          // objCategoriesHomeListing: this.objCategoriesHomeListing, // working
+          // arrCategoriesHomeListing: this.arrCategoriesHomeListing, // working
+
+          // objPublicationsHomeListing: this.objPublicationsHomeListing, // working
+          // arrPublicationsHomeListing: this.arrPublicationsHomeListing, // working
+
+          dataLoaded: false,
+        };
       }
     })();
 
@@ -269,36 +279,55 @@ class FrontendHome extends Component {
   // **************************************************************************************
   async build() {
     // Variables.
+    // ----------------------
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
+
+    // let apiURLCategoriesHomeListing = ''; // working
+    // let apiCategoriesHomeListingResponse; // working
+    
+    // let apiURLPublicationsHomeListing = ''; // working
+    // let apiPublicationsListingHomeResponse; // working
+    // ----------------------
 
     // Logic.
     // ----------------------
     /**/
     try {
-      // const tagsMeta = document.getElementsByTagName('meta');
-      // var idParentCategories = ""
-      // var titleCurrent = ""
-      // var apiURLCategoriesDetailsCurrent = "";
-      // var apiCategoriesDetailsCurrentResponse;
-
       // API - build URL string.
-      // apiURLCategoriesDetailsCurrent = "http:// localhost:3000/api/categories/details/813"; // http:// localhost:3000/api/categories/813/?apiKey=createSecretPassword
-      // apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + process.env.CONFIG_API_KEY_SYSTEM;
-      // apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      // apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + FunctionsCrypto.encryptValue(FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      // apiURLCategoriesDetailsCurrent = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this._idParentCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      // apiURLCategoriesDetailsCurrent = process.env.CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories + "?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      // apiURLCategoriesDetailsCurrent = process.env.REACT_APP_CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
-      // apiURLCategoriesDetailsCurrent = CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
-      // apiURLCategoriesDetailsCurrent = REACT_APP_CONFIG_API_URL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + gSystemConfig.configRouteAPIDetails + "/" + this._idParentCategories;
-      // console.log("apiURLCategoriesDetailsCurrent=", apiURLCategoriesDetailsCurrent);
-
+      // apiURLCategoriesHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPICategories + '/' + this._idParentCategoriesHome + '?apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2); // working
+      // apiURLPublicationsHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this.idParentPublications + '/?strNRecords=' + this.configPublicationsNRecords;
+      
+      //// apiURLPublicationsHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this.idParentPublications + '/?strNRecords=' + this.configPublicationsNRecords;
+      // apiURLPublicationsHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this._idParentPublicationsHome + '/?strNRecords=';
+      /* 
+      if (this.activation) {
+        apiURLPublicationsHomeListing += '&activation=' + this.activation;
+      }
+      if (this.activation1) {
+        apiURLPublicationsHomeListing += '&activation1=' + this.activation1;
+      }
+      if (this.activation2) {
+        apiURLPublicationsHomeListing += '&activation2=' + this.activation2;
+      }
+      if (this.activation3) {
+        apiURLPublicationsHomeListing += '&activation3=' + this.activation3;
+      }
+      if (this.activation4) {
+        apiURLPublicationsHomeListing += '&activation4=' + this.activation4;
+      }
+      if (this.activation5) {
+        apiURLPublicationsHomeListing += '&activation5=' + this.activation5;
+      }
+      * /
+      // apiURLPublicationsHomeListing += "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+      apiURLPublicationsHomeListing += '&apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2);  // working
+      
       // API - fetch data from backend.
-      // var response = await fetch(apiURLCategoriesDetailsCurrent);
-      // apiCategoriesDetailsCurrentResponse = await fetch(apiURLCategoriesDetailsCurrent);
-      // this.objCategoriesCurrent = await response.json();
-      // this.objCategoriesCurrent = await apiCategoriesDetailsCurrentResponse.json();
-      // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
+      // apiCategoriesHomeListingResponse = await fetch(apiURLCategoriesHomeListing); // working
+      // apiPublicationsListingHomeResponse = await fetch(apiURLPublicationsHomeListing);
+
+      // this.objCategoriesHomeJson = await apiCategoriesHomeListingResponse.json(); // working
+      // this.objPublicationsListingHomeJson = await apiPublicationsListingHomeResponse.json();
 
       // Value definition.
       // this.titleCurrent = this.objCategoriesCurrent.tblCategoriesTitle;
@@ -320,40 +349,28 @@ class FrontendHome extends Component {
 
       this.metaURLCurrent = gSystemConfig.configSystemURL + '/';
 
-      // this.objCategoriesListing = this.objCategoriesCurrent.oclRecords;
-      // this.arrCategoriesListing = this.objCategoriesCurrent.oclRecords.resultsCategoriesListing;
+      // this.objCategoriesHomeListing = this.objCategoriesHomeJson.oclRecords; // working
+      // this.arrCategoriesHomeListing = this.objCategoriesHomeJson.oclRecords.resultsCategoriesListing; // working
+      
+      // this.objPublicationsHomeListing = this.objPublicationsListingHomeJson.oplRecords; // working
+      // this.arrPublicationsHomeListing = this.objPublicationsListingHomeJson.oplRecords.resultsPublicationsListing; // working
 
-      // Update state.
-      // this.setState({ objCategoriesListing: this.objCategoriesListing });
-
-      // this.setState({ arrCategoriesListing: this.arrCategoriesListing });
-
-      // Note: Place on the last part of the logic.
-      this.setState({ dataLoaded: true });
-
-      // Check if this._idParentCategories is number. If not, search for the id based on the friendly name.
-
-      // API - fetch data from backend.
-      /*
-            fetch("http:// localhost:3000/api/categories/details/813")
-            .then(response => response.json())
-            .then((data)=>{
-                this.objCategoriesCurrent = data;
-                
-                // Debug.
-                console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
-            });
-            */
-
-      // var response = await fetch("http:// localhost:3000/api/categories/details/813");
-      // this.objCategoriesCurrent = await response.json();
+      // Debug.
       // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.error(asyncError);
       }
     } finally {
-      // TODO:
+      // Update state.
+      // this.setState({ objCategoriesHomeListing: this.objCategoriesHomeListing }); // working
+      // this.setState({ arrCategoriesHomeListing: this.arrCategoriesHomeListing }); // working
+      
+      // objPublicationsHomeListing: this.objPublicationsHomeListing,
+      // arrPublicationsHomeListing: this.arrPublicationsHomeListing,
+
+      // Note: Place on the last part of the logic.
+      this.setState({ dataLoaded: true });
     }
     // ----------------------
   }
@@ -422,16 +439,12 @@ class FrontendHome extends Component {
   // **************************************************************************************
   render() {
     // Variables.
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+    // ----------------------
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context;
 
-    // Head.
-    // document.title ="Example with title tag";
-    // document.getElementsByTagName("title").content="Example with title tag";
-    /*
-            <React.Fragment>
-                Single component
-            </React.Fragment>
-        */
+    // let objCategoriesHome105; // working
+    // let objPublicationsHome236; // working
+    // ----------------------
 
     // Check if data is loaded.
     // ----------------------
@@ -444,8 +457,25 @@ class FrontendHome extends Component {
     }
     // ----------------------
 
+    // Value definition.
+    // ----------------------
+    /*
+    objCategoriesHome105 = this.state.arrCategoriesHomeListing.filter((obj) => {
+      return obj.id == '105';
+    })[0]; // working
+    JSX: {HTMLReactParser(SyncSystemNS.FunctionsGeneric.contentMaskRead(objCategoriesHome105.description, 'db'))}
+    
+    objPublicationsHosting236 = this.state.arrPublicationsHomeListing.filter((obj) => {
+      return obj.id == '236';
+    })[0];
+    */
+    // ----------------------
+
     // Debug.
     // console.log("this._pagingTotal(inside render)=", this._pagingTotal);
+    // console.log('this.state.objCategoriesHomeListing=', this.state.objCategoriesHomeListing);
+    // console.log('this.state.arrCategoriesHomeListing=', this.state.arrCategoriesHomeListing);
+    // console.log('objCategoriesHome106=', objCategoriesHome106);
 
     // Output.
     return (
@@ -490,13 +520,19 @@ class FrontendHome extends Component {
           )}
         </React.Fragment>
 
+        {/* Categories component. */}
+        <FrontendCategories key={117} idParentCategories={'117'} idRegisterUser={''} configLayoutType={1} configCategoriesNRecords={''} configCategoriesSort={gSystemConfig.configCategoriesSort} activation={1} activation1={''} activation2={''} activation3={''} activation4={''} activation5={''}></FrontendCategories>
+
         {/* Content component.*/}
-        <FrontendContent idParentContent={'106'} idTbContent={''} contentType={''} configLayoutType={2} configContentNRecords={''} configContentSort={''}>
+        <FrontendContent key={106} idParentContent={'106'} idTbContent={''} contentType={''} configLayoutType={2} configContentNRecords={''} configContentSort={''}>
           {/* arrCategoriesListing={ this.arrCategoriesListing } also works */}
         </FrontendContent>
 
         {/* Products component. */}
-        <FrontendProducts idParentProducts={'960'} idRegisterUser={''} configLayoutType={2} configProductsNRecords={'3'} configProductsSort={gSystemConfig.configProductsSort} activation={1} activation1={''} activation2={''} activation3={''} activation4={''} activation5={''}></FrontendProducts>
+        <FrontendProducts key={960} idParentProducts={'960'} idRegisterUser={''} configLayoutType={2} configProductsNRecords={'3'} configProductsSort={gSystemConfig.configProductsSort} activation={1} activation1={''} activation2={''} activation3={''} activation4={''} activation5={''}></FrontendProducts>
+
+        {/* Publications component. */}
+        <FrontendPublications key={130} idParentPublications={'130'} idRegisterUser={''} configLayoutType={2} configPublicationsNRecords={''} configPublicationsSort={gSystemConfig.configPublicationsSort} activation={1} activation1={''} activation2={''} activation3={''} activation4={''} activation5={''}></FrontendPublications>
       </React.Fragment>
     );
   }

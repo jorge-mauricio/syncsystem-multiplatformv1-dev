@@ -176,6 +176,44 @@ const formSubmit = (idForm: string,
 // **************************************************************************************
 FunctionsSyncSystem.formSubmit = formSubmit;
 
+// Function to toggle between diplay block or visibility attributes.
+// **************************************************************************************
+/**
+ * Function to apply a style to HTML element.
+ * @param {*} idHTML
+ * @example
+ * elementShowHideToggle('divTest1');
+ */
+const elementShowHideToggle = (idHTML: string): void => {
+  // Variables.
+  // ----------------------
+  const elementHTML: HTMLElement | null = document.getElementById(idHTML);
+  // ----------------------
+
+  // Define values.
+  // ----------------------
+  // Debug.
+  // console.log("elementHTML.style.display=", elementHTML.style.display);
+  // ----------------------
+
+  // Logic.
+  if (elementHTML) {
+    if (elementHTML.style.display === 'block') {
+      elementHTML.setAttribute('style', 'display: none !important;');
+    } else if (elementHTML.style.display === 'none' || elementHTML.style.display === '') {
+      elementHTML.setAttribute('style', 'display: block !important;');
+    }
+
+    if (elementHTML.style.visibility === 'visible') {
+      elementHTML.setAttribute('style', 'visibility: hidden !important;');
+    } else if (elementHTML.style.display === 'hidden' || elementHTML.style.display === '') {
+      elementHTML.setAttribute('style', 'visibility: visible !important;');
+    }
+  }
+};
+// **************************************************************************************
+FunctionsSyncSystem.elementShowHideToggle = elementShowHideToggle;
+
 // Function to apply a style to HTML element.
 // **************************************************************************************
 /**
@@ -204,13 +242,17 @@ const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: s
     // display
     if (styleName === 'display') {
       // elementHTML.style.display = parameterValue;
-      elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
+      // elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;'); // working, but errases all inline styles
+      // elementHTML.style.cssText = styleName + ': ' + parameterValue + ' !important;'; // working, but errases all inline styles
+      elementHTML.style.setProperty(styleName, parameterValue, 'important');
     }
 
     // height
     if (styleName === 'height') {
       // elementHTML.style.height = parameterValue;
-      elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
+      // elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;'); // working, but errases all inline styles
+      // elementHTML.style.cssText = styleName + ': ' + parameterValue + ' !important;'; // working, but errases all inline styles
+      elementHTML.style.setProperty(styleName, parameterValue, 'important');
     }
 
     // min-height
@@ -220,14 +262,18 @@ const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: s
       // document.getElementById(idHTML).style.minHeight = $("#" + idHTML)[0].scrollHeight;
       // } else {
       // elementHTML.style.minHeight = parameterValue;
-      elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
+      // elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;'); // working, but errases all inline styles
+      // elementHTML.style.cssText = styleName + ': ' + parameterValue + ' !important;'; // working, but errases all inline styles
+      elementHTML.style.setProperty(styleName, parameterValue, 'important');
       // }
     }
 
     // margin-bottom
     if (styleName === 'margin-bottom') {
       // elementHTML.style.marginBottom = parameterValue;
-      elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;');
+      // elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;'); // working, but errases all inline styles
+      // elementHTML.style.cssText = styleName + ': ' + parameterValue + ' !important;'; // working, but errases all inline styles
+      elementHTML.style.setProperty(styleName, parameterValue, 'important');
     }
   }
 };
@@ -423,6 +469,110 @@ const elementCSSRemove = (idElement: string, classNameCSS: string): void => {
 // **************************************************************************************
 FunctionsSyncSystem.elementCSSAdd = elementCSSAdd;
 FunctionsSyncSystem.elementCSSRemove = elementCSSRemove;
+
+// Function to inject css styles into the html style tag.
+// **************************************************************************************
+/**
+ * Function to inject css styles into the html style tag.
+ * @param {string} strCSS
+ * @example cssStyleInject(products3DCarouselCSSInject);
+ */
+const cssStyleInject = (strCSS: string): void => {
+  // Variables.
+  // ----------------------
+  const htmlHead = document.head || document.getElementsByTagName('head')[0];
+  // let htmlStyleTag = document.getElementsByTagName('style')[0] || document.createElement('style');
+  const htmlStyleTag = document.getElementsByTagName('style')[0];
+  // let htmlStyleTag: HTMLElement;
+  // ----------------------
+
+  // Logic.
+  // ----------------------
+  /*
+  if (!document.getElementsByTagName('style')[0]) {
+    htmlHead.appendChild(style);
+  } 
+  */ /* not working / tested yet */
+
+  // htmlStyleTag = document.getElementsByTagName('style')[0];
+  htmlStyleTag.appendChild(document.createTextNode(strCSS));
+  // ----------------------
+
+  // Debug.
+  // console.log('htmlStyleTag', htmlStyleTag);
+};
+// **************************************************************************************
+FunctionsSyncSystem.cssStyleInject = cssStyleInject;
+
+// Function to select / check a radiobutton.
+// **************************************************************************************
+/**
+ * Function to select / check a radiobutton.
+ * @param {string} idRadiobutton
+ * @param {string} radiobuttonSelect
+ * @param {string} idPrefixItemContent
+ * @example onclick="radiobuttonCheck01('ss-frontend-products-3d-carousel-checkbox', 'prev', 'products3DCarouselItemContent');
+ */
+const radiobuttonCheck01 = (idRadiobutton: string, radiobuttonSelect: string, idPrefixItemContent = ''): void => {
+  // idRadiobutton: id | class name
+  // radiobuttonSelect: 'id' | 'next' | 'prev'
+
+  // Variables.
+  // ----------------------
+  const radiobuttonArray: any = document.getElementsByClassName(idRadiobutton); // TODO: change to the correct cast type.
+  const countItems = radiobuttonArray.length;
+  let radiobuttonCheck = 0;
+
+  // let itemContainerCurrent;
+  // let itemContainerSelected;
+  // ----------------------
+
+  // Logic
+  // ----------------------
+  if (radiobuttonArray.length > 0) {
+    // Check which radiobuttonArray is checked.
+    for (let countCheckboxes = 0; countCheckboxes < radiobuttonArray.length; countCheckboxes++) {
+      if (radiobuttonArray[countCheckboxes].checked === true) {
+        radiobuttonCheck = countCheckboxes;
+        // Debug.
+        // console.log('checked=true');
+      }
+
+      // Debug.
+      // console.log('countCheckboxes=', radiobuttonArray[countCheckboxes]);
+    }
+
+    // Radio button selection.
+    if (radiobuttonSelect === 'next' && radiobuttonCheck + 1 !== countItems) {
+      radiobuttonArray[radiobuttonCheck + 1].checked = true;
+
+      // Hide current content.
+      // itemContainerCurrent = document.getElementById(idPrefixItemContent + radiobuttonCheck);
+      htmlGenericStyle01(idPrefixItemContent + radiobuttonCheck, 'display', 'none');
+      // Show next content.
+      htmlGenericStyle01(idPrefixItemContent + (radiobuttonCheck + 1), 'display', 'block');
+
+      // Debug.
+      console.log('idPrefixItemContent', idPrefixItemContent + (radiobuttonCheck + 1));
+    }
+
+    if (radiobuttonSelect === 'prev' && radiobuttonCheck !== 0) {
+      radiobuttonArray[radiobuttonCheck - 1].checked = true;
+
+      // Hide current content.
+      // itemContainerCurrent = document.getElementById(idPrefixItemContent + radiobuttonCheck);
+      htmlGenericStyle01(idPrefixItemContent + radiobuttonCheck, 'display', 'none');
+      // Show previous content.
+      htmlGenericStyle01(idPrefixItemContent + (radiobuttonCheck - 1), 'display', 'block');
+
+      // Debug.
+      // console.log('idPrefixItemContent', idPrefixItemContent + parseInt(radiobuttonCheck - 1));
+    }
+    // ----------------------
+  }
+};
+// **************************************************************************************
+FunctionsSyncSystem.radiobuttonCheck01 = radiobuttonCheck01;
 
 // Function to scroll page to target element.
 // **************************************************************************************
