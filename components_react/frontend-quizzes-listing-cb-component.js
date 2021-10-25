@@ -245,11 +245,11 @@ class FrontendQuizzesListing extends Component {
     // ----------------------
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
 
-    var apiURLCategoriesDetailsCurrent = '';
-    var apiCategoriesDetailsCurrentResponse;
+    let apiURLCategoriesDetailsCurrent = '';
+    let apiCategoriesDetailsCurrentResponse;
 
-    var apiURLQuizzesListing = '';
-    var apiQuizzesListingResponse;
+    let apiURLQuizzesListing = '';
+    let apiQuizzesListingResponse;
     // ----------------------
 
     // Logic.
@@ -368,6 +368,9 @@ class FrontendQuizzesListing extends Component {
 
       // Note: Place on the last part of the logic.
       this.setState({ dataLoaded: true });
+
+      // Change state of in context.
+      this.context.frontendQuizzesListingLoaded = true;
     }
     // ----------------------
   }
@@ -426,7 +429,7 @@ class FrontendQuizzesListing extends Component {
   // **************************************************************************************
   render() {
     // Variables.
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
 
     // Head.
     // document.title ="Example with title tag";
@@ -444,9 +447,14 @@ class FrontendQuizzesListing extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     } else {
-      console.log('Data loaded.');
+      if (gSystemConfig.configDebug === true) {
+        console.log('Data loaded.');
+      }
     }
     // ----------------------
 

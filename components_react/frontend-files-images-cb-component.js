@@ -56,6 +56,9 @@ class FrontendFilesImages extends Component {
     this.configFilesSort;
     this.configFilesZoom;
 
+    this.itemMainImage;
+    this.itemMainImageCaption;
+
     this.queryDefault = ''; // NOTE: try to get from parent
 
     this.objFilesListing = {};
@@ -72,6 +75,9 @@ class FrontendFilesImages extends Component {
     if (this.configFilesZoom == '') {
       this.configFilesZoom = 0;
     }
+
+    this.itemMainImage = this.props.itemMainImage;
+    this.itemMainImageCaption = this.props.itemMainImageCaption;
     // ----------------------
 
     // Logic
@@ -197,6 +203,9 @@ class FrontendFilesImages extends Component {
       this.setState({ arrFilesListing: this.arrFilesListing });
 
       this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
+
+      // Change state of in context.
+      this.context.frontendFilesImagesListingLoaded = true;
     }
     // ----------------------
   }
@@ -209,8 +218,7 @@ class FrontendFilesImages extends Component {
     // Variables.
     // ----------------------
     // const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
-    // const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
 
     let arrFilesListing;
 
@@ -231,7 +239,10 @@ class FrontendFilesImages extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     }
     // ----------------------
 
@@ -263,11 +274,11 @@ class FrontendFilesImages extends Component {
     // ----------------------
     return (
       <React.Fragment>
-        {/*Files records. */}
+        {/* Files records. */}
         {arrFilesListing.length > 0 ? (
           <React.Fragment>
             <h4 className="ss-frontend-files-title">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'frontendFilesImagesTitleMain')}</h4>
-            <FrontendFilesImagesListingRecord arrFilesListing={arrFilesListing} configLayoutType={this.configLayoutType} configFilesZoom={this.configFilesZoom}></FrontendFilesImagesListingRecord>
+            <FrontendFilesImagesListingRecord arrFilesListing={arrFilesListing} configLayoutType={this.configLayoutType} configFilesZoom={this.configFilesZoom} itemMainImage={this.itemMainImage} itemMainImageCaption={this.itemMainImageCaption}></FrontendFilesImagesListingRecord>
           </React.Fragment>
         ) : (
           ``

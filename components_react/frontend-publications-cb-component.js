@@ -15,10 +15,10 @@ import ReactDOM from 'react-dom';
 // import { Link } from 'react-router-dom';
 
 // Components.
-import FrontendCategoriesListingRecord from './frontend-categories-listing-record-cb-component.js';
+import FrontendPublicationsListingRecord from './frontend-publications-listing-record-cb-component.js';
 // ----------------------
 
-class FrontendCategories extends Component {
+class FrontendPublications extends Component {
   // Context.
   static contextType = SyncSystemNSContext;
 
@@ -26,12 +26,12 @@ class FrontendCategories extends Component {
   // **************************************************************************************
   constructor(props, context) {
     // Component options.
-    // idParentCategories: (categories id)
+    // idParentPublications: (categories id)
     // idRegisterUser: (register id)
 
-    // configLayoutType: 1 - table listing (custom) | 2 - div layout (custom) | 11 - table listing (bootstrap) | 22 - div layout (bootstrap) | 111 - table listing (dashboard - custom)
-    // configCategoriesNRecords: (maximum number of records to show)
-    // configCategoriesSort: (custom order)
+    // configLayoutType: 1 - table listing (custom) | 2 - div layout (custom) | 3 - div row (custom) | 11 - table listing (bootstrap) | 22 - div layout (bootstrap) | 33 - div row (bootstrap) | 111 - table listing (dashboard - custom)
+    // configPublicationsNRecords: (maximum number of records to show)
+    // configPublicationsSort: (custom order)
 
     // activation:
     // activation1:
@@ -55,12 +55,12 @@ class FrontendCategories extends Component {
 
     // Properties.
     // ----------------------
-    this.idParentCategories;
+    this.idParentPublications;
     this.idRegisterUser;
 
     this.configLayoutType;
-    this.configCategoriesNRecords;
-    this.configCategoriesSort;
+    this.configPublicationsNRecords;
+    this.configPublicationsSort;
 
     this.activation;
     this.activation1;
@@ -71,19 +71,19 @@ class FrontendCategories extends Component {
 
     this.queryDefault = ''; // NOTE: try to get from parent
 
-    this.objCategoriesListingJson;
-    this.objCategoriesListing = {};
-    this.arrCategoriesListing = [];
+    this.objPublicationsListingJson;
+    this.objPublicationsListing = {};
+    this.arrPublicationsListing = [];
     // ----------------------
 
     // Define values - props parameters.
     // ----------------------
-    this.idParentCategories = this.props.idParentCategories;
+    this.idParentPublications = this.props.idParentPublications;
     this.idRegisterUser = this.props.idRegisterUser;
 
     this.configLayoutType = this.props.configLayoutType;
-    this.configCategoriesNRecords = this.props.configCategoriesNRecords;
-    this.configCategoriesSort = this.props.configCategoriesSort;
+    this.configPublicationsNRecords = this.props.configPublicationsNRecords;
+    this.configPublicationsSort = this.props.configPublicationsSort;
 
     this.activation = this.props.activation;
     this.activation1 = this.props.activation1;
@@ -114,8 +114,8 @@ class FrontendCategories extends Component {
     } finally {
       // State creation.
       this.state = {
-        objCategoriesListing: this.objCategoriesListing,
-        arrCategoriesListing: this.arrCategoriesListing,
+        objPublicationsListing: this.objPublicationsListing,
+        arrPublicationsListing: this.arrPublicationsListing,
         dataLoaded: false,
       };
     }
@@ -177,65 +177,64 @@ class FrontendCategories extends Component {
     // ----------------------
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
 
-    let apiURLCategoriesListing = '';
-    let apiCategoriesListingResponse;
+    let apiURLPublicationsListing = '';
+    let apiPublicationsListingResponse;
     // ----------------------
 
     // Logic.
     // ----------------------
     try {
       // API - build URL string.
-      // apiURLCategoriesListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this.idParentCategories + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      // apiURLCategoriesListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this.idParentCategories + "/?strNRecords=" + this.configCategoriesNRecords + "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      // apiURLCategoriesListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPICategories + "/" + this.idParentCategories + "/?strNRecords=" + this.configCategoriesNRecords + "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
-      apiURLCategoriesListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPICategories + '/' + this.idParentCategories + '/?strNRecords=' + this.configCategoriesNRecords;
+      // apiURLPublicationsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIPublications + "/" + this.idParentPublications + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+      // apiURLPublicationsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIPublications + "/" + this.idParentPublications + "/?strNRecords=" + this.configPublicationsNRecords + "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+      // apiURLPublicationsListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIPublications + "/" + this.idParentPublications + "/?strNRecords=" + this.configPublicationsNRecords + "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
+      apiURLPublicationsListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this.idParentPublications + '/?strNRecords=' + this.configPublicationsNRecords;
       if (this.activation) {
-        apiURLCategoriesListing += '&activation=' + this.activation;
+        apiURLPublicationsListing += '&activation=' + this.activation;
       }
       if (this.activation1) {
-        apiURLCategoriesListing += '&activation1=' + this.activation1;
+        apiURLPublicationsListing += '&activation1=' + this.activation1;
       }
       if (this.activation2) {
-        apiURLCategoriesListing += '&activation2=' + this.activation2;
+        apiURLPublicationsListing += '&activation2=' + this.activation2;
       }
       if (this.activation3) {
-        apiURLCategoriesListing += '&activation3=' + this.activation3;
+        apiURLPublicationsListing += '&activation3=' + this.activation3;
       }
       if (this.activation4) {
-        apiURLCategoriesListing += '&activation4=' + this.activation4;
+        apiURLPublicationsListing += '&activation4=' + this.activation4;
       }
       if (this.activation5) {
-        apiURLCategoriesListing += '&activation5=' + this.activation5;
+        apiURLPublicationsListing += '&activation5=' + this.activation5;
       }
-      // apiURLCategoriesListing += "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      apiURLCategoriesListing += '&apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2);
+      // apiURLPublicationsListing += "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
+      apiURLPublicationsListing += '&apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2);
 
       // API - fetch data from backend.
-      apiCategoriesListingResponse = await fetch(apiURLCategoriesListing);
-      this.objCategoriesListingJson = await apiCategoriesListingResponse.json();
+      apiPublicationsListingResponse = await fetch(apiURLPublicationsListing);
+      this.objPublicationsListingJson = await apiPublicationsListingResponse.json();
 
       // Value definition.
-      this.objCategoriesListing = this.objCategoriesListingJson.oclRecords;
-      this.arrCategoriesListing = this.objCategoriesListingJson.oclRecords.resultsCategoriesListing;
+      this.objPublicationsListing = this.objPublicationsListingJson.oplRecords;
+      this.arrPublicationsListing = this.objPublicationsListingJson.oplRecords.resultsPublicationsListing;
 
       // TODO: limit n records
 
       // Debug.
-      // console.log('this.objCategoriesCurrent=',this.objCategoriesCurrent);
-      // console.log('this.arrCategoriesListing=',this.arrCategoriesListing);
+      // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
     } catch (buildError) {
       if (gSystemConfig.configDebug === true) {
         console.error(buildError);
       }
     } finally {
       // Update state.
-      this.setState({ objCategoriesListing: this.objCategoriesListing });
-      this.setState({ arrCategoriesListing: this.arrCategoriesListing });
+      this.setState({ objPublicationsListing: this.objPublicationsListing });
+      this.setState({ arrPublicationsListing: this.arrPublicationsListing });
 
       this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
 
       // Change state of in context.
-      this.context.frontendCategoriesListingLoaded = true;
+      this.context.frontendPublicationsListingLoaded = true;
     }
     // ----------------------
   }
@@ -248,10 +247,11 @@ class FrontendCategories extends Component {
     // Variables.
     // ----------------------
     // const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
+    // const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
 
     let configLayoutType;
-    let arrCategoriesListing;
+    let arrPublicationsListing;
     // ----------------------
 
     // Check if data is loaded.
@@ -271,7 +271,7 @@ class FrontendCategories extends Component {
     // Define values.
     // ----------------------
     configLayoutType = this.props.configLayoutType;
-    arrCategoriesListing = this.state.arrCategoriesListing;
+    arrPublicationsListing = this.state.arrPublicationsListing;
 
     /*
         idParentFiles = this.props.idParentFiles;
@@ -285,8 +285,8 @@ class FrontendCategories extends Component {
 
     // Debug.
     // console.log('configLayoutType (inside component)=', this.configLayoutType);
-    // console.log('arrCategoriesListing  (inside component)=', this.arrCategoriesListing);
-    // console.log('configCategoriesNRecords=', this.configCategoriesNRecords);
+    // console.log('arrPublicationsListing  (inside component)=', this.arrPublicationsListing);
+    // console.log('configPublicationsNRecords=', this.configPublicationsNRecords);
     // console.log("configFilesSort=", this.configFilesSort);
     // console.log("configFilesZoom=", this.configFilesZoom);
 
@@ -297,8 +297,8 @@ class FrontendCategories extends Component {
     // ----------------------
     return (
       <React.Fragment>
-        {/* Categories records. */}
-        <FrontendCategoriesListingRecord arrCategoriesListing={this.state.arrCategoriesListing} configLayoutType={configLayoutType}></FrontendCategoriesListingRecord>
+        {/* Publications records. */}
+        <FrontendPublicationsListingRecord arrPublicationsListing={this.state.arrPublicationsListing} configLayoutType={configLayoutType}></FrontendPublicationsListingRecord>
       </React.Fragment>
     );
     // ----------------------
@@ -306,4 +306,4 @@ class FrontendCategories extends Component {
   // **************************************************************************************
 }
 
-export default FrontendCategories;
+export default FrontendPublications;

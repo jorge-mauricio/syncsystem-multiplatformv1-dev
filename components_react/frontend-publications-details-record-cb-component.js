@@ -104,15 +104,16 @@ class FrontendPublicationsDetailsRecord extends Component {
     // ----------------------
     try {
       // Filter results acording to filter_index.
-      /*if(gSystemConfig.enablePublicationsFilterGeneric1 != 0)
-            {
-                this.resultsPublicationsFiltersGeneric1Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
-                    return obj.filter_index == 101;
-                    // console.log("obj = ", obj);
-                });
-                // console.log("ofglRecords.resultsFiltersGenericListing = ", ofglRecords.resultsFiltersGenericListing);
-                // console.log("resultsFiltersGeneric1Listing = ", resultsFiltersGeneric1Listing);
-            }*/
+      /*
+      if (gSystemConfig.enablePublicationsFilterGeneric1 != 0) {
+          this.resultsPublicationsFiltersGeneric1Listing = this.ofglRecords.resultsFiltersGenericListing.filter(function(obj){
+              return obj.filter_index == 101;
+              // console.log("obj = ", obj);
+          });
+          // console.log("ofglRecords.resultsFiltersGenericListing = ", ofglRecords.resultsFiltersGenericListing);
+          // console.log("resultsFiltersGeneric1Listing = ", resultsFiltersGeneric1Listing);
+      }
+      */
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.error(asyncError);
@@ -156,29 +157,29 @@ class FrontendPublicationsDetailsRecord extends Component {
       // Output.
       return (
         <div className="ss-frontend-publications-details-text01">
-          {gSystemConfig.enablePublicationsImageMain == 1 ? (
+          {gSystemConfig.enablePublicationsImageMain === 1 ? (
             <figure className="ss-frontend-publications-details-image01-container">
               {objPublicationsDetails.tblPublicationsImageMain != '' ? (
                 <React.Fragment>
                   {/* No pop-up. */}
-                  {gSystemConfig.configImagePopup == 0 ? <img src={gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + '/' + objPublicationsDetails.tblPublicationsImageMain} alt={objPublicationsDetails.tblPublicationsImageMainCaption != '' ? objPublicationsDetails.tblPublicationsImageMainCaption : objPublicationsDetails.tblPublicationsTitle} className="ss-frontend-publications-details-image01" /> : ``}
+                  {gSystemConfig.configImagePopup === 0 ? <img src={gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + '/' + objPublicationsDetails.tblPublicationsImageMain} alt={objPublicationsDetails.tblPublicationsImageMainCaption != '' ? objPublicationsDetails.tblPublicationsImageMainCaption : objPublicationsDetails.tblPublicationsTitle} className="ss-frontend-publications-details-image01" /> : ``}
 
                   {/* GLightbox. */}
                   {/* TODO: Not working. */}
                   {/* Research: https:// www.npmjs.com/package/react-image-lightbox. */}
-                  {gSystemConfig.configImagePopup == 4 ? (
+                  {gSystemConfig.configImagePopup === 4 ? (
                     <React.Fragment>
                       <a href={gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + '/g' + objPublicationsDetails.tblPublicationsImageMain} title={objPublicationsDetails.tblPublicationsTitle} className="glightbox_publications_image_main" data-glightbox={objPublicationsDetails.tblPublicationsImageMainCaption != '' ? 'title:' + objPublicationsDetails.tblPublicationsImageMainCaption + ';' : 'title:' + objPublicationsDetails.tblPublicationsTitle + ';'}>
                         <img src={gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + '/' + objPublicationsDetails.tblPublicationsImageMain} alt={objPublicationsDetails.tblPublicationsImageMainCaption != '' ? objPublicationsDetails.tblPublicationsImageMainCaption : objPublicationsDetails.tblPublicationsTitle} className="ss-frontend-publications-details-image01" />
                       </a>
                       {HTMLReactParser(`
-                                                    <script type="text/babel">
-                                                    // $(document).ready(function() {
-                                                        gLightboxBackendConfigOptions.selector = "glightbox_publications_image_main";
-                                                        let glightboxPublicationsImageMain = GLightbox(gLightboxBackendConfigOptions);
-                                                    // });
-                                                    </script>
-                                                `)}
+                          <script type="text/babel">
+                          // $(document).ready(function() {
+                              gLightboxBackendConfigOptions.selector = "glightbox_publications_image_main";
+                              let glightboxPublicationsImageMain = GLightbox(gLightboxBackendConfigOptions);
+                          // });
+                          </script>
+                      `)}
                     </React.Fragment>
                   ) : (
                     ``
@@ -187,12 +188,12 @@ class FrontendPublicationsDetailsRecord extends Component {
               ) : (
                 <React.Fragment>
                   {/* Placeholder. */}
-                  {gSystemConfig.configPublicationsImagePlaceholder == 1 ? <img src={gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesLayoutSD + '/frontend-layout-image-placeholder-t0.png'} alt={objPublicationsDetails.tblPublicationsImageMainCaption != '' ? objPublicationsDetails.tblPublicationsImageMainCaption : objPublicationsDetails.tblPublicationsTitle} className="ss-frontend-publications-details-image01" /> : ``}
+                  {gSystemConfig.configPublicationsImagePlaceholder === 1 ? <img src={gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesLayoutSD + '/frontend-layout-image-placeholder-t0.png'} alt={objPublicationsDetails.tblPublicationsImageMainCaption != '' ? objPublicationsDetails.tblPublicationsImageMainCaption : objPublicationsDetails.tblPublicationsTitle} className="ss-frontend-publications-details-image01" /> : ``}
                 </React.Fragment>
               )}
 
               {/* Main image caption. */}
-              {gSystemConfig.enablePublicationsImageMainCaption == 1 ? <figcaption>{objPublicationsDetails.tblPublicationsImageMainCaption}</figcaption> : ``}
+              {gSystemConfig.enablePublicationsImageMainCaption === 1 ? <figcaption>{objPublicationsDetails.tblPublicationsImageMainCaption}</figcaption> : ``}
             </figure>
           ) : (
             ``
@@ -200,9 +201,9 @@ class FrontendPublicationsDetailsRecord extends Component {
 
           {/* Content. */}
           <div style={{ position: 'relative', display: 'block', overflow: 'hidden' }}>
-            {gSystemConfig.enablePublicationsContent == 1 ? (
+            {gSystemConfig.enablePublicationsContent === 1 ? (
               <FrontendContent idParentContent={objPublicationsDetails.tblPublicationsID} idTbContent={''} contentType={''} configLayoutType={2} configContentNRecords={''} configContentSort={''}>
-                {/* arrCategoriesListing={ this.arrCategoriesListing } also works*/}
+                {/* arrCategoriesListing={ this.arrCategoriesListing } also works */}
               </FrontendContent>
             ) : (
               ``
@@ -533,12 +534,12 @@ class FrontendPublicationsDetailsRecord extends Component {
                       {Object.entries(objPublicationsDetails.objPublicationsFiltersGeneric1Binding_print).map((publicationsFiltersGenericRow) => (
                         <div>
                           {/* publicationsFiltersGenericRow[0].title*/
-                          /*worked partially*/}
-                          {/* publicationsFiltersGenericRow[0]["title"]*/}
-                          {/* publicationsFiltersGenericKey[0]["title"]*/}
-                          {/* publicationsFiltersGenericObj.title*/}- {SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsFiltersGenericRow[1].title, 'db')}
+                          /* worked partially */}
+                          {/* publicationsFiltersGenericRow[0]["title"] */}
+                          {/* publicationsFiltersGenericKey[0]["title"] */}
+                          {/* publicationsFiltersGenericObj.title */}- {SyncSystemNS.FunctionsGeneric.contentMaskRead(publicationsFiltersGenericRow[1].title, 'db')}
                           {/* Debug. */}
-                          {/* JSON.stringify(publicationsFiltersGenericRow)*/}
+                          {/* JSON.stringify(publicationsFiltersGenericRow) */}
                         </div>
                       ))}
                     </React.Fragment>
@@ -769,7 +770,7 @@ class FrontendPublicationsDetailsRecord extends Component {
           {/* Number - block content. */}
           <p style={{ position: 'relative', display: 'block', overflow: 'hidden' }}>
             {/* Number 1. */}
-            {gSystemConfig.enablePublicationsNumber1 === 1 ? (
+            {gSystemConfig.enablePublicationsNumber1 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumber1_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumber1')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -783,7 +784,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number 2. */}
-            {gSystemConfig.enablePublicationsNumber2 === 1 ? (
+            {gSystemConfig.enablePublicationsNumber2 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumber2_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumber2')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -797,7 +798,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number 3. */}
-            {gSystemConfig.enablePublicationsNumber3 === 1 ? (
+            {gSystemConfig.enablePublicationsNumber3 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumber3_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumber3')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -811,7 +812,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number 4. */}
-            {gSystemConfig.enablePublicationsNumber4 === 1 ? (
+            {gSystemConfig.enablePublicationsNumber4 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumber4_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumber4')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -825,7 +826,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number 5. */}
-            {gSystemConfig.enablePublicationsNumber5 === 1 ? (
+            {gSystemConfig.enablePublicationsNumber5 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumber5_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumber5')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -839,7 +840,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number Small 1. */}
-            {gSystemConfig.enablePublicationsNumberS1 === 1 ? (
+            {gSystemConfig.enablePublicationsNumberS1 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumberSmall1_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumberS1')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -853,7 +854,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number Small 2. */}
-            {gSystemConfig.enablePublicationsNumberS2 === 1 ? (
+            {gSystemConfig.enablePublicationsNumberS2 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumberSmall2_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumberS2')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -867,7 +868,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number Small 3. */}
-            {gSystemConfig.enablePublicationsNumberS3 === 1 ? (
+            {gSystemConfig.enablePublicationsNumberS3 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumberSmall3_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumberS3')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -881,7 +882,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number Small 4. */}
-            {gSystemConfig.enablePublicationsNumberS4 === 1 ? (
+            {gSystemConfig.enablePublicationsNumberS4 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumberSmall4_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumberS4')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">
@@ -895,7 +896,7 @@ class FrontendPublicationsDetailsRecord extends Component {
             )}
 
             {/* Number Small 5. */}
-            {gSystemConfig.enablePublicationsNumberS5 === 1 ? (
+            {gSystemConfig.enablePublicationsNumberS5 === 1 && parseInt(objPublicationsDetails.tblPublicationsNumberSmall5_print) !== 0 ? (
               <div className="ss-frontend-publications-details-content-block01">
                 <div className="ss-frontend-publications-details-content-block-label01 ss-frontend-publications-details-subheading01">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendPublicationsNumberS5')}:</div>
                 <div className="ss-frontend-publications-details-content-block-data01">

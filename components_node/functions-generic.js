@@ -17,7 +17,7 @@ const BigNumber = require('bignumber.js');
 // ----------------------
 
 // Create the namespace (nested object).
-// var SyncSystemNS = SyncSystemNS || {};
+// let SyncSystemNS = SyncSystemNS || {};
 
 // module.exports = SyncSystemNS = class FunctionsGeneric
 // module.exports = class FunctionsGeneric extends SyncSystemNS
@@ -36,7 +36,7 @@ module.exports = class FunctionsGeneric {
   static appLabelsGet(objAppLabels, labelName) {
     // Variables.
     // ----------------------
-    var strReturn = '';
+    let strReturn = '';
     // ----------------------
 
     if (labelName != null && labelName !== '' && typeof labelName !== 'undefined' && objAppLabels !== null && objAppLabels !== '' && typeof objAppLabels !== 'undefined') {
@@ -320,18 +320,19 @@ module.exports = class FunctionsGeneric {
 
     // Usage.
     // ----------------------
-    /*dateField = SyncSystemNS.FunctionsGeneric.dateMount({
-                                                                dateField: "",
-                                                                dateFieldDay: "",
-                                                                dateFieldMonth: "",
-                                                                dateFieldYear: "",
-                                                                dateFieldHour: "",
-                                                                dateFieldMinute: "",
-                                                                dateFieldSeconds: ""
-                                                            },  
-                                                            gSystemConfig.configBackendDateFormat, 
-                                                            "");
-                                                            */
+    /*
+    dateField = SyncSystemNS.FunctionsGeneric.dateMount({
+                                                  dateField: "",
+                                                  dateFieldDay: "",
+                                                  dateFieldMonth: "",
+                                                  dateFieldYear: "",
+                                                  dateFieldHour: "",
+                                                  dateFieldMinute: "",
+                                                  dateFieldSeconds: ""
+                                              },  
+                                              gSystemConfig.configBackendDateFormat, 
+                                              "");
+                                              */
     // ----------------------
   }
   // **************************************************************************************
@@ -463,14 +464,14 @@ module.exports = class FunctionsGeneric {
     // ----------------------
     if (fillType == 1) {
       // Months.
-      if (timeTableType == 'mm') {
+      if (timeTableType === 'mm') {
         for (let countMonths = 1; countMonths <= 12; countMonths++) {
           strReturn.push(countMonths);
         }
       }
 
       // Days.
-      if (timeTableType == 'd') {
+      if (timeTableType === 'd') {
         for (let countDays = 1; countDays <= 31; countDays++) {
           strReturn.push(countDays);
         }
@@ -479,28 +480,28 @@ module.exports = class FunctionsGeneric {
       // Years.
       if (timeTableType == 'y') {
         // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute)
-        if (specialParameters.dateType === undefined || specialParameters.dateType == 1 || (specialParameters.dateType == 2) | (specialParameters.dateType == 3)) {
+        if (specialParameters.dateType === undefined || specialParameters.dateType === 1 || (specialParameters.dateType === 2) | (specialParameters.dateType === 3)) {
           for (let countYears = 1900; countYears <= dateNowYear + 20; countYears++) {
             strReturn.push(countYears);
           }
         }
 
         // 4 - birth date (limited range)
-        if (specialParameters.dateType == 4) {
+        if (specialParameters.dateType === 4) {
           for (let countYears = 1900; countYears <= dateNowYear; countYears++) {
             strReturn.push(countYears);
           }
         }
 
         // 5 - task date (forward on)
-        if (specialParameters.dateType == 5 || specialParameters.dateType == 55) {
+        if (specialParameters.dateType === 5 || specialParameters.dateType === 55) {
           for (let countYears = dateNowYear; countYears <= dateNowYear + 20; countYears++) {
             strReturn.push(countYears);
           }
         }
 
         // 6 - history date (backwards on)
-        if (specialParameters.dateType == 6 || specialParameters.dateType == 66) {
+        if (specialParameters.dateType === 6 || specialParameters.dateType === 66) {
           for (let countYears = 1900; countYears <= dateNowYear; countYears++) {
             strReturn.push(countYears);
           }
@@ -508,21 +509,21 @@ module.exports = class FunctionsGeneric {
       }
 
       // Hours.
-      if (timeTableType == 'h') {
+      if (timeTableType === 'h') {
         for (let countHours = 0; countHours <= 23; countHours++) {
           strReturn.push(countHours);
         }
       }
 
       // Hours.
-      if (timeTableType == 'm') {
+      if (timeTableType === 'm') {
         for (let countMinutes = 0; countMinutes <= 59; countMinutes++) {
           strReturn.push(countMinutes);
         }
       }
 
       // Seconds.
-      if (timeTableType == 's') {
+      if (timeTableType === 's') {
         for (let countSeconds = 0; countSeconds <= 59; countSeconds++) {
           strReturn.push(countSeconds);
         }
@@ -589,14 +590,14 @@ module.exports = class FunctionsGeneric {
 
     // Detect edit field type.
     // ----------------------
-    if (specialInstructions.includes('editTextBox=17') == true || specialInstructions.includes('editTextBox=18') == true) {
+    if (specialInstructions.includes('editTextBox=17') === true || specialInstructions.includes('editTextBox=18') === true) {
       specialInstructions += ', db'; // include especial instruction
     }
     // ----------------------
 
     // db
     // ----------------------
-    if (specialInstructions.includes('db') == true) {
+    if (specialInstructions.includes('db') === true) {
       if (strReturn) {
         // strReturn = strContent;
 
@@ -638,7 +639,7 @@ module.exports = class FunctionsGeneric {
     // config-application
     // ----------------------
     // if(specialInstructions == "config-application")
-    if (specialInstructions.includes('config-application') == true) {
+    if (specialInstructions.includes('config-application') === true) {
       // strReturn = strContent;
       strReturn = strReturn;
     }
@@ -646,7 +647,7 @@ module.exports = class FunctionsGeneric {
 
     // env (.env - environment variables)
     // ----------------------
-    if (specialInstructions.includes('env') == true) {
+    if (specialInstructions.includes('env') === true) {
       // strReturn = strContent;
       strReturn = strReturn;
     }
@@ -655,7 +656,7 @@ module.exports = class FunctionsGeneric {
     // URL
     // ----------------------
     // TODO: check and correct url links.
-    if (specialInstructions.includes('url') == true) {
+    if (specialInstructions.includes('url') === true) {
       // strReturn = strContent;
       strReturn = strReturn;
     }
@@ -785,8 +786,8 @@ module.exports = class FunctionsGeneric {
    * @example
    * SyncSystemNS.FunctionsGeneric.valueMaskWrite(variableNameOrText, 2)
    */
-  static valueMaskRead(valueData, configCurrency = '$', valueType = 2, specialInstructions = null) // static valueMaskRead(valueData, configCurrency, valueType, specialInstructions)
-  {
+  // static valueMaskRead(valueData, configCurrency, valueType, specialInstructions)
+  static valueMaskRead(valueData, configCurrency = '$', valueType = 2, specialInstructions = null) {
     // valueType: 1 - general number | 2 - system currency | 3 - decimal
 
     // Default values.
@@ -829,16 +830,18 @@ module.exports = class FunctionsGeneric {
       // let n1 = new BigNumber("12312312312312312312312311.000000000000000000000000000000");
       // let strDecimal;
       // let bnStrValueFormated = new BigNumber();
-      /*var formatValueBR = new Intl.NumberFormat('pt-BR', {
-                // style: 'currency',
-                currency: 'BRL',
-                minimumFractionDigits: 2,
-            });
-            var formatValueUS = new Intl.NumberFormat('en-US', {
-                // style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2,
-            });*/
+      /*
+      let formatValueBR = new Intl.NumberFormat('pt-BR', {
+          // style: 'currency',
+          currency: 'BRL',
+          minimumFractionDigits: 2,
+      });
+      let formatValueUS = new Intl.NumberFormat('en-US', {
+          // style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2,
+      });
+      */
 
       // Generic number.
       if (valueType == 1) {
@@ -976,6 +979,15 @@ module.exports = class FunctionsGeneric {
 
   // Configuration function for categories types.
   // **************************************************************************************
+  /**
+   * Configuration function for categories types.
+   * @static
+   * @param {string | int} valueData
+   * @param {int} returnInfo 0 - Query String | 1 - pageLinkFrontend | 2 - variableFrontend | 3 - pageLinkBackend | 4 - variableBackend | 5 - function name | 11 - pageLinkDashboard | 12 - variableDashboard
+   * @returns {string}
+   * @example
+   * SyncSystemNS.FunctionsGeneric.categoryConfigSelect(categoriesRow.category_type, 1)
+   */
   static categoryConfigSelect(categoryType, returnInfo) {
     // returnInfo: 0 - Query String | 1 - pageLinkFrontend | 2 - variableFrontend | 3 - pageLinkBackend | 4 - variableBackend | 5 - function name | 11 - pageLinkDashboard | 12 - variableDashboard
 
@@ -995,7 +1007,7 @@ module.exports = class FunctionsGeneric {
     // ----------------------
 
     // Content.
-    if (categoryType == 1) {
+    if (categoryType === 1) {
       pageLinkFrontend = gSystemConfig.configRouteBackendContent;
       variableFrontend = 'idParentContent';
 
@@ -1011,7 +1023,7 @@ module.exports = class FunctionsGeneric {
     }
 
     // Products.
-    if (categoryType == 2) {
+    if (categoryType === 2) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendProducts;
       variableFrontend = 'idParentProducts';
 
@@ -1027,7 +1039,7 @@ module.exports = class FunctionsGeneric {
     }
 
     // Publications - news.
-    if (categoryType == 3) {
+    if (categoryType === 3) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendPublications;
       variableFrontend = 'idParentPublications';
 
@@ -1038,7 +1050,7 @@ module.exports = class FunctionsGeneric {
       variableDashboard = 'idParentPublications';
     }
     // Publications - photo gallery.
-    if (categoryType == 4) {
+    if (categoryType === 4) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendPublications;
       variableFrontend = 'idParentPublications';
 
@@ -1049,7 +1061,7 @@ module.exports = class FunctionsGeneric {
       variableDashboard = 'idParentPublications';
     }
     // Publications - articles.
-    if (categoryType == 5) {
+    if (categoryType === 5) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendPublications;
       variableFrontend = 'idParentPublications';
 
@@ -1060,7 +1072,7 @@ module.exports = class FunctionsGeneric {
       variableDashboard = 'idParentPublications';
     }
     // Publications - publications.
-    if (categoryType == 6) {
+    if (categoryType === 6) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendPublications;
       variableFrontend = 'idParentPublications';
 
@@ -1072,7 +1084,7 @@ module.exports = class FunctionsGeneric {
     }
 
     // Polls.
-    if (categoryType == 7) {
+    if (categoryType === 7) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendQuizzes;
       variableFrontend = 'idParentQuizzes';
 
@@ -1088,7 +1100,7 @@ module.exports = class FunctionsGeneric {
     }
 
     // Categories.
-    if (categoryType == 9) {
+    if (categoryType === 9) {
       // pageLinkFrontend = "categories";
       pageLinkFrontend = gSystemConfig.configRouteFrontendCategories;
       variableFrontend = 'idParentCategories';
@@ -1106,7 +1118,7 @@ module.exports = class FunctionsGeneric {
     }
 
     // Forms.
-    if (categoryType == 12) {
+    if (categoryType === 12) {
       pageLinkFrontend = gSystemConfig.configRouteBackendForms;
       variableFrontend = 'idParentForms';
 
@@ -1122,7 +1134,7 @@ module.exports = class FunctionsGeneric {
     }
 
     // Registers.
-    if (categoryType == 13) {
+    if (categoryType === 13) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendRegisters;
       variableFrontend = 'idParentRegisters';
 
@@ -1138,7 +1150,7 @@ module.exports = class FunctionsGeneric {
     }
 
     // Quizzes.
-    if (categoryType == 17) {
+    if (categoryType === 17) {
       pageLinkFrontend = gSystemConfig.configRouteFrontendQuizzes;
       variableFrontend = 'idParentQuizzes';
 
@@ -1156,7 +1168,7 @@ module.exports = class FunctionsGeneric {
 
     // Logic - return info definition.
     // ----------------------
-    if (returnInfo == 0) {
+    if (returnInfo === 0) {
       for (let countObjArray = 0; countObjArray < gSystemConfig.configCategoryType.length; countObjArray++) {
         let objCategoryType = gSystemConfig.configCategoryType[countObjArray];
         for (let key in objCategoryType) {
@@ -1175,24 +1187,24 @@ module.exports = class FunctionsGeneric {
       }
     }
 
-    if (returnInfo == 1) {
+    if (returnInfo === 1) {
       strReturn = pageLinkFrontend;
     }
-    if (returnInfo == 2) {
+    if (returnInfo === 2) {
       strReturn = variableFrontend;
     }
 
-    if (returnInfo == 3) {
+    if (returnInfo === 3) {
       strReturn = pageLinkBackend;
     }
-    if (returnInfo == 4) {
+    if (returnInfo === 4) {
       strReturn = variableBackend;
     }
 
-    if (returnInfo == 5) {
+    if (returnInfo === 5) {
       // Loop through category types config.
       /*
-            for(var property in gSystemConfig.configCategoryType) {
+            for(let property in gSystemConfig.configCategoryType) {
                 if(gSystemConfig.configCategoryType.hasOwnProperty(property)) {
                     console.log("property=");
                     console.log(property);
@@ -1222,10 +1234,10 @@ module.exports = class FunctionsGeneric {
       // strReturn = variableFrontend;
     }
 
-    if (returnInfo == 11) {
+    if (returnInfo === 11) {
       strReturn = pageLinkDashboard;
     }
-    if (returnInfo == 12) {
+    if (returnInfo === 12) {
       strReturn = variableDashboard;
     }
     // ----------------------
@@ -2132,7 +2144,7 @@ module.exports = class FunctionsGeneric {
   static arrImageSizeSelect(strTable) {
     // Variables.
     // ----------------------
-    var arrReturn = gSystemConfig.configArrDefaultImageSize;
+    let arrReturn = gSystemConfig.configArrDefaultImageSize;
     // ----------------------
 
     // Logic.
@@ -2161,7 +2173,7 @@ module.exports = class FunctionsGeneric {
   static limitChar(strData, nCharacters) {
     // Variables.
     // ----------------------
-    var strReturn = strData;
+    let strReturn = strData;
     // ----------------------
 
     // Logic.
@@ -2193,7 +2205,7 @@ module.exports = class FunctionsGeneric {
   static removeNonNumerical(strData) {
     // Variables.
     // ----------------------
-    var strReturn = strData;
+    let strReturn = strData;
     // ----------------------
 
     // Logic.
@@ -2224,7 +2236,7 @@ module.exports = class FunctionsGeneric {
   static removeHTML01(strHTML) {
     // Variables.
     // ----------------------
-    var strReturn = strHTML;
+    let strReturn = strHTML;
     // ----------------------
 
     // Logic.
@@ -2258,7 +2270,7 @@ module.exports = class FunctionsGeneric {
 
     // Variables.
     // ----------------------
-    var strReturn = 'none';
+    let strReturn = 'none';
     // ----------------------
 
     // CSS Text Align.

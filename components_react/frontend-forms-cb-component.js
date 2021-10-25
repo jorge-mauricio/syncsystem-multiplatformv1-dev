@@ -219,6 +219,9 @@ class FrontendForms extends Component {
 
       // Note: Place on the last part of the logic.
       this.setState({ dataLoaded: true });
+
+      // Change state of in context.
+      this.context.frontendFormsListingLoaded = true;
     }
     // ----------------------
   }
@@ -231,7 +234,7 @@ class FrontendForms extends Component {
     // Variables.
     // ----------------------
     // const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
 
     let objForms;
     let objFormsDetails;
@@ -245,7 +248,10 @@ class FrontendForms extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     }
     // ----------------------
 

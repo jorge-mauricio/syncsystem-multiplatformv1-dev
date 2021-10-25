@@ -89,13 +89,38 @@ class LayoutFrontendMain extends Component {
   }
   // **************************************************************************************
 
-  setTitleCurrent(sProperty, strMessage) {
+  // Function to change the state of the title.
+  // **************************************************************************************
+  /**
+   * Function to change the state of the title.
+   * @param {string} sProperty
+   * @param {string} strMessage
+   * @example
+   */
+   setTitleCurrent(sProperty, strMessage) {
     this.setState({
       // [stateProperty]: strMessage
       // titleCurrent: strMessage
       titleCurrent: strMessage,
     });
   }
+  // **************************************************************************************
+
+  // Function to change the state.
+  // TODO: transfer to an external file.
+  // **************************************************************************************
+  /**
+   * Function to change the state.
+   * @param {string} key
+   * @param {string} value
+   * @example
+   */
+  layoutStateHandler(key, value) {
+    this.setState({
+      [key]: value,
+    });
+  }
+  // **************************************************************************************
 
   // Lifecycle methods.
 
@@ -123,43 +148,44 @@ class LayoutFrontendMain extends Component {
   }
 
   componentDidMount() {
-    // Title - current.
-    // this.setTitleCurrent("", "new current title function"); // working
-    // Tracking code(s).
-    /*
-        var frTrackingCode = new FileReader();
-        frTrackingCode.readAsText("/tracking-code.txt");
-        frTrackingCode.onload = () =>{
-            console.log(frTrackingCode.result);
+    // Variables.
+    // ----------------------
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser, Safe } = this.context;
+    // ----------------------
+
+    // Logic.
+    // ----------------------
+    /**/
+    try {
+      // Jump to anchor.
+      // ----------------------
+      // if (this.props.location.hash !== '#anchorPricing') {
+      if (this.props.location.hash !== '') {
+        const anchorTarget = this.props.location.hash;
+
+        // Function to wait for the value to change.
+        const flagFrontendHomeLoaded = () => {
+          if (this.context.frontendHomeLoaded === false) {
+            setTimeout(flagFrontendHomeLoaded, 50);
+            return;
+          }
+          FunctionsSyncSystem.scrollToTarget(anchorTarget.replace('#', ''));
+          // TODO: modify scrollToTarget to make the replace.
+          // console.log('this.state.frontendHomeLoad=', this.state.frontendHomeLoad);
         };
-        */
-    /*
-        // var trackingCode = fetch('/tracking-code.txt')
-        fetch('../tracking-code.txt')
-        // fetch('/tracking-code.txt')
-        .then((r) => r.text())
-        .then((text) => {
-          console.log(text);
-        });
-        */
-    /*
-        const script = document.createElement("script");
-        script.src = "/bundle.react.client.js";
-        script.async = true;
-        document.body.appendChild(script);
-        // this.body.appendChild(script);
-        */
-    /*
-        const s = document.createElement('script');
-        // s.type = 'text/javascript';
-        s.src = "/bundle.react.client.js";
-        s.async = true;
-        // s.innerHTML = "document.write('This is output by document.write()!')";
-        this.instance.appendChild(s);
-        */
-    // GET the data I need to correctly display
-    // Debug.
-    // console.log("TrackingCode=", TrackingCode);
+
+        flagFrontendHomeLoaded();
+      }
+      // ----------------------
+    } catch (asyncError) {
+      if (gSystemConfig.configDebug === true) {
+        console.error(asyncError);
+      }
+    } finally {
+      // TODO:
+      // console.log('React.Children.count=', React.Children.count(this.props.children));
+    }
+    // ----------------------
   }
 
   // UNSAFE_componentWillReceiveProps(myNextProps) (deprecated)
@@ -399,6 +425,52 @@ class LayoutFrontendMain extends Component {
                 <a
                   onClick={() => {
                     FunctionsSyncSystem.scrollToTarget('anchorFAQ');
+                  }}
+                  title="Frequently Asked Questions"
+                  className="ss-frontend-btn-generic-bg-color01"
+                  style={{ '--btnGenericBGColor': '#000000', '--btnGenericBGColorHover': '#ffffff', '--btnGenericColor': '#78c3ae', '--btnGenericColorHover': '#0000ff' }}
+                >
+                  <span>FAQ</span>
+                </a>
+
+                <a
+                  {...this.props.location.pathname !== '/' ? 
+                      { href: "/#anchorFAQ", }
+                    :
+                      {}
+                  }
+                  onClick={() => {
+                    // FunctionsSyncSystem.scrollToTarget('anchorFAQ');
+                    
+                    /*
+                    let waitForValueUpdate = (valueCheck, valueReference, _callBackFunction) => {
+                      if (valueCheck !== valueReference) {
+                        // setTimeout(flagFrontendHomeLoaded, 50);
+                        setTimeout(waitForValueUpdate(valueCheck, valueReference, _callBackFunction), 3000);
+                        return;
+                      }
+        
+                      _callBackFunction();
+                      // Debug.
+                      // console.log("this.state.frontendHomeLoad=", this.state.frontendHomeLoad);
+                    };
+        
+                    waitForValueUpdate(this.state.frontendHomeLoad, true, () => {
+                      console.log("this.state.frontendHomeLoad=", this.state.frontendHomeLoad);
+                    });
+                    */ /* caused problem on the online sandbox - test on production and try to make it external function */
+
+                    // Function to wait for the value to change.
+                    let flagFrontendHomeLoaded = () => {
+                      if (this.context.frontendHomeLoaded === false) {
+                        setTimeout(flagFrontendHomeLoaded, 50);
+                        return;
+                      }
+                      FunctionsSyncSystem.scrollToTarget('anchorFAQ');
+                      // console.log('this.state.frontendHomeLoad=', this.state.frontendHomeLoad);
+                    };
+
+                    flagFrontendHomeLoaded();
                   }}
                   title="Frequently Asked Questions"
                   className="ss-frontend-btn-generic-bg-color01"

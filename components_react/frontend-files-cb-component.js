@@ -193,6 +193,9 @@ class FrontendFiles extends Component {
       this.setState({ arrFilesListing: this.arrFilesListing });
 
       this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
+
+      // Change state of in context.
+      this.context.frontendContentListingLoaded = true;
     }
     // ----------------------
   }
@@ -205,8 +208,7 @@ class FrontendFiles extends Component {
     // Variables.
     // ----------------------
     // const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
-    // const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
 
     let arrFilesListing;
 
@@ -227,7 +229,10 @@ class FrontendFiles extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     }
     // ----------------------
 

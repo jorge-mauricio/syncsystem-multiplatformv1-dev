@@ -42,6 +42,8 @@ import FrontendCategories from './frontend-categories-cb-component.js';
 import FrontendProducts from './frontend-products-cb-component.js';
 import FrontendPublications from './frontend-publications-cb-component.js';
 import FrontendContent from './frontend-content-cb-component.js';
+
+// import FrontendElementsLoading from './frontend-elements-loading.js';
 // ----------------------
 
 class FrontendHome extends Component {
@@ -237,7 +239,7 @@ class FrontendHome extends Component {
       // Check if this._idParentCategories is number. If not, search for the id based on the friendly name.
 
       // API - fetch data from backend.
-      // var response = await fetch("http:// localhost:3000/api/categories/details/813");
+      // let response = await fetch("http:// localhost:3000/api/categories/details/813");
       // this.objCategoriesCurrent = await response.json();
       // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
     } catch (asyncError) {
@@ -284,7 +286,7 @@ class FrontendHome extends Component {
 
     // let apiURLCategoriesHomeListing = ''; // working
     // let apiCategoriesHomeListingResponse; // working
-    
+
     // let apiURLPublicationsHomeListing = ''; // working
     // let apiPublicationsListingHomeResponse; // working
     // ----------------------
@@ -296,8 +298,8 @@ class FrontendHome extends Component {
       // API - build URL string.
       // apiURLCategoriesHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPICategories + '/' + this._idParentCategoriesHome + '?apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2); // working
       // apiURLPublicationsHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this.idParentPublications + '/?strNRecords=' + this.configPublicationsNRecords;
-      
-      //// apiURLPublicationsHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this.idParentPublications + '/?strNRecords=' + this.configPublicationsNRecords;
+
+      // // apiURLPublicationsHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this.idParentPublications + '/?strNRecords=' + this.configPublicationsNRecords;
       // apiURLPublicationsHomeListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIPublications + '/' + this._idParentPublicationsHome + '/?strNRecords=';
       /* 
       if (this.activation) {
@@ -318,10 +320,10 @@ class FrontendHome extends Component {
       if (this.activation5) {
         apiURLPublicationsHomeListing += '&activation5=' + this.activation5;
       }
-      * /
+      */
       // apiURLPublicationsHomeListing += "&apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      apiURLPublicationsHomeListing += '&apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2);  // working
-      
+      // apiURLPublicationsHomeListing += '&apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2);  // working
+
       // API - fetch data from backend.
       // apiCategoriesHomeListingResponse = await fetch(apiURLCategoriesHomeListing); // working
       // apiPublicationsListingHomeResponse = await fetch(apiURLPublicationsHomeListing);
@@ -351,7 +353,7 @@ class FrontendHome extends Component {
 
       // this.objCategoriesHomeListing = this.objCategoriesHomeJson.oclRecords; // working
       // this.arrCategoriesHomeListing = this.objCategoriesHomeJson.oclRecords.resultsCategoriesListing; // working
-      
+
       // this.objPublicationsHomeListing = this.objPublicationsListingHomeJson.oplRecords; // working
       // this.arrPublicationsHomeListing = this.objPublicationsListingHomeJson.oplRecords.resultsPublicationsListing; // working
 
@@ -365,12 +367,15 @@ class FrontendHome extends Component {
       // Update state.
       // this.setState({ objCategoriesHomeListing: this.objCategoriesHomeListing }); // working
       // this.setState({ arrCategoriesHomeListing: this.arrCategoriesHomeListing }); // working
-      
+
       // objPublicationsHomeListing: this.objPublicationsHomeListing,
       // arrPublicationsHomeListing: this.arrPublicationsHomeListing,
 
       // Note: Place on the last part of the logic.
       this.setState({ dataLoaded: true });
+
+      // Change state of in context.
+      this.context.frontendHomeLoaded = true;
     }
     // ----------------------
   }
@@ -440,7 +445,7 @@ class FrontendHome extends Component {
   render() {
     // Variables.
     // ----------------------
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser, SyncSystemRC } = this.context;
 
     // let objCategoriesHome105; // working
     // let objPublicationsHome236; // working
@@ -453,7 +458,10 @@ class FrontendHome extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     }
     // ----------------------
 

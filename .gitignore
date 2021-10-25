@@ -6,6 +6,7 @@
 #Secret information file.
 .env
 .env_export
+.env.prod
 
 #Webpack distribution directory (check if it´s not necessary, when publishing).
 #dist

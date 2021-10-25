@@ -1,0 +1,154 @@
+<configuration>
+    <system.webServer>
+        <!-- 
+        iisnode parameters:
+        ref: 
+        https://tomasz.janczuk.org/2011/08/hosting-nodejs-applications-in-iis-on.html
+        https://github.com/nicholaslie90/express-react-webpack-azure/blob/master/web.config
+        -->
+        <iisnode nodeProcessCommandLine="C:\Program Files\nodejs\node.exe" />
+        
+        <!-- Note: Must copy the bundle server file (bundle.react.client.js) to the root directory. -->
+        <handlers>
+            <!--add name="iisnode" path="-r dotenv/config build/bundle.react.js" verb="*" modules="iisnode" /-->
+            <!--add name="iisnode" path="/build/bundle.react.js" verb="*" modules="iisnode" /-->
+            <!--add name="iisnode" path="build/bundle.react.js" verb="*" modules="iisnode" /-->
+            <add name="iisnode" path="bundle.react.js" verb="*" modules="iisnode" />
+            <!--add name="iisnode" path="bundle.react.client.js" verb="*" modules="iisnode" /-->
+            <!--add name="iisnode" path="build/public/bundle.react.client.js" verb="*" modules="iisnode" /-->
+        </handlers>
+
+        <rewrite>
+            <rules>
+            
+                <!-- Redirect to HTTPS. -->
+                <!--remove name="Http to Https" />
+                <rule name="Http to Https" enabled="true" patternSyntax="Wildcard" stopProcessing="true">
+                    <match url="*" />
+                    <conditions>
+                        <add input="{HTTPS}" pattern="off" />
+                    </conditions>
+                    <serverVariables />
+                    <action type="Redirect" url="https://{HTTPS_HOST}{REQUEST_URI}" />
+                </rule-->
+                <rule name="Redirect to HTTPS / SSL" stopProcessing="true">
+                    <match url=".*" />
+                    <conditions>
+                        <add input="{HTTPS}" pattern="off" ignoreCase="true" />
+                    </conditions>
+                    <action type="Redirect" url="https://{HTTP_HOST}{REQUEST_URI}" redirectType="Permanent" appendQueryString="false" />
+                </rule>
+                <!-- Redirect to HTTPS (alternative). -->
+                <!--rule name="Redirect to HTTPS / SSL" stopProcessing="true">
+                    <match url="(.*)" />
+                    <conditions>
+                        <add input="{HTTPS}" pattern="off" ignoreCase="true" />
+                    </conditions>
+                    <action type="Redirect" redirectType="Found" url="https://{HTTP_HOST}/{R:1}" />
+                </rule-->
+                
+                <!-- Redirect to non-WWW. -->
+                <!--rule name=”CanonicalHostNameRule">
+                    <match url=”(.*)” />
+                    <conditions>
+                        <add input=”{HTTP_HOST}” pattern=”^fullstackwebdesigner\.com$” negate=”true” />
+                    </conditions>
+                    <action type=”Redirect” url=”http://fullstackwebdesigner.com/{R:1}” />
+                </rule-->
+                <rule name="Force non-WWW" enabled="true" stopProcessing="true">
+                    <match url="(.*)" />
+                    <conditions logicalGrouping="MatchAny">
+                        <add input="{HTTP_HOST}" pattern="^(www\.)(.*)$" />
+                    </conditions>
+                    <action type="Redirect" url="http://{C:2}/{R:1}" appendQueryString="true" redirectType="Permanent" />
+                </rule>
+                <!--rule name="Force HTTPS" enabled="true" stopProcessing="true">
+                    <match url="(.*)" />
+                    <conditions logicalGrouping="MatchAny">
+                        <add input="{HTTPS}" pattern="off" />
+                    </conditions>
+                    <action type="Redirect" url="https://{HTTP_HOST}/{R:1}" appendQueryString="true" />
+                </rule-->
+                
+
+                <!-- Don't interfere with requests for logs. -->
+                <rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+                    <match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$" />
+                </rule>
+
+                <!-- Don't interfere with requests for node-inspector debugging. -->
+                <!--rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
+                    <match url="^build\/bundle.react.js\/debug[\/]?" />
+                </rule-->
+
+                <!-- First we consider whether the incoming URL matches a physical file in the     /public folder -->
+                <!--rule name="StaticContent">
+                    <action type="Rewrite" url="public{REQUEST_URI}" />
+                </rule-->
+                
+                <!-- Node. -->
+                <rule name="sendToNode">
+                    <match url="(.*)" />
+                    <conditions>
+                        <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+                    </conditions>
+                    <!--action type="Rewrite" url="-r dotenv/config build/bundle.react.js" /-->
+                    <!--action type="Rewrite" url="/build/bundle.react.js" /-->
+                    <!--action type="Rewrite" url="build/bundle.react.js" /-->
+                    <action type="Rewrite" url="bundle.react.js" />
+                    <!--action type="Rewrite" url="bundle.react.client.js" /-->
+                    <!--action type="Rewrite" url="build/public/bundle.react.client.js" /-->
+                    
+                </rule>
+                
+                <!--rule name="StaticContent" stopProcessing="true">
+                  <match url="([\S]+[.](jpg|jpeg|gif|css|png|js|ts|cscc|less|ico|html|map|svg))" />
+                  <action type="None" />
+                </rule-->
+            </rules>
+            
+        </rewrite> 
+        
+        <!--staticContent>
+            <clientCache cacheControlMode="UseMaxAge" />
+            <remove fileExtension=".svg" />
+            <remove fileExtension=".eot" />
+            <remove fileExtension=".ttf" />
+            <remove fileExtension=".woff" />
+            <remove fileExtension=".woff2" />
+            <remove fileExtension=".otf" />
+            <mimeMap fileExtension=".ttf" mimeType="application/octet-stream" />
+            <mimeMap fileExtension=".svg" mimeType="image/svg+xml"  />
+            <mimeMap fileExtension=".eot" mimeType="application/vnd.ms-fontobject" />
+            <mimeMap fileExtension=".woff" mimeType="application/x-woff" />
+            <mimeMap fileExtension=".woff2" mimeType="application/x-woff" />
+            <mimeMap fileExtension=".otf" mimeType="application/otf" />
+        </staticContent-->
+        
+        
+        <defaultDocument>
+            <files>
+                <clear />
+                <!--add value="-r dotenv/config build/bundle.react.js" /-->
+                <!--add value="/build/bundle.react.js" /-->
+                <!--add value="build/bundle.react.js" /-->
+                <add value="bundle.react.js" />
+                <!--add value="bundle.react.client.js" /-->
+                
+                <!--add value="build/public/bundle.react.client.js" /-->
+            </files>
+        </defaultDocument>
+
+        <security>
+          <requestFiltering>
+            <hiddenSegments>
+              <add segment="node_modules" />
+              <add segment="iisnode" />
+            </hiddenSegments>
+          </requestFiltering>
+        </security>
+    </system.webServer>
+    <system.web>
+        <compilation defaultLanguage="js" />
+    </system.web>
+</configuration>

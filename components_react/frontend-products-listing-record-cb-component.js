@@ -13,6 +13,9 @@ import { SyncSystemNSContext } from './syncsystem-ns-cb-context.js';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // import { Link } from 'react-router-dom';
+
+// Components.
+import FrontendFilesImages from './frontend-files-images-cb-component.js';
 // ----------------------
 
 class FrontendProductsListingRecord extends Component {
@@ -133,6 +136,22 @@ class FrontendProductsListingRecord extends Component {
                   <a href={'/' + gSystemConfig.configRouteFrontendProducts + '/' + gSystemConfig.configRouteFrontendDetails + '/' + productsRow.id} className="ss-frontend-btn-base ss-frontend-btn-action" title={SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendItemDetails') + ' - ' + SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.title, 'db')}>
                     {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendItemDetails')}
                   </a>
+
+                  {/* Files - images - records. */}
+                  {gSystemConfig.enableProductsImages === 1 ? 
+                    <FrontendFilesImages
+                      key={productsRowKey}
+                      idParentFiles={productsRow.id}
+                      configLayoutType={49}
+                      configFilesNRecords={''}
+                      configFilesSort={''}
+                      configFilesZoom={0}
+                      itemMainImage={productsRow.image_main}
+                      itemMainImageCaption={productsRow.title}
+                    >
+                    </FrontendFilesImages>
+                  :
+                   ``}
 
                   {/* Row content. */}
                   <div style={{ position: 'relative', display: 'block', overflow: 'hidden' }}>
@@ -648,11 +667,11 @@ class FrontendProductsListingRecord extends Component {
                   <React.Fragment>
                     {productsRowKey === 0 ? (
                       <React.Fragment>
-                        <input type="radio" name="rbPproducts3DCarousel" defaultChecked className="ss-frontend-products-3d-carousel-checkbox" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--configProducts3DCarouselItemPositionChecked': productsRowKey + 1 }} />
+                        <input type="radio" name="rbProducts3DCarousel" defaultChecked className="ss-frontend-products-3d-carousel-checkbox" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--configProducts3DCarouselItemPositionChecked': productsRowKey + 1 }} />
                       </React.Fragment>
                     ) : (
                       <React.Fragment>
-                        <input type="radio" name="rbPproducts3DCarousel" className="ss-frontend-products-3d-carousel-checkbox" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--configProducts3DCarouselItemPositionChecked': productsRowKey + 1 }} />
+                        <input type="radio" name="rbProducts3DCarousel" className="ss-frontend-products-3d-carousel-checkbox" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--configProducts3DCarouselItemPositionChecked': productsRowKey + 1 }} />
                       </React.Fragment>
                     )}
                   </React.Fragment>
@@ -663,8 +682,12 @@ class FrontendProductsListingRecord extends Component {
               <div id="products3DCarousel" className="ss-frontend-products-3d-carousel" style={{ '--configProducts3DCarouselItemsTotal': arrProductsListing.length }}>
                 {arrProductsListing.map((productsRow, productsRowKey) => {
                   return (
-                    <div className="ss-frontend-products-3d-carousel-item" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--products3DCarouselOffset': productsRowKey + 1, backgroundColor: '#78c3ae' }}>
+                    <div className="ss-frontend-products-3d-carousel-item" style={{ '--configProducts3DCarouselItemPosition': productsRowKey + 1, '--products3DCarouselOffset': productsRowKey + 1, /* backgroundColor: '#78c3ae', */ backgroundImage: 'url(' + gSystemConfig.configFrontendReactURLImages + gSystemConfig.configDirectoryFilesSD + '/' + productsRow.image_main + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center', backgroundSize: 'cover' }}>
                       teste 0 {productsRowKey + 1} - {productsRow.id}
+
+                      <span>
+                        {SyncSystemNS.FunctionsGeneric.contentMaskRead(productsRow.image_main_caption, 'db')}
+                      </span>
                     </div>
                   );
                 })}

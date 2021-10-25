@@ -13,6 +13,9 @@ import { SyncSystemNSContext } from './syncsystem-ns-cb-context.js';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // import { Link } from 'react-router-dom';
+
+// Components.
+import FrontendPublications from './frontend-publications-cb-component.js';
 // ----------------------
 
 class FrontendCategoriesListingRecord extends Component {
@@ -23,7 +26,7 @@ class FrontendCategoriesListingRecord extends Component {
   // **************************************************************************************
   constructor(props, context) {
     // Component options.
-    // configLayoutType: 1 - table listing (custom) | 2 - div layout (custom) | 11 - table listing (bootstrap) | 22 - div layout (bootstrap) | 111 - table listing (dashboard - custom)
+    // configLayoutType: 1 - table listing (custom) | 2 - div layout (custom) | 3 - div row (custom) | 4 - div layout and category content (custom) | 11 - table listing (bootstrap) | 22 - div layout (bootstrap) | 111 - table listing (dashboard - custom)
 
     super(props, context);
     /*
@@ -66,8 +69,8 @@ class FrontendCategoriesListingRecord extends Component {
     // const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context;
 
-    var configLayoutType = null;
-    var arrCategoriesListing;
+    let configLayoutType = null;
+    let arrCategoriesListing;
     // ----------------------
 
     // Define values.
@@ -80,7 +83,7 @@ class FrontendCategoriesListingRecord extends Component {
 
     // Table listing (custom).
     // ----------------------
-    if (configLayoutType == 1) {
+    if (configLayoutType === 1) {
       if (arrCategoriesListing.length > 0) {
         // Not empty.
         return (
@@ -149,8 +152,15 @@ class FrontendCategoriesListingRecord extends Component {
               return (
                 <article key={categoriesRowKey} className="ss-frontend-categories-container ss-frontend-categories-listing-text01">
                   <h2 className="ss-frontend-categories-listing-title01">
+                    {/*
                     <a href={`/${gSystemConfig.configRouteFrontendCategories + '/' + categoriesRow.id}`} className="ss-frontend-categories-listing-title-link01" title={SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}>
-                      {/* categoriesRow.title*/}
+                      {SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}
+                    </a>
+                    */}
+
+                    {/* Dynamic links. */}
+                    <a href={`/${SyncSystemNS.FunctionsGeneric.categoryConfigSelect(categoriesRow.category_type, 1) + '/' + categoriesRow.id}`} className="ss-frontend-categories-listing-title-link01" title={SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}>
+                      {/* categoriesRow.title */}
                       {SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}
                     </a>
                   </h2>
@@ -401,7 +411,7 @@ class FrontendCategoriesListingRecord extends Component {
                           {gSystemConfig.configCategoriesNumber1FieldType === 2 || gSystemConfig.configCategoriesNumber1FieldType == 4 ? <React.Fragment>{gSystemConfig.configSystemCurrency + ' '}</React.Fragment> : ``}
 
                           {/* NOTE dev: think of alternative funcion. Maybe, BigNumber is causing error. ref: https:// github.com/ethereum/web3.js/issues/1356 */}
-                          {/* SyncSystemNS.FunctionsGeneric.valueMaskRead(categoriesRow.number1, gSystemConfig.configSystemCurrency, gSystemConfig.configCategoriesNumber1FieldType)*/}
+                          {/* SyncSystemNS.FunctionsGeneric.valueMaskRead(categoriesRow.number1, gSystemConfig.configSystemCurrency, gSystemConfig.configCategoriesNumber1FieldType) */}
                           {categoriesRow.number1}
                         </div>
                       </div>
@@ -459,7 +469,7 @@ class FrontendCategoriesListingRecord extends Component {
                       </a>
                     </h2>
 
-                    {/* Content*/}
+                    {/* Content */}
                     <p style={{ position: 'relative', display: 'block' }}>{SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.description, 'db')}</p>
 
                     <div style={{ position: 'relative', display: 'block', marginTop: '10px', textAlign: 'right' }}>
@@ -481,6 +491,43 @@ class FrontendCategoriesListingRecord extends Component {
     }
     // ----------------------
 
+    // div layout and category content (custom).
+    // ----------------------
+    if (configLayoutType === 4) {
+      if (arrCategoriesListing.length > 0) {
+        // Output.
+        return (
+          <div className="ss-frontend-categories-listing-container">
+            {arrCategoriesListing.map((categoriesRow, categoriesRowKey) => {
+              return (
+                <div key={categoriesRowKey} className="ss-frontend-categories-container ss-frontend-categories-listing-text01">
+                  <h2 className="ss-frontend-categories-listing-title01">
+                    <a href={`/${gSystemConfig.configRouteFrontendCategories + '/' + categoriesRow.id}`} className="ss-frontend-categories-listing-title-link01" title={SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}>
+                      {/* categoriesRow.title */}
+                      {SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}
+                    </a>
+                  </h2>
+
+                  {/* Content according to category type. */}
+                  <div>
+                    {/* Publications. */}
+                    {categoriesRow.category_type == 3 || categoriesRow.category_type == 4 || categoriesRow.category_type == 5 || categoriesRow.category_type == 6 ? 
+                      // Publications component.
+                      <FrontendPublications key={categoriesRowKey} idParentPublications={categoriesRow.id} idRegisterUser={''} configLayoutType={221} configPublicationsNRecords={''} configPublicationsSort={gSystemConfig.configPublicationsSort} activation={1} activation1={''} activation2={''} activation3={''} activation4={''} activation5={''}></FrontendPublications>
+                      : ``}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      } else {
+        // Empty.
+        return <div className="ss-frontend-alert">{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'frontendMessageCategoriesEmpty')}</div>;
+      }
+    }
+    // ----------------------
+
     // Table listing (bootstrap).
     // ----------------------
     if (configLayoutType === 11) {
@@ -491,10 +538,10 @@ class FrontendCategoriesListingRecord extends Component {
           <div className="container">
             {/* bootstrap - table */}
             {/* 
-                            table-borderless | table-sm (compact cells) | table-responsive | table-responsive-sm (Breakpoint specific)
-                            Contextual classes: table-active | table-primary | table-secondary | table-success | table-danger | table-warning | table-info | table-light | table-dark
-                                                bg-primary | etc
-                        */}
+                table-borderless | table-sm (compact cells) | table-responsive | table-responsive-sm (Breakpoint specific)
+                Contextual classes: table-active | table-primary | table-secondary | table-success | table-danger | table-warning | table-info | table-light | table-dark
+                                    bg-primary | etc
+            */}
             <table className="table table-light table-striped table-hover table-bordered ss-frontend-listing-text01">
               <caption style={{ textAlign: 'center', fontWeight: 'bold' }}>{SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'backendCategoriesTitleMain')}</caption>
               <thead className="ss-frontend-table-bg-dark ss-frontend-listing-text02">
@@ -528,7 +575,7 @@ class FrontendCategoriesListingRecord extends Component {
 
                         {/* Sublevels */}
                         <a href={`/${gSystemConfig.configRouteFrontendCategories + '/' + categoriesRow.id}`} className="ss-frontend-categories-listing-link01" title={SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}>
-                          {/* categoriesRow.title*/}
+                          {/* categoriesRow.title */}
                           {SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.title, 'db')}
                         </a>
                       </td>
@@ -557,7 +604,7 @@ class FrontendCategoriesListingRecord extends Component {
           <div className="container">
             {/* <div className="ss-frontend-alert">
                             { SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, "frontendMessageCategoriesEmpty") }
-                        </div>*/}
+                        </div> */}
             <div className="alert alert-warning alert-dismissible fade show" role="alert">
               {SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'frontendMessageCategoriesEmpty')}
 
@@ -693,7 +740,7 @@ class FrontendCategoriesListingRecord extends Component {
                       </a>
                     </h2>
 
-                    {/* Content*/}
+                    {/* Content */}
                     <p style={{ position: 'relative', display: 'block' }}>{SyncSystemNS.FunctionsGeneric.contentMaskRead(categoriesRow.description, 'db')}</p>
 
                     <div style={{ position: 'relative', display: 'block', marginTop: '10px', textAlign: 'right' }}>

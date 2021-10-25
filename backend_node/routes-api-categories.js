@@ -80,7 +80,15 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
 
   let oclRecords;
   let oclRecordsParameters;
+  let arrSearchParameters = []; // eslint-disable-line
   let objSpecialParameters;
+
+  let activation;
+  let activation1;
+  let activation2;
+  let activation3;
+  let activation4;
+  let activation5;
 
   // let cdBackend;
   let idTbCategories = '';
@@ -102,6 +110,25 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
   // ----------------------
   if (req.params.idTbCategories) {
     idTbCategories = req.params.idTbCategories;
+  }
+
+  if (req.query.activation) {
+    activation = req.query.activation;
+  }
+  if (req.query.activation1) {
+    activation1 = req.query.activation1;
+  }
+  if (req.query.activation2) {
+    activation2 = req.query.activation2;
+  }
+  if (req.query.activation3) {
+    activation3 = req.query.activation3;
+  }
+  if (req.query.activation4) {
+    activation4 = req.query.activation4;
+  }
+  if (req.query.activation5) {
+    activation5 = req.query.activation5;
   }
 
   if (req.query.pageNumber) {
@@ -158,13 +185,13 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
 
           // Parameters build - details.
           /*
-                    ocdRecordParameters = {
-                        _arrSearchParameters: ["id;" + idTbCategories + ";i"],
-                        _idTbCategories: idTbCategories,
-                        _terminal: terminal,
-                        _objSpecialParameters: {returnType: 3}
-                    };
-                    */
+          ocdRecordParameters = {
+              _arrSearchParameters: ["id;" + idTbCategories + ";i"],
+              _idTbCategories: idTbCategories,
+              _terminal: terminal,
+              _objSpecialParameters: {returnType: 3}
+          };
+          */
 
           objSpecialParameters = { returnType: 3 };
           if (pageNumber != '') {
@@ -187,9 +214,36 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
           ocdRecord = new SyncSystemNS.ObjectCategoriesDetails(ocdRecordParameters);
           await ocdRecord.recordDetailsGet(0, 3);
 
+          // Parameters build.
+          arrSearchParameters.push('id_parent;' + idTbCategories + ';s');
+          if (activation) {
+            arrSearchParameters.push('activation;' + activation + ';i');
+          }
+          /*
+          else{
+              arrSearchParameters.push("activation;1;i");
+          }
+          */
+          if (activation1) {
+            arrSearchParameters.push('activation1;' + activation1 + ';i');
+          }
+          if (activation2) {
+            arrSearchParameters.push('activation2;' + activation2 + ';i');
+          }
+          if (activation3) {
+            arrSearchParameters.push('activation3;' + activation3 + ';i');
+          }
+          if (activation4) {
+            arrSearchParameters.push('activation4;' + activation4 + ';i');
+          }
+          if (activation5) {
+            arrSearchParameters.push('activation5;' + activation5 + ';i');
+          }
+
           // Parameters build - listing.
           oclRecordsParameters = {
-            _arrSearchParameters: ['id_parent;' + idTbCategories + ';i'],
+            // _arrSearchParameters: ['id_parent;' + idTbCategories + ';i'],
+            _arrSearchParameters: arrSearchParameters,
             _configSortOrder: gSystemConfig.configCategoriesSort,
             _strNRecords: '',
             _objSpecialParameters: { returnType: 3 },
@@ -217,25 +271,25 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
         }
       }
       /*
-            // Object instance.
-            cdBackend = new CategoriesDetails({
-                idTbCategories: idTbCategories,
-                pageNumber: pageNumber,
-                masterPageSelect: masterPageSelect,
+      // Object instance.
+      cdBackend = new CategoriesDetails({
+          idTbCategories: idTbCategories,
+          pageNumber: pageNumber,
+          masterPageSelect: masterPageSelect,
 
-                messageSuccess: messageSuccess,
-                messageError: messageError,
-                messageAlert: messageAlert,
-                nRecords: nRecords
-            });  
-            
-            // Build object data.
-            await cdBackend.build();
+          messageSuccess: messageSuccess,
+          messageError: messageError,
+          messageAlert: messageAlert,
+          nRecords: nRecords
+      });  
+      
+      // Build object data.
+      await cdBackend.build();
 
-            // return res.json(categoriesListingResultJsonObj);
-            // res.send(idTbCategories);
-            res.json(cdBackend);
-            */
+      // return res.json(categoriesListingResultJsonObj);
+      // res.send(idTbCategories);
+      res.json(cdBackend);
+      */
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.error(asyncError);

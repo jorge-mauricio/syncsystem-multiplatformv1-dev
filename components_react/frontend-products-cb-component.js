@@ -232,6 +232,9 @@ class FrontendProducts extends Component {
       this.setState({ arrProductsListing: this.arrProductsListing });
 
       this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
+
+      // Change state of in context.
+      this.context.frontendProductsListingLoaded = true;
     }
     // ----------------------
   }
@@ -245,7 +248,7 @@ class FrontendProducts extends Component {
     // ----------------------
     // const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
     // const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
 
     let configLayoutType;
     let arrProductsListing;
@@ -258,7 +261,10 @@ class FrontendProducts extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     }
     // ----------------------
 

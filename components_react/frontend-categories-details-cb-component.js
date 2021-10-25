@@ -182,16 +182,6 @@ class FrontendCategoriesDetails extends Component {
       // this.objCategoriesDetails = Object.assign({}, this.objCategoriesDetails);
       // this.objCategoriesDetails = Object.create(this.objCategoriesDetails);
 
-      // Update state.
-      // this.setState({ objCategoryCurrent: this.objCategoryCurrent });
-      this.setState({ objCategoriesDetails: this.objCategoriesDetails });
-
-      // this.setState({ objCategoriesListing: this.objCategoriesListing });
-      // this.setState({ arrCategoriesListing: this.arrCategoriesListing });
-
-      // Note: Place on the last part of the logic.
-      this.setState({ dataLoaded: true });
-
       // Debug.
       // console.log("this.objCategoryCurrent", this.objCategoryCurrent);
       // console.log("this.objCategoriesDetails=", this.objCategoriesDetails);
@@ -202,7 +192,18 @@ class FrontendCategoriesDetails extends Component {
         console.error(asyncError);
       }
     } finally {
-      // TODO:
+      // Update state.
+      // this.setState({ objCategoryCurrent: this.objCategoryCurrent });
+      this.setState({ objCategoriesDetails: this.objCategoriesDetails });
+
+      // this.setState({ objCategoriesListing: this.objCategoriesListing });
+      // this.setState({ arrCategoriesListing: this.arrCategoriesListing });
+
+      // Note: Place on the last part of the logic.
+      this.setState({ dataLoaded: true });
+
+      // Change state of in context.
+      this.context.frontendCategoriesDetailsLoaded = true;
     }
     // ----------------------
   }
@@ -270,7 +271,7 @@ class FrontendCategoriesDetails extends Component {
   // **************************************************************************************
   render() {
     // Variables.
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
 
     // Check if data is loaded.
     // ----------------------
@@ -279,9 +280,14 @@ class FrontendCategoriesDetails extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     } else {
-      console.log('Data loaded.');
+      if (gSystemConfig.configDebug === true) {
+        console.log('Data loaded.');
+      }
     }
     // ----------------------
 

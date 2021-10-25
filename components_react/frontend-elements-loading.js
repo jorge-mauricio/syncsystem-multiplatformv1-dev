@@ -13,12 +13,9 @@ import { SyncSystemNSContext } from './syncsystem-ns-cb-context.js';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // import { Link } from 'react-router-dom';
-
-// Components.
-import FrontendContentListingRecord from './frontend-content-listing-record-cb-component.js';
 // ----------------------
 
-class FrontendContent extends Component {
+class FrontendElementsLoading extends Component {
   // Context.
   static contextType = SyncSystemNSContext;
 
@@ -26,13 +23,7 @@ class FrontendContent extends Component {
   // **************************************************************************************
   constructor(props, context) {
     // Component options.
-    // idParentContent: (category id)
-    // idTbContent: (individual record)
-    // contentType: ()
-
-    // configLayoutType: 1 - table listing (custom) | 2 - div layout (custom) | 11 - table listing (bootstrap) | 22 - div layout (bootstrap) | 111 - table listing (dashboard - custom)
-    // configContentNRecords: (maximum number of records to show)
-    // configContentSort: (custom order)
+    // configLayoutType: 1 - Circles Zoom
 
     super(props, context);
     /*
@@ -49,27 +40,17 @@ class FrontendContent extends Component {
 
     // Properties.
     // ----------------------
-    this.idParentContent;
-    this.idTbContent;
-    this.contentType;
     this.configLayoutType;
-    this.configContentNRecords;
-    this.configContentSort;
 
     this.queryDefault = ''; // NOTE: try to get from parent
 
-    this.objContentListing = {};
-    this.arrContentListing = [];
+    // this.objContentListing = {};
+    // this.arrContentListing = [];
     // ----------------------
 
     // Define values - props parameters.
     // ----------------------
-    this.idParentContent = this.props.idParentContent;
-    this.idTbContent = this.props.idTbContent;
-    this.contentType = this.props.contentType;
     this.configLayoutType = this.props.configLayoutType;
-    this.configContentNRecords = this.props.configContentNRecords;
-    this.configContentSort = this.props.configContentSort;
     // ----------------------
 
     // Logic
@@ -93,11 +74,13 @@ class FrontendContent extends Component {
       }
     } finally {
       // State creation.
+      /*
       this.state = {
-        objContentListing: this.objContentListing,
-        arrContentListing: this.arrContentListing,
+        // objContentListing: this.objContentListing,
+        // arrContentListing: this.arrContentListing,
         dataLoaded: false,
       };
+      */
     }
     // ----------------------
   }
@@ -119,12 +102,17 @@ class FrontendContent extends Component {
   // **************************************************************************************
   // componentDidMount()
   async componentDidMount() {
+    // Variables.
+    // ----------------------
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
+    // ----------------------
+
     // Logic.
     // ----------------------
     /**/
     try {
       // Main build.
-      await this.build();
+      // await this.build();
 
       // Head content.
       // await this.headBuild();
@@ -150,7 +138,6 @@ class FrontendContent extends Component {
                 console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
             });
             */
-
       // Check if this._idParentCategories is number. If not, search for the id based on the friendly name.
 
       // API - fetch data from backend.
@@ -178,66 +165,23 @@ class FrontendContent extends Component {
     // Variables.
     // ----------------------
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
-
-    let apiURLContentListing = '';
-    let apiContentListingResponse;
     // ----------------------
 
     // Logic.
     // ----------------------
     /**/
     try {
-      // API - build URL string.
-      // apiURLContentListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIContent + "/" + this.idParentContent + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(process.env.CONFIG_API_KEY_SYSTEM, "env"), 2);
-      // apiURLContentListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIContent + "/" + this.idParentContent + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
-      apiURLContentListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIContent + '/' + this.idParentContent;
-      apiURLContentListing += '/?apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2);
-      if (this.contentType != '') {
-        apiURLContentListing += '&contentType=' + this.contentType;
-      }
-      // console.log("apiURLCategoriesDetailsCurrent=", apiURLCategoriesDetailsCurrent);
-
-      // API - fetch data from backend.
-      // let response = await fetch(apiURLCategoriesDetailsCurrent);
-      apiContentListingResponse = await fetch(apiURLContentListing);
-      // this.objContentCurrent = await response.json();
-      this.objContentCurrent = await apiContentListingResponse.json(); // TODO: change to objContentCurrentJson
-      // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
-
-      // Value definition.
-      this.objContentListing = this.objContentCurrent.oclRecords;
-      this.arrContentListing = this.objContentCurrent.oclRecords.resultsContentListing;
-
-      // Check if this._idParentCategories is number. If not, search for the id based on the friendly name.
-
-      // API - fetch data from backend.
-      /*
-            fetch("http:// localhost:3000/api/categories/details/813")
-            .then(response => response.json())
-            .then((data)=>{
-                this.objCategoriesCurrent = data;
-                
-                // Debug.
-                console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
-            });
-            */
-
-      // let response = await fetch("http:// localhost:3000/api/categories/details/813");
-      // this.objCategoriesCurrent = await response.json();
-      // console.log("this.objCategoriesCurrent=",this.objCategoriesCurrent);
+      // TODO: elementsLoading api
     } catch (buildError) {
       if (gSystemConfig.configDebug === true) {
         console.error(buildError);
       }
     } finally {
       // Update state.
-      this.setState({ objContentListing: this.objContentListing });
-      this.setState({ arrContentListing: this.arrContentListing });
+      // this.setState({ objContentListing: this.objContentListing });
+      // this.setState({ arrContentListing: this.arrContentListing });
 
-      this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
-
-      // Change state of in context.
-      this.context.frontendContentListingLoaded = true;
+      // this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
     }
     // ----------------------
   }
@@ -250,71 +194,53 @@ class FrontendContent extends Component {
     // Variables.
     // ----------------------
     // const { gSystemConfig, FunctionsGeneric, FunctionsCrypto } = this.context;
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
 
-    let arrContentListing;
-
-    /*
-        let idParentContent;
-        let idTbContent;
-        let contentType;
-        let configLayoutType;
-        let configContentNRecords;
-        let configContentSort;
-        */
-    // ----------------------
-
-    // Check if data is loaded.
-    // ----------------------
-    if (this.state.dataLoaded === false) {
-      if (gSystemConfig.configDebug === true) {
-        console.log('Still loading data.');
-      }
-
-      return (
-        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
-        </SyncSystemRC.FrontendElementsLoading>
-      );
-    }
+    let configLayoutType;
     // ----------------------
 
     // Define values.
     // ----------------------
-    arrContentListing = this.state.arrContentListing;
-    /*
-        idParentContent = this.props.idParentContent;
-        idTbContent = this.props.idTbContent;
-        contentType = this.props.contentType;
-        configLayoutType = this.props.configLayoutType;
-        configContentNRecords = this.props.configContentNRecords;
-        configContentSort = this.props.configContentSort;
-        // arrCategoriesListing = this.props.arrCategoriesListing;
-        */
+    /* eslint-disable */
+    // arrContentListing = this.state.arrContentListing;
+    configLayoutType = this.props.configLayoutType;
+    /* eslint-enable */
 
     // Debug.
-    // console.log("idParentContent=", this.idParentContent);
-    // console.log("idTbContent=", this.idTbContent);
-    // console.log("contentType=", this.contentType);
     // console.log("configLayoutType=", this.configLayoutType);
-    // console.log("configContentNRecords=", this.configContentNRecords);
-    // console.log("configContentSort=", this.configContentSort);
-
-    // console.log("arrContentListing=", arrContentListing);
     // ----------------------
 
     // Output.
     // ----------------------
     return (
-      <React.Fragment>
-        {/* Content records. */}
-        <FrontendContentListingRecord arrContentListing={arrContentListing} configLayoutType={this.configLayoutType}>
-          {/* arrContentListing={ this.arrContentListing } also works */}
-        </FrontendContentListingRecord>
-      </React.Fragment>
+      // Circles Zoom.
+      configLayoutType === 1 ? 
+        <section className="ss-frontend-layout-section-content01" style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
+          <div className="loadingio-spinner-interwind-zd49qx49xdb">
+            <div className="ldio-4184arakpp2">
+              <div>
+                <div>
+                  <div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      :
+        ``
     );
     // ----------------------
   }
   // **************************************************************************************
 }
 
-export default FrontendContent;
+export default FrontendElementsLoading;

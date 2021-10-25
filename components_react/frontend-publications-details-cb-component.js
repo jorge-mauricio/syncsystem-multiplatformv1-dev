@@ -185,6 +185,9 @@ class FrontendPublicationsDetails extends Component {
       // Update state.
       this.setState({ objPublicationsDetails: this.objPublicationsDetails });
       this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
+
+      // Change state of in context.
+      this.context.frontendPublicationsDetailsLoaded = true;
     }
     // ----------------------
   }
@@ -247,7 +250,7 @@ class FrontendPublicationsDetails extends Component {
   // **************************************************************************************
   render() {
     // Variables.
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, SyncSystemRC } = this.context;
 
     // Check if data is loaded.
     // ----------------------
@@ -256,9 +259,14 @@ class FrontendPublicationsDetails extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     } else {
-      console.log('Data loaded.');
+      if (gSystemConfig.configDebug === true) {
+        console.log('Data loaded.');
+      }
     }
     // ----------------------
 

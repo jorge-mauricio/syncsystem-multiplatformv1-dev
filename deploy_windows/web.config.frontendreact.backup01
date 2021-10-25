@@ -1,0 +1,76 @@
+<configuration>
+	<system.webServer>
+		<iisnode node_env="development" nodeProcessCommandLine="C:\Program Files\nodejs\node.exe" />
+		
+		<handlers>
+			<!--add name="iisnode" path="-r dotenv/config build/bundle.react.js" verb="*" modules="iisnode" /-->
+			<add name="iisnode" path="build/bundle.react.js" verb="*" modules="iisnode" />
+		</handlers>
+
+		<rewrite>
+			<rules>
+				<!-- Redirect to HTTPS. -->
+				<!--rule name="Redirect to HTTPS / SSL" stopProcessing="true">
+					<match url=".*" />
+					<conditions>
+						<add input="{HTTPS}" pattern="off" ignoreCase="true" />
+					</conditions>
+					<action type="Redirect" url="https://{HTTP_HOST}{REQUEST_URI}" redirectType="Permanent" appendQueryString="false" />
+				</rule-->
+				<!-- Redirect to HTTPS (alternative). -->
+				<rule name="Redirect to HTTPS / SSL" stopProcessing="true">
+					<match url="(.*)" />
+					<conditions>
+						<add input="{HTTPS}" pattern="off" ignoreCase="true" />
+					</conditions>
+					<action type="Redirect" redirectType="Found" url="https://{HTTP_HOST}/{R:1}" />
+				</rule>
+
+				<!-- Don't interfere with requests for logs. -->
+				<rule name="LogFile" patternSyntax="ECMAScript" stopProcessing="true">
+					<match url="^[a-zA-Z0-9_\-]+\.js\.logs\/\d+\.txt$" />
+				</rule>
+
+				<!-- Don't interfere with requests for node-inspector debugging. -->
+				<!--rule name="NodeInspector" patternSyntax="ECMAScript" stopProcessing="true">
+					<match url="^build\/bundle.react.js\/debug[\/]?" />
+				</rule-->
+
+				<!-- First we consider whether the incoming URL matches a physical file in the     /public folder -->
+				<!--rule name="StaticContent">
+					<action type="Rewrite" url="public{REQUEST_URI}" />
+				</rule-->
+				
+				<!-- Node. -->
+				<rule name="sendToNode">
+					<match url="(.*)" />
+					<conditions>
+						<add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+					</conditions>
+					<!--action type="Rewrite" url="-r dotenv/config build/bundle.react.js" /-->
+					<action type="Rewrite" url="build/bundle.react.js" />
+				</rule>
+			</rules>
+			
+		</rewrite> 
+        <defaultDocument>
+            <files>
+                <clear />
+                <add value="-r dotenv/config build/bundle.react.js" />
+                <add value="build/bundle.react.js" />
+            </files>
+        </defaultDocument>
+
+		<security>
+		  <requestFiltering>
+			<hiddenSegments>
+			  <add segment="node_modules" />
+			  <!--add segment="iisnode" /-->
+			</hiddenSegments>
+		  </requestFiltering>
+		</security>
+	</system.webServer>
+	<system.web>
+		<compilation defaultLanguage="js" />
+	</system.web>
+</configuration>

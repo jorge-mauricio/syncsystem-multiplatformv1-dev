@@ -182,6 +182,9 @@ class FrontendProductsDetails extends Component {
       // Update state.
       this.setState({ objProductsDetails: this.objProductsDetails });
       this.setState({ dataLoaded: true }); // Note: Place on the last part of the logic.
+
+      // Change state of in context.
+      this.context.frontendProductsDetailsLoaded = true;
     }
     // ----------------------
   }
@@ -246,7 +249,7 @@ class FrontendProductsDetails extends Component {
   // **************************************************************************************
   render() {
     // Variables.
-    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser } = this.context;
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser, SyncSystemRC } = this.context;
 
     // Check if data is loaded.
     // ----------------------
@@ -255,9 +258,14 @@ class FrontendProductsDetails extends Component {
         console.log('Still loading data.');
       }
 
-      return '';
+      return (
+        <SyncSystemRC.FrontendElementsLoading configLayoutType={1}>
+        </SyncSystemRC.FrontendElementsLoading>
+      );
     } else {
-      console.log('Data loaded.');
+      if (gSystemConfig.configDebug === true) {
+        console.log('Data loaded.');
+      }
     }
     // ----------------------
 

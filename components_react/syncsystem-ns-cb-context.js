@@ -41,6 +41,7 @@ import React, { Component, createContext } from 'react';
 
 // Custom components.
 // import FrontendFilesListingRecord from "./frontend-files-listing-record-cb-component.js";
+import FrontendElementsLoading from './frontend-elements-loading.js';
 
 export const SyncSystemNSContext = createContext();
 // ----------------------
@@ -49,18 +50,19 @@ class SyncSystemNSContextProvider extends Component {
   state = {
     // Custom react components.
     /*
-        SyncSystemRC:
-        {
-            FrontendFilesListingRecord: FrontendFilesListingRecord
-        }
-        */
+    SyncSystemRC: {
+        FrontendFilesListingRecord: FrontendFilesListingRecord
+    }
+    */
     /*
-        SyncSystemRC:
-        {
-            FrontendFilesListingRecord: <FrontendFilesListingRecord></FrontendFilesListingRecord>
-        }
-        */
-
+    SyncSystemRC: {
+        FrontendFilesListingRecord: <FrontendFilesListingRecord></FrontendFilesListingRecord>
+    }
+    */
+    SyncSystemRC: {
+      // FrontendElementsLoading: <FrontendElementsLoading configLayoutType={1}></FrontendElementsLoading>,
+      FrontendElementsLoading: FrontendElementsLoading,
+    },
     // Modules and components.
     HTMLReactParser: HTMLReactParser,
     Safe: Safe,
@@ -81,6 +83,21 @@ class SyncSystemNSContextProvider extends Component {
       FunctionsCrypto: FunctionsCrypto,
       // ObjectFormsDetails: ObjectFormsDetails
     },
+
+    // Loading flags.
+    frontendHomeLoaded: false,
+    frontendCategoriesListingLoaded: false,
+    frontendCategoriesDetailsLoaded: false,
+    frontendContentListingLoaded: false,
+    frontendFormsListingLoaded: false,
+    frontendFilesListingLoaded: false,
+    frontendFilesImagesListingLoaded: false,
+    frontendProductsListingLoaded: false,
+    frontendProductsDetailsLoaded: false,
+    frontendPublicationsListingLoaded: false,
+    frontendPublicationsDetailsLoaded: false,
+    frontendQuizzesListingLoaded: false,
+    frontendQuizzesDetailsLoaded: false,
   };
 
   render() {
