@@ -94,6 +94,8 @@ module.exports = {
         { from: 'browserconfig.xml', to: gSystemConfig.configDirectoryBuildReactClient },
         { from: 'safari-pinned-tab.svg', to: gSystemConfig.configDirectoryBuildReactClient },
         { from: 'site.webmanifest', to: gSystemConfig.configDirectoryBuildReactClient },
+
+        { from: 'sitemap.xml', to: gSystemConfig.configDirectoryBuildReactClient },
         // { from: "source", to: "dest" },
         // { from: "other", to: "public"}
       ],

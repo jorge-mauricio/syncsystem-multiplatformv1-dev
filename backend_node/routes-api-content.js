@@ -38,6 +38,7 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
 
   // let cdBackend;
   let idParent = '';
+  let idTbContent = '';
   let contentType = '';
 
   let pageNumber = '';
@@ -58,6 +59,9 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
   // ----------------------
   if (req.params.idParent) {
     idParent = req.params.idParent;
+  }
+  if (req.query.idTbContent) {
+    idTbContent = req.query.idTbContent;
   }
   if (req.query.contentType) {
     contentType = req.query.contentType;
@@ -156,6 +160,9 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
             _strNRecords: '',
             _objSpecialParameters: { returnType: 3 },
           };
+          if (idTbContent != '') {
+            oclRecordsParameters._arrSearchParameters.push('id;' + idTbContent + ';i');
+          }
           if (contentType != '') {
             oclRecordsParameters._arrSearchParameters.push('content_type;' + contentType + ';i');
           }

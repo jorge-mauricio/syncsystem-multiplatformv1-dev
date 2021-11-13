@@ -124,7 +124,13 @@
             <mimeMap fileExtension=".woff2" mimeType="application/x-woff" />
             <mimeMap fileExtension=".otf" mimeType="application/otf" />
         </staticContent-->
-        
+        <staticContent>
+            <!-- 
+            Necessary for loading the site.manifest. If there´s any more problem, can try to change the name of the file to manifest.json.
+            ref: https://stackoverflow.com/questions/53527972/cant-get-rid-of-missing-manifest-json-error
+            -->
+            <mimeMap fileExtension=".webmanifest" mimeType="application/json" />
+        </staticContent>
         
         <defaultDocument>
             <files>

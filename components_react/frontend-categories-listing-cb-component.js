@@ -37,6 +37,7 @@ if (typeof window !== 'undefined') {
 // Components.
 // import FrontendCategoriesListingRecord from "./frontend-categories-listing-record-cb-component.jsx";
 import FrontendCategoriesListingRecord from './frontend-categories-listing-record-cb-component.js';
+import FrontendContent from './frontend-content-cb-component.js';
 // ----------------------
 
 class FrontendCategoriesListing extends Component {
@@ -601,6 +602,7 @@ class FrontendCategoriesListing extends Component {
           <FrontendCategoriesListingRecord arrCategoriesListing={this.state.arrCategoriesListing} configLayoutType={2}>
             {/* arrCategoriesListing={ this.arrCategoriesListing } also works*/}
           </FrontendCategoriesListingRecord>
+
           {/* pagination (custom). */}
           {gSystemConfig.enableCategoriesFrontendPagination === 1 ? (
             <div style={{ position: 'relative', display: 'block', overflow: 'hidden', textAlign: 'center', margin: '20px 0px 0px 0px' }}>

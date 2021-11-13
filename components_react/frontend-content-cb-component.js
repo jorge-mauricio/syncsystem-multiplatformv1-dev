@@ -119,6 +119,11 @@ class FrontendContent extends Component {
   // **************************************************************************************
   // componentDidMount()
   async componentDidMount() {
+    // Variables.
+    // ----------------------
+    const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem } = this.context; // Deconstruct variables (each variable is allocated to it´s correspondent name).
+    // ----------------------
+
     // Logic.
     // ----------------------
     /**/
@@ -192,6 +197,9 @@ class FrontendContent extends Component {
       // apiURLContentListing = gSystemConfig.configAPIURL + "/" + gSystemConfig.configRouteAPI + "/" + gSystemConfig.configRouteAPIContent + "/" + this.idParentContent + "/?apiKey=" + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, "env"), 2);
       apiURLContentListing = gSystemConfig.configAPIURL + '/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteAPIContent + '/' + this.idParentContent;
       apiURLContentListing += '/?apiKey=' + SyncSystemNS.FunctionsCrypto.encryptValue(SyncSystemNS.FunctionsGeneric.contentMaskWrite(gSystemConfig.configAPIKeySystem, 'env'), 2);
+      if (this.idTbContent != '') {
+        apiURLContentListing += '&idTbContent=' + this.idTbContent;
+      }
       if (this.contentType != '') {
         apiURLContentListing += '&contentType=' + this.contentType;
       }

@@ -36,6 +36,7 @@ if (typeof window !== 'undefined') {
 
 // Components.
 import FrontendPublicationsListingRecord from './frontend-publications-listing-record-cb-component.js';
+// import FrontendContent from './frontend-content-cb-component.js';
 // ----------------------
 
 class FrontendPublicationsListing extends Component {
@@ -295,7 +296,7 @@ class FrontendPublicationsListing extends Component {
 
       // Pagination.
       // ----------------------
-      if (gSystemConfig.enablePublicationsFrontendPagination != 0) {
+      if (gSystemConfig.enablePublicationsFrontendPagination !== 0) {
         this._pagingTotalRecords = this.arrPublicationsListing.length;
         this._pagingTotal = Math.ceil(this._pagingTotalRecords / this._pagingNRecords);
 
@@ -444,10 +445,17 @@ class FrontendPublicationsListing extends Component {
     return (
       <React.Fragment>
         <section className="ss-frontend-layout-section-content01">
-          {' '}
           {/* custom: ss-frontend-layout-section-content01 | bootstrap: container-fluid. */}
           {/* Publications records. */}
           <FrontendPublicationsListingRecord arrPublicationsListing={this.state.arrPublicationsListing} configLayoutType={33}></FrontendPublicationsListingRecord>
+
+          {/* Publications layout based on type. */}
+          {this.objCategoriesCurrent.ocdRecord.tblCategoriesCategoryType == 3 ? (
+            ``
+          ) : (
+            ``
+          )}
+
           {/* pagination. */}
           {this.state.arrPublicationsListing.length > 0 ? (
             <React.Fragment>
