@@ -1,10 +1,21 @@
 'use strict'; // eslint-disable-line
 
-// Author information.
+// Author Information and Copyright License:
 // **************************************************************************************
+/*
+SyncSystem – less code, more logic. A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
+
+Development and conception carried out by Jorge Mauricio (JM) – Full Stack Web Developer / Designer and company’s head partner.
+
+Any modification or implementation in the github code must be informed / consulted and approved with the company or the author. The code is free for use commercially and personally, without the need of written or verbal authorization. 
+
+The developer provides professional training for better understanding of its architecture and use of the code. Price quotes can be requested through the website. 
+
+Website / contact:
+http://fullstackwebdesigner.com
+*/
 // **************************************************************************************
 
-// "use strict";
 // Import Node Modules.
 // ----------------------
 // const os = require("os"); // utility to get hostname // ref: https:// nodejs.org/api/os.html#os_os_hostname
@@ -45,15 +56,15 @@ gSystemConfig.configSystemClientEmail = 'contact@domain.com';
 gSystemConfig.configSiteTitle = 'SyncSystem - Multiplatform (debug: çáéã)'; // site name (Note: moved to language file)
 gSystemConfig.configSystemName = 'Sistema de Gerenciamento de Conteúdo'; // Sistema de Controle | Sistema Administrativo | CRM | Content Management System (Note: moved to language file)
 gSystemConfig.configDevName = 'Planejamento Visual - Arte e Tecnologia'; // Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer | Web Inventor - Imagine, realize. | Full Stack Web Designer - JM - Jorge Mauricio (Note: moved to language file) (Note: moved to language file)
-gSystemConfig.configDevSite = 'http://www.planejamentovisual.com.br'; // http:// www.programadorvisual.com.br | http:// www.planejamentovisual.com.br | http:// www.jorgemauricio.com | http:// www.webinventor.com.br | http://www.fullstackwebdesigner.com
+gSystemConfig.configDevSite = 'http://www.planejamentovisual.com.br'; // http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br | http://www.fullstackwebdesigner.com
 gSystemConfig.configCopyrightYear = '2008';
 
-// gSystemConfig.configSystemURL = "http:// localhost:3000"; // http:// multiplatformv1.syncsystem.com.br
-gSystemConfig.configSystemURL = process.env.CONFIG_SYSTEM_URL; // http:// multiplatformv1.syncsystem.com.br
-// gSystemConfig.configSystemURL = window.location.origin; // http:// multiplatformv1.syncsystem.com.br
-// gSystemConfig.configSystemURLSSL = "http:// localhost:3000"; // http:// multiplatformv1.syncsystem.com.br
-gSystemConfig.configSystemURLSSL = process.env.CONFIG_SYSTEM_URL_SSL; // http:// multiplatformv1.syncsystem.com.br
-// gSystemConfig.configSystemURLSSL = window.location.origin; // http:// multiplatformv1.syncsystem.com.br
+// gSystemConfig.configSystemURL = "http://localhost:3000"; // http://multiplatformv1.syncsystem.com.br
+gSystemConfig.configSystemURL = process.env.CONFIG_SYSTEM_URL; // http://multiplatformv1.syncsystem.com.br
+// gSystemConfig.configSystemURL = window.location.origin; // http://multiplatformv1.syncsystem.com.br
+// gSystemConfig.configSystemURLSSL = "http://localhost:3000"; // http://multiplatformv1.syncsystem.com.br
+gSystemConfig.configSystemURLSSL = process.env.CONFIG_SYSTEM_URL_SSL; // http://multiplatformv1.syncsystem.com.br
+// gSystemConfig.configSystemURLSSL = window.location.origin; // http://multiplatformv1.syncsystem.com.br
 
 gSystemConfig.configAPIURL = gSystemConfig.configSystemURLSSL; // process.env.CONFIG_API_URL;
 gSystemConfig.configURLFrontendReact = process.env.CONFIG_URL_FRONTEND_REACT;
@@ -62,15 +73,15 @@ gSystemConfig.configURLFrontendReact = process.env.CONFIG_URL_FRONTEND_REACT;
 window.location.hash: "#2"
 window.location.host: "localhost:4200"
 window.location.hostname: "localhost"
-window.location.href: "http:// localhost:4200/landing?query=1#2"
-window.location.origin: "http:// localhost:4200"
+window.location.href: "http://localhost:4200/landing?query=1#2"
+window.location.origin: "http://localhost:4200"
 window.location.pathname: "/landing"
 window.location.port: "4200"
 window.location.protocol: "http:"
 window.location.search: "?query=1"
 */
 
-gSystemConfig.configSystemURLImages = '/'; // ".." = relative path | "/" = root | http:// www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
+gSystemConfig.configSystemURLImages = '/'; // ".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
 // gSystemConfig.configSystemURLImages = "https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com";
 gSystemConfig.configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com'; // maybe it´s not needed
 gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + '/';
@@ -244,7 +255,7 @@ gSystemConfig.configRouteFrontendDashboardQuizzes = 'dashboard-quizzes';
 // Cryptography.
 // ----------------------
 gSystemConfig.configCookieSetType = 1; // 0 - disable (without path - directory) | 1 - enable (set with path - directory)
-gSystemConfig.configCookieDirectory = '/'; //  / - full site
+gSystemConfig.configCookieDirectory = '/'; // / - full site
 
 gSystemConfig.configCookiePrefix = 'ss';
 gSystemConfig.configCookiePrefixUserRoot = 'user_root';
@@ -257,7 +268,7 @@ gSystemConfig.configCookieDefaultOptions = {
   // secure: process.env.NODE_ENV === 'production'? true: false, / Forces to use https in production.
   // expires: new Date(Date.now() + 900000),
   // maxAge: 1000 * 60 * 10,
-  httpOnly: true, //  You can't access these tokens in the client's javascript.
+  httpOnly: true, // You can't access these tokens in the client's javascript.
 }; // ref: https:// alligator.io/nodejs/express-cookies/
 gSystemConfig.configCookieDeleteDefaultOptions = {
   path: gSystemConfig.configCookieDirectory,
@@ -266,7 +277,7 @@ gSystemConfig.configCookieDeleteDefaultOptions = {
   // secure: process.env.NODE_ENV === 'production'? true: false, / Forces to use https in production.
   expires: new Date(),
   maxAge: 0,
-  httpOnly: true, //  You can't access these tokens in the client's javascript.
+  httpOnly: true, // You can't access these tokens in the client's javascript.
 }; // ref: https:// alligator.io/nodejs/express-cookies/
 
 gSystemConfig.configSessionBackendTimeout = '1440';
@@ -335,8 +346,8 @@ gSystemConfig.configBackendTextBox = 17; // 1 - no formatting | 2 - basic format
 gSystemConfig.configFrontendTextBox = 1; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
 
 gSystemConfig.configSystemTimeZone = 'America/Sao_Paulo'; // America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
-gSystemConfig.configBackendLanguage = 'en_US'; //  en_US | pt_BR - DELETE - moved to language (check to see if node code uses)
-gSystemConfig.configFrontendLanguage = 'en_US'; //  en_US | pt_BR
+gSystemConfig.configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
+gSystemConfig.configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
 
 gSystemConfig.configBackendDateFormat = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
 gSystemConfig.configBackendDateFieldType = 11; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu | 11 - js-datepicker (https:// www.npmjs.com/package/js-datepicker)
@@ -372,7 +383,7 @@ gSystemConfig.configLanguageFrontend = require('./' + gSystemConfig.configDirect
 gSystemConfig.configLanguageBackend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
 // **************************************************************************************
 
-// Categories - configuration and resources.
+// Categories types - configuration and resources.
 // **************************************************************************************
 gSystemConfig.configCategoryType = [
   { category_type: 1, category_type_function_label: 'backendCategoriesType1Function', queryString: '' }, // Content

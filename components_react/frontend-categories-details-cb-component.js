@@ -175,7 +175,7 @@ class FrontendCategoriesDetails extends Component {
 
       this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesDetails.tblCategoriesMetaDescription); // Bellow 100 characters.
       this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesDetails.tblCategoriesKeywordsTags); // Bellow 60 characters.
-      this.metaURLCurrent = gSystemConfig.configSystemURL + '/' + gSystemConfig.configRouteFrontendCategories + '/' + gSystemConfig.configRouteFrontendDetails + '/' + this._idTbCategories + '?pageNumber=' + this._pageNumber;
+      this.metaURLCurrent = gSystemConfig.configURLFrontendReact + '/' + gSystemConfig.configRouteFrontendCategories + '/' + gSystemConfig.configRouteFrontendDetails + '/' + this._idTbCategories + '?pageNumber=' + this._pageNumber;
 
       // this.objCategoriesDetails = this.objCategoriesDetailsJson;
       // this.objCategoriesDetails = JSON.parse(JSON.stringify(this.objCategoriesDetails));
@@ -225,6 +225,8 @@ class FrontendCategoriesDetails extends Component {
 
     // Meta tags.
     /**/
+    document.querySelector('link[rel="canonical"]').setAttribute('href', this.metaURLCurrent);
+
     document.querySelector('meta[name="title"]').setAttribute('content', this.metaTitle);
     document.querySelector('meta[name="description"]').setAttribute('content', this.metaDescription);
     document.querySelector('meta[name="keywords"]').setAttribute('content', this.metaKeywords);

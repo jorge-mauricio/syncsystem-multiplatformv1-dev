@@ -170,7 +170,7 @@ class FrontendPublicationsDetails extends Component {
 
       this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objPublicationsDetails.tblPublicationsMetaDescription); // Bellow 100 characters.
       this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objPublicationsDetails.tblPublicationsKeywordsTags); // Bellow 60 characters.
-      this.metaURLCurrent = gSystemConfig.configSystemURL + '/' + gSystemConfig.configRouteFrontendPublications + '/' + gSystemConfig.configRouteFrontendDetails + '/' + this._idTbPublications + '?pageNumber=' + this._pageNumber;
+      this.metaURLCurrent = gSystemConfig.configURLFrontendReact + '/' + gSystemConfig.configRouteFrontendPublications + '/' + gSystemConfig.configRouteFrontendDetails + '/' + this._idTbPublications + '?pageNumber=' + this._pageNumber;
 
       // Debug.
       // console.log("this.objCategoryCurrent", this.objCategoryCurrent);
@@ -205,6 +205,8 @@ class FrontendPublicationsDetails extends Component {
     document.title = this.metaTitle;
 
     // Meta tags.
+    document.querySelector('link[rel="canonical"]').setAttribute('href', this.metaURLCurrent);
+
     document.querySelector('meta[name="title"]').setAttribute('content', this.metaTitle);
     document.querySelector('meta[name="description"]').setAttribute('content', this.metaDescription);
     document.querySelector('meta[name="keywords"]').setAttribute('content', this.metaKeywords);

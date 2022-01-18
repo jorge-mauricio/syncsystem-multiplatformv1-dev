@@ -1,20 +1,14 @@
-//const TrackingCode = `
-//export default TrackingCode = () => (`
+// const TrackingCode = `
+// export default TrackingCode = () => (`
 module.exports = `
-<!--Código Acompanhamento Google Analytic.-->
+<!-- Tracking Code - Google Analytics. -->
 <!-- ************************************************************************************** -->
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-    try {
-        var pageTracker = _gat._getTracker("UA-9765160-1");
-        pageTracker._trackPageview();
-    } catch (err) { }
- </script>
+<!-- ************************************************************************************** -->
+
+<!-- Tracking Code - Smart Look. -->
+<!-- ************************************************************************************** -->
 <!-- ************************************************************************************** -->
 `;
-//`);
+// `);
 
-//default export TrackingCode;
+// default export TrackingCode;

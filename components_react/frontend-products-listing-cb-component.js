@@ -286,7 +286,7 @@ class FrontendProductsListing extends Component {
 
       this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesMetaDescription); // Bellow 100 characters.
       this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); // Bellow 60 characters.
-      this.metaURLCurrent = gSystemConfig.configSystemURL + '/' + gSystemConfig.configRouteFrontendProducts + '/' + this._idParentProducts + '/';
+      this.metaURLCurrent = gSystemConfig.configURLFrontendReact + '/' + gSystemConfig.configRouteFrontendProducts + '/' + this._idParentProducts + '/';
       if (this._pageNumber) {
         this.metaURLCurrent += '?pageNumber=' + this._pageNumber;
       }
@@ -364,6 +364,8 @@ class FrontendProductsListing extends Component {
     document.title = this.metaTitle;
 
     // Meta tags.
+    document.querySelector('link[rel="canonical"]').setAttribute('href', this.metaURLCurrent);
+
     document.querySelector('meta[name="title"]').setAttribute('content', this.metaTitle);
     document.querySelector('meta[name="description"]').setAttribute('content', this.metaDescription);
     document.querySelector('meta[name="keywords"]').setAttribute('content', this.metaKeywords);

@@ -12,7 +12,7 @@ exports.appLabels = {
   configSiteDescription: 'Description example.',
   configSiteKeywords: 'keywords or key terms, separated by, commas',
 
-  configFrontendLanguage: 'en_US', //  en_US | pt_BR
+  configFrontendLanguage: 'en_US', // en_US | pt_BR
 
   layoutSystemName: 'Content Management System', // Sistema de Gerenciamento de Conteúdo | Content Management System
   layoutDevName: 'Planejamento Visual - Arte e Tecnologia', // Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer | Full Stack Web Designer - JM - Jorge Mauricio
@@ -1277,6 +1277,9 @@ exports.appLabels = {
 
   // DB error.
   statusMessageError50: 'Error 050 - error reading data base.',
+
+  // URL Status code.
+  statusMessageError404: 'Error 404 - page not found.',
   // **************************************************************************************
 
   // Items - frontend.

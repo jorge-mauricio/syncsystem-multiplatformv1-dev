@@ -224,7 +224,7 @@ FunctionsSyncSystem.elementShowHideToggle = elementShowHideToggle;
  * @example
  * htmlGenericStyle01('divTest1', 'display', 'none');
  */
-const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: string): void => {
+const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: string) => {
   // Variables.
   // ----------------------
   // let elementHTML = document.getElementById(idHTML);
@@ -244,11 +244,6 @@ const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: s
       // elementHTML.style.display = parameterValue;
       // elementHTML.setAttribute('style', styleName + ': ' + parameterValue + ' !important;'); // working, but errases all inline styles
       // elementHTML.style.cssText = styleName + ': ' + parameterValue + ' !important;'; // working, but errases all inline styles
-      elementHTML.style.setProperty(styleName, parameterValue, 'important');
-    }
-
-    // visibility
-    if (styleName === 'visibility') {
       elementHTML.style.setProperty(styleName, parameterValue, 'important');
     }
 
@@ -284,48 +279,6 @@ const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: s
 };
 // **************************************************************************************
 FunctionsSyncSystem.htmlGenericStyle01 = htmlGenericStyle01;
-
-// Function to show an element based on the position of scroll.
-// **************************************************************************************
-/**
- * unction to show an element based on the position of scroll.
- * @param {string} idElement
- * @param {string} positionType top | bottom
- * @param {string} positionValue
- * @example
- * elementShowByPosition('btnTopFixed', 'top', '50');
- */
- const elementShowByPosition = (idElement: string, positionType: string, positionValue: string): void => {
-  // positionType: top | bottom
-
-  // Variables.
-  // ----------------------
-  let targetElement = document.getElementById(idElement);
-  // ----------------------
-
-  // Logic.
-  // ----------------------
-  if (targetElement) {
-    // Top.
-    if (positionType === 'top') {
-      if (document.documentElement.scrollTop > parseInt(positionValue)) {
-        FunctionsSyncSystem.htmlGenericStyle01(idElement, 'visibility', 'visible');
-        // targetElement.style.setProperty('visibility', 'visible', 'important');
-      } else {
-        FunctionsSyncSystem.htmlGenericStyle01(idElement, 'visibility', 'hidden');
-        // targetElement.style.setProperty('visibility', 'hidden', 'important');
-      }
-
-      // Debug.
-      // console.log('document.documentElement.scrollTop=', document.documentElement.scrollTop);
-      // console.log('document.scrollHeight=', document.scrollHeight);
-      // console.log('document.clientHeight=', document.clientHeight);
-    }
-  }
-  // ----------------------
-};
-// **************************************************************************************
-FunctionsSyncSystem.elementShowByPosition = elementShowByPosition;
 
 // Function to set a value to an HTML element.
 // **************************************************************************************
@@ -448,13 +401,10 @@ FunctionsSyncSystem.elementMessage01 = elementMessage01;
  * Copy HTML from one element to another.
  * @param {string} idElementOrigin
  * @param {string} idElementTarget
- * @param {string} idElementOriginMethod '' - copy inner | outter
- * @param {string} idElementTargetMethod '' - clear target | add
  * @example
- * FunctionsSyncSystem.dataHTMLCopy('divContentDesktop', 'divContentMobile');
- * FunctionsSyncSystem.dataHTMLCopy('divContentDesktop', 'divContentMobile', 'outter', 'add');
+ * dataHTMLCopy('divContentDesktop', 'divContentMobile');
  */
-const dataHTMLCopy = (idElementOrigin: string, idElementTarget: string, idElementOriginMethod = '', idElementTargetMethod = ''): void => {
+const dataHTMLCopy = (idElementOrigin: string, idElementTarget: string): void => {
   // Variables.
   // ----------------------
   const elementOrigin = document.getElementById(idElementOrigin);
@@ -464,27 +414,8 @@ const dataHTMLCopy = (idElementOrigin: string, idElementTarget: string, idElemen
   // Logic.
   if (elementOrigin) {
     if (elementTarget) {
-      // Substitute elements.
-      if (idElementTargetMethod === '') {
-        elementTarget.innerHTML = ''; // clear target data
-
-        if (idElementOriginMethod === '') {
-          elementTarget.innerHTML = elementOrigin.innerHTML;
-        }
-        if (idElementOriginMethod === 'outter') {
-          elementTarget.innerHTML = elementOrigin.outerHTML;
-        }
-      }
-
-      // Add elements.
-      if (idElementTargetMethod === 'add') {
-        if (idElementOriginMethod === '') {
-          elementTarget.innerHTML += elementOrigin.innerHTML;
-        }
-        if (idElementOriginMethod === 'outter') {
-          elementTarget.innerHTML += elementOrigin.outerHTML;
-        }
-      }
+      elementTarget.innerHTML = ''; // clear target data
+      elementTarget.innerHTML = elementOrigin.innerHTML;
     }
   }
 
@@ -653,9 +584,7 @@ const radiobuttonCheck01 = (idRadiobutton: string, radiobuttonSelect: string, id
       htmlGenericStyle01(idPrefixItemContent + (radiobuttonCheck + 1), 'display', 'block');
 
       // Debug.
-      if (configDebug === true) {
-        // console.log('idPrefixItemContent', idPrefixItemContent + (radiobuttonCheck + 1));
-      }
+      console.log('idPrefixItemContent', idPrefixItemContent + (radiobuttonCheck + 1));
     }
 
     if (radiobuttonSelect === 'prev' && radiobuttonCheck !== 0) {

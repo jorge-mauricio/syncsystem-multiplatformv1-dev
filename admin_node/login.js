@@ -55,7 +55,7 @@ module.exports = class Login {
       this.queryDefault += 'masterPageSelect=' + this._masterPageSelect;
 
       // Meta title.
-      this.metaTitle += SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, 'config-application') + ' - ' + SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendCategoriesTitleMain');
+      this.metaTitle += SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, 'config-application') + ' - ' + SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendLoginTitleMain');
       if (this.titleCurrent) {
         this.metaTitle += ' - ' + this.titleCurrent;
       }
@@ -69,12 +69,11 @@ module.exports = class Login {
       // Meta URL current.
       this.metaURLCurrent += gSystemConfig.configSystemURL + '/';
       this.metaURLCurrent += gSystemConfig.configRouteBackend + '/';
-      this.metaURLCurrent += gSystemConfig.configRouteBackendCategories + '/';
-      this.metaURLCurrent += this._idParent + '/';
-      // if(this._masterPageSelect !== "")
-      // {
-      this.metaURLCurrent += '?masterPageSelect=' + this._masterPageSelect;
-      // }
+      // this.metaURLCurrent += gSystemConfig.configRouteBackendCategories + '/';
+      // this.metaURLCurrent += this._idParent + '/';
+      if (this._masterPageSelect !== '') {
+        this.metaURLCurrent += '?masterPageSelect=' + this._masterPageSelect;
+      }
 
       // Title content placeholder.
       await this.cphTitleBuild();

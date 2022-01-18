@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="functions-syncsystem.js"></script>
+
+<style>
+  </style>
+</head>
+<body>
+  <body>
+    
+      <!--Pop-up.-->
+      <div id="divPopupFilesBind" class="ss-frontend-dashboard-popup-container" style="">
+          <div class="ss-frontend-dashboard-popup">
+              <div>
+                  <a id="linkPopupFilesBind" 
+                    onclick="FunctionsSyncSystem.htmlGenericStyle01('divPopupFilesBind', 'display', 'none');" 
+                    class="ss-frontend-btn-base ss-frontend-btn-action-cancel">
+                      Close
+                  </a>
+              </div>
+              <div>
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+                  no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no no
+              </div>
+          </div>
+      </div>
+
+      <!--Button Scroll to Top (fixed).-->
+      <button id="btnTopFixed" 
+          onclick="FunctionsSyncSystem.scrollToTarget('anchorTop');" 
+              class="ss-frontend-shadow01 ss-frontend-btn-top-fixed" 
+              style="visibility: hidden;">
+          <i class="fas fa-caret-up"></i>
+      </button>
+      <script>
+        // Scroll listener.
+        // Note: will not work if html / body height is set to 100% - use min/max-height.
+          document.addEventListener('scroll', (e) => {
+            // Button back to top.
+            // elementShowByPosition('btnTopFixed', 'top', '50');
+            FunctionsSyncSystem.elementShowByPosition('btnTopFixed', 'top', '50');
+
+
+            // Header sticky logic.
+            let elementHeader = document.getElementById("layoutHeader");
+            let elementMain = document.getElementById("layoutMain");
+            let scrollValueRef = elementHeader.offsetHeight;
+
+            if (window.pageYOffset > scrollValueRef) {
+                elementHeader.classList.add('ss-frontend-layout-header-stiky'); // add sticky css
+                elementMain.style.marginTop = scrollValueRef + 'px'; // adjust the margin of the content element to the height of the header
+            } else {
+                elementHeader.classList.remove('ss-frontend-layout-header-stiky');
+                elementMain.style.marginTop = '0px';
+            }
+
+
+            // Debug.
+            // console.log('elementHeader', elementHeader);
+            // console.log('scrollValueRef', scrollValueRef);
+            // console.log('window.pageYOffset', window.pageYOffset);
+          });
+      </script>
+
+      <section id="divTerms" class="ss-frontend-text01 ss-frontend-terms">
+          <div>
+              <div>
+                  <strong>
+                      Cookie, Privacy Policy And Terms Consent
+                  </strong>
+                  By clicking “Accept All”, you agree to our terms and consent to our website's use of cookies to give you the most relevant experience by remembering your preferences and future visits. You may also visit “Cookie Settings” on your browser to modify the settings.
+              </div>
+
+              <div>
+                  <a onclick="htmlGenericStyle01('divTerms', 'display', 'none');" class="ss-frontend-btn-base ss-frontend-btn-action-execute">
+                      Accept All
+                  </a>
+                  <a href="publications/138/" class="ss-frontend-btn-base ss-frontend-btn-action-alert">
+                      Read Terms
+                  </a>
+                  <a href="publications/137/" class="ss-frontend-btn-base ss-frontend-btn-action-alert">
+                      Read Privacy Policy
+                  </a>
+              </div>
+          </div>
+      </section>
+
+  </body>
+</body>
+</html>

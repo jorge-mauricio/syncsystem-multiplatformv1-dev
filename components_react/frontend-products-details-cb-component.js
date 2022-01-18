@@ -167,7 +167,7 @@ class FrontendProductsDetails extends Component {
 
       this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objProductsDetails.tblProductsMetaDescription); // Bellow 100 characters.
       this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objProductsDetails.tblProductsKeywordsTags); // Bellow 60 characters.
-      this.metaURLCurrent = gSystemConfig.configSystemURL + '/' + gSystemConfig.configRouteFrontendProducts + '/' + gSystemConfig.configRouteFrontendDetails + '/' + this._idTbProducts + '?pageNumber=' + this._pageNumber;
+      this.metaURLCurrent = gSystemConfig.configURLFrontendReact + '/' + gSystemConfig.configRouteFrontendProducts + '/' + gSystemConfig.configRouteFrontendDetails + '/' + this._idTbProducts + '?pageNumber=' + this._pageNumber;
 
       // Debug.
       // console.log("this.objCategoryCurrent", this.objCategoryCurrent);
@@ -202,6 +202,8 @@ class FrontendProductsDetails extends Component {
     document.title = this.metaTitle;
 
     // Meta tags.
+    document.querySelector('link[rel="canonical"]').setAttribute('href', this.metaURLCurrent);
+
     document.querySelector('meta[name="title"]').setAttribute('content', this.metaTitle);
     document.querySelector('meta[name="description"]').setAttribute('content', this.metaDescription);
     document.querySelector('meta[name="keywords"]').setAttribute('content', this.metaKeywords);

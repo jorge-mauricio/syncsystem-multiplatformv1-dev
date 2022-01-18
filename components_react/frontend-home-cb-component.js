@@ -349,7 +349,8 @@ class FrontendHome extends Component {
       // this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); // Bellow 60 characters.
       this.metaKeywords = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'configSiteKeywords'); // Bellow 60 characters.
 
-      this.metaURLCurrent = gSystemConfig.configSystemURL + '/';
+      // this.metaURLCurrent = gSystemConfig.configSystemURL + '/';
+      this.metaURLCurrent = gSystemConfig.configURLFrontendReact + '/';
 
       // this.objCategoriesHomeListing = this.objCategoriesHomeJson.oclRecords; // working
       // this.arrCategoriesHomeListing = this.objCategoriesHomeJson.oclRecords.resultsCategoriesListing; // working
@@ -393,6 +394,8 @@ class FrontendHome extends Component {
 
     // Meta tags.
     /**/
+    document.querySelector('link[rel="canonical"]').setAttribute('href', this.metaURLCurrent);
+
     document.querySelector('meta[name="title"]').setAttribute('content', this.metaTitle);
     document.querySelector('meta[name="description"]').setAttribute('content', this.metaDescription);
     document.querySelector('meta[name="keywords"]').setAttribute('content', this.metaKeywords);
@@ -489,7 +492,7 @@ class FrontendHome extends Component {
     return (
       <React.Fragment>
         <React.Fragment>
-          {/*d iv layout (custom). */}
+          {/* div layout (custom). */}
           {this.configLayoutType === 1 ? (
             <React.Fragment>
               <section className="ss-frontend-layout-section-content01">home content</section>
@@ -541,6 +544,33 @@ class FrontendHome extends Component {
 
         {/* Publications component. */}
         <FrontendPublications key={130} idParentPublications={'130'} idRegisterUser={''} configLayoutType={2} configPublicationsNRecords={''} configPublicationsSort={gSystemConfig.configPublicationsSort} activation={1} activation1={''} activation2={''} activation3={''} activation4={''} activation5={''}></FrontendPublications>
+
+
+        <section id="divTerms" className="ss-frontend-text01 ss-frontend-terms">
+          <div>
+            <div>
+              <strong>Cookie, Privacy Policy And Terms Consent</strong>
+              By clicking “Accept All”, you agree to our terms and consent to our website's use of cookies to give you the most relevant experience by remembering your preferences and future visits. You may also visit “Cookie Settings” on your browser to modify the settings.
+            </div>
+
+            <div>
+              <a
+                onClick={() => {
+                  FunctionsSyncSystem.htmlGenericStyle01('divTerms', 'display', 'none');
+                }}
+                className="ss-frontend-btn-base ss-frontend-btn-action-execute"
+              >
+                Accept All
+              </a>
+              <a href="content/138/" className="ss-frontend-btn-base ss-frontend-btn-action-alert">
+                Read Terms
+              </a>
+              <a href="content/137/" className="ss-frontend-btn-base ss-frontend-btn-action-alert">
+                Read Privacy Policy
+              </a>
+            </div>
+          </div>
+        </section>
       </React.Fragment>
     );
   }

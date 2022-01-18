@@ -32,21 +32,40 @@ substitute:
     --ssFrontendDefaultFont: Arial, Helvetica, sans-serif;
     /* --ssFrontendDefaultFont: "Times New Roman", Times, serif; */
 
+	/* Desktop. */
     --ssFrontendDefaultFontSize: 13px;
     --ssFrontendDefaultTitleFontSize: 20px;
     --ssFrontendDefaultSubheadingFontSize: 16px;
     --ssFrontendDefaultCaptionFontSize: 11px;
+    /* TODO: line-height defaults; */
 
+	/* Mobile. */
+	--ssFrontendMobileDefaultFontSize: 14px;
+	--ssFrontendMobileDefaultTitleFontSize: 18px;
+	--ssFrontendMobileDefaultSubheadingFontSize: 16px;
+	--ssFrontendMobileDefaultCaptionFontSize: 11px;
 
     /* Font stroke (behind text). */
     --ssFrontendDefaultfontStrokeWidth: 3px;
     --ssFrontendDefaultfontStrokeColor: #000000;
+}
+
+/*Mobile.*/
+@media(max-width: 991px)
+{
+    :root{
+        --ssFrontendDefaultFontSize: 14px;
+        --ssFrontendDefaultTitleFontSize: 18px;
+        --ssFrontendDefaultSubheadingFontSize: 16px;
+        --ssFrontendDefaultCaptionFontSize: 11px;
+    }
 }
 /* ************************************************************************************** */
 
 
 /* Useful parameters . */
 /* ************************************************************************************** */
+/* cursor: default; *//* cursor as the default arrow */
 /* pointer-events: none; *//* element click through */
 /* hyphens: auto; */
 
@@ -138,6 +157,12 @@ input, textarea, select {
     box-sizing: border-box;
 }
 
+button {
+    padding: 0px; /* default: 1px 6px; */
+    border-width: 0px; /* default: 2px; */
+    border-style: outset; /* default */
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133)); /* default */
+}
 button:focus {
     outline: none; /* Ajustar tamanho, caso utilize width: 100%;. */
 }
@@ -218,6 +243,36 @@ button:focus {
     background-repeat: no-repeat; */
 }
 
+.ss-frontend-layout-header-stiky {
+    position: fixed; 
+
+
+    -webkit-animation: fadein 500ms; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 500ms; /* Firefox < 16 */
+        -ms-animation: fadein 500ms; /* Internet Explorer */
+         -o-animation: fadein 500ms; /* Opera < 12.1 */
+            animation: fadein 500ms;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 .ss-frontend-layout-shortcuts-layout {
 
 }
@@ -260,6 +315,66 @@ button:focus {
 
     /* overflow: hidden; 
     clear: both; */
+}
+
+.ss-frontend-terms {
+    position: fixed !important; 
+    display: block; 
+
+    left: 0px; 
+    right: 0px; 
+    bottom: 0px; 
+
+    width: 100%; 
+    min-height: 1px; 
+
+    color: #ffffff; 
+    font-size: 11px !important;
+
+    background-color: #78c3ae; 
+    z-index: 2;
+    border-top: 1px solid #000000;
+}
+.ss-frontend-terms > div {
+    position: relative; 
+    display: block; 
+
+    width: 1015px; 
+
+    margin: auto; 
+    padding: 10px;
+}
+.ss-frontend-terms > div > div {
+    position: relative; 
+    display: block; 
+
+    text-align: center;
+}
+.ss-frontend-terms > div > div:nth-of-type(1) {
+    margin-bottom: 10px;
+}
+.ss-frontend-terms > div > div:nth-of-type(1) > strong {
+    display: block;
+}
+.ss-frontend-terms > div > div > a {
+    font-size: 11px;
+}
+.ss-frontend-terms > div > div > a:nth-of-type(1) {
+    display: block; 
+
+    width: 300px; 
+
+    margin: 0px auto 10px auto;
+}
+.ss-frontend-terms > div > div > a:nth-of-type(2), .ss-frontend-terms > div > div > a:nth-of-type(3) {
+    width: 150px;
+}
+@media(max-width: 991px) {
+    .ss-frontend-terms > div {
+        width: 100%; 
+
+        padding: 4px;
+    }
 }
 
 /* Links. */
@@ -764,6 +879,43 @@ button:focus {
     background-image: url(../app_files_layout/frontend-layout-btn-top-a.png);
 }
 
+.ss-frontend-btn-top-fixed {
+    position: fixed;
+    display: block;
+
+    /*right: 10px;*/
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-50%, 0); 
+
+    width: 40px; 
+    height: 40px;
+    line-height: 0px;
+
+    font-size: 40px;
+
+    color: #ffffff;
+    background-color: #78c3ae;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+    margin-left: 480px;
+
+    z-index: 9999;
+}
+.ss-frontend-btn-top-fixed:hover {
+    color: #78c3ae;
+    background-color: #ffffff;
+}
+@media (max-width: 1014px) {
+    .ss-frontend-btn-top-fixed {
+        right: 10px;
+        left: initial;
+        transform: initial;
+    }
+}
+
 .ss-frontend-btn-generic-bg01 {
     position: relative;
     display: inline-block;
@@ -900,6 +1052,10 @@ button:focus {
     /* background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(255,0,0,0.7)); */ /* transparent */
     
     /* background: repeating-linear-gradient(to left, #74ABDD, #78c3ae 49.9%, #0000ff, #000000000 50.1%); */ /* with limitations */
+}
+
+.ss-frontend-shadow01 {
+    box-shadow: 3px 3px 10px #000000;
 }
 
 .ss-frontend-flip01 {
@@ -1043,16 +1199,16 @@ button:focus {
     font-weight: lighter;
     text-align: center;
 
-    color: #fd577f !important;
-    background-color: #012640;
+    color: #ffffff !important;
+    background-color: #78c3ae;
 
     border-radius: 3px;
 
     cursor: pointer;
 }
 .ss-frontend-mobile-layout-header-nav-menu:hover {
-    color: #3be0f4 !important;
-    background-color: #012640;
+    color: #ffffff !important;
+    background-color: #78c3ae;
 }
 
 .ss-frontend-mobile-layout-header-nav {
@@ -1388,6 +1544,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;    
 }
 .ss-frontend-categories-listing-link01:hover {
     color: #0000ff;
@@ -1466,6 +1625,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;    
 }
 .ss-frontend-categories-details-link01:hover {
     color: #0000ff;
@@ -1689,12 +1851,17 @@ flex-wrap: wrap;
     /* margin: 0px; 
     padding: 0px; */
 }
-
+@media(max-width: 991px)
+{
+    .ss-frontend-content-text {
+        hyphens: auto;
+    }   
+}
 .ss-frontend-content-text-tab {
     margin-left: 30px;
 }
 
-.ss-backend-content-caption {
+.ss-frontend-content-caption {
     position: relative;
     display: block;
 
@@ -1713,6 +1880,9 @@ flex-wrap: wrap;
     line-height: 17px;
     font-weight: normal;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;
 }
 .ss-frontend-content-links:hover {
     font-family: var(--ssFrontendDefaultFont);
@@ -1926,6 +2096,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;
 }
 .ss-frontend-products-listing-link01:hover {
     color: #0000ff;
@@ -2004,6 +2177,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;    
 }
 .ss-frontend-products-details-link01:hover {
     color: #0000ff;
@@ -2361,6 +2537,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;
 }
 .ss-frontend-publications-listing-link01:hover {
     color: #0000ff;
@@ -2439,6 +2618,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;
 }
 .ss-frontend-publications-details-link01:hover {
     color: #0000ff;
@@ -2896,6 +3078,8 @@ flex-wrap: wrap;
     padding: 2rem;
     mix-blend-mode: difference;
     transition: all ease 1s;
+    
+    cursor: pointer;
 }
 .ss-frontend-files-images-gallery-mosaic01 > div:hover a {
     opacity: 1;
@@ -3336,6 +3520,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;    
 }
 .ss-frontend-quizzes-listing-link01:hover {
     color: #0000ff;
@@ -3414,6 +3601,9 @@ flex-wrap: wrap;
     font-size: var(--ssFrontendDefaultFontSize);
     text-decoration: none;
     color: #78c3ae;
+
+    word-wrap: break-word;
+    word-break: break-all;    
 }
 .ss-frontend-quizzes-details-link01:hover {
     color: #0000ff;

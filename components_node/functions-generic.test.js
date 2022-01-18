@@ -12,7 +12,7 @@ const SyncSystemNS = require("./syncsystem-ns.js"); //Node JS import method supp
 //**************************************************************************************
 //With data.
 test("SyncSystemNS.FunctionsGeneric.appLabelsGet: " + 
-    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "testOutputString1") + " (Development).", ()=>{
+    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "testOutputString1") + " (Development)", ()=>{
     //Test with data full.
     //----------------------
     //Build the test.
@@ -684,4 +684,64 @@ test("SyncSystemNS.FunctionsGeneric.valueMaskWrite: " +
     //----------------------
 }); //2 arguments - description, call to function to test.
 //}, 10000); //With set timeout changed.
+//**************************************************************************************
+
+//contentMaskRead unit test.
+//**************************************************************************************
+//With data.
+test('SyncSystemNS.FunctionsGeneric.contentMaskRead: ' + 
+    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'testOutputString1') + ' (content<br />test).', ()=>{
+    //Test with data full.
+    //----------------------
+    //Build the test.
+    let testData_db = SyncSystemNS.FunctionsGeneric.contentMaskRead('content\ntest', 'db');
+
+    //Expected result.
+    expect(testData_db).toBe('content<br />test');
+    //----------------------
+
+
+    //Test with data full.
+    //----------------------
+    //Build the test.
+    let testData_config_application = SyncSystemNS.FunctionsGeneric.contentMaskRead('content test', 'config-application');
+
+    //Expected result.
+    expect(testData_config_application).toBe('content test');
+    //----------------------
+}); //2 arguments - description, call to function to test.
+//}, 10000); //With set timeout changed.
+
+//Without data.
+test('SyncSystemNS.FunctionsGeneric.contentMaskRead: ' + 
+    SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'testOutputEmpty1'), ()=>{
+    //Test with data empty.
+    //----------------------
+    //Build the test.
+    let testDataEmpty_db = SyncSystemNS.FunctionsGeneric.contentMaskRead('', 'db');
+
+    //Expected result.
+    expect(testDataEmpty_db).toBe('');
+    //----------------------
+
+
+    //Test with data null.
+    //----------------------
+    //Build the test.
+    let testDataNull = SyncSystemNS.FunctionsGeneric.contentMaskRead(null, null);
+
+    //Expected result.
+    expect(testDataNull).toBe('');
+    //----------------------
+
+
+    //Test with data undefinied.
+    //----------------------
+    //Build the test.
+    let testDataUndefined = SyncSystemNS.FunctionsGeneric.contentMaskRead(undefined , undefined);
+
+    //Expected result.
+    expect(testDataUndefined).toBe('');
+    //----------------------
+});
 //**************************************************************************************

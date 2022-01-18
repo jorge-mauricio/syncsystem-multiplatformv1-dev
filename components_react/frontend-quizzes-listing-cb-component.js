@@ -300,7 +300,7 @@ class FrontendQuizzesListing extends Component {
       // this.metaDescription = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia Meta Description"); // Bellow 100 characters. // Test.
       this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); // Bellow 60 characters.
       // this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01("Trivia Meta Keywords"); // Bellow 60 characters. // Test.
-      this.metaURLCurrent = gSystemConfig.configSystemURL + '/' + gSystemConfig.configRouteFrontendQuizzes + '/' + this._idParentQuizzes + '/';
+      this.metaURLCurrent = gSystemConfig.configURLFrontendReact + '/' + gSystemConfig.configRouteFrontendQuizzes + '/' + this._idParentQuizzes + '/';
       if (this._pageNumber) {
         this.metaURLCurrent += '?pageNumber=' + this._pageNumber;
       }
@@ -387,6 +387,8 @@ class FrontendQuizzesListing extends Component {
     document.title = this.metaTitle;
 
     // Meta tags.
+    document.querySelector('link[rel="canonical"]').setAttribute('href', this.metaURLCurrent);
+
     document.querySelector('meta[name="title"]').setAttribute('content', this.metaTitle);
     document.querySelector('meta[name="description"]').setAttribute('content', this.metaDescription);
     document.querySelector('meta[name="keywords"]').setAttribute('content', this.metaKeywords);

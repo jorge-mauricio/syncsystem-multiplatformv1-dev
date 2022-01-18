@@ -98,6 +98,15 @@
     "array-bracket-spacing": "error",
     "object-curly-spacing": "off",
     "comma-spacing": "warn",
+    /*
+    "comma-dangle": ["error", {
+      "arrays": "never",
+      "objects": "only-multiline",
+      "imports": "never",
+      "exports": "never",
+      "functions": "never"
+    }], // never | always | always-multiline | only-multiline
+    */
     "computed-property-spacing": "warn",
     "func-call-spacing": "warn",
     "key-spacing": "warn",

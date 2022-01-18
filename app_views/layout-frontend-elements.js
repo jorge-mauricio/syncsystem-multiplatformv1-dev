@@ -56,13 +56,15 @@ const tagsFavicons = `
 
 // TODO: update iframe template.
 const tagsMetaDefault2 = `
+  <link rel="canonical" href="" />${/* window.location.pathname + window.location.search */ ''}
+
   <meta name="robots" content="index,follow" />
   <meta name="language" content="english" />
 
   <meta name="author" content="${SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, 'config-application')}" />
   <meta name="designer" content="${SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configDevName, 'config-application')}" />
   <meta name="copyright" content="${gSystemConfig.configCopyrightYear}, ${SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, 'config-application')}" />
-  <meta name="rating" content="general" /><?php // general | mature | restricted | 14 years?>
+  <meta name="rating" content="general" />${/* general | mature | restricted | 14 years */ ''}
 `;
 
 const tagsMetaDynamic1 = `

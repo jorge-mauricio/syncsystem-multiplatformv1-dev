@@ -215,10 +215,12 @@ class FrontendLogoff extends Component {
       // this.metaKeywords = SyncSystemNS.FunctionsGeneric.removeHTML01(this.objCategoriesCurrent.ocdRecord.tblCategoriesKeywordsTags); // Bellow 60 characters.
       this.metaKeywords = SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageFrontend.appLabels, 'configSiteKeywords'); // Bellow 60 characters.
 
-      this.metaURLCurrent = gSystemConfig.configSystemURL + '/';
+      this.metaURLCurrent = gSystemConfig.configURLFrontendReact + '/' + gSystemConfig.configRouteFrontendLogoff + '/';
 
       // Debug.
-      console.log('document.cookie=', document.cookie);
+      if (gSystemConfig.configDebug === true) {
+        console.log('document.cookie=', document.cookie);
+      }
     } catch (asyncError) {
       if (gSystemConfig.configDebug === true) {
         console.error(asyncError);
@@ -248,6 +250,8 @@ class FrontendLogoff extends Component {
 
     // Meta tags.
     /**/
+    document.querySelector('link[rel="canonical"]').setAttribute('href', this.metaURLCurrent);
+
     document.querySelector('meta[name="title"]').setAttribute('content', this.metaTitle);
     document.querySelector('meta[name="description"]').setAttribute('content', this.metaDescription);
     document.querySelector('meta[name="keywords"]').setAttribute('content', this.metaKeywords);

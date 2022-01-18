@@ -575,7 +575,7 @@ module.exports = class FunctionsGeneric {
    * Data treatment for displaying information.
    * @static
    * @param {string} strContent
-   * @param {string} specialInstructions
+   * @param {string} specialInstructions db | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
    * @returns {string}
    * @example
    *
@@ -588,80 +588,90 @@ module.exports = class FunctionsGeneric {
     let strReturn = strContent;
     // ----------------------
 
-    // Detect edit field type.
+    // Data treatment.
     // ----------------------
-    if (specialInstructions.includes('editTextBox=17') === true || specialInstructions.includes('editTextBox=18') === true) {
-      specialInstructions += ', db'; // include especial instruction
+    if (strReturn === undefined || strReturn === null) {
+      strReturn = '';
     }
     // ----------------------
 
-    // db
+    // Logic.
     // ----------------------
-    if (specialInstructions.includes('db') === true) {
-      if (strReturn) {
-        // strReturn = strContent;
-
-        // Convert line breaks to html br tags.
-        // ref: https:// stackoverflow.com/questions/784539/how-do-i-replace-all-line-breaks-in-a-string-with-br-tags
-        // strReturn = strContent.replace(/(?:\r\n|\r|\n)/g, "<br />");
-        strReturn = strReturn.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    if (specialInstructions) {
+      // Detect edit field type.
+      // ----------------------
+      if (specialInstructions.includes('editTextBox=17') === true || specialInstructions.includes('editTextBox=18') === true) {
+        specialInstructions += ', db'; // include especial instruction
       }
-    }
-    // ----------------------
+      // ----------------------
 
-    // apply link style
-    // ----------------------
-    if (specialInstructions.includes('linkStyle') == true) {
-      // Variables.
-      let arrSpecialInstructions = specialInstructions.split(',');
-      let styleApply;
+      // DB data.
+      // ----------------------
+      if (specialInstructions.includes('db') === true) {
+        if (strReturn) {
+          // strReturn = strContent;
 
-      // Value definition.
-      arrSpecialInstructions.filter((array) => {
-        if (array.includes('linkStyle')) {
-          styleApply = array;
+          // Convert line breaks to html br tags.
+          // ref: https:// stackoverflow.com/questions/784539/how-do-i-replace-all-line-breaks-in-a-string-with-br-tags
+          // strReturn = strContent.replace(/(?:\r\n|\r|\n)/g, "<br />");
+          strReturn = strReturn.replace(/(?:\r\n|\r|\n)/g, '<br />');
         }
-      });
+      }
+      // ----------------------
 
-      // Data treatment.
-      styleApply = styleApply.replace('linkStyle=', '');
+      // Apply link style.
+      // ----------------------
+      if (specialInstructions.includes('linkStyle') == true) {
+        // Variables.
+        let arrSpecialInstructions = specialInstructions.split(',');
+        let styleApply;
 
-      // Logic.
-      // strReturn = strReturn.replace('target="_blank"', 'target="_blank" class="' + styleApply + '"');
-      strReturn = strReturn.replace('href="', 'class="' + styleApply + '" href="');
+        // Value definition.
+        arrSpecialInstructions.filter((array) => {
+          if (array.includes('linkStyle')) {
+            styleApply = array;
+          }
+        });
 
-      // Debug.
-      // console.log("arrSpecialInstructions[1]=", arrSpecialInstructions[1]);
-      // console.log("styleApply=", styleApply);
+        // Data treatment.
+        styleApply = styleApply.replace('linkStyle=', '');
+
+        // Logic.
+        // strReturn = strReturn.replace('target="_blank"', 'target="_blank" class="' + styleApply + '"');
+        strReturn = strReturn.replace('href="', 'class="' + styleApply + '" href="');
+
+        // Debug.
+        // console.log("arrSpecialInstructions[1]=", arrSpecialInstructions[1]);
+        // console.log("styleApply=", styleApply);
+      }
+      // ----------------------
+
+      // config-application
+      // ----------------------
+      // if(specialInstructions == "config-application")
+      if (specialInstructions.includes('config-application') === true) {
+        // strReturn = strContent;
+        strReturn = strReturn;
+      }
+      // ----------------------
+
+      // env (.env - environment variables)
+      // ----------------------
+      if (specialInstructions.includes('env') === true) {
+        // strReturn = strContent;
+        strReturn = strReturn;
+      }
+      // ----------------------
+
+      // URL data.
+      // ----------------------
+      // TODO: check and correct url links.
+      if (specialInstructions.includes('url') === true) {
+        // strReturn = strContent;
+        strReturn = strReturn;
+      }
+      // ----------------------
     }
-    // ----------------------
-
-    // config-application
-    // ----------------------
-    // if(specialInstructions == "config-application")
-    if (specialInstructions.includes('config-application') === true) {
-      // strReturn = strContent;
-      strReturn = strReturn;
-    }
-    // ----------------------
-
-    // env (.env - environment variables)
-    // ----------------------
-    if (specialInstructions.includes('env') === true) {
-      // strReturn = strContent;
-      strReturn = strReturn;
-    }
-    // ----------------------
-
-    // URL
-    // ----------------------
-    // TODO: check and correct url links.
-    if (specialInstructions.includes('url') === true) {
-      // strReturn = strContent;
-      strReturn = strReturn;
-    }
-    // ----------------------
-
     return strReturn;
   }
   // **************************************************************************************

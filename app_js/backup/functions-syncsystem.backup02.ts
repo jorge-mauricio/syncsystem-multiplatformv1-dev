@@ -224,7 +224,7 @@ FunctionsSyncSystem.elementShowHideToggle = elementShowHideToggle;
  * @example
  * htmlGenericStyle01('divTest1', 'display', 'none');
  */
-const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: string): void => {
+const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: string) => {
   // Variables.
   // ----------------------
   // let elementHTML = document.getElementById(idHTML);
@@ -284,48 +284,6 @@ const htmlGenericStyle01 = (idHTML: string, styleName: string, parameterValue: s
 };
 // **************************************************************************************
 FunctionsSyncSystem.htmlGenericStyle01 = htmlGenericStyle01;
-
-// Function to show an element based on the position of scroll.
-// **************************************************************************************
-/**
- * unction to show an element based on the position of scroll.
- * @param {string} idElement
- * @param {string} positionType top | bottom
- * @param {string} positionValue
- * @example
- * elementShowByPosition('btnTopFixed', 'top', '50');
- */
- const elementShowByPosition = (idElement: string, positionType: string, positionValue: string): void => {
-  // positionType: top | bottom
-
-  // Variables.
-  // ----------------------
-  let targetElement = document.getElementById(idElement);
-  // ----------------------
-
-  // Logic.
-  // ----------------------
-  if (targetElement) {
-    // Top.
-    if (positionType === 'top') {
-      if (document.documentElement.scrollTop > parseInt(positionValue)) {
-        FunctionsSyncSystem.htmlGenericStyle01(idElement, 'visibility', 'visible');
-        // targetElement.style.setProperty('visibility', 'visible', 'important');
-      } else {
-        FunctionsSyncSystem.htmlGenericStyle01(idElement, 'visibility', 'hidden');
-        // targetElement.style.setProperty('visibility', 'hidden', 'important');
-      }
-
-      // Debug.
-      // console.log('document.documentElement.scrollTop=', document.documentElement.scrollTop);
-      // console.log('document.scrollHeight=', document.scrollHeight);
-      // console.log('document.clientHeight=', document.clientHeight);
-    }
-  }
-  // ----------------------
-};
-// **************************************************************************************
-FunctionsSyncSystem.elementShowByPosition = elementShowByPosition;
 
 // Function to set a value to an HTML element.
 // **************************************************************************************
@@ -653,9 +611,7 @@ const radiobuttonCheck01 = (idRadiobutton: string, radiobuttonSelect: string, id
       htmlGenericStyle01(idPrefixItemContent + (radiobuttonCheck + 1), 'display', 'block');
 
       // Debug.
-      if (configDebug === true) {
-        // console.log('idPrefixItemContent', idPrefixItemContent + (radiobuttonCheck + 1));
-      }
+      console.log('idPrefixItemContent', idPrefixItemContent + (radiobuttonCheck + 1));
     }
 
     if (radiobuttonSelect === 'prev' && radiobuttonCheck !== 0) {

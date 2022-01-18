@@ -12,7 +12,7 @@ class ContextProvider extends React.Component {
   }
 
   render() {
-    return <App {...this.props} />;
+    return <App { ...this.props } />;
   }
 }
 
