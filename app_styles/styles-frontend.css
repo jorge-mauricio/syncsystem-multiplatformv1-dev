@@ -117,7 +117,8 @@ substitute:
 /* Global styles. */
 /* ************************************************************************************** */
 html, body {
-    height: 100%;
+    /* height: 100%; */ /* Causes problem on the back to top fixed button. */
+    min-height: 100%;
 
     margin: 0px;
     padding: 0px;
@@ -222,6 +223,24 @@ button:focus {
     max-width: 1015px;
     margin: auto;
 }
+@media(max-width: 991px) {
+  .ss-frontend-layout-header01 {
+    position: relative; 
+    display: block; 
+
+    height: 242px;
+    
+    border-top: initial; 
+  }
+  
+  .ss-frontend-layout-header01 > div:nth-of-type(1) {
+    width: 100%;
+    height: 45px;
+    
+    background-color: #ccc;
+  }
+}
+
 .ss-frontend-layout-header01 > a {
     position: absolute; 
     display: block; 
@@ -242,6 +261,45 @@ button:focus {
     /* background-image: url(../app_files_layout/frontend-desktop-logo.png); 
     background-repeat: no-repeat; */
 }
+@media(max-width: 991px) {
+  .ss-frontend-layout-header-logo {
+      position: absolute; 
+      display: block; 
+      
+      left: 50%; 
+      transform: translate(-50%, 0); 
+      top: 90px;
+      /*bottom: 0px;*/
+  }
+}
+
+.ss-frontend-layout-header-nav {
+  position: absolute; 
+  display: block; 
+
+  top: 0px;
+  right: 0px; 
+  height: 55px; 
+  line-height: 55px;
+}
+@media(max-width: 991px) {
+  .ss-frontend-layout-header-nav {
+    position: fixed; 
+    display: none; 
+
+    right: 0px; 
+    top: 0px; 
+
+    width: 200px; 
+    height: 100%; 
+
+    background-color: #747474; 
+    box-shadow: 3px 3px 10px #000000;
+
+    overflow: hidden; 
+    z-index: 9999; 
+  }
+} /* Mobile menu. */
 
 .ss-frontend-layout-header-stiky {
     position: fixed; 
@@ -289,12 +347,35 @@ button:focus {
     background-repeat: no-repeat; 
     background-position: center bottom; */
 }
+.ss-frontend-layout-footer01 > div {
+    position: relative; 
+    display: block; 
+    
+    width: 1015px;
+    height: 307px;
+    
+    margin: auto;
+}
+@media(max-width: 991px) {
+    .ss-frontend-layout-footer01 {
+        height: initial;
+        
+        background-image: none; 
+        
+        padding-bottom: 211px;
+    }
+    .ss-frontend-layout-footer01 > div {
+        width: 100%;
+    }
+}
 
 .ss-frontend-layout-footer-nav-layout {
     position: relative; 
     display: block; 
 }
-
+.ss-frontend-layout-footer-nav-layout > h4, .ss-frontend-social-media-layout-footer > h4, .ss-frontend-footer-contact-layout > h4 {
+    font-size: 45px;
+}
 .ss-frontend-layout-main01 {
     /* 1 column layout. */
     position: relative; 
@@ -315,6 +396,11 @@ button:focus {
 
     /* overflow: hidden; 
     clear: both; */
+}
+@media(max-width: 991px) {
+    .ss-frontend-layout-main01 {
+        max-width: 100%; 
+    }
 }
 
 .ss-frontend-terms {
@@ -393,7 +479,14 @@ button:focus {
 .ss-frontend-link01:hover {
     color: #0000ff;
 }
-
+@media(max-width: 991px) {
+    .ss-frontend-link01 {
+        color: #78c3ae;
+    }
+    .ss-frontend-link01:hover {
+          color: #0000ff;
+    }
+}
 
 /* Texts. */
 .ss-frontend-title-text01 {
@@ -606,6 +699,8 @@ button:focus {
     font-size: 11px;
     color: #78c3ae;
     /* text-align: left; */
+    
+    float: right;
 }
 .ss-frontend-credit:hover {
     color: #0000ff;
@@ -626,6 +721,32 @@ button:focus {
     margin: 0px auto; 
     
     /* border-top: 1px dashed #ffffff; */
+}
+@media(max-width: 991px) {
+    .ss-frontend-copyright {
+        position: relative;
+        display: block;
+        border-bottom: 1px dashed #ffffff;
+    }
+    .ss-frontend-credit {
+        float: initial;
+    }
+    .ss-frontend-credit-layout {
+        position: relative;
+        
+        bottom: initial; 
+        left: initial; 
+        right: initial; 
+        
+        height: 65px; 
+        line-height: 28px; 
+        
+        text-align: center;
+        
+        margin: 0px; 
+        
+        border-top: none;
+    }
 }
 
 
@@ -657,6 +778,14 @@ button:focus {
     
     vertical-align: top;
 }
+@media(max-width: 991px) {
+    .ss-frontend-links-ul02 {
+        display: block; 
+        text-align: center;
+        margin-left: 20px;
+    }
+}
+
 
 .ss-frontend-links-li01 { /* horizontal links */
     position: relative;
@@ -665,6 +794,32 @@ button:focus {
     padding-left: 15px; 
     padding-right: 15px; 
     /* border-left: 1px solid #78c3ae; */
+}
+.ss-frontend-links-li01:first-child { 
+    background-image: none;
+}
+@media(max-width: 991px) {
+    .ss-frontend-links-li01 {
+        position: relative;
+        display: inline-block; 
+        
+        position: relative; 
+        display: block; 
+        
+        width: 100%; 
+        min-height: 45px; 
+        
+        line-height: 45px; 
+        
+        padding-left: 20px; 
+        padding-right: initial; 
+
+        border-bottom: 1px solid #000000;
+          
+        background-image: initial;
+        background-repeat: initial;
+        background-position: initial;
+    } /* Mobile menu */
 }
 
 .ss-frontend-links-li02 { /* no elements, one bellow the other */
@@ -715,6 +870,34 @@ button:focus {
     right: 0px; 
     text-align: center;
 }
+
+.ss-frontend-layout-section-full-width01 {
+    position: relative; 
+    display: block; 
+    
+    left: 50%; 
+    transform: translateX(-50%);
+
+    width: 99vw; 
+    height: 705px; 
+    
+    background-color: #ccc; 
+    overflow: hidden; 
+}
+.ss-frontend-layout-section-full-width01 > div {
+    position: relative; 
+    display: block; 
+
+    width: 1015px; 
+
+    margin: auto;
+}
+/* Recursive select to change the styles. */
+/*
+.ss-frontend-layout-section-full-width01 p > * {
+  color: #ffffff;
+}
+*/
 
 .ss-frontend-layout-section-containers01 {
     position: relative; 
@@ -811,6 +994,13 @@ button:focus {
 
     border-radius: 5px; 
     padding: 0px 10px 0px 10px;
+}
+@media(max-width: 991px) {
+  .ss-frontend-btn-base {
+    height: 35px; 
+    line-height: 35px;
+    font-size: 16px;
+  }
 }
 
 .ss-frontend-btn-action {
@@ -1046,7 +1236,7 @@ button:focus {
 
 /* Effects. */
 .ss-frontend-fauntain01 {
-    background-image: linear-gradient(to left, #78c3ae, #000000000);
+    background-image: linear-gradient(to left, #78c3ae, #00000000);
     /* background-image: radial-gradient(#ffffff, #78c3ae); *//* radial */
     
     /* background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(255,0,0,0.7)); */ /* transparent */
@@ -1454,6 +1644,7 @@ flex-wrap: wrap;
     /* height: 300px; */
 
     background-color: #ccc;
+    /* background-image: var(--categoriesListingDesktopContainerBG); */
 
     margin: 0px 0px 10px 0px;
 
@@ -1797,6 +1988,11 @@ flex-wrap: wrap;
 
     overflow: hidden;
 }
+@media(max-width: 991px) {
+  .ss-frontend-content-listing-container {
+    margin: 0px 5px 0px 5px;
+  }
+}
 
 .ss-frontend-content-container {
     position: relative;
@@ -1808,7 +2004,6 @@ flex-wrap: wrap;
     overflow: hidden;
     clear: both;
 }
-
 
 .ss-frontend-content-heading-title {
     /* position: relative;
@@ -1854,6 +2049,7 @@ flex-wrap: wrap;
 @media(max-width: 991px)
 {
     .ss-frontend-content-text {
+        /* line-height: 19px; */
         hyphens: auto;
     }   
 }
@@ -1928,6 +2124,12 @@ flex-wrap: wrap;
 .ss-frontend-content-images-container-left > figcaption {
     width: 200px;
 }
+@media(max-width: 991px) {
+    .ss-frontend-content-images-container-left {
+        float: initial;
+        margin-bottom: 10px;
+    }
+}
 
 .ss-frontend-content-images-container-right {
     position: relative;
@@ -1951,7 +2153,12 @@ flex-wrap: wrap;
 .ss-frontend-content-images-container-right > figcaption {
     width: 200px;
 }
-
+@media(max-width: 991px) {
+  .ss-frontend-content-images-container-right {
+      float: initial;
+      margin-bottom: 10px;
+  }
+}
 
 .ss-frontend-content-images {
     position: relative;
@@ -3785,6 +3992,11 @@ flex-wrap: wrap;
 
     overflow: hidden;
 }
+@media(max-width: 991px) {
+    .ss-frontend-forms-container {
+        width: 100%;
+    }
+}
 
 .ss-frontend-forms-title01 {
     position: relative;
@@ -4621,6 +4833,12 @@ flex-wrap: wrap;
     /* overflow: hidden; */
     z-index: 1;
 }
+@media(max-width: 991px) {
+    .ss-frontend-banners-container {
+        height: 280px;
+    }
+}
+
 .ss-frontend-banners-container-frame {
     position: relative; 
     display: block;

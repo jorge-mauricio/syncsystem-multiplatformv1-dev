@@ -87,6 +87,7 @@ class LayoutFrontendMain extends Component {
     // Bind with method.
     // this.handleChange = this.handleChange.bind(this);
     this.setTitleCurrent = this.setTitleCurrent.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
   // **************************************************************************************
 
@@ -98,7 +99,7 @@ class LayoutFrontendMain extends Component {
    * @param {string} strMessage
    * @example
    */
-   setTitleCurrent(sProperty, strMessage) {
+  setTitleCurrent(sProperty, strMessage) {
     this.setState({
       // [stateProperty]: strMessage
       // titleCurrent: strMessage
@@ -120,6 +121,21 @@ class LayoutFrontendMain extends Component {
     this.setState({
       [key]: value,
     });
+  }
+  // **************************************************************************************
+
+  // Function to handle the back to top button.
+  // TODO: change function name.
+  // **************************************************************************************
+  /**
+   * Function to change the state.
+   * @param {*} e
+   * @example
+   */
+  handleScroll(e) {
+    const { FunctionsSyncSystem } = this.context;
+
+    FunctionsSyncSystem.elementShowByPosition('btnTopFixed', 'top', '50');
   }
   // **************************************************************************************
 
@@ -153,6 +169,9 @@ class LayoutFrontendMain extends Component {
     // ----------------------
     const { gSystemConfig, SyncSystemNS, FunctionsSyncSystem, HTMLReactParser, Safe } = this.context;
     // ----------------------
+
+    // Listeners.
+    window.addEventListener('scroll', this.handleScroll);
 
     // Logic.
     // ----------------------
@@ -516,6 +535,18 @@ class LayoutFrontendMain extends Component {
               </small>
             </footer>
           </div>
+
+          {/* Button Scroll to Top (fixed). */}
+          <button
+            id="btnTopFixed"
+            onClick={() => {
+              FunctionsSyncSystem.scrollToTarget('anchorTop');
+            }}
+            className="ss-frontend-shadow01 ss-frontend-btn-top-fixed"
+            style={{ visibility: 'hidden' }}
+          >
+            <i className="fas fa-caret-up" />
+          </button>
 
           {/* React bundle script - SSR. */}
           <Safe.script src="/bundle.react.client.js"></Safe.script>

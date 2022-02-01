@@ -790,11 +790,12 @@ module.exports = class FunctionsGeneric {
    * Data treatment to read values.
    * @static
    * @param {string} valueData
+   * @param {string} configCurrency '$' | 'R$'
    * @param {int} valueType 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency (with decimals)
    * @param {*} specialInstructions
    * @returns {int | double}
    * @example
-   * SyncSystemNS.FunctionsGeneric.valueMaskWrite(variableNameOrText, 2)
+   * SyncSystemNS.FunctionsGeneric.valueMaskRead(1000, '$', 2)
    */
   // static valueMaskRead(valueData, configCurrency, valueType, specialInstructions)
   static valueMaskRead(valueData, configCurrency = '$', valueType = 2, specialInstructions = null) {
@@ -822,6 +823,7 @@ module.exports = class FunctionsGeneric {
     // ----------------------
 
     // Logic.
+    // ----------------------
     // if(strValue !== null || typeof(strValue) !== "undefined")
     if (strValue !== null && typeof strValue !== 'undefined') {
       // Set default configuration.
@@ -982,6 +984,7 @@ module.exports = class FunctionsGeneric {
 
       // strReturn = strValue.toLocaleString('fullwide', {useGrouping:false}); // not working
     }
+    // ----------------------
 
     return strReturn;
   }

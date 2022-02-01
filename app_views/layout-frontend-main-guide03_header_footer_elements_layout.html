@@ -65,6 +65,12 @@ https://magic.reactjs.net/htmltojsx.htm
                     
                     <!--Social Media-->
                     <address class="ss-frontend-social-media-layout">
+                        <a href="https://www.facebook.com" 
+                            target="_blank" 
+                            title="Facebook"
+                            class="ss-frontend-social-media">
+                            <i class="fab fa-facebook"></i>
+                        </a>
                         <a href="https://www.linkedin.com" 
                             target="_blank" 
                             title="LinkedIn"
@@ -76,6 +82,12 @@ https://magic.reactjs.net/htmltojsx.htm
                             title="YouTube"
                             class="ss-frontend-social-media">
                             <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https:instagram.com" 
+                            target="_blank"
+                            title="Instagram" 
+                            class="ss-frontend-social-media">
+                            <i class="fab fa-instagram"></i>
                         </a>
                         <a href="mailto:contact@domain.com" 
                             target="_blank" 
@@ -101,7 +113,27 @@ https://magic.reactjs.net/htmltojsx.htm
                       </a>
                     </aside>
                     
-                    
+                    <nav id="navMenu" class="ss-frontend-layout-header-nav">
+                        <ul class="ss-frontend-links-ul01">
+                            <li class="ss-frontend-links-li01 d-lg-none">
+                                <a id="navLinkClose" 
+                                    onclick="elementShowHideToggle('navMenu');" 
+                                    title="Close Menu" 
+                                    class="ss-frontend-link01">
+                                      X Close
+                                </a>
+                            </li>
+                            <li class="ss-frontend-links-li01">
+                                <a id="navLinkHome" 
+                                    href="#" 
+                                    title="Home" 
+                                    class="ss-frontend-link01">
+                                    Home
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                      
                     <!--Menu mobile button.-->
                     <a onclick="elementShowHideToggle('navMenu');" 
                       title="Mobile Menu" 
@@ -174,7 +206,7 @@ https://magic.reactjs.net/htmltojsx.htm
             </main>
 
             <!--Footer.-->
-            <footer class="ss-frontend-layout-footer01">
+            <footer class="ss-frontend-layout-footer01 ss-frontend-text-contact01">
                 <a onclick="scrollToTarget('anchorTop');"
                     title="Back to Top" 
                     class="ss-frontend-element-center-absolute ss-frontend-btn-top">
@@ -182,63 +214,108 @@ https://magic.reactjs.net/htmltojsx.htm
                 
                 <!--Site map.-->
                 <nav class="ss-frontend-layout-footer-nav-layout">
-                    <ul class="ss-frontend-links-ul02 d-none d-lg-block d-xl-block">
-                        <li class="ss-frontend-links-li02">
-                            <a href="#" 
-                                title="Home" 
-                                class="ss-frontend-footer-links01">
-                                Home
-                            </a>
-                        </li>
-                        <li class="ss-frontend-links-li02">
-                            <a href="#" 
-                                title="Link 1" 
-                                class="ss-frontend-footer-links01">
-                                Link 1
-                            </a>
-                        </li>
-                        <li class="ss-frontend-links-li02">
-                            <a href="#" 
-                                title="Link 2" 
-                                class="ss-frontend-footer-links01">
-                                Link 2
-                            </a>
-                        </li>
-                    </ul>
+                    <h4>
+                        Site Map
+                    </h4>
+                    <div>
+                        <ul class="ss-frontend-links-ul02 d-none d-lg-block d-xl-block">
+                            <li class="ss-frontend-links-li02">
+                                <a href="#" 
+                                    title="Home" 
+                                    class="ss-frontend-footer-links01">
+                                    Home
+                                </a>
+                            </li>
+                            <li class="ss-frontend-links-li02">
+                                <a href="#" 
+                                    title="Link 1" 
+                                    class="ss-frontend-footer-links01">
+                                    Link 1
+                                </a>
+                            </li>
+                            <li class="ss-frontend-links-li02">
+                                <a href="#" 
+                                    title="Link 2" 
+                                    class="ss-frontend-footer-links01">
+                                    Link 2
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
                 
                 <!--Social media.-->
                 <address class="ss-frontend-social-media-layout-footer">
-                    <a href="https://www.linkedin.com/" 
-                        target="_blank" 
-                        title="LinkedIn"
-                        class="ss-frontend-social-media-footer">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://youtu.be/" 
-                        target="_blank" 
-                        title="YouTube"
-                        class="ss-frontend-social-media-footer">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://t.me/username?text=" 
-                        target="_blank" 
-                        title="Telegram"
-                        class="ss-frontend-social-media-footer">
-                        <i class="fab fa-telegram-plane"></i>
-                    </a>
-                    <a href="mailto:contact@domain.com" 
-                        target="_blank" 
-                        title="e-mail"
-                        class="ss-frontend-social-media-footer d-lg-none">
-                        <i class="fas fa-envelope"></i>
-                    </a>
+                    <h4>
+                      Social Media
+                    </h4>
+                    <div>
+                        <a href="https://www.facebook.com" 
+                            target="_blank" 
+                            title="Facebook"
+                            class="ss-frontend-social-media-footer">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/" 
+                            target="_blank" 
+                            title="LinkedIn"
+                            class="ss-frontend-social-media-footer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://youtu.be/" 
+                            target="_blank" 
+                            title="YouTube"
+                            class="ss-frontend-social-media-footer">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https:instagram.com" 
+                            target="_blank"
+                            title="Instagram" 
+                            class="ss-frontend-social-media-footer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://t.me/username?text=" 
+                            target="_blank" 
+                            title="Telegram"
+                            class="ss-frontend-social-media-footer">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <a href="mailto:contact@domain.com" 
+                            target="_blank" 
+                            title="e-mail"
+                            class="ss-frontend-social-media-footer d-lg-none">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
                 </address>
+                
+                
+                <!--Customer service.-->
+                <div class="ss-frontend-footer-contact-layout">
+                    <h4>
+                      Customer Service
+                    </h4>
+                    <a href="https://api.whatsapp.com/send?phone=123" 
+                        title="Phone"
+                        class="ss-frontend-footer-links01">
+                        123
+                    </a>
+                    <a href="mailto:contact@xxx.com" 
+                        title="e-mail"
+                        class="ss-frontend-footer-links01">
+                        contact@xxx.com
+                    </a>
+                </div>
                 
                     
                 <!--Credits.-->
-                <small class="ss-frontend-credit ss-frontend-credit-layout">
-                    Credits
+                <small class="ss-frontend-credit-layout">
+                    <span class="ss-frontend-copyright">
+                        Credits
+                    </span>
+                    <a href="#" class="ss-frontend-credit">
+                        dev
+                    </a>
                 </small>
             </footer>
         </div>

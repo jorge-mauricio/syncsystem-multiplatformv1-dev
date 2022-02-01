@@ -402,7 +402,7 @@ gSystemConfig.configCategoryType = [
 
 // Categories - configuration and resources.
 // **************************************************************************************
-gSystemConfig.configCategoriesSort = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+gSystemConfig.configCategoriesSort = 'id DESC'; // options: id | sort_order | date_creation asc | date_creation desc | title
 gSystemConfig.enableCategoriesSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesInputOrder = ['inputRowCategories_id_parent', 'inputRowCategories_sort_order', 'inputRowCategories_date1', 'inputRowCategories_id_register_user', 'inputRowCategories_title', 'inputRowCategories_description', 'inputRowCategories_url_alias', 'inputRowCategories_meta_title', 'inputRowCategories_meta_description', 'inputRowCategories_keywords_tags', 'inputRowCategories_info1', 'inputRowCategories_info_small1', 'inputRowCategories_number1', 'inputRowCategories_number_small1', 'inputRowCategories_category_type', 'inputRowCategories_image_main', 'inputRowCategories_file1', 'inputRowCategories_file2', 'inputRowCategories_activation', 'inputRowCategories_id_restricted_access', 'inputRowCategories_id_status', 'inputRowCategories_notes'];
 
@@ -436,32 +436,32 @@ gSystemConfig.enableCategoriesZip = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableCategoriesBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configCategoriesBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
-gSystemConfig.configCategoriesBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configCategoriesBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableCategoriesBindRegister1 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesBindRegister1Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configCategoriesBindRegister1IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configCategoriesBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configCategoriesBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableCategoriesBindRegister2 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesBindRegister2Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configCategoriesBindRegister2IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configCategoriesBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configCategoriesBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableCategoriesBindRegister3 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesBindRegister3Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configCategoriesBindRegister3IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configCategoriesBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configCategoriesBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableCategoriesBindRegister4 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesBindRegister4Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configCategoriesBindRegister4IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configCategoriesBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configCategoriesBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableCategoriesBindRegister5 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesBindRegister5Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configCategoriesBindRegister5IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configCategoriesBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configCategoriesBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 // ----------------------
 
 // Optional fields (field titles in the language configuration file).
@@ -612,7 +612,7 @@ gSystemConfig.configCategoriesFrontendPaginationNRecords = 10;
 
 // Files - configuration and resources.
 // **************************************************************************************
-gSystemConfig.configFilesSort = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | caption
+gSystemConfig.configFilesSort = 'id DESC'; // options: id | sort_order | date_creation asc | date_creation desc | caption
 gSystemConfig.enableFilesSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configFilesInputOrder = ['inputRowFiles_id_parent', 'inputRowFiles_sort_order', 'inputRowFiles_date1', 'inputRowFiles_file_config', 'inputRowFiles_caption', 'inputRowFiles_description', 'inputRowFiles_url_alias', 'inputRowFiles_meta_title', 'inputRowFiles_meta_description', 'inputRowFiles_keywords_tags', 'inputRowFiles_info1', 'inputRowFiles_info_small1', 'inputRowFiles_number1', 'inputRowFiles_number_small1', 'inputRowFiles_category_type', 'inputRowFiles_file', 'inputRowFiles_file1', 'inputRowFiles_file2', 'inputRowFiles_activation', 'inputRowFiles_notes'];
 
@@ -757,7 +757,7 @@ gSystemConfig.configFilesFrontendPaginationNRecords = 10;
 
 // Content - configuration and resources.
 // **************************************************************************************
-gSystemConfig.configContentSort = 'id ASC'; // options: id | sort_order | date_creation esc | date_creation desc
+gSystemConfig.configContentSort = 'id ASC'; // options: id | sort_order | date_creation asc | date_creation desc
 gSystemConfig.enableContentSortCustom = 1; // 0 - disable | 1 - enable
 /*
 gSystemConfig.configContentInputOrder = ["inputRowContent_id_parent", 
@@ -791,12 +791,12 @@ gSystemConfig.enableContentFiles = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableContentBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configContentBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configContentBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
-gSystemConfig.configContentBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configContentBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 // **************************************************************************************
 
 // Products - configuration and resources.
 // **************************************************************************************
-gSystemConfig.configProductsSort = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+gSystemConfig.configProductsSort = 'id DESC'; // options: id | sort_order | date_creation asc | date_creation desc | title
 gSystemConfig.enableProductsSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsInputOrder = ['inputRowProducts_id_parent', 'inputRowProducts_sort_order', 'inputRowProducts_date1', 'inputRowProducts_id_register_user', 'inputRowProducts_title', 'inputRowProducts_description', 'inputRowProducts_url_alias', 'inputRowProducts_meta_title', 'inputRowProducts_meta_description', 'inputRowProducts_keywords_tags', 'inputRowProducts_info1', 'inputRowProducts_info_small1', 'inputRowProducts_number1', 'inputRowProducts_number_small1', 'inputRowProducts_image_main', 'inputRowProducts_file1', 'inputRowProducts_file2', 'inputRowProducts_activation', 'inputRowProducts_id_restricted_access', 'inputRowProducts_id_status', 'inputRowProducts_notes'];
 
@@ -838,32 +838,32 @@ gSystemConfig.enableProductsZip = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableProductsBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configProductsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
-gSystemConfig.configProductsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configProductsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableProductsBindRegister1 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegister1Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configProductsBindRegister1IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configProductsBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configProductsBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableProductsBindRegister2 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegister2Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configProductsBindRegister2IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configProductsBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configProductsBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableProductsBindRegister3 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegister3Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configProductsBindRegister3IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configProductsBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configProductsBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableProductsBindRegister4 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegister4Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configProductsBindRegister4IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configProductsBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configProductsBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableProductsBindRegister5 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegister5Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configProductsBindRegister5IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configProductsBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configProductsBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 // ----------------------
 
 // Optional fields (field titles in the language configuration file).
@@ -1147,7 +1147,7 @@ gSystemConfig.configProductsFrontendPaginationNRecords = 10;
 
 // Publications - configuration and resources.
 // **************************************************************************************
-gSystemConfig.configPublicationsSort = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+gSystemConfig.configPublicationsSort = 'id DESC'; // options: id | sort_order | date_creation asc | date_creation desc | title
 gSystemConfig.enablePublicationsSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsInputOrder = ['inputRowPublications_id_parent', 'inputRowPublications_sort_order', 'inputRowPublications_date1', 'inputRowPublications_id_register_user', 'inputRowPublications_title', 'inputRowPublications_description', 'inputRowPublications_url_alias', 'inputRowPublications_meta_title', 'inputRowPublications_meta_description', 'inputRowPublications_keywords_tags', 'inputRowPublications_info1', 'inputRowPublications_number1', 'inputRowPublications_image_main', 'inputRowPublications_file1', 'inputRowPublications_file2', 'inputRowPublications_activation', 'inputRowPublications_id_restricted_access', 'inputRowPublications_id_status', 'inputRowPublications_notes'];
 
@@ -1192,32 +1192,32 @@ gSystemConfig.enablePublicationsZip = 1; // 0 - disable | 1 - enable
 gSystemConfig.enablePublicationsBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configPublicationsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
-gSystemConfig.configPublicationsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configPublicationsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enablePublicationsBindRegister1 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsBindRegister1Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configPublicationsBindRegister1IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configPublicationsBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configPublicationsBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enablePublicationsBindRegister2 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsBindRegister2Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configPublicationsBindRegister2IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configPublicationsBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configPublicationsBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enablePublicationsBindRegister3 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsBindRegister3Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configPublicationsBindRegister3IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configPublicationsBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configPublicationsBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enablePublicationsBindRegister4 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsBindRegister4Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configPublicationsBindRegister4IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configPublicationsBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configPublicationsBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enablePublicationsBindRegister5 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsBindRegister5Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configPublicationsBindRegister5IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configPublicationsBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configPublicationsBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 // ----------------------
 
 // Optional fields (field titles in the language configuration file).
@@ -1342,7 +1342,7 @@ gSystemConfig.configPublicationsFrontendPaginationNRecords = 10;
 
 // Registers - configuration and resources.
 // **************************************************************************************
-gSystemConfig.configRegistersSort = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | name_full
+gSystemConfig.configRegistersSort = 'id DESC'; // options: id | sort_order | date_creation asc | date_creation desc | name_full
 gSystemConfig.enableRegistersSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersInputOrder = ['inputRowRegisters_id_parent', 'inputRowRegisters_sort_order', 'inputRowRegisters_name', 'inputRowRegisters_info1', 'inputRowRegisters_image_main', 'inputRowRegisters_activation', 'inputRowRegisters_id_status', 'inputRowRegisters_notes'];
 
@@ -1443,32 +1443,32 @@ gSystemConfig.enableRegistersZip = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableRegistersBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configRegistersBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
-gSystemConfig.configRegistersBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configRegistersBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableRegistersBindRegister1 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersBindRegister1Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configRegistersBindRegister1IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configRegistersBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configRegistersBindRegister1Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableRegistersBindRegister2 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersBindRegister2Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configRegistersBindRegister2IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configRegistersBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configRegistersBindRegister2Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableRegistersBindRegister3 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersBindRegister3Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configRegistersBindRegister3IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configRegistersBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configRegistersBindRegister3Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableRegistersBindRegister4 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersBindRegister4Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configRegistersBindRegister4IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configRegistersBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configRegistersBindRegister4Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableRegistersBindRegister5 = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersBindRegister5Method = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configRegistersBindRegister5IDReference = 3892; // category ID / register type ID | 0 - all register categories
-gSystemConfig.configRegistersBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configRegistersBindRegister5Sort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 // ----------------------
 
 // Optional fields (field titles in the language configuration file).
@@ -1816,7 +1816,7 @@ gSystemConfig.enableQuizzesType = 0; // 0 - disable | 1 - enable
 gSystemConfig.enableQuizzesBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configQuizzesBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configQuizzesBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
-gSystemConfig.configQuizzesBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configQuizzesBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableQuizzesDescription = 1; // 0 - disable | 1 - enable
 
@@ -1948,7 +1948,7 @@ gSystemConfig.enableFormsSortOrder = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableFormsBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configFormsBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
 gSystemConfig.configFormsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
-gSystemConfig.configFormsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+gSystemConfig.configFormsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableFormsRecipientEmailCopy = 1; // 0 - disable | 1 - enable
 gSystemConfig.enableFormsSender = 1; // 0 - disable | 1 - enable
@@ -2037,7 +2037,7 @@ gSystemConfig.enableEmailSSL = false;
 
 // Filters Generic - configuration and resources.
 // **************************************************************************************
-gSystemConfig.configFiltersGenericSort = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+gSystemConfig.configFiltersGenericSort = 'id DESC'; // options: id | sort_order | date_creation asc | date_creation desc | title
 gSystemConfig.enableFiltersGenericSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configFiltersGenericInputOrder = ['inputRowFiltersGeneric_id_parent', 'inputRowFiltersGeneric_sort_order', 'inputRowFiltersGeneric_id_register_user', 'inputRowFiltersGeneric_title', 'inputRowFiltersGeneric_description', 'inputRowFiltersGeneric_url_alias', 'inputRowFiltersGeneric_meta_title', 'inputRowFiltersGeneric_meta_description', 'inputRowFiltersGeneric_keywords_tags', 'inputRowFiltersGeneric_info_small1', 'inputRowFiltersGeneric_number_small1', 'inputRowFiltersGeneric_image_main', 'inputRowFiltersGeneric_activation', 'inputRowFiltersGeneric_notes'];
 
@@ -2103,7 +2103,7 @@ gSystemConfig.configFiltersGenericImagePlaceholder = 1; // 0 - disable | 1 - ena
 
 // Users.
 // **************************************************************************************
-gSystemConfig.configUsersSort = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | name_full
+gSystemConfig.configUsersSort = 'id DESC'; // options: id | sort_order | date_creation asc | date_creation desc | name_full
 gSystemConfig.enableUsersSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configUsersInputOrder = ['inputRowUsers_id_parent', 'inputRowUsers_sort_order', 'inputRowUsers_name', 'inputRowUsers_info1', 'inputRowUsers_image_main', 'inputRowUsers_activation', 'inputRowUsers_id_status', 'inputRowUsers_notes'];
 
