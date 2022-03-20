@@ -104,9 +104,9 @@ module.exports = class ObjectCategoriesListing {
    * @param {*} returnType 1 - array | 3 - Json Object | 10 - html
    * @returns {json}
    */
-  async recordsListingGet(terminal = 0, returnType = 1) // static async categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
+  // static async categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
   // function categoriesListingGet(idParent = null, terminal = 0, returnType = 1)
-  {
+  async recordsListingGet(terminal = 0, returnType = 1) {
     // terminal: 0 - backend | 1 - frontend
     // returnType: 1 - array | 3 - Json Object | 10 - html
 

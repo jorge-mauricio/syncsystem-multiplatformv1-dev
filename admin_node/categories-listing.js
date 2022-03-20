@@ -83,7 +83,7 @@ module.exports = class CategoriesListing {
     this.arrFiltersGenericSearchParameters = [];
     this.ofglRecords = '';
     this.ofglRecordsParameters = {};
-    
+
     this.resultsCategoriesFiltersGeneric1Listing;
     this.resultsCategoriesFiltersGeneric2Listing;
     this.resultsCategoriesFiltersGeneric3Listing;

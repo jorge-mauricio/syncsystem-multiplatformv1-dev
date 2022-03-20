@@ -27,7 +27,7 @@ let s3Stream = require('s3-upload-stream')(s3);
 */
 // ----------------------
 
-// Backend - Categories - listing - GET.
+// Admin - Categories - listing - GET.
 // **************************************************************************************
 // app.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ // working, with the async block
 // router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ // working, with the async block
@@ -186,7 +186,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 });
 // **************************************************************************************
 
-// Backend - Categories - edit - GET.
+// Admin - Categories - edit - GET.
 // **************************************************************************************
 // app.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ // working, with the async block
 // router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit + "/:idTbCategories?", (req, res)=>{ // working, with the async block
@@ -297,7 +297,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 });
 // **************************************************************************************
 
-// Backend - Categories - details - GET.
+// Admin - Categories - details - GET.
 // **************************************************************************************
 // router.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendDetails + "/:idTbCategories?", (req, res)=>{ // working, with the async block
 router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendCategories + '/' + gSystemConfig.configRouteBackendDetails + '/:idTbCategories?', [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware('user_backend')], (req, res, next) => {
@@ -406,7 +406,7 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
 });
 // **************************************************************************************
 
-// Backend - Categories - POST (insert record).
+// Admin - Categories - POST (insert record).
 // **************************************************************************************
 // app.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories, urlencodedParser, (req, res)=>
 // app.post("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories, (req, res)=>
@@ -1546,7 +1546,7 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
 });
 // **************************************************************************************
 
-// Backend - Categories - PUT (edit).
+// Admin - Categories - PUT (edit).
 // **************************************************************************************
 // router.put("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/" + gSystemConfig.configRouteBackendActionEdit, (req, res)=>{ // working, with the async block
 router.put('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendCategories + '/' + gSystemConfig.configRouteBackendActionEdit, [SyncSystemNS.FunctionsAuthentication.authenticationVerification_middleware('user_backend')], (req, res, next) => {

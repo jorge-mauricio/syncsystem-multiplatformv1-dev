@@ -963,7 +963,7 @@ module.exports = class FunctionsDB {
    * @param {string} strNRecords
    * @param {string} strReturnFields field names, separated by commas. Ex: id, id_parent
    * @param {integer} searchType 1 - all results | 2 - first result | 3 - count records
-   * @param {object} objSpecialParameters
+   * @param {object} objSpecialParameters {returnType: 3, pageNumber: 2, pagingNRecords: 20}
    * @returns {object}
    */
   // prettier-ignore

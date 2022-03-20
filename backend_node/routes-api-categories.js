@@ -135,7 +135,7 @@ router.get('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRouteA
     pageNumber = req.query.pageNumber;
   }
   if (req.query.pagingNRecords) {
-    pageNumber = req.query.pagingNRecords;
+    pagingNRecords = req.query.pagingNRecords;
   }
 
   if (req.query.apiKey) {

@@ -10,7 +10,7 @@ class FunctionsGeneric
      * @static
      * @param {object} objAppLabels 
      * @param {string} labelName 
-     * @returns {string}
+     * @return {string}
      * @example
      * SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "labelName")
      */

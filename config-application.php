@@ -10,6 +10,7 @@
 //Coding style reference: https://www.php-fig.org/psr/psr-12/
 //declare(strict_types=1); //causing error somewhere in this code
 
+$configDebug = true; // true (debug mode) | false (production mode)
 
 //Error handling / displaying.
 //----------------------
