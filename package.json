@@ -34,7 +34,7 @@
   "homepage": "https://github.com/jorge-mauricio/syncsystem-multiplatformv1-dev#readme",
   "dependencies": {
     "autoprefixer": "^9.8.6",
-    "aws-sdk": "^2.884.0",
+    "aws-sdk": "^2.1373.0",
     "bignumber.js": "^9.0.0",
     "body": "^5.1.0",
     "bootstrap": "^3.3.7",
