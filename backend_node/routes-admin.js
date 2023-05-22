@@ -294,7 +294,7 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
       // ----------------------
       // Parameters build.
       arrSearchParameters.push('username;' + username + ';s');
-      arrSearchParameters.push('id;11;!i'); // user - root
+      arrSearchParameters.push('id;11;!i'); // exclude user - root
       arrSearchParameters.push('activation;1;i');
 
       objUsersLoginParameters = {
@@ -327,10 +327,10 @@ router.post('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configR
         }
 
         // Debug.
-        console.log('tblUsersID=', tblUsersID);
-        console.log('tblUsersIDCrypt=', tblUsersIDCrypt);
-        console.log('tblUsersPasswordDecrypt=', tblUsersPasswordDecrypt);
-        console.log('objUsersLogin.resultsUsersListing[countArray].password=', objUsersLogin.resultsUsersListing[countArray].password);
+        // console.log('tblUsersID=', tblUsersID);
+        // console.log('tblUsersIDCrypt=', tblUsersIDCrypt);
+        // console.log('tblUsersPasswordDecrypt=', tblUsersPasswordDecrypt);
+        // console.log('objUsersLogin.resultsUsersListing[countArray].password=', objUsersLogin.resultsUsersListing[countArray].password);
       }
       // ----------------------
 

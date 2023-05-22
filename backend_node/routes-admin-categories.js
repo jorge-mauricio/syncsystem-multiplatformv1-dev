@@ -51,8 +51,8 @@ router.get('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRo
   // Variables.
   // ----------------------
   // let clBackend = new CategoriesListing();
-  let clBackend;
-  let idParent = '';
+  let clBackend; // TODO: change to clAdmin.
+  let idParent = ''; // TODO: change to idParentCagories.
   let pageNumber = '';
   let masterPageSelect = 'layout-backend-main';
   let cookiesData;

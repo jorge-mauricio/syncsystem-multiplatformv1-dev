@@ -21,7 +21,7 @@ http://fullstackwebdesigner.com
 // const os = require("os"); // utility to get hostname // ref: https:// nodejs.org/api/os.html#os_os_hostname
 // ----------------------
 
-// Create a namespace to help export all variables / properties.
+// Create an object to work as a "namespace" to help export all variables / properties.
 let gSystemConfig = {}; // eslint-disable-line
 
 // NodeJS configuration.
@@ -59,6 +59,7 @@ gSystemConfig.configDevName = 'Planejamento Visual - Arte e Tecnologia'; // Jorg
 gSystemConfig.configDevSite = 'http://www.planejamentovisual.com.br'; // http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br | http://www.fullstackwebdesigner.com
 gSystemConfig.configCopyrightYear = '2008';
 
+// Endpoints configurations.
 // gSystemConfig.configSystemURL = "http://localhost:3000"; // http://multiplatformv1.syncsystem.com.br
 gSystemConfig.configSystemURL = process.env.CONFIG_SYSTEM_URL; // http://multiplatformv1.syncsystem.com.br
 // gSystemConfig.configSystemURL = window.location.origin; // http://multiplatformv1.syncsystem.com.br
@@ -124,7 +125,7 @@ gSystemConfig.configSystemDBTableUsers = 'users';
 gSystemConfig.configImagePopup = 4; // 0 - no pop-up | 1 - LightBox 2 (JQuery) | 3 - fancybox (JQuery) | 4 - GLightbox (vanilla js)
 gSystemConfig.configImagePopupBGColor = '#000000';
 gSystemConfig.configImagePopupW = '890';
-gSystemConfig.configImagePopupBGColor = '530';
+gSystemConfig.configImagePopupH = '530';
 // ----------------------
 
 // Directories configuration.
@@ -145,11 +146,11 @@ gSystemConfig.configDirectoryFilesLayout = 'app_files_layout';
 gSystemConfig.configDirectoryFonts = 'app_fonts';
 gSystemConfig.configDirectoryResources = 'app_resources';
 gSystemConfig.configDirectoryStyles = 'app_styles';
+gSystemConfig.configDirectoryJS = 'app_js';
 gSystemConfig.configDirectoryViews = 'app_views';
 gSystemConfig.configDirectoryDist = 'dist'; // webpack distribution folder files (production / minifying)
 gSystemConfig.configDirectoryBuildReact = 'build'; // webpack distribution folder files - react (production / minifying)
 gSystemConfig.configDirectoryBuildReactClient = 'public'; // webpack distribution folder files - react client (production / minifying)
-gSystemConfig.configDirectoryJS = 'app_js';
 
 // Upload directories.
 gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + '/' + gSystemConfig.configDirectoryFilesVisualization;
@@ -252,13 +253,14 @@ gSystemConfig.configRouteFrontendDashboardRegisters = 'dashboard-registers';
 gSystemConfig.configRouteFrontendDashboardQuizzes = 'dashboard-quizzes';
 // ----------------------
 
-// Cryptography.
+// Cookies.
 // ----------------------
 gSystemConfig.configCookieSetType = 1; // 0 - disable (without path - directory) | 1 - enable (set with path - directory)
-gSystemConfig.configCookieDirectory = '/'; // / - full site
+gSystemConfig.configCookieDirectory = '/'; // / - full website
 
 gSystemConfig.configCookiePrefix = 'ss';
 gSystemConfig.configCookiePrefixUserRoot = 'user_root';
+gSystemConfig.configCookiePrefixUserAdmin = 'user_admin'; // TODO: refactor with this new option.
 gSystemConfig.configCookiePrefixUser = 'user';
 
 gSystemConfig.configCookieDefaultOptions = {
@@ -340,7 +342,7 @@ gSystemConfig.configAPIKeySystem = 'createSecretPassword'; // Note: for node dep
 
 // Global system configuration.
 // **************************************************************************************
-gSystemConfig.configBackendTemplateEngine = 1; // 1 - EJS
+gSystemConfig.configBackendTemplateEngine = 1; // 1 - EJS | 11 - blade
 
 gSystemConfig.configBackendTextBox = 17; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
 gSystemConfig.configFrontendTextBox = 1; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
@@ -435,7 +437,7 @@ gSystemConfig.enableCategoriesZip = 1; // 0 - disable | 1 - enable
 // ----------------------
 gSystemConfig.enableCategoriesBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configCategoriesBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
-gSystemConfig.configCategoriesBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
+gSystemConfig.configCategoriesBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registers
 gSystemConfig.configCategoriesBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableCategoriesBindRegister1 = 1; // 0 - disable | 1 - enable
@@ -790,7 +792,7 @@ gSystemConfig.enableContentFiles = 1; // 0 - disable | 1 - enable
 
 gSystemConfig.enableContentBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configContentBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
-gSystemConfig.configContentBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
+gSystemConfig.configContentBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registers
 gSystemConfig.configContentBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 // **************************************************************************************
 
@@ -837,7 +839,7 @@ gSystemConfig.enableProductsZip = 1; // 0 - disable | 1 - enable
 // ----------------------
 gSystemConfig.enableProductsBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configProductsBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
-gSystemConfig.configProductsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
+gSystemConfig.configProductsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registers
 gSystemConfig.configProductsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableProductsBindRegister1 = 1; // 0 - disable | 1 - enable
@@ -1191,7 +1193,7 @@ gSystemConfig.enablePublicationsZip = 1; // 0 - disable | 1 - enable
 // ----------------------
 gSystemConfig.enablePublicationsBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configPublicationsBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
-gSystemConfig.configPublicationsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
+gSystemConfig.configPublicationsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registers
 gSystemConfig.configPublicationsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enablePublicationsBindRegister1 = 1; // 0 - disable | 1 - enable
@@ -1347,8 +1349,10 @@ gSystemConfig.enableRegistersSortCustom = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersInputOrder = ['inputRowRegisters_id_parent', 'inputRowRegisters_sort_order', 'inputRowRegisters_name', 'inputRowRegisters_info1', 'inputRowRegisters_image_main', 'inputRowRegisters_activation', 'inputRowRegisters_id_status', 'inputRowRegisters_notes'];
 
 // Authentication method.
-gSystemConfig.configRegistersAuthenticationMethod = 1; // 1 - cookie | 2 session
+gSystemConfig.configRegistersAuthenticationMethod = 1; // 1 - cookie | 2 - session | 3 - token (API)
+gSystemConfig.configRegistersAuthenticationType = 1; // TODO: sync with laravel // 1 - custom
 gSystemConfig.configRegistersAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+gSystemConfig.configRegistersAuthenticationStore = 1; // TODO: sync with laravel //(store in frontend) 1 - cookie | 2 session | 3 - header
 
 // Basic resources.
 gSystemConfig.enableRegistersIdParentEdit = 1; // 0 - disable | 1 - enable
@@ -1442,7 +1446,7 @@ gSystemConfig.enableRegistersZip = 1; // 0 - disable | 1 - enable
 // ----------------------
 gSystemConfig.enableRegistersBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configRegistersBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
-gSystemConfig.configRegistersBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
+gSystemConfig.configRegistersBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registers
 gSystemConfig.configRegistersBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableRegistersBindRegister1 = 1; // 0 - disable | 1 - enable
@@ -1815,7 +1819,7 @@ gSystemConfig.enableQuizzesType = 0; // 0 - disable | 1 - enable
 
 gSystemConfig.enableQuizzesBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configQuizzesBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
-gSystemConfig.configQuizzesBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
+gSystemConfig.configQuizzesBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registers
 gSystemConfig.configQuizzesBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableQuizzesDescription = 1; // 0 - disable | 1 - enable
@@ -1947,7 +1951,7 @@ gSystemConfig.enableFormsSortOrder = 1; // 0 - disable | 1 - enable
 
 gSystemConfig.enableFormsBindRegisterUser = 1; // 0 - disable | 1 - enable
 gSystemConfig.configFormsBindRegisterUserMethod = 1; // 1 - category ID | 2 - register type
-gSystemConfig.configFormsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registeres
+gSystemConfig.configFormsBindRegisterUserIDReference = 3892; // category ID / register type ID | 0 - all registers
 gSystemConfig.configFormsBindRegisterUserSort = 'name'; // options: name | name_first | name_last | name_company | date_register asc | date_register desc | sort_order
 
 gSystemConfig.enableFormsRecipientEmailCopy = 1; // 0 - disable | 1 - enable
@@ -2109,10 +2113,14 @@ gSystemConfig.configUsersInputOrder = ['inputRowUsers_id_parent', 'inputRowUsers
 
 // Authentication method.
 gSystemConfig.configUsersRootAuthenticationMethod = 1; // 1 - cookie | 2 session // Root was Master on other versions
+gSystemConfig.configUsersRootAuthenticationType = 1; // TODO: sync with laravel // 1 - custom
 gSystemConfig.configUsersRootAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+gSystemConfig.configUsersRootAuthenticationStore = 1; // TODO: sync with laravel //(store in frontend) 1 - cookie | 2 session | 3 - header
 
 gSystemConfig.configUsersAuthenticationMethod = 1; // 1 - cookie | 2 session
+gSystemConfig.configUsersAuthenticationType = 1; // TODO: sync with laravel // 1 - custom
 gSystemConfig.configUsersAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+gSystemConfig.configUsersAuthenticationStore = 1; // TODO: sync with laravel //(store in frontend) 1 - cookie | 2 session | 3 - header
 
 // Basic resources.
 gSystemConfig.enableUsersSortOrder = 1; // 0 - disable | 1 - enable

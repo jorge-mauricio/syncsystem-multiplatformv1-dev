@@ -22,7 +22,6 @@ router.get("/", (req, res)=>{
 // **************************************************************************************
 
 // Backend - Records - Delete.
-// TODO: middleware function to check user_root or user_backend
 // **************************************************************************************
 // app.get("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/:idParent?", (req, res)=>{ // working, with the async block
 // router.delete("/" + gSystemConfig.configRouteBackend + "/" + gSystemConfig.configRouteBackendCategories + "/delete/", (req, res)=>{ // working, with the async block
@@ -46,8 +45,9 @@ router.delete('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.confi
   let idForms = '';
   let idFormsFields = '';
 
-  let tableName = '';
   let filterIndex = '';
+
+  let tableName = '';
 
   let pageReturn = '';
   let pageNumber = '';

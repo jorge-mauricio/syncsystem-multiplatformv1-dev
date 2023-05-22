@@ -220,7 +220,7 @@ module.exports = class CategoriesEdit {
       this.titleCurrent = this.ocdRecord.tblCategoriesTitle;
 
       // Meta title.
-      this.metaTitle += SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, 'config-application') + ' - ' + SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendCategoriesTitleMain');
+      this.metaTitle += SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, 'config-application') + ' - ' + SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendCategoriesTitleEdit');
       if (this.titleCurrent) {
         this.metaTitle += ' - ' + this.titleCurrent;
       }
@@ -528,7 +528,8 @@ module.exports = class CategoriesEdit {
         ${/* Form. */ ''}
         <section class="ss-backend-layout-section-form01">
             <form id="formCategories" name="formCategories" method="POST" action="/${gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendCategories + '/' + gSystemConfig.configRouteBackendActionEdit}/?_method=PUT" enctype="multipart/form-data">
-                <input type="hidden" id="formCategoryEdit_method" name="_method" value="PUT">
+                <input type="hidden" id="formCategoryEdit_method" name="_method" value="PUT" />
+                ${/* TODO: search and replace "/>" adjustment */ ''}
                 
                 <div style="position: relative; display: block; overflow: hidden;">
                     <script>

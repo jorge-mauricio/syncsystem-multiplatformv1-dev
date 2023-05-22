@@ -795,10 +795,11 @@ module.exports = class FunctionsDB {
    * Function to return results from any field in table.
    * @static
    * @async
-   * @param {integer} idRecord
+   * @param {double} idRecord
    * @param {string} strTable categories | content | files | publications | products | registers | quizzes | forms | forms_fields | forms_fields_options
    * @param {string} fieldName
    * @returns {string}
+   * @example await SyncSystemNS.FunctionsDB.genericFieldGet01(790, gSystemConfig.configSystemDBTableCategories, "title")
    */
   static async genericFieldGet01(idRecord, strTable, fieldName) {
     // Variables.

@@ -1,36 +1,44 @@
 <?php
-//Author information.
-//**************************************************************************************
+// Author information.
+// **************************************************************************************
 
-//**************************************************************************************
+// **************************************************************************************
 
 
-//PHP configuration.
-//**************************************************************************************
+// PHP configuration.
+// **************************************************************************************
 //Coding style reference: https://www.php-fig.org/psr/psr-12/
 //declare(strict_types=1); //causing error somewhere in this code
 
 $configDebug = true; // true (debug mode) | false (production mode)
 
-//Error handling / displaying.
-//----------------------
+// Error handling / displaying.
+// ----------------------
 ini_set('display_errors', 1); //Show all errors.
 //error_reporting(0); //Ocultar todos erros.
 //error_reporting(E_ALL); //alpshost
 //error_reporting(E_STRICT & ~E_STRICT); //Locaweb Linux 5.4 | HostGator Linux 5.5 | e 1 (windows)
 //error_reporting(E_ALL | E_STRICT);
 //error_reporting(error_reporting() & ~E_NOTICE);
-//----------------------
+// ----------------------
 
 
-//Timezone configuration.
+// Timezone configuration.
 date_default_timezone_set('America/Sao_Paulo');
-//**************************************************************************************
+// **************************************************************************************
 
+// General constants.
+// **************************************************************************************
+// Value types.
+define('SS_VALUE_TYPE_GENERAL_NUMBER', 1);
+define('SS_VALUE_TYPE_SYSTEM_CURRENCY', 2);
+define('SS_VALUE_TYPE_DECIMAL', 3);
+define('SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL', 4);
+// **************************************************************************************
 
-//General configuration.
-//**************************************************************************************
-//Basic information.
+// General configuration.
+// **************************************************************************************
+// Basic information.
 $configSystemClientName = "Planejamento Visual";
 
 $configSiteTitle = "SyncSystem - Multiplatform"; //site name
@@ -48,15 +56,15 @@ $configFrontendDefaultView = "frontend_php";
 $configFrontendMobileDefaultView = "frontend_php_mobile";
 
 
-//DB especial configuration.
-//----------------------
+// DB especial configuration.
+// ----------------------
 $configSystemDBTablePrefix = "prefix_ssmv1_";
 $configSystemDBType = 2; //2 - MySQL | 3 - SQL Server
 $enableSystemDBSizeOptimize = 0; //0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
 
 
-//Table names.
-//TODO: Update db setup file with variable names.
+// Table names.
+// TODO: Update db setup file with variable names.
 $configSystemDBTableCounter = "counter";
 $configSystemDBTableCategories = "categories";
 $configSystemDBTableFiles = "files";
@@ -73,22 +81,307 @@ $configSystemDBTableFormsFieldsOptions = "forms_fields_options";
 $configSystemDBTableFiltersGeneric = "filters_generic";
 $configSystemDBTableFiltersGenericBinding = "filters_generic_binding";
 $configSystemDBTableUsers = "users";
-//----------------------
+// ----------------------
 
+// Media configuration.
+// ----------------------
+$configImagePopup = 4; // 0 - no pop-up | 1 - LightBox 2 (JQuery) | 3 - fancybox (JQuery) | 4 - GLightbox (vanilla js)
+$configImagePopupBGColor = '#000000';
+$configImagePopupW = '890';
+$configImagePopupH = '530';
+// ----------------------
+
+// Directories configuration.
+// ----------------------
+$configPhysicalPathRoot = dirname(__FILE__);
+
+// $configDirectoryRootPhysical = __dirname;
+/**/
+$configDirectoryAdmin = 'admin_node';
+// $configDirectorySystem = 'backend_node'; // trash
+$configDirectoryBackend = 'backend_node';
+// $configDirectorySystemRoute = "system"; // trash
+$configDirectoryComponents = 'components_node';
+
+$configDirectoryFilesVisualization = 'app_files_public';
+$configDirectoryFiles = 'app_files_public';
+$configDirectoryFilesLayout = 'app_files_layout';
+$configDirectoryFonts = 'app_fonts';
+$configDirectoryResources = 'app_resources';
+$configDirectoryStyles = 'app_styles';
+$configDirectoryJS = 'app_js';
+$configDirectoryViews = 'app_views';
+$configDirectoryDist = 'dist'; // webpack distribution folder files (production / minifying)
+$configDirectoryBuildReact = 'build'; // webpack distribution folder files - react (production / minifying)
+$configDirectoryBuildReactClient = 'public'; // webpack distribution folder files - react client (production / minifying)
+$configDirectoryBuildLaravel = 'public';
+
+// Upload directories.
+$configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
+// $configDirectoryFilesUpload = $configPhysicalPathRoot + "\\" + $configDirectoryFilesVisualization;
+// ----------------------
+
+// Static directories configuration (public alias).
+// ----------------------
+$configFrontendDefaultViewSD = 'frontend';
+$configDirectorySystemSD = 'backend';
+$configDirectoryAdminSD = 'admin';
+
+/*
+$configDirectoryFilesSD = env('CONFIG_DIRECTORY_FILES_SD'); // 'files' | "" - when using remote
+$configDirectoryFilesLayoutSD = env('CONFIG_DIRECTORY_FILES_LAYOUT_SD'); // 'files-layout'
+$configDirectoryFontsSD = env('CONFIG_DIRECTORY_FONTS_SD'); // 'fonts'
+$configDirectoryStylesSD = env('CONFIG_DIRECTORY_STYLES_SD'); // 'css'
+$configDirectoryJSSD = env('CONFIG_DIRECTORY_JS_SD'); // 'js'
+*/
+// $configDirectoryFilesSD = ""; // "" - when using remote file storage
+$configDirectoryFilesSD = 'files'; // "" - when using remote
+$configDirectoryFilesLayoutSD = 'files-layout';
+$configDirectoryFontsSD = 'fonts';
+$configDirectoryStylesSD = 'css';
+$configDirectoryJSSD = 'js';
+$configDirectoryDistSD = 'dist';
+$configDirectoryBuildReactSD = 'build'; // TODO: Maybe change to frontend_react
+$configDirectoryBuildReactClientSD = 'public';
+// ----------------------
+
+// Routes configuration.
+// ----------------------
+$configRouteAPI = 'api';
+$configRouteAPIActionEdit = 'edit';
+$configRouteAPIActionSend = 'send';
+$configRouteAPIActionLog = 'log';
+$configRouteAPIDetails = 'details';
+$configRouteAPIRecords = 'records';
+
+$configRouteAPICategories = 'categories';
+$configRouteAPIFiles = 'files';
+$configRouteAPIContent = 'content';
+$configRouteAPIProducts = 'products';
+$configRouteAPIPublications = 'publications';
+$configRouteAPIRegisters = 'registers';
+$configRouteAPIQuizzes = 'quizzes';
+$configRouteAPIQuizzesOptions = 'quizzes-options';
+$configRouteAPIForms = 'forms';
+$configRouteAPIFormsFields = 'forms-fields';
+$configRouteAPIFormsFieldsOptions = 'forms-fields-options';
+$configRouteAPIFiltersGeneric = 'filters-generic';
+$configRouteAPIUsers = 'users';
+$configRouteAPIAuthentication = 'authentication';
+$configRouteAPILogin = 'login';
+
+$configRouteBackend = 'system';
+$configRouteBackendLogin = 'login';
+$configRouteBackendLogOff = 'logoff'; // TODO: change to logoff.
+$configRouteBackendLoginUsers = 'login-users';
+// $configRouteBackendLogOffUsers = "logoff-users";
+$configRouteBackendLogOffUsersRoot = 'logoff-users-root'; // TODO: change to logoff.
+$configRouteBackendDashboard = 'dashboard'; // main
+
+$configRouteBackendActionEdit = 'edit';
+$configRouteBackendDetails = 'details';
+$configRouteBackendRecords = 'records';
+$configRouteBackendCategories = 'categories';
+$configRouteBackendFiles = 'files';
+$configRouteBackendContent = 'content';
+$configRouteBackendProducts = 'products';
+$configRouteBackendPublications = 'publications';
+$configRouteBackendRegisters = 'registers';
+$configRouteBackendQuizzes = 'quizzes';
+$configRouteBackendQuizzesOptions = 'quizzes-options';
+$configRouteBackendForms = 'forms';
+$configRouteBackendFormsFields = 'forms-fields';
+$configRouteBackendFormsFieldsOptions = 'forms-fields-options';
+$configRouteBackendFiltersGeneric = 'filters-generic';
+$configRouteBackendUsers = 'users';
+
+$configRouteFrontend = 'en'; // (blank) - root | en
+$configRouteFrontendMobile = 'en-mobile'; // (blank) - responsive |  // NOTE: only in use if layout not responsive
+
+$configRouteFrontendActionEdit = 'edit';
+$configRouteFrontendActionSend = 'send';
+$configRouteFrontendDetails = 'details';
+$configRouteFrontendRecords = 'records';
+
+$configRouteFrontendCategories = 'categories';
+$configRouteFrontendFiles = 'files';
+$configRouteFrontendContent = 'content';
+$configRouteFrontendForms = 'forms';
+$configRouteFrontendProducts = 'products';
+$configRouteFrontendPublications = 'publications';
+$configRouteFrontendRegisters = 'registers';
+$configRouteFrontendQuizzes = 'quizzes';
+$configRouteFrontendLogin = 'login';
+$configRouteFrontendLogoff = 'logoff';
+
+$configRouteFrontendDashboard = 'dashboard';
+$configRouteFrontendDashboardCategories = 'dashboard-categories';
+$configRouteFrontendDashboardFiles = 'dashboard-files';
+$configRouteFrontendDashboardContent = 'dashboard-content';
+$configRouteFrontendDashboardProducts = 'dashboard-products';
+$configRouteFrontendDashboardPublications = 'dashboard-publications';
+$configRouteFrontendDashboardRegisters = 'dashboard-registers';
+$configRouteFrontendDashboardQuizzes = 'dashboard-quizzes';
+// ----------------------
+
+// Cryptography.
+// ----------------------
+$configCryptType = 2; // 0 - no cryptography | 1 - hash (doesn´t allow decryptography) | 2 - Data (allows decryptography)
+$configCryptHash = 11; // 11 - md5 (PHP) | 23 - Crypto Module
+$configCryptData = 26; // 21 - MCrypt PHP library (PHP) (tested: linux - php 7.0 | windows - php 5.4) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
+
+$configCryptKey = 'system_crypt_key'; // generate key data
+$configCryptKey16Byte = '95f19c6f734f9f4fdc1d4258277a1c7d'; // not in use
+$configCryptKey32Byte = 'd0a7e7997b6d5fcd55f4b5c32611b87cd923e88837b63bf2941ef819dc8ca282'; // not in use
+$configCryptiv16Byte = 'bd1e41c05f861867e225d5d998f10813'; // not in use
+$configCryptiv32Byte = '21f534b09237b9716ab561149367ebb8d2d0ab0e0bfec395baf7ba112cb2872f'; // not in use
+$configCryptKeyDefusePHPEncryptionRandomKey = "def000006516cef316c508a843b1362ab79f4fe36a7294070c4c054c16fcab1537fb7ea3cbd6e32526b86e08e7d2906f2303a538eebc48c2944f8e7442886813e25ffab3"; //Defuse php-encryption (key generated by file: /php-encrypption{versao_em_uso}/GerarChave01.php).
+$configCryptSalt = 'syncsystem'; // generate a salt data // TODO: think of a way to change salt and key and generate a new master user password
+// ----------------------
 
 //e-mail configuration.
-//----------------------
+// ----------------------
 $configEmailComponent = 1; //1 - 
 $configEmailFormat = 1; //0 - text | 1 - HTML
-//----------------------
+// ----------------------
 
-//**************************************************************************************
+// **************************************************************************************
 
+// Global system configuration.
+// **************************************************************************************
+$configBackendTemplateEngine = 11; // 1 - EJS | 11 - blade
 
-//Categories - configuration and resources.
-//**************************************************************************************
+$configBackendTextBox = 17; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
+$configFrontendTextBox = 1; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
+
+$configSystemTimeZone = 'America/Sao_Paulo'; // America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
+$configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
+$configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
+
+$configBackendDateFormat = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
+$configBackendDateFieldType = 11; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu | 11 - js-datepicker (https:// www.npmjs.com/package/js-datepicker)
+$configFrontendDateFormat = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
+$configFrontendDateFieldType = 1; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu
+
+// Currency.
+$configSystemCurrency = 'R$'; // R$ | $ | € | £
+$configSystemWeight = 'g'; // g | ounces (1 pound -> 16 ounces)
+$configSystemWeight2 = 'kg'; // kg | Pounds (453.6 grams)
+$configSystemHeight = 'ft'; // ft | m
+$configSystemMetric = 'm²'; // m² | ft²
+$configSystemMetricDistance = 'KM'; // KM | MI
+// **************************************************************************************
+
+// Categories types - configuration and resources.
+// **************************************************************************************
+$configCategoryType = [
+  // Content
+  [
+    'category_type' => 1,
+    'category_type_function_label' => 'backendCategoriesType1Function',
+    'queryString' => '',
+  ],
+
+  // Products
+  [
+    'category_type' => 2,
+    'category_type_function_label' => 'backendCategoriesType2Function',
+    'queryString' => '',
+  ],
+
+  // News
+  [
+    'category_type' => 3,
+    'category_type_function_label' => 'backendCategoriesType3Function',
+    'queryString' => 'publicationType=1',
+  ],
+
+  // Photo Gallery
+  [
+    'category_type' => 4,
+    'category_type_function_label' => 'backendCategoriesType4Function',
+    'queryString' => 'publicationType=2',
+  ],
+
+  // Articles
+  [
+    'category_type' => 5,
+    'category_type_function_label' => 'backendCategoriesType5Function',
+    'queryString' => 'publicationType=3',
+  ],
+
+  // Publications
+  [
+    'category_type' => 6,
+    'category_type_function_label' => 'backendCategoriesType6Function',
+    'queryString' => 'publicationType=4',
+  ],
+
+  // Polls
+  [
+    'category_type' => 7,
+    'category_type_function_label' => 'backendCategoriesType7Function',
+    'queryString' => 'idType=1',
+  ],
+  
+  // Segment
+  [
+    'category_type' => 9,
+    'category_type_function_label' => 'backendCategoriesType9Function',
+    'queryString' => '-',
+  ],
+
+  // Forms
+  [
+    'category_type' => 12,
+    'category_type_function_label' => 'backendCategoriesType12Function',
+    'queryString' => '',
+  ],
+
+  // Registers
+  [
+    'category_type' => 13,
+    'category_type_function_label' => 'backendCategoriesType13Function',
+    'queryString' => '',
+  ],
+
+  // Polls
+  [
+    'category_type' => 17,
+    'category_type_function_label' => 'backendCategoriesType17Function',
+    'queryString' => 'idType=2',
+  ],
+];
+// **************************************************************************************
+
+// Categories - configuration and resources.
+// **************************************************************************************
 $configCategoriesSort = "title"; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableCategoriesSortCustom = 0; //0 - disable | 1 - enable
+$configCategoriesInputOrder = [
+  'inputRowCategories_id_parent', 
+  'inputRowCategories_sort_order', 
+  'inputRowCategories_date1', 
+  'inputRowCategories_id_register_user', 
+  'inputRowCategories_title', 
+  'inputRowCategories_description', 
+  'inputRowCategories_url_alias', 
+  'inputRowCategories_meta_title', 
+  'inputRowCategories_meta_description', 
+  'inputRowCategories_keywords_tags', 
+  'inputRowCategories_info1', 
+  'inputRowCategories_info_small1', 
+  'inputRowCategories_number1', 
+  'inputRowCategories_number_small1', 
+  'inputRowCategories_category_type', 
+  'inputRowCategories_image_main', 
+  'inputRowCategories_file1', 
+  'inputRowCategories_file2', 
+  'inputRowCategories_activation', 
+  'inputRowCategories_id_restricted_access', 
+  'inputRowCategories_id_status', 
+  'inputRowCategories_notes'
+];
 
 //Basic resources.
 $enableCategoriesImageMain = 1; //0 - disable | 1 - enable
@@ -115,7 +408,7 @@ $enableCategoriesZip = 1; //0 - disable | 1 - enable
 
 
 //User bind (link categories to registers).
-//----------------------
+// ----------------------
 $enableCategoriesBindRegisterUser = 1; //0 - disable | 1 - enable
 $configCategoriesBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
 $configCategoriesBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
@@ -145,11 +438,11 @@ $enableCategoriesBindRegister5 = 1; //0 - disable | 1 - enable
 $configCategoriesBindRegister5Method = 1; //1 - category ID | 2 - register type
 $configCategoriesBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
 $configCategoriesBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-//----------------------
+// ----------------------
 
 
 //Optioinal fields (field titles in the language configuration file).
-//----------------------
+// ----------------------
 //Big information fields.
 $enableCategoriesInfo1 = 1; //0 - disable | 1 - enable
 $configCategoriesInfo1FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
@@ -189,7 +482,7 @@ $enableCategoriesInfoS2 = 1; //0 - disable | 1 - enable
 $configCategoriesInfoS2FieldType = 1; //1 - single line | 2 - multiline
 
 $enableCategoriesInfoS3 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo3FieldType = 1; //1 - single line | 2 - multiline
+$configCategoriesInfo3SFieldType = 1; //1 - single line | 2 - multiline
 
 $enableCategoriesInfoS4 = 1; //0 - disable | 1 - enable
 $configCategoriesInfoS4FieldType = 1; //1 - single line | 2 - multiline
@@ -255,16 +548,16 @@ $enableCategoriesFile1 = 1; //0 - disable | 1 - enable
 $configCategoriesFile1Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile2 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile2Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile3 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile3Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile4 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile4Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile5 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile5Type = 1; //1 - image | 3 - file
 
 
 //Activation fields.
@@ -273,18 +566,18 @@ $enableCategoriesActivation2 = 1; //0 - disable | 1 - enable
 $enableCategoriesActivation3 = 1; //0 - disable | 1 - enable
 $enableCategoriesActivation4 = 1; //0 - disable | 1 - enable
 $enableCategoriesActivation5 = 1; //0 - disable | 1 - enable
-//----------------------
+// ----------------------
 
 
 //Frontend configuration.
 $enableCategoriesFrontendPagination = 1; //0 - disable | 1 - enable
 $enableCategoriesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
 $configCategoriesFrontendPaginationNRecords = 20;
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Files - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configFilesSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | caption
 $enableFilesSortCustom = 1; //0 - disable | 1 - enable
 $configFilesInputOrder = ["inputRowFiles_id_parent", 
@@ -441,7 +734,7 @@ $enableFilesActivation2 = 1; //0 - disable | 1 - enable
 $enableFilesActivation3 = 1; //0 - disable | 1 - enable
 $enableFilesActivation4 = 1; //0 - disable | 1 - enable
 $enableFilesActivation5 = 1; //0 - disable | 1 - enable
-//----------------------
+// ----------------------
 
 
 //Frontend configuration.
@@ -451,11 +744,11 @@ $configFilesImagePlaceholder = 1; //0 - disable | 1 - enable
 $enableFilesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
 $enableFilesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
 $configFilesFrontendPaginationNRecords = 10;
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Content - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configContentSort = "id ASC"; //options: id | sort_order | date_creation esc | date_creation desc
 $enableContentSortCustom = 1; //0 - disable | 1 - enable
 /*$configContentInputOrder = ["inputRowContent_id_parent", 
@@ -489,11 +782,11 @@ $enableContentBindRegisterUser = 1; //0 - disable | 1 - enable
 $configContentBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
 $configContentBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
 $configContentBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Products - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configProductsSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableProductsSortCustom = 1; //0 - disable | 1 - enable
 $configProductsInputOrder = ["inputRowProducts_id_parent", 
@@ -554,7 +847,7 @@ $enableProductsZip = 1; //0 - disable | 1 - enable
                    
 
 //User bind (link categories to registers).
-//----------------------
+// ----------------------
 $enableProductsBindRegisterUser = 1; //0 - disable | 1 - enable
 $configProductsBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
 $configProductsBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
@@ -584,11 +877,11 @@ $enableProductsBindRegister5 = 1; //0 - disable | 1 - enable
 $configProductsBindRegister5Method = 1; //1 - category ID | 2 - register type
 $configProductsBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
 $configProductsBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-//----------------------
+// ----------------------
 
 
 //Optional fields (field titles in the language configuration file).
-//----------------------
+// ----------------------
 //Generic filters.
 $enableProductsFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
 $enableProductsFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
@@ -856,11 +1149,11 @@ $enableProductsActivation2 = 1; //0 - disable | 1 - enable
 $enableProductsActivation3 = 1; //0 - disable | 1 - enable
 $enableProductsActivation4 = 1; //0 - disable | 1 - enable
 $enableProductsActivation5 = 1; //0 - disable | 1 - enable
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Publications - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configPublicationsSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enablePublicationsSortCustom = 1; //0 - disable | 1 - enable
 $configPublicationsInputOrder = ["inputRowPublications_id_parent", 
@@ -916,7 +1209,7 @@ $enablePublicationsZip = 1; //0 - disable | 1 - enable
                    
 
 //User bind (link categories to registers).
-//----------------------
+// ----------------------
 $enablePublicationsBindRegisterUser = 1; //0 - disable | 1 - enable
 $configPublicationsBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
 $configPublicationsBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
@@ -946,11 +1239,11 @@ $enablePublicationsBindRegister5 = 1; //0 - disable | 1 - enable
 $configPublicationsBindRegister5Method = 1; //1 - category ID | 2 - register type
 $configPublicationsBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
 $configPublicationsBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-//----------------------
+// ----------------------
 
 
 //Optional fields (field titles in the language configuration file).
-//----------------------
+// ----------------------
 //Generic filters.
 $enablePublicationsFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
 $enablePublicationsFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
@@ -1061,11 +1354,11 @@ $enablePublicationsActivation2 = 1; //0 - disable | 1 - enable
 $enablePublicationsActivation3 = 1; //0 - disable | 1 - enable
 $enablePublicationsActivation4 = 1; //0 - disable | 1 - enable
 $enablePublicationsActivation5 = 1; //0 - disable | 1 - enable
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Registers - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configRegistersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | name_full
 $enableRegistersSortCustom = 1; //0 - disable | 1 - enable
 $configRegistersInputOrder = ["inputRowRegisters_id_parent", 
@@ -1171,7 +1464,7 @@ $enableRegistersFiles = 1; //0 - disable | 1 - enable
 $enableRegistersZip = 1; //0 - disable | 1 - enable
 
 //User bind (link registers to registers).
-//----------------------
+// ----------------------
 $enableRegistersBindRegisterUser = 1; //0 - disable | 1 - enable
 $configRegistersBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
 $configRegistersBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
@@ -1201,10 +1494,10 @@ $enableRegistersBindRegister5 = 1; //0 - disable | 1 - enable
 $configRegistersBindRegister5Method = 1; //1 - category ID | 2 - register type
 $configRegistersBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
 $configRegistersBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-//----------------------
+// ----------------------
 
 //Optional fields (field titles in the language configuration file).
-//----------------------
+// ----------------------
 //Generic filters.
 $enableRegistersFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
 $enableRegistersFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
@@ -1532,11 +1825,11 @@ $configRegistersImagePlaceholder = 1; //0 - disable | 1 - enable
 $enableRegistersFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
 $enableRegistersFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
 $configRegistersFrontendPaginationNRecords = 10;
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Quizzes / Polls - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configQuizzesSort = "id DESC"; //options: id | sort_order | title 
 $configQuizzesOptionsSort = "id DESC"; //options: id | sort_order | title
 
@@ -1666,17 +1959,17 @@ $configQuizzesOptionsNumber4FieldType = 1; //1 - general number | 2 - system cur
 
 $enableQuizzesOptionsNumber5 = 1; //0 - disable | 1 - enable
 $configQuizzesOptionsNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Forms - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configFormsSort = "id DESC"; //options: id | sort_order | form_title | recipient_name | recipient_email
 $configFormsFieldsSort = "id DESC"; //options: id | sort_order
 $configFormsFieldsOptionsSort = "id DESC"; //options: id | sort_order
 
 //Forms.
-//----------------------
+// ----------------------
 $enableFormsIdParentEdit = 1; //0 - disable | 1 - enable
 $enableFormsSortOrder = 1; //0 - disable | 1 - enable
 
@@ -1693,11 +1986,11 @@ $enableFormsMessageSuccess = 1; //0 - disable | 1 - enable
 $enableFormsNotes = 1; //0 - disable | 1 - enable
 
 $enableFormsEmailSectors = 1; //0 - disable | 1 - enable
-//----------------------
+// ----------------------
 
 
 //Forms fields.
-//----------------------
+// ----------------------
 $enableFormsFieldsSortOrder = 1; //0 - disable | 1 - enable
 $enableFormsFieldsInstructions = 1; //0 - disable | 1 - enable
 
@@ -1724,7 +2017,7 @@ $configFormsFieldsInfoS4FieldType = 1; //1 - single line | 2 - multiline
 
 $enableFormsFieldsInfoS5 = 1; //0 - disable | 1 - enable
 $configFormsFieldsInfoS5FieldType = 1; //1 - single line | 2 - multiline
-//----------------------
+// ----------------------
 
 //Forms fields options.
 $enableFormsFieldsOptionsSortOrder = 1; //0 - disable | 1 - enable
@@ -1750,11 +2043,11 @@ $configFormsFieldsOptionsInfoS5FieldType = 1; //1 - single line | 2 - multiline
 
 //Site.
 
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Filters Generic - configuration and resources.
-//**************************************************************************************
+// **************************************************************************************
 $configFiltersGenericSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableFiltersGenericSortCustom = 1; //0 - disable | 1 - enable
 $configFiltersGenericInputOrder = ["inputRowFiltersGeneric_id_parent", 
@@ -1828,11 +2121,11 @@ $enableFiltersGenericActivation5 = 1; //0 - disable | 1 - enable
 
 //Frontend configuration.
 $configFiltersGenericImagePlaceholder = 1; //0 - disable | 1 - enable
-//**************************************************************************************
+// **************************************************************************************
 
 
 //Users.
-//**************************************************************************************
+// **************************************************************************************
 $configUsersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableUsersSortCustom = 1; //0 - disable | 1 - enable
 $configUsersInputOrder = ["inputRowUsers_id_parent", 
@@ -1913,7 +2206,7 @@ $enableUsersActivation2 = 1; //0 - disable | 1 - enable
 $enableUsersActivation3 = 1; //0 - disable | 1 - enable
 $enableUsersActivation4 = 1; //0 - disable | 1 - enable
 $enableUsersActivation5 = 1; //0 - disable | 1 - enable
-//**************************************************************************************
+// **************************************************************************************
 
 
 ?>

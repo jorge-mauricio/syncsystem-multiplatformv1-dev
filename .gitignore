@@ -62,3 +62,20 @@ gitignore.txt
 
 # DevOps files.
 devops
+
+# OS generated file.
+# ref: https://stackoverflow.com/questions/107701/how-can-i-remove-ds-store-files-from-a-git-repository
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+# If you need to remove all .DS_Store files from repo, local and git.
+# terminal (git bash): find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+# Wait a few minutes to complete.
+
+# Log files.
+#**************************************************************************************
+public/php_errors.log

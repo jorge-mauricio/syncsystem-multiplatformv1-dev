@@ -245,9 +245,11 @@ router.post('/' + gSystemConfig.configRouteAPI + '/' + gSystemConfig.configRoute
           objReturn.returnStatus = true;
 
           // Debug.
-          console.log('req.cookies(inside api)=', req.cookies);
-          console.log('actionType=', actionType);
-          console.log('verificationType=', verificationType);
+          if (gSystemConfig.configDebug === true) {
+            console.log('req.cookies(inside api)=', req.cookies);
+            console.log('actionType=', actionType);
+            console.log('verificationType=', verificationType);
+          }
         }
       }
       // ----------------------

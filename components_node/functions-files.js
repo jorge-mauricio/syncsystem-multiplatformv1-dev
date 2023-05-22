@@ -229,6 +229,7 @@ module.exports = class FunctionsFiles {
      * @param {string} directoryUpload c:\directory\subdirectory | gSystemConfig.configDirectoryFilesUpload
      * @param {string} formFilePost optional
      * @param {string} fileNameFinal optional
+     * @param {object} formfileFieldsReference 
      * @returns {object} {returnStatus: false, file_field_name1: "", file_field_name1: ""} 
      * @example SyncSystemNS.FunctionsFiles.filesUpload(tblCategoriesID, 
                                                     this.openedFiles, 

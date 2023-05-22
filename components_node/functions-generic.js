@@ -164,7 +164,7 @@ module.exports = class FunctionsGeneric {
         dateObj = dateInput;
         // let dateObj = new Date(dateInput);
 
-        // Variables
+        // Variables.
         let dateYear = dateObj.getFullYear();
         let dateDay = dateObj.getDate();
         let dateMonth = dateObj.getMonth() + 1;
@@ -173,9 +173,9 @@ module.exports = class FunctionsGeneric {
         let dateMinute = dateObj.getMinutes();
         let dateSecond = dateObj.getSeconds();
 
-        let dateFormated = dateYear + '-' + dateMonth + '-' + dateDay;
+        let dateFormatted = dateYear + '-' + dateMonth + '-' + dateDay;
 
-        // Ajustments.
+        // Adjustments.
         if (dateDay < 10) {
           dateDay = '0' + dateDay;
         }
@@ -196,7 +196,7 @@ module.exports = class FunctionsGeneric {
           dateSecond = '0' + dateSecond;
         }
 
-        strReturn = dateFormated + ' ' + dateHour + ':' + dateMinute + ':' + dateSecond;
+        strReturn = dateFormatted + ' ' + dateHour + ':' + dateMinute + ':' + dateSecond;
       }
       // ----------------------
 
@@ -342,7 +342,7 @@ module.exports = class FunctionsGeneric {
   /**
    * Function to return formatted date.
    * @static
-   * @param {string} strDate 14/01/2016 |  01/14/2016
+   * @param {string} strDate 14/01/2016 | 01/14/2016
    * @param {integer} configDateFormat 1 - PT | 2 - UK | configBackendDateFormat | configFrontendDateFormat
    * @param {integer} dateFormatReturn 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
    * @param {integer} dateType null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
@@ -744,7 +744,7 @@ module.exports = class FunctionsGeneric {
    * SyncSystemNS.FunctionsGeneric.valueMaskWrite(variableNameOrText, 2)
    */
   static valueMaskWrite(valueData, valueType = 2, specialInstructions = null) {
-    // valueType: 1 - general number | 2 - system currency | 3 - decimal (máximum: 34 digits) | 4 - system currency (decimal)
+    // valueType: 1 - general number | 2 - system currency | 3 - decimal (maximum: 34 digits) | 4 - system currency (decimal)
 
     // Variables.
     // ----------------------
@@ -1278,7 +1278,7 @@ module.exports = class FunctionsGeneric {
     let arrTableFieldsQueryBuild = [];
     // ----------------------
 
-    // Buid the field search array (to be converted to string).
+    // Build the field search array (to be converted to string).
 
     // Categories.
     // ----------------------

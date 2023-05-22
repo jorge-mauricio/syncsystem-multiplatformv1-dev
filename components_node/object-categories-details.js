@@ -189,7 +189,7 @@ module.exports = class ObjectCategoriesDetails {
     this.tblCategoriesActivation5_print = '';
 
     this.tblCategoriesIdStatus = 0;
-    this.tblCategoriesIdStatus_print = 0;
+    this.tblCategoriesIdStatus_print = '';
 
     this.tblCategoriesRestrictedAccess = 0;
     this.tblCategoriesRestrictedAccess_print = '';

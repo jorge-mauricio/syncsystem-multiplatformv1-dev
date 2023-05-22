@@ -1235,6 +1235,7 @@ button:focus {
 }
 
 /* Effects. */
+/* TODO: change name to gradient. */
 .ss-frontend-fauntain01 {
     background-image: linear-gradient(to left, #78c3ae, #00000000);
     /* background-image: radial-gradient(#ffffff, #78c3ae); *//* radial */
@@ -1326,6 +1327,43 @@ button:focus {
     -ms-transform: skew(45deg, 0deg);
 
 }/* unskew text. */
+
+.ss-frontend-filter-overlay {
+  background-color: #78c3ae;
+
+  /* 
+  Filters
+  ref: https://css-tricks.com/almanac/properties/b/background-blend-mode/
+  ref: https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode
+  multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity
+  */
+  /* -webkit-background-blend-mode: multiply; */
+  background-blend-mode: multiply;
+  mix-blend-mode: multiply;
+}
+
+
+.ss-frontend-clip-svg {
+  clip-path: url(#idSVGElement);
+
+}
+
+.ss-frontend-svg-inline {
+  /* base64 */
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjYnIGhlaWdodD0nMjMxJyB2aWV3Qm94PScwIDAgMjYgMjMxJyBmaWxsPSdub25lJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxyZWN0IHdpZHRoPScyNicgaGVpZ2h0PScyMzEnIGZpbGw9J3VybCgjcGFpbnQwX2xpbmVhcl8zMjE2XzExOTk3KScvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0ncGFpbnQwX2xpbmVhcl8zMjE2XzExOTk3JyB4MT0nMTMnIHkxPScwJyB4Mj0nMTMnIHkyPScyMzEnIGdyYWRpZW50VW5pdHM9J3VzZXJTcGFjZU9uVXNlJz48c3RvcC8+PHN0b3Agb2Zmc2V0PScxJyBzdG9wLW9wYWNpdHk9JzAnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz4=");
+
+  /*
+  Online encoder: https://www.base64encode.org/
+
+  Convert svg to base64
+  <script>
+      let svgCode = "<svg width='26' height='231' viewBox='0 0 26 231' fill='none' xmlns='http://www.w3.org/2000/svg'><rect width='26' height='231' fill='url(#paint0_linear_3216_11997)'/><defs><linearGradient id='paint0_linear_3216_11997' x1='13' y1='0' x2='13' y2='231' gradientUnits='userSpaceOnUse'><stop/><stop offset='1' stop-opacity='0'/></linearGradient></defs></svg>";
+      let svgCode64 = window.btoa(svgCode);
+      console.log('svgCode64=', svgCode64);
+  </script>
+  */
+}
+
 
 .ss-frontend-text-stroke {
     text-shadow: calc(var(--ssFrontendDefaultfontStrokeWidth) * 1) calc(var(--ssFrontendDefaultfontStrokeWidth) * 0) 0

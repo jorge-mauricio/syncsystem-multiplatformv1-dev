@@ -17,7 +17,7 @@ ref: https://ejs.co/#docs
 
         <%# Style Sheets - JS dependencies. %>
 
-        <%# Style Sheets - personalized. http://localhost:3000 | ../../ %>
+        <%# Style Sheets - custom. http://localhost:3000 | ../../ %>
         <% if(gSystemConfig.configDebug === true){ %>
             <link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryStylesSD %>/styles-backend.css" media="screen" title="Default" /><!--Dev-->
 		<% } %>
@@ -62,7 +62,7 @@ ref: https://ejs.co/#docs
 		https://metatags.io/
 		*/%>
 
-        <%# Head - personalized. %>
+        <%# Head - custom. %>
         <%-templateData.cphHead %>
 
 		<%/*
@@ -112,7 +112,7 @@ ref: https://ejs.co/#docs
 
                 </div>
                 <div class="ss-backend-title-main" style="position: relative; display: block; height: 40px; line-height: 40px; text-indent: 15px; background-color: #d1d8dc; border: 1px solid #6c7880; border-radius: 0px 0px 15px 15px; margin-top: 2px; overflow: hidden;">
-                    <%- SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemName, "config-application") %>
+                    <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "layoutSystemName") %>
                 </div>
                 <div style="position: relative; display: block; height: 72px; background-image: url(/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-header-tb02-02.jpg); background-repeat: repeat-x; background-position: top center; overflow: hidden;">
                     <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-header-tb02-03.jpg" alt="Header Element" style="position: absolute; display: block; top: 0px; right: -8px;" /> 
@@ -947,7 +947,7 @@ ref: https://ejs.co/#docs
 
                     <footer class="ss-backend-copyright" style="position: absolute; display: block; bottom: 0px; left: 0px; background-color: #ffffff; padding-bottom: 8px;">
                         <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-nav01-tb01-03.jpg" alt="Footer Element" style="position: absolute; display: block; top: -56px; left: 0px;" /> 
-                        <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "layoutCopyright") %> <%- gSystemConfig.configCopyrightYear %> ® <%- SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configDevName, "config-application") %>
+                        <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "layoutCopyright") %> <%- gSystemConfig.configCopyrightYear %> ® <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "layoutDevName") %>
                     </footer>
                 </div>
                 <%# Left column.%>

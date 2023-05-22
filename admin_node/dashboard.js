@@ -112,7 +112,7 @@ module.exports = class Dashboard {
       this.metaURLCurrent += gSystemConfig.configSystemURL + '/';
       this.metaURLCurrent += gSystemConfig.configRouteBackend + '/';
       this.metaURLCurrent += gSystemConfig.configRouteBackendDashboard + '/';
-      this.metaURLCurrent += this._idParent + '/';
+      this.metaURLCurrent += this._idParent + '/'; // TODO: check if this is necessary.
       // if(this._masterPageSelect !== "")
       // {
       this.metaURLCurrent += '?masterPageSelect=' + this._masterPageSelect;

@@ -31,7 +31,7 @@ module.exports = class FunctionsCookies {
     // Variables.
     // ----------------------
     let strReturn = false;
-    let cookiePeriod = ''; // (86400 = 1 dia)
+    let cookiePeriod = ''; // (86400 = 1 day)
     let cookieOptions = {};
     // ----------------------
 
@@ -311,7 +311,7 @@ module.exports = class FunctionsCookies {
   /**
    * Function to delete cookie.
    * @static
-   * @param {string} cookieName 'login' - returns login cookie | 'temp' - returns temporary cookie (temporary id) | '' returns all cookies
+   * @param {string} cookieName
    * @example
    * SyncSystemNS.FunctionsCookies.cookieDelete_middleware('')
    */

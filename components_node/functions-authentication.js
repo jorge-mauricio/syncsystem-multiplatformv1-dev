@@ -21,8 +21,8 @@ module.exports = class FunctionsAuthentication {
    * Function to verify authentication.
    * @static
    * @param {string} strData
-   * @param {string} verificationType
-   * @param {string} returnURL
+   * @param {string} verificationType user_root | user_backend | user_frontend
+   * @param {string} _returnURL
    * @param {object} specialParameters
    * @returns {object}
    * @example
