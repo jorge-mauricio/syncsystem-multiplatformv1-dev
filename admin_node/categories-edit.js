@@ -4124,7 +4124,7 @@ module.exports = class CategoriesEdit {
                                                                         {
                                                                             idRecord: '${ocdRecord.tblCategoriesID}', 
                                                                             strTable: '${gSystemConfig.configSystemDBTableCategories}', 
-                                                                            strField:'image_main', 
+                                                                            strField: 'image_main', 
                                                                             recordValue: '', 
                                                                             patchType: 'fileDelete', 
                                                                             ajaxFunction: true, 
@@ -4133,8 +4133,7 @@ module.exports = class CategoriesEdit {
                                                                         async function(_resObjReturn){
                                                                             // alert(JSON.stringify(_resObjReturn));
                                                                             
-                                                                            if(_resObjReturn.objReturn.returnStatus == true)
-                                                                            {
+                                                                            if (_resObjReturn.objReturn.returnStatus == true) {
                                                                                 // Delete files.
 
 
@@ -4145,7 +4144,7 @@ module.exports = class CategoriesEdit {
                                                                                 // Success message.
                                                                                 elementMessage01('divMessageSuccess', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage6')}');
 
-                                                                            }else{
+                                                                            } else {
                                                                                 // Show error.
                                                                                 elementMessage01('divMessageError', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessageAPI2e')}');
                                                                             }
@@ -4215,7 +4214,7 @@ module.exports = class CategoriesEdit {
                                                                             {
                                                                                 idRecord: '${ocdRecord.tblCategoriesID}', 
                                                                                 strTable: '${gSystemConfig.configSystemDBTableCategories}', 
-                                                                                strField:'file1', 
+                                                                                strField: 'file1', 
                                                                                 recordValue: '', 
                                                                                 patchType: 'fileDelete', 
                                                                                 ajaxFunction: true, 
@@ -4224,16 +4223,15 @@ module.exports = class CategoriesEdit {
                                                                             async function(_resObjReturn){
                                                                                 // alert(JSON.stringify(_resObjReturn));
                                                                                 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
-                                                                                    // Hide elements.
+                                                                                if (_resObjReturn.objReturn.returnStatus == true) {
+                                                                                  // Hide elements.
                                                                                     htmlGenericStyle01('imgCategoriesFile1', 'display', 'none');
                                                                                     htmlGenericStyle01('divCategoriesFile1Delete', 'display', 'none');
 
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage6')}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessageAPI2e')}');
                                                                                 }
@@ -4315,7 +4313,7 @@ module.exports = class CategoriesEdit {
                                                                             {
                                                                                 idRecord: '${ocdRecord.tblCategoriesID}', 
                                                                                 strTable: '${gSystemConfig.configSystemDBTableCategories}', 
-                                                                                strField:'File2', 
+                                                                                strField: 'file2', 
                                                                                 recordValue: '', 
                                                                                 patchType: 'fileDelete', 
                                                                                 ajaxFunction: true, 
@@ -4324,16 +4322,15 @@ module.exports = class CategoriesEdit {
                                                                             async function(_resObjReturn){
                                                                                 // alert(JSON.stringify(_resObjReturn));
                                                                                 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
-                                                                                    // Hide elements.
+                                                                                if (_resObjReturn.objReturn.returnStatus == true) {
+                                                                                  // Hide elements.
                                                                                     htmlGenericStyle01('imgCategoriesFile2', 'display', 'none');
                                                                                     htmlGenericStyle01('divCategoriesFile2Delete', 'display', 'none');
 
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage6')}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessageAPI2e')}');
                                                                                 }
@@ -4415,7 +4412,7 @@ module.exports = class CategoriesEdit {
                                                                             {
                                                                                 idRecord: '${ocdRecord.tblCategoriesID}', 
                                                                                 strTable: '${gSystemConfig.configSystemDBTableCategories}', 
-                                                                                strField:'File3', 
+                                                                                strField: 'file3', 
                                                                                 recordValue: '', 
                                                                                 patchType: 'fileDelete', 
                                                                                 ajaxFunction: true, 
@@ -4424,16 +4421,15 @@ module.exports = class CategoriesEdit {
                                                                             async function(_resObjReturn){
                                                                                 // alert(JSON.stringify(_resObjReturn));
                                                                                 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
-                                                                                    // Hide elements.
+                                                                                if (_resObjReturn.objReturn.returnStatus == true) {
+                                                                                  // Hide elements.
                                                                                     htmlGenericStyle01('imgCategoriesFile3', 'display', 'none');
                                                                                     htmlGenericStyle01('divCategoriesFile3Delete', 'display', 'none');
 
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage6')}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessageAPI2e')}');
                                                                                 }
@@ -4515,7 +4511,7 @@ module.exports = class CategoriesEdit {
                                                                             {
                                                                                 idRecord: '${ocdRecord.tblCategoriesID}', 
                                                                                 strTable: '${gSystemConfig.configSystemDBTableCategories}', 
-                                                                                strField:'File4', 
+                                                                                strField: 'file4', 
                                                                                 recordValue: '', 
                                                                                 patchType: 'fileDelete', 
                                                                                 ajaxFunction: true, 
@@ -4524,16 +4520,15 @@ module.exports = class CategoriesEdit {
                                                                             async function(_resObjReturn){
                                                                                 // alert(JSON.stringify(_resObjReturn));
                                                                                 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
-                                                                                    // Hide elements.
+                                                                                if (_resObjReturn.objReturn.returnStatus == true) {
+                                                                                  // Hide elements.
                                                                                     htmlGenericStyle01('imgCategoriesFile4', 'display', 'none');
                                                                                     htmlGenericStyle01('divCategoriesFile4Delete', 'display', 'none');
 
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage6')}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessageAPI2e')}');
                                                                                 }
@@ -4615,7 +4610,7 @@ module.exports = class CategoriesEdit {
                                                                             {
                                                                                 idRecord: '${ocdRecord.tblCategoriesID}', 
                                                                                 strTable: '${gSystemConfig.configSystemDBTableCategories}', 
-                                                                                strField:'File5', 
+                                                                                strField: 'file5', 
                                                                                 recordValue: '', 
                                                                                 patchType: 'fileDelete', 
                                                                                 ajaxFunction: true, 
@@ -4624,16 +4619,15 @@ module.exports = class CategoriesEdit {
                                                                             async function(_resObjReturn){
                                                                                 // alert(JSON.stringify(_resObjReturn));
                                                                                 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
-                                                                                    // Hide elements.
+                                                                                if (_resObjReturn.objReturn.returnStatus == true) {
+                                                                                  // Hide elements.
                                                                                     htmlGenericStyle01('imgCategoriesFile5', 'display', 'none');
                                                                                     htmlGenericStyle01('divCategoriesFile5Delete', 'display', 'none');
 
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage6')}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessageAPI2e')}');
                                                                                 }

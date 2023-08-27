@@ -2167,6 +2167,51 @@ module.exports = class FunctionsGeneric {
         if (strTable == gSystemConfig.configSystemDBTableCategories) {
           arrReturn = gSystemConfig.configArrCategoriesImageSize;
         }
+
+        // Files.
+        if (strTable == gSystemConfig.configSystemDBTableFiles) {
+          arrReturn = gSystemConfig.configArrFilesImageSize;
+        }
+
+        // Content.
+        if (strTable == gSystemConfig.configSystemDBTableContent) {
+          arrReturn = gSystemConfig.configArrContentImageSize;
+        }
+
+        // Products.
+        if (strTable == gSystemConfig.configSystemDBTableProducts) {
+          arrReturn = gSystemConfig.configArrProductsImageSize;
+        }
+
+        // Publications.
+        if (strTable == gSystemConfig.configSystemDBTablePublications) {
+          arrReturn = gSystemConfig.configArrProductsImageSize;
+        }
+
+        // Registers.
+        if (strTable == gSystemConfig.configSystemDBTableRegisters) {
+          arrReturn = gSystemConfig.configArrRegistersImageSize;
+        }
+
+        // Quizzes.
+        if (strTable == gSystemConfig.configSystemDBTableQuizzes) {
+          arrReturn = gSystemConfig.configArrQuizzesImageSize;
+        }
+
+        // Quizzes options.
+        if (strTable == gSystemConfig.configSystemDBTableQuizzesOptions) {
+          arrReturn = gSystemConfig.configArrQuizzesOptionsImageSize;
+        }
+
+        // Forms fields options.
+        if (strTable == gSystemConfig.configSystemDBTableFormsFieldsOptions) {
+          arrReturn = gSystemConfig.configArrFormsFieldsOptionsImageSize;
+        }
+
+        // Users.
+        if (strTable == gSystemConfig.configSystemDBTableUsers) {
+          arrReturn = gSystemConfig.configArrUsersImageSize;
+        }
       }
     }
 

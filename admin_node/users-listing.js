@@ -245,7 +245,7 @@ module.exports = class UsersListing {
     try {
       // Parameters build.
       arrSearchParameters.push('id_parent;' + this._idParent + ';i');
-      arrSearchParameters.push('id;11;!i'); // user - root
+      arrSearchParameters.push('id;11;!i'); // user - root (backend node)
 
       oulRecordsParameters = {
         _arrSearchParameters: arrSearchParameters,
@@ -506,7 +506,7 @@ module.exports = class UsersListing {
                                             ${
                                               gSystemConfig.configImagePopup == 0
                                                 ? `
-                                                <img src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + usersRow.image_main}" alt="${SyncSystemNS.FunctionsGeneric.contentMaskRead(usersRow.title, 'db')}" class="ss-backend-images-listing" />
+                                                <img src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + usersRow.image_main}" alt="${SyncSystemNS.FunctionsGeneric.contentMaskRead(usersRow.name_full, 'db')}" class="ss-backend-images-listing" />
                                             `
                                                 : ``
                                             }

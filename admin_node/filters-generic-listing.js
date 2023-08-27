@@ -144,6 +144,7 @@ module.exports = class FiltersGenericListing {
       if (this._tableName == gSystemConfig.configSystemDBTableCategories) {
         this.titleCurrent += ' - ' + SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendCategoriesTitleMain');
       }
+      // TODO: complete with other cases.
 
       // Meta title.
       this.metaTitle += SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemClientName, 'config-application');
@@ -1014,6 +1015,14 @@ module.exports = class FiltersGenericListing {
                               this.filtersGenericLabelIndex != ''
                                 ? `
                                 ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backend' + this.filtersGenericLabelModule + 'FilterGeneric' + this.filtersGenericLabelIndex)} 
+                            `
+                                : ``
+                            }
+
+                            ${
+                              this._filterIndex == '1'
+                                ? `
+                                ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backend' + this.filtersGenericLabelModule + 'Type')} 
                             `
                                 : ``
                             }

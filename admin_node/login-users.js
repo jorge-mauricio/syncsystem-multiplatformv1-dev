@@ -69,8 +69,8 @@ module.exports = class LoginUsers {
       // Meta URL current.
       this.metaURLCurrent += gSystemConfig.configSystemURL + '/';
       this.metaURLCurrent += gSystemConfig.configRouteBackend + '/';
-      this.metaURLCurrent += gSystemConfig.configRouteBackendCategories + '/';
-      this.metaURLCurrent += this._idParent + '/';
+      this.metaURLCurrent += gSystemConfig.configRouteBackendLoginUsers + '/';
+      // this.metaURLCurrent += this._idParent + '/';
       // if(this._masterPageSelect !== "")
       // {
       this.metaURLCurrent += '?masterPageSelect=' + this._masterPageSelect;

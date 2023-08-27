@@ -1510,7 +1510,8 @@ module.exports = class UsersEdit {
                                     ${
                                       oudRecord.tblUsersImageMain != ''
                                         ? `
-                                    <img id="imgUsersImageMain" src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + oudRecord.tblUsersImageMain}" alt="${oudRecord.tblUsersTitle}" class="ss-backend-images-edit" />
+                                    <img id="imgUsersImageMain" src="${gSystemConfig.configSystemURLImages + gSystemConfig.configDirectoryFilesSD + '/t' + oudRecord.tblUsersImageMain}" alt="${oudRecord.tblUsersNameFull}" class="ss-backend-images-edit" />
+                                      ${/* TODO: condition tblUsersNameFull to being enabled, etc. */ ''}
                                     <div id="divUsersImageMainDelete" style="position: relative; display: inline-block;">
                                         <a class="ss-backend-delete01" 
                                             onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
@@ -1518,7 +1519,7 @@ module.exports = class UsersEdit {
                                                                         {
                                                                             idRecord: '${oudRecord.tblUsersID}', 
                                                                             strTable: '${gSystemConfig.configSystemDBTableUsers}', 
-                                                                            strField:'image_main', 
+                                                                            strField: 'image_main', 
                                                                             recordValue: '', 
                                                                             patchType: 'fileDelete', 
                                                                             ajaxFunction: true, 
@@ -1527,8 +1528,7 @@ module.exports = class UsersEdit {
                                                                         async function(_resObjReturn){
                                                                             // alert(JSON.stringify(_resObjReturn));
                                                                             
-                                                                            if(_resObjReturn.objReturn.returnStatus == true)
-                                                                            {
+                                                                            if (_resObjReturn.objReturn.returnStatus == true) {
                                                                                 // Delete files.
 
 
@@ -1539,7 +1539,7 @@ module.exports = class UsersEdit {
                                                                                 // Success message.
                                                                                 elementMessage01('divMessageSuccess', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessage6')}');
 
-                                                                            }else{
+                                                                            } else {
                                                                                 // Show error.
                                                                                 elementMessage01('divMessageError', '${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'statusMessageAPI2e')}');
                                                                             }

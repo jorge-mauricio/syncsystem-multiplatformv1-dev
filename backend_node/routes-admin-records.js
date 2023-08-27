@@ -46,7 +46,6 @@ router.delete('/' + gSystemConfig.configRouteBackend + '/' + gSystemConfig.confi
   let idFormsFields = '';
 
   let filterIndex = '';
-
   let tableName = '';
 
   let pageReturn = '';

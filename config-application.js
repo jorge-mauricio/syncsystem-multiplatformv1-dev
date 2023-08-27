@@ -335,7 +335,7 @@ gSystemConfig.configEmailFormat = 1; // 0 - text | 1 - HTML
 // ----------------------
 // .env
 // gSystemConfig.configAPIKeyInternal = "createSecretPassword";
-gSystemConfig.configAPIKeySystem = 'createSecretPassword'; // Note: for node deploy, value must be hard coded (TODO: Reaserch architecture to retrieve server variables .env in react).
+gSystemConfig.configAPIKeySystem = 'createSecretPassword'; // Note: for node deploy, value must be hard coded (TODO: Research architecture to retrieve server variables .env in react).
 // gSystemConfig.configAPIKeySystem = process.env.CONFIG_API_KEY_SYSTEM;
 // ----------------------
 // **************************************************************************************
