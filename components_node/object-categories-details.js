@@ -315,7 +315,7 @@ module.exports = class ObjectCategoriesDetails {
           // this.arrIdsCategoriesFiltersGeneric1Binding = Object.keys(this.objIdsCategoriesFiltersGeneric1Binding).map(key => this.objIdsCategoriesFiltersGeneric1Binding[key]["id_filters_generic"].toStrign());
 
           if (this.arrIdsCategoriesFiltersGeneric1Binding) {
-            var arrIdsCategoriesFiltersGeneric1Binding = this.arrIdsCategoriesFiltersGeneric1Binding;
+            const arrIdsCategoriesFiltersGeneric1Binding = this.arrIdsCategoriesFiltersGeneric1Binding;
             this.objCategoriesFiltersGeneric1Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               // return obj.filter_index == 101;
 
@@ -341,7 +341,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric2Binding = Object.keys(this.objIdsCategoriesFiltersGeneric2Binding).map((key) => this.objIdsCategoriesFiltersGeneric2Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric2Binding) {
-            var arrIdsCategoriesFiltersGeneric2Binding = this.arrIdsCategoriesFiltersGeneric2Binding;
+            const arrIdsCategoriesFiltersGeneric2Binding = this.arrIdsCategoriesFiltersGeneric2Binding;
 
             this.objCategoriesFiltersGeneric2Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric2Binding.includes(obj.id);
@@ -359,7 +359,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric3Binding = Object.keys(this.objIdsCategoriesFiltersGeneric3Binding).map((key) => this.objIdsCategoriesFiltersGeneric3Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric3Binding) {
-            var arrIdsCategoriesFiltersGeneric3Binding = this.arrIdsCategoriesFiltersGeneric3Binding;
+            const arrIdsCategoriesFiltersGeneric3Binding = this.arrIdsCategoriesFiltersGeneric3Binding;
 
             this.objCategoriesFiltersGeneric3Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric3Binding.includes(obj.id);
@@ -377,7 +377,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric4Binding = Object.keys(this.objIdsCategoriesFiltersGeneric4Binding).map((key) => this.objIdsCategoriesFiltersGeneric4Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric4Binding) {
-            var arrIdsCategoriesFiltersGeneric4Binding = this.arrIdsCategoriesFiltersGeneric4Binding;
+            const arrIdsCategoriesFiltersGeneric4Binding = this.arrIdsCategoriesFiltersGeneric4Binding;
 
             this.objCategoriesFiltersGeneric4Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric4Binding.includes(obj.id);
@@ -395,7 +395,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric5Binding = Object.keys(this.objIdsCategoriesFiltersGeneric5Binding).map((key) => this.objIdsCategoriesFiltersGeneric5Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric5Binding) {
-            var arrIdsCategoriesFiltersGeneric5Binding = this.arrIdsCategoriesFiltersGeneric5Binding;
+            const arrIdsCategoriesFiltersGeneric5Binding = this.arrIdsCategoriesFiltersGeneric5Binding;
 
             this.objCategoriesFiltersGeneric5Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric5Binding.includes(obj.id);
@@ -413,7 +413,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric6Binding = Object.keys(this.objIdsCategoriesFiltersGeneric6Binding).map((key) => this.objIdsCategoriesFiltersGeneric6Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric6Binding) {
-            var arrIdsCategoriesFiltersGeneric6Binding = this.arrIdsCategoriesFiltersGeneric6Binding;
+            const arrIdsCategoriesFiltersGeneric6Binding = this.arrIdsCategoriesFiltersGeneric6Binding;
 
             this.objCategoriesFiltersGeneric6Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric6Binding.includes(obj.id);
@@ -431,7 +431,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric7Binding = Object.keys(this.objIdsCategoriesFiltersGeneric7Binding).map((key) => this.objIdsCategoriesFiltersGeneric7Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric7Binding) {
-            var arrIdsCategoriesFiltersGeneric7Binding = this.arrIdsCategoriesFiltersGeneric7Binding;
+            const arrIdsCategoriesFiltersGeneric7Binding = this.arrIdsCategoriesFiltersGeneric7Binding;
 
             this.objCategoriesFiltersGeneric7Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric7Binding.includes(obj.id);
@@ -449,7 +449,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric8Binding = Object.keys(this.objIdsCategoriesFiltersGeneric8Binding).map((key) => this.objIdsCategoriesFiltersGeneric8Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric8Binding) {
-            var arrIdsCategoriesFiltersGeneric8Binding = this.arrIdsCategoriesFiltersGeneric8Binding;
+            const arrIdsCategoriesFiltersGeneric8Binding = this.arrIdsCategoriesFiltersGeneric8Binding;
 
             this.objCategoriesFiltersGeneric8Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric8Binding.includes(obj.id);
@@ -467,7 +467,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric9Binding = Object.keys(this.objIdsCategoriesFiltersGeneric9Binding).map((key) => this.objIdsCategoriesFiltersGeneric9Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric9Binding) {
-            var arrIdsCategoriesFiltersGeneric9Binding = this.arrIdsCategoriesFiltersGeneric9Binding;
+            const arrIdsCategoriesFiltersGeneric9Binding = this.arrIdsCategoriesFiltersGeneric9Binding;
 
             this.objCategoriesFiltersGeneric9Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric9Binding.includes(obj.id);
@@ -485,7 +485,7 @@ module.exports = class ObjectCategoriesDetails {
           this.arrIdsCategoriesFiltersGeneric10Binding = Object.keys(this.objIdsCategoriesFiltersGeneric10Binding).map((key) => this.objIdsCategoriesFiltersGeneric10Binding[key]['id_filters_generic']);
 
           if (this.arrIdsCategoriesFiltersGeneric10Binding) {
-            var arrIdsCategoriesFiltersGeneric10Binding = this.arrIdsCategoriesFiltersGeneric10Binding;
+            const arrIdsCategoriesFiltersGeneric10Binding = this.arrIdsCategoriesFiltersGeneric10Binding;
 
             this.objCategoriesFiltersGeneric10Binding_print = this.ofglRecords.resultsFiltersGenericListing.filter(function (obj) {
               return arrIdsCategoriesFiltersGeneric10Binding.includes(obj.id);

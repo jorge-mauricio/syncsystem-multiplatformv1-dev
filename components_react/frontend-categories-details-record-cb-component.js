@@ -107,7 +107,7 @@ class FrontendCategoriesDetailsRecord extends Component {
     // Logic.
     // ----------------------
     try {
-      // Filter results acording to filter_index.
+      // Filter results according to filter_index.
       /*
       if(gSystemConfig.enableCategoriesFilterGeneric1 != 0)
             {

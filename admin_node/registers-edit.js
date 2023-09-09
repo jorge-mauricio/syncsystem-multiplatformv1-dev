@@ -170,7 +170,7 @@ module.exports = class RegistersEdit {
         });
       }
 
-      // Filter results acording to filter_index.
+      // Filter results according to filter_index.
       if (gSystemConfig.enableRegistersFilterGeneric1 !== 0) {
         this.resultsRegistersFiltersGeneric1Listing = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
           return obj.filter_index == 101;

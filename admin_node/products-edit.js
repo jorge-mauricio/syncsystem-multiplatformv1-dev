@@ -160,7 +160,7 @@ module.exports = class ProductsEdit {
         });
       }
 
-      // Filter results acording to filter_index.
+      // Filter results according to filter_index.
       if (gSystemConfig.enableProductsFilterGeneric1 !== 0) {
         this.resultsProductsFiltersGeneric1Listing = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
           return obj.filter_index == 101;

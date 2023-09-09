@@ -687,7 +687,7 @@ module.exports = class FunctionsDBUpdate {
         // Bindings search.
         objIdsCategoriesFiltersGenericBinding = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, ['id_record;' + tblCategoriesID + ';i'], '', '', FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFiltersGenericBinding, 'all', 'string'), 1, { returnType: 3 });
 
-        // Filter results acording to filter_index.
+        // Filter results according to filter_index.
         if (gSystemConfig.enableCategoriesFilterGeneric1 != 0) {
           resultsCategoriesFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
             return obj.filter_index == 101;
@@ -2878,7 +2878,7 @@ module.exports = class FunctionsDBUpdate {
         // Bindings search.
         objIdsProductsFiltersGenericBinding = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, ['id_record;' + tblProductsID + ';i'], '', '', FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFiltersGenericBinding, 'all', 'string'), 1, { returnType: 3 });
 
-        // Filter results acording to filter_index.
+        // Filter results according to filter_index.
         if (gSystemConfig.enableProductsFilterGeneric1 != 0) {
           resultsProductsFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
             return obj.filter_index == 101;
@@ -5231,7 +5231,7 @@ module.exports = class FunctionsDBUpdate {
         // Bindings search.
         objIdsPublicationsFiltersGenericBinding = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, ['id_record;' + tblPublicationsID + ';i'], '', '', FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFiltersGenericBinding, 'all', 'string'), 1, { returnType: 3 });
 
-        // Filter results acording to filter_index.
+        // Filter results according to filter_index.
         if (gSystemConfig.enablePublicationsFilterGeneric1 != 0) {
           resultsPublicationsFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
             return obj.filter_index == 101;
@@ -6917,7 +6917,7 @@ module.exports = class FunctionsDBUpdate {
         // Bindings search.
         objIdsRegistersFiltersGenericBinding = await FunctionsDB.genericTableGet02(gSystemConfig.configSystemDBTableFiltersGenericBinding, ['id_record;' + tblRegistersID + ';i'], '', '', FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFiltersGenericBinding, 'all', 'string'), 1, { returnType: 3 });
 
-        // Filter results acording to filter_index.
+        // Filter results according to filter_index.
         if (gSystemConfig.enableRegistersFilterGeneric1 != 0) {
           resultsRegistersFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
             return obj.filter_index == 101;

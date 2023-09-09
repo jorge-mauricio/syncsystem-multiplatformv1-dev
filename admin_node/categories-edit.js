@@ -143,7 +143,7 @@ module.exports = class CategoriesEdit {
         });
       }
 
-      // Filter results acording to filter_index.
+      // Filter results according to filter_index.
       if (gSystemConfig.enableCategoriesFilterGeneric1 !== 0) {
         this.resultsCategoriesFiltersGeneric1Listing = this.ofglRecords.resultsFiltersGenericListing.filter((obj) => {
           return obj.filter_index == 101;

@@ -437,7 +437,7 @@ module.exports = class CategoriesListing {
         });
       }
 
-      // Filter results acording to filter_index.
+      // Filter results according to filter_index.
       if (gSystemConfig.enableCategoriesFilterGeneric1 !== 0) {
         this.resultsCategoriesFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
           return obj.filter_index == 101;
@@ -2665,6 +2665,7 @@ module.exports = class CategoriesListing {
                             }
 
                             ${/* Generic filters. */ ''}
+                            ${/* TODO: sync with node inputRowCategories_generic_filter1 -> inputRowCategories_filters_generic1. */ ''}
                             ${
                               gSystemConfig.enableCategoriesFilterGeneric1 != 0
                                 ? `

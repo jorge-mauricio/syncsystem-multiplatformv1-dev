@@ -371,7 +371,7 @@ module.exports = class PublicationsListing {
         });
       }
 
-      // Filter results acording to filter_index.
+      // Filter results according to filter_index.
       if (gSystemConfig.enablePublicationsFilterGeneric1 !== 0) {
         this.resultsPublicationsFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter((obj) => {
           return obj.filter_index == 101;

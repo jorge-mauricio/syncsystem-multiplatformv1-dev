@@ -489,7 +489,7 @@ module.exports = class CategoriesListing
                 });
             }
 
-            //Filter results acording to filter_index.
+            //Filter results according to filter_index.
             if(gSystemConfig.enableCategoriesFilterGeneric1 != 0)
             {
                 var resultsCategoriesFiltersGeneric1Listing = ofglRecords.resultsFiltersGenericListing.filter(function(obj){
