@@ -1,20 +1,30 @@
-#Block comminting secret variables.
-#**************************************************************************************
+# Useful parameters.
+# **************************************************************************************
+# **/file-name (files with the same name in any directory)
+# *.zip (files with specific extention)
+# /public/index.*.php (files with any index prefix)
+
+# Block comminting secret variables.
+# **************************************************************************************
 #Note: put .gitkeep file on every empty directory you want to be created, even if it´s empty.
 
-
-#Secret information file.
+# Secret information file.
 .env
 .env_export
 .env.prod
+.env.prod.backend
+.env.prod.frontend
+# TODO: alter to select any .env file with prod.
+.env.backup
+# TODO: alter to select any .env file with backup.
 
-#Webpack distribution directory (check if it´s not necessary, when publishing).
+# Webpack distribution directory (check if it´s not necessary, when publishing).
 #dist
 
-#Set up files.
+# Set up files.
 setup
 
-#Backup directories.
+# Backup directories.
 root_node_backup
 admin_node/backup
 components_node/backup
@@ -22,40 +32,51 @@ backend_node/backup
 components_react/backup
 app_views/backup
 
-#Image upload test files.
+# Node / React.
+# **************************************************************************************
+# Image upload test files.
 app_files_public/*
 !app_files_public/.gitkeep.txt
-#Note: to exclude specific file from gitignore:
-#!app_files_public/filename.ext
+# Note: to exclude specific file from gitignore:
+# !app_files_public/filename.ext
 
-
-#Extra languages.
-#**************************************************************************************
-#Third party javascript/node.js dependencies.
+# Third party javascript/node.js dependencies.
 node_modules
 package-lock.json
 
-#Next.
-#**************************************************************************************
+# Next.
+# **************************************************************************************
 frontend_react_next/.next
 
-#PHP.
-#**************************************************************************************
-#Third party php dependencies. Note: maybe change to /vendor
+# PHP - Laravel.
+# **************************************************************************************
+# Third party php dependencies. Note: maybe change to /vendor
 vendor
+.phpunit.result.cache
 
+# Image upload files.
+/storage/app/app_files_public
 
-#Doc.
-#**************************************************************************************
+# Log files.
+/public/php_errors.log
+
+# Reference public index files.
+/public/index.*.php
+
+# Docs.
+# **************************************************************************************
+notes.txt
 todo.txt
 env.txt
 checklist.txt
 gitignore.txt
 
+# Zip files in root.
+/*.zip
 
-#Webpack.
-#Note: Desabled for debug.
-#**************************************************************************************
+# Webpack.
+# Note: Desabled for debug.
+# **************************************************************************************
 #webpack.config.js
 #webpack.dev.js
 #webpack.prod.js
@@ -65,6 +86,9 @@ devops
 
 # OS generated file.
 # ref: https://stackoverflow.com/questions/107701/how-can-i-remove-ds-store-files-from-a-git-repository
+# If you need to remove all .DS_Store files from repo, local and git.
+# terminal (git bash): find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
+# Wait a few minutes to complete.
 .DS_Store
 .DS_Store?
 ._*
@@ -72,10 +96,12 @@ devops
 .Trashes
 ehthumbs.db
 Thumbs.db
-# If you need to remove all .DS_Store files from repo, local and git.
-# terminal (git bash): find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
-# Wait a few minutes to complete.
+
+***/.vscode
+# ***/.editorconfig
+# TODO: test if it works.
+# TODO: evaluate keeping .editorconfig
 
 # Log files.
-#**************************************************************************************
+# **************************************************************************************
 public/php_errors.log

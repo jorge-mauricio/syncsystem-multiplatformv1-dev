@@ -295,12 +295,12 @@ FunctionsSyncSystem.htmlGenericStyle01 = htmlGenericStyle01;
  * @example
  * elementShowByPosition('btnTopFixed', 'top', '50');
  */
- const elementShowByPosition = (idElement: string, positionType: string, positionValue: string): void => {
+const elementShowByPosition = (idElement: string, positionType: string, positionValue: string): void => {
   // positionType: top | bottom
 
   // Variables.
   // ----------------------
-  let targetElement = document.getElementById(idElement);
+  const targetElement = document.getElementById(idElement);
   // ----------------------
 
   // Logic.

@@ -1,4 +1,4 @@
-# SyncSystem Multiplatform Framework – Version: 0.8.9
+# SyncSystem Multiplatform Framework – Version: 0.9.1-alpha
 
 ## Goal:
 Open source framework target at small, medium and large projects that needs a CMS (content management system) as base and unlimited features for e-commerce, user management, subscription management, among others.
@@ -51,20 +51,52 @@ Finally, it received its final version to update the architecture style, migrate
 - PHP server;
 
 ## Setup guide:
-- Create folder for application;
-- Open terminal;
-- Terminal: Navigate to the folder created;
+- Create folder for application
+- Open terminal
+- Terminal: Navigate to the folder created
 - Initialize Git: git init
 - Clone repository - terminal: git clone https://github.com/jorge-mauricio/syncsystem-multiplatformreactv1-dev
 - Terminal: cd syncsystem-multiplatformreactv1-dev
 - Install dependencies - terminal: npm install
 - Build application – terminal: npm run react-build
 - Run application - terminal: npm run app-start
-- Create an instance of a MySQL database;
-- Set configuration files according to the project;
-- Run /setup/setup-db-run.php file to create all tables;
+- Create an instance of a MySQL database
+- Set configuration files according to the project
+- Run /setup/setup-db-run.php file to create all tables
 - Access admin system - open web browser, access the following address: http://localhost:3000/system/;
-- Access frontend - open web browser, access the following address: http://localhost:3001/;
+- Access frontend - open web browser, access the following address: http://localhost:3001/
+
+## Deploy notes:
+Basic tips for deploying your application on a live server.
+
+### Windows Server:
+SyncSystem Multiplatform has already been tested in Windows 2016 hosting.
+
+#### Node (backend):
+- Create hosting space in the server
+- Configure backend domain/subdomain (DNS zone) to point to the hosting space
+- Install SSL certificate (optional)
+- Edit .env file according to your project's setup (ports, domains, etc)
+- Transfer files to hosting space
+- Windows Server (configure dedicated pool for your application)
+- Application pool: minimum .net 4.0
+- Website configuration: enable allow parent folder
+- Use special web.config file file in root of the public hosting directory (web.config.backendnode)
+- Test endpoint: yourdomain.com/system/
+
+#### React:
+- Create hosting space in the server
+- Configure backend domain/subdomain (DNS zone) to point to the hosting space
+- Install SSL certificate (optional)
+- Edit .env file according to your project's setup (ports, domains, etc)
+- Transfer files to hosting space
+- Windows Server (configure dedicated pool for your application)
+- Application pool: minimum .net 4.0
+- Application pool (advanced settings): .NET CLR Version: No Managed Code
+- Copy bundle.react.js to root
+- Website configuration: enable allow parent folder
+- Use special web.config file file in root of the public hosting directory (web.config.frontendreact)
+- Test endpoint: yourdomain.com
 
 ## Author Information and Copyright License:
 SyncSystem – less code, more logic. A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
