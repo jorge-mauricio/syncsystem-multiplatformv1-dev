@@ -267,7 +267,9 @@ module.exports = class FunctionsFiles {
         let fileExtension = '';
         let fileName = '';
 
-        const directoryFilesUpload = directoryUpload + '\\';
+        // const directoryFilesUpload = directoryUpload + '\\'; // working on windows
+        // const directoryFilesUpload = path.resolve(directoryUpload);
+        const directoryFilesUpload = path.join(directoryUpload);
         // ----------------------
 
         // if(fileNameOriginal != "")
@@ -318,7 +320,10 @@ module.exports = class FunctionsFiles {
           // return await new Promise((resolve, reject)=>{
           const resultsFSExtraCopy = await new Promise((resolve, reject) => {
             // let resultsFSExtraCopy = new Promise((resolve, reject)=>{
-            fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, (fileCopyError) => {
+            // fsExtra.copy(fileTempPath, directoryFilesUpload + fileName, (fileCopyError) => { // working on windows
+            fsExtra.copy(fileTempPath, path.join(directoryFilesUpload, fileName), (fileCopyError) => {
+              // TODO: working on docker container - test on windows
+
               if (fileCopyError) {
                 // Error.
                 if (gSystemConfig.configDebug === true) {
@@ -445,15 +450,19 @@ module.exports = class FunctionsFiles {
         // {
         // if(strReturn.returnStatus == true)
         // {
-        fs.unlink(fileTempPath, (fileDeleError) => {
-          // fs.unlinkSync(fileTempPath, (fileDeleError)=>{
-          if (fileDeleError) {
+        // fs.unlink(fileTempPath, (fileDeleteError) => { // working on windows
+        fs.unlink(fileTempPath, (fileDeleteError) => {
+          // TODO: working on docker container - test on windows
+          // TODO: place inside a promise, like the file copy (or try/catch).
+          // fs.unlinkSync(fileTempPath, (fileDeleteError)=>{
+
+          if (fileDeleteError) {
             // Error.
             if (gSystemConfig.configDebug === true) {
-              console.log('File deleting error: ', fileDeleError);
+              console.log('File deleting error: ', fileDeleteError);
             }
-            // throw fileDeleError;
-            // reject(new Error(fileDeleError));
+            // throw fileDeleteError;
+            // reject(new Error(fileDeleteError));
             // reject(false);
           } else {
             if (gSystemConfig.configDebug === true) {

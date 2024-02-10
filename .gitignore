@@ -82,7 +82,8 @@ gitignore.txt
 #webpack.prod.js
 
 # DevOps files.
-devops
+# devops
+devops/*backup**
 
 # OS generated file.
 # ref: https://stackoverflow.com/questions/107701/how-can-i-remove-ds-store-files-from-a-git-repository
@@ -97,6 +98,7 @@ devops
 ehthumbs.db
 Thumbs.db
 
+.vscode
 ***/.vscode
 # ***/.editorconfig
 # TODO: test if it works.

@@ -1,4 +1,7 @@
 'use strict'; // eslint-disable-line
+const path = require('path');
+// Use path.join() when you want to concatenate paths together without changing the leading segment's nature (absolute or relative).
+// Use path.resolve() when you need to resolve a path absolutely to the filesystem root, ensuring any relative segments are evaluated in the process.
 
 // Author Information and Copyright License:
 // **************************************************************************************
@@ -153,8 +156,10 @@ gSystemConfig.configDirectoryBuildReact = 'build'; // webpack distribution folde
 gSystemConfig.configDirectoryBuildReactClient = 'public'; // webpack distribution folder files - react client (production / minifying)
 
 // Upload directories.
-gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + '/' + gSystemConfig.configDirectoryFilesVisualization;
+// gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + '/' + gSystemConfig.configDirectoryFilesVisualization; // working on windows
 // gSystemConfig.configDirectoryFilesUpload = gSystemConfig.configPhysicalPathRoot + "\\" + gSystemConfig.configDirectoryFilesVisualization;
+// gSystemConfig.configDirectoryFilesUpload = path.resolve(gSystemConfig.configPhysicalPathRoot, gSystemConfig.configDirectoryFilesVisualization);
+gSystemConfig.configDirectoryFilesUpload = path.join(gSystemConfig.configPhysicalPathRoot, gSystemConfig.configDirectoryFilesVisualization); // TODO: working on docker container - test on windows.
 // ----------------------
 
 // Static directories configuration (public alias).

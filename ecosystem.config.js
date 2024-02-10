@@ -2,7 +2,7 @@
 module.exports = {
   apps: [
     {
-      name: 'syncsystem-multiplatform-backend',
+      name: 'syncsystem-multiplatform-backend-node-v1.0.0',
       script: 'app.js', // the path of the script you want to execute,
       // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
       instances: 1,
@@ -18,7 +18,7 @@ module.exports = {
       */
     },
     {
-      name: 'syncsystem-multiplatform-frontend',
+      name: 'syncsystem-multiplatform-frontend-react-ssr-v1.0.0',
       script: 'node -r dotenv/config build/bundle.react.js', // the path of the script you want to execute,
       // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
       instances: 1,
