@@ -21,7 +21,7 @@ http://fullstackwebdesigner.com
 
 // Import Node Modules.
 // ----------------------
-// const os = require("os"); // utility to get hostname // ref: https:// nodejs.org/api/os.html#os_os_hostname
+// const os = require("os"); // utility to get hostname // ref: https://nodejs.org/api/os.html#os_os_hostname
 // ----------------------
 
 // Create an object to work as a "namespace" to help export all variables / properties.
@@ -85,11 +85,12 @@ window.location.protocol: "http:"
 window.location.search: "?query=1"
 */
 
-gSystemConfig.configSystemURLImages = '/'; // ".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
-// gSystemConfig.configSystemURLImages = "https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com";
+gSystemConfig.configSystemURLImages = '/'; // ".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https://multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
+// gSystemConfig.configSystemURLImages = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
+// Note: When using external storage, configure configDirectoryFilesSD = ''. TODO: Rework this logic (maybe with a helper function).
 gSystemConfig.configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com'; // maybe it´s not needed
-gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + '/';
-// gSystemConfig.configFrontendReactURLImages = "https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com";
+gSystemConfig.configFrontendReactURLImages = gSystemConfig.configSystemURL + '/'; // TODO: adapt to path.join
+// gSystemConfig.configFrontendReactURLImages = "https://multiplatformnodev1.s3.sa-east-1.amazonaws.com";
 
 gSystemConfig.configFrontendDefaultView = 'frontend_react'; // frontend_node | frontend_react
 gSystemConfig.configFrontendMobileDefaultView = 'frontend_node_mobile';
@@ -276,7 +277,7 @@ gSystemConfig.configCookieDefaultOptions = {
   // expires: new Date(Date.now() + 900000),
   // maxAge: 1000 * 60 * 10,
   httpOnly: true, // You can't access these tokens in the client's javascript.
-}; // ref: https:// alligator.io/nodejs/express-cookies/
+}; // ref: https://alligator.io/nodejs/express-cookies/
 gSystemConfig.configCookieDeleteDefaultOptions = {
   path: gSystemConfig.configCookieDirectory,
   overwrite: true,
@@ -285,7 +286,7 @@ gSystemConfig.configCookieDeleteDefaultOptions = {
   expires: new Date(),
   maxAge: 0,
   httpOnly: true, // You can't access these tokens in the client's javascript.
-}; // ref: https:// alligator.io/nodejs/express-cookies/
+}; // ref: https://alligator.io/nodejs/express-cookies/
 
 gSystemConfig.configSessionBackendTimeout = '1440';
 // ----------------------
@@ -357,7 +358,7 @@ gSystemConfig.configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE 
 gSystemConfig.configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
 
 gSystemConfig.configBackendDateFormat = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
-gSystemConfig.configBackendDateFieldType = 11; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu | 11 - js-datepicker (https:// www.npmjs.com/package/js-datepicker)
+gSystemConfig.configBackendDateFieldType = 11; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu | 11 - js-datepicker (https://www.npmjs.com/package/js-datepicker)
 gSystemConfig.configFrontendDateFormat = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
 gSystemConfig.configFrontendDateFieldType = 1; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu
 
@@ -2216,8 +2217,8 @@ module.exports =  {
 */
 
 // Export all elements in namespace.
-// ref: https:// vancelucas.com/blog/module-exports-all-the-things/
-// ref: https:// hackernoon.com/5-techniques-to-iterate-over-javascript-object-entries-and-their-performance-6602dcb708a8
+// ref: https://vancelucas.com/blog/module-exports-all-the-things/
+// ref: https://hackernoon.com/5-techniques-to-iterate-over-javascript-object-entries-and-their-performance-6602dcb708a8
 /**/
 for (const prop in gSystemConfig) {
   if (gSystemConfig.hasOwnProperty(prop)) {

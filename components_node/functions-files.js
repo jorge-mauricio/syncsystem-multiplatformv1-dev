@@ -375,7 +375,8 @@ module.exports = class FunctionsFiles {
             if (gSystemConfig.configUploadType === 2) {
               // if(fileNameOriginal != "")
               // {
-              const fileContent = fs.readFileSync(directoryFilesUpload + fileName);
+              // const fileContent = fs.readFileSync(directoryFilesUpload + fileName); // working on windows
+              const fileContent = fs.readFileSync(path.join(directoryFilesUpload, fileName));
 
               /*
                           const s3 = new AWS.S3({
