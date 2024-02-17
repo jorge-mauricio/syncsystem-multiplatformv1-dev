@@ -10,6 +10,7 @@
 
 # Secret information file.
 .env
+.env.example
 .env_export
 .env.prod
 .env.prod.backend
@@ -25,6 +26,7 @@
 setup
 
 # Backup directories.
+# **/*backup*/ 
 root_node_backup
 admin_node/backup
 components_node/backup
