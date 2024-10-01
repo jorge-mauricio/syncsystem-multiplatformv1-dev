@@ -1,280 +1,533 @@
 <?php
+
+// TODO: think about moving to resource folder
 // Author information.
-// **************************************************************************************
+// ************************************************************************************************************************
+/*
+SyncSystem – less code, more logic.
+A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
 
-// **************************************************************************************
+Development and conception carried out by Jorge Mauricio (JM) – Full Stack Web Developer / Designer and company’s head partner.
 
+Any modification or implementation in the github code must be informed / consulted and approved with the company or the author.
+The code is free for use commercially and personally, without the need of written or verbal authorization.
+
+The developer provides professional training for better understanding of its architecture and use of the code.
+Price quotes can be requested through the website.
+
+Website / contact:
+http://fullstackwebdesigner.com
+*/
+// ************************************************************************************************************************
+// TODO: update separators based on maximum character limit standard.
+
+// General constants.
+// **************************************************************************************
+/**/
+// TODO: find a place for the constants:
+    // ref: https://stackoverflow.com/questions/42155536/what-is-the-best-practice-for-adding-constants-in-laravel-long-list
+// Generic value field types.
+define('SS_VALUE_TYPE_GENERAL_NUMBER', 1);
+define('SS_VALUE_TYPE_SYSTEM_CURRENCY', 2);
+define('SS_VALUE_TYPE_DECIMAL', 3);
+define('SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL', 4);
+
+// Generic field types.
+define('SS_FIELD_TYPE_SINGLE_LINE', 1);
+define('SS_FIELD_TYPE_MULTILINE', 2);
+define('SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED', 11);
+define('SS_FIELD_TYPE_MULTILINE_ENCRYPTED', 12);
+
+// Authentication type.
+define('SS_AUTHENTICATION_TYPE_CUSTOM', 1);
+define('SS_AUTHENTICATION_TYPE_SANCTUM', 11);
+define('SS_AUTHENTICATION_TYPE_PASSPORT', 12);
+
+// Encrypt method.
+define('SS_ENCRYPT_METHOD_NONE', 0);
+define('SS_ENCRYPT_METHOD_HASH', 1);
+define('SS_ENCRYPT_METHOD_DATA', 2);
+
+// Encrypt method - hash library.
+define('SS_ENCRYPT_METHOD_HASH_MD5', 11);
+
+// Encrypt method - encrypt library.
+define('SS_ENCRYPT_METHOD_DATA_MCRYPT', 21);
+define('SS_ENCRYPT_METHOD_DATA_DEFUSE', 22);
+define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_SIMPLE', 23);
+define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_COMPLEX_16_16', 24);
+define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_256_CBC_COMPLEX_32_16', 26);
+
+// Authentication store.
+define('SS_AUTHENTICATION_STORE_COOKIE', 1);
+define('SS_AUTHENTICATION_STORE_SESSION', 2);
+define('SS_AUTHENTICATION_STORE_HEADER', 3);
+// **************************************************************************************
 
 // PHP configuration.
 // **************************************************************************************
 //Coding style reference: https://www.php-fig.org/psr/psr-12/
 //declare(strict_types=1); //causing error somewhere in this code
 
-$configDebug = true; // true (debug mode) | false (production mode)
+// Type hinting.
+//declare(strict_types=1);
+
+// Create an object to work as a "namespace" to help export all variables / properties.
+$gSystemConfig = [];
+
+
+// $gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
+$gSystemConfig['configDebug'] = getenv('APP_DEBUG'); // true (debug mode) | false (production mode)
+    // true turns off ssl/https verification
+    // condition to APP_ENV
+$gSystemConfig['configSystemEnv'] = getenv('APP_ENV');
+$gSystemConfig['configCache'] = true; // false (no cache) | true (cache)
+    // TODO: research if can disable bfcache also.
+$gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
 
 // Error handling / displaying.
 // ----------------------
-ini_set('display_errors', 1); //Show all errors.
-//error_reporting(0); //Ocultar todos erros.
-//error_reporting(E_ALL); //alpshost
-//error_reporting(E_STRICT & ~E_STRICT); //Locaweb Linux 5.4 | HostGator Linux 5.5 | e 1 (windows)
+ini_set('display_errors', 1); // Show all errors.
+//error_reporting(0); // Hide all errors.
+//error_reporting(E_ALL); // alpshost
+//error_reporting(E_STRICT & ~E_STRICT); // Locaweb Linux 5.4 | HostGator Linux 5.5 | e 1 (windows)
 //error_reporting(E_ALL | E_STRICT);
 //error_reporting(error_reporting() & ~E_NOTICE);
 // ----------------------
 
 
 // Timezone configuration.
-date_default_timezone_set('America/Sao_Paulo');
-// **************************************************************************************
-
-// General constants.
-// **************************************************************************************
-// Value types.
-define('SS_VALUE_TYPE_GENERAL_NUMBER', 1);
-define('SS_VALUE_TYPE_SYSTEM_CURRENCY', 2);
-define('SS_VALUE_TYPE_DECIMAL', 3);
-define('SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL', 4);
+date_default_timezone_set('America/Sao_Paulo'); // not wired // double check
 // **************************************************************************************
 
 // General configuration.
 // **************************************************************************************
 // Basic information.
-$configSystemClientName = "Planejamento Visual";
+$gSystemConfig['configSystemClientName'] = 'Planejamento Visual çé';
+$gSystemConfig['configSystemClientDocument'] = ''; // SSN | CPF
+$gSystemConfig['configSystemClientCompanyNameLegal'] = '';
+$gSystemConfig['configSystemClientCompanyDocument'] = ''; // CPNJ
+$gSystemConfig['configSystemClientCompanyDocument1'] = ''; // I.M.
+$gSystemConfig['configSystemClientCompanyDocument2'] = ''; // I.E.
+$gSystemConfig['configSystemClientAddress'] = '';
+$gSystemConfig['configSystemClientAddressNumber'] = '';
+$gSystemConfig['configSystemClientAddressComplement'] = '';
+$gSystemConfig['configSystemClientNeighborhood'] = '';
+$gSystemConfig['configSystemClientDistrict'] = '';
+$gSystemConfig['configSystemClientCounty'] = '';
+$gSystemConfig['configSystemClientCity'] = '';
+$gSystemConfig['configSystemClientState'] = '';
+$gSystemConfig['configSystemClientCountry'] = '';
+$gSystemConfig['configSystemClientZipCode'] = '';
+$gSystemConfig['configSystemClientPhone'] = '';
+$gSystemConfig['configSystemClientCel'] = '+1 999-222-3333';
+$gSystemConfig['configSystemClientEmail'] = 'contact@domain.com';
 
-$configSiteTitle = "SyncSystem - Multiplatform"; //site name
-$configSystemName = "Sistema de Gerenciamento de Conteúdo"; //Sistema de Controle | Sistema Administrativo | CRM
-$configDevName = "Planejamento Visual - Arte e Tecnologia"; //Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Criação e Treinamento Web | Web Inventor - Imagine, realize.
-$configDevSite = "http://www.planejamentovisual.com.br"; //http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br
-$configCopyrightYear = "2015";
+$configSiteTitle = 'SyncSystem - Multiplatform'; // site name (Note: moved to language file)
+    // TODO: delete
+$configSystemName = 'Sistema de Gerenciamento de Conteúdo'; // Sistema de Controle | Sistema Administrativo | CRM | Content Management System (Note: moved to language file)
+    // TODO: delete
+$configDevName = 'Planejamento Visual - Arte e Tecnologia'; // Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Full Stack Web Developer | Web Inventor - Imagine, realize. | Full Stack Web Designer - JM - Jorge Mauricio (Note: moved to language file) (Note: moved to language file)
+    // TODO: delete
+$gSystemConfig['configDevSite'] = 'http://www.planejamentovisual.com.br'; // http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br
+$gSystemConfig['configCopyrightYear'] = '2008';
 
-$configSystemURL = "http://multiplatformv1.syncsystem.com.br";
-$configSystemURLSSL = "http://multiplatformv1.syncsystem.com.br";
+// Endpoints configurations.
+    // TODO: condition to APP_ENV (localhost, domain)
+// $configSystemURL = 'http://multiplatformv1.syncsystem.com.br'; // http://multiplatformv1.syncsystem.com.br
+$gSystemConfig['configSystemURL'] = getenv('CONFIG_SYSTEM_URL'); // http://multiplatformv1.syncsystem.com.br
+        // TODO: move to .env
+$gSystemConfig['configSystemURLSSL'] = $gSystemConfig['configSystemURL']; // http://multiplatformv1.syncsystem.com.br
+    // TODO: move to .env
 
-$configSystemURLImages = ".."; //".." = relative path | http://www.nomedodominio.com.br = absolute path
+// $configAPIURL = $configSystemURLSSL; // process.env.CONFIG_API_URL;
+$gSystemConfig['configAPIURL'] = getenv('CONFIG_API_URL');
+    // TODO: move to .env (maybe delete from here)
+$gSystemConfig['configURLFrontendReact'] = getenv('CONFIG_URL_FRONTEND_REACT');
+    // TODO: move to .env  (maybe delete from here)
+$gSystemConfig['configURLFrontendLaravel'] = getenv('CONFIG_URL_FRONTEND_LARAVEL');
 
-$configFrontendDefaultView = "frontend_php";
-$configFrontendMobileDefaultView = "frontend_php_mobile";
+$gSystemConfig['configSystemURLImages'] = '/'; // '..' = relative path | '/' = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
+//$configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
+$gSystemConfig['configSystemURLImagesRemote'] = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
+    // maybe it´s not needed
+//$gSystemConfig['configFrontendReactURLImages'] = $configSystemURL . '/';
+$gSystemConfig['configFrontendReactURLImages'] = $gSystemConfig['configURLFrontendLaravel'] . '/';
 
+$configFrontendDefaultView = 'frontend_php';
+    // TODO: evaluate if will be needed
+$configFrontendMobileDefaultView = 'frontend_php_mobile';
+    // TODO: evaluate if will be needed
+// ----------------------
 
 // DB especial configuration.
 // ----------------------
-$configSystemDBTablePrefix = "prefix_ssmv1_";
-$configSystemDBType = 2; //2 - MySQL | 3 - SQL Server
-$enableSystemDBSizeOptimize = 0; //0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
-
+//$gSystemConfig['configSystemDBTablePrefix'] = 'prefix_ssmv1_';
+$gSystemConfig['configSystemDBTablePrefix'] = getenv('CONFIG_SYSTEM_DB_TABLE_PREFIX');
+    // TODO: move to .env and test
+    // Maybe not, because of the node version
+    // Create condition for reding .env file without being served (for node DB build).
+$gSystemConfig['configSystemDBType'] = 2; // 2 - MySQL | 3 - SQL Server
+    // TODO: move to .env
+$gSystemConfig['enableSystemDBSizeOptimize'] = 0; // 0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
+    // TODO: move to .env
 
 // Table names.
-// TODO: Update db setup file with variable names.
-$configSystemDBTableCounter = "counter";
-$configSystemDBTableCategories = "categories";
-$configSystemDBTableFiles = "files";
-$configSystemDBTableContent = "content";
-$configSystemDBTableProducts = "products";
-$configSystemDBTablePublications = "publications";
-$configSystemDBTableRegisters = "registers";
-$configSystemDBTableQuizzes = "quizzes";
-$configSystemDBTableQuizzesOptions = "quizzes_options";
-$configSystemDBTableQuizzesLog = "quizzes_log";
-$configSystemDBTableForms = "forms";
-$configSystemDBTableFormsFields = "forms_fields";
-$configSystemDBTableFormsFieldsOptions = "forms_fields_options";
-$configSystemDBTableFiltersGeneric = "filters_generic";
-$configSystemDBTableFiltersGenericBinding = "filters_generic_binding";
-$configSystemDBTableUsers = "users";
+// ----------------------
+//TODO: Update db setup file with variable names.
+//TODO: evaluate moving to .env.
+$gSystemConfig['configSystemDBTableCounter'] = 'counter';
+$gSystemConfig['configSystemDBTableCategories'] = 'categories';
+$gSystemConfig['configSystemDBTableFiles'] = 'files';
+$gSystemConfig['configSystemDBTableContent'] = 'content';
+$gSystemConfig['configSystemDBTableProducts'] = 'products';
+$gSystemConfig['configSystemDBTablePublications'] = 'publications';
+$gSystemConfig['configSystemDBTableRegisters'] = 'registers';
+$gSystemConfig['configSystemDBTableQuizzes'] = 'quizzes';
+$gSystemConfig['configSystemDBTableQuizzesOptions'] = 'quizzes_options';
+$gSystemConfig['configSystemDBTableQuizzesLog'] = 'quizzes_log';
+$gSystemConfig['configSystemDBTableForms'] = 'forms';
+$gSystemConfig['configSystemDBTableFormsFields'] = 'forms_fields';
+$gSystemConfig['configSystemDBTableFormsFieldsOptions'] = 'forms_fields_options';
+$gSystemConfig['configSystemDBTableFiltersGeneric'] = 'filters_generic';
+$gSystemConfig['configSystemDBTableFiltersGenericBinding'] = 'filters_generic_binding';
+$gSystemConfig['configSystemDBTableUsers'] = 'users';
 // ----------------------
 
 // Media configuration.
 // ----------------------
-$configImagePopup = 4; // 0 - no pop-up | 1 - LightBox 2 (JQuery) | 3 - fancybox (JQuery) | 4 - GLightbox (vanilla js)
-$configImagePopupBGColor = '#000000';
-$configImagePopupW = '890';
-$configImagePopupH = '530';
+$gSystemConfig['configImagePopup'] = 4; // 0 - no pop-up | 1 - LightBox 2 (JQuery) | 3 - fancybox (JQuery) | 4 - GLightbox (vanilla js)
+$gSystemConfig['configImagePopupBGColor'] = '#000000';
+$gSystemConfig['configImagePopupW'] = '890';
+$gSystemConfig['configImagePopupH'] = '530';
 // ----------------------
 
 // Directories configuration.
 // ----------------------
-$configPhysicalPathRoot = dirname(__FILE__);
+$gSystemConfig['configPhysicalPathRoot'] = dirname(__FILE__);
+$gSystemConfig['configPhysicalPathRootPublicWeb'] = realpath(
+    __DIR__ .
+    // dirname(__FILE__) .
+    // DIRECTORY_SEPARATOR . '..' .
+    DIRECTORY_SEPARATOR . '..' .
+    DIRECTORY_SEPARATOR
+); // Map the public web html root directory (Laravel local: public).
+// TODO: condition to local / production and optimize \config\filesystems.php.
 
 // $configDirectoryRootPhysical = __dirname;
 /**/
-$configDirectoryAdmin = 'admin_node';
+$configDirectoryAdmin = 'admin_php_laravel';
 // $configDirectorySystem = 'backend_node'; // trash
-$configDirectoryBackend = 'backend_node';
+    // TODO: evaluate better
+$configDirectoryBackend = 'backend_php_laravel';
 // $configDirectorySystemRoute = "system"; // trash
-$configDirectoryComponents = 'components_node';
+    // TODO: evaluate better
+$gSystemConfig['configDirectoryComponents'] = 'components_php';
 
-$configDirectoryFilesVisualization = 'app_files_public';
-$configDirectoryFiles = 'app_files_public';
-$configDirectoryFilesLayout = 'app_files_layout';
-$configDirectoryFonts = 'app_fonts';
-$configDirectoryResources = 'app_resources';
-$configDirectoryStyles = 'app_styles';
-$configDirectoryJS = 'app_js';
-$configDirectoryViews = 'app_views';
-$configDirectoryDist = 'dist'; // webpack distribution folder files (production / minifying)
-$configDirectoryBuildReact = 'build'; // webpack distribution folder files - react (production / minifying)
-$configDirectoryBuildReactClient = 'public'; // webpack distribution folder files - react client (production / minifying)
-$configDirectoryBuildLaravel = 'public';
+$gSystemConfig['configDirectoryFilesVisualization'] = 'app_files_public'; // 'app_files_public'
+$gSystemConfig['configDirectoryFiles'] = getenv('CONFIG_DIRECTORY_FILES'); // 'app_files_public'
+$gSystemConfig['configDirectoryFilesLayout'] = getenv('CONFIG_DIRECTORY_FILES_LAYOUT'); // 'app_files_layout';
+$gSystemConfig['configDirectoryFonts'] = getenv('CONFIG_DIRECTORY_FONTS'); // 'app_fonts';
+$gSystemConfig['configDirectoryResources'] = getenv('CONFIG_DIRECTORY_RESOURCES'); // 'app_resources';
+$gSystemConfig['configDirectoryStyles'] = getenv('CONFIG_DIRECTORY_STYLES'); // 'app_styles';
+$gSystemConfig['configDirectoryJS'] = getenv('CONFIG_DIRECTORY_JS'); // 'app_js';
+$gSystemConfig['configDirectoryViews'] = getenv('CONFIG_DIRECTORY_VIEWS'); // 'app_views';
+$gSystemConfig['configDirectoryBuildLaravel'] = getenv('CONFIG_DIRECTORY_BUILD_LARAVEL'); // 'app_views';
+
+/*
+$gSystemConfig['configDirectoryFilesVisualization'] = 'app_files_public';
+$gSystemConfig['configDirectoryFiles'] = 'app_files_public';
+$gSystemConfig['configDirectoryFilesLayout'] = 'app_files_layout';
+$gSystemConfig['configDirectoryFonts'] = 'app_fonts';
+$gSystemConfig['configDirectoryResources'] = 'app_resources';
+$gSystemConfig['configDirectoryStyles'] = 'app_styles';
+$gSystemConfig['configDirectoryJS'] = 'app_js';
+$gSystemConfig['configDirectoryViews'] = 'app_views';
+*/
+$gSystemConfig['configDirectoryDist'] = 'dist'; // webpack distribution folder files (production / minifying)
+$gSystemConfig['configDirectoryBuildReact'] = 'build'; // webpack distribution folder files - react (production / minifying)
+$gSystemConfig['configDirectoryBuildReactClient'] = 'public'; // webpack distribution folder files - react client (production / minifying)
+$gSystemConfig['configDirectoryBuildLaravel'] = 'public';
 
 // Upload directories.
-$configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
+// $configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
+//$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configPhysicalPathRoot'] . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $gSystemConfig['configDirectoryFilesVisualization'];
+//$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configPhysicalPathRoot'] . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $gSystemConfig['configDirectoryFilesVisualization'];
+$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configDirectoryFiles'];
+    // DIRECTORY_SEPARATOR (alternative, if problem with PATH_SEPARATOR)
+    // TODO: review these variables and sync with the other versions.
+
 // $configDirectoryFilesUpload = $configPhysicalPathRoot + "\\" + $configDirectoryFilesVisualization;
 // ----------------------
 
 // Static directories configuration (public alias).
 // ----------------------
-$configFrontendDefaultViewSD = 'frontend';
-$configDirectorySystemSD = 'backend';
-$configDirectoryAdminSD = 'admin';
+$gSystemConfig['configFrontendDefaultViewSD'] = 'frontend';
+$gSystemConfig['configDirectorySystemSD'] = 'backend'; // TODO: change do api and re-think
+$gSystemConfig['configDirectoryAdminSD'] = 'admin';
+
+// TODO: Revisit if the directories will be defined with .env variables.
+// TODO: go back to the laravel and evaluate whether to use env( or getenv(.
+$gSystemConfig['configDirectoryFilesSD'] = getenv('CONFIG_DIRECTORY_FILES_SD'); // 'files' | '' - when using remote
+$gSystemConfig['configDirectoryFilesLayoutSD'] = getenv('CONFIG_DIRECTORY_FILES_LAYOUT_SD'); // 'files-layout'
+$gSystemConfig['configDirectoryFontsSD'] = getenv('CONFIG_DIRECTORY_FONTS_SD'); // 'fonts'
+$gSystemConfig['configDirectoryStylesSD'] = getenv('CONFIG_DIRECTORY_STYLES_SD'); // 'css'
+$gSystemConfig['configDirectoryJSSD'] = getenv('CONFIG_DIRECTORY_JS_SD'); // 'js'
 
 /*
-$configDirectoryFilesSD = env('CONFIG_DIRECTORY_FILES_SD'); // 'files' | "" - when using remote
-$configDirectoryFilesLayoutSD = env('CONFIG_DIRECTORY_FILES_LAYOUT_SD'); // 'files-layout'
-$configDirectoryFontsSD = env('CONFIG_DIRECTORY_FONTS_SD'); // 'fonts'
-$configDirectoryStylesSD = env('CONFIG_DIRECTORY_STYLES_SD'); // 'css'
-$configDirectoryJSSD = env('CONFIG_DIRECTORY_JS_SD'); // 'js'
+// $configDirectoryFilesSD = ''; // '' - when using remote file storage
+$gSystemConfig['configDirectoryFilesSD'] = 'files'; // "" - when using remote
+$gSystemConfig['configDirectoryFilesLayoutSD'] = 'files-layout';
+$gSystemConfig['configDirectoryFontsSD'] = 'fonts';
+$gSystemConfig['configDirectoryStylesSD'] = 'css';
+$gSystemConfig['configDirectoryJSSD'] = 'js';
+$gSystemConfig['configDirectoryDistSD'] = 'dist';
+$gSystemConfig['configDirectoryBuildReactSD'] = 'build'; // TODO: Maybe change to frontend_react
+$gSystemConfig['configDirectoryBuildReactClientSD'] = 'public';
 */
-// $configDirectoryFilesSD = ""; // "" - when using remote file storage
-$configDirectoryFilesSD = 'files'; // "" - when using remote
-$configDirectoryFilesLayoutSD = 'files-layout';
-$configDirectoryFontsSD = 'fonts';
-$configDirectoryStylesSD = 'css';
-$configDirectoryJSSD = 'js';
-$configDirectoryDistSD = 'dist';
-$configDirectoryBuildReactSD = 'build'; // TODO: Maybe change to frontend_react
-$configDirectoryBuildReactClientSD = 'public';
 // ----------------------
 
 // Routes configuration.
 // ----------------------
-$configRouteAPI = 'api';
-$configRouteAPIActionEdit = 'edit';
-$configRouteAPIActionSend = 'send';
-$configRouteAPIActionLog = 'log';
-$configRouteAPIDetails = 'details';
-$configRouteAPIRecords = 'records';
+// TODO: change backend to admin
+$gSystemConfig['configRouteAPI'] = 'api';
+$gSystemConfig['configRouteAPIActionEdit'] = 'edit';
+$gSystemConfig['configRouteAPIActionSend'] = 'send';
+$gSystemConfig['configRouteAPIActionLog'] = 'log';
+$gSystemConfig['configRouteAPIDetails'] = 'details';
+$gSystemConfig['configRouteAPIRecords'] = 'records';
 
-$configRouteAPICategories = 'categories';
-$configRouteAPIFiles = 'files';
-$configRouteAPIContent = 'content';
-$configRouteAPIProducts = 'products';
-$configRouteAPIPublications = 'publications';
-$configRouteAPIRegisters = 'registers';
-$configRouteAPIQuizzes = 'quizzes';
-$configRouteAPIQuizzesOptions = 'quizzes-options';
-$configRouteAPIForms = 'forms';
-$configRouteAPIFormsFields = 'forms-fields';
-$configRouteAPIFormsFieldsOptions = 'forms-fields-options';
-$configRouteAPIFiltersGeneric = 'filters-generic';
-$configRouteAPIUsers = 'users';
-$configRouteAPIAuthentication = 'authentication';
-$configRouteAPILogin = 'login';
+$gSystemConfig['configRouteAPICategories'] = 'categories';
+$gSystemConfig['configRouteAPIFiles'] = 'files';
+$gSystemConfig['configRouteAPIContent'] = 'content';
+$gSystemConfig['configRouteAPIProducts'] = 'products';
+$gSystemConfig['configRouteAPIPublications'] = 'publications';
+$gSystemConfig['configRouteAPIRegisters'] = 'registers';
+$gSystemConfig['configRouteAPIQuizzes'] = 'quizzes';
+$gSystemConfig['configRouteAPIQuizzesOptions'] = 'quizzes-options';
+$gSystemConfig['configRouteAPIForms'] = 'forms';
+$gSystemConfig['configRouteAPIFormsFields'] = 'forms-fields';
+$gSystemConfig['configRouteAPIFormsFieldsOptions'] = 'forms-fields-options';
+$gSystemConfig['configRouteAPIFiltersGeneric'] = 'filters-generic';
+$gSystemConfig['configRouteAPIUsers'] = 'users';
+$gSystemConfig['configRouteAPIAuthentication'] = 'authentication';
+$gSystemConfig['configRouteAPILogin'] = 'login';
 
-$configRouteBackend = 'system';
-$configRouteBackendLogin = 'login';
-$configRouteBackendLogOff = 'logoff'; // TODO: change to logoff.
-$configRouteBackendLoginUsers = 'login-users';
+$gSystemConfig['configRouteBackend'] = 'system';
+$gSystemConfig['configRouteBackendLogin'] = 'login';
+$gSystemConfig['configRouteBackendLogOff'] = 'logoff'; // TODO: change to logoff.
+$gSystemConfig['configRouteBackendLoginUsers'] = 'login-users';
 // $configRouteBackendLogOffUsers = "logoff-users";
-$configRouteBackendLogOffUsersRoot = 'logoff-users-root'; // TODO: change to logoff.
-$configRouteBackendDashboard = 'dashboard'; // main
+$gSystemConfig['configRouteBackendLogOffUsersRoot'] = 'logoff-users-root'; // TODO: change to logoff. // TODO: change to something like: users/logoff
+$gSystemConfig['configRouteBackendDashboard'] = 'dashboard'; // main
 
-$configRouteBackendActionEdit = 'edit';
-$configRouteBackendDetails = 'details';
-$configRouteBackendRecords = 'records';
-$configRouteBackendCategories = 'categories';
-$configRouteBackendFiles = 'files';
-$configRouteBackendContent = 'content';
-$configRouteBackendProducts = 'products';
-$configRouteBackendPublications = 'publications';
-$configRouteBackendRegisters = 'registers';
-$configRouteBackendQuizzes = 'quizzes';
-$configRouteBackendQuizzesOptions = 'quizzes-options';
-$configRouteBackendForms = 'forms';
-$configRouteBackendFormsFields = 'forms-fields';
-$configRouteBackendFormsFieldsOptions = 'forms-fields-options';
-$configRouteBackendFiltersGeneric = 'filters-generic';
-$configRouteBackendUsers = 'users';
+$gSystemConfig['configRouteBackendActionEdit'] = 'edit';
+$gSystemConfig['configRouteBackendDetails'] = 'details';
+$gSystemConfig['configRouteBackendRecords'] = 'records';
+$gSystemConfig['configRouteBackendCategories'] = 'categories';
+$gSystemConfig['configRouteBackendFiles'] = 'files';
+$gSystemConfig['configRouteBackendContent'] = 'content';
+$gSystemConfig['configRouteBackendProducts'] = 'products';
+$gSystemConfig['configRouteBackendPublications'] = 'publications';
+$gSystemConfig['configRouteBackendRegisters'] = 'registers';
+$gSystemConfig['configRouteBackendQuizzes'] = 'quizzes';
+$gSystemConfig['configRouteBackendQuizzesOptions'] = 'quizzes-options';
+$gSystemConfig['configRouteBackendForms'] = 'forms';
+$gSystemConfig['configRouteBackendFormsFields'] = 'forms-fields';
+$gSystemConfig['configRouteBackendFormsFieldsOptions'] = 'forms-fields-options';
+$gSystemConfig['configRouteBackendFiltersGeneric'] = 'filters-generic';
+$gSystemConfig['configRouteBackendUsers'] = 'users';
 
-$configRouteFrontend = 'en'; // (blank) - root | en
-$configRouteFrontendMobile = 'en-mobile'; // (blank) - responsive |  // NOTE: only in use if layout not responsive
+$gSystemConfig['configRouteFrontend'] = ''; // (blank) - root | en
+$gSystemConfig['configRouteFrontendMobile'] = 'en-mobile'; // (blank) - responsive | // NOTE: only in use if layout not responsive
 
-$configRouteFrontendActionEdit = 'edit';
-$configRouteFrontendActionSend = 'send';
-$configRouteFrontendDetails = 'details';
-$configRouteFrontendRecords = 'records';
+$gSystemConfig['configRouteFrontendActionEdit'] = 'edit';
+$gSystemConfig['configRouteFrontendActionSend'] = 'send';
+$gSystemConfig['configRouteFrontendDetails'] = 'details';
+$gSystemConfig['configRouteFrontendRecords'] = 'records';
 
-$configRouteFrontendCategories = 'categories';
-$configRouteFrontendFiles = 'files';
-$configRouteFrontendContent = 'content';
-$configRouteFrontendForms = 'forms';
-$configRouteFrontendProducts = 'products';
-$configRouteFrontendPublications = 'publications';
-$configRouteFrontendRegisters = 'registers';
-$configRouteFrontendQuizzes = 'quizzes';
-$configRouteFrontendLogin = 'login';
-$configRouteFrontendLogoff = 'logoff';
+$gSystemConfig['configRouteFrontendCategories'] = 'categories';
+$gSystemConfig['configRouteFrontendFiles'] = 'files';
+$gSystemConfig['configRouteFrontendContent'] = 'content';
+$gSystemConfig['configRouteFrontendForms'] = 'forms';
+$gSystemConfig['configRouteFrontendProducts'] = 'products';
+$gSystemConfig['configRouteFrontendPublications'] = 'publications';
+$gSystemConfig['configRouteFrontendRegisters'] = 'registers';
+$gSystemConfig['configRouteFrontendQuizzes'] = 'quizzes';
+$gSystemConfig['configRouteFrontendLogin'] = 'login';
+$gSystemConfig['configRouteFrontendLogoff'] = 'logoff';
 
-$configRouteFrontendDashboard = 'dashboard';
-$configRouteFrontendDashboardCategories = 'dashboard-categories';
-$configRouteFrontendDashboardFiles = 'dashboard-files';
-$configRouteFrontendDashboardContent = 'dashboard-content';
-$configRouteFrontendDashboardProducts = 'dashboard-products';
-$configRouteFrontendDashboardPublications = 'dashboard-publications';
-$configRouteFrontendDashboardRegisters = 'dashboard-registers';
-$configRouteFrontendDashboardQuizzes = 'dashboard-quizzes';
+$gSystemConfig['configRouteFrontendDashboard'] = 'dashboard';
+$gSystemConfig['configRouteFrontendDashboardCategories'] = 'dashboard-categories';
+$gSystemConfig['configRouteFrontendDashboardFiles'] = 'dashboard-files';
+$gSystemConfig['configRouteFrontendDashboardContent'] = 'dashboard-content';
+$gSystemConfig['configRouteFrontendDashboardProducts'] = 'dashboard-products';
+$gSystemConfig['configRouteFrontendDashboardPublications'] = 'dashboard-publications';
+$gSystemConfig['configRouteFrontendDashboardRegisters'] = 'dashboard-registers';
+$gSystemConfig['configRouteFrontendDashboardQuizzes'] = 'dashboard-quizzes';
+// ----------------------
+
+// Cookies.
+// ----------------------
+$gSystemConfig['configCookieSetType'] = 1; // 0 - disabled (set without path / directory) | 1 - enabled (set with path / directory)
+$gSystemConfig['configCookieDirectory'] = '/'; // (/ - full website)
+
+$gSystemConfig['configCookiePrefix'] = 'ss';
+$gSystemConfig['configCookiePrefixUserRoot'] = 'user_root';
+$gSystemConfig['configCookiePrefixUserAdmin'] = 'user_admin';
+$gSystemConfig['configCookiePrefixUser'] = 'user';
+
+$gSystemConfig['configCookieDefaultOptions'] = [
+    'path' => $gSystemConfig['configCookieDirectory'],
+    'overwrite' => true,
+    // domain => '127.0.0.1:4444',
+    // secure => process.env.NODE_ENV === 'production'? true : false, / Forces to use https in production.
+    // expires => new Date(Date.now() + 900000),
+    // maxAge => 1000 * 60 * 10,
+    'httpOnly' => true,
+]; // Not in use for now
+$gSystemConfig['configCookieDeleteDefaultOptions'] = [
+    'path' => $gSystemConfig['configCookieDirectory'],
+    'overwrite' => true,
+    // domain => '127.0.0.1:4444',
+    // secure => process.env.NODE_ENV === 'production'? true : false, / Forces to use https in production.
+    'expires' => null, // new Date() new date
+    'maxAge' => 0,
+    'httpOnly' => true,
+]; // Not in use for now
+// ----------------------
+
+// Sessions.
+// ----------------------
+$gSystemConfig['configSessionBackendTimeout'] = 1440; // double check if is int or string
 // ----------------------
 
 // Cryptography.
 // ----------------------
-$configCryptType = 2; // 0 - no cryptography | 1 - hash (doesn´t allow decryptography) | 2 - Data (allows decryptography)
-$configCryptHash = 11; // 11 - md5 (PHP) | 23 - Crypto Module
-$configCryptData = 26; // 21 - MCrypt PHP library (PHP) (tested: linux - php 7.0 | windows - php 5.4) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
+$gSystemConfig['configCryptType'] = 2; // 0 - no cryptography | 1 - hash (doesn´t allow decryptography) | 2 - Data (allows decryptography)
+$gSystemConfig['configCryptHash'] = 11; // 11 - md5 (PHP) | 23 - Crypto Module
+$gSystemConfig['configCryptData'] = 22; // 21 - MCrypt PHP library (PHP) (tested: linux - php 7.0 | windows - php 5.4) | 22 - Defuse php-encryption (php) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
 
-$configCryptKey = 'system_crypt_key'; // generate key data
-$configCryptKey16Byte = '95f19c6f734f9f4fdc1d4258277a1c7d'; // not in use
-$configCryptKey32Byte = 'd0a7e7997b6d5fcd55f4b5c32611b87cd923e88837b63bf2941ef819dc8ca282'; // not in use
-$configCryptiv16Byte = 'bd1e41c05f861867e225d5d998f10813'; // not in use
-$configCryptiv32Byte = '21f534b09237b9716ab561149367ebb8d2d0ab0e0bfec395baf7ba112cb2872f'; // not in use
-$configCryptKeyDefusePHPEncryptionRandomKey = "def000006516cef316c508a843b1362ab79f4fe36a7294070c4c054c16fcab1537fb7ea3cbd6e32526b86e08e7d2906f2303a538eebc48c2944f8e7442886813e25ffab3"; //Defuse php-encryption (key generated by file: /php-encrypption{versao_em_uso}/GerarChave01.php).
-$configCryptSalt = 'syncsystem'; // generate a salt data // TODO: think of a way to change salt and key and generate a new master user password
+// TODO: move these to .env
+$gSystemConfig['configCryptKey'] = 'system_crypt_key'; // generate key data
+$gSystemConfig['configCryptKey16Byte'] = '95f19c6f734f9f4fdc1d4258277a1c7d';
+$gSystemConfig['configCryptKey32Byte'] = 'd0a7e7997b6d5fcd55f4b5c32611b87cd923e88837b63bf2941ef819dc8ca282';
+$gSystemConfig['configCryptiv16Byte'] = 'bd1e41c05f861867e225d5d998f10813';
+$gSystemConfig['configCryptiv32Byte'] = '21f534b09237b9716ab561149367ebb8d2d0ab0e0bfec395baf7ba112cb2872f';
+$gSystemConfig['configCryptKeyDefusePHPEncryptionRandomKey'] = 'def000006516cef316c508a843b1362ab79f4fe36a7294070c4c054c16fcab1537fb7ea3cbd6e32526b86e08e7d2906f2303a538eebc48c2944f8e7442886813e25ffab3'; //Defuse php-encryption (key generated by file: /php-encrypption{versao_em_uso}/GerarChave01.php).
+$gSystemConfig['configCryptSalt'] = 'syncsystem'; // generate a salt data // TODO: think of a way to change salt and key and generate a new master user password
+// ----------------------
+
+// Image configuration.
+// ----------------------
+$gSystemConfig['configUploadType'] = 1; // 1 - Save Files Locally | 2 - Amazon S3
+$gSystemConfig['configUploadComponent'] = 1; // 1 - formidable | 2 - multer (TODO) | 3 - multyparty (TODO)
+$gSystemConfig['configImageComponent'] = 12; // 1 - sharp | 11 - imageMagician | 12 - intervention/image
+$gSystemConfig['configImageQuality'] = 100; // image quality percentage on resizing
+$gSystemConfig['configImageFormats'] = '.bmp, .gif, .jpg, .jpeg, .png'; // formats allowed for image resizing
+
+// Image size configuration.
+$gSystemConfig['enableDefaultImageSize'] = 1; // 0 - disable (image sizes different for each table) | 1 - enable (default image sizes)
+
+// prefix;w;h
+$gSystemConfig['configArrDefaultImageSize'] = ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrCategoriesImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrFilesImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrContentImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrProductsImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrPublicationsImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrRegistersImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrQuizzesImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrQuizzesOptionsImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrFormsFieldsOptionsImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrFiltersGenericImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$gSystemConfig['configArrUsersImageSize'] = $gSystemConfig['enableDefaultImageSize'] === 1 ? $gSystemConfig['configArrDefaultImageSize'] : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
 // ----------------------
 
 //e-mail configuration.
 // ----------------------
-$configEmailComponent = 1; //1 - 
-$configEmailFormat = 1; //0 - text | 1 - HTML
+$gSystemConfig['configEmailComponent'] = 1; // 1 -
+$gSystemConfig['configEmailFormat'] = 1; // 0 - text | 1 - HTML
 // ----------------------
 
+// APIs.
+// ----------------------
+// .env
+// gSystemConfig.configAPIKeyInternal = "createSecretPassword";
+//gSystemConfig.configAPIKeySystem = 'createSecretPassword'; // Note: for node deploy, value must be hard coded (TODO: Research architecture to retrieve server variables .env in react).
+$gSystemConfig['configAPIKeySystem'] = getenv('CONFIG_API_KEY_SYSTEM');
+// gSystemConfig.configAPIKeySystem = process.env.CONFIG_API_KEY_SYSTEM;
+// ----------------------
 // **************************************************************************************
+
 
 // Global system configuration.
 // **************************************************************************************
-$configBackendTemplateEngine = 11; // 1 - EJS | 11 - blade
+$gSystemConfig['configBackendTemplateEngine'] = 11; // 1 - EJS | 11 - blade
 
-$configBackendTextBox = 17; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
-$configFrontendTextBox = 1; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
+$gSystemConfig['configBackendTextBox'] = 17; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
+$gSystemConfig['configFrontendTextBox'] = 1; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
 
-$configSystemTimeZone = 'America/Sao_Paulo'; // America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
-$configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
-$configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
+//$configSystemTimeZone = 'America/Sao_Paulo'; // UTC | America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
+$gSystemConfig['configSystemTimeZone'] = 'America/Sao_Paulo'; // UTC | America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
+//$configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
+$gSystemConfig['configBackendLanguage'] = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
+//$configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
+$gSystemConfig['configFrontendLanguage'] = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
 
-$configBackendDateFormat = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
-$configBackendDateFieldType = 11; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu | 11 - js-datepicker (https:// www.npmjs.com/package/js-datepicker)
-$configFrontendDateFormat = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
-$configFrontendDateFieldType = 1; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu
+$gSystemConfig['configBackendDateFormat'] = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
+$gSystemConfig['configBackendDateFieldType'] = 11; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu | 11 - js-datepicker (https:// www.npmjs.com/package/js-datepicker)
+$gSystemConfig['configFrontendDateFormat'] = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
+$gSystemConfig['configFrontendDateFieldType'] = 1; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu
 
 // Currency.
-$configSystemCurrency = 'R$'; // R$ | $ | € | £
-$configSystemWeight = 'g'; // g | ounces (1 pound -> 16 ounces)
-$configSystemWeight2 = 'kg'; // kg | Pounds (453.6 grams)
-$configSystemHeight = 'ft'; // ft | m
-$configSystemMetric = 'm²'; // m² | ft²
-$configSystemMetricDistance = 'KM'; // KM | MI
+$gSystemConfig['configSystemCurrency'] = 'R$'; // R$ | $ | € | £
+$gSystemConfig['configSystemWeight'] = 'g'; // g | ounces (1 pound -> 16 ounces)
+$gSystemConfig['configSystemWeight2'] = 'kg'; // kg | Pounds (453.6 grams)
+$gSystemConfig['configSystemHeight'] = 'ft'; // ft | m
+$gSystemConfig['configSystemMetric'] = 'm²'; // m² | ft²
+$gSystemConfig['configSystemMetricDistance'] = 'KM'; // KM | MI
+// **************************************************************************************
+
+// Backend - main menu configuration.
+// **************************************************************************************
+$gSystemConfig['enableBackendSearch'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableBackendMaintenanceRegisters'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableBackendMaintenanceCategories'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableBackendMaintenanceProducts'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableBackendMaintenancePublications'] = 1; // 0 - disable | 1 - enable
+// **************************************************************************************
+
+// Languages.
+// **************************************************************************************
+// TODO: put result in session or other temporary storage - configCache.
+// TODO: test this after $gSystemConfig implementation.
+// Debug.
+//echo '__FILE__=<pre>';
+//var_dump(dirname(__FILE__));
+//echo '</pre><br />';
+
+//$configLanguageFrontend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
+// $configLanguageFrontend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
+// $configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels'); // working
+// $gSystemConfig['configLanguageFrontend'] = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($gSystemConfig['configDirectoryResources'])  . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+    // laravel - working
+//echo 'configLanguageFrontend=<pre>';
+//var_dump(dirname($configLanguageFrontend));
+////var_dump(dirname(json_decode($configLanguageFrontend)));
+//echo '</pre><br />';
+
+//$configLanguageBackend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
+//$configLanguageBackend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
+// $configLanguageBackend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');  // working
+// $gSystemConfig['configLanguageBackend'] = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($gSystemConfig['configDirectoryResources']) . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+    // laravel - working
 // **************************************************************************************
 
 // Categories types - configuration and resources.
 // **************************************************************************************
-$configCategoryType = [
+$gSystemConfig['configCategoryType'] = [
   // Content
   [
     'category_type' => 1,
@@ -323,7 +576,7 @@ $configCategoryType = [
     'category_type_function_label' => 'backendCategoriesType7Function',
     'queryString' => 'idType=1',
   ],
-  
+
   // Segment
   [
     'category_type' => 9,
@@ -356,1857 +609,1923 @@ $configCategoryType = [
 
 // Categories - configuration and resources.
 // **************************************************************************************
-$configCategoriesSort = "title"; //options: id | sort_order | date_creation esc | date_creation desc | title
-$enableCategoriesSortCustom = 0; //0 - disable | 1 - enable
-$configCategoriesInputOrder = [
-  'inputRowCategories_id_parent', 
-  'inputRowCategories_sort_order', 
-  'inputRowCategories_date1', 
-  'inputRowCategories_id_register_user', 
-  'inputRowCategories_title', 
-  'inputRowCategories_description', 
-  'inputRowCategories_url_alias', 
-  'inputRowCategories_meta_title', 
-  'inputRowCategories_meta_description', 
-  'inputRowCategories_keywords_tags', 
-  'inputRowCategories_info1', 
-  'inputRowCategories_info_small1', 
-  'inputRowCategories_number1', 
-  'inputRowCategories_number_small1', 
-  'inputRowCategories_category_type', 
-  'inputRowCategories_image_main', 
-  'inputRowCategories_file1', 
-  'inputRowCategories_file2', 
-  'inputRowCategories_activation', 
-  'inputRowCategories_id_restricted_access', 
-  'inputRowCategories_id_status', 
+$gSystemConfig['configCategoriesSort'] = 'title'; // options: id | sort_order | date_creation esc | date_creation desc | title
+$gSystemConfig['enableCategoriesSortCustom'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInputOrder'] = [
+  'inputRowCategories_id_parent',
+  'inputRowCategories_sort_order',
+  'inputRowCategories_date1',
+  'inputRowCategories_id_register_user',
+  'inputRowCategories_title',
+  'inputRowCategories_description',
+  'inputRowCategories_url_alias',
+  'inputRowCategories_meta_title',
+  'inputRowCategories_meta_description',
+  'inputRowCategories_keywords_tags',
+  'inputRowCategories_info1',
+  'inputRowCategories_info_small1',
+  'inputRowCategories_number1',
+  'inputRowCategories_number_small1',
+  'inputRowCategories_category_type',
+  'inputRowCategories_image_main',
+  'inputRowCategories_file1',
+  'inputRowCategories_file2',
+  'inputRowCategories_activation',
+  'inputRowCategories_id_restricted_access',
+  'inputRowCategories_id_status',
   'inputRowCategories_notes'
-];
+]; // Note: check if all ids are enabled, or it will display warning in the console.
 
-//Basic resources.
-$enableCategoriesImageMain = 1; //0 - disable | 1 - enable
-$enableCategoriesDescription = 1; //0 - disable | 1 - enable
-$enableCategoriesSortOrder = 1; //0 - disable | 1 - enable
-$enableCategoriesRestrictedAccess = 1; //0 - disable | 1 - enable
-$enableCategoriesIdParentEdit = 1; //0 - disable | 1 - enable
+// Basic resources.
+$gSystemConfig['enableCategoriesImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesRestrictedAccess'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesStatus'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesNotes'] = 1; // 0 - disable | 1 - enable
 
-$configCategoriesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
-$enableCategoriesKeywordsTags = 1; //0 - disable | 1 - enable
-$enableCategoriesMetaDescription = 1; //0 - disable | 1 - enable
-$enableCategoriesMetaTitle = 1; //0 - disable | 1 - enable
+$gSystemConfig['configCategoriesURLAlias'] = 1; // 0 - disable | 1 - automatic | 2 - custom
+$gSystemConfig['enableCategoriesKeywordsTags'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesMetaDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesMetaTitle'] = 1; // 0 - disable | 1 - enable
 
-//Pagination.
-$enableCategoriesBackendPagination = 1; //0 - disable | 1 - enable
-$enableCategoriesBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configCategoriesBackendPaginationNRecords = 20;
+// Pagination.
+$gSystemConfig['enableCategoriesBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesBackendPaginationNRecords'] = 20;
 
-//Resources.
-$enableCategoriesImages = 1; //0 - disable | 1 - enable
-$enableCategoriesVideos = 1; //0 - disable | 1 - enable
-$enableCategoriesFiles = 1; //0 - disable | 1 - enable
-$enableCategoriesZip = 1; //0 - disable | 1 - enable
+// Resources.
+$gSystemConfig['enableCategoriesImages'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesVideos'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesFiles'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesZip'] = 1; // 0 - disable | 1 - enable
 
-
-//User bind (link categories to registers).
+// User bind (link categories to registers).
 // ----------------------
-$enableCategoriesBindRegisterUser = 1; //0 - disable | 1 - enable
-$configCategoriesBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
-$configCategoriesBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
-$configCategoriesBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableCategoriesBindRegisterUser'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configCategoriesBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
+$gSystemConfig['configCategoriesBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableCategoriesBindRegister1 = 1; //0 - disable | 1 - enable
-$configCategoriesBindRegister1Method = 1; //1 - category ID | 2 - register type
-$configCategoriesBindRegister1IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configCategoriesBindRegister1Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableCategoriesBindRegister1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesBindRegister1Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configCategoriesBindRegister1IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configCategoriesBindRegister1Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableCategoriesBindRegister2 = 1; //0 - disable | 1 - enable
-$configCategoriesBindRegister2Method = 1; //1 - category ID | 2 - register type
-$configCategoriesBindRegister2IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configCategoriesBindRegister2Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableCategoriesBindRegister2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesBindRegister2Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configCategoriesBindRegister2IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configCategoriesBindRegister2Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableCategoriesBindRegister3 = 1; //0 - disable | 1 - enable
-$configCategoriesBindRegister3Method = 1; //1 - category ID | 2 - register type
-$configCategoriesBindRegister3IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configCategoriesBindRegister3Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableCategoriesBindRegister3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesBindRegister3Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configCategoriesBindRegister3IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configCategoriesBindRegister3Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableCategoriesBindRegister4 = 1; //0 - disable | 1 - enable
-$configCategoriesBindRegister4Method = 1; //1 - category ID | 2 - register type
-$configCategoriesBindRegister4IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configCategoriesBindRegister4Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableCategoriesBindRegister4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesBindRegister4Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configCategoriesBindRegister4IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configCategoriesBindRegister4Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableCategoriesBindRegister5 = 1; //0 - disable | 1 - enable
-$configCategoriesBindRegister5Method = 1; //1 - category ID | 2 - register type
-$configCategoriesBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configCategoriesBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableCategoriesBindRegister5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesBindRegister5Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configCategoriesBindRegister5IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configCategoriesBindRegister5Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 // ----------------------
 
-
-//Optioinal fields (field titles in the language configuration file).
+// Optional fields (field titles in the language configuration file).
 // ----------------------
-//Big information fields.
-$enableCategoriesInfo1 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo1FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+// Generic filters.
+$gSystemConfig['enableCategoriesFilterGeneric1'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric2'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric3'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric4'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric5'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric6'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric7'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric8'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric9'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableCategoriesFilterGeneric10'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
 
-$enableCategoriesInfo2 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo2FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+// Big information fields.
+$gSystemConfig['enableCategoriesInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo1FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo3 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo2FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo4 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo4FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo5 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo4FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo6 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo6FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo7 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo7FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo6FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo8 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo8FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo7FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo9 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo9FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo8FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableCategoriesInfo10 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo10FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableCategoriesInfo9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo9FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableCategoriesInfo10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfo10FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
 //Small information fields.
-$enableCategoriesInfoS1 = 1; //0 - disable | 1 - enable
-$configCategoriesInfoS1FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableCategoriesInfoS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfoS1FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableCategoriesInfoS2 = 1; //0 - disable | 1 - enable
-$configCategoriesInfoS2FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableCategoriesInfoS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfoS2FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableCategoriesInfoS3 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo3SFieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableCategoriesInfoS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfoS3FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableCategoriesInfoS4 = 1; //0 - disable | 1 - enable
-$configCategoriesInfoS4FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableCategoriesInfoS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfoS4FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableCategoriesInfoS5 = 1; //0 - disable | 1 - enable
-$configCategoriesInfoS5FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableCategoriesInfoS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesInfoS5FieldType'] = 1; // 1 - single line | 2 - multiline
 
-//Big number fields.
-$enableCategoriesNumber1 = 1; //0 - disable | 1 - enable
-$configCategoriesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+// Big number fields.
+$gSystemConfig['enableCategoriesNumber1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumber1FieldType'] = 2; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumber2 = 1; //0 - disable | 1 - enable
-$configCategoriesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumber2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumber2FieldType'] = 2; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumber3 = 1; //0 - disable | 1 - enable
-$configCategoriesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumber3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumber3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumber4 = 1; //0 - disable | 1 - enable
-$configCategoriesNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumber4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumber4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumber5 = 1; //0 - disable | 1 - enable
-$configCategoriesNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumber5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumber5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
 //Small number fields.
-$enableCategoriesNumberS1 = 1; //0 - disable | 1 - enable
-$configCategoriesNumberS1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumberS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumberS1FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumberS2 = 1; //0 - disable | 1 - enable
-$configCategoriesNumberS2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumberS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumberS2FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumberS3 = 1; //0 - disable | 1 - enable
-$configCategoriesNumberS3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumberS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumberS3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumberS4 = 1; //0 - disable | 1 - enable
-$configCategoriesNumberS4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$gSystemConfig['enableCategoriesNumberS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumberS4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
-$enableCategoriesNumberS5 = 1; //0 - disable | 1 - enable
-$configCategoriesNumberS5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
-
-//Date fields.
-$enableCategoriesDate1 = 1; //0 - disable | 1 - enable
-$configCategoriesDate1FieldType = 1; //1 - JQuery DatePicker
-$configCategoriesDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableCategoriesDate2 = 1; //0 - disable | 1 - enable
-$configCategoriesDate2FieldType = 1; //1 - JQuery DatePicker
-$configCategoriesDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableCategoriesDate3 = 1; //0 - disable | 1 - enable
-$configCategoriesDate3FieldType = 1; //1 - JQuery DatePicker
-$configCategoriesDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableCategoriesDate4 = 1; //0 - disable | 1 - enable
-$configCategoriesDate4FieldType = 1; //1 - JQuery DatePicker
-$configCategoriesDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableCategoriesDate5 = 1; //0 - disable | 1 - enable
-$configCategoriesDate5FieldType = 1; //1 - JQuery DatePicker
-$configCategoriesDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-//File fields.
-$enableCategoriesFile1 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
-
-$enableCategoriesFile2 = 1; //0 - disable | 1 - enable
-$configCategoriesFile2Type = 1; //1 - image | 3 - file
-
-$enableCategoriesFile3 = 1; //0 - disable | 1 - enable
-$configCategoriesFile3Type = 1; //1 - image | 3 - file
-
-$enableCategoriesFile4 = 1; //0 - disable | 1 - enable
-$configCategoriesFile4Type = 1; //1 - image | 3 - file
-
-$enableCategoriesFile5 = 1; //0 - disable | 1 - enable
-$configCategoriesFile5Type = 1; //1 - image | 3 - file
-
-
-//Activation fields.
-$enableCategoriesActivation1 = 1; //0 - disable | 1 - enable
-$enableCategoriesActivation2 = 1; //0 - disable | 1 - enable
-$enableCategoriesActivation3 = 1; //0 - disable | 1 - enable
-$enableCategoriesActivation4 = 1; //0 - disable | 1 - enable
-$enableCategoriesActivation5 = 1; //0 - disable | 1 - enable
-// ----------------------
-
-
-//Frontend configuration.
-$enableCategoriesFrontendPagination = 1; //0 - disable | 1 - enable
-$enableCategoriesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configCategoriesFrontendPaginationNRecords = 20;
-// **************************************************************************************
-
-
-//Files - configuration and resources.
-// **************************************************************************************
-$configFilesSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | caption
-$enableFilesSortCustom = 1; //0 - disable | 1 - enable
-$configFilesInputOrder = ["inputRowFiles_id_parent", 
-                            "inputRowFiles_sort_order", 
-                            "inputRowFiles_date1", 
-                            "inputRowFiles_id_register_user", 
-                            "inputRowFiles_title", 
-                            "inputRowFiles_description", 
-                            "inputRowFiles_url_alias", 
-                            "inputRowFiles_meta_title", 
-                            "inputRowFiles_meta_description", 
-                            "inputRowFiles_keywords_tags", 
-                            "inputRowFiles_info1", 
-                            "inputRowFiles_info_small1", 
-                            "inputRowFiles_number1", 
-                            "inputRowFiles_number_small1", 
-                            "inputRowFiles_category_type", 
-                            "inputRowFiles_image_main", 
-                            "inputRowFiles_file1", 
-                            "inputRowFiles_file2", 
-                            "inputRowFiles_activation", 
-                            "inputRowFiles_id_restricted_access", 
-                            "inputRowFiles_id_status", 
-                            "inputRowFiles_notes"
-                          ];
-
-//Basic resources.
-$enableFilesIdParentEdit = 1; //0 - disable | 1 - enable
-$enableFilesSortOrder = 1; //0 - disable | 1 - enable
-
-$enableFilesTitle = 1; //0 - disable | 1 - enable
-$enableFilesDescription = 1; //0 - disable | 1 - enable
-$enableFilesHTMLCode = 1; //0 - disable | 1 - enable
-$enableFilesThumbnails = 1; //0 - disable | 1 - enable //Thumbnails for video files.
-
-$configFilesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
-$enableFilesKeywordsTags = 1; //0 - disable | 1 - enable
-$enableFilesMetaDescription = 1; //0 - disable | 1 - enable
-$enableFilesMetaTitle = 1; //0 - disable | 1 - enable
-$enableFilesNotes = 1; //0 - disable | 1 - enable
-
-
-//Pagination.
-$enableFilesBackendPagination = 1; //0 - disable | 1 - enable
-$enableFilesBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configFilesBackendPaginationNRecords = 15;
-
-
-//Optioinal fields (field titles in the language configuration file).
-//Big information fields.
-$enableFilesInfo1 = 1; //0 - disable | 1 - enable
-$configFilesInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableFilesInfo2 = 1; //0 - disable | 1 - enable
-$configFilesInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableFilesInfo3 = 1; //0 - disable | 1 - enable
-$configFilesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableFilesInfo4 = 1; //0 - disable | 1 - enable
-$configFilesInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableFilesInfo5 = 1; //0 - disable | 1 - enable
-$configFilesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-//Small information fields.
-$enableFilesInfoS1 = 1; //0 - disable | 1 - enable
-$configFilesInfoS1FieldType = 2; //1 - single line | 2 - multiline
-
-$enableFilesInfoS2 = 1; //0 - disable | 1 - enable
-$configFilesInfoS2FieldType = 1; //1 - single line | 2 - multiline
-
-$enableFilesInfoS3 = 1; //0 - disable | 1 - enable
-$configFilesInfoS3FieldType = 1; //1 - single line | 2 - multiline
-
-$enableFilesInfoS4 = 1; //0 - disable | 1 - enable
-$configFilesInfoS4FieldType = 1; //1 - single line | 2 - multiline
-
-$enableFilesInfoS5 = 1; //0 - disable | 1 - enable
-$configFilesInfoS5FieldType = 1; //1 - single line | 2 - multiline
-
-//Big number fields (up to 34 digits).
-$enableFilesNumber1 = 1; //0 - disable | 1 - enable
-$configFilesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableFilesNumber2 = 1; //0 - disable | 1 - enable
-$configFilesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableFilesNumber3 = 1; //0 - disable | 1 - enable
-$configFilesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableFilesNumber4 = 1; //0 - disable | 1 - enable
-$configFilesNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableFilesNumber5 = 1; //0 - disable | 1 - enable
-$configFilesNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-//Small number fields (up to 9 digits).
-$enableFilesNumberS1 = 1; //0 - disable | 1 - enable
-$configFilesNumberS1FieldType = 2; //1 - general number | 2 - system currency
-
-$enableFilesNumberS2 = 1; //0 - disable | 1 - enable
-$configFilesNumberS2FieldType = 1; //1 - general number | 2 - system currency
-
-$enableFilesNumberS3 = 1; //0 - disable | 1 - enable
-$configFilesNumberS3FieldType = 1; //1 - general number | 2 - system currency
-
-$enableFilesNumberS4 = 1; //0 - disable | 1 - enable
-$configFilesNumberS4FieldType = 1; //1 - general number | 2 - system currency
-
-$enableFilesNumberS5 = 1; //0 - disable | 1 - enable
-$configFilesNumberS5FieldType = 1; //1 - general number | 2 - system currency
+$gSystemConfig['enableCategoriesNumberS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesNumberS5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal
 
 //Date fields.
-$enableFilesDate1 = 1; //0 - disable | 1 - enable
-$configFilesDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configFilesDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+$gSystemConfig['enableCategoriesDate1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesDate1FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configCategoriesDate1Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-$enableFilesDate2 = 1; //0 - disable | 1 - enable
-$configFilesDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configFilesDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+$gSystemConfig['enableCategoriesDate2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesDate2FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configCategoriesDate2Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-$enableFilesDate3 = 1; //0 - disable | 1 - enable
-$configFilesDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configFilesDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+$gSystemConfig['enableCategoriesDate3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesDate3FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configCategoriesDate3Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-$enableFilesDate4 = 1; //0 - disable | 1 - enable
-$configFilesDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configFilesDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+$gSystemConfig['enableCategoriesDate4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesDate4FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configCategoriesDate4Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-$enableFilesDate5 = 1; //0 - disable | 1 - enable
-$configFilesDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configFilesDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+$gSystemConfig['enableCategoriesDate5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesDate5FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configCategoriesDate5Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
 //File fields.
-$enableFilesFile1 = 1; //0 - disable | 1 - enable
-$configFilesFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableCategoriesFile1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesFile1Type'] = 1; // 1 - image | 3 - file
 
-$enableFilesFile2 = 1; //0 - disable | 1 - enable
-$configFilesFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableCategoriesFile2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesFile2Type'] = 1; // 1 - image | 3 - file
 
-$enableFilesFile3 = 1; //0 - disable | 1 - enable
-$configFilesFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableCategoriesFile3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesFile3Type'] = 1; // 1 - image | 3 - file
 
-$enableFilesFile4 = 1; //0 - disable | 1 - enable
-$configFilesFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableCategoriesFile4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesFile4Type'] = 1; // 1 - image | 3 - file
 
-$enableFilesFile5 = 1; //0 - disable | 1 - enable
-$configFilesFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableCategoriesFile5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesFile5Type'] = 1; // 1 - image | 3 - file
 
 //Activation fields.
-$enableFilesActivation1 = 1; //0 - disable | 1 - enable
-$enableFilesActivation2 = 1; //0 - disable | 1 - enable
-$enableFilesActivation3 = 1; //0 - disable | 1 - enable
-$enableFilesActivation4 = 1; //0 - disable | 1 - enable
-$enableFilesActivation5 = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesActivation5'] = 1; // 0 - disable | 1 - enable
 // ----------------------
 
-
 //Frontend configuration.
-$configFilesImagePlaceholder = 1; //0 - disable | 1 - enable
+$gSystemConfig['configCategoriesImagePlaceholder'] = 1; // 0 - disable | 1 - enable
 
+$gSystemConfig['enableCategoriesFrontendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableCategoriesFrontendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configCategoriesFrontendPaginationNRecords'] = 20;
+// **************************************************************************************
 
-$enableFilesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
-$enableFilesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configFilesFrontendPaginationNRecords = 10;
+// Files - configuration and resources.
+// **************************************************************************************
+$gSystemConfig['configFilesSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | caption
+$gSystemConfig['enableFilesSortCustom'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInputOrder'] = [
+    'inputRowFiles_id_parent',
+    'inputRowFiles_sort_order',
+    'inputRowFiles_date1',
+    'inputRowFiles_id_register_user',
+    'inputRowFiles_title',
+    'inputRowFiles_description',
+    'inputRowFiles_url_alias',
+    'inputRowFiles_meta_title',
+    'inputRowFiles_meta_description',
+    'inputRowFiles_keywords_tags',
+    'inputRowFiles_info1',
+    'inputRowFiles_info_small1',
+    'inputRowFiles_number1',
+    'inputRowFiles_number_small1',
+    'inputRowFiles_category_type',
+    'inputRowFiles_image_main',
+    'inputRowFiles_file1',
+    'inputRowFiles_file2',
+    'inputRowFiles_activation',
+    'inputRowFiles_id_restricted_access',
+    'inputRowFiles_id_status',
+    'inputRowFiles_notes'
+];
+
+// Basic resources.
+$gSystemConfig['enableFilesIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesSortOrder'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableFilesTitle'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesHTMLCode'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesThumbnails'] = 1; // 0 - disable | 1 - enable //Thumbnails for video files.
+
+$gSystemConfig['configFilesURLAlias'] = 1; // 0 - disable | 1 - automatic | 2 - custom
+$gSystemConfig['enableFilesKeywordsTags'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesMetaDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesMetaTitle'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableFilesNotes'] = 1; // 0 - disable | 1 - enable
+
+// Pagination.
+$gSystemConfig['enableFilesBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesBackendPaginationNRecords'] = 15;
+
+// Optional fields (field titles in the language configuration file).
+// Big information fields.
+$gSystemConfig['enableFilesInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfo1FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableFilesInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfo2FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableFilesInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableFilesInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfo4FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableFilesInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+// Small information fields.
+$gSystemConfig['enableFilesInfoS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfoS1FieldType'] = 2; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableFilesInfoS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfoS2FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableFilesInfoS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfoS3FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableFilesInfoS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfoS4FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableFilesInfoS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesInfoS5FieldType'] = 1; // 1 - single line | 2 - multiline
+
+// Big number fields (up to 34 digits).
+$gSystemConfig['enableFilesNumber1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumber1FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableFilesNumber2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumber2FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableFilesNumber3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumber3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableFilesNumber4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumber4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableFilesNumber5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumber5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+// Small number fields (up to 9 digits).
+$gSystemConfig['enableFilesNumberS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumberS1FieldType'] = 2; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableFilesNumberS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumberS2FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableFilesNumberS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumberS3FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableFilesNumberS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumberS4FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableFilesNumberS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesNumberS5FieldType'] = 1; // 1 - general number | 2 - system currency
+
+// Date fields.
+$gSystemConfig['enableFilesDate1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesDate1FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configFilesDate1Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+$gSystemConfig['enableFilesDate2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesDate2FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configFilesDate2Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableFilesDate3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesDate3FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configFilesDate3Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableFilesDate4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesDate4FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configFilesDate4Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableFilesDate5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesDate5FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configFilesDate5Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+// File fields.
+$gSystemConfig['enableFilesFile1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesFile1Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableFilesFile2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesFile2Type'] = 34; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableFilesFile3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesFile3Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableFilesFile4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesFile4Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableFilesFile5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesFile5Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+// Activation fields.
+$gSystemConfig['enableFilesActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFilesActivation5'] = 1; // 0 - disable | 1 - enable
+// ----------------------
+
+// Frontend configuration.
+$gSystemConfig['configFilesImagePlaceholder'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableFilesFrontendPagination'] = 1; // 0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$gSystemConfig['enableFilesFrontendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFilesFrontendPaginationNRecords'] = 10;
 // **************************************************************************************
 
 
-//Content - configuration and resources.
+// Content - configuration and resources.
 // **************************************************************************************
-$configContentSort = "id ASC"; //options: id | sort_order | date_creation esc | date_creation desc
-$enableContentSortCustom = 1; //0 - disable | 1 - enable
-/*$configContentInputOrder = ["inputRowContent_id_parent", 
-                                            "inputRowContent_sort_order", 
-                                            "inputRowContent_date1", 
-                                            "inputRowContent_id_register_user", 
-                                            "inputRowContent_content_type", 
-                                            "inputRowContent_content_columns", 
-                                            "inputRowContent_align_text", 
-                                            "inputRowContent_align_image", 
-                                            "inputRowContent_content", 
-                                            "inputRowContent_content_url", 
-                                            "inputRowContent_caption", 
-                                            "inputRowContent_file", 
+$gSystemConfig['configContentSort'] = 'id ASC'; // options: id | sort_order | date_creation esc | date_creation desc
+$gSystemConfig['enableContentSortCustom'] = 1; // 0 - disable | 1 - enable
+/*$configContentInputOrder = ["inputRowContent_id_parent",
+                                            "inputRowContent_sort_order",
+                                            "inputRowContent_date1",
+                                            "inputRowContent_id_register_user",
+                                            "inputRowContent_content_type",
+                                            "inputRowContent_content_columns",
+                                            "inputRowContent_align_text",
+                                            "inputRowContent_align_image",
+                                            "inputRowContent_content",
+                                            "inputRowContent_content_url",
+                                            "inputRowContent_caption",
+                                            "inputRowContent_file",
                                             "inputRowContent_activation"
                                           ];*/
 
-//Basic resources.
-$enableContentSortOrder = 1; //0 - disable | 1 - enable
-$enableContentIdParentEdit = 1; //0 - disable | 1 - enable
-$enableContentURL = 1; //0 - disable | 1 - enable
-//$enableContentCaption = 1; //0 - disable | 1 - enable
-$enableContentHTML = 1; //0 - disable | 1 - enable
-$enableContentFiles = 1; //0 - disable | 1 - enable
-$enableContentVideos = 1; //0 - disable | 1 - enable
-$enableContentFileThumbnail = 1; //0 - disable | 1 - enable
-$enableContentColumns = 1; //0 - disable | 1 - enable
-$enableContentImageNoResize = 1; //0 - disable | 1 - enable
+// Basic resources.
+$gSystemConfig['enableContentSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableContentIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableContentURL'] = 1; // 0 - disable | 1 - enable
+//$enableContentCaption = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableContentFileThumbnail'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableContentColumns'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableContentImageNoResize'] = 1; // 0 - disable | 1 - enable
 
-$enableContentBindRegisterUser = 1; //0 - disable | 1 - enable
-$configContentBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
-$configContentBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
-$configContentBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableContentHTML'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableContentVideos'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableContentFiles'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableContentBindRegisterUser'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configContentBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configContentBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
+$gSystemConfig['configContentBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+// **************************************************************************************
+
+// Products - configuration and resources.
+// **************************************************************************************
+$gSystemConfig['configProductsSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+$gSystemConfig['enableProductsSortCustom'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInputOrder'] = [
+    'inputRowProducts_id_parent',
+    'inputRowProducts_sort_order',
+    'inputRowProducts_date1',
+    'inputRowProducts_id_register_user',
+    'inputRowProducts_title',
+    'inputRowProducts_description',
+    'inputRowProducts_url_alias',
+    'inputRowProducts_meta_title',
+    'inputRowProducts_meta_description',
+    'inputRowProducts_keywords_tags',
+    'inputRowProducts_info1',
+    'inputRowProducts_info_small1',
+    'inputRowProducts_number1',
+    'inputRowProducts_number_small1',
+    'inputRowProducts_image_main',
+    'inputRowProducts_file1',
+    'inputRowProducts_file2',
+    'inputRowProducts_activation',
+    'inputRowProducts_id_restricted_access',
+    'inputRowProducts_id_status',
+    'inputRowProducts_notes'
+];
+
+// Basic resources.
+$gSystemConfig['enableProductsIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsType'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsCode'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsValue'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsValue1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsValue2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsWeight'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsCoefficient'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsImageMainCaption'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsStatus'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsRestrictedAccess'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsNotes'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['configProductsURLAlias'] = 1; // 0 - disable | 1 - automatic | 2 - custom
+$gSystemConfig['enableProductsKeywordsTags'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsMetaDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsMetaTitle'] = 1; // 0 - disable | 1 - enable
+
+// Pagination.
+$gSystemConfig['enableProductsBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsBackendPaginationNRecords'] = 15;
+
+// Resources.
+$gSystemConfig['enableProductsImages'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsVideos'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsFiles'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsZip'] = 1; // 0 - disable | 1 - enable
+
+// User bind (link categories to registers).
+// ----------------------
+$gSystemConfig['enableProductsBindRegisterUser'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configProductsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
+$gSystemConfig['configProductsBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$gSystemConfig['enableProductsBindRegister1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsBindRegister1Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configProductsBindRegister1IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configProductsBindRegister1Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$gSystemConfig['enableProductsBindRegister2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsBindRegister2Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configProductsBindRegister2IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configProductsBindRegister2Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$gSystemConfig['enableProductsBindRegister3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsBindRegister3Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configProductsBindRegister3IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configProductsBindRegister3Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$gSystemConfig['enableProductsBindRegister4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsBindRegister4Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configProductsBindRegister4IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configProductsBindRegister4Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$gSystemConfig['enableProductsBindRegister5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsBindRegister5Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configProductsBindRegister5IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configProductsBindRegister5Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+// ----------------------
+
+// Optional fields (field titles in the language configuration file).
+// ----------------------
+// Generic filters.
+$gSystemConfig['enableProductsFilterGeneric1'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric2'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric3'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric4'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric5'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric6'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric7'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric8'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric9'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric10'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric11'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric12'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric13'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric14'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric15'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric16'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric17'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric18'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric19'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric20'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric21'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric22'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric23'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric24'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric25'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric26'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric27'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric28'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric29'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableProductsFilterGeneric30'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+
+// Big information fields.
+$gSystemConfig['enableProductsInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo1FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo2FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo4FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo6FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo7FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo8FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo9FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo10FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo11'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo11FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo12'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo12FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo13'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo13FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo14'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo14FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo15'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo15FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo16'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo16FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo17'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo17FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo18'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo18FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo19'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo19FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableProductsInfo20'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfo20FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+// Small information fields.
+$gSystemConfig['enableProductsInfoS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS1FieldType'] = 2; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS2FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS3FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS4FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS5FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS6FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS7FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS8FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS9FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS10FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS11'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS11FieldType'] = 2; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS12'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS12FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS13'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS13FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS14'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS14FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS15'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS15FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS16'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS16FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS17'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS17FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS18'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS18FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS19'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS19FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS20'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS20FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS21'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS21FieldType'] = 2; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS22'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS22FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS23'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS23FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS24'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS24FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS25'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS25FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS26'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS26FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS27'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS27FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS28'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS28FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS29'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS29FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableProductsInfoS30'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsInfoS30FieldType'] = 1; // 1 - single line | 2 - multiline
+
+// Big number fields (up to 34 digits).
+$gSystemConfig['enableProductsNumber1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumber1FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableProductsNumber2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumber2FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableProductsNumber3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumber3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableProductsNumber4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumber4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableProductsNumber5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumber5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+// Small number fields (up to 9 digits).
+$gSystemConfig['enableProductsNumberS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumberS1FieldType'] = 2; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableProductsNumberS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumberS2FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableProductsNumberS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumberS3FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableProductsNumberS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumberS4FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableProductsNumberS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsNumberS5FieldType'] = 1; // 1 - general number | 2 - system currency
+
+// URLs.
+$gSystemConfig['enableProductsURL1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsURL2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsURL3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsURL4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsURL5'] = 1; // 0 - disable | 1 - enable
+
+// Date fields.
+$gSystemConfig['enableProductsDate1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsDate1FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configProductsDate1Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+$gSystemConfig['enableProductsDate2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsDate2FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configProductsDate2Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableProductsDate3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsDate3FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configProductsDate3Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableProductsDate4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsDate4FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configProductsDate4Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableProductsDate5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsDate5FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configProductsDate5Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+// File fields.
+$gSystemConfig['enableProductsFile1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsFile1Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableProductsFile2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsFile2Type'] = 34; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableProductsFile3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsFile3Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableProductsFile4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsFile4Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableProductsFile5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsFile5Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+// Activation fields.
+$gSystemConfig['enableProductsActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableProductsActivation5'] = 1; // 0 - disable | 1 - enable
+
+// Frontend configuration.
+$gSystemConfig['configProductsImagePlaceholder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsTitleLimitChar'] = 0; // 0 - disable | 123
+$gSystemConfig['configProductsDescriptionLimitChar'] = 150; // 0 - disable | 123
+
+$gSystemConfig['enableProductsFrontendPagination'] = 1; // 0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$gSystemConfig['enableProductsFrontendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configProductsFrontendPaginationNRecords'] = 10;
 // **************************************************************************************
 
 
-//Products - configuration and resources.
+// Publications - configuration and resources.
 // **************************************************************************************
-$configProductsSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
-$enableProductsSortCustom = 1; //0 - disable | 1 - enable
-$configProductsInputOrder = ["inputRowProducts_id_parent", 
-                                            "inputRowProducts_sort_order", 
-                                            "inputRowProducts_date1", 
-                                            "inputRowProducts_id_register_user", 
-                                            "inputRowProducts_title", 
-                                            "inputRowProducts_description", 
-                                            "inputRowProducts_url_alias", 
-                                            "inputRowProducts_meta_title", 
-                                            "inputRowProducts_meta_description", 
-                                            "inputRowProducts_keywords_tags", 
-                                            "inputRowProducts_info1", 
-                                            "inputRowProducts_info_small1", 
-                                            "inputRowProducts_number1", 
-                                            "inputRowProducts_number_small1", 
-                                            "inputRowProducts_image_main", 
-                                            "inputRowProducts_file1", 
-                                            "inputRowProducts_file2", 
-                                            "inputRowProducts_activation", 
-                                            "inputRowProducts_id_restricted_access", 
-                                            "inputRowProducts_id_status", 
-                                            "inputRowProducts_notes"
-                                          ];
+$gSystemConfig['configPublicationsSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+$gSystemConfig['enablePublicationsSortCustom'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInputOrder'] = [
+    'inputRowPublications_id_parent',
+    'inputRowPublications_sort_order',
+    'inputRowPublications_date1',
+    'inputRowPublications_id_register_user',
+    'inputRowPublications_title',
+    'inputRowPublications_description',
+    'inputRowPublications_url_alias',
+    'inputRowPublications_meta_title',
+    'inputRowPublications_meta_description',
+    'inputRowPublications_keywords_tags',
+    'inputRowPublications_info1',
+    'inputRowPublications_number1',
+    'inputRowPublications_image_main',
+    'inputRowPublications_file1',
+    'inputRowPublications_file2',
+    'inputRowPublications_activation',
+    'inputRowPublications_id_restricted_access',
+    'inputRowPublications_id_status',
+    'inputRowPublications_notes'
+];
 
-//Basic resources.
-$enableProductsIdParentEdit = 1; //0 - disable | 1 - enable
-$enableProductsSortOrder = 1; //0 - disable | 1 - enable
-$enableProductsType = 1; //0 - disable | 1 - enable
-$enableProductsCode = 1; //0 - disable | 1 - enable
-$enableProductsDescription = 1; //0 - disable | 1 - enable
-$enableProductsValue = 1; //0 - disable | 1 - enable
-$enableProductsValue1 = 1; //0 - disable | 1 - enable
-$enableProductsValue2 = 1; //0 - disable | 1 - enable
-$enableProductsWeight = 1; //0 - disable | 1 - enable
-$enableProductsCoefficient = 1; //0 - disable | 1 - enable
-$enableProductsImageMain = 1; //0 - disable | 1 - enable
-$enableProductsImageMainCaption = 1; //0 - disable | 1 - enable
-$enableProductsStatus = 1; //0 - disable | 1 - enable
-$enableProductsRestrictedAccess = 1; //0 - disable | 1 - enable
-$enableProductsNotes = 1; //0 - disable | 1 - enable
+// Basic resources.
+$gSystemConfig['enablePublicationsIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsDateStart'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['enablePublicationsDateEnd'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['enablePublicationsDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsSource'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsSourceURL'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsImageMainCaption'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsStatus'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsRestrictedAccess'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsNotes'] = 1; // 0 - disable | 1 - enable
 
-$configProductsURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
-$enableProductsKeywordsTags = 1; //0 - disable | 1 - enable
-$enableProductsMetaDescription = 1; //0 - disable | 1 - enable
-$enableProductsMetaTitle = 1; //0 - disable | 1 - enable
+$gSystemConfig['configPublicationsURLAlias'] = 1; // 0 - disable | 1 - automatic | 2 - custom
+$gSystemConfig['enablePublicationsKeywordsTags'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsMetaDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsMetaTitle'] = 1; // 0 - disable | 1 - enable
 
-//Pagination.
-$enableProductsBackendPagination = 1; //0 - disable | 1 - enable
-$enableProductsBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configProductsBackendPaginationNRecords = 15;
+// Pagination.
+$gSystemConfig['enablePublicationsBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsBackendPaginationNRecords'] = 15;
 
-//Resources.
-$enableProductsImages = 1; //0 - disable | 1 - enable
-$enableProductsVideos = 1; //0 - disable | 1 - enable
-$enableProductsFiles = 1; //0 - disable | 1 - enable
-$enableProductsZip = 1; //0 - disable | 1 - enable
-                   
+// Resources.
+$gSystemConfig['enablePublicationsImages'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsVideos'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsFiles'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsZip'] = 1; // 0 - disable | 1 - enable
 
-//User bind (link categories to registers).
+// User bind (link categories to registers).
 // ----------------------
-$enableProductsBindRegisterUser = 1; //0 - disable | 1 - enable
-$configProductsBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
-$configProductsBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
-$configProductsBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enablePublicationsBindRegisterUser'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configPublicationsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
+$gSystemConfig['configPublicationsBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableProductsBindRegister1 = 1; //0 - disable | 1 - enable
-$configProductsBindRegister1Method = 1; //1 - category ID | 2 - register type
-$configProductsBindRegister1IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configProductsBindRegister1Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enablePublicationsBindRegister1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsBindRegister1Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configPublicationsBindRegister1IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configPublicationsBindRegister1Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableProductsBindRegister2 = 1; //0 - disable | 1 - enable
-$configProductsBindRegister2Method = 1; //1 - category ID | 2 - register type
-$configProductsBindRegister2IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configProductsBindRegister2Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enablePublicationsBindRegister2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsBindRegister2Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configPublicationsBindRegister2IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configPublicationsBindRegister2Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableProductsBindRegister3 = 1; //0 - disable | 1 - enable
-$configProductsBindRegister3Method = 1; //1 - category ID | 2 - register type
-$configProductsBindRegister3IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configProductsBindRegister3Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enablePublicationsBindRegister3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsBindRegister3Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configPublicationsBindRegister3IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configPublicationsBindRegister3Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableProductsBindRegister4 = 1; //0 - disable | 1 - enable
-$configProductsBindRegister4Method = 1; //1 - category ID | 2 - register type
-$configProductsBindRegister4IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configProductsBindRegister4Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enablePublicationsBindRegister4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsBindRegister4Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configPublicationsBindRegister4IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configPublicationsBindRegister4Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableProductsBindRegister5 = 1; //0 - disable | 1 - enable
-$configProductsBindRegister5Method = 1; //1 - category ID | 2 - register type
-$configProductsBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configProductsBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enablePublicationsBindRegister5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsBindRegister5Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configPublicationsBindRegister5IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configPublicationsBindRegister5Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 // ----------------------
 
-
-//Optional fields (field titles in the language configuration file).
+// Optional fields (field titles in the language configuration file).
 // ----------------------
-//Generic filters.
-$enableProductsFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric3 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric4 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric5 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric6 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric7 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric8 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric9 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric10 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric11 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric12 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric13 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric14 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric15 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric16 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric17 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric18 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric19 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric20 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric21 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric22 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric23 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric24 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric25 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric26 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric27 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric28 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric29 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableProductsFilterGeneric30 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+// Generic filters.
+$gSystemConfig['enablePublicationsFilterGeneric1'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric2'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric3'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric4'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric5'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric6'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric7'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric8'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric9'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enablePublicationsFilterGeneric10'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
 
+// Big information fields.
+$gSystemConfig['enablePublicationsInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo1FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-//Big information fields.
-$enableProductsInfo1 = 1; //0 - disable | 1 - enable
-$configProductsInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo2FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo2 = 1; //0 - disable | 1 - enable
-$configProductsInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo3 = 1; //0 - disable | 1 - enable
-$configProductsInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo4FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo4 = 1; //0 - disable | 1 - enable
-$configProductsInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo5 = 1; //0 - disable | 1 - enable
-$configProductsInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo6FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo6 = 1; //0 - disable | 1 - enable
-$configProductsInfo6FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo7FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo7 = 1; //0 - disable | 1 - enable
-$configProductsInfo7FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo8FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo8 = 1; //0 - disable | 1 - enable
-$configProductsInfo8FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo9FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo9 = 1; //0 - disable | 1 - enable
-$configProductsInfo9FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsInfo10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsInfo10FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enableProductsInfo10 = 1; //0 - disable | 1 - enable
-$configProductsInfo10FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+// Big number fields (up to 34 digits).
+$gSystemConfig['enablePublicationsNumber1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsNumber1FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 
-$enableProductsInfo11 = 1; //0 - disable | 1 - enable
-$configProductsInfo11FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsNumber2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsNumber2FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 
-$enableProductsInfo12 = 1; //0 - disable | 1 - enable
-$configProductsInfo12FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsNumber3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsNumber3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 
-$enableProductsInfo13 = 1; //0 - disable | 1 - enable
-$configProductsInfo13FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsNumber4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsNumber4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 
-$enableProductsInfo14 = 1; //0 - disable | 1 - enable
-$configProductsInfo14FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsNumber5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsNumber5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 
-$enableProductsInfo15 = 1; //0 - disable | 1 - enable
-$configProductsInfo15FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+// URLs.
+$gSystemConfig['enablePublicationsURL1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsURL2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsURL3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsURL4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsURL5'] = 1; // 0 - disable | 1 - enable
 
-$enableProductsInfo16 = 1; //0 - disable | 1 - enable
-$configProductsInfo16FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+// Date fields.
+$gSystemConfig['enablePublicationsDate1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsDate1FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configPublicationsDate1Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
 
-$enableProductsInfo17 = 1; //0 - disable | 1 - enable
-$configProductsInfo17FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsDate2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsDate2FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configPublicationsDate2Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-$enableProductsInfo18 = 1; //0 - disable | 1 - enable
-$configProductsInfo18FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsDate3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsDate3FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configPublicationsDate3Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-$enableProductsInfo19 = 1; //0 - disable | 1 - enable
-$configProductsInfo19FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsDate4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsDate4FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configPublicationsDate4Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-$enableProductsInfo20 = 1; //0 - disable | 1 - enable
-$configProductsInfo20FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enablePublicationsDate5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsDate5FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configPublicationsDate5Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
-//Small information fields.
-$enableProductsInfoS1 = 1; //0 - disable | 1 - enable
-$configProductsInfoS1FieldType = 2; //1 - single line | 2 - multiline
+// File fields.
+$gSystemConfig['enablePublicationsFile1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsFile1Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
 
-$enableProductsInfoS2 = 1; //0 - disable | 1 - enable
-$configProductsInfoS2FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enablePublicationsFile2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsFile2Type'] = 34; // 1 - image | 3 - file (download) | 34 - file (open direct)
 
-$enableProductsInfoS3 = 1; //0 - disable | 1 - enable
-$configProductsInfoS3FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enablePublicationsFile3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsFile3Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
 
-$enableProductsInfoS4 = 1; //0 - disable | 1 - enable
-$configProductsInfoS4FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enablePublicationsFile4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsFile4Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
 
-$enableProductsInfoS5 = 1; //0 - disable | 1 - enable
-$configProductsInfoS5FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS6 = 1; //0 - disable | 1 - enable
-$configProductsInfoS6FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS7 = 1; //0 - disable | 1 - enable
-$configProductsInfoS7FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS8 = 1; //0 - disable | 1 - enable
-$configProductsInfoS8FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS9 = 1; //0 - disable | 1 - enable
-$configProductsInfoS9FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS10 = 1; //0 - disable | 1 - enable
-$configProductsInfoS10FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS11 = 1; //0 - disable | 1 - enable
-$configProductsInfoS11FieldType = 2; //1 - single line | 2 - multiline
-
-$enableProductsInfoS12 = 1; //0 - disable | 1 - enable
-$configProductsInfoS12FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS13 = 1; //0 - disable | 1 - enable
-$configProductsInfoS13FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS14 = 1; //0 - disable | 1 - enable
-$configProductsInfoS14FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS15 = 1; //0 - disable | 1 - enable
-$configProductsInfoS15FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS16 = 1; //0 - disable | 1 - enable
-$configProductsInfoS16FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS17 = 1; //0 - disable | 1 - enable
-$configProductsInfoS17FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS18 = 1; //0 - disable | 1 - enable
-$configProductsInfoS18FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS19 = 1; //0 - disable | 1 - enable
-$configProductsInfoS19FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS20 = 1; //0 - disable | 1 - enable
-$configProductsInfoS20FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS21 = 1; //0 - disable | 1 - enable
-$configProductsInfoS21FieldType = 2; //1 - single line | 2 - multiline
-
-$enableProductsInfoS22 = 1; //0 - disable | 1 - enable
-$configProductsInfoS22FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS23 = 1; //0 - disable | 1 - enable
-$configProductsInfoS23FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS24 = 1; //0 - disable | 1 - enable
-$configProductsInfoS24FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS25 = 1; //0 - disable | 1 - enable
-$configProductsInfoS25FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS26 = 1; //0 - disable | 1 - enable
-$configProductsInfoS26FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS27 = 1; //0 - disable | 1 - enable
-$configProductsInfoS27FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS28 = 1; //0 - disable | 1 - enable
-$configProductsInfoS28FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS29 = 1; //0 - disable | 1 - enable
-$configProductsInfoS29FieldType = 1; //1 - single line | 2 - multiline
-
-$enableProductsInfoS30 = 1; //0 - disable | 1 - enable
-$configProductsInfoS30FieldType = 1; //1 - single line | 2 - multiline
-
-//Big number fields (up to 34 digits).
-$enableProductsNumber1 = 1; //0 - disable | 1 - enable
-$configProductsNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableProductsNumber2 = 1; //0 - disable | 1 - enable
-$configProductsNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableProductsNumber3 = 1; //0 - disable | 1 - enable
-$configProductsNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableProductsNumber4 = 1; //0 - disable | 1 - enable
-$configProductsNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableProductsNumber5 = 1; //0 - disable | 1 - enable
-$configProductsNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-//Small number fields (up to 9 digits).
-$enableProductsNumberS1 = 1; //0 - disable | 1 - enable
-$configProductsNumberS1FieldType = 2; //1 - general number | 2 - system currency
-
-$enableProductsNumberS2 = 1; //0 - disable | 1 - enable
-$configProductsNumberS2FieldType = 1; //1 - general number | 2 - system currency
-
-$enableProductsNumberS3 = 1; //0 - disable | 1 - enable
-$configProductsNumberS3FieldType = 1; //1 - general number | 2 - system currency
-
-$enableProductsNumberS4 = 1; //0 - disable | 1 - enable
-$configProductsNumberS4FieldType = 1; //1 - general number | 2 - system currency
-
-$enableProductsNumberS5 = 1; //0 - disable | 1 - enable
-$configProductsNumberS5FieldType = 1; //1 - general number | 2 - system currency
-
-//URLs.
-$enableProductsURL1 = 1; //0 - disable | 1 - enable
-$enableProductsURL2 = 1; //0 - disable | 1 - enable
-$enableProductsURL3 = 1; //0 - disable | 1 - enable
-$enableProductsURL4 = 1; //0 - disable | 1 - enable
-$enableProductsURL5 = 1; //0 - disable | 1 - enable
-
-//Date fields.
-$enableProductsDate1 = 1; //0 - disable | 1 - enable
-$configProductsDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configProductsDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
-
-$enableProductsDate2 = 1; //0 - disable | 1 - enable
-$configProductsDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configProductsDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableProductsDate3 = 1; //0 - disable | 1 - enable
-$configProductsDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configProductsDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableProductsDate4 = 1; //0 - disable | 1 - enable
-$configProductsDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configProductsDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableProductsDate5 = 1; //0 - disable | 1 - enable
-$configProductsDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configProductsDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-//File fields.
-$enableProductsFile1 = 1; //0 - disable | 1 - enable
-$configProductsFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableProductsFile2 = 1; //0 - disable | 1 - enable
-$configProductsFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableProductsFile3 = 1; //0 - disable | 1 - enable
-$configProductsFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableProductsFile4 = 1; //0 - disable | 1 - enable
-$configProductsFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableProductsFile5 = 1; //0 - disable | 1 - enable
-$configProductsFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-//Activation fields.
-$enableProductsActivation1 = 1; //0 - disable | 1 - enable
-$enableProductsActivation2 = 1; //0 - disable | 1 - enable
-$enableProductsActivation3 = 1; //0 - disable | 1 - enable
-$enableProductsActivation4 = 1; //0 - disable | 1 - enable
-$enableProductsActivation5 = 1; //0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsFile5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsFile5Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+// Activation fields.
+$gSystemConfig['enablePublicationsActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enablePublicationsActivation5'] = 1; // 0 - disable | 1 - enable
+
+// Frontend configuration.
+$gSystemConfig['configPublicationsImagePlaceholder'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enablePublicationsFrontendPagination'] = 1; // 0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$gSystemConfig['enablePublicationsFrontendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configPublicationsFrontendPaginationNRecords'] = 10;
 // **************************************************************************************
 
-
-//Publications - configuration and resources.
+// Registers - configuration and resources.
 // **************************************************************************************
-$configPublicationsSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
-$enablePublicationsSortCustom = 1; //0 - disable | 1 - enable
-$configPublicationsInputOrder = ["inputRowPublications_id_parent", 
-                                  "inputRowPublications_sort_order", 
-                                  "inputRowPublications_date1", 
-                                  "inputRowPublications_id_register_user", 
-                                  "inputRowPublications_title", 
-                                  "inputRowPublications_description", 
-                                  "inputRowPublications_url_alias", 
-                                  "inputRowPublications_meta_title", 
-                                  "inputRowPublications_meta_description", 
-                                  "inputRowPublications_keywords_tags", 
-                                  "inputRowPublications_info1", 
-                                  "inputRowPublications_number1", 
-                                  "inputRowPublications_image_main", 
-                                  "inputRowPublications_file1", 
-                                  "inputRowPublications_file2", 
-                                  "inputRowPublications_activation", 
-                                  "inputRowPublications_id_restricted_access", 
-                                  "inputRowPublications_id_status", 
-                                  "inputRowPublications_notes"
-                                ];
+$gSystemConfig['configRegistersSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | name_full
+$gSystemConfig['enableRegistersSortCustom'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInputOrder'] = [
+    'inputRowRegisters_id_parent',
+    'inputRowRegisters_sort_order',
+    'inputRowRegisters_name',
+    'inputRowRegisters_info1',
+    'inputRowRegisters_image_main',
+    'inputRowRegisters_activation',
+    'inputRowRegisters_id_status',
+    'inputRowRegisters_notes'
+];
 
-//Basic resources.
-$enablePublicationsIdParentEdit = 1; //0 - disable | 1 - enable
-$enablePublicationsSortOrder = 1; //0 - disable | 1 - enable
-$enablePublicationsDateStart = 11; //0 - disable | 2 - dropdown menu | 11 - js-datepicker 
-$enablePublicationsDateEnd = 11; //0 - disable | 2 - dropdown menu | 11 - js-datepicker 
-$enablePublicationsDescription = 1; //0 - disable | 1 - enable
-$enablePublicationsSource = 1; //0 - disable | 1 - enable
-$enablePublicationsSourceURL = 1; //0 - disable | 1 - enable
-$enablePublicationsImageMain = 1; //0 - disable | 1 - enable
-$enablePublicationsImageMainCaption = 1; //0 - disable | 1 - enable
-$enablePublicationsStatus = 1; //0 - disable | 1 - enable
-$enablePublicationsRestrictedAccess = 1; //0 - disable | 1 - enable
-$enablePublicationsNotes = 1; //0 - disable | 1 - enable
+// Authentication method.
+$gSystemConfig['configRegistersAuthenticationMethod'] = 3; // 1 - cookie | 2 - session | 3 - token (API)
+$gSystemConfig['configRegistersAuthenticationType'] = 11; // (WIP) 1 - custom (SS_AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (SS_AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (SS_AUTHENTICATION_TYPE_PASSPORT)
+$gSystemConfig['configRegistersAuthenticationCheck'] = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+$gSystemConfig['configRegistersAuthenticationStore'] = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
 
-$configPublicationsURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
-$enablePublicationsKeywordsTags = 1; //0 - disable | 1 - enable
-$enablePublicationsMetaDescription = 1; //0 - disable | 1 - enable
-$enablePublicationsMetaTitle = 1; //0 - disable | 1 - enable
+// Basic resources.
+$gSystemConfig['enableRegistersIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersType'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersActivity'] = 1; // 0 - disable | 1 - enable
 
-//Pagination.
-$enablePublicationsBackendPagination = 1; //0 - disable | 1 - enable
-$enablePublicationsBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configPublicationsBackendPaginationNRecords = 15;
+$gSystemConfig['enableRegistersRegisterType'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersNameTitle'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersNameFull'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersNameFirst'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersNameLast'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersCompanyNameLegal'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersCompanyNameAlias'] = 1; // 0 - disable | 1 - enable
 
-//Resources.
-$enablePublicationsImages = 1; //0 - disable | 1 - enable
-$enablePublicationsVideos = 1; //0 - disable | 1 - enable
-$enablePublicationsFiles = 1; //0 - disable | 1 - enable
-$enablePublicationsZip = 1; //0 - disable | 1 - enable
-                   
+$gSystemConfig['enableRegistersDescription'] = 1; // 0 - disable | 1 - enable
 
-//User bind (link categories to registers).
+$gSystemConfig['configRegistersURLAlias'] = 1; // 0 - disable | 1 - automatic | 2 - custom
+$gSystemConfig['enableRegistersKeywordsTags'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersMetaDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersMetaTitle'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableRegistersDateBirth'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['enableRegistersGender'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersHeight'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersWeight'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableRegistersDocumentType'] = 1; // 0 - no rule | 1 - social security (USA) | 55 - cpf (BRA)
+$gSystemConfig['enableRegistersDocument'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersDocument1Type'] = 1; // 0 - no rule
+$gSystemConfig['enableRegistersDocument1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersDocument2Type'] = 1; // 0 - no rule
+$gSystemConfig['enableRegistersDocument2'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableRegistersDocumentCompanyType'] = 1; // 0 - no rule | 1 - federal register (USA) | 55 - cnpj (BRA)
+$gSystemConfig['enableRegistersDocumentCompany'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersDocumentCompany1Type'] = 1; // 0 - no rule | 1 - county register (USA) | 55 - municipal register (BRA)
+$gSystemConfig['enableRegistersDocumentCompany1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersDocumentCompany2Type'] = 1; // 0 - no rule | 1 - state register (USA) | 55 - state register (BRA)
+$gSystemConfig['enableRegistersDocumentCompany2'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableRegistersZIPCode'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersAddressStreet'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersAddressNumber'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersAddressComplement'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersNeighborhood'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersDistrict'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersCounty'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersCity'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersState'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersCountry'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableRegistersAddressConfig'] = 1; // 0 - disable | 1 - fields | 2 - dropdown (internal DB) | 3 - dropdown (zip code DB) | 4 API (research)
+
+$gSystemConfig['enableRegistersLocationReference'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersLocationMap'] = 1; // 0 - disable | 1 - enable (google maps iframe embeded)
+
+$gSystemConfig['enableRegistersPhoneInternationalCode'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersPhone1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersPhone2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersPhone3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersWebsite'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableRegistersUsername'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersEmail'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['configRegistersPassword'] = 1; // 0 - don´t display | 1 - display
+$gSystemConfig['configRegistersPasswordMethod'] = 26; //23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
+
+$gSystemConfig['enableRegistersImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersImageMainCaption'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersImageLogo'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersImageBanner'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersStatus'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersRestrictedAccess'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersNotes'] = 1; // 0 - disable | 1 - enable
+
+// Pagination.
+$gSystemConfig['enableRegistersBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersBackendPaginationNRecords'] = 15;
+
+// Resources.
+$gSystemConfig['enableRegistersContent'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersImages'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersVideos'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersFiles'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersZip'] = 1; // 0 - disable | 1 - enable
+
+// User bind (link registers to registers).
 // ----------------------
-$enablePublicationsBindRegisterUser = 1; //0 - disable | 1 - enable
-$configPublicationsBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
-$configPublicationsBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
-$configPublicationsBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableRegistersBindRegisterUser'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configRegistersBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
+$gSystemConfig['configRegistersBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enablePublicationsBindRegister1 = 1; //0 - disable | 1 - enable
-$configPublicationsBindRegister1Method = 1; //1 - category ID | 2 - register type
-$configPublicationsBindRegister1IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configPublicationsBindRegister1Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableRegistersBindRegister1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersBindRegister1Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configRegistersBindRegister1IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configRegistersBindRegister1Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enablePublicationsBindRegister2 = 1; //0 - disable | 1 - enable
-$configPublicationsBindRegister2Method = 1; //1 - category ID | 2 - register type
-$configPublicationsBindRegister2IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configPublicationsBindRegister2Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableRegistersBindRegister2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersBindRegister2Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configRegistersBindRegister2IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configRegistersBindRegister2Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enablePublicationsBindRegister3 = 1; //0 - disable | 1 - enable
-$configPublicationsBindRegister3Method = 1; //1 - category ID | 2 - register type
-$configPublicationsBindRegister3IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configPublicationsBindRegister3Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableRegistersBindRegister3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersBindRegister3Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configRegistersBindRegister3IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configRegistersBindRegister3Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enablePublicationsBindRegister4 = 1; //0 - disable | 1 - enable
-$configPublicationsBindRegister4Method = 1; //1 - category ID | 2 - register type
-$configPublicationsBindRegister4IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configPublicationsBindRegister4Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableRegistersBindRegister4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersBindRegister4Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configRegistersBindRegister4IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configRegistersBindRegister4Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enablePublicationsBindRegister5 = 1; //0 - disable | 1 - enable
-$configPublicationsBindRegister5Method = 1; //1 - category ID | 2 - register type
-$configPublicationsBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configPublicationsBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableRegistersBindRegister5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersBindRegister5Method'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configRegistersBindRegister5IDReference'] = 3892; // category ID / register type ID | 0 - all register categories
+$gSystemConfig['configRegistersBindRegister5Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 // ----------------------
 
-
-//Optional fields (field titles in the language configuration file).
+// Optional fields (field titles in the language configuration file).
 // ----------------------
-//Generic filters.
-$enablePublicationsFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric3 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric4 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric5 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric6 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric7 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric8 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric9 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enablePublicationsFilterGeneric10 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+// Generic filters.
+$gSystemConfig['enableRegistersFilterGeneric1'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric2'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric3'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric4'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric5'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric6'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric7'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric8'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric9'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric10'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric11'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric12'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric13'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric14'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric15'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric16'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric17'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric18'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric19'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric20'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric21'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric22'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric23'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric24'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric25'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric26'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric27'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric28'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric29'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric30'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric31'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric32'] = 2; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric33'] = 3; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric34'] = 4; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric35'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric36'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric37'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric38'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric39'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
+$gSystemConfig['enableRegistersFilterGeneric40'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
 
+// Big information fields.
+$gSystemConfig['enableRegistersInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo1FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-//Big information fields.
-$enablePublicationsInfo1 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo2FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo2 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo3 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo4FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo4 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo5 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo6FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo6 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo6FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo7FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo7 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo7FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo8FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo8 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo8FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo9FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo9 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo9FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo10FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsInfo10 = 1; //0 - disable | 1 - enable
-$configPublicationsInfo10FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$gSystemConfig['enableRegistersInfo11'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo11FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-//Big number fields (up to 34 digits).
-$enablePublicationsNumber1 = 1; //0 - disable | 1 - enable
-$configPublicationsNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+$gSystemConfig['enableRegistersInfo12'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo12FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsNumber2 = 1; //0 - disable | 1 - enable
-$configPublicationsNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+$gSystemConfig['enableRegistersInfo13'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo13FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsNumber3 = 1; //0 - disable | 1 - enable
-$configPublicationsNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+$gSystemConfig['enableRegistersInfo14'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo14FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsNumber4 = 1; //0 - disable | 1 - enable
-$configPublicationsNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+$gSystemConfig['enableRegistersInfo15'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo15FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsNumber5 = 1; //0 - disable | 1 - enable
-$configPublicationsNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+$gSystemConfig['enableRegistersInfo16'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo16FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-//URLs.
-$enablePublicationsURL1 = 1; //0 - disable | 1 - enable
-$enablePublicationsURL2 = 1; //0 - disable | 1 - enable
-$enablePublicationsURL3 = 1; //0 - disable | 1 - enable
-$enablePublicationsURL4 = 1; //0 - disable | 1 - enable
-$enablePublicationsURL5 = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableRegistersInfo17'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo17FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-//Date fields.
-$enablePublicationsDate1 = 1; //0 - disable | 1 - enable
-$configPublicationsDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configPublicationsDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+$gSystemConfig['enableRegistersInfo18'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo18FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsDate2 = 1; //0 - disable | 1 - enable
-$configPublicationsDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configPublicationsDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+$gSystemConfig['enableRegistersInfo19'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo19FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsDate3 = 1; //0 - disable | 1 - enable
-$configPublicationsDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configPublicationsDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+$gSystemConfig['enableRegistersInfo20'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfo20FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
-$enablePublicationsDate4 = 1; //0 - disable | 1 - enable
-$configPublicationsDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configPublicationsDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+// Small information fields.
+$gSystemConfig['enableRegistersInfoS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS1FieldType'] = 2; // 1 - single line | 2 - multiline
 
-$enablePublicationsDate5 = 1; //0 - disable | 1 - enable
-$configPublicationsDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configPublicationsDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+$gSystemConfig['enableRegistersInfoS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS2FieldType'] = 1; // 1 - single line | 2 - multiline
 
-//File fields.
-$enablePublicationsFile1 = 1; //0 - disable | 1 - enable
-$configPublicationsFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableRegistersInfoS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS3FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enablePublicationsFile2 = 1; //0 - disable | 1 - enable
-$configPublicationsFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableRegistersInfoS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS4FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enablePublicationsFile3 = 1; //0 - disable | 1 - enable
-$configPublicationsFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableRegistersInfoS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS5FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enablePublicationsFile4 = 1; //0 - disable | 1 - enable
-$configPublicationsFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableRegistersInfoS6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS6FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enablePublicationsFile5 = 1; //0 - disable | 1 - enable
-$configPublicationsFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
+$gSystemConfig['enableRegistersInfoS7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS7FieldType'] = 1; // 1 - single line | 2 - multiline
 
-//Activation fields.
-$enablePublicationsActivation1 = 1; //0 - disable | 1 - enable
-$enablePublicationsActivation2 = 1; //0 - disable | 1 - enable
-$enablePublicationsActivation3 = 1; //0 - disable | 1 - enable
-$enablePublicationsActivation4 = 1; //0 - disable | 1 - enable
-$enablePublicationsActivation5 = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableRegistersInfoS8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS8FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS9FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS10FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS11'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS11FieldType'] = 2; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS12'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS12FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS13'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS13FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS14'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS14FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS15'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS15FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS16'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS16FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS17'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS17FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS18'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS18FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS19'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS19FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS20'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS20FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS21'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS21FieldType'] = 2; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS22'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS22FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS23'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS23FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS24'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS24FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS25'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS25FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS26'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS26FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS27'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS27FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS28'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS28FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS29'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS29FieldType'] = 1; // 1 - single line | 2 - multiline
+
+$gSystemConfig['enableRegistersInfoS30'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersInfoS30FieldType'] = 1; // 1 - single line | 2 - multiline
+
+// Big number fields (up to 34 digits).
+$gSystemConfig['enableRegistersNumber1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumber1FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableRegistersNumber2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumber2FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableRegistersNumber3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumber3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableRegistersNumber4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumber4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableRegistersNumber5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumber5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+// Small number fields (up to 9 digits).
+$gSystemConfig['enableRegistersNumberS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumberS1FieldType'] = 2; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableRegistersNumberS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumberS2FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableRegistersNumberS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumberS3FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableRegistersNumberS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumberS4FieldType'] = 1; // 1 - general number | 2 - system currency
+
+$gSystemConfig['enableRegistersNumberS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersNumberS5FieldType'] = 1; // 1 - general number | 2 - system currency
+
+// URLs.
+$gSystemConfig['enableRegistersURL1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersURL2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersURL3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersURL4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersURL5'] = 1; // 0 - disable | 1 - enable
+
+// Date fields.
+$gSystemConfig['enableRegistersDate1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate1FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate1Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+$gSystemConfig['enableRegistersDate2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate2FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate2Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate3FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate3Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate4FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate4Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate5FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate5Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate6FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate6Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate7FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate7Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate8FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate8Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate9FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate9Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+$gSystemConfig['enableRegistersDate10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersDate10FieldType'] = 11; // 1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['configRegistersDate10Type'] = 1; // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
+
+// File fields.
+$gSystemConfig['enableRegistersFile1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersFile1Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableRegistersFile2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersFile2Type'] = 34; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableRegistersFile3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersFile3Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableRegistersFile4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersFile4Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+$gSystemConfig['enableRegistersFile5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersFile5Type'] = 3; // 1 - image | 3 - file (download) | 34 - file (open direct)
+
+// Activation fields.
+$gSystemConfig['enableRegistersActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableRegistersActivation5'] = 1; // 0 - disable | 1 - enable
+
+// Register types.
+$gSystemConfig['configRegistersIDClient'] = 123;
+$gSystemConfig['configRegistersIDUser'] = 123;
+$gSystemConfig['configRegistersIDUserSeller'] = 123;
+$gSystemConfig['configRegistersIDUserHR'] = 123;
+$gSystemConfig['configRegistersIDSubscriber'] = 123;
+
+// Frontend configuration.
+// Register forms.
+$gSystemConfig['configRegistersFormFieldsClient'] = [];
+$gSystemConfig['configRegistersFormFieldsUser'] = [];
+$gSystemConfig['configRegistersFormFieldsUserSeller'] = [];
+$gSystemConfig['configRegistersFormFieldsUserHR'] = [];
+$gSystemConfig['configRegistersFormFieldsSubscriber'] = [];
+
+// Terms.
+$gSystemConfig['configRegistersIDTerms'] = 123; // 0 - disable | 123 (content ID)
+
+// e-mail validation / confirmation.
+$gSystemConfig['configRegistersIDEmailValidation'] = 123; // 0 - disable | 123 (content ID)
+
+// Password resend.
+$gSystemConfig['configRegistersIDPasswordResend'] = 123; // 0 - disable | 123 (content ID)
+
+$gSystemConfig['configRegistersImagePlaceholder'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableRegistersFrontendPagination'] = 1; // 0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$gSystemConfig['enableRegistersFrontendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configRegistersFrontendPaginationNRecords'] = 10;
 // **************************************************************************************
 
-
-//Registers - configuration and resources.
+// Quizzes / Polls - configuration and resources.
 // **************************************************************************************
-$configRegistersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | name_full
-$enableRegistersSortCustom = 1; //0 - disable | 1 - enable
-$configRegistersInputOrder = ["inputRowRegisters_id_parent", 
-                                        "inputRowRegisters_sort_order", 
-                                        "inputRowRegisters_name", 
-                                        "inputRowRegisters_info1", 
-                                        "inputRowRegisters_image_main", 
-                                        "inputRowRegisters_activation", 
-                                        "inputRowRegisters_id_status", 
-                                        "inputRowRegisters_notes"
-                                      ];
-
-//Authentication method.
-$configRegistersAuthenticationMethod = 1; //1 - cookie | 2 session
-$configRegistersAuthenticationCheck = 1; //0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
-
-//Basic resources.
-$enableRegistersIdParentEdit = 1; //0 - disable | 1 - enable
-$enableRegistersSortOrder = 1; //0 - disable | 1 - enable
-$enableRegistersType = 1; //0 - disable | 1 - enable
-$enableRegistersActivity = 1; //0 - disable | 1 - enable
-
-$enableRegistersRegisterType = 1; //0 - disable | 1 - enable
-$enableRegistersNameTitle = 1; //0 - disable | 1 - enable
-$enableRegistersNameFull = 1; //0 - disable | 1 - enable
-$enableRegistersNameFirst = 1; //0 - disable | 1 - enable
-$enableRegistersNameLast = 1; //0 - disable | 1 - enable
-$enableRegistersCompanyNameLegal = 1; //0 - disable | 1 - enable
-$enableRegistersCompanyNameAlias = 1; //0 - disable | 1 - enable
-
-$enableRegistersDescription = 1; //0 - disable | 1 - enable
-
-$configRegistersURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
-$enableRegistersKeywordsTags = 1; //0 - disable | 1 - enable
-$enableRegistersMetaDescription = 1; //0 - disable | 1 - enable
-$enableRegistersMetaTitle = 1; //0 - disable | 1 - enable
-
-$enableRegistersDateBirth = 11; //0 - disable | 2 - dropdown menu | 11 - js-datepicker 
-$enableRegistersGender = 1; //0 - disable | 1 - enable
-$enableRegistersHeight = 1; //0 - disable | 1 - enable
-$enableRegistersWeight = 1; //0 - disable | 1 - enable
-
-$enableRegistersDocumentType = 1; //0 - no rule | 1 - social security (USA) | 55 - cpf (BRA)
-$enableRegistersDocument = 1; //0 - disable | 1 - enable
-$enableRegistersDocument1Type = 1; //0 - no rule
-$enableRegistersDocument1 = 1; //0 - disable | 1 - enable
-$enableRegistersDocument2Type = 1; //0 - no rule
-$enableRegistersDocument2 = 1; //0 - disable | 1 - enable
-
-$enableRegistersDocumentCompanyType = 1; //0 - no rule | 1 - federal register (USA) | 55 - cnpj (BRA)
-$enableRegistersDocumentCompany = 1; //0 - disable | 1 - enable
-$enableRegistersDocumentCompany1Type = 1; //0 - no rule | 1 - county register (USA) | 55 - municipal register (BRA)
-$enableRegistersDocumentCompany1 = 1; //0 - disable | 1 - enable
-$enableRegistersDocumentCompany2Type = 1; //0 - no rule | 1 - state register (USA) | 55 - state register (BRA)
-$enableRegistersDocumentCompany2 = 1; //0 - disable | 1 - enable
-
-$enableRegistersZIPCode = 1; //0 - disable | 1 - enable
-$enableRegistersAddressStreet = 1; //0 - disable | 1 - enable
-$enableRegistersAddressNumber = 1; //0 - disable | 1 - enable
-$enableRegistersAddressComplement = 1; //0 - disable | 1 - enable
-$enableRegistersNeighborhood = 1; //0 - disable | 1 - enable
-$enableRegistersDistrict = 1; //0 - disable | 1 - enable
-$enableRegistersCounty = 1; //0 - disable | 1 - enable
-$enableRegistersCity = 1; //0 - disable | 1 - enable
-$enableRegistersState = 1; //0 - disable | 1 - enable
-$enableRegistersCountry = 1; //0 - disable | 1 - enable
-
-$enableRegistersAddressConfig = 1; //0 - disable | 1 - fields | 2 - dropdown (internal DB) | 3 - dropdown (zip code DB) | 4 API (research)
-
-$enableRegistersLocationReference = 1; //0 - disable | 1 - enable
-$enableRegistersLocationMap = 1; //0 - disable | 1 - enable (google maps iframe embeded)
-
-$enableRegistersPhoneInternationalCode = 1; //0 - disable | 1 - enable
-$enableRegistersPhone1 = 1; //0 - disable | 1 - enable
-$enableRegistersPhone2 = 1; //0 - disable | 1 - enable
-$enableRegistersPhone3 = 1; //0 - disable | 1 - enable
-$enableRegistersWebsite = 1; //0 - disable | 1 - enable
-
-$enableRegistersUsername = 1; //0 - disable | 1 - enable
-$enableRegistersEmail = 1; //0 - disable | 1 - enable
-
-$configRegistersPassword = 1; //0 - don´t display | 1 - display
-$configRegistersPasswordMethod = 26; //23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
-
-$enableRegistersImageMain = 1; //0 - disable | 1 - enable
-$enableRegistersImageMainCaption = 1; //0 - disable | 1 - enable
-$enableRegistersImageLogo = 1; //0 - disable | 1 - enable
-$enableRegistersImageBanner = 1; //0 - disable | 1 - enable
-$enableRegistersStatus = 1; //0 - disable | 1 - enable
-$enableRegistersRestrictedAccess = 1; //0 - disable | 1 - enable
-$enableRegistersNotes = 1; //0 - disable | 1 - enable
-
-//Pagination.
-$enableRegistersBackendPagination = 1; //0 - disable | 1 - enable
-$enableRegistersBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configRegistersBackendPaginationNRecords = 15;
-
-//Resources.
-$enableRegistersContent = 1; //0 - disable | 1 - enable
-$enableRegistersImages = 1; //0 - disable | 1 - enable
-$enableRegistersVideos = 1; //0 - disable | 1 - enable
-$enableRegistersFiles = 1; //0 - disable | 1 - enable
-$enableRegistersZip = 1; //0 - disable | 1 - enable
-
-//User bind (link registers to registers).
-// ----------------------
-$enableRegistersBindRegisterUser = 1; //0 - disable | 1 - enable
-$configRegistersBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
-$configRegistersBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
-$configRegistersBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-
-$enableRegistersBindRegister1 = 1; //0 - disable | 1 - enable
-$configRegistersBindRegister1Method = 1; //1 - category ID | 2 - register type
-$configRegistersBindRegister1IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configRegistersBindRegister1Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-
-$enableRegistersBindRegister2 = 1; //0 - disable | 1 - enable
-$configRegistersBindRegister2Method = 1; //1 - category ID | 2 - register type
-$configRegistersBindRegister2IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configRegistersBindRegister2Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-
-$enableRegistersBindRegister3 = 1; //0 - disable | 1 - enable
-$configRegistersBindRegister3Method = 1; //1 - category ID | 2 - register type
-$configRegistersBindRegister3IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configRegistersBindRegister3Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-
-$enableRegistersBindRegister4 = 1; //0 - disable | 1 - enable
-$configRegistersBindRegister4Method = 1; //1 - category ID | 2 - register type
-$configRegistersBindRegister4IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configRegistersBindRegister4Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-
-$enableRegistersBindRegister5 = 1; //0 - disable | 1 - enable
-$configRegistersBindRegister5Method = 1; //1 - category ID | 2 - register type
-$configRegistersBindRegister5IDReference = 3892; //category ID / register type ID | 0 - all register categories
-$configRegistersBindRegister5Sort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-// ----------------------
-
-//Optional fields (field titles in the language configuration file).
-// ----------------------
-//Generic filters.
-$enableRegistersFilterGeneric1 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric2 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric3 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric4 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric5 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric6 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric7 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric8 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric9 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric10 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric11 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric12 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric13 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric14 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric15 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric16 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric17 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric18 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric19 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric20 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric21 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric22 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric23 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric24 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric25 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric26 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric27 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric28 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric29 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric30 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric31 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric32 = 2; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric33 = 3; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric34 = 4; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric35 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric36 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric37 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric38 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric39 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-$enableRegistersFilterGeneric40 = 1; //0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
-
-//Big information fields.
-$enableRegistersInfo1 = 1; //0 - disable | 1 - enable
-$configRegistersInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo2 = 1; //0 - disable | 1 - enable
-$configRegistersInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo3 = 1; //0 - disable | 1 - enable
-$configRegistersInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo4 = 1; //0 - disable | 1 - enable
-$configRegistersInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo5 = 1; //0 - disable | 1 - enable
-$configRegistersInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo6 = 1; //0 - disable | 1 - enable
-$configRegistersInfo6FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo7 = 1; //0 - disable | 1 - enable
-$configRegistersInfo7FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo8 = 1; //0 - disable | 1 - enable
-$configRegistersInfo8FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo9 = 1; //0 - disable | 1 - enable
-$configRegistersInfo9FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo10 = 1; //0 - disable | 1 - enable
-$configRegistersInfo10FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo11 = 1; //0 - disable | 1 - enable
-$configRegistersInfo11FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo12 = 1; //0 - disable | 1 - enable
-$configRegistersInfo12FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo13 = 1; //0 - disable | 1 - enable
-$configRegistersInfo13FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo14 = 1; //0 - disable | 1 - enable
-$configRegistersInfo14FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo15 = 1; //0 - disable | 1 - enable
-$configRegistersInfo15FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo16 = 1; //0 - disable | 1 - enable
-$configRegistersInfo16FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo17 = 1; //0 - disable | 1 - enable
-$configRegistersInfo17FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo18 = 1; //0 - disable | 1 - enable
-$configRegistersInfo18FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo19 = 1; //0 - disable | 1 - enable
-$configRegistersInfo19FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableRegistersInfo20 = 1; //0 - disable | 1 - enable
-$configRegistersInfo20FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-//Small information fields.
-$enableRegistersInfoS1 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS1FieldType = 2; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS2 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS2FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS3 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS3FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS4 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS4FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS5 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS5FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS6 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS6FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS7 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS7FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS8 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS8FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS9 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS9FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS10 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS10FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS11 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS11FieldType = 2; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS12 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS12FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS13 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS13FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS14 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS14FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS15 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS15FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS16 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS16FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS17 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS17FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS18 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS18FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS19 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS19FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS20 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS20FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS21 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS21FieldType = 2; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS22 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS22FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS23 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS23FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS24 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS24FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS25 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS25FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS26 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS26FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS27 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS27FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS28 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS28FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS29 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS29FieldType = 1; //1 - single line | 2 - multiline
-
-$enableRegistersInfoS30 = 1; //0 - disable | 1 - enable
-$configRegistersInfoS30FieldType = 1; //1 - single line | 2 - multiline
-
-//Big number fields (up to 34 digits).
-$enableRegistersNumber1 = 1; //0 - disable | 1 - enable
-$configRegistersNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableRegistersNumber2 = 1; //0 - disable | 1 - enable
-$configRegistersNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableRegistersNumber3 = 1; //0 - disable | 1 - enable
-$configRegistersNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableRegistersNumber4 = 1; //0 - disable | 1 - enable
-$configRegistersNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableRegistersNumber5 = 1; //0 - disable | 1 - enable
-$configRegistersNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-//Small number fields (up to 9 digits).
-$enableRegistersNumberS1 = 1; //0 - disable | 1 - enable
-$configRegistersNumberS1FieldType = 2; //1 - general number | 2 - system currency
-
-$enableRegistersNumberS2 = 1; //0 - disable | 1 - enable
-$configRegistersNumberS2FieldType = 1; //1 - general number | 2 - system currency
-
-$enableRegistersNumberS3 = 1; //0 - disable | 1 - enable
-$configRegistersNumberS3FieldType = 1; //1 - general number | 2 - system currency
-
-$enableRegistersNumberS4 = 1; //0 - disable | 1 - enable
-$configRegistersNumberS4FieldType = 1; //1 - general number | 2 - system currency
-
-$enableRegistersNumberS5 = 1; //0 - disable | 1 - enable
-$configRegistersNumberS5FieldType = 1; //1 - general number | 2 - system currency
-
-//URLs.
-$enableRegistersURL1 = 1; //0 - disable | 1 - enable
-$enableRegistersURL2 = 1; //0 - disable | 1 - enable
-$enableRegistersURL3 = 1; //0 - disable | 1 - enable
-$enableRegistersURL4 = 1; //0 - disable | 1 - enable
-$enableRegistersURL5 = 1; //0 - disable | 1 - enable
-
-//Date fields.
-$enableRegistersDate1 = 1; //0 - disable | 1 - enable
-$configRegistersDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
-
-$enableRegistersDate2 = 1; //0 - disable | 1 - enable
-$configRegistersDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate3 = 1; //0 - disable | 1 - enable
-$configRegistersDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate4 = 1; //0 - disable | 1 - enable
-$configRegistersDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate5 = 1; //0 - disable | 1 - enable
-$configRegistersDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate6 = 1; //0 - disable | 1 - enable
-$configRegistersDate6FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate6Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate7 = 1; //0 - disable | 1 - enable
-$configRegistersDate7FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate7Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate8 = 1; //0 - disable | 1 - enable
-$configRegistersDate8FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate8Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate9 = 1; //0 - disable | 1 - enable
-$configRegistersDate9FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate9Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-$enableRegistersDate10 = 1; //0 - disable | 1 - enable
-$configRegistersDate10FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
-$configRegistersDate10Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
-
-//File fields.
-$enableRegistersFile1 = 1; //0 - disable | 1 - enable
-$configRegistersFile1Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableRegistersFile2 = 1; //0 - disable | 1 - enable
-$configRegistersFile2Type = 34; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableRegistersFile3 = 1; //0 - disable | 1 - enable
-$configRegistersFile3Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableRegistersFile4 = 1; //0 - disable | 1 - enable
-$configRegistersFile4Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-$enableRegistersFile5 = 1; //0 - disable | 1 - enable
-$configRegistersFile5Type = 3; //1 - image | 3 - file (download) | 34 - file (open direct)
-
-//Activation fields.
-$enableRegistersActivation1 = 1; //0 - disable | 1 - enable
-$enableRegistersActivation2 = 1; //0 - disable | 1 - enable
-$enableRegistersActivation3 = 1; //0 - disable | 1 - enable
-$enableRegistersActivation4 = 1; //0 - disable | 1 - enable
-$enableRegistersActivation5 = 1; //0 - disable | 1 - enable
-
-//Register types.
-$configRegistersIDClient = 123;
-$configRegistersIDUser = 123;
-$configRegistersIDUserSeller = 123;
-$configRegistersIDUserHR = 123;
-$configRegistersIDSubscriber = 123;
-
+$gSystemConfig['configQuizzesSort'] = 'id DESC'; // options: id | sort_order | title
+$gSystemConfig['configQuizzesOptionsSort'] = 'id DESC'; // options: id | sort_order | title
+$gSystemConfig['configQuizzesInputOrder'] = [
+  'inputRowPublications_id_parent',
+  'inputRowPublications_sort_order',
+  'inputRowPublications_id_register_user',
+  'inputRowPublications_title',
+  'inputRowPublications_description',
+  'inputRowPublications_url_alias',
+  'inputRowPublications_meta_title',
+  'inputRowPublications_meta_description',
+  'inputRowPublications_keywords_tags',
+  'inputRowPublications_info1',
+  'inputRowPublications_number1',
+  'inputRowPublications_image_main',
+  'inputRowPublications_file1',
+  'inputRowPublications_file2',
+  'inputRowPublications_activation',
+  'inputRowPublications_id_status',
+  'inputRowPublications_notes'
+];
+
+// Basic resources.
+$gSystemConfig['enableQuizzesIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesType'] = 0; // 0 - disable | 1 - enable
+//$configQuizzesTypeDefault = 2; // 1 - poll | 2 - quiz (multiple questions)  | 3 - (written template answer) | (Valid only if enableQuizzesType = 0)
+
+$gSystemConfig['enableQuizzesBindRegisterUser'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configQuizzesBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
+$gSystemConfig['configQuizzesBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+
+$gSystemConfig['enableQuizzesDescription'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['configQuizzesURLAlias'] = 1; // 0 - disable | 1 - automatic | 2 - custom
+$gSystemConfig['enableQuizzesKeywordsTags'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesMetaDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesMetaTitle'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableQuizzesImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesImageMainCaption'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableQuizzesStatus'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesNotes'] = 1; // 0 - disable | 1 - enable
+
+// Pagination.
+$gSystemConfig['enableQuizzesBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesBackendPaginationNRecords'] = 15;
+
+// Resources.
+$gSystemConfig['enableQuizzesContent'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesImages'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesVideos'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesFiles'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesZip'] = 1; // 0 - disable | 1 - enable
+
+// Big information fields.
+$gSystemConfig['enableQuizzesInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesInfo1FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesInfo2FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesInfo4FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+// Big number fields (up to 34 digits).
+$gSystemConfig['enableQuizzesNumber1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesNumber1FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesNumber2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesNumber2FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesNumber3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesNumber3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesNumber4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesNumber4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesNumber5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesNumber5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+// Activation fields.
+$gSystemConfig['enableQuizzesActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesActivation5'] = 1; // 0 - disable | 1 - enable
 
 //Frontend configuration.
-//Register forms.
-$configRegistersFormFieldsClient = [];
-$configRegistersFormFieldsUser = [];
-$configRegistersFormFieldsUserSeller = [];
-$configRegistersFormFieldsUserHR = [];
-$configRegistersFormFieldsSubscriber = [];
+$gSystemConfig['configQuizzesImagePlaceholder'] = 1; // 0 - disable | 1 - enable
 
-//Terms.
-$configRegistersIDTerms = 123; //0 - disable | 123 (content ID)
+$gSystemConfig['enableQuizzesFrontendPagination'] = 1; // 0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
+$gSystemConfig['enableQuizzesFrontendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesFrontendPaginationNRecords'] = 10;
 
-//e-mail validation / confirmation.
-$configRegistersIDEmailValidation = 123; //0 - disable | 123 (content ID)
+// Options.
+$gSystemConfig['enableQuizzesOptionsSortOrder'] = 1; // 0 - disable | 1 - enable
 
-//Password resend.
-$configRegistersIDPasswordResend = 123; //0 - disable | 123 (content ID)
+//$enableQuizzesOptionsTitle = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesOptionsDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesOptionsImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesOptionsImageMainCaption'] = 1; // 0 - disable | 1 - enable
 
-$configRegistersImagePlaceholder = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableQuizzesOptionsAnswer'] = 1; // 0 - disable | 1 - enable
 
-$enableRegistersFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
-$enableRegistersFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configRegistersFrontendPaginationNRecords = 10;
+// Optional fields (field titles in the language configuration file).
+// Big information fields.
+$gSystemConfig['enableQuizzesOptionsInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsInfo1FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesOptionsInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsInfo2FieldType'] = 11; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesOptionsInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesOptionsInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsInfo4FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableQuizzesOptionsInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+// Big number fields (up to 34 digits).
+$gSystemConfig['enableQuizzesOptionsNumber1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsNumber1FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesOptionsNumber2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsNumber2FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesOptionsNumber3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsNumber3FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesOptionsNumber4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsNumber4FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
+
+$gSystemConfig['enableQuizzesOptionsNumber5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configQuizzesOptionsNumber5FieldType'] = 1; // 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
 // **************************************************************************************
 
-
-//Quizzes / Polls - configuration and resources.
+// Forms - configuration and resources.
 // **************************************************************************************
-$configQuizzesSort = "id DESC"; //options: id | sort_order | title 
-$configQuizzesOptionsSort = "id DESC"; //options: id | sort_order | title
+$gSystemConfig['configFormsSort'] = 'id DESC'; // options: id | sort_order | form_title | recipient_name | recipient_email
+$gSystemConfig['configFormsFieldsSort'] = 'id DESC'; // options: id | sort_order
+$gSystemConfig['configFormsFieldsOptionsSort'] = 'id DESC'; // options: id | sort_order
 
-//Basic resources.
-$enableQuizzesIdParentEdit = 1; //0 - disable | 1 - enable
-$enableQuizzesSortOrder = 1; //0 - disable | 1 - enable
-$enableQuizzesType = 0; //0 - disable | 1 - enable
-//$configQuizzesTypeDefault = 2; //1 - poll | 2 - quiz (multiple questions)  | 3 - (written template answer) | (Valid only if enableQuizzesType = 0)
-
-$enableQuizzesBindRegisterUser = 1; //0 - disable | 1 - enable
-$configQuizzesBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
-$configQuizzesBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
-$configQuizzesBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
-
-$enableQuizzesDescription = 1; //0 - disable | 1 - enable
-
-$configQuizzesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
-$enableQuizzesKeywordsTags = 1; //0 - disable | 1 - enable
-$enableQuizzesMetaDescription = 1; //0 - disable | 1 - enable
-$enableQuizzesMetaTitle = 1; //0 - disable | 1 - enable
-
-$enableQuizzesImageMain = 1; //0 - disable | 1 - enable
-$enableQuizzesImageMainCaption = 1; //0 - disable | 1 - enable
-
-$enableQuizzesStatus = 1; //0 - disable | 1 - enable
-$enableQuizzesNotes = 1; //0 - disable | 1 - enable
-
-//Pagination.
-$enableQuizzesBackendPagination = 1; //0 - disable | 1 - enable
-$enableQuizzesBackendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configQuizzesBackendPaginationNRecords = 15;
-
-//Resources.
-$enableQuizzesContent = 1; //0 - disable | 1 - enable
-$enableQuizzesImages = 1; //0 - disable | 1 - enable
-$enableQuizzesVideos = 1; //0 - disable | 1 - enable
-$enableQuizzesFiles = 1; //0 - disable | 1 - enable
-$enableQuizzesZip = 1; //0 - disable | 1 - enable
-
-//Big information fields.
-$enableQuizzesInfo1 = 1; //0 - disable | 1 - enable
-$configQuizzesInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesInfo2 = 1; //0 - disable | 1 - enable
-$configQuizzesInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesInfo3 = 1; //0 - disable | 1 - enable
-$configQuizzesInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesInfo4 = 1; //0 - disable | 1 - enable
-$configQuizzesInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesInfo5 = 1; //0 - disable | 1 - enable
-$configQuizzesInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-//Big number fields (up to 34 digits).
-$enableQuizzesNumber1 = 1; //0 - disable | 1 - enable
-$configQuizzesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesNumber2 = 1; //0 - disable | 1 - enable
-$configQuizzesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesNumber3 = 1; //0 - disable | 1 - enable
-$configQuizzesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesNumber4 = 1; //0 - disable | 1 - enable
-$configQuizzesNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesNumber5 = 1; //0 - disable | 1 - enable
-$configQuizzesNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-//Activation fields.
-$enableQuizzesActivation1 = 1; //0 - disable | 1 - enable
-$enableQuizzesActivation2 = 1; //0 - disable | 1 - enable
-$enableQuizzesActivation3 = 1; //0 - disable | 1 - enable
-$enableQuizzesActivation4 = 1; //0 - disable | 1 - enable
-$enableQuizzesActivation5 = 1; //0 - disable | 1 - enable
-
-
-//Frontend configuration.
-$configQuizzesImagePlaceholder = 1; //0 - disable | 1 - enable
-
-$enableQuizzesFrontendPagination = 1; //0 - disable | 1 - enable (custom) | 11 - enable (bootstrap)
-$enableQuizzesFrontendPaginationNumbering = 1; //0 - disable | 1 - enable
-$configQuizzesFrontendPaginationNRecords = 10;
-
-
-//Options.
-$enableQuizzesOptionsSortOrder = 1; //0 - disable | 1 - enable
-
-//$enableQuizzesOptionsTitle = 1; //0 - disable | 1 - enable
-$enableQuizzesOptionsDescription = 1; //0 - disable | 1 - enable
-$enableQuizzesOptionsImageMain = 1; //0 - disable | 1 - enable
-$enableQuizzesOptionsImageMainCaption = 1; //0 - disable | 1 - enable
-
-$enableQuizzesOptionsAnswer = 1; //0 - disable | 1 - enable
-
-//Optional fields (field titles in the language configuration file).
-//Big information fields.
-$enableQuizzesOptionsInfo1 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesOptionsInfo2 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesOptionsInfo3 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesOptionsInfo4 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableQuizzesOptionsInfo5 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-//Big number fields (up to 34 digits).
-$enableQuizzesOptionsNumber1 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesOptionsNumber2 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesOptionsNumber3 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesOptionsNumber4 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsNumber4FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-
-$enableQuizzesOptionsNumber5 = 1; //0 - disable | 1 - enable
-$configQuizzesOptionsNumber5FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal | 4 - system currency with decimals
-// **************************************************************************************
-
-
-//Forms - configuration and resources.
-// **************************************************************************************
-$configFormsSort = "id DESC"; //options: id | sort_order | form_title | recipient_name | recipient_email
-$configFormsFieldsSort = "id DESC"; //options: id | sort_order
-$configFormsFieldsOptionsSort = "id DESC"; //options: id | sort_order
-
-//Forms.
+// Forms.
 // ----------------------
-$enableFormsIdParentEdit = 1; //0 - disable | 1 - enable
-$enableFormsSortOrder = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableFormsIdParentEdit'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsSortOrder'] = 1; // 0 - disable | 1 - enable
 
-$enableFormsBindRegisterUser = 1; //0 - disable | 1 - enable
-$configFormsBindRegisterUserMethod = 1; //1 - category ID | 2 - register type
-$configFormsBindRegisterUserIDReference = 3892; //category ID / register type ID | 0 - all registeres
-$configFormsBindRegisterUserSort = "name"; //options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
+$gSystemConfig['enableFormsBindRegisterUser'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
+$gSystemConfig['configFormsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
+$gSystemConfig['configFormsBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
-$enableFormsRecipientEmailCopy = 1; //0 - disable | 1 - enable
-$enableFormsSender = 1; //0 - disable | 1 - enable
-$enableFormsSenderConfig = 1; //0 - disable | 1 - enable
-$enableFormsEmailFormat = 1; //0 - disable | 1 - enable
-$enableFormsMessageSuccess = 1; //0 - disable | 1 - enable
-$enableFormsNotes = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableFormsRecipientEmailCopy'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsSender'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsSenderConfig'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsEmailFormat'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsMessageSuccess'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsNotes'] = 1; // 0 - disable | 1 - enable
 
-$enableFormsEmailSectors = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableFormsEmailSectors'] = 1; // 0 - disable | 1 - enable
 // ----------------------
 
-
-//Forms fields.
+// Forms fields.
 // ----------------------
-$enableFormsFieldsSortOrder = 1; //0 - disable | 1 - enable
-$enableFormsFieldsInstructions = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableFormsFieldsSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsFieldsInstructions'] = 1; // 0 - disable | 1 - enable
 
-$enableFormsFieldsFieldFilter = 1; //0 - disable | 1 - enable
-$configFormsFieldsFieldFilter = ["email"]; //email
+$gSystemConfig['enableFormsFieldsFieldFilter'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsFieldFilter'] = ['email']; //email
 
-$enableFormsFieldsRequired = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableFormsFieldsRequired'] = 1; // 0 - disable | 1 - enable
 
-$enableFormsFieldTypeExtraOptions = 1; //0 - disable | 1 - enable (text, subheader, etc)
+$gSystemConfig['enableFormsFieldTypeExtraOptions'] = 1; // 0 - disable | 1 - enable (text, subheader, etc)
 
-//Optional fields (field titles in the language configuration file).
-//Small information fields.
-$enableFormsFieldsInfoS1 = 1; //0 - disable | 1 - enable
-$configFormsFieldsInfoS1FieldType = 2; //1 - single line | 2 - multiline
+// Optional fields (field titles in the language configuration file).
+// Small information fields.
+$gSystemConfig['enableFormsFieldsInfoS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsInfoS1FieldType'] = 2; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsInfoS2 = 1; //0 - disable | 1 - enable
-$configFormsFieldsInfoS2FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsInfoS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsInfoS2FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsInfoS3 = 1; //0 - disable | 1 - enable
-$configFormsFieldsInfoS3FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsInfoS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsInfoS3FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsInfoS4 = 1; //0 - disable | 1 - enable
-$configFormsFieldsInfoS4FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsInfoS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsInfoS4FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsInfoS5 = 1; //0 - disable | 1 - enable
-$configFormsFieldsInfoS5FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsInfoS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsInfoS5FieldType'] = 1; // 1 - single line | 2 - multiline
 // ----------------------
 
-//Forms fields options.
-$enableFormsFieldsOptionsSortOrder = 1; //0 - disable | 1 - enable
-$enableFormsFieldsOptionsConfigSelection = 1; //0 - disable | 1 - enable
-$enableFormsFieldsOptionsImageMain = 1; //0 - disable | 1 - enable
+// Forms fields options.
+$gSystemConfig['enableFormsFieldsOptionsSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsFieldsOptionsConfigSelection'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFormsFieldsOptionsImageMain'] = 1; // 0 - disable | 1 - enable
 
-//Optional fields (field titles in the language configuration file).
-//Small information fields.
-$enableFormsFieldsOptionsInfoS1 = 1; //0 - disable | 1 - enable
-$configFormsFieldsOptionsInfoS1FieldType = 2; //1 - single line | 2 - multiline
+// Optional fields (field titles in the language configuration file).
+// Small information fields.
+$gSystemConfig['enableFormsFieldsOptionsInfoS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsOptionsInfoS1FieldType'] = 2; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsOptionsInfoS2 = 1; //0 - disable | 1 - enable
-$configFormsFieldsOptionsInfoS2FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsOptionsInfoS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsOptionsInfoS2FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsOptionsInfoS3 = 1; //0 - disable | 1 - enable
-$configFormsFieldsOptionsInfoS3FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsOptionsInfoS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsOptionsInfoS3FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsOptionsInfoS4 = 1; //0 - disable | 1 - enable
-$configFormsFieldsOptionsInfoS4FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsOptionsInfoS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsOptionsInfoS4FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFormsFieldsOptionsInfoS5 = 1; //0 - disable | 1 - enable
-$configFormsFieldsOptionsInfoS5FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFormsFieldsOptionsInfoS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFormsFieldsOptionsInfoS5FieldType'] = 1; // 1 - single line | 2 - multiline
 
-//Site.
+// Frontend configuration.
 
 // **************************************************************************************
 
-
-//Filters Generic - configuration and resources.
+// e-mail - configuration and resources.
 // **************************************************************************************
-$configFiltersGenericSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
-$enableFiltersGenericSortCustom = 1; //0 - disable | 1 - enable
-$configFiltersGenericInputOrder = ["inputRowFiltersGeneric_id_parent", 
-                                    "inputRowFiltersGeneric_sort_order", 
-                                    "inputRowFiltersGeneric_id_register_user", 
-                                    "inputRowFiltersGeneric_title", 
-                                    "inputRowFiltersGeneric_description", 
-                                    "inputRowFiltersGeneric_url_alias", 
-                                    "inputRowFiltersGeneric_meta_title", 
-                                    "inputRowFiltersGeneric_meta_description", 
-                                    "inputRowFiltersGeneric_keywords_tags", 
-                                    "inputRowFiltersGeneric_info_small1", 
-                                    "inputRowFiltersGeneric_number_small1", 
-                                    "inputRowFiltersGeneric_image_main", 
-                                    "inputRowFiltersGeneric_activation", 
-                                    "inputRowFiltersGeneric_notes"
-                                  ];
+$gSystemConfig['enableEmailSenderDefault'] = 'portfolio@sistemadinamico.com.br';
+$gSystemConfig['enableEmailSenderNameDefault'] = 'Sistema Dinâmico (Dev - debug: çáéã)';
+$gSystemConfig['enableEmailReplyDefault'] = 'portfolio@sistemadinamico.com.br';
 
-//Basic resources.
-$enableFiltersGenericSortOrder = 1; //0 - disable | 1 - enable
-$enableFiltersGenericDescription = 1; //0 - disable | 1 - enable
-$enableFiltersGenericImageMain = 1; //0 - disable | 1 - enable
-$enableFiltersGenericConfigSelection = 1; //0 - disable | 1 - enable
-$enableFiltersGenericNotes = 1; //0 - disable | 1 - enable
+$gSystemConfig['enableEmailRecipientDefault'] = 'jm@planejamentovisual.com.br';
+$gSystemConfig['enableEmailRecipientNameDefault'] = 'Planejamento Visual - Arte e Tecnologia';
+
+$gSystemConfig['enableEmailCCDefault'] = 'jm@planejamentovisual.com.br';
+$gSystemConfig['enableEmailCCNameDefault'] = 'Planejamento Visual - Arte e Tecnologia';
+
+$gSystemConfig['enableEmailBCCDefault'] = 'jm@planejamentovisual.com.br';
+$gSystemConfig['enableEmailBCCNameDefault'] = 'Planejamento Visual - Arte e Tecnologia';
+
+$gSystemConfig['enableEmailTSL'] = true;
+$gSystemConfig['enableEmailSSL'] = false;
+// **************************************************************************************
+
+// Filters Generic - configuration and resources.
+// **************************************************************************************
+$gSystemConfig['configFiltersGenericSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+$gSystemConfig['enableFiltersGenericSortCustom'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericInputOrder'] = [
+    'inputRowFiltersGeneric_id_parent',
+    'inputRowFiltersGeneric_sort_order',
+    'inputRowFiltersGeneric_id_register_user',
+    'inputRowFiltersGeneric_title',
+    'inputRowFiltersGeneric_description',
+    'inputRowFiltersGeneric_url_alias',
+    'inputRowFiltersGeneric_meta_title',
+    'inputRowFiltersGeneric_meta_description',
+    'inputRowFiltersGeneric_keywords_tags',
+    'inputRowFiltersGeneric_info_small1',
+    'inputRowFiltersGeneric_number_small1',
+    'inputRowFiltersGeneric_image_main',
+    'inputRowFiltersGeneric_activation',
+    'inputRowFiltersGeneric_notes'
+];
+
+// Basic resources.
+$gSystemConfig['enableFiltersGenericSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericConfigSelection'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericNotes'] = 1; // 0 - disable | 1 - enable
 //TODO: change name on DB
 
-$configFiltersGenericURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
-$enableFiltersGenericKeywordsTags = 1; //0 - disable | 1 - enable
-$enableFiltersGenericMetaDescription = 1; //0 - disable | 1 - enable
-$enableFiltersGenericMetaTitle = 1; //0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericURLAlias'] = 1; // 0 - disable | 1 - automatic | 2 - custom
+$gSystemConfig['enableFiltersGenericKeywordsTags'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericMetaDescription'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericMetaTitle'] = 1; // 0 - disable | 1 - enable
 
-//Small information fields.
-$enableFiltersGenericInfoS1 = 1; //0 - disable | 1 - enable
-$configFiltersGenericInfoS1FieldType = 2; //1 - single line | 2 - multiline
+// Small information fields.
+$gSystemConfig['enableFiltersGenericInfoS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericInfoS1FieldType'] = 2; // 1 - single line | 2 - multiline
 
-$enableFiltersGenericInfoS2 = 1; //0 - disable | 1 - enable
-$configFiltersGenericInfoS2FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFiltersGenericInfoS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericInfoS2FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFiltersGenericInfoS3 = 1; //0 - disable | 1 - enable
-$configFiltersGenericInfoS3FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFiltersGenericInfoS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericInfoS3FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFiltersGenericInfoS4 = 1; //0 - disable | 1 - enable
-$configFiltersGenericInfoS4FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFiltersGenericInfoS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericInfoS4FieldType'] = 1; // 1 - single line | 2 - multiline
 
-$enableFiltersGenericInfoS5 = 1; //0 - disable | 1 - enable
-$configFiltersGenericInfoS5FieldType = 1; //1 - single line | 2 - multiline
+$gSystemConfig['enableFiltersGenericInfoS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericInfoS5FieldType'] = 1; // 1 - single line | 2 - multiline
 
-//Small number fields (up to 9 digits).
-$enableFiltersGenericNumberS1 = 1; //0 - disable | 1 - enable
-$configFiltersGenericNumberS1FieldType = 2; //1 - general number | 2 - system currency
+// Small number fields (up to 9 digits).
+$gSystemConfig['enableFiltersGenericNumberS1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericNumberS1FieldType'] = 2; // 1 - general number | 2 - system currency
 
-$enableFiltersGenericNumberS2 = 1; //0 - disable | 1 - enable
-$configFiltersGenericNumberS2FieldType = 1; //1 - general number | 2 - system currency
+$gSystemConfig['enableFiltersGenericNumberS2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericNumberS2FieldType'] = 1; // 1 - general number | 2 - system currency
 
-$enableFiltersGenericNumberS3 = 1; //0 - disable | 1 - enable
-$configFiltersGenericNumberS3FieldType = 1; //1 - general number | 2 - system currency
+$gSystemConfig['enableFiltersGenericNumberS3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericNumberS3FieldType'] = 1; // 1 - general number | 2 - system currency
 
-$enableFiltersGenericNumberS4 = 1; //0 - disable | 1 - enable
-$configFiltersGenericNumberS4FieldType = 1; //1 - general number | 2 - system currency
+$gSystemConfig['enableFiltersGenericNumberS4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericNumberS4FieldType'] = 1; // 1 - general number | 2 - system currency
 
-$enableFiltersGenericNumberS5 = 1; //0 - disable | 1 - enable
-$configFiltersGenericNumberS5FieldType = 1; //1 - general number | 2 - system currency
+$gSystemConfig['enableFiltersGenericNumberS5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configFiltersGenericNumberS5FieldType'] = 1; // 1 - general number | 2 - system currency
 
-//Activation fields.
-$enableFiltersGenericActivation1 = 1; //0 - disable | 1 - enable
-$enableFiltersGenericActivation2 = 1; //0 - disable | 1 - enable
-$enableFiltersGenericActivation3 = 1; //0 - disable | 1 - enable
-$enableFiltersGenericActivation4 = 1; //0 - disable | 1 - enable
-$enableFiltersGenericActivation5 = 1; //0 - disable | 1 - enable
+// Activation fields.
+$gSystemConfig['enableFiltersGenericActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableFiltersGenericActivation5'] = 1; // 0 - disable | 1 - enable
 
-
-//Frontend configuration.
-$configFiltersGenericImagePlaceholder = 1; //0 - disable | 1 - enable
+// Frontend configuration.
+$gSystemConfig['configFiltersGenericImagePlaceholder'] = 1; // 0 - disable | 1 - enable
 // **************************************************************************************
 
-
-//Users.
+// Search.
 // **************************************************************************************
-$configUsersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
-$enableUsersSortCustom = 1; //0 - disable | 1 - enable
-$configUsersInputOrder = ["inputRowUsers_id_parent", 
-                                        "inputRowUsers_sort_order", 
-                                        "inputRowUsers_name", 
-                                        "inputRowUsers_info1", 
-                                        "inputRowUsers_image_main", 
-                                        "inputRowUsers_activation", 
-                                        "inputRowUsers_id_status", 
-                                        "inputRowUsers_notes"
-                                      ];
-
-//Authentication method.
-$configUsersMasterAuthenticationMethod = 1; //1 - cookie | 2 session
-$configUsersAuthenticationMethod = 1; //1 - cookie | 2 session
-
-
-//Basic resources.
-$enableUsersSortOrder = 1; //0 - disable | 1 - enable
-$enableUsersType = 1; //0 - disable | 1 - enable
-
-$enableUsersNameTitle = 1; //0 - disable | 1 - enable
-$enableUsersNameFull = 1; //0 - disable | 1 - enable
-$enableUsersNameFirst = 1; //0 - disable | 1 - enable
-$enableUsersNameLast = 1; //0 - disable | 1 - enable
-$enableUsersDateBirth = 11; //0 - disable | 2 - dropdown menu | 11 - js-datepicker 
-$enableUsersGender = 1; //0 - disable | 1 - enable
-$enableUsersDocument = 1; //0 - disable | 1 - enable
-$enableUsersAddress = 1; //0 - disable | 1 - enable
-$enableUsersPhoneInternationalCode = 1; //0 - disable | 1 - enable
-$enableUsersPhone1 = 1; //0 - disable | 1 - enable
-$enableUsersPhone2 = 1; //0 - disable | 1 - enable
-$enableUsersPhone3 = 1; //0 - disable | 1 - enable
-$enableUsersUsername = 1; //0 - disable | 1 - enable
-$enableUsersEmail = 1; //0 - disable | 1 - enable
-
-$configUsersPassword = 1; //0 - don´t display | 1 - display
-$configUsersPasswordMethod = 26; //23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
-
-$enableUsersImageMain = 1; //0 - disable | 1 - enable
-$enableUsersStatus = 1; //0 - disable | 1 - enable
-$enableUsersNotes = 1; //0 - disable | 1 - enable
-
-//Big information fields.
-$enableUsersInfo1 = 1; //0 - disable | 1 - enable
-$configUsersInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo2 = 1; //0 - disable | 1 - enable
-$configUsersInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo3 = 1; //0 - disable | 1 - enable
-$configUsersInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo4 = 1; //0 - disable | 1 - enable
-$configUsersInfo4FieldType = 2; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo5 = 1; //0 - disable | 1 - enable
-$configUsersInfo5FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo6 = 1; //0 - disable | 1 - enable
-$configUsersInfo6FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo7 = 1; //0 - disable | 1 - enable
-$configUsersInfo7FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo8 = 1; //0 - disable | 1 - enable
-$configUsersInfo8FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo9 = 1; //0 - disable | 1 - enable
-$configUsersInfo9FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-$enableUsersInfo10 = 1; //0 - disable | 1 - enable
-$configUsersInfo10FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
-
-//Activation fields.
-$enableUsersActivation1 = 1; //0 - disable | 1 - enable
-$enableUsersActivation2 = 1; //0 - disable | 1 - enable
-$enableUsersActivation3 = 1; //0 - disable | 1 - enable
-$enableUsersActivation4 = 1; //0 - disable | 1 - enable
-$enableUsersActivation5 = 1; //0 - disable | 1 - enable
 // **************************************************************************************
 
+// Users.
+// **************************************************************************************
+$gSystemConfig['configUsersSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
+$gSystemConfig['enableUsersSortCustom'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInputOrder'] = [
+    'inputRowUsers_id_parent',
+    'inputRowUsers_sort_order',
+    'inputRowUsers_name',
+    'inputRowUsers_info1',
+    'inputRowUsers_image_main',
+    'inputRowUsers_activation',
+    'inputRowUsers_id_status',
+    'inputRowUsers_notes'
+];
 
-?>
+// Authentication method.
+$gSystemConfig['configUsersMasterAuthenticationMethod'] = 3; // 1 - cookie | 2 session | 3 - token (API)
+$gSystemConfig['configUsersMasterAuthenticationType'] = 11; // (WIP) 1 - custom (SS_AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (SS_AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (SS_AUTHENTICATION_TYPE_PASSPORT)
+$gSystemConfig['configUsersMasterAuthenticationCheck'] = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+$gSystemConfig['configUsersMasterAuthenticationStore'] = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
+
+$gSystemConfig['configUsersAuthenticationType'] = 11; // (WIP) 1 - custom (SS_AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (SS_AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (SS_AUTHENTICATION_TYPE_PASSPORT)
+$gSystemConfig['configUsersAuthenticationMethod'] = 3; // 1 - cookie | 2 - session | 3 - token (API)
+$gSystemConfig['configUsersAuthenticationCheck'] = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+$gSystemConfig['configUsersAuthenticationStore'] = 1; // (store in frontend) 1 - cookie (SS_AUTHENTICATION_STORE_COOKIE) | 2 session (SS_AUTHENTICATION_STORE_SESSION) | 3 - header (SS_AUTHENTICATION_STORE_HEADER)
+
+// Basic resources.
+$gSystemConfig['enableUsersSortOrder'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersType'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['enableUsersNameTitle'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersNameFull'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersNameFirst'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersNameLast'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersDateBirth'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['enableUsersGender'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersDocument'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersAddress'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersPhoneInternationalCode'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersPhone1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersPhone2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersPhone3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersUsername'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersEmail'] = 1; // 0 - disable | 1 - enable
+
+$gSystemConfig['configUsersPassword'] = 1; // 0 - don´t display | 1 - display
+$gSystemConfig['configUsersPasswordMethod'] = 22; // 21 - MCrypt PHP library (PHP) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv | 31 - hash
+
+$gSystemConfig['enableUsersImageMain'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersStatus'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersNotes'] = 1; // 0 - disable | 1 - enable
+
+// Pagination.
+$gSystemConfig['enableUsersBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersBackendPaginationNRecords'] = 15;
+
+// Big information fields.
+$gSystemConfig['enableUsersInfo1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo1FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo2FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo3FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo4FieldType'] = 2; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo5'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo5FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo6'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo6FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo7'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo7FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo8'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo8FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo9'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo9FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+$gSystemConfig['enableUsersInfo10'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersInfo10FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+
+// Activation fields.
+$gSystemConfig['enableUsersActivation1'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersActivation2'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersActivation3'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersActivation4'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersActivation5'] = 1; // 0 - disable | 1 - enable
+// **************************************************************************************
