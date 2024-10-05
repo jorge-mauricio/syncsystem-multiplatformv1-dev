@@ -4,7 +4,7 @@ Create and configure the code base.
 ### Local Git Verification
 - Make sure you have the correct user configured:
   - `git config --global --get user.name`
-  - `git config --global --get user.email`
+  - `git config --global --get user.email`<br />
   **Note:** replace `--global` with `--local` for setup with per repo configuration.
 
 ### SSH Private Access Setup
