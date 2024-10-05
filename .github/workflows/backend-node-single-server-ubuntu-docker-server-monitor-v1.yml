@@ -14,7 +14,6 @@ jobs:
         # ex: /home/ubuntu/ss-storage, etc
 
       # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
-      # APP_DEBUG: '${{ secrets.APP_DEBUG }}'
       # Replace this comment with the copied output from the manage environment variables/secrets node script.
       # APP_DEBUG: '${{ secrets.APP_DEBUG }}'
       
