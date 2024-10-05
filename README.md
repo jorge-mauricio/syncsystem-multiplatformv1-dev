@@ -99,7 +99,8 @@ SyncSystem Multiplatform has already been tested in Windows 2016 hosting.
 - Test endpoint: yourdomain.com
 
 ## Dedicated Server Deploy
-We created GitHub Actions Workflow files and 
+We created GitHub Actions Workflow files to set up the project in a production dedicated server.
+- [New project set up](devops/README.md)
 - [Single server / docker container deploy](devops/linux-ubuntu-server-build/README.md)
 
 ## Best Practices
