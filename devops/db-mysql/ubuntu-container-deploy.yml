@@ -1,0 +1,199 @@
+version: '3'
+# Obsolete starting with Docker Compose 3.7.
+
+services:
+  db-mysql-system:
+    # image: mysql:latest
+    # image: jorgemauriciodev/syncsystem-docker-pipeline-v1-node-v1-dev:${CONFIG_DOCKER_IMAGE_BACKEND_TAG}
+    image: syncsystem-docker-pipeline-v1-db-mysql-v1
+    # container_name: syncsystem-multiplatform-db-mysql-${CONFIG_DOCKER_IMAGE_BACKEND_TAG}
+      # TODO: update everywhere with the correct image name.
+    container_name: syncsystem-multiplatform-db-mysql
+    ports:
+      # - "3306:3306"
+      - "${DB_SYSTEM_PORT}:${DB_SYSTEM_PORT}"
+      # - ${DB_SYSTEM_PORT}:${DB_SYSTEM_PORT}
+    environment:
+      PWD: ${PWD}
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: ${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}
+
+    # TODO: align the format: ex: - CONFIG_DOCKER_IMAGE_BACKEND_TAG:$CONFIG_DOCKER_IMAGE_BACKEND_TAG
+      # MYSQL_ROOT_PASSWORD: 'rootpassword'
+      
+      # MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'      
+      
+      # MYSQL_DATABASE: 'dev_db_ss_multiplatformv1'
+      # MYSQL_USER: 'usuario_docker'
+      # MYSQL_PASSWORD: 'docker123'
+      
+      # MYSQL_ROOT_PASSWORD: $DB_SYSTEM_PASSWORD
+      #   # TODO: evaluate creating a separate password.
+      # MYSQL_DATABASE: $DB_SYSTEM_DATABASE
+      # MYSQL_DATABASE:$DB_SYSTEM_DATABASE
+        # Error
+      # MYSQL_DATABASE: $DB_SYSTEM_DATABASE
+        # Error
+      # - MYSQL_DATABASE:$DB_SYSTEM_DATABASE
+      # MYSQL_USER: $DB_SYSTEM_USER
+      # MYSQL_PASSWORD: $DB_SYSTEM_PASSWORD
+      
+      # - MYSQL_ROOT_PASSWORD=$DB_SYSTEM_PASSWORD
+      #   # TODO: evaluate creating a separate password.
+      # - MYSQL_ROOT_PASSWORD="rootpassword"
+        # working
+      # - MYSQL_ROOT_PASSWORD=$DB_SYSTEM_PASSWORD
+      # - MYSQL_DATABASE=$DB_SYSTEM_DATABASE
+      # - MYSQL_USER=$DB_SYSTEM_USER
+      # - MYSQL_PASSWORD=$DB_SYSTEM_PASSWORD
+        # worked
+
+      MYSQL_ROOT_PASSWORD: ${DB_SYSTEM_PASSWORD}
+        # TODO: evaluate creating a separate password.
+      MYSQL_DATABASE: ${DB_SYSTEM_DATABASE}
+      MYSQL_USER: ${DB_SYSTEM_USER}
+        # Worked
+      MYSQL_PASSWORD: ${DB_SYSTEM_PASSWORD}
+        # TODO: update all other docker compose files with the same format.
+        # worked
+
+      # # - MYSQL_ROOT_PASSWORD: 'rootpassword'
+      # - MYSQL_ROOT_PASSWORD: ${DB_SYSTEM_PASSWORD}
+      # #   # TODO: evaluate creating a separate password.
+      # - MYSQL_DATABASE: ${DB_SYSTEM_DATABASE}
+      # - MYSQL_USER: ${DB_SYSTEM_USER}
+      # - MYSQL_PASSWORD: ${DB_SYSTEM_PASSWORD}
+      
+      
+      # - MYSQL_ROOT_PASSWORD='rootpassword'
+      # # - MYSQL_ROOT_PASSWORD: ${DB_SYSTEM_PASSWORD}
+      #   # TODO: evaluate creating a separate password.
+      # - MYSQL_DATABASE=${DB_SYSTEM_DATABASE}
+      # - MYSQL_USER=${DB_SYSTEM_USER}
+      # - MYSQL_PASSWORD=${DB_SYSTEM_PASSWORD}
+
+      # CONFIG_SERVER_PWD: '/home/ubuntu'
+      # CONFIG_SERVER_PWD:$CONFIG_SERVER_PWD
+        # aws: /home/ubuntu      
+      
+    # volumes:
+    #   - mysql-data:/var/lib/mysql
+    volumes:
+      - volume-db-mysql:/var/lib/mysql
+    # networks:
+    #   - syncsystem-multiplatform-network
+      # syncsystem-multiplatform-network:
+      #     aliases:
+      #       - db-mysql-system
+    restart: unless-stopped
+    
+  db-mysql-phpmyadmin:
+    # image: phpmyadmin/phpmyadmin
+      # working
+    image: syncsystem-docker-pipeline-v1-phpmyadmin-v1
+    container_name: syncsystem-multiplatform-phpmyadmin
+    environment:
+      PWD: ${PWD}
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: ${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}
+    
+      PMA_HOST: db-mysql-system
+        # Maybe change to the IP address.
+      # PMA_PORT: 3306
+      PMA_PORT: ${DB_SYSTEM_PORT}
+        # TODO: bind with port variable
+      # PMA_USER: 'usuario_docker'  # Use your MySQL user
+      # PMA_PASSWORD: 'docker123'   # Use your MySQL password
+        # worked (the full block above)
+      
+      # PMA_USER: $DB_SYSTEM_USER
+      # PMA_PASSWORD: $DB_SYSTEM_PASSWORD
+      
+      # - PMA_HOST=db-mysql-system
+      # - PMA_PORT=3306
+      # - PMA_USER=$DB_SYSTEM_USER
+      # - PMA_PASSWORD=$DB_SYSTEM_PASSWORD
+        # worked
+      
+      PMA_USER: ${DB_SYSTEM_USER}
+      PMA_PASSWORD: ${DB_SYSTEM_PASSWORD}
+        # Worked
+
+      # - PMA_HOST: db-mysql-system
+      # - PMA_PORT: 3306
+      # - PMA_USER: ${DB_SYSTEM_USER}
+      # - PMA_PASSWORD: ${DB_SYSTEM_PASSWORD}
+      
+      # - PMA_HOST=db-mysql-system
+      # - PMA_PORT=3306
+      # - PMA_USER=${DB_SYSTEM_USER}
+      # - PMA_PASSWORD=${DB_SYSTEM_PASSWORD}
+
+    ports:
+      - "8080:80"
+      # - "127.0.0.1:8443:80"
+      # - "127.0.0.1:8080:80"
+      # - "8080:80"
+    volumes:
+      - volume-db-mysql-phpmyadmin:/etc/phpmyadmin/
+      
+    # networks:
+    #   - syncsystem-multiplatform-network
+      # syncsystem-multiplatform-network:
+      #   aliases:
+      #     # - db-mysql-phpmyadmin
+      #     - db-mysql-system
+      # TODO: configure how the updated config.inc.php will be set up.
+    restart: unless-stopped
+    depends_on:
+      - db-mysql-system
+    # TODO: implement healthcheck for the db-mysql-phpmyadmin service.
+    
+volumes:
+  volume-db-mysql:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ubuntu/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/db-mysql
+      # device: ${PWD}/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/db-mysql
+      # device: ./ss-storage/db-mysql
+      # device: /ss-storage/db-mysql
+      # device: ~/ss-storage/db-mysql
+      # device: /../ss-storage/db-mysql
+      # device: ../ss-storage/db-mysql
+      # device: /ss-storage/db-mysql
+      # device: /home/ubuntu/ss-storage/db-mysql
+      # device: ${CONFIG_SERVER_PWD}/ss-storage/db-mysql
+      # device: ${PWD}/ss-storage/db-mysql
+      # device: ~/../ss-storage/db-mysql
+      
+  volume-db-mysql-phpmyadmin:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ubuntu/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/db-mysql-phpmyadmin
+      # device: ${PWD}/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/db-mysql-phpmyadmin
+      # device: ./ss-storage/db-mysql-phpmyadmin
+      # device: /ss-storage/db-mysql-phpmyadmin
+      # device: ~/ss-storage/db-mysql-phpmyadmin
+      # device: /../ss-storage/db-mysql-phpmyadmin
+      # device: ../ss-storage/db-mysql-phpmyadmin
+      # device: /ss-storage/db-mysql-phpmyadmin
+      # device: /home/ubuntu/ss-storage/db-mysql-phpmyadmin
+      # device: ${CONFIG_SERVER_PWD}/ss-storage/db-mysql-phpmyadmin
+      # device: ${PWD}/ss-storage/db-mysql-phpmyadmin
+# TODO: evaluate creating a data container (mounted to a volume) to avoid directory permission or directory not empty issue.
+
+      
+# networks:
+#   syncsystem-multiplatform-network:
+#     driver: bridge
+
+# Defined globally in the services level.
+networks:
+  default:
+    external:
+      name: syncsystem-multiplatform-network
+      
+# Debug
+  # - Restart Docker engine for every significant change: sudo systemctl restart docker
