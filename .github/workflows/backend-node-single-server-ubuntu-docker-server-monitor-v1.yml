@@ -1,0 +1,235 @@
+name: SyncSystem - Multiplatform - Docker Pipeline v1.0.0 For Node - Host Server Monitor Setup
+
+on:
+  workflow_dispatch:
+
+jobs:
+  host-server-monitoring-setup:
+    runs-on: ubuntu-latest
+
+    env:
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: 'ss-storage'
+      CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR: 'ss-build-files-monitoring'
+      # TODO: update the directories with the full path (in case of other platforms).
+        # ex: /home/ubuntu/ss-storage, etc
+
+      # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
+      # APP_DEBUG: '${{ secrets.APP_DEBUG }}'
+      # Replace this comment with the copied output from the manage environment variables/secrets node script.
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Get PWD (host server)
+        shell: bash
+        id: fetch_pwd
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT='pwd'
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          PWD_HOST_SERVER=$(ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT")
+          echo "PWD_HOST_SERVER=$PWD_HOST_SERVER" >> $GITHUB_ENV;
+          echo 'PWD_HOST_SERVER='$PWD_HOST_SERVER;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Retrieved PWD from host server successfully.";
+        # worked
+        
+      # - name: Use PWD (host server)
+      #   run: |
+      #     echo "The working directory on the host server was $PWD_HOST_SERVER"            
+          
+      - name: Host Server - Create Directories (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Create directories for the build files and volume mount. \
+          sudo mkdir -p ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR }} \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/prometheus \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana-dashboards \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/cadvisor; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories created successfully!";
+      
+      - name: Host Server - Set Directories Permissions - Pre-Container Build (monitoring)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Condition default user (AWS / GCP / AZURE / Etc) to devops platform env variable. \
+          # Set permissions for docker container build files. \
+          sudo chown -R ubuntu:docker ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR }} \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/prometheus \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana-dashboards \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/cadvisor; \
+          sudo chmod -R 775 ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR }} \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/prometheus \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana-dashboards \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/cadvisor; \
+          # Set permissions for docker deamon configuration file. \
+          sudo chown -R ubuntu:ubuntu /etc/docker/; \
+          sudo chmod -R 775 /etc/docker/ \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories permissions updated successfully!";
+          
+      - name: Docker - Configure Export Metrics Deamon (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          echo -e "{\n \
+            \"metrics-addr\": \"0.0.0.0:9323\",\n \
+            \"experimental\": true\n \
+          }" | sudo tee /etc/docker/daemon.json; \
+          sudo systemctl restart docker; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Export metrics deamon configured successfully.";
+        
+      # -e enables the interpretation of escaped characters (like \n for newlines) in the echo command.
+          
+      - name: ufw - Configure Ports (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Prometheus dashboard. \
+          sudo ufw allow 9090; \
+          # Prometheus metrics. \
+          sudo ufw allow 9323; \
+          # Grafana dashboard. \
+          sudo ufw allow 9094; \
+          # Node Exporter metrics. \
+          sudo ufw allow 9100; \
+          # cAdvisor metrics. \
+          sudo ufw allow 9095; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Monitoring ufw ports configured successfully.";
+          
+      - name: Prometheus - Send Build Files
+        shell: bash
+        run: |
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/monitoring/linux-ubuntu/ubuntu-container-deploy.yml ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR }}/ubuntu-container-deploy.yml;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker-compose file sent successfully!";
+      # Note: this file will be mapped with a Prometheus default name.
+      # scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/monitoring/linux-ubuntu/prometheus-config-v1.yml ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR }}/prometheus-config-v1.yml;
+          
+      - name: Prometheus - Create Configuration File (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          echo -e "global:\n\
+            scrape_interval: 15s\n\n\
+          scrape_configs:\n\
+            - job_name: \"prometheus\"\n\
+              static_configs:\n\
+              - targets: [\"localhost:9090\"]\n\
+            - job_name: \"docker\"\n\
+              static_configs:\n\
+                - targets: [\"${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}:9323\"]\n\
+            - job_name: \"cadvisor\"\n\
+              scrape_interval: 5s\n\
+              static_configs:\n\
+                - targets: [\"${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}:9095\"]\n\
+            - job_name: \"node\"\n\
+              static_configs:\n\
+                - targets: [\"${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}:9100\"]\n\
+          " | sudo tee ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/prometheus/prometheus-config-v1.yml; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Export prometheus configuration template file successfully.";
+      # TODO: research if there's a way to map the full directory and move the file creation to after the containers are built.
+          
+      # " | sudo tee ~/${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/prometheus/prometheus-config-v1.yml; \
+
+      - name: Monitoring - Deploy Containers
+        shell: bash
+        run: |
+          # CONFIG_DOCKER_IMAGE_BACKEND_TAG=0.9.0-${{ github.sha }};
+          # TODO: set as github .env (or in the env: directive) so it can be used in the tag instead of latest.
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Replace this comment with the copied output from the manage environment variables/secrets node script. \
+          CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE="${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}" \
+          CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR="${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR }}" \
+          docker-compose -f ~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR }}/ubuntu-container-deploy.yml up -d --force-recreate; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker containers deployed successfully!";
+      
+      # PWD=$PWD_HOST_SERVER \
+      
+      - name: Grafana - Provision Configuration Files (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          echo -e "apiVersion: 1\n\n\
+          datasources:\n\
+          - name: Host Server - Backend - Prometheus\n\
+            type: prometheus\n\
+            access: proxy\n\
+            url: http://${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}:9090\n\
+            isDefault: true\n\
+          " | sudo tee ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana/provisioning/datasources/datasources.yml; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Export grafana provisioning configuration file successfully.";
+      # Important: name "Host Server - Backend - Prometheus" must be preserved, as it reflects on the dashboard datasource configuration.
+        
+      - name: Grafana - Send Dashboards Files
+        shell: bash
+        run: |
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          # Dashboards provisioning file.
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/monitoring/linux-ubuntu/grafana-config-dashboards-v1.yml ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana/provisioning/dashboards/dashboards.yml;
+          # Dashboard - Docker Container & Host Metrics.
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/monitoring/linux-ubuntu/grafana-dashboards/10619.json ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana-dashboards/10619.json;
+          # Dashboard - Docker and system monitoring.
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/monitoring/linux-ubuntu/grafana-dashboards/893.json ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana-dashboards/893.json;
+          # Dashboard - Cadvisor exporter.
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/monitoring/linux-ubuntu/grafana-dashboards/14282.json ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/monitoring/grafana-dashboards/14282.json;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Grafana files sent successfully!";
+    
+      - name: Grafana - Container Restart (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          docker restart syncsystem-multiplatform-monitoring-grafana; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Grafana container restarted successfully.";
+            
+# Next steps:
+  # debug docker restart
+  # research how long the log files are kept and if there's a way to decrease the period.

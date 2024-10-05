@@ -1,0 +1,233 @@
+name: SyncSystem - Multiplatform - Docker Pipeline v1.0.0 For Node - Host Server Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  host-server-build-setup:
+    runs-on: ubuntu-latest
+    
+    env:
+      CONFIG_DOCKER_IMAGE_FRONTEND_TAG: '0.9.0-${{ github.sha }}'
+      CONFIG_DOCKER_IMAGE_BACKEND_TAG: '0.9.0-${{ github.sha }}'
+
+      # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
+      # Replace this comment with the copied output from the manage environment variables/secrets node script.
+      
+    # TODO: evaluate if the CONFIG_SERVER_BACKEND_IP will be turned into a .env.
+    # TODO: exclude secrets from the node script output.
+        
+    # Important: be careful with single quotes in the comments inside the BACKEND_HOST_SERVER_SH_SCRIPT variables.
+    # TODO: test this approach: https://chat.openai.com/c/357b543d-4121-4328-9f71-b653867f03f0
+    steps:
+      - name: Ubuntu Update / Upgrade / Reboot (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          sudo DEBIAN_FRONTEND=noninteractive apt update && sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o ConnectTimeout=300 -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          # rm id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o ConnectTimeout=300 -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "sudo reboot" || true;
+          echo "Status check: Reboot initiated.";
+          sleep 60;
+          echo 'Status check: Waiting for server to come back online...';
+          until ssh -o StrictHostKeyChecking=no -i id_rsa_server_private_key_temp.pem ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} 'echo "Server is back online"'; do
+            echo "Status check: Server not yet available, retrying in 15 seconds...";
+            sleep 15;
+          done
+          echo 'Status check: Server is back online, proceeding with the workflow.';
+          rm id_rsa_server_private_key_temp.pem;
+  
+        # Notes: reboot is necessary to apply the updates and upgrades and load the new kernel.
+        # set +e; # Ignore errors in this script block
+        # set -e; # Re-enable error checking
+        # -o ConnectTimeout=300
+        
+      - name: Docker - Install (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Docker - Install Dependencies. \
+          sudo apt install -y apt-transport-https ca-certificates curl software-properties-common; \
+
+          # Add Docker GPG key. \
+          # This key is used to sign the Docker packages, ensuring that they have not been tampered with during the download process. GPG (GNU Privacy Guard) is a tool for secure communication and data verification. \
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg; \
+          # Set up Docker stable repository. \
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null; \
+          # Docker - install Engine. \
+          sudo apt update; \
+          sudo apt install -y docker-ce docker-ce-cli containerd.io; \
+          # Manage Docker without sudo (optional but Recommended). \
+          sudo usermod -aG docker $USER; \
+          # Docker Compose - install. \
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; \
+          sudo chmod +x /usr/local/bin/docker-compose; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker and dependencies installed successfully.";
+          
+      - name: Docker - Create Network (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          docker network create --driver bridge syncsystem-multiplatform-network; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker network created successfully.";
+      # Note: for different instances use docker swarm overlay network.
+          
+      - name: Server Utilities - Install (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Server utilities - Install. #python3.11 python3-pip htop curl wget git unzip zip software-properties-common \
+          sudo apt install -y net-tools jq curl wget git unzip zip; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Server utilities installed successfully.";
+          
+      - name: ufw - Install (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # ufw firewall - install. \
+          sudo apt install -y ufw; \
+          # ufw - configure. \
+          sudo ufw default deny incoming; \
+          sudo ufw default allow outgoing; \
+          sudo ufw allow ssh; \
+          # Back-end and front-end. \
+          sudo ufw allow http; \
+          sudo ufw allow https; \
+          sudo ufw --force enable; \
+          sudo ufw status; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: ufw installed and configured successfully.";
+          
+      # Stash:
+        # sudo ufw allow from your_ip_address
+        # sudo ufw allow 8000:9000/tcp 
+          # To Allow Specific Port Range
+        # sudo ufw delete allow 8000
+          # To Delete a Rule
+        # sudo ufw disable
+          # To Disable ufw
+        # Debug:
+          # sudo sudo ufw status numbered
+          # sudo systemctl restart nginx
+        # Moved to DB workflow:
+          # phpMyAdmin
+          # sudo ufw allow 8080; \
+          # sudo ufw allow 8443; \
+      # TODO: evaluate moving the ports configuration to their respective services.
+          
+      - name: Fail2Ban - Install (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          sudo apt install fail2ban -y; \
+          # Fail2Ban - Create a copy of the default jail configuration. \
+          # The main configuration file for Fail2Ban is /etc/fail2ban/jail.conf. \
+          # However, it is recommended to create a local configuration file to override the default settings. \
+          sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local; \
+          # Fail2Ban - restart. \
+          sudo service fail2ban restart; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Fail2ban installed and configured successfully.";
+          
+        # TODO: https://chat.openai.com/c/a784a597-eacf-4dac-932f-0e71ad6d0db5
+        # TODO: test vulnerability.
+        # sudo nano /etc/fail2ban/jail.local # debug
+        # Fail2Ban - configure
+          # bantime: Duration in seconds an IP will be banned (default is 10 minutes).
+            # bantime  = 10m
+          # findtime: The time window during which repeated login attempts are monitored (default is 10 minutes).
+            # findtime  = 10m
+          # maxretry: The number of failed login attempts before an IP is banned.
+            # maxretry = 5
+          # The [sshd] section enables Fail2Ban for the SSH service.
+          # Logs: /var/log/fail2ban.log
+          # Check banned IPs: sudo fail2ban-client status
+          # Check banned IPs (SSH): sudo fail2ban-client status sshd
+          # Unban IP: sudo fail2ban-client set sshd unbanip xxx.xxx.xxx.xxx
+        # sudo sed -i "s/bantime  = 10m/bantime  = 60m/" /etc/fail2ban/jail.local
+        # sudo sed -i "s/findtime  = 10m/findtime  = 60m/" /etc/fail2ban/jail.local
+        # sudo sed -i "s/maxretry  = 5/maxretry  = 10/" /etc/fail2ban/jail.local
+        # sudo sed -i "s/#mode   = normal/mode   = aggressive/" /etc/fail2ban/jail.local
+          # normal (default), ddos, extra or aggressive (combines all).
+        # sudo sed -i '/#mode   = normal/a\
+        # enabled = true\
+        # mode   = aggressive' /etc/fail2ban/jail.local
+        # TODO: Jail, filters
+          # Jail Configuration: Although copying the configuration file is good, you might want to customize the jail.local file according to your needs. The default configuration might not fit your specific server requirements. Consider reviewing and adjusting the settings in jail.local to better align with your security needs.
+          # Configure Fail2Ban Filters: 
+          # Besides setting up the jails, you might want to customize the filters for Fail2Ban. The filters determine what patterns to look for in log files to detect potential attacks.
+        # Debug:
+          # Check if it's running: 
+              # sudo systemctl status fail2ban
+              # sudo service fail2ban status
+              # sudo fail2ban-client status
+
+      # Reverse proxy (Nginx).
+      - name: Nginx - Install (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Nginx - Install. \
+          sudo apt install nginx -y; \
+          # Update basic configuration. \
+          # Allow larger server names. \
+          sudo sed -i "s/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 128;/" /etc/nginx/nginx.conf; \
+          # Install the Certbot Nginx plugin. \
+          sudo apt install python3-certbot-nginx -y; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Nginx and dependencies installed successfully.";
+          
+      # TODO: move this line to the nginx configuration step: sudo rm /etc/nginx/sites-enabled/default; 
+      
+      - name: Let's encrypt - Install and Configure (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Install Lets encrypt. \
+          sudo apt install certbot -y; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Let's encrypt installed successfully.";
+
+      #   # Debug.
+      #   # Check nginx website configuration file: sudo nano /etc/nginx/sites-available/your_domain
+      #   # sudo nginx -t
+      #   # sudo service nginx restart
+      #   # tail -f /var/log/nginx/access.log
+      #   # tail -f /var/log/nginx/error.log
+  
+# front-end - check if ip frontend and backend are the same before installing common dependencies.

@@ -1,0 +1,258 @@
+name: SyncSystem - Multiplatform - Docker Pipeline v1.0.0 For Node (Back-end) - Image Build and Container Deploy
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  backend-node-build-deploy-container:
+    runs-on: ubuntu-latest
+    
+    env:
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: 'ss-storage'
+      CONFIG_SERVER_DIRECTORY_BUILD_FILES: 'ss-build-files-backend-node'
+      # TODO: maybe change back to ss-build-files and create subdirectories for each service.
+      CONFIG_DOCKER_IMAGE_BACKEND_TAG: '0.9.0-${{ github.sha }}'
+
+      # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
+      # Replace this comment with the copied output from the manage environment variables/secrets node script.
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Docker Buildx - Set up
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Docker Hub - Log in
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.REPO_DOCKER_USER }}
+          password: ${{ env.REPO_DOCKER_PASSWORD }}
+          # TODO: replace keys with secrets.
+          
+      # TODO: move the let's encrypt and nginx configuration here.
+      - name: Let's encrypt - Obtain Certificates (back-end)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Obtain SSL certificates. \
+          sudo certbot certonly --non-interactive --nginx -d ${{ env.CONFIG_SERVER_BACKEND_DOMAIN }} \
+          --agree-tos --email ${{ env.CONFIG_DEVOPS_EMAIL_NOTIFICATIONS }} \
+          --cert-name ${{ env.CONFIG_SERVER_BACKEND_DOMAIN }} \
+          --rsa-key-size 4096 \
+          --manual-public-ip-logging-ok \
+          --renew-by-default \
+          --no-eff-email \
+          --expand; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Let's encrypt installed and configured successfully.";
+        # TODO: check if there's a certificate issued for the domain, before requesting another one.
+        # Action: make sure cloud server security has inbound for HTTPS enabled.
+        # Note: Google Chrome may delay on displaying the certificate. Use anonymous window or Firefox.
+        # Note: For a fresh new IP configured for the host server, it may take one or two hours for the change to propagate to certbot's servers and the certbot to work, so if the GitHub workflow fails, try again after a few minutes.
+          # Trouble shoot: if the IP hasn't been fully propagated yet, you may see a message similar to the following in the GitHub workflow console:
+            # Hint: The Certificate Authority failed to verify the temporary nginx configuration changes made by Certbot. Ensure the listed domains point to this nginx server and that it is accessible from the internet.
+          # TODO: evaluate creating a loop to check if the domain pings with the correct IP before proceeding with the certbot command. 
+          # Debug: check the domain propagation through this online tool: https://dnschecker.org/#A/dockerpipelinev1nodev1devbeaws.syncsystem.com.br
+        # Debug: Verify the certificate: sudo ls /etc/letsencrypt/live/your_domain.com
+          # Should find the the directory with the certificate files.
+        # sudo certbot certonly --nginx -d your_domain.com
+          # Enter email address (used for urgent renewal and security notices): email@domain.com.br
+          # Please read the Terms of Service at https://letsencrypt.org/documents/LE-SA-v1.3-September-21-2022.pdf. You must agree in order to register with the ACME server. Do you agree? Y
+          # Would you be willing, once your first certificate is successfully issued, to share your email address with the Electronic Frontier Foundation, a founding partner of the Let's Encrypt project and the non-profit organization that develops Certbot? We'd like to send you email about our work encrypting the web, EFF news, campaigns, and ways to support digital freedom. N
+        # sudo certbot certonly --non-interactive --nginx -d dockerpipelinev1nodev1devbeaws.syncsystem.com.br --agree-tos --email contato@sistemadinamico.com.br
+        # sudo certbot certonly --non-interactive --nginx -d $APP_URL_BACKEND --agree-tos --email $CONFIG_DEVOPS_EMAIL_NOTIFICATIONS
+          # TODO: test configurations
+        # TODO: evaluate putting the function into a step.
+            # ref: https://chat.openai.com/c/6fce1d8c-3735-475a-90cc-a2b202127599
+        # DOMAIN_FORMATTED=$(echo ${{ env.CONFIG_SYSTEM_URL }} | sed -e 's|^[^/]*//||' -e 's|^www.||');
+        # echo "DOMAIN_FORMATTED: $DOMAIN_FORMATTED";
+        # --webroot-path /var/www/html/your_domain.com \
+        # --config-dir /etc/letsencrypt/your_domain.com \
+        # --work-dir /var/lib/letsencrypt/your_domain.com \
+        # --server https://acme-v02.api.letsencrypt.org/directory \
+        # --manual-public-ip-logging-ok \ # Use this flag if you're running certbot on a machine that doesn't have a public IP address. \ # Seems to be deprecated.
+        # Troubleshoot:
+          # If fails, take away all comments from the command and run it in the terminal.
+          
+      - name: Nginx - Configuration (back-end)
+        shell: bash
+        run: |
+          DOMAIN_FORMATTED=$(echo ${{ env.CONFIG_SYSTEM_URL }} | sed -e 's|^[^/]*//||' -e 's|^www.||');
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          echo "
+          # Back-end Node
+          server {
+              listen 80;
+              server_name ${{ env.CONFIG_SERVER_BACKEND_DOMAIN }};
+              return 301 https://\$host\$request_uri;
+          }
+          
+          # SSL / HTTPS
+          server {
+              listen 443 ssl;
+              server_name ${{ env.CONFIG_SERVER_BACKEND_DOMAIN }};
+              
+              ssl_certificate /etc/letsencrypt/live/${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}/fullchain.pem;
+              ssl_certificate_key /etc/letsencrypt/live/${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}/privkey.pem;
+
+              location / {
+                  proxy_pass http://localhost:${{ env.CONFIG_SYSTEM_PORT }};
+                  proxy_http_version 1.1;
+                  proxy_set_header Upgrade \$http_upgrade;
+                  proxy_set_header Connection 'upgrade';
+                  proxy_set_header Host \$host;
+                  proxy_cache_bypass \$http_upgrade;
+                  proxy_set_header X-Forwarded-Proto \$scheme;
+              }
+          }
+          " | sudo tee /etc/nginx/sites-available/${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}; \
+          # Enable the Nginx configuration. \
+          sudo ln -s /etc/nginx/sites-available/${{ env.CONFIG_SERVER_BACKEND_DOMAIN }} /etc/nginx/sites-enabled/; \
+          # Test the Nginx configuration. \
+          sudo nginx -t; \
+          # Nginx - delete default. \
+          sudo rm /etc/nginx/sites-enabled/default; \
+          # Restart Nginx. \
+          sudo service nginx restart; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Nginx reverse proxy (back-end) configured successfully.";
+        
+        # TODO: put the phpmyadmin behind https, maybe in a subdomain. Didn't manage to make it work in another ssl port.
+        # PHP MyAdmin
+        # server {
+        #     listen 8080;
+        #     # server_name phpmyadmin.${{ env.CONFIG_SERVER_BACKEND_DOMAIN }};
+        #     server_name ${{ env.CONFIG_SERVER_BACKEND_DOMAIN }};
+        #     return 301 https://\$host\$request_uri;
+        # }
+        
+        # # phpMyAdmin
+        # server {
+        #   listen 8443 ssl;
+        #   server_name dockerpipelinev1nodev1devbeaws.syncsystem.com.br;
+      
+        #   ssl_certificate /etc/letsencrypt/live/dockerpipelinev1nodev1devbeaws.syncsystem.com.br/fullchain.pem;
+        #   ssl_certificate_key /etc/letsencrypt/live/dockerpipelinev1nodev1devbeaws.syncsystem.com.br/privkey.pem;
+      
+        #   ssl_session_cache shared:SSL:1m;
+        #   ssl_session_timeout 10m;
+        #   # ssl_ciphers HIGH:!aNULL:!MD5;
+        #   ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256';
+        #   ssl_prefer_server_ciphers on;
+      
+        #   location / {
+        #       proxy_pass http://localhost:8080;
+        #       proxy_http_version 1.1;
+        #       proxy_set_header Upgrade \$http_upgrade;
+        #       proxy_set_header Connection 'upgrade';
+        #       proxy_set_header Host \$host;
+        #       proxy_set_header X-Real-IP \$remote_addr;
+        #       proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        #       proxy_set_header X-Forwarded-Proto \$scheme;
+        #   }
+        # }
+          
+
+        # Debug.
+          # Check nginx website configuration file: sudo nano /etc/nginx/sites-available/your_domain
+          # sudo nginx -t
+          # sudo service nginx restart
+          # tail -f /var/log/nginx/access.log
+          # tail -f /var/log/nginx/error.log
+          
+      - name: Docker - Image Build (back-end)
+        shell: bash
+        run: |
+          # Copy dockerfile to the root directory for better usage.
+          cp ./devops/backend-node/ubuntu-container-build.dockerfile .;
+          cp ./devops/backend-node/.dockerignore .;
+          # CONFIG_DOCKER_IMAGE_BACKEND_TAG=0.9.0-${{ github.sha }}
+          # TODO: get the version from GitHub release.
+          docker build --no-cache . -t ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }} -f ubuntu-container-build.dockerfile \
+          --build-arg CONFIG_SYSTEM_PORT=${{ env.CONFIG_SYSTEM_PORT }} \
+          ;
+          docker push ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }};
+          # Tag the same image as latest.
+          docker tag ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }} ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1:latest;
+          docker push ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1:latest;
+
+        # docker build ./devops/backend-node/ -t ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }} -f ./devops/backend-node/ubuntu-container-build.dockerfile;
+        # TODO: update the build to work without needing to copy to root.
+        # stash:
+          # docker build --no-cache . -t ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }} -f ubuntu-container-build.dockerfile;
+          # docker push ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }};
+          # # Tag the same image as latest.
+          # docker tag ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }} ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:latest;
+          # docker push ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:latest;
+          
+      - name: Host Server - Create Directories (back-end)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Create directories for the build files and volume mount. \
+          sudo mkdir -p ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/backend-node-app/app_files_public; \
+          # Condition default user (AWS / GCP / AZURE / Etc) to devops platform env variable. \
+          # Set permissions. \
+          sudo chown -R ubuntu ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/backend-node-app/app_files_public; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories created successfully!";
+        
+      # TODO: replace app_files_volume with env variables.
+          
+      - name: Host Server - Send Build Files (back-end)
+        shell: bash
+        run: |
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/backend-node/ubuntu-container-deploy.yml ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES }}/ubuntu-container-deploy.yml;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker-compose file sent successfully!";
+      
+      - name: Host Server - Deploy Container (back-end)
+        shell: bash
+        run: |
+          # CONFIG_DOCKER_IMAGE_BACKEND_TAG=0.9.0-${{ github.sha }};
+          # TODO: set as github .env (or in the env: directive) so it can be used in the tag instead of latest.
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          docker login -u ${{ env.REPO_DOCKER_USER }} -p ${{ env.REPO_DOCKER_PASSWORD }}; \
+          docker pull ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}; \
+          # Replace this comment with the copied output from the manage environment variables/secrets node script. \
+          CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE="${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}" \
+          CONFIG_SERVER_DIRECTORY_BUILD_FILES="${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES }}" \
+          CONFIG_DOCKER_IMAGE_BACKEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}" \
+          docker-compose -f ~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES }}/ubuntu-container-deploy.yml up -d --force-recreate; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker container deployed successfully!";
+          
+        # Update the env variables below from the environment-variables-secrets-manage application output. \
+        # docker pull ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:$CONFIG_DOCKER_IMAGE_BACKEND_TAG; \
+        # CONFIG_DOCKER_IMAGE_BACKEND_TAG="latest" docker-compose -f ubuntu-container-deploy.yml up -d; \
+        # CONFIG_DOCKER_IMAGE_BACKEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}" \
+        
+        # TODO: review the node file that overrides/hardcode the .env alues.
+        # TODO: evaluate changing the output to env. instead of secrets.
+        
+        # Stash:
+          # CONFIG_SERVER_PUBLIC_KEY="${{ env.CONFIG_SERVER_PUBLIC_KEY }}" \
+          # docker pull ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-node-v1-dev:${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}; \
+        
+      # TODO: stop other containers and remove the old image.
+            

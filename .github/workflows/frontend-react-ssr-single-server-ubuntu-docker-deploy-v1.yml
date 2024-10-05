@@ -1,0 +1,260 @@
+name: SyncSystem - Multiplatform - Docker Pipeline v1.0.0 For React SSR (Front-end) - Image Build and Container Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  frontend-react-build-deploy-container:
+    runs-on: ubuntu-latest
+
+    env:
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: 'ss-storage'
+      CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND: 'ss-build-files-frontend-react-ssr'
+      # TODO: maybe change back to ss-build-files and create subdirectories for each service.
+      CONFIG_DOCKER_IMAGE_FRONTEND_TAG: '0.9.0-${{ github.sha }}'
+
+      # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
+      # Replace this comment with the copied output from the manage environment variables/secrets node script.
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Docker Buildx - Set up
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Docker Hub - Log in
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.REPO_DOCKER_USER }}
+          password: ${{ secrets.REPO_DOCKER_PASSWORD }}
+
+      # TODO: reanable after validation.
+      - name: Let's encrypt - Obtain Certificates (Front-end)
+        shell: bash
+        run: |
+          FRONTEND_HOST_SERVER_SH_SCRIPT=' \
+          # Obtain SSL certificates. \
+          sudo certbot certonly --non-interactive --nginx -d ${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }} \
+          --agree-tos --email ${{ env.CONFIG_DEVOPS_EMAIL_NOTIFICATIONS }} \
+          --cert-name ${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }} \
+          --rsa-key-size 4096 \
+          --manual-public-ip-logging-ok \
+          --renew-by-default \
+          --no-eff-email \
+          --expand; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_FRONTEND_IP }} "$FRONTEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Let's encrypt installed and configured successfully.";
+          
+      # TODO: reanable after validation.
+      - name: Nginx - Configuration (Front-end)
+        shell: bash
+        run: |
+          DOMAIN_FORMATTED=$(echo ${{ env.CONFIG_SYSTEM_URL }} | sed -e 's|^[^/]*//||' -e 's|^www.||');
+          FRONTEND_HOST_SERVER_SH_SCRIPT=' \
+          echo "
+          # Front-end React SSR
+          server {
+              listen 80;
+              server_name ${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }};
+              return 301 https://\$host\$request_uri;
+          }
+          
+          # SSL / HTTPS
+          server {
+              listen 443 ssl;
+              server_name ${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }};
+              
+              ssl_certificate /etc/letsencrypt/live/${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }}/fullchain.pem;
+              ssl_certificate_key /etc/letsencrypt/live/${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }}/privkey.pem;
+
+              location / {
+                  proxy_pass http://localhost:${{ env.CONFIG_SYSTEM_REACT_PORT }};
+                  proxy_http_version 1.1;
+                  proxy_set_header Upgrade \$http_upgrade;
+                  proxy_set_header Connection 'upgrade';
+                  proxy_set_header Host \$host;
+                  proxy_cache_bypass \$http_upgrade;
+                  proxy_set_header X-Forwarded-Proto \$scheme;
+              }
+          }
+          " | sudo tee /etc/nginx/sites-available/${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }}; \
+          # Enable the Nginx configuration. \
+          sudo ln -s /etc/nginx/sites-available/${{ env.CONFIG_SERVER_FRONTEND_DOMAIN }} /etc/nginx/sites-enabled/; \
+          # Test the Nginx configuration. \
+          sudo nginx -t; \
+          # Nginx - delete default. \
+          # sudo rm /etc/nginx/sites-enabled/default; \
+          # Restart Nginx. \
+          sudo service nginx restart; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_FRONTEND_IP }} "$FRONTEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Nginx reverse proxy (front-end) configured successfully.";
+          
+        # TODO: healthcheck with sudo nginx -t;
+        
+      - name: Host Server - Create Directories (Front-end - React SSR)
+        shell: bash
+        run: |
+          FRONTEND_HOST_SERVER_SH_SCRIPT=' \
+          # Create directories for the build files and volume mount. \
+          sudo mkdir -p ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/frontend-react-ssr-app/app_files_public; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$FRONTEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories created successfully!";
+          
+      - name: Host Server - Set Directories Permissions - Pre-Container Build (Front-end - React SSR)
+        shell: bash
+        run: |
+          FRONTEND_HOST_SERVER_SH_SCRIPT=' \
+          # Condition default user (AWS / GCP / AZURE / Etc) to devops platform env variable. \
+          # Set permissions. \
+          sudo chown -R ubuntu:docker ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/frontend-react-ssr-app/app_files_public; \
+          sudo chmod -R 775 ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/frontend-react-ssr-app/app_files_public; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$FRONTEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories permissions updated successfully!";
+        
+      # TODO: clean up the build files after the container is deployed.
+          
+      # Build in runner approach.
+      - name: Docker - Image Build (front-end)
+        shell: bash
+        run: |
+          # Copy dockerfile to the root directory for better usage.
+          cp ./devops/frontend-react-ssr/ubuntu-container-build.dockerfile .;
+          cp ./devops/frontend-react-ssr/.dockerignore .;
+          # CONFIG_DOCKER_IMAGE_FRONTEND_TAG=0.9.0-${{ github.sha }}
+          # TODO: get the version from GitHub release.
+          docker build --no-cache . -t ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-react-ssr-v1:${{ env.CONFIG_DOCKER_IMAGE_FRONTEND_TAG }} -f ubuntu-container-build.dockerfile \
+          --build-arg REPO_TOKEN="${{ secrets.REPO_TOKEN }}" \
+          --build-arg CONFIG_SYSTEM_REACT_PORT="${{ env.CONFIG_SYSTEM_REACT_PORT }}" \
+          ;
+          docker push ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-react-ssr-v1:${{ env.CONFIG_DOCKER_IMAGE_FRONTEND_TAG }};
+          # Tag the same image as latest.
+          docker tag ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-react-ssr-v1:${{ env.CONFIG_DOCKER_IMAGE_FRONTEND_TAG }} ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-react-ssr-v1:latest;
+          docker push ${{ env.REPO_DOCKER_USER }}/syncsystem-docker-pipeline-v1-react-ssr-v1:latest;
+
+      - name: Host Server - Send Build Files
+        shell: bash
+        run: |
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          # Enable dockerfile send line for image built in the host server approach.
+          # scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/frontend-react-ssr/ubuntu-container-build.dockerfile ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}/ubuntu-container-build.dockerfile;
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/frontend-react-ssr/ubuntu-container-deploy.yml ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}/ubuntu-container-deploy.yml;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker-compose file sent successfully!";
+          
+      - name: Host Server - Deploy Container (Front-end React SSR)
+        shell: bash
+        run: |
+          FRONTEND_HOST_SERVER_SH_SCRIPT=' \
+          # Replace this comment with the copied output from the manage environment variables/secrets node script. \
+          CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE="${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}" \
+          CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND="${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}" \
+          CONFIG_DOCKER_IMAGE_FRONTEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_FRONTEND_TAG }}" \
+          docker-compose -f ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}/ubuntu-container-deploy.yml up -d --force-recreate;
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$FRONTEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Container built and deployed successfully!";
+        # TODO: keep in mind ${PWD} environment variable reference, if any problem accurs.
+          
+        # Stash:
+          # CONFIG_SERVER_PUBLIC_KEY="${{ env.CONFIG_SERVER_PUBLIC_KEY }}" \
+          # REPO_TOKEN="${{ env.REPO_TOKEN }}" \
+          
+      # Built in the host server approach - poc.
+      # - name: Host Server - Deploy Container (Front-end React SSR) - PoC (build container in host server)
+      #   shell: bash
+      #   run: |
+      #     FRONTEND_HOST_SERVER_SH_SCRIPT=' \
+      #     # sudo cp -r ss-build-files-db-mysql/* ~/; \
+      #     docker build --no-cache . -t syncsystem-docker-pipeline-v1-react-ssr-v1-dev -f ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}/ubuntu-container-build.dockerfile \
+      #     --build-arg REPO_TOKEN="${{ env.REPO_TOKEN }}" \
+      #     --build-arg CONFIG_SYSTEM_REACT_PORT="${{ env.CONFIG_SYSTEM_REACT_PORT }}" \
+      #     ; \
+      #     CONFIG_SYSTEM_PORT="${{ env.CONFIG_SYSTEM_PORT }}" \
+      #     CONFIG_SYSTEM_REACT_PORT="${{ env.CONFIG_SYSTEM_REACT_PORT }}" \
+      #     CONFIG_SYSTEM_URL="http://dockerpipelinev1nodev1devbeaws.syncsystem.com.br" \
+      #     CONFIG_API_URL="http://dockerpipelinev1nodev1devbeaws.syncsystem.com.br" \
+      #     CONFIG_URL_FRONTEND_REACT="dockerpipelinev1reactssrv1devaws.syncsystem.com.br" \
+      #     DB_SYSTEM_HOST="${{ env.DB_SYSTEM_HOST }}" \
+      #     DB_SYSTEM_DATABASE="${{ env.DB_SYSTEM_DATABASE }}" \
+      #     DB_SYSTEM_PORT="${{ env.DB_SYSTEM_PORT }}" \
+      #     DB_SYSTEM_USER="${{ env.DB_SYSTEM_USER }}" \
+      #     DB_SYSTEM_PASSWORD="${{ env.DB_SYSTEM_PASSWORD }}" \
+      #     CONFIG_SYSTEM_DB_TABLE_PREFIX="${{ env.CONFIG_SYSTEM_DB_TABLE_PREFIX }}" \
+      #     CONFIG_SYSTEM_DB_TYPE="${{ env.CONFIG_SYSTEM_DB_TYPE }}" \
+      #     ENABLE_SYSTEM_DB_SIZE_OTIMIZE="${{ env.ENABLE_SYSTEM_DB_SIZE_OTIMIZE }}" \
+      #     CONFIG_API_KEY_SYSTEM="${{ env.CONFIG_API_KEY_SYSTEM }}" \
+      #     CONFIG_API_GOOGLE_KEY="${{ env.CONFIG_API_GOOGLE_KEY }}" \
+      #     CONFIG_API_AWS_S3_ID="${{ env.CONFIG_API_AWS_S3_ID }}" \
+      #     CONFIG_API_AWS_S3_KEY="${{ env.CONFIG_API_AWS_S3_KEY }}" \
+      #     CONFIG_API_AWS_S3_BUCKET="${{ env.CONFIG_API_AWS_S3_BUCKET }}" \
+      #     CONFIG_EMAIL_DEFAULT_HOST="${{ env.CONFIG_EMAIL_DEFAULT_HOST }}" \
+      #     CONFIG_EMAIL_DEFAULT_PORT="${{ env.CONFIG_EMAIL_DEFAULT_PORT }}" \
+      #     CONFIG_EMAIL_DEFAULT_USERNAME="${{ env.CONFIG_EMAIL_DEFAULT_USERNAME }}" \
+      #     CONFIG_EMAIL_DEFAULT_PASSWORD="${{ env.CONFIG_EMAIL_DEFAULT_PASSWORD }}" \
+      #     CONFIG_DEVOPS_EMAIL_NOTIFICATIONS="${{ env.CONFIG_DEVOPS_EMAIL_NOTIFICATIONS }}" \
+      #     CONFIG_SERVER_BACKEND_IP="${{ env.CONFIG_SERVER_BACKEND_IP }}" \
+      #     CONFIG_SERVER_BACKEND_DOMAIN="${{ env.CONFIG_SERVER_BACKEND_DOMAIN }}" \
+      #     CONFIG_SERVER_BACKEND_USER="${{ env.CONFIG_SERVER_BACKEND_USER }}" \
+      #     REPO_USER="${{ env.REPO_USER }}" \
+      #     REPO_NAME="${{ env.REPO_NAME }}" \
+      #     REPO_TOKEN="${{ env.REPO_TOKEN }}" \
+      #     CONFIG_DOCKER_IMAGE_BACKEND="${{ env.CONFIG_DOCKER_IMAGE_BACKEND }}" \
+      #     REPO_DOCKER_USER="${{ env.REPO_DOCKER_USER }}" \
+      #     REPO_DOCKER_PASSWORD="${{ env.REPO_DOCKER_PASSWORD }}" \
+      #     CONFIG_SERVER_PUBLIC_KEY="${{ env.CONFIG_SERVER_PUBLIC_KEY }}" \
+      #     CONFIG_DOCKER_IMAGE_FRONTEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_FRONTEND_TAG }}" docker-compose -f ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}/ubuntu-container-deploy.yml up -d --force-recreate;
+      #     ';
+      #     echo "${{ env.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+      #     chmod 600 id_rsa_server_private_key_temp.pem;
+      #     ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ env.CONFIG_SERVER_BACKEND_IP }} "$FRONTEND_HOST_SERVER_SH_SCRIPT";
+      #     rm id_rsa_server_private_key_temp.pem;
+      #     echo "Status check: Container built and deployed successfully!";
+      # Validation: worked.
+      
+      - name: Host Server - Set Directories Permissions - Post-Container Build (Front-end - React SSR)
+        shell: bash
+        run: |
+          FRONTEND_HOST_SERVER_SH_SCRIPT=' \
+          # Condition default user (AWS / GCP / AZURE / Etc) to devops platform env variable. \
+          # Set permissions. \
+          sudo chown -R ubuntu:docker ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/frontend-react-ssr-app/app_files_public; \
+          sudo chmod -R 775 ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_FRONTEND }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/frontend-react-ssr-app/app_files_public; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$FRONTEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories permissions updated successfully!";
+            
+        # TODO: add root refeence to paths (~/${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }})
+        
+        # TODO: inform the backend and frontend domains in the summary of the process.
+          # research
+        
+        

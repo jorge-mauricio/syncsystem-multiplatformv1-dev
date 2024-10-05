@@ -1,0 +1,412 @@
+# Note: db workflow should run before SyncSystem - Multiplatform - Docker Pipeline For Node - Image Build and Container Deploy V1.0.0
+name: SyncSystem - Multiplatform - Docker Pipeline v1.0.0 For Node - DB MySQL Containers Build
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  db-mysql-containers-build:
+    runs-on: ubuntu-latest
+    
+    env:
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: 'ss-storage'
+      CONFIG_SERVER_DIRECTORY_BUILD_FILES: 'ss-build-files-backend-node'
+      CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB: 'ss-build-files-db-mysql'
+      # TODO: maybe change back to ss-build-files and create subdirectories for each service.
+      
+      CONFIG_DOCKER_IMAGE_BACKEND_TAG: '0.9.0-${{ github.sha }}'
+
+      # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
+      # Replace this comment with the copied output from the manage environment variables/secrets node script.
+        
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Setup PHP (for tables build)
+        uses: shivammathur/setup-php@v2
+        with:
+          # php-version: ${{ matrix.php-version }}
+          php-version: 8.1
+          extensions: pdo, pdo_mysql
+          ini-values: |
+            memory_limit=512M
+          coverage: none
+          
+      - name: Get PWD (host server)
+        shell: bash
+        id: fetch_pwd
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT='pwd'
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          PWD_HOST_SERVER=$(ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT")
+          echo "PWD_HOST_SERVER=$PWD_HOST_SERVER" >> $GITHUB_ENV;
+          echo 'PWD_HOST_SERVER='$PWD_HOST_SERVER;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Retrieved PWD from host server successfully.";
+          
+      - name: ufw - Configuration (host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # phpMyAdmin
+          sudo ufw allow 8080; \
+          sudo ufw allow 8443; \
+          sudo ufw --force enable; \
+          sudo ufw status; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -v -t -t -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT"
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: ufw for DB MySQL configured successfully.";          
+      
+      - name: Host Server - Create Directories (DB - MySQL / phpMyAdmin)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Create directories for the build files and volume mount for DB MySQL and phpMyAdmin. \
+          sudo mkdir -p ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories created successfully!";
+        # Debug: 
+          # directory permissions: ls -ld ss-storage/db-mysql ss-storage/db-mysql-phpmyadmin
+      
+        # stash:
+        # sudo chown -R ubuntu:ubuntu ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+        # ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+        # sudo chown -R 755 ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+        # ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+        # sudo chown -R mysql:mysql ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+        # ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+      
+    
+      - name: Host Server - Set Directories Permissions - Pre-Container Build (DB - MySQL / phpMyAdmin) 
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Condition default user (AWS / GCP / AZURE / Etc) to devops platform env variable. \
+          # Set permissions. \
+          sudo chown -R ubuntu:docker ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+          sudo chmod -R 775 ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories permissions updated successfully!";
+      # Debug:
+          # Check permissions: ls -ld ss-storage/db-mysql ss-storage/db-mysql-phpmyadmin
+          
+      - name: Host Server - Send Build Files
+        shell: bash
+        run: |
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/db-mysql/ubuntu-container-build.dockerfile ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-build.dockerfile;
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/db-mysql/ubuntu-container-phpmyadmin.dockerfile ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-phpmyadmin.dockerfile;
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/db-mysql/ubuntu-container-deploy.yml ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-deploy.yml;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker-compose file sent successfully!";
+          
+      # Test / debug.
+      # - name: Host Server - Set Permissions in Directories (DB - MySQL / phpMyAdmin)
+      #   shell: bash
+      #   run: |
+      #     BACKEND_HOST_SERVER_SH_SCRIPT=' \
+      #     # Set permissions. \
+      #     sudo chown -R 755 ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+      #     ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+      #     ';
+      #     echo "${{ env.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+      #     chmod 600 id_rsa_server_private_key_temp.pem;
+      #     ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+      #     rm id_rsa_server_private_key_temp.pem;
+      #     echo "Status check: Permissions updated successfully!";
+      # Attempt to fix the container spin issue.
+      
+      # - name: Host Server - Deploy Container (DB - MySQL) - PoC
+      #   shell: bash
+      #   run: |
+      #     BACKEND_HOST_SERVER_SH_SCRIPT=' \
+      #     sudo cp -r ss-build-files-db-mysql/* ~/; \
+      #     docker build --no-cache . -t syncsystem-docker-pipeline-v1-db-mysql-v1-dev -f ubuntu-container-build.dockerfile; \
+      #     docker-compose -f ~/ubuntu-container-deploy.yml up -d --force-recreate;
+      #     ';
+      #     echo "${{ env.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+      #     chmod 600 id_rsa_server_private_key_temp.pem;
+      #     ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+      #     rm id_rsa_server_private_key_temp.pem;
+      #     echo "Status check: Container built and deployed successfully!";
+      # Workging.
+          
+      # Problem solved for phpmyadmin not logging in: was the mysql server version in dockerfile.
+      # Next steps:
+        # docker compose - refactor with env variables
+        # workflow file - enable step with variables
+        # go back to poc for building the tables
+        
+      # Next steps:
+        # variables in docker compose still not working
+        # test the container build/spin inside the container (with variables)
+        # test the build / docker hub arquitecture
+          
+      # Debugging
+      # - name: Host Server - Deploy Container (DB - MySQL) - PoC
+      #   shell: bash
+      #   run: |
+      #     BACKEND_HOST_SERVER_SH_SCRIPT=' \
+      #     sudo cp -r ss-build-files-db-mysql/* ~/; \
+      #     docker build --no-cache . -t syncsystem-docker-pipeline-v1-db-mysql-v1-dev -f ubuntu-container-build.dockerfile; \
+      #     DB_SYSTEM_HOST="${{ env.DB_SYSTEM_HOST }}" \
+      #     DB_SYSTEM_DATABASE="${{ env.DB_SYSTEM_DATABASE }}" \
+      #     DB_SYSTEM_USER="${{ env.DB_SYSTEM_USER }}" \
+      #     DB_SYSTEM_PASSWORD="${{ env.DB_SYSTEM_PASSWORD }}" \
+      #     CONFIG_DOCKER_IMAGE_BACKEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}" docker-compose -f ~/ubuntu-container-deploy.yml up -d --force-recreate;
+      #     ';
+      #     echo "${{ env.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+      #     chmod 600 id_rsa_server_private_key_temp.pem;
+      #     ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+      #     rm id_rsa_server_private_key_temp.pem;
+      #     echo "Status check: Container built and deployed successfully!";
+        
+        
+      # Debugging
+      # - name: Host Server - Deploy Container (DB - MySQL) - PoC
+      #   shell: bash
+      #   run: |
+      #     BACKEND_HOST_SERVER_SH_SCRIPT=' \
+      #     sudo cp -r ss-build-files-db-mysql/* ~/; \
+      #     docker build --no-cache . -t syncsystem-docker-pipeline-v1-db-mysql-v1-dev -f ubuntu-container-build.dockerfile; \
+      #     export DB_SYSTEM_HOST="${{ env.DB_SYSTEM_HOST }}"; \
+      #     export DB_SYSTEM_DATABASE="${{ env.DB_SYSTEM_DATABASE }}"; \
+      #     export DB_SYSTEM_USER="${{ env.DB_SYSTEM_USER }}"; \
+      #     export DB_SYSTEM_PASSWORD="${{ env.DB_SYSTEM_PASSWORD }}"; \
+      #     export CONFIG_DOCKER_IMAGE_BACKEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}"; \ 
+      #     docker-compose -f ~/ubuntu-container-deploy.yml up -d --force-recreate;
+      #     ';
+      #     echo "${{ env.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+      #     chmod 600 id_rsa_server_private_key_temp.pem;
+      #     ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+      #     rm id_rsa_server_private_key_temp.pem;
+      #     echo "Status check: Container built and deployed successfully!";
+
+      # Note: there's a possiblity that in the step that creates the directory, some hidden files are being created.
+      # - name: Host Server - Clear DB data storage directory (avoid container spin issue)
+      #   shell: bash
+      #   run: |
+      #     BACKEND_HOST_SERVER_SH_SCRIPT='
+      #     sudo rm -rf \
+      #     ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql/* ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin/*; \
+      #     ';
+      #     echo "${{ env.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+      #     chmod 600 id_rsa_server_private_key_temp.pem;
+      #     ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+      #     rm id_rsa_server_private_key_temp.pem;
+      #     echo "Status check: Directories cleared successfully!";
+      # TODO: investigate why the data directory has files if there wasn't any files sent to it.
+        
+      - name: Host Server - Build Images (DB - MySQL) - PoC (build images in host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          docker build --no-cache . -t syncsystem-docker-pipeline-v1-db-mysql-v1 -f ~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-build.dockerfile; \
+          docker build --no-cache . -t syncsystem-docker-pipeline-v1-phpmyadmin-v1 -f ~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-phpmyadmin.dockerfile; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Container built and deployed successfully!";
+      
+      # Built in the host server approach - poc.
+      - name: Host Server - Deploy Container (DB - MySQL) - PoC (build container in host server)
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Replace this comment with the copied output from the manage environment variables/secrets node script. \
+          PWD=$PWD_HOST_SERVER \
+          CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE="${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}" \
+          CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB="${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}" \
+          CONFIG_DOCKER_IMAGE_BACKEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}" \
+          docker-compose -f ~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-deploy.yml up -d --force-recreate;
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Container built and deployed successfully!";
+          
+      # Debug:
+          # Check logs for the container: docker logs syncsystem-multiplatform-db-mysql
+          # Check logs for docker compose: docker-compose logs db-mysql-system
+      # TODO: Monitor to check if docker will need to be restarted.
+        # sudo systemctl restart docker
+      # TODO: verify this line update change:
+        # sudo cp -r ss-build-files-db-mysql/* ~/; \
+      # TODO: investigate / debug issue with the directory owner after this step:
+          # terminal: ls -ld ss-storage/db-mysql
+          # output: drwxrwxrwt 6 lxd docker 4096 Jul 28 13:23 ss-storage/db-mysql
+      # TODO: move the build/spin command to inside the directory.
+      # TODO: investigate why the PWD is not being passed in the docker-compose file.
+      # stash:
+        # CONFIG_SERVER_PUBLIC_KEY="${{ env.CONFIG_SERVER_PUBLIC_KEY }}" \
+        
+        # sudo cp -r ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/* ~/; \
+        # docker build --no-cache . -t syncsystem-docker-pipeline-v1-db-mysql-v1 -f ubuntu-container-build.dockerfile; \
+        # docker build --no-cache . -t syncsystem-docker-pipeline-v1-phpmyadmin-v1 -f ubuntu-container-phpmyadmin.dockerfile; \
+        # CONFIG_DOCKER_IMAGE_BACKEND_TAG="${{ env.CONFIG_DOCKER_IMAGE_BACKEND_TAG }}" docker-compose -f ~/ubuntu-container-deploy.yml up -d --force-recreate;
+          # to spin the container from the root directory.
+          
+        # docker build --no-cache . -t syncsystem-docker-pipeline-v1-db-mysql-v1 -f ~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-build.dockerfile; \
+        # docker build --no-cache . -t syncsystem-docker-pipeline-v1-phpmyadmin-v1 -f ~/${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}/ubuntu-container-phpmyadmin.dockerfile; \
+          
+      # TODO: evaluate not setting env.CONFIG_SERVER_BACKEND_IP as env.
+        
+      - name: Host Server - Set Directories Permissions - Post-Container Build (DB - MySQL / phpMyAdmin) 
+        shell: bash
+        run: |
+          BACKEND_HOST_SERVER_SH_SCRIPT=' \
+          # Condition default user (AWS / GCP / AZURE / Etc) to devops platform env variable. \
+          # Set permissions. \
+          sudo chown -R ubuntu:docker ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+          sudo chmod -R 775 ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+          ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+          ';
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Directories permissions updated successfully!";
+      # Note: must set permissions again and come after docker up, as docker may change the owner of the directories to root (or something) and will block the step where the phpMyAdmin configuration files are sent.
+      # Debug:
+          # Check permissions: ls -ld ss-storage/db-mysql ss-storage/db-mysql-phpmyadmin
+      # stash:
+        # sudo chown -R ubuntu:ubuntu ${{ env.CONFIG_SERVER_DIRECTORY_BUILD_FILES_DB }}  \
+        # ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin; \
+  
+      - name: Host Server - Send phpMyAdmin Configuration Override File(s)
+        shell: bash
+        run: |
+          echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+          chmod 600 id_rsa_server_private_key_temp.pem;
+          scp -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ./devops/db-mysql/config-phpmyadmin/config.user.inc.php ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }}:~/${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql-phpmyadmin/config.user.inc.php;
+          rm id_rsa_server_private_key_temp.pem;
+          echo "Status check: Docker-compose file sent successfully!";
+          
+      # Debug:
+        # - Check directories permissions: ls -ld ss-storage/db-mysql-phpmyadmin
+          # Must be ubuntu
+          
+      # Debug.
+      # - name: Debug Environment Variables
+      #   shell: bash
+      #   run: |
+      #     echo "DB_SYSTEM_HOST=${{ env.DB_SYSTEM_HOST }}"
+      #     echo "DB_SYSTEM_PORT=${{ env.DB_SYSTEM_PORT }}"
+      #     echo "DB_SYSTEM_DATABASE=${{ env.DB_SYSTEM_DATABASE }}"
+      #     echo "DB_SYSTEM_USER=${{ env.DB_SYSTEM_USER }}"
+      #     echo "DB_SYSTEM_PASSWORD=${{ env.DB_SYSTEM_PASSWORD }}"
+      #     echo "CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE=${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}"
+          
+      - name: MySQL Connection - Wait Until Available
+        shell: bash
+        run: |
+          counter_retry=0
+          until echo exit | mysql -h"${{ env.DB_SYSTEM_HOST }}" -P"${{ env.DB_SYSTEM_PORT }}" -u"${{ env.DB_SYSTEM_USER }}" -p'${{ env.DB_SYSTEM_PASSWORD }}'; do
+            counter_retry=$((counter_retry+1))
+            
+            # Clean the directories and restart the mysql container, in case of a problem with permissions or directory not empty.
+            BACKEND_HOST_SERVER_SH_SCRIPT=' \
+            # Stop the mysql container.
+            docker stop syncsystem-multiplatform-db-mysql; \
+            # Delete the contents from the mysql mounted directory.
+            sudo rm -rf ${{ env.CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE }}/db-mysql/*; \
+            # Start the mysql container.
+            docker start syncsystem-multiplatform-db-mysql; \
+            ';
+            echo "${{ secrets.CONFIG_SERVER_PUBLIC_KEY }}" > id_rsa_server_private_key_temp.pem;
+            chmod 600 id_rsa_server_private_key_temp.pem;
+            ssh -i id_rsa_server_private_key_temp.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.CONFIG_SERVER_BACKEND_IP }} "$BACKEND_HOST_SERVER_SH_SCRIPT";
+            rm id_rsa_server_private_key_temp.pem;
+            echo "Status check: Directories cleaned successfully!";
+            
+            if [ $counter_retry -gt 10 ]; then
+              echo "Failed to connect to MySQL after 10 retries."
+              # Containers built with connection error. Clean up all containers and try again.
+              exit 1
+            fi
+            echo "Waiting for MySQL... Attempt: $counter_retry"
+            sleep 10
+          done
+          echo "MySQL connection established successfully and container stopped / started."
+      
+      # - name: MySQL Connection - Wait Until Available
+      #   shell: bash
+      #   run: |
+      #     counter_retry=0
+      #     until echo exit | mysql -h${{ env.DB_SYSTEM_HOST }} -P${{ env.DB_SYSTEM_PORT }} -u${{ env.DB_SYSTEM_USER }} -p${{ env.DB_SYSTEM_PASSWORD }}; do
+      #       counter_retry=$((counter_retry+1))
+      #       if [ $counter_retry -gt 10 ]; then
+      #         echo "Failed to connect to MySQL after 10 retries."
+      #         # Containers built with connection error. Clean up all containers and try again.
+      #         exit 1
+      #       fi
+      #       echo "Waiting for MySQL... Attempt: $counter_retry"
+      #       sleep 10
+      #     done
+      #     echo "MySQL connection established successfully."
+        # working
+      
+      - name: MySQL - Setup - Build Tables
+        shell: bash
+        run: php setup/setup-db-build.php
+        
+      # Worked
+        # Somewhat incosistent with the connection refused error.
+        # Test more after the network aliases change.
+      # Next steps:
+        # elastic IP
+        # cloudwatch
+        # dockerfile refactor
+        # db upgrade (and backup before upgrade)
+        # code base updagrade
+      # TODO: DB root password - create a setup screen and prompt for password.
+        # Maybe a temporary container just for it.
+        
+      # Error: DB Error: SQLSTATE[HY***] [***] Connection refused
+        # GitHub Actions console log: Error - 502 - bad gateway
+        # Temporary workraound: run the build tables workflow after. 
+      # Endpoint access: https://dockerpipelinev1nodev1devbeaws.syncsystem.com.br/system/users/
+        # 502 Bad Gateway
+        # nginx/1.18.0 (Ubuntu)
+        # Debug:
+          # docker logs container_id_or_name
+          
+          # docker restart 
+          
+      #     # TODO: put the phpmyadmin behind https, maybe in a subdomain. Didn't manage to make it work in another ssl port.
+      #     # PHP MyAdmin
+      #     # server {
+      #     #     listen 8080;
+      #     #     # server_name phpmyadmin.${{ env.CONFIG_SERVER_BACKEND_DOMAIN }};
+      #     #     server_name ${{ env.CONFIG_SERVER_BACKEND_DOMAIN }};
+      #     #     return 301 https://\$host\$request_uri;
+      #     # }
+      
+      # TODO: rethink order and install items - try to build the DB before the backend.
+      # Next steps:
+        # align mysql db Server version: 5.7.35-log - MySQL Community Server (GPL)
+        # Set up cloudwatch: https://chatgpt.com/c/9179c7c3-28d9-4cd5-a982-d463e360328e
+
+# maybe, copy the files to the root temporarily, buid, then remove the files.
+
