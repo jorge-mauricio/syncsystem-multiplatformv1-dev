@@ -1,0 +1,95 @@
+# Docker-compose deploy from image built.
+# Instructions:
+# terminal: CONFIG_DOCKER_IMAGE_BACKEND_TAG="xxx" OTHER_ENV_VARIABLES="yyy" docker-compose -f devops\backend-node\ubuntu-container-deploy.yml up -d
+# Note: without the docker-compose file, the command would be: docker run -d -p 3000:3000 --name syncsystem-multiplatform-backend-node repo/image-name
+version: '3'
+
+services:
+  # backend-node-deploy-container:
+  backend-node:
+    image: jorgemauriciodev/syncsystem-docker-pipeline-v1-node-v1:${CONFIG_DOCKER_IMAGE_BACKEND_TAG}
+    # image: jorgemauriciodev/syncsystem-docker-pipeline-v1-node-v1-dev:${CONFIG_DOCKER_IMAGE_BACKEND_TAG}
+      # working
+    # image: jorgemauriciodev/syncsystem-docker-pipeline-v1-node-v1-dev:0.9.0-35570646dfa4c14e6f934e7161e252101db7cd58
+    # image: jorgemauriciodev/syncsystem-docker-pipeline-v1-node-v1-dev:latest
+    # TODO: update with docker user and image name (without dev and maybe concatenate with the project's name (lowercase))
+    # TODO: replace docker username with secrets, etc.
+    container_name: syncsystem-multiplatform-backend-node-${CONFIG_DOCKER_IMAGE_BACKEND_TAG}
+    ports:
+      - "3000:3000"
+      # TODO: try to use or dynamic port or bind to development port.
+
+    environment:
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: ${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}
+      CONFIG_DOCKER_IMAGE_BACKEND_TAG: ${CONFIG_DOCKER_IMAGE_BACKEND_TAG}
+        # fix format CONFIG_DOCKER_IMAGE_BACKEND_TAG=$CONFIG_DOCKER_IMAGE_BACKEND_TAG
+      
+      # Update the env variables below from the environment-variables-secrets-manage application output.
+      CONFIG_SYSTEM_PORT: ${CONFIG_SYSTEM_PORT}
+      CONFIG_SYSTEM_REACT_PORT: ${CONFIG_SYSTEM_REACT_PORT}
+      CONFIG_SYSTEM_URL: ${CONFIG_SYSTEM_URL}
+      CONFIG_API_URL: ${CONFIG_API_URL}
+      CONFIG_URL_FRONTEND_REACT: ${CONFIG_URL_FRONTEND_REACT}
+      DB_SYSTEM_HOST: ${DB_SYSTEM_HOST}
+      DB_SYSTEM_DATABASE: ${DB_SYSTEM_DATABASE}
+      DB_SYSTEM_USER: ${DB_SYSTEM_USER}
+      DB_SYSTEM_PASSWORD: ${DB_SYSTEM_PASSWORD}
+      CONFIG_SYSTEM_DB_TABLE_PREFIX: ${CONFIG_SYSTEM_DB_TABLE_PREFIX}
+      CONFIG_SYSTEM_DB_TYPE: ${CONFIG_SYSTEM_DB_TYPE}
+      ENABLE_SYSTEM_DB_SIZE_OTIMIZE: ${ENABLE_SYSTEM_DB_SIZE_OTIMIZE}
+      CONFIG_API_KEY_SYSTEM: ${CONFIG_API_KEY_SYSTEM}
+      CONFIG_API_GOOGLE_KEY: ${CONFIG_API_GOOGLE_KEY}
+      CONFIG_API_AWS_S3_ID: ${CONFIG_API_AWS_S3_ID}
+      CONFIG_API_AWS_S3_KEY: ${CONFIG_API_AWS_S3_KEY}
+      CONFIG_API_AWS_S3_BUCKET: ${CONFIG_API_AWS_S3_BUCKET}
+      CONFIG_EMAIL_DEFAULT_HOST: ${CONFIG_EMAIL_DEFAULT_HOST}
+      CONFIG_EMAIL_DEFAULT_PORT: ${CONFIG_EMAIL_DEFAULT_PORT}
+      CONFIG_EMAIL_DEFAULT_USERNAME: ${CONFIG_EMAIL_DEFAULT_USERNAME}
+      CONFIG_EMAIL_DEFAULT_PASSWORD: ${CONFIG_EMAIL_DEFAULT_PASSWORD}
+      CONFIG_DEVOPS_PLATFORM: ${CONFIG_DEVOPS_PLATFORM}
+      CONFIG_DEVOPS_QA: ${CONFIG_DEVOPS_QA}
+      CONFIG_DEVOPS_EMAIL_NOTIFICATIONS: ${CONFIG_DEVOPS_EMAIL_NOTIFICATIONS}
+      CONFIG_SERVER_BACKEND_IP: ${CONFIG_SERVER_BACKEND_IP}
+      CONFIG_SERVER_BACKEND_DOMAIN: ${CONFIG_SERVER_BACKEND_DOMAIN}
+      CONFIG_SERVER_BACKEND_USER: ${CONFIG_SERVER_BACKEND_USER}
+      CONFIG_SERVER_PUBLIC_KEY: ${CONFIG_SERVER_PUBLIC_KEY}
+      REPO_USER: ${REPO_USER}
+      REPO_NAME: ${REPO_NAME}
+      REPO_TOKEN: ${REPO_TOKEN}
+      REPO_DOCKER_TYPE: ${REPO_DOCKER_TYPE}
+      REPO_DOCKER_USER: ${REPO_DOCKER_USER}
+      REPO_DOCKER_PASSWORD: ${REPO_DOCKER_PASSWORD}
+      CONFIG_DOCKER_IMAGE_BACKEND: ${CONFIG_DOCKER_IMAGE_BACKEND}
+      
+    # volumes:
+    #   - ./ss-storage/backend-node-app/app_files_volume:/backend-node-app/app_files_public
+    volumes:
+      - volume-backend-node-app-files-public:/backend-node-app/app_files_public
+    # TODO: replace app_files_public with env variables.
+    
+    # networks:
+    #   - syncsystem-multiplatform-network
+      
+    restart: unless-stopped
+    
+volumes:
+  volume-backend-node-app-files-public:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ubuntu/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/backend-node-app/app_files_public
+      # device: ${PWD}/ss-storage/backend-node-app/app_files_public
+        # working
+      
+      # TODO: maybe with ${HOME} (research), will be able to build from the build directories.
+      
+# networks:
+#   syncsystem-multiplatform-network:
+#     driver: bridge
+      
+# Defined globally in the services level.
+networks:
+  default:
+    external:
+      name: syncsystem-multiplatform-network
