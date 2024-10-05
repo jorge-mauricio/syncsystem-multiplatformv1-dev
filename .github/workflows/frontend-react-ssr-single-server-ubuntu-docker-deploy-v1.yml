@@ -15,7 +15,8 @@ jobs:
 
       # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
       # Replace this comment with the copied output from the manage environment variables/secrets node script.
-
+      # APP_DEBUG: '${{ secrets.APP_DEBUG }}'
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

@@ -13,8 +13,9 @@ jobs:
 
       # Action: generate the markup below through the node environment-variables-build application and replace it on every .env update.
       # Replace this comment with the copied output from the manage environment variables/secrets node script.
-      
-    # TODO: evaluate if the CONFIG_SERVER_BACKEND_IP will be turned into a .env.
+      # APP_DEBUG: '${{ secrets.APP_DEBUG }}'
+
+      # TODO: evaluate if the CONFIG_SERVER_BACKEND_IP will be turned into a .env.
     # TODO: exclude secrets from the node script output.
         
     # Important: be careful with single quotes in the comments inside the BACKEND_HOST_SERVER_SH_SCRIPT variables.
