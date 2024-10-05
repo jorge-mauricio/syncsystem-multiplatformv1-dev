@@ -1,0 +1,10 @@
+# Reference for GitHub Workflow step inline build output.
+
+apiVersion: 1
+
+datasources:
+- name: SyncSystem - Prometheus
+  type: prometheus
+  access: proxy
+  url: http://dockerpipelinev1nodev1devbeaws.syncsystem.com.br:9090
+  isDefault: true

@@ -1,0 +1,20 @@
+# Note: This file is created in a GitHub Action workflow step. The current file is for testing purposes only. 
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'docker'
+    # Assuming the Docker daemon is exposing metrics at port 9323 (default)
+    static_configs:
+      - targets: ['${CONFIG_SYSTEM_URL}:9323']
+      # - targets: ['localhost:9323']
+      # - targets: ['100.29.175.21:9323']
+        # worked
+        # validated
+      
+      # TODO: evaluate using the container name instead of the IP address
+      # TODO: evaluate using subdomains instead of the IP address

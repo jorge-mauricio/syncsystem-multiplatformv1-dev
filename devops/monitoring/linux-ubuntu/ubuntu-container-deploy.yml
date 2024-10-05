@@ -1,0 +1,124 @@
+# version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: syncsystem-multiplatform-monitoring-prometheus
+    
+    # build:
+    #   context: .
+    #   # dockerfile: ubuntu-container-prometheus-build.dockerfile
+    #   container_name: syncsystem-multiplatform-monitor-prometheus
+    
+    environment:
+      CONFIG_SYSTEM_URL: ${CONFIG_SYSTEM_URL}
+      CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE: ${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}
+      CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR: ${CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR}
+      PWD: ${PWD}
+      
+    ports:
+      - "9090:9090"
+      
+    volumes:
+      # - /home/ubuntu/ss-storage/monitoring/prometheus/prometheus-config-v1.yml:/etc/prometheus/prometheus.yml
+      - /home/ubuntu/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/monitoring/prometheus/prometheus-config-v1.yml:/etc/prometheus/prometheus.yml
+        # Working
+        # second try - not working (probably a problem with volume cache/memory)
+        # test again, as the variables were not being passed.
+          # worked
+      # - ${PWD}/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/monitoring/prometheus/prometheus-config-v1.yml:/etc/prometheus/prometheus.yml
+        # Didn't work completely.
+      # - /home/ubuntu/${CONFIG_SERVER_DIRECTORY_BUILD_FILES_MONITOR}/prometheus-config-v1.yml:/etc/prometheus/prometheus.yml
+      # - /home/ubuntu/ss-build-files-monitor/prometheus-config-v1.yml:/etc/prometheus/prometheus.yml
+      # - /home/ubuntu/ss-storage/monitoring/prometheus/prometheus-config-v1.yml:/etc/prometheus/prometheus.yml
+      
+    # volumes:
+    #   - volume-monitoring-prometheus:/etc/prometheus/prometheus.yml
+      
+    restart: unless-stopped
+    
+  node_exporter:
+    image: prom/node-exporter
+    container_name: syncsystem-multiplatform-monitoring-node-exporter
+    environment:
+      CADVISOR_HEALTHCHECK_URL: "http://localhost:9095/healthz"
+    network_mode: host
+    pid: host
+    volumes:
+      - "/:/host:ro,rslave"
+    command:
+      - '--path.rootfs=/host'
+    restart: unless-stopped
+    
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: syncsystem-multiplatform-monitoring-cadvisor
+    privileged: true
+    devices:
+      - "/dev/kmsg:/dev/kmsg"
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
+      - "/dev/disk:/dev/disk:ro"
+    ports:
+      - "9095:9095"
+    restart: unless-stopped
+    # detach: true
+    command: ["-port", "9095"]
+    healthcheck:
+      # test: ["CMD", "wget", "--quiet", "--tries=2", "--spider", "http://localhost:9095/healthz"]
+      # test: ["CMD", "wget", "--quiet", "--tries=2", "--spider", "http://localhost:9095/healthz", "||", "exit 1"]
+      test: ["CMD-SHELL", "wget --quiet --tries=2 --spider http://localhost:9095/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    # deploy:
+    #   mode: replicated
+    #   replicas: 1
+    
+  grafana:
+    image: grafana/grafana
+    container_name: syncsystem-multiplatform-monitoring-grafana
+  
+    ports:
+      - "9094:3000"
+      # Using alternative port 9094 for Grafana.
+      
+    volumes:
+      - volume-monitoring-grafana-provisioning:/etc/grafana/
+      - volume-monitoring-grafana-dashboards:/var/lib/grafana/dashboards/
+    
+    restart: unless-stopped
+    
+# volumes:
+#   volume-monitoring-prometheus:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: /home/ubuntu/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/monitoring/prometheus/prometheus-config-v1.yml
+  # Note: single file mount doesn't work.
+    
+volumes:
+  volume-monitoring-grafana-provisioning:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ubuntu/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/monitoring/grafana
+    
+  volume-monitoring-grafana-dashboards:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ubuntu/${CONFIG_SERVER_DIRECTORY_CONTAINERS_VOLUME_STORAGE}/monitoring/grafana-dashboards
+
+# Defined globally in the services level.
+# networks:
+#   default:
+#     external:
+#       name: syncsystem-multiplatform-network
+    
