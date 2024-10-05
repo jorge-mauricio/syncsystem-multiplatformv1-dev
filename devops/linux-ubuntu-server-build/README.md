@@ -16,7 +16,6 @@ Overview of what will be required.
 - Key pair
 - Security Group
 - Elastic IP
-- Associate IP with Instance
 - DockerHub Account
 
 ##### Create Key Pairs
@@ -37,7 +36,7 @@ Overview of what will be required.
 - Click _Create security group_
 - Continue configuration on the "Inbound rules" tab
 - Click _Edit inbound rules_
-- Click _Add rules_
+- Click _Add rules_<br />
 **Note:** provide these settings for each one of these configurations
   - SSH:
     - Type: SSH
@@ -61,7 +60,7 @@ Overview of what will be required.
     - Type: All ICMP (IPv4 and IPv6)
     - Protocol: ICMP
     - Port Range: All
-    - Source: `0.0.0.0/0`
+    - Source: `0.0.0.0/0`<br />
     Note: consider restricting.
 
   - MySQL:
@@ -80,14 +79,14 @@ Overview of what will be required.
     - Type: Custom TCP
     - Protocol: TCP
     - Port Range: `9323`
-    - Source: `0.0.0.0/0`
+    - Source: `0.0.0.0/0`<br />
     Note: for production, allow only the host server IP.
 
   - Prometheus (monitoring):
     - Type: Custom TCP
     - Protocol: TCP
     - Port Range: `9090`
-    - Source: `0.0.0.0/0`
+    - Source: `0.0.0.0/0`<br />
     Note: for production, allow only the host server IP. If troubleshoot is required where you need to log into prometheus dashboard, temporarily change the source to `0.0.0.0/0` 
     
   - Grafana (monitoring):
@@ -100,14 +99,14 @@ Overview of what will be required.
     - Type: Custom TCP
     - Protocol: TCP
     - Port Range: `9100`
-    - Source: `0.0.0.0/0`
+    - Source: `0.0.0.0/0`<br />
     Note: for production, allow only the host server IP.
     
   - cAdvisor (metrics):
     - Type: Custom TCP
     - Protocol: TCP
     - Port Range: `9095`
-    - Source: `0.0.0.0/0`
+    - Source: `0.0.0.0/0`<br />
     Note: for production, allow only the host server IP.
 
 ##### Launch EC2 Instance
@@ -116,7 +115,7 @@ Overview of what will be required.
   - Name: `name-of-project`
   - Application OS: `ubuntu`
   - Amazon Machine Image: `Ubuntu Server 22.04 LTS`
-  - Instance type: `t2.medium`
+  - Instance type: `t2.medium`<br />
   **Note:** minimum requirement - 2vCPU, 4GiB Memory
   - Key pair: (select the newly created key pair in the step above)
   - Network settings: `Select existing security group` (select the newly created security group in the step above)
@@ -156,7 +155,7 @@ In your domain register or hosting provider DNS zone, configure the domains and 
     - `CONFIG_SYSTEM_URL`='http://backend.mydomain.com'
     - `CONFIG_SYSTEM_URL_SSL`='https://backend.mydomain.com:3000'
     - `CONFIG_API_URL`='https://backend.mydomain.com:3000'
-    - `CONFIG_URL_FRONTEND_REACT`='http://www.mydomain.com:3001'
+    - `CONFIG_URL_FRONTEND_REACT`='http://www.mydomain.com:3001'<br />
     **Note:** after updating these, your local (dev) environment may stop working, so only update for deploying the configuration and the values on these blocks can be changed back to development. Or create a separate .env file for development/production.
   - Update the following environment variables:
       - `CONFIG_SERVER_BACKEND_DOMAIN`='backend.mydomain.com'
@@ -177,7 +176,7 @@ In your domain register or hosting provider DNS zone, configure the domains and 
 ## GitHub Secrets Deploy / Sync 
 After all the production environment variables are ready, it's time for setting/updating the GitHub's repo's secrets before running the GitHub Actions Workflows.
 - [Deploy / Sync Environment Variables](../environment-variables-secrets-manager/README.md)
-- Update the workflow files
+- Update the workflow files<br />
 **Note:** this step is only necessary if new environment variables were set.
   - Copy / paste the environment secret's output to the respective files:
     - `.github\workflows\backend-node-single-server-ubuntu-docker-build-server-v1.yml`
@@ -219,19 +218,19 @@ After all the production environment variables are ready, it's time for setting/
   - Build the single host server:
     - https://github.com/{user}/{project-name}/actions/workflows/backend-node-single-server-ubuntu-docker-build-server-v1.yml
   - Deploy the MySQL DB containers:
-    - https://github.com/{user}/{project-name}/actions/workflows/db-server-build-mysql-v1.yml
+    - https://github.com/{user}/{project-name}/actions/workflows/db-server-build-mysql-v1.yml<br />
     **Note:** From this point on, you can log into the phpMyAdmin and check the database build through the endpoint `http://{host-server-ip}:8080`. User and password defined in the .env file used to set the GitHub Actions secrets.
   - Deploy the back-end admin container:
-    - https://github.com/{user}/{project-name}/actions/workflows/backend-node-single-server-ubuntu-docker-deploy-v1.yml
+    - https://github.com/{user}/{project-name}/actions/workflows/backend-node-single-server-ubuntu-docker-deploy-v1.yml<br />
     **Note:** From this point on, you can log into the back-end admin through the endpoint `https://{backend.mydomain.com}/system` or `https://{backend.mydomain.com}/system/users` (assuming the routes haven't been changed from the default). User `root` and password defined in the `setup\setup-db-build.php` file.
   - Deploy the front-end container:
-    - https://github.com/{user}/{project-name}/actions/workflows/frontend-react-ssr-single-server-ubuntu-docker-deploy-v1.yml
+    - https://github.com/{user}/{project-name}/actions/workflows/frontend-react-ssr-single-server-ubuntu-docker-deploy-v1.yml<br />
     **Note:** From this point on, you can log into the front-end through the endpoint `https://{mydomain.com}`.
   - Deploy the monitor/metrics container:
-    - https://github.com/{user}/{project-name}/actions/workflows/backend-node-single-server-ubuntu-docker-server-monitor-v1.yml
+    - https://github.com/{user}/{project-name}/actions/workflows/backend-node-single-server-ubuntu-docker-server-monitor-v1.yml<br />
     **Note:** From this point on, you can log into:
       - Grafana endpoint: `http://{host-server-ip}:9094` with user: `admin` and password: `admin` (change after first login).
-      - Prometheus endpoint: `http://{host-server-ip}:9323/metrics`.
+      - Prometheus endpoint: `http://{host-server-ip}:9323/metrics`.<br />
       **Note:** if using cloud platforms, make sure the ports are accessible from any IP or your specific IP.
       
 If all GitHub Actions Workflow files complete successfully, your application should be ready for use.
