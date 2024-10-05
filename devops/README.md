@@ -1,5 +1,5 @@
 ## New Project Setup and Configuration
-Create and configure the code base.
+Optional tips and guidelines for creating and configuring a new code base with a the project as a boiler plate.
 
 ### Local Git Verification
 - Make sure you have the correct user configured:
@@ -39,6 +39,7 @@ Optional step, if repo is private.
 **Note:** with the `.` in the end, it will clone into the directory, instead of creating a separate directory for it.
 
 ### Configure Local Environment With the Newly Created GitHub Repo
+To create a new project without the commit history of the boiler plate, follow these steps (optional).
 - Delete the original `.git` reference to reset commit history (optional)
   - In your local directory, delete the `.git` folder
   - Initiate git: `git init`
@@ -50,3 +51,6 @@ Optional step, if repo is private.
 - Check if remote address: `git remote -v`
 - Push the files to the GitHub: `git push origin main`
 - Check if GitHub repo contains the files with the respective commit history
+
+# Next Steps
+- [Single server / docker container deploy](linux-ubuntu-server-build/README.md)
