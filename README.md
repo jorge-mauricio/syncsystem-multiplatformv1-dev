@@ -98,6 +98,16 @@ SyncSystem Multiplatform has already been tested in Windows 2016 hosting.
 - Use special web.config file file in root of the public hosting directory (web.config.frontendreact)
 - Test endpoint: yourdomain.com
 
+## Dedicated Server Deploy
+We created GitHub Actions Workflow files and 
+- [Single server / docker container deploy](devops/linux-ubuntu-server-build/README.md)
+
+## Best Practices
+### Git Commit Messages
+- Imperative mood: Phrase your commit as giving an order or instruction, e.g., "Fix bug" or "Add feature" rather than "Fixed bug" or "Added feature."
+- Capitalization: Start the commit message with a capital letter.
+- No period at the end: Commit messages are typically not full sentences, so you can skip the period.
+
 ## Author Information and Copyright License:
 SyncSystem – less code, more logic. A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
 
