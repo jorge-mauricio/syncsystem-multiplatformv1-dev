@@ -1,7 +1,7 @@
 # Manage Environment Variables Secrets
 Make sure your `.env` file is configured and up to date.
 
-## Pre-requisite:
+## Pre-requisites:
 - GitHub Personal Access Token generated for the repo
 **Note:** check `.env.example` instructions for more details on how to generate and configure in the `.env` file.
 - `.env` variables configured with data to be set as GitHub's Actions Secrets
