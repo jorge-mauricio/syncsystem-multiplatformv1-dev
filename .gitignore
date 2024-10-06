@@ -22,9 +22,6 @@
 # Webpack distribution directory (check if it´s not necessary, when publishing).
 #dist
 
-# Set up files.
-setup
-
 # Backup directories.
 # **/*backup*/ 
 root_node_backup
@@ -33,6 +30,7 @@ components_node/backup
 backend_node/backup
 components_react/backup
 app_views/backup
+setup/*backup**
 
 # Node / React.
 # **************************************************************************************
@@ -69,9 +67,11 @@ vendor
 # **************************************************************************************
 notes.txt
 todo.txt
+todo.md
 env.txt
 checklist.txt
 gitignore.txt
+README-*.md
 
 # Zip files in root.
 /*.zip
@@ -82,6 +82,9 @@ gitignore.txt
 #webpack.config.js
 #webpack.dev.js
 #webpack.prod.js
+
+# Set up files.
+# setup
 
 # DevOps files.
 # devops
