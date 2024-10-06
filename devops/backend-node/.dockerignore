@@ -1,0 +1,40 @@
+# Dependencies
+# node_modules
+
+.git
+.github
+.vscode
+
+# Secret information file.
+.env
+.env.example
+.env_export
+.env.prod
+.env.prod.backend
+.env.prod.frontend
+# TODO: alter to select any .env file with prod.
+.env.backup
+
+# SyncSystem Assets
+setup
+deploy_windows
+**/*backup*/
+README.md
+config-application-db.php
+config-application.php
+
+# DevOps temporary files.
+ubuntu-container-build.dockerfile
+.dockerignore
+
+# OS generated file.
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files.
+**/temp*
